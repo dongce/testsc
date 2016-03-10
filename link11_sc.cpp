@@ -55,11 +55,12 @@ pointer
 foreign_mmsg_set(scheme *sc , pointer args)
 {
   g_mmsg = args ;
-  testsc_debug("mmsgset test") ; 
+  testsc_debug(__PRETTY_FUNCTION__) ; 
 
   for (pointer it = args; it != sc->NIL; it = pair_cdr(it)) {
     pointer x = pair_car(it) ;
-    testsc_debug("checkk list %d %d %d" , 
+    testsc_debug("%s %d %d %d" ,
+                 __PRETTY_FUNCTION__, 
                  ivalue(pop_args(x)), 
                  ivalue(pop_args(x)), 
                  ivalue(pop_args(x))) ;
@@ -141,42 +142,28 @@ void testsc_init(int testnum , const char* cmd)
   }
 
   testsc_load(&g_sc, "t:/ts/init.scm") ; 
-  testsc_load(&g_sc, "t:/ts/temp.scm") ;
+  testsc_load(&g_sc, "t:/ts/util.scm") ; 
   if( NULL != cmd ){
     scheme_load_string(&g_sc, cmd) ;
   }
+  testsc_load(&g_sc, "t:/ts/temp.scm") ;
   
 }
 
 int mmsg_get_field_value( int a, int b )
 {
-  for (pointer it = g_mmsg ; it != g_sc.NIL; it = pair_cdr(it)) {
+
+  for (pointer it = g_mmsg ; NULL != it && it != g_sc.NIL; it = pair_cdr(it)) {
     pointer x = pair_car(it) ;
 
-    testsc_debug("testnum(%d), get_field_value debug %d, %d", g_testnum, a, b ) ; 
     if( a == ivalue(pop_args(x)) &&
         b == ivalue(pop_args(x))) {
-        
-      if( is_pair(x) && g_testnum == ivalue(pop_args(x)) ){
-        return ivalue(pop_args(x)) ;
-      }
-    }
-  }
-
-  for (pointer it = g_mmsg ; it != g_sc.NIL; it = pair_cdr(it)) {
-    pointer x = pair_car(it) ;
-    testsc_debug("chec list %d %d %d" , 
-                 ivalue(pop_args(x)), 
-                 ivalue(pop_args(x)), 
-                 ivalue(pop_args(x))) ;
-  }
-  for (pointer it = g_mmsg ; it != g_sc.NIL; it = pair_cdr(it)) {
-    pointer x = pair_car(it) ;
-
-    testsc_debug("testnum(%d), get_field_value debug %d, %d", g_testnum, a, b ) ; 
-    if( a == ivalue(pop_args(x)) &&
-        b == ivalue(pop_args(x))) {
-      testsc_debug("testnum(%d), get_field_value found debug %d, %d", g_testnum, a, b ) ; 
+      testsc_debug("testnum(%d)%s:%d, get_field_value debug %d, %d",
+                   g_testnum,
+                   __FILE__,
+                   __LINE__,
+                   a,
+                   b ) ; 
         
       return ivalue(pop_args(x)) ;
     }
