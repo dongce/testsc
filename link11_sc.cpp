@@ -3,7 +3,10 @@
 #include <stdarg.h>
 #include <string.h>
 #include <strings.h>
+#include <stdlib.h>
 #define tinyscheme_list4(sc , a , b , c , d) cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , cons((sc) , (d) , (sc)->NIL))))
+#define tinyscheme_list3(sc , a , b , c)     cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , (sc)->NIL)))
+#define tinyscheme_list2(sc , a , b )        cons((sc) , (a) , cons((sc) , (b) , (sc)->NIL))
 
 
 struct foreign_symbol
@@ -77,9 +80,15 @@ foreign_testnum_set(scheme *sc , pointer args)
 }
 
 
-void testsc_load(scheme*sc , const char*filename )
+void testsc_load(scheme*sc , const char* filename , const char *homepath = NULL)
 {
-  FILE* fin=fopen(filename,"r");
+
+  static const char* TINYSCHEME_HOME =(  NULL == getenv("TINYSCHEME_HOME") ? "t:/ts"  : getenv("TINYSCHEME_HOME")  );
+
+  char absfilename[1024] ;
+  sprintf(absfilename, "%s/%s" , (NULL != homepath && strlen(homepath) > 0 ? homepath: TINYSCHEME_HOME) , filename ) ;
+  testsc_debug("tetsc-load %s", absfilename) ; 
+  FILE* fin=fopen(absfilename,"r");
   if( NULL != fin ){
     scheme_load_named_file(sc,fin,filename);
     fclose(fin) ;
@@ -115,14 +124,30 @@ foreign_testsc_debug(scheme*sc , pointer args )
   return args ; 
 }
 
-
-
-scheme g_sc ; 
-void testsc_init(int testnum , const char* cmd)
+pointer
+foreign_testsc_init(scheme* sc , pointer args)
 {
-  g_testnum = testnum ;
+  g_testnum            = ivalue(pop_args(args)) ;
+  char cmd[1024]      ;
+  char homepath[1024] ;
 
-  scheme_init(&g_sc) ; 
+  if((is_pair(args) )){
+      strcpy( cmd , string_value(pop_args(args)) ) ;
+      testsc_debug("init command %s", cmd) ;
+  }
+  else{
+    strcpy(cmd, "") ;
+  }
+
+  if((is_pair(args) )){
+    strcpy(homepath, string_value(pop_args(args)) ) ;
+    testsc_debug("homepath %s", homepath) ;
+  }
+  else{
+    strcpy(homepath, "") ;
+  }
+
+    
   foreign_symbol symbols [] = {
     {"mmsg-set"         , foreign_mmsg_set}, 
     {"testsc-load"      , foreign_testsc_load},
@@ -135,20 +160,33 @@ void testsc_init(int testnum , const char* cmd)
       s < symbols + sizeof(symbols)/sizeof(foreign_symbol) ;
       s++) {
 
-    scheme_define(&g_sc ,
-                  g_sc.global_env ,
-                  mk_symbol(&g_sc , s->name ) ,
-                  mk_foreign_func(&g_sc , s->fun)) ;
+    scheme_define(sc ,
+                  sc->global_env ,
+                  mk_symbol(sc , s->name ) ,
+                  mk_foreign_func(sc , s->fun)) ;
   }
-
-  testsc_load(&g_sc, "t:/ts/init.scm") ; 
-  testsc_load(&g_sc, "t:/ts/util.scm") ; 
-  if( NULL != cmd ){
-    scheme_load_string(&g_sc, cmd) ;
+  testsc_load(sc, "init.scm", homepath) ; 
+  testsc_load(sc, "util.scm", homepath) ;
+  if( strlen(cmd) > 0 ){
+    scheme_load_string(sc, cmd) ;
   }
-  testsc_load(&g_sc, "t:/ts/temp.scm") ;
+  testsc_load(sc, "temp.scm", homepath) ;
   
 }
+
+//////////////TEST CASE 에서 호출할 수 있는 함수들 ////////////////
+scheme g_sc ; 
+void testsc_init(int testnum , const char* cmd, const char* homepath)
+{
+
+  scheme_init(&g_sc) ;
+  foreign_testsc_init(&g_sc,
+                      tinyscheme_list3(&g_sc,
+                                       mk_integer(&g_sc, testnum) ,
+                                       mk_string(&g_sc, NULL != cmd? cmd : ""),
+                                       mk_string(&g_sc, NULL != homepath ? homepath : ""))) ;
+}
+
 
 int mmsg_get_field_value( int a, int b )
 {

@@ -5034,6 +5034,11 @@ int main(int argc, char **argv) {
     file_name=*argv++;
   } while(file_name!=0);
   if(argc==1) {
+    scheme_define(&sc ,
+                  sc.global_env ,
+                  mk_symbol(&sc , "testsc-init" ) ,
+                  mk_foreign_func(&sc , s->fun)) ;
+       
     scheme_load_named_file(&sc,stdin,0);
   }
   retcode=sc.retcode;
