@@ -96,12 +96,12 @@ void testsc_load(scheme*sc , const char* filename , const char *homepath = NULL)
 
 }
 
-pointer
-foreign_testsc_load(scheme*sc , pointer args )
-{
-  testsc_load(sc, string_value(pop_args(args))) ;
-  return sc->NIL ; 
-}
+// pointer
+// foreign_testsc_load(scheme*sc , pointer args )
+// {
+//   testsc_load(sc, string_value(pop_args(args))) ;
+//   return sc->NIL ; 
+// }
 
 pointer
 foreign_testsc_set_debug(scheme*sc , pointer args )
@@ -124,33 +124,15 @@ foreign_testsc_debug(scheme*sc , pointer args )
   return args ; 
 }
 
-pointer
+extern "C" pointer
 foreign_testsc_init(scheme* sc , pointer args)
 {
   g_testnum            = ivalue(pop_args(args)) ;
-  char cmd[1024]      ;
-  char homepath[1024] ;
-
-  if((is_pair(args) )){
-      strcpy( cmd , string_value(pop_args(args)) ) ;
-      testsc_debug("init command %s", cmd) ;
-  }
-  else{
-    strcpy(cmd, "") ;
-  }
-
-  if((is_pair(args) )){
-    strcpy(homepath, string_value(pop_args(args)) ) ;
-    testsc_debug("homepath %s", homepath) ;
-  }
-  else{
-    strcpy(homepath, "") ;
-  }
 
     
   foreign_symbol symbols [] = {
     {"mmsg-set"         , foreign_mmsg_set}, 
-    {"testsc-load"      , foreign_testsc_load},
+    // {"testsc-load"      , foreign_testsc_load},
     {"testsc-set-debug" , foreign_testsc_set_debug},
     {"testsc-debug"     , foreign_testsc_debug}, 
     {"testsc-get-testnum", foreign_testsc_get_testnum   } 
@@ -165,13 +147,9 @@ foreign_testsc_init(scheme* sc , pointer args)
                   mk_symbol(sc , s->name ) ,
                   mk_foreign_func(sc , s->fun)) ;
   }
-  testsc_load(sc, "init.scm", homepath) ; 
-  testsc_load(sc, "util.scm", homepath) ;
-  if( strlen(cmd) > 0 ){
-    scheme_load_string(sc, cmd) ;
-  }
-  testsc_load(sc, "temp.scm", homepath) ;
-  
+
+
+  return sc->NIL ; 
 }
 
 //////////////TEST CASE 에서 호출할 수 있는 함수들 ////////////////
@@ -185,6 +163,14 @@ void testsc_init(int testnum , const char* cmd, const char* homepath)
                                        mk_integer(&g_sc, testnum) ,
                                        mk_string(&g_sc, NULL != cmd? cmd : ""),
                                        mk_string(&g_sc, NULL != homepath ? homepath : ""))) ;
+
+  testsc_load(&g_sc, "init.scm", homepath) ; 
+  testsc_load(&g_sc, "util.scm", homepath) ;
+  if( NULL != cmd ){
+    scheme_load_string(&g_sc, cmd) ;
+  }
+  testsc_load(&g_sc, "temp.scm", homepath) ;
+
 }
 
 

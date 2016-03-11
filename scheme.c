@@ -4943,6 +4943,8 @@ pointer scheme_eval(scheme *sc, pointer obj)
 /* ========== Main ========== */
 
 #if STANDALONE
+pointer
+foreign_testsc_init(scheme* sc , pointer args) ; 
 
 #if defined(__APPLE__) && !defined (OSX)
 int main()
@@ -5037,7 +5039,7 @@ int main(int argc, char **argv) {
     scheme_define(&sc ,
                   sc.global_env ,
                   mk_symbol(&sc , "testsc-init" ) ,
-                  mk_foreign_func(&sc , s->fun)) ;
+                  mk_foreign_func(&sc , foreign_testsc_init)) ;
        
     scheme_load_named_file(&sc,stdin,0);
   }
