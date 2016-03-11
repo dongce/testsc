@@ -1,11 +1,15 @@
-(testsc-debug "util")
+;; (testsc-debug "util")
 (define (loadit x)
   (load (symbol->string x)))
 
+(define *testsc-home* "t:/ts/")
+
+
+(define-macro (testsc-require x)
+  `(load (string-append *testsc-home* (symbol->string (quote ,x)) ".scm")))
+
 (define-macro (mmsg . x)
   `(apply mmsg-set (quote ,x)))
-
-
 
 (define *PI* (* 2 (acos 0 )))
 (define *2PI* (* *PI* 2 ))
