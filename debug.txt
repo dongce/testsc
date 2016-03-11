@@ -81,3 +81,36 @@ cell* foreign_mmsg_set(scheme*, pointer)
 cell* foreign_mmsg_set(scheme*, pointer) 1 4 87
 tetsc-load t:/ts/temp.scm
 testnum(5)link11_sc.cpp:188, get_field_value debug 87, 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+test
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+test
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+test
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+test
+cell* foreign_mmsg_set(scheme*, pointer)
+cell* foreign_mmsg_set(scheme*, pointer) 1 4 87
+cell* foreign_mmsg_set(scheme*, pointer) -1 4 84
+tetsc-load t:/ts/temp.scm
+testnum(4)link11_sc.cpp:188, get_field_value debug 87, 4
+testnum(4)link11_sc.cpp:188, get_field_value debug 84, 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+test
+cell* foreign_mmsg_set(scheme*, pointer)
+cell* foreign_mmsg_set(scheme*, pointer) 1 4 87
+tetsc-load t:/ts/temp.scm
+testnum(5)link11_sc.cpp:188, get_field_value debug 87, 4
