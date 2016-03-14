@@ -3,7 +3,8 @@
       // TEMPLATE(_air_mission_data.general_mission                 , it, fieldnum) ; 
       // TEMPLATE(_air_mission_data.asw_mission                     , it, fieldnum) ; 
       // TEMPLATE(transmission_info.track_selection                              , it, fieldnum) ; 
-#define NFIELDS(TEMPLATE, it, fieldnum)                                 \
+#define ADMIN_FIELDS(TEMPLATE, it, fieldnum)  
+#define TRACK_FIELDS(TEMPLATE, it, fieldnum)                                 \
       TEMPLATE(network_kinetics.x_position , it, fieldnum) ;            \
       TEMPLATE(network_kinetics.y_position , it, fieldnum) ;            \
       TEMPLATE(network_kinetics.x_velocity , it, fieldnum) ;            \
