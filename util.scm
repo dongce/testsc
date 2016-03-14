@@ -3,6 +3,7 @@
   (load (symbol->string x)))
 
 (define *testsc-home* "t:/ts/")
+;; (define *testsc-home* "t:/gitdir/tinyscheme/")
 
 
 (define-macro (testsc-require x)

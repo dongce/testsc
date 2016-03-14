@@ -4,10 +4,26 @@
 #include <string.h>
 #include <strings.h>
 #include <stdlib.h>
+#include <system_types.h>
+#include <dlp_link11_types.h>
+#include <map>
+#include <string>
+#include <typeinfo>
 #define tinyscheme_list4(sc , a , b , c , d) cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , cons((sc) , (d) , (sc)->NIL))))
 #define tinyscheme_list3(sc , a , b , c)     cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , (sc)->NIL)))
 #define tinyscheme_list2(sc , a , b )        cons((sc) , (a) , cons((sc) , (b) , (sc)->NIL))
 
+typedef std::map<uint32_t, network_track_data_t>  trackmap_t ; 
+typedef std::map<std::string, uint32_t>           fieldmap_t ; 
+
+typedef std::pair<uint32_t, network_track_data_t> trackpair_t ; 
+typedef std::pair<std::string, uint32_t>          fieldpair_t ; 
+
+
+trackmap_t g_trackmap ;
+fieldmap_t g_fieldmap ;
+
+network_track_data_t g_trackdefault ; 
 
 struct foreign_symbol
 {
@@ -52,6 +68,104 @@ void testsc_debug(const char*format ...)
     fclose(debug) ;
   }
 } 
+
+uint32_t field_id(const std::string& fieldname)
+{
+  static uint32_t fieldid = 1000U ;
+
+  fieldmap_t::iterator it = g_fieldmap.find(fieldname) ; 
+  if( g_fieldmap.end() == it ){
+    g_fieldmap.insert(fieldpair_t(fieldname, ++fieldid )) ;
+    it = g_fieldmap.find(fieldname) ;
+  }
+  testsc_debug("field id %s, %d", fieldname.c_str() , it->second) ; 
+  return it->second ;
+}
+
+template<typename TYPE>
+void FIELD_NSET(TYPE& a, const num& b)
+{
+  testsc_debug("%d, %f\n", b.value.ivalue, b.value.rvalue) ; 
+  if(b.is_fixnum){
+    a = static_cast<TYPE>(b.value.ivalue) ;
+  }
+  else{
+    a = static_cast<TYPE>(b.value.rvalue) ;
+  }
+
+    
+}
+
+template<typename TYPE>
+pointer FIELD_NGET(scheme*sc, const TYPE& a)
+{
+  if(typeid(TYPE) == typeid(double) ||
+     typeid(TYPE) == typeid(float)){
+    return mk_real(sc, a ) ;
+  }
+  return mk_integer(sc, a) ; 
+}
+
+
+
+#define FOR_FIELD_ID(f) for(uint32_t ___field_id = field_id( (f)) ; ___field_id > 0 ; ___field_id = 0 )
+#define FIELD_NSET_VALUE(f, i, v ) if(field_id(#f) == ___field_id){ FIELD_NSET((i)->second.f , (v)) ; break; }
+#define FIELD_NGET_VALUE(f, i, v ) if(field_id(#f) == ___field_id){ (v) = cons(sc, FIELD_NGET(sc, (i)->second.f ), v) ; break; }
+
+
+pointer
+foreign_testsc_track_nset(scheme *sc , pointer args)
+{
+  g_mmsg = args ;
+  testsc_debug(__PRETTY_FUNCTION__) ; 
+  uint32_t trackid = ivalue(pop_args(args)) ;
+
+  trackmap_t::iterator it = g_trackmap.find(trackid) ; 
+  if( g_trackmap.end() == it ){
+    g_trackmap.insert(trackpair_t(trackid, g_trackdefault)) ;
+    it = g_trackmap.find(trackid) ;
+  }
+    
+  for (pointer field = pop_args(args); is_pair(field); field = pop_args(args)) {
+    const char *sym = symname(pop_args(field) ); 
+    const std::string fieldname(sym);
+    const num         fieldnum   = nvalue(pop_args(field)) ;
+    testsc_debug("sym and value is %s, %d. %f", sym, fieldnum.value.ivalue, fieldnum.value.rvalue) ; 
+    FOR_FIELD_ID(fieldname){
+      FIELD_NSET_VALUE(network_kinetics.x_position , it, fieldnum) ; 
+      FIELD_NSET_VALUE(network_kinetics.y_position , it, fieldnum) ;
+    }
+  }
+  
+  return mk_integer(sc, g_trackmap.size()); ; 
+}
+
+
+pointer
+foreign_testsc_track_nget(scheme *sc , pointer args)
+{
+  g_mmsg = args ;
+  testsc_debug(__PRETTY_FUNCTION__) ; 
+  uint32_t trackid = ivalue(pop_args(args)) ;
+
+  pointer result = sc->NIL ; 
+  trackmap_t::iterator it = g_trackmap.find(trackid) ; 
+  if( g_trackmap.end() == it ){
+    g_trackmap.insert(trackpair_t(trackid, g_trackdefault)) ;
+    it = g_trackmap.find(trackid) ;
+  }
+    
+  for (pointer field = pop_args(args); is_symbol(field); field = pop_args(args)) {
+    const std::string fieldname(symname(field));
+
+    FOR_FIELD_ID(fieldname){
+      FIELD_NGET_VALUE(network_kinetics.x_position , it, result) ; 
+      FIELD_NGET_VALUE(network_kinetics.y_position , it, result) ;
+    }
+  }
+  
+  return result ; 
+}
 
 
 pointer
@@ -128,14 +242,16 @@ extern "C" pointer
 foreign_testsc_init(scheme* sc , pointer args)
 {
   g_testnum            = ivalue(pop_args(args)) ;
-
+  memset(&g_trackdefault, 0, sizeof(g_trackdefault)) ; 
     
   foreign_symbol symbols [] = {
     {"mmsg-set"         , foreign_mmsg_set}, 
     // {"testsc-load"      , foreign_testsc_load},
     {"testsc-set-debug" , foreign_testsc_set_debug},
     {"testsc-debug"     , foreign_testsc_debug}, 
-    {"testsc-get-testnum", foreign_testsc_get_testnum   } 
+    {"testsc-get-testnum", foreign_testsc_get_testnum   },
+    {"testsc-track-nset" , foreign_testsc_track_nset   }, 
+    {"testsc-track-nget" , foreign_testsc_track_nget   }, 
   } ;
 
   for(foreign_symbol *s = symbols ;
