@@ -10,6 +10,8 @@
 #include <string>
 #include <typeinfo>
 #include <locale>
+#include "nfields.h"
+
 #define tinyscheme_list4(sc , a , b , c , d) cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , cons((sc) , (d) , (sc)->NIL))))
 #define tinyscheme_list3(sc , a , b , c)     cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , (sc)->NIL)))
 #define tinyscheme_list2(sc , a , b )        cons((sc) , (a) , cons((sc) , (b) , (sc)->NIL))
@@ -136,6 +138,7 @@ foreign_testsc_track_strset(scheme *sc , pointer args)
     const char*fieldstr   = string_value(pop_args(field)) ;
 
     FOR_FIELD_ID(fieldname){
+      
       FIELD_STRSET_VALUE(general.mission_nr.text   , it, fieldstr) ; 
       FIELD_STRSET_VALUE(general.call_sign.text    , it, fieldstr) ; 
       FIELD_STRSET_VALUE(general.nineteen_bit_TN_number.text, it, fieldstr) ; 
@@ -165,7 +168,7 @@ foreign_testsc_track_nset(scheme *sc , pointer args)
     const num         fieldnum   = nvalue(pop_args(field)) ;
 
     FOR_FIELD_ID(fieldname){
-      #include "nfields.txt"
+      NFIELDS(FIELD_NSET_VALUE, it, fieldnum) ; 
     }
   }
   
@@ -191,8 +194,7 @@ foreign_testsc_track_nget(scheme *sc , pointer args)
     const std::string fieldname(symname(field));
 
     FOR_FIELD_ID(fieldname){
-      FIELD_NGET_VALUE(network_kinetics.x_position , it, result) ; 
-      FIELD_NGET_VALUE(network_kinetics.y_position , it, result) ;
+      NFIELDS(FIELD_NGET_VALUE, it, result) ; 
     }
   }
   

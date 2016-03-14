@@ -4675,6 +4675,7 @@ int scheme_init_custom_alloc(scheme *sc, func_alloc malloc, func_dealloc free) {
   sc->nesting=0;
   sc->interactive_repl=0;
   sc->case_sensitive=0; /* default to case insensitive reader following R5RS */
+  sc->case_sensitive=1; /* 필드명 처리를 위해 대소문자를 구분한다.  */
 
   if (alloc_cellseg(sc,FIRST_CELLSEGS) != FIRST_CELLSEGS) {
     sc->no_memory=1;
