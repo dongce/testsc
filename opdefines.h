@@ -169,6 +169,7 @@
     _OP_DEF(opexe_4, "close-output-port",              1,  1,       TST_OUTPORT,                     OP_CLOSE_OUTPORT    )
     _OP_DEF(opexe_4, "interaction-environment",        0,  0,       0,                               OP_INT_ENV          )
     _OP_DEF(opexe_4, "current-environment",            0,  0,       0,                               OP_CURR_ENV         )
+    _OP_DEF(opexe_4, "read-case-sensitive",            0,   1,      0,                               OP_CASE_SENSITIVE   )
     _OP_DEF(opexe_5, "read",                           0,  1,       TST_INPORT,                      OP_READ             )
     _OP_DEF(opexe_5, "read-char",                      0,  1,       TST_INPORT,                      OP_READ_CHAR        )
     _OP_DEF(opexe_5, "peek-char",                      0,  1,       TST_INPORT,                      OP_PEEK_CHAR        )

@@ -1076,6 +1076,10 @@ static pointer mk_atom(scheme *sc, char *q) {
      int has_dec_point=0;
      int has_fp_exp = 0;
 
+     if (!sc->case_sensitive) {
+          strlwr(q);
+     }
+
 #if USE_COLON_HOOK
      if((p=strstr(q,"::"))!=0) {
           *p=0;
@@ -1084,7 +1088,7 @@ static pointer mk_atom(scheme *sc, char *q) {
                               cons(sc,
                                    sc->QUOTE,
                                    cons(sc, mk_atom(sc,p+2), sc->NIL)),
-                              cons(sc, mk_symbol(sc,strlwr(q)), sc->NIL)));
+                              cons(sc, mk_symbol(sc,q), sc->NIL)));
      }
 #endif
 
@@ -1097,16 +1101,16 @@ static pointer mk_atom(scheme *sc, char *q) {
          c = *p++;
        }
        if (!isdigit(c)) {
-         return (mk_symbol(sc, strlwr(q)));
+         return (mk_symbol(sc, q));
        }
      } else if (c == '.') {
        has_dec_point=1;
        c = *p++;
        if (!isdigit(c)) {
-         return (mk_symbol(sc, strlwr(q)));
+         return (mk_symbol(sc, q));
        }
      } else if (!isdigit(c)) {
-       return (mk_symbol(sc, strlwr(q)));
+       return (mk_symbol(sc, q));
      }
 
      for ( ; (c = *p) != 0; ++p) {
@@ -1127,7 +1131,7 @@ static pointer mk_atom(scheme *sc, char *q) {
                           }
                        }
                }
-               return (mk_symbol(sc, strlwr(q)));
+               return (mk_symbol(sc, q));
           }
      }
      if(has_dec_point) {
@@ -3973,6 +3977,12 @@ static pointer opexe_4(scheme *sc, enum scheme_opcodes op) {
      case OP_CURR_ENV: /* current-environment */
           s_return(sc,sc->envir);
 
+     case OP_CASE_SENSITIVE: /* read-case-sensitive */
+          if (sc->args != sc->NIL) {
+               sc->case_sensitive=(car(sc->args)!=sc->F);
+          }
+          s_return(sc,sc->case_sensitive ? sc->T : sc->F);
+
      }
      return sc->T;
 }
@@ -4664,6 +4674,7 @@ int scheme_init_custom_alloc(scheme *sc, func_alloc malloc, func_dealloc free) {
   sc->loadport=sc->NIL;
   sc->nesting=0;
   sc->interactive_repl=0;
+  sc->case_sensitive=0; /* default to case insensitive reader following R5RS */
 
   if (alloc_cellseg(sc,FIRST_CELLSEGS) != FIRST_CELLSEGS) {
     sc->no_memory=1;
