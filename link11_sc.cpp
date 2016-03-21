@@ -383,6 +383,13 @@ foreign_testsc_debug(scheme*sc , pointer args )
   return args ; 
 }
 
+
+// pointer
+// foreign_testsc_ivalue(scheme*sc , pointer args )
+// {
+//   return sc->vptr->scheme_eval(sc, mk_string(sc, string_value(pop_args(args)))) ;
+// }
+
 extern "C" pointer
 foreign_testsc_init(scheme* sc , pointer args)
 {
@@ -404,6 +411,7 @@ foreign_testsc_init(scheme* sc , pointer args)
     {"testsc-admin-index", foreign_testsc_admin_index  }, 
     {"testsc-admin-length", foreign_testsc_admin_length  }, 
     {"testsc-admin-erase" , foreign_testsc_admin_erase  }, 
+    // {"testsc-ivalue" ,      foreign_testsc_ivalue  }, 
   } ;
 
   for(foreign_symbol *s = symbols ;
@@ -462,6 +470,13 @@ int mmsg_get_field_value( int a, int b )
   }
   
   return 0 ; 
+}
+
+long testsc_ivalue( const char *name )
+{
+  long value = ivalue(scheme_eval(&g_sc, mk_string(&g_sc, name))) ; 
+  testsc_debug("testsc_ivalue is %d" , value) ;
+  return value ; 
 }
 
 char* admin_get( int i )
