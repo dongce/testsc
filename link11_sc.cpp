@@ -475,10 +475,10 @@ int mmsg_get_field_value( int a, int b )
 #if STANDALONE
 long testsc_ivalue( const char *name )
 {
-  pointer args = mk_symbol(&g_sc, name) ;
+  pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
 
   if(is_integer(args)){
-    long value = ivalue(scheme_eval(&g_sc, args)) ; 
+    long value = ivalue(args)) ; 
     testsc_debug("testsc_ivalue when integer is %d" , value) ;
     return value ;
   }
