@@ -478,7 +478,7 @@ long testsc_ivalue( const char *name )
   pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
 
   if(is_integer(args)){
-    long value = ivalue(args)) ; 
+    long value = ivalue(args) ; 
     testsc_debug("testsc_ivalue when integer is %d" , value) ;
     return value ;
   }
