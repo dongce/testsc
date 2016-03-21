@@ -478,8 +478,8 @@ long testsc_ivalue( const char *name )
   pointer args = mk_symbol(&g_sc, name) ;
 
   if(is_integer(args)){
-    long value = ivalue(scheme_eval(&g_sc, )) ; 
-    testsc_debug("testsc_ivalue is %d" , value) ;
+    long value = ivalue(scheme_eval(&g_sc, args)) ; 
+    testsc_debug("testsc_ivalue when integer is %d" , value) ;
     return value ;
   }
   return 0 ; 
