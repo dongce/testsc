@@ -472,13 +472,14 @@ int mmsg_get_field_value( int a, int b )
   return 0 ; 
 }
 
+#if !defined(STANDALONE)
 long testsc_ivalue( const char *name )
 {
   long value = ivalue(scheme_eval(&g_sc, mk_string(&g_sc, name))) ; 
   testsc_debug("testsc_ivalue is %d" , value) ;
   return value ; 
 }
-
+#endif
 char* admin_get( int i )
 {
 
