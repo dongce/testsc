@@ -31,7 +31,9 @@
       TEMPLATE(cmsdata.environment           , it, fieldnum) ;          \
       TEMPLATE(cmsdata.iff_mode2             , it, fieldnum) ;          \
       TEMPLATE(cmsdata.iff_mode4             , it, fieldnum) ;          \
-                                                                        \
+\
+      TEMPLATE(general.aop_data.position.x_position                                , it, fieldnum) ; \
+      TEMPLATE(general.aop_data.position.y_position                                , it, fieldnum) ; \
       TEMPLATE(general.tactical                                 , it, fieldnum) ; \
       TEMPLATE(general.network                                  , it, fieldnum) ; \
       TEMPLATE(general.NTN                                      , it, fieldnum) ; \

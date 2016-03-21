@@ -475,9 +475,14 @@ int mmsg_get_field_value( int a, int b )
 #if STANDALONE
 long testsc_ivalue( const char *name )
 {
-  long value = ivalue(scheme_eval(&g_sc, mk_symbol(&g_sc, name))) ; 
-  testsc_debug("testsc_ivalue is %d" , value) ;
-  return value ; 
+  pointer args = mk_symbol(&g_sc, name) ;
+
+  if(is_integer(args)){
+    long value = ivalue(scheme_eval(&g_sc, )) ; 
+    testsc_debug("testsc_ivalue is %d" , value) ;
+    return value ;
+  }
+  return 0 ; 
 }
 #endif
 char* admin_get( int i )
