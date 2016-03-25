@@ -90,6 +90,7 @@ void testsc_debug(const char*format ...)
     buffer[formatsize+1]= NULL ; 
   
     fwrite(buffer , formatsize + 1 , 1 , debug) ;
+    fflush(debug) ; 
   }
 } 
 
