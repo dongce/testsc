@@ -72,6 +72,7 @@ int     g_testsc_debug = 1 ;
 
 void testsc_debug(const char*format ...)
 {
+  static FILE* debug = fopen("t:/ts/debug.txt", "ab") ; 
 
   if(g_testsc_debug > 0 ){
     va_list vlist;
@@ -88,9 +89,7 @@ void testsc_debug(const char*format ...)
     buffer[formatsize]= '\n' ;
     buffer[formatsize+1]= NULL ; 
   
-    FILE* debug = fopen("t:/ts/debug.txt", "ab") ; 
     fwrite(buffer , formatsize + 1 , 1 , debug) ;
-    fclose(debug) ;
   }
 } 
 
