@@ -1,116 +1,35 @@
 
-init command 
-homepath 
-tetsc-load t:/ts/util.scm
-util
-tetsc-load t:/ts/temp.scm
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
-util
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/util.scm
-util
-tetsc-load t:/ts/util.scm
-util
-util
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.asw_bearing_second_acoustic_freq_validity, 1 done
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.asw_bearing_second_acoustic_freq, 5436.900000 done
+trackset.scm 3 
+testsc_ivalue when integer is 10
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
-util
-test
-tetsc-load t:/ts/temp.scm
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.asw_bearing_second_acoustic_freq_validity, 1 done
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.asw_bearing_second_acoustic_freq, 9 done
+trackset.scm 3 
+testsc_ivalue when integer is 10
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
-util
-test
-tetsc-load t:/ts/temp.scm
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.asw_bearing_second_acoustic_freq_validity, 1 done
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.asw_bearing_second_acoustic_freq, 5345.875000 done
+trackset.scm 3 
+testsc_ivalue when integer is 10
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
-util
-test
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 1 4 87
-cell* foreign_mmsg_set(scheme*, pointer) -1 4 84
-tetsc-load t:/ts/temp.scm
-testnum(4)link11_sc.cpp:188, get_field_value debug 87, 4
-testnum(4)link11_sc.cpp:188, get_field_value debug 84, 4
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 1 4 87
-tetsc-load t:/ts/temp.scm
-testnum(5)link11_sc.cpp:188, get_field_value debug 87, 4
-util
-util
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 1 4 87
-cell* foreign_mmsg_set(scheme*, pointer) -1 4 84
-tetsc-load t:/ts/temp.scm
-testnum(4)link11_sc.cpp:188, get_field_value debug 87, 4
-testnum(4)link11_sc.cpp:188, get_field_value debug 84, 4
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 1 4 87
-tetsc-load t:/ts/temp.scm
-testnum(5)link11_sc.cpp:188, get_field_value debug 87, 4
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 1 4 87
-cell* foreign_mmsg_set(scheme*, pointer) -1 4 84
-tetsc-load t:/ts/temp.scm
-testnum(4)link11_sc.cpp:188, get_field_value debug 87, 4
-testnum(4)link11_sc.cpp:188, get_field_value debug 84, 4
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-test
-cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 1 4 87
-tetsc-load t:/ts/temp.scm
-testnum(5)link11_sc.cpp:188, get_field_value debug 87, 4
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.asw_bearing_second_acoustic_freq_validity, 1 done
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.asw_bearing_second_acoustic_freq, 5345.875000 done
+trackset.scm 3 
+testsc_ivalue when integer is 10
+testsc_ivalue when integer is 400
+testsc_ivalue when integer is 400

@@ -1,4 +1,5 @@
-;; (testsc-debug "util")
+(testsc-set-debug 0)
+(testsc-debug "util")
 (define (loadit x)
   (load (symbol->string x)))
 
@@ -18,3 +19,34 @@
 (define (radian-to-degree radian) (/ (* radian 180.0) *PI*))
 (define (meter-to-dm meter) (/ meter 1828.8))
 (define (dm-to-meter dm)    (* dm 1828.8))
+
+(testsc-debug "util2")
+
+(define (nth n l)
+  (do ((i 0 (+ i 1)))
+      ((>= i n ))
+    (set! l (cdr l)))
+  (car l))
+(testsc-debug "util5")
+    
+(define-macro (testcase-values tnum-start symbol values)
+  `(define ,symbol (nth (- ( testsc-get-testnum ) ,tnum-start) ,values)))
+
+
+(testsc-debug "util3")
+
+(define (gen-values values . procs )
+  (apply append  (map (lambda (value) (cons value  (map (lambda (proc) (proc value)) procs))) values )))
+(testsc-debug "util4")
+
+(define (testcase-track-nset tnum-start tid symbol values)
+  (let ((n (- (testsc-get-testnum) tnum-start) ))
+    (if (>= n 0 )
+        (testsc-track-nset
+         tid
+         (list symbol (nth n values))))))
+
+
+
+
+
