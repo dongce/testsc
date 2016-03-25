@@ -429,7 +429,7 @@ foreign_testsc_init(scheme* sc , pointer args)
 }
 
 //////////////TEST CASE 에서 호출할 수 있는 함수들 ////////////////
-scheme g_sc ; 
+scheme g_sc  = {0, }; 
 void testsc_init(int testnum , const char* cmd, const char* homepath)
 {
 
@@ -453,6 +453,9 @@ void testsc_init(int testnum , const char* cmd, const char* homepath)
 int mmsg_get_field_value( int a, int b )
 {
 
+  if( 0 == g_sc.NIL ){
+    return 0 ;
+  }
   for (pointer it = g_mmsg ; NULL != it && it != g_sc.NIL; it = pair_cdr(it)) {
     pointer x = pair_car(it) ;
 
@@ -474,9 +477,14 @@ int mmsg_get_field_value( int a, int b )
 #if !STANDALONE
 long testsc_ivalue( const char *name )
 {
+  if( 0 == g_sc.NIL ){
+    return 0 ;
+  }
+
+  
   pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
 
-  if(NULL != args && g_sc.NIL != args  && is_integer(args)){
+  if( NULL != args && g_sc.NIL != args  && is_integer(args)){
     long value = ivalue(args) ; 
     testsc_debug("testsc_ivalue when integer is %d" , value) ;
     return value ;
@@ -502,6 +510,9 @@ int admin_length( void )
 
 void admin_erase(int index )
 {
+  if( 0 == g_sc.NIL){
+    return ;
+  }
   const int length = g_sc.vptr->vector_length(g_adminindex) ;
   if(length > index ){
     pointer newindex = g_sc.vptr->mk_vector(&g_sc, length-1);
