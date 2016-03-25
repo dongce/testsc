@@ -100,10 +100,14 @@ uint32_t field_id(scheme* sc ,const std::string& fieldname)
   testsc_debug("field id %s ", fieldname.c_str() ) ; 
 
   fieldmap_t::iterator it = g_fieldmap.find(fieldname) ;
+
+  testsc_debug("field id %s %s:%d", fieldname.c_str() , __FILE__, __LINE__) ; 
   
   if( g_fieldmap.end() == it ){
     g_fieldmap.insert(fieldpair_t(fieldname, ++fieldid )) ;
+    testsc_debug("field id %s %s:%d", fieldname.c_str() , __FILE__, __LINE__) ; 
     it = g_fieldmap.find(fieldname) ;
+    testsc_debug("field id %s %s:%d", fieldname.c_str() , __FILE__, __LINE__) ; 
   }
   testsc_debug("field id %s, %d", fieldname.c_str() , it->second) ; 
   return it->second ;
