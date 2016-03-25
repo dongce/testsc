@@ -472,7 +472,7 @@ int mmsg_get_field_value( int a, int b )
   return 0 ; 
 }
 
-#if STANDALONE
+#if !STANDALONE
 long testsc_ivalue( const char *name )
 {
   pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
