@@ -122,6 +122,18 @@ void FIELD_NSET(TYPE& a, const num& b)
     
 }
 
+void FIELD_NSET_LOG(const char* fname ,  const num& b)
+{
+  if(b.is_fixnum){
+    testsc_debug("field set %s, %d done", fname , b.value.ivalue) ; 
+  }
+  else{
+    testsc_debug("field set %s, %f done", fname , b.value.rvalue) ; 
+  }
+}
+
+
+
 template<typename TYPE>
 pointer FIELD_NGET(scheme*sc, const TYPE& a)
 {
@@ -139,7 +151,7 @@ pointer FIELD_NGET(scheme*sc, const TYPE& a)
 
 #define FIELD_NSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ \
 FIELD_NSET((i)->second->f , (v)) ;                                      \
-testsc_debug(#f"set %d done", (v)) ;                                    \
+FIELD_NSET_LOG(#f, (v)) ;                                               \
 break; }
 
 #define FIELD_NGET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ (v) = cons(sc, FIELD_NGET(sc, (i)->second->f ), v) ; break; }
