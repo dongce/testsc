@@ -471,10 +471,10 @@ int mmsg_get_field_value( int a, int b )
   
   return 0 ; 
 }
-
 #if !STANDALONE
 long testsc_ivalue( const char *name )
 {
+  kim
   pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
 
   if(NULL != args && g_sc.NIL != args  && is_integer(args)){
