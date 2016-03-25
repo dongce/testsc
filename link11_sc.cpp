@@ -492,7 +492,8 @@ long testsc_ivalue( const char *name )
   return 0 ; 
 }
 #endif
-char* admin_get( int i )
+
+char* testsc_admin_get( int i )
 {
 
   adminmap_t::iterator it = g_adminmap.find(ivalue(g_sc.vptr->vector_elem(g_adminindex, i ))) ;
@@ -500,7 +501,7 @@ char* admin_get( int i )
   reinterpret_cast<char*>( &(it->second) ) ; 
 }
 
-int admin_length( void )
+int testsc_admin_length( void )
 {
 
   return ivalue(g_adminindex) ;
@@ -508,7 +509,7 @@ int admin_length( void )
 }
 
 
-void admin_erase(int index )
+void testsc_admin_erase(int index )
 {
   if( 0 == g_sc.NIL){
     return ;
@@ -528,4 +529,12 @@ void admin_erase(int index )
   }
 }
 
+void testsc_track_set(uint32_t id , network_track_data_ptr t )
+{
+  g_trackmap[id] = *t ; 
+}
 
+void testsc_eval(const char *cmd)
+{
+  scheme_load_string(&g_sc, cmd) ;
+}
