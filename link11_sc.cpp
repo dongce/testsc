@@ -97,8 +97,8 @@ void testsc_debug(const char*format ...)
 uint32_t field_id(scheme* sc ,const std::string& fieldname)
 {
   static uint32_t fieldid = 1000U ;
+  testsc_debug("field id %s ", fieldname.c_str() ) ; 
 
-  std::locale loc  ; 
   fieldmap_t::iterator it = g_fieldmap.find(fieldname) ;
   
   if( g_fieldmap.end() == it ){
