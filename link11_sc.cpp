@@ -16,10 +16,10 @@
 #define tinyscheme_list3(sc , a , b , c)     cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , (sc)->NIL)))
 #define tinyscheme_list2(sc , a , b )        cons((sc) , (a) , cons((sc) , (b) , (sc)->NIL))
 
-typedef std::map<uint32_t, network_track_data_t>  trackmap_t ; 
+typedef std::map<uint32_t, network_track_data_ptr>  trackmap_t ; 
 typedef std::map<std::string, uint32_t>           fieldmap_t ; 
 
-typedef std::pair<uint32_t, network_track_data_t> trackpair_t ; 
+typedef std::pair<uint32_t, network_track_data_ptr> trackpair_t ; 
 typedef std::pair<std::string, uint32_t>          fieldpair_t ; 
 
 union admin_t {
@@ -135,10 +135,10 @@ pointer FIELD_NGET(scheme*sc, const TYPE& a)
 
 
 #define FOR_FIELD_ID(f) for(uint32_t ___field_id = field_id(sc, (f)) ; ___field_id > 0 ; ___field_id = 0 )
-#define FIELD_STRSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ strcpy((char*)(i)->second.f , (v)) ; break; }
+#define FIELD_STRSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ strcpy((char*)(i)->second->f , (v)) ; break; }
 
-#define FIELD_NSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ FIELD_NSET((i)->second.f , (v)) ; break; }
-#define FIELD_NGET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ (v) = cons(sc, FIELD_NGET(sc, (i)->second.f ), v) ; break; }
+#define FIELD_NSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ FIELD_NSET((i)->second->f , (v)) ; break; }
+#define FIELD_NGET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ (v) = cons(sc, FIELD_NGET(sc, (i)->second->f ), v) ; break; }
 
 
 pointer
@@ -149,7 +149,9 @@ foreign_testsc_track_strset(scheme *sc , pointer args)
 
   trackmap_t::iterator it = g_trackmap.find(trackid) ; 
   if( g_trackmap.end() == it ){
-    g_trackmap.insert(trackpair_t(trackid, g_trackdefault)) ;
+    network_track_data_ptr nit = reinterpret_cast<network_track_data_ptr>(malloc( sizeof(network_track_data_t)) );
+    *nit = g_trackdefault ; 
+    g_trackmap.insert(trackpair_t(trackid, nit)) ;
     it = g_trackmap.find(trackid) ;
   }
     
@@ -178,7 +180,9 @@ foreign_testsc_track_nset(scheme *sc , pointer args)
 
   trackmap_t::iterator it = g_trackmap.find(trackid) ; 
   if( g_trackmap.end() == it ){
-    g_trackmap.insert(trackpair_t(trackid, g_trackdefault)) ;
+    network_track_data_ptr nit = reinterpret_cast<network_track_data_ptr>(malloc( sizeof(network_track_data_t)) );
+    *nit = g_trackdefault ; 
+    g_trackmap.insert(trackpair_t(trackid, nit)) ;
     it = g_trackmap.find(trackid) ;
   }
     
@@ -292,7 +296,9 @@ foreign_testsc_track_nget(scheme *sc , pointer args)
   pointer result = sc->NIL ; 
   trackmap_t::iterator it = g_trackmap.find(trackid) ; 
   if( g_trackmap.end() == it ){
-    g_trackmap.insert(trackpair_t(trackid, g_trackdefault)) ;
+    network_track_data_ptr nit = reinterpret_cast<network_track_data_ptr>(malloc( sizeof(network_track_data_t)) );
+    *nit = g_trackdefault ; 
+    g_trackmap.insert(trackpair_t(trackid, nit)) ;
     it = g_trackmap.find(trackid) ;
   }
     
@@ -531,7 +537,7 @@ void testsc_admin_erase(int index )
 
 void testsc_track_set(uint32_t id , network_track_data_ptr t )
 {
-  g_trackmap[id] = *t ; 
+  g_trackmap[id] = t ; 
 }
 
 void testsc_eval(const char *cmd)
