@@ -137,7 +137,11 @@ pointer FIELD_NGET(scheme*sc, const TYPE& a)
 #define FOR_FIELD_ID(f) for(uint32_t ___field_id = field_id(sc, (f)) ; ___field_id > 0 ; ___field_id = 0 )
 #define FIELD_STRSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ strcpy((char*)(i)->second->f , (v)) ; break; }
 
-#define FIELD_NSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ FIELD_NSET((i)->second->f , (v)) ; break; }
+#define FIELD_NSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ \
+FIELD_NSET((i)->second->f , (v)) ;                                      \
+testsc_debug(#f"set %d done", (v)) ;                                    \
+break; }
+
 #define FIELD_NGET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ (v) = cons(sc, FIELD_NGET(sc, (i)->second->f ), v) ; break; }
 
 
