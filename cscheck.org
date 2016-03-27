@@ -1,0 +1,6 @@
+* 구현 필요. 
+** TODO nth 
+C 로 구현해서 성능 향상 필요. 
+** TODO ew intelligence 관련 
+* 진척률 
+
