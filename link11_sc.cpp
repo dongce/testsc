@@ -585,6 +585,7 @@ void testsc_debug(const char*format ...)
   static FILE* debug = fopen("t:/ts/debug.txt", "ab") ; 
   static char* buffer = reinterpret_cast<char*>(malloc(10240) ); 
   if(NULL == format){
+    fprintf(debug, "close testsc\n") ; 
     fclose(debug) ;
     scheme_deinit(&g_sc);
     
