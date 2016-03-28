@@ -586,7 +586,9 @@ void testsc_track_set(uint32_t id , network_track_data_ptr t )
 
 void testsc_eval(const char *cmd)
 {
+  testsc_debug("testsc eval %s start" , cmd) ; 
   scheme_load_string(&g_sc, cmd) ;
+  testsc_debug("testsc eval %s done " , cmd) ; 
 }
 
 
