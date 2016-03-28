@@ -128,9 +128,9 @@ int nesting;
 char    gc_verbose;      /* if gc_verbose is not zero, print gc status */
 char    no_memory;       /* Whether mem. alloc. has failed */
 
-#define LINESIZE 1024
+#define LINESIZE 102400
 char    linebuff[LINESIZE];
-#define STRBUFFSIZE 256
+#define STRBUFFSIZE 25600
 char    strbuff[STRBUFFSIZE];
 
 FILE *tmpfp;

@@ -439,6 +439,21 @@ foreign_testsc_numtest(scheme*sc , pointer args )
 extern "C" pointer
 foreign_testsc_init(scheme* sc , pointer args)
 {
+  const char* TINYSCHEME_HOME =
+    (  NULL == getenv("TINYSCHEME_HOME") ? "t:/ts"  : getenv("TINYSCHEME_HOME")  );
+
+  char absfilename[1024] ;
+  sprintf(absfilename,
+          "%s/testsc-error.txt" ,
+          TINYSCHEME_HOME ) ;
+  for(FILE* f = fopen(absfilename, "ab") ;
+      NULL !=f ;
+      f = NULL){
+    dup2(fileno(f) , STDERR_FILENO) ;
+    fclose(f) ;
+  }
+          
+  
   g_testnum            = ivalue(pop_args(args)) ;
   memset(&g_trackdefault, 0, sizeof(g_trackdefault)) ; 
   memset(&g_admindefault, 0, sizeof(g_admindefault)) ; 
