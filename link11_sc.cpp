@@ -586,36 +586,33 @@ void testsc_track_set(uint32_t id , network_track_data_ptr t )
 
 void testsc_eval(const char *cmd)
 {
-  testsc_debug("testsc eval %s start" , cmd) ; 
+  testsc_debug("testsc eval %s" , cmd) ; 
   scheme_load_string(&g_sc, cmd) ;
-  testsc_debug("testsc eval %s done " , cmd) ; 
 }
 
 
 
 void testsc_debug(const char*format ...)
 {
-  if(NULL == format){
-    fprintf(g_debug, "close testsc\n") ;
-    fflush(g_debug) ; 
-    fclose(g_debug) ;
-    scheme_deinit(&g_sc);
-    
-  }
-  else if(g_testsc_debug > 0 ){
-    va_list vlist;
+  va_list vlist;
 	
-    // memset(g_buffer, 0x00, 1024) ; 
+  // memset(g_buffer, 0x00, 1024) ; 
 	
 	
-    va_start(vlist, format);
-    int formatsize = vsprintf(g_buffer, format, vlist);
-    va_end(vlist);
+  va_start(vlist, format);
+  int formatsize = vsprintf(g_buffer, format, vlist);
+  va_end(vlist);
 
-    g_buffer[formatsize]= '\n' ;
-    g_buffer[formatsize+1]= NULL ; 
-  
+  g_buffer[formatsize]= '\n' ;
+  g_buffer[formatsize+1]= NULL ; 
+
+  if(g_testsc_debug > 0 ){
     fwrite(g_buffer , formatsize + 1 , 1 , g_debug) ;
-    fflush(g_debug) ; 
+    fflush(g_debug) ;
   }
 } 
+
+void testsc_close()
+{
+  scheme_deinit(&g_sc);
+}
