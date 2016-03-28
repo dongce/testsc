@@ -63,37 +63,13 @@ pop_args(pointer & args )
   return c ;
 }
 
+void testsc_debug(const char*format ...) ; 
 
 
 pointer g_mmsg    = 0;
 pointer g_adminindex = 0 ; 
 int     g_testnum = 0;
 int     g_testsc_debug = 1 ; 
-
-void testsc_debug(const char*format ...)
-{
-  static FILE* debug = fopen("t:/ts/debug.txt", "ab") ; 
-  static char* buffer = reinterpret_cast<char*>(malloc(10240) ); 
-  if(NULL == format){
-    fclose(debug) ;
-  }
-  else if(g_testsc_debug > 0 ){
-    va_list vlist;
-	
-    // memset(buffer, 0x00, 1024) ; 
-	
-	
-    va_start(vlist, format);
-    int formatsize = vsprintf(buffer, format, vlist);
-    va_end(vlist);
-
-    buffer[formatsize]= '\n' ;
-    buffer[formatsize+1]= NULL ; 
-  
-    fwrite(buffer , formatsize + 1 , 1 , debug) ;
-    fflush(debug) ; 
-  }
-} 
 
 uint32_t field_id(scheme* sc ,const std::string& fieldname)
 {
@@ -601,3 +577,32 @@ void testsc_eval(const char *cmd)
 {
   scheme_load_string(&g_sc, cmd) ;
 }
+
+
+
+void testsc_debug(const char*format ...)
+{
+  static FILE* debug = fopen("t:/ts/debug.txt", "ab") ; 
+  static char* buffer = reinterpret_cast<char*>(malloc(10240) ); 
+  if(NULL == format){
+    fclose(debug) ;
+    scheme_deinit(&g_sc);
+    
+  }
+  else if(g_testsc_debug > 0 ){
+    va_list vlist;
+	
+    // memset(buffer, 0x00, 1024) ; 
+	
+	
+    va_start(vlist, format);
+    int formatsize = vsprintf(buffer, format, vlist);
+    va_end(vlist);
+
+    buffer[formatsize]= '\n' ;
+    buffer[formatsize+1]= NULL ; 
+  
+    fwrite(buffer , formatsize + 1 , 1 , debug) ;
+    fflush(debug) ; 
+  }
+} 
