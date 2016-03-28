@@ -129,3 +129,26 @@
 (define  DTSCTRL_EOM                    #x03    )
 (define  DTSCTRL_EXTRA                  #xFF    )
 (define  DTSCTRL_BUFF_LENGTH            1024    )
+
+
+
+(define  POINT_ECM_FIX                     0 )  ;;;
+(define  POINT_HAZARD                      2 )  ;;;
+(define  POINT_MINE_WARFARE                3 )  ;;;
+(define  POINT_REFERENCE_POINT_GENERAL     4 )  ;;;
+(define  POINT_STATION_GENERAL             5 )  ;;;
+(define  POINT_STATION_AIR                 6 )  ;;;
+(define  POINT_EMERGENCY                   7 )  ;;;
+(define  POINT_SITE                        13 ) ;;;
+(define  POINT_SUPPORTING_UNIT             14 ) ;;;
+(define  POINT_ENEMY                       15 ) ;;;
+(define  POINT_STATION_AIR_EXT             9 )  ;;; //!!!ticket:2620 20120512 김동일 | PIDS 동기화 
+(define  POINT_AMPLIFY_TOMCAT              1 )  ;;;
+(define  POINT_AMPLIFY_MARSHAL_PT          1 )  ;;;
+(define  POINT_AMPLIFY_DAN_BUOY            1 )  ;;;	// unused
+(define  POINT_AMPLIFY_CORRIDOR_TAB        3 )  ;;;
+(define  POINT_AMPLIFY_SEARCH_AREA_POINT   7 )  ;;;
+(define  POINT_AMPLIFY_REPLENISHMENT       5 ) ;;; 
+(define  POINT_AMPLIFY_RESCUE              6 ) ;;; 
+(define  POINT_AMPLIFY_TANKER              0 )  ;;;//!!!ticket:2620 20120512 김동일 | PIDS 동기화 
+(define  POINT_AMPLIFY_ORIBIT_POINT        1 )  ;;;//!!!ticket:2620 20120512 김동일 | PIDS 동기화 
