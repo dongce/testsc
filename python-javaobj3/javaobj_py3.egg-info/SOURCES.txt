@@ -1,0 +1,7 @@
+README.rst
+javaobj.py
+setup.py
+javaobj_py3.egg-info/PKG-INFO
+javaobj_py3.egg-info/SOURCES.txt
+javaobj_py3.egg-info/dependency_links.txt
+javaobj_py3.egg-info/top_level.txt

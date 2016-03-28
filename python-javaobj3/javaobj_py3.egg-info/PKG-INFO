@@ -1,0 +1,43 @@
+Metadata-Version: 1.1
+Name: javaobj-py3
+Version: 0.1.1
+Summary: Module for serializing and de-serializing Java objects.
+Home-page: https://github.com/tcalmant/python-javaobj
+Author: Thomas Calmant
+Author-email: thomas.calmant@gmail.com
+License: Apache License 2.0
+Description: python-javaobj
+        ##############
+        
+        This project is a fork of python-javaobj by Volodymyr Buell, from
+        http://code.google.com/p/python-javaobj/
+        
+        From the original project site:
+        
+           Provides functions for reading and writing (writing is WIP currently)
+           Java objects serialized or will be deserialized by ObjectOutputStream.
+           This form of object representation is a standard data interchange format
+           in Java world. javaobj module exposes an API familiar to users of the
+           standard library marshal, pickle and json modules.
+        
+        
+        This fork intends to work both on Python 2.7 and Python 3.
+        
+        
+        TODO
+        ****
+        
+        * Correct tests (Swing, ...)
+        
+Keywords: python java marshalling serialization
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.0
+Classifier: Programming Language :: Python :: 3.1
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
