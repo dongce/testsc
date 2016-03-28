@@ -6,6 +6,20 @@
 *** TODO nth 
  C 로 구현해서 성능 향상 필요. 
 *** TODO ew intelligence 관련 
+** shortcut 
+*** 링크 플래그 
+*.csp 파일에 대하여 수행 
+#+BEGIN_SRC sql
+update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ; 
+#+END_SRC
+
+
+#+BEGIN_SRC sql
+sqlite3 xxx.csp update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ; 
+#+END_SRC
+
+*** 
+
 ** 진척률 [0/91]
 
 *** TODO DP_L11EventHandler

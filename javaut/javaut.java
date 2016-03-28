@@ -17,19 +17,25 @@ public class javaut {
        UtTest uttest = (UtTest) ois.readObject();
        
        TestCodeStructure tcs = uttest.getTestCodeStructure() ;
-       UtUserCode uuc = tcs.getGlobalUserCode() ; 
-       System.out.println(uuc.getUserCode()) ; 
-       ois.close();
-       
-       uuc.setUserCode(String.join("\r\n" , 
-                                   "void testsc_track_set(uint32_t id, network_track_data_ptr t ) ; " , 
-                                   "void testsc_init(int testnum, const char *cmd, const char *homepath ) ; " , 
-                                   "void testsc_eval(const char *cmdxx) ; ")) ;
-       // tcs.setGlobalUserCode(uuc) ; 
-       // uttest.setTestCodeStructure(tcs) ; 
+       UtUserCode uuc = tcs.getGlobalUserCode() ;
 
-       ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(args[0]));
-       oos.writeObject(uttest) ; 
+       String usercode = uuc.getUserCode() ; 
+       ois.close();
+
+       System.out.println(usercode) ; 
+
+       if( "" == usercode.trim() ){
+         uuc.setUserCode(String.join("\r\n" , 
+                                     "void testsc_track_set(uint32_t id, network_track_data_ptr t ) ; " , 
+                                     "void testsc_track_set(uint32_t id, network_track_data_ptr t ) ; " , 
+                                     "void testsc_init(int testnum, const char *cmd, const char *homepath ) ; " , 
+                                     "void testsc_eval(const char *cmd) ; ")) ;
+         // tcs.setGlobalUserCode(uuc) ; 
+         // uttest.setTestCodeStructure(tcs) ; 
+
+         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(args[0]));
+         oos.writeObject(uttest) ;
+       }
        
      }
      catch(Exception ex){
