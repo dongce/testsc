@@ -74,7 +74,10 @@ void testsc_debug(const char*format ...)
 {
   static FILE* debug = fopen("t:/ts/debug.txt", "ab") ; 
 
-  if(g_testsc_debug > 0 ){
+  if(NULL == format){
+    fclose(debug) ;
+  }
+  else if(g_testsc_debug > 0 ){
     va_list vlist;
 	
     char buffer[1024] ; 
