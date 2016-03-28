@@ -1,6 +1,103 @@
-* 구현 필요. 
-** TODO nth 
-C 로 구현해서 성능 향상 필요. 
-** TODO ew intelligence 관련 
-* 진척률 
+* CODESCROLL 동저 시험 
+** 주의사항 
+ - [ ] 스크립트 폴더별로 작성 주의 
+ - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
+** 구현 필요. 
+*** TODO nth 
+ C 로 구현해서 성능 향상 필요. 
+*** TODO ew intelligence 관련 
+** 진척률 [0/91]
 
+*** TODO DP_L11EventHandler
+*** TODO LINK11_DSF_MANAGER
+*** TODO SQLite3Interface
+*** TODO build_message_aircraft_control
+*** TODO build_message_aircraft_status
+*** TODO build_message_cdo
+*** TODO build_message_command
+*** TODO build_message_difference_report
+*** TODO build_message_emitter_eval
+*** TODO build_message_ew_coord
+*** TODO build_message_iff_sif
+*** TODO build_message_link_pointer
+*** TODO build_message_opnote
+*** TODO build_message_ownship
+*** TODO build_message_pairing_association
+*** TODO build_message_reception_quality
+*** TODO build_message_special_code
+*** TODO build_message_supporting_information
+*** TODO build_message_tag
+*** STARTED build_message_track
+ 스크립트 폴더 따로 작성하지 아니하였음. 
+*** TODO build_message_training
+*** TODO build_message_update_request
+*** TODO build_message_weapon_engagement
+*** TODO dlp_unit
+*** TODO dlptime
+*** TODO dts_controller
+*** TODO dts_serial
+*** TODO ew_intelligence_types
+*** TODO ffx_unit
+*** TODO general_input
+*** TODO general_library
+*** TODO general_output
+*** TODO gettimeofday
+*** TODO intf_vme
+*** TODO lifecycle_controller
+*** TODO link11_filter
+*** TODO looptest
+*** TODO mmsg_buff
+*** TODO network_rx
+*** TODO network_track_data_base
+*** TODO network_track_data_bash_hash
+*** TODO network_tx
+*** TODO ntds_intf
+*** TODO ntn_controller
+*** TODO os_data
+*** TODO parameter_adapter
+*** TODO periodic_controller
+*** TODO pool
+*** TODO process_message
+*** TODO process_message_m10
+*** TODO process_message_m11b
+*** TODO process_message_m11c
+*** TODO process_message_m11d
+*** TODO process_message_m11m
+*** TODO process_message_m12_0
+*** TODO process_message_m12_30
+*** TODO process_message_m12_31
+*** TODO process_message_m13
+*** TODO process_message_m14
+*** TODO process_message_m15
+*** TODO process_message_m1_rp0
+*** TODO process_message_m1_rp1
+*** TODO process_message_m2
+*** TODO process_message_m3
+*** TODO process_message_m4ab
+*** TODO process_message_m4c
+*** TODO process_message_m4d
+*** STARTED process_message_m5
+ 스크립트 폴더 pm5
+*** TODO process_message_m6a
+*** TODO process_message_m6b
+*** TODO process_message_m6c
+*** TODO process_message_m6d
+*** TODO process_message_m9a
+*** TODO process_message_m9b
+*** TODO process_message_m9c
+*** TODO process_message_m9d
+*** TODO process_message_m9e
+*** TODO process_message_m9f
+*** TODO process_message_m9g
+*** TODO pu_data
+*** TODO received_frame_filter
+*** TODO remote_control
+*** TODO rx_monitor
+*** TODO simulated_track
+*** TODO start_dlps
+*** TODO status_checker
+*** TODO track_controller
+*** TODO track_input
+*** TODO track_output
+*** TODO usr_channel
+*** TODO utility

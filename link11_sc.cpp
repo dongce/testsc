@@ -409,6 +409,19 @@ foreign_testsc_debug(scheme*sc , pointer args )
   return args ; 
 }
 
+pointer
+foreign_testsc_numtest(scheme*sc , pointer args )
+{
+  pointer ar = pop_args( args ) ; 
+
+  if( is_number(ar) ){
+    num n = nvalue(ar) ; 
+    printf("number is %d %d %f\n" , n.is_fixnum , n.value.ivalue , n.value.rvalue) ;
+  }
+    
+  return args ; 
+}
+
 
 // pointer
 // foreign_testsc_ivalue(scheme*sc , pointer args )
@@ -437,6 +450,7 @@ foreign_testsc_init(scheme* sc , pointer args)
     {"testsc-admin-index", foreign_testsc_admin_index  }, 
     {"testsc-admin-length", foreign_testsc_admin_length  }, 
     {"testsc-admin-erase" , foreign_testsc_admin_erase  }, 
+    {"testsc-numtest" , foreign_testsc_numtest  }, 
     // {"testsc-ivalue" ,      foreign_testsc_ivalue  }, 
   } ;
 
