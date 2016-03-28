@@ -2369,7 +2369,7 @@ struct dump_stack_frame {
   pointer code;
 };
 
-#define STACK_GROWTH 3
+#define STACK_GROWTH 30
 
 static void s_save(scheme *sc, enum scheme_opcodes op, pointer args, pointer code)
 {
