@@ -205,6 +205,13 @@ foreign_testsc_track_nset(scheme *sc , pointer args)
     g_trackmap.insert(trackpair_t(trackid, nit)) ;
     it = g_trackmap.find(trackid) ;
   }
+  else if( 0 == it->second ){
+    network_track_data_ptr nit = reinterpret_cast<network_track_data_ptr>(malloc( sizeof(network_track_data_t)) );
+    *nit = g_trackdefault ; 
+    g_trackmap[trackid] = nit ; 
+    it = g_trackmap.find(trackid) ;
+  }
+    
     
   for (pointer field = pop_args(args); is_pair(field); field = pop_args(args)) {
     const char *sym = symname(pop_args(field) ); 

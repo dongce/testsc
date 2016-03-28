@@ -26,7 +26,7 @@ public class javaut {
 
        System.out.println(usercode) ; 
 
-       if( "" == usercode.trim() ){
+       if( "".equals(usercode.trim() )){
          uuc.setUserCode(String.join("\r\n" , 
                                      "void testsc_ivalue(const char* name) ; ", 
                                      "void testsc_dvalue(const char* name) ; ", 
@@ -39,7 +39,7 @@ public class javaut {
 
        usercode = ucs.getUserCode() ; 
 
-       if( "" == usercode.trim() ){
+       if( "".equals(usercode.trim()) ){
 
          String uc =
            String.join("\r\n" ,
