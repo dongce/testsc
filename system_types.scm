@@ -1,1065 +1,1065 @@
-(define system_types-AADCP 20  ) ; 0x14
-(define system_types-AEW_aircraft 23  ) ; 0x17
-(define system_types-AIR_TO_SURF_MISSILE 8  ) ; 0x8
-(define system_types-ASW_AIRCRAFT_STATUS_KIND_FUEL 4  ) ; 0x4
-(define system_types-ASW_AIRCRAFT_STATUS_KIND_NONE 0  ) ; 0x0
-(define system_types-ASW_AIRCRAFT_STATUS_KIND_SENSOR 1  ) ; 0x1
-(define system_types-ASW_AIRCRAFT_STATUS_KIND_SENSOR_FUEL 5  ) ; 0x5
-(define system_types-ASW_AIRCRAFT_STATUS_KIND_SENSOR_WEAPON 3  ) ; 0x3
-(define system_types-ASW_AIRCRAFT_STATUS_KIND_SENSOR_WEAPON_FUEL 7  ) ; 0x7
-(define system_types-ASW_AIRCRAFT_STATUS_KIND_WEAPON 2  ) ; 0x2
-(define system_types-ASW_AIRCRAFT_STATUS_KIND_WEAPON_FUEL 6  ) ; 0x6
-(define system_types-ASW_HELO 3  ) ; 0x3
-(define system_types-ASW_MISSILE 4  ) ; 0x4
-(define system_types-ATDS_pu 24  ) ; 0x18
-(define system_types-AWACS_pu 25  ) ; 0x19
-(define system_types-CONVENTIONAL 7  ) ; 0x7
-(define system_types-CRC 15  ) ; 0xf
-(define system_types-CRP 16  ) ; 0x10
-(define system_types-DC 19  ) ; 0x13
-(define system_types-DD_escort_AAW 3  ) ; 0x3
-(define system_types-DD_escort_ASW_pu 4  ) ; 0x4
-(define system_types-DD_escort_General_pu 5  ) ; 0x5
-(define system_types-DEPTH_CHARGE 5  ) ; 0x5
-(define system_types-FIXED_WING_ASW_AIRCRAFT 2  ) ; 0x2
-(define system_types-FPB 6  ) ; 0x6
-(define system_types-IFF 2  ) ; 0x2
-(define system_types-INTERCEPTOR 10  ) ; 0xa
-(define system_types-IRCM_ecm_amplifying_char 4  ) ; 0x4
-(define system_types-IRCM_esm_amplifying_char 20  ) ; 0x14
-(define system_types-LCC 8  ) ; 0x8
-(define system_types-LHA_LHD 7  ) ; 0x7
-(define system_types-MAD 5  ) ; 0x5
-(define system_types-MHQ 13  ) ; 0xd
-(define system_types-NCC 17  ) ; 0x11
-(define system_types-RCC 18  ) ; 0x12
-(define system_types-R_10_DM 0  ) ; 0x0
-(define system_types-R_15_DM 2  ) ; 0x2
-(define system_types-R_20_DM 3  ) ; 0x3
-(define system_types-R_5_DM 1  ) ; 0x1
-(define system_types-SURF_TO_AIR_MISSILE 9  ) ; 0x9
-(define system_types-SURF_TO_SURF_MISSILE 6  ) ; 0x6
-(define system_types-S_slash_B_air_control_unit 8  ) ; 0x8
-(define system_types-THRESHOLD_BELOW 0  ) ; 0x0
-(define system_types-THRESHOLD_EXCEEDED 1  ) ; 0x1
-(define system_types-THRESHOLD_FULL 2  ) ; 0x2
-(define system_types-TORPEDO 1  ) ; 0x1
-(define system_types-TSCALE_MILLISEC 0  ) ; 0x0
-(define system_types-TSCALE_SEC 1  ) ; 0x1
-(define system_types-TV_imagery 11  ) ; 0xb
-(define system_types-T_1h 0  ) ; 0x0
-(define system_types-T_1h30mn 2  ) ; 0x2
-(define system_types-T_2h 3  ) ; 0x3
-(define system_types-T_30mn 1  ) ; 0x1
-(define system_types-WEAPON_TYPE_AIRCRAFT 12  ) ; 0xc
-(define system_types-WEAPON_TYPE_ANY_ALL 11  ) ; 0xb
-(define system_types-WEAPON_TYPE_CONVENTIONAL 14  ) ; 0xe
-(define system_types-WEAPON_TYPE_MISSILE 13  ) ; 0xd
-(define system_types-a10 16  ) ; 0x10
-(define system_types-a18 19  ) ; 0x13
-(define system_types-a3 10  ) ; 0xa
-(define system_types-a4 11  ) ; 0xb
-(define system_types-a5 12  ) ; 0xc
-(define system_types-a6 13  ) ; 0xd
-(define system_types-a7 14  ) ; 0xe
-(define system_types-aaw 1  ) ; 0x1
-(define system_types-aaw_air_control_unit 40  ) ; 0x28
-(define system_types-aaw_coordinator 10  ) ; 0xa
-(define system_types-aaw_picket 26  ) ; 0x1a
-(define system_types-above_layer_above_below_layer 1  ) ; 0x1
-(define system_types-above_layer_contact_depth 2  ) ; 0x2
-(define system_types-ac_not_under_PU_dest_control 5  ) ; 0x5
-(define system_types-ac_not_under_pu_control 7  ) ; 0x7
-(define system_types-accepted_order_result 0  ) ; 0x0
-(define system_types-acquiring_on_position 0  ) ; 0x0
-(define system_types-acquiring_on_track 1  ) ; 0x1
-(define system_types-active_sonar 1  ) ; 0x1
-(define system_types-active_sonobuoy 4  ) ; 0x4
-(define system_types-active_sonobuoy_range 19  ) ; 0x13
-(define system_types-active_sonobuoy_range_bearing 18  ) ; 0x12
-(define system_types-addressee_inactive 5  ) ; 0x5
-(define system_types-aew_control_ship 29  ) ; 0x1d
-(define system_types-air_control_unit 7  ) ; 0x7
-(define system_types-air_environment 1  ) ; 0x1
-(define system_types-air_pos 2  ) ; 0x2
-(define system_types-air_pos_ampl 3  ) ; 0x3
-(define system_types-air_raid_rep_control_ship 25  ) ; 0x19
-(define system_types-air_strike_safety_ship 32  ) ; 0x20
-(define system_types-airborne 2  ) ; 0x2
-(define system_types-aircr_mission_status 31  ) ; 0x1f
-(define system_types-aircraft_control 30  ) ; 0x1e
-(define system_types-aircraft_control_impedence 16  ) ; 0x10
-(define system_types-aircraft_mission_accepted 1  ) ; 0x1
-(define system_types-aircraft_reported 3  ) ; 0x3
-(define system_types-aircraft_sec_surf_ampl_carrier_pu 1  ) ; 0x1
-(define system_types-aircraft_voice_report 2  ) ; 0x2
-(define system_types-all_available 0  ) ; 0x0
-(define system_types-allocate_track_number 0  ) ; 0x0
-(define system_types-allocate_track_number_with_ntn_conflict 1  ) ; 0x1
-(define system_types-already_being_controlled 1  ) ; 0x1
-(define system_types-already_in_use 0  ) ; 0x0
-(define system_types-ambiguous 1  ) ; 0x1
-(define system_types-anti_ship_capable_missile_esm_broad_classification 3  ) ; 0x3
-(define system_types-anti_shipping 1  ) ; 0x1
-(define system_types-anti_submarine 2  ) ; 0x2
-(define system_types-anti_surface_warfare 13  ) ; 0xd
-(define system_types-any_platform 0  ) ; 0x0
-(define system_types-aop_track 3  ) ; 0x3
-(define system_types-area_of_prob_basic 27  ) ; 0x1b
-(define system_types-area_of_prob_basic_ampl 28  ) ; 0x1c
-(define system_types-area_of_prob_second 29  ) ; 0x1d
-(define system_types-assign 3  ) ; 0x3
-(define system_types-assign_result_accepted 0  ) ; 0x0
-(define system_types-assign_result_automatic 2  ) ; 0x2
-(define system_types-assign_result_rejected 1  ) ; 0x1
-(define system_types-assigned_investigating 2  ) ; 0x2
-(define system_types-association 1  ) ; 0x1
-(define system_types-association_impedence 1  ) ; 0x1
-(define system_types-assume_cntrl 0  ) ; 0x0
-(define system_types-assume_duties 15  ) ; 0xf
-(define system_types-asw 2  ) ; 0x2
-(define system_types-asw_air_control_unit 11  ) ; 0xb
-(define system_types-asw_aircr_status 32  ) ; 0x20
-(define system_types-asw_ampl 7  ) ; 0x7
-(define system_types-asw_bearing 11  ) ; 0xb
-(define system_types-asw_bearing_ampl 12  ) ; 0xc
-(define system_types-asw_coordinator 20  ) ; 0x14
-(define system_types-asw_helo_general 8  ) ; 0x8
-(define system_types-asw_helo_weapon_sec_surf_ampl_carrier 10  ) ; 0xa
-(define system_types-asw_mission_accepted 2  ) ; 0x2
-(define system_types-asw_prim 6  ) ; 0x6
-(define system_types-asw_prim_aco 9  ) ; 0x9
-(define system_types-asw_prim_aco_ampl 10  ) ; 0xa
-(define system_types-asw_search 5  ) ; 0x5
-(define system_types-asw_second 8  ) ; 0x8
-(define system_types-asw_sector_coordinator 21  ) ; 0x15
-(define system_types-asw_sensor_derived 5  ) ; 0x5
-(define system_types-at_15_min_intervals 4  ) ; 0x4
-(define system_types-at_1_min_intervals 2  ) ; 0x2
-(define system_types-at_5_min_intervals 3  ) ; 0x3
-(define system_types-at_hourly_intervals 5  ) ; 0x5
-(define system_types-aurora 12  ) ; 0xc
-(define system_types-auto_accept 2  ) ; 0x2
-(define system_types-auxiliary_asw_secondary_mission 10  ) ; 0xa
-(define system_types-av8 15  ) ; 0xf
-(define system_types-available 0  ) ; 0x0
-(define system_types-bathy_guard 6  ) ; 0x6
-(define system_types-beacon 15  ) ; 0xf
-(define system_types-bearing_and_range 0  ) ; 0x0
-(define system_types-below_layer_above_below_layer 2  ) ; 0x2
-(define system_types-below_layer_contact_layer 3  ) ; 0x3
-(define system_types-bottom_bounce 22  ) ; 0x16
-(define system_types-bottomed 5  ) ; 0x5
-(define system_types-breguet_atlantique 11  ) ; 0xb
-(define system_types-buffer_centre_pu 14  ) ; 0xe
-(define system_types-cac 4  ) ; 0x4
-(define system_types-cancel_handover 6  ) ; 0x6
-(define system_types-cancel_periodic_report 4  ) ; 0x4
-(define system_types-cancel_update_and_watch 5  ) ; 0x5
-(define system_types-cant_comply 1  ) ; 0x1
-(define system_types-cant_process 3  ) ; 0x3
-(define system_types-cap_aacu_control_ship 28  ) ; 0x1c
-(define system_types-cass 35  ) ; 0x23
-(define system_types-cease_conducting_procedures 14  ) ; 0xe
-(define system_types-cease_duties 16  ) ; 0x10
-(define system_types-cease_engage 4  ) ; 0x4
-(define system_types-cease_engage_specific 10  ) ; 0xa
-(define system_types-cease_fire 6  ) ; 0x6
-(define system_types-cease_proceeding_to_point 12  ) ; 0xc
-(define system_types-chaff 7  ) ; 0x7
-(define system_types-channel_test_link11_mode 2  ) ; 0x2
-(define system_types-circle_or_ellipse 1  ) ; 0x1
-(define system_types-circular_polarisation 1  ) ; 0x1
-(define system_types-classification_acoustic_positive 5  ) ; 0x5
-(define system_types-classification_certain_submarine 3  ) ; 0x3
-(define system_types-classification_no_statement 0  ) ; 0x0
-(define system_types-classification_non_submarine 4  ) ; 0x4
-(define system_types-classification_possible_submarine 1  ) ; 0x1
-(define system_types-classification_probable_submarine 2  ) ; 0x2
-(define system_types-classification_size 6  ) ; 0x6
-(define system_types-coastal_radar_station_pu 27  ) ; 0x1b
-(define system_types-command_already_performed 2  ) ; 0x2
-(define system_types-command_and_control 9  ) ; 0x9
-(define system_types-command_guidance 16  ) ; 0x10
-(define system_types-command_impedence 8  ) ; 0x8
-(define system_types-command_message_name 39  ) ; 0x27
-(define system_types-command_was_already_performed_network_ass_rej_reason 3  ) ; 0x3
-(define system_types-communication_ecm_broad_classification 3  ) ; 0x3
-(define system_types-communication_esm_broad_classification 2  ) ; 0x2
-(define system_types-conduct_procedures 13  ) ; 0xd
-(define system_types-confidence_1 1  ) ; 0x1
-(define system_types-confidence_2 2  ) ; 0x2
-(define system_types-confidence_3 3  ) ; 0x3
-(define system_types-confidence_4 4  ) ; 0x4
-(define system_types-confidence_5 5  ) ; 0x5
-(define system_types-confidence_6 6  ) ; 0x6
-(define system_types-conflict 0  ) ; 0x0
-(define system_types-control_and_engage 1  ) ; 0x1
-(define system_types-controlled_ac_under_own_control 2  ) ; 0x2
-(define system_types-controlled_ac_unknown 1  ) ; 0x1
-(define system_types-controlling_unit_accepted 0  ) ; 0x0
-(define system_types-convergence_zone_1 23  ) ; 0x17
-(define system_types-convergence_zone_2 24  ) ; 0x18
-(define system_types-convergence_zone_3 25  ) ; 0x19
-(define system_types-correlated 4  ) ; 0x4
-(define system_types-correlation 2  ) ; 0x2
-(define system_types-counter_measures 4  ) ; 0x4
-(define system_types-cover 7  ) ; 0x7
-(define system_types-cruiser_pu 2  ) ; 0x2
-(define system_types-cw 6  ) ; 0x6
-(define system_types-dBm21_to_dBm25 1  ) ; 0x1
-(define system_types-dBm25_to_dBm29 2  ) ; 0x2
-(define system_types-dBm29_to_dBm33 3  ) ; 0x3
-(define system_types-dBm33_to_dBm37 4  ) ; 0x4
-(define system_types-dBm37_to_dBm41 5  ) ; 0x5
-(define system_types-dBm41_to_dBm45 6  ) ; 0x6
-(define system_types-dBm45_or_more 7  ) ; 0x7
-(define system_types-data_exchange_link11_mode 4  ) ; 0x4
-(define system_types-data_exchange_mode_control_command 4  ) ; 0x4
-(define system_types-data_link 10  ) ; 0xa
-(define system_types-data_ref_pos 0  ) ; 0x0
-(define system_types-data_ref_pos_ampl 1  ) ; 0x1
-(define system_types-deceptive_ecm_amplifying_char 3  ) ; 0x3
-(define system_types-deceptive_esm_amplifying_char 19  ) ; 0x13
-(define system_types-deceptive_interrogator 9  ) ; 0x9
-(define system_types-decoy_asw_bearing_class_ampl 14  ) ; 0xe
-(define system_types-degrees_10 1  ) ; 0x1
-(define system_types-degrees_180 6  ) ; 0x6
-(define system_types-degrees_20 2  ) ; 0x2
-(define system_types-degrees_30 3  ) ; 0x3
-(define system_types-degrees_360 7  ) ; 0x7
-(define system_types-degrees_45 4  ) ; 0x4
-(define system_types-degrees_5 0  ) ; 0x0
-(define system_types-degrees_90 5  ) ; 0x5
-(define system_types-deleted_by_sensor 5  ) ; 0x5
-(define system_types-deleted_by_system 6  ) ; 0x6
-(define system_types-designated_fix 28  ) ; 0x1c
-(define system_types-dicass 37  ) ; 0x25
-(define system_types-difar 17  ) ; 0x11
-(define system_types-difference 0  ) ; 0x0
-(define system_types-different_test_word 5  ) ; 0x5
-(define system_types-direct_path 21  ) ; 0x15
-(define system_types-disruptive_ecm_amplifying_char 2  ) ; 0x2
-(define system_types-disruptive_esm_amplifying_char 18  ) ; 0x12
-(define system_types-dlrp_receive_mode 0  ) ; 0x0
-(define system_types-dlrp_standalone_mode 2  ) ; 0x2
-(define system_types-dlrp_transmit_mode 1  ) ; 0x1
-(define system_types-doppler 5  ) ; 0x5
-(define system_types-ecm_intercept 15  ) ; 0xf
-(define system_types-eight_or_more_targets 3  ) ; 0x3
-(define system_types-emergency 2  ) ; 0x2
-(define system_types-emergency_and_forcetell 3  ) ; 0x3
-(define system_types-emergency_network_assignment_command 3  ) ; 0x3
-(define system_types-emergency_running 4  ) ; 0x4
-(define system_types-engage 2  ) ; 0x2
-(define system_types-engage_asm_ssm 17  ) ; 0x11
-(define system_types-engage_specific 9  ) ; 0x9
-(define system_types-engage_status_impedence 4  ) ; 0x4
-(define system_types-engagement_broken 8  ) ; 0x8
-(define system_types-engagement_interrupted 10  ) ; 0xa
-(define system_types-enroute 2  ) ; 0x2
-(define system_types-escort 7  ) ; 0x7
-(define system_types-esm 12  ) ; 0xc
-(define system_types-esm_ampl 17  ) ; 0x11
-(define system_types-esm_parameter 18  ) ; 0x12
-(define system_types-esm_parameter_ampl 19  ) ; 0x13
-(define system_types-esm_prim 16  ) ; 0x10
-(define system_types-estimated_by_rep_unit 1  ) ; 0x1
-(define system_types-estimated_deep 4  ) ; 0x4
-(define system_types-estimated_shalow 1  ) ; 0x1
-(define system_types-eval_sector_using_bearing 3  ) ; 0x3
-(define system_types-eval_sector_using_track 2  ) ; 0x2
-(define system_types-eval_track_periodic_report 0  ) ; 0x0
-(define system_types-eval_track_update_and_watch 1  ) ; 0x1
-(define system_types-ew 7  ) ; 0x7
-(define system_types-ew_bear_or_fix 2  ) ; 0x2
-(define system_types-ew_control_ship 5  ) ; 0x5
-(define system_types-ew_coordination 20  ) ; 0x14
-(define system_types-ew_intelligence 34  ) ; 0x22
-(define system_types-ew_intelligence_ampl 35  ) ; 0x23
-(define system_types-ew_supervisor 2  ) ; 0x2
-(define system_types-f0_to_100_MHz 1  ) ; 0x1
-(define system_types-f0_to_250_MHz 1  ) ; 0x1
-(define system_types-f10000_to_20000_MHz 10  ) ; 0xa
-(define system_types-f1000_to_1100_MHz 11  ) ; 0xb
-(define system_types-f1000_to_2000_MHz 4  ) ; 0x4
-(define system_types-f100_to_200_MHz 2  ) ; 0x2
-(define system_types-f101 5  ) ; 0x5
-(define system_types-f102 6  ) ; 0x6
-(define system_types-f104 7  ) ; 0x7
-(define system_types-f106 8  ) ; 0x8
-(define system_types-f1100_to_1200_MHz 12  ) ; 0xc
-(define system_types-f111 9  ) ; 0x9
-(define system_types-f1200_to_1300_MHz 13  ) ; 0xd
-(define system_types-f1300_to_1400_MHz 14  ) ; 0xe
-(define system_types-f14 3  ) ; 0x3
-(define system_types-f1400_to_1500_MHz 15  ) ; 0xf
-(define system_types-f15 4  ) ; 0x4
-(define system_types-f1500_to_1600_MHz 16  ) ; 0x10
-(define system_types-f16 17  ) ; 0x11
-(define system_types-f1600_to_1700_MHz 17  ) ; 0x11
-(define system_types-f1700_to_1800_MHz 18  ) ; 0x12
-(define system_types-f18 18  ) ; 0x12
-(define system_types-f1800_to_1900_MHz 19  ) ; 0x13
-(define system_types-f1900_to_2000_MHz 20  ) ; 0x14
-(define system_types-f20000_to_40000_MHz 11  ) ; 0xb
-(define system_types-f2000_to_2100_MHz 21  ) ; 0x15
-(define system_types-f2000_to_3000_MHz 5  ) ; 0x5
-(define system_types-f200_to_300_MHz 3  ) ; 0x3
-(define system_types-f2100_to_2200_MHz 22  ) ; 0x16
-(define system_types-f2200_to_2300_MHz 23  ) ; 0x17
-(define system_types-f2300_to_2400_MHz 24  ) ; 0x18
-(define system_types-f2400_to_2500_MHz 25  ) ; 0x19
-(define system_types-f250_to_500_MHz 2  ) ; 0x2
-(define system_types-f3000_to_4000_MHz 6  ) ; 0x6
-(define system_types-f300_to_400_MHz 4  ) ; 0x4
-(define system_types-f4 1  ) ; 0x1
-(define system_types-f40000_to_60000_MHz 12  ) ; 0xc
-(define system_types-f4000_to_6000_MHz 7  ) ; 0x7
-(define system_types-f400_to_500_MHz 5  ) ; 0x5
-(define system_types-f5 20  ) ; 0x14
-(define system_types-f500_to_1000_MHz 3  ) ; 0x3
-(define system_types-f500_to_600_MHz 6  ) ; 0x6
-(define system_types-f60000_to_100000_MHz 13  ) ; 0xd
-(define system_types-f6000_to_8000_MHz 8  ) ; 0x8
-(define system_types-f600_to_700_MHz 7  ) ; 0x7
-(define system_types-f700_to_800_MHz 8  ) ; 0x8
-(define system_types-f8 2  ) ; 0x2
-(define system_types-f8000_to_10000_MHz 9  ) ; 0x9
-(define system_types-f800_to_900_MHz 9  ) ; 0x9
-(define system_types-f900_to_1000_MHz 10  ) ; 0xa
-(define system_types-filtered_out 0  ) ; 0x0
-(define system_types-finished 3  ) ; 0x3
-(define system_types-fire_control_conventional 3  ) ; 0x3
-(define system_types-fire_control_laser 4  ) ; 0x4
-(define system_types-firing_engaging 4  ) ; 0x4
-(define system_types-fish_marine_asw_bearing_class_ampl 15  ) ; 0xf
-(define system_types-five_minutes 2  ) ; 0x2
-(define system_types-five_or_more_usable 3  ) ; 0x3
-(define system_types-fixed_wing_asw_asw_aircraft 5  ) ; 0x5
-(define system_types-flir 39  ) ; 0x27
-(define system_types-force_marshaller 39  ) ; 0x27
-(define system_types-force_track_coordinator 38  ) ; 0x26
-(define system_types-forcetell 1  ) ; 0x1
-(define system_types-forcetell_network_assignment_command 5  ) ; 0x5
-(define system_types-forcetell_running 5  ) ; 0x5
-(define system_types-fr_reports_freq_range 0  ) ; 0x0
-(define system_types-freq_range 1  ) ; 0x1
-(define system_types-frequency_scan 0  ) ; 0x0
-(define system_types-frigate_pu 9  ) ; 0x9
-(define system_types-from_0_to_15_minutes 3  ) ; 0x3
-(define system_types-from_16_to_30_minutes 4  ) ; 0x4
-(define system_types-from_1_to_1point5_hours 7  ) ; 0x7
-(define system_types-from_1point5_to_2_hours 8  ) ; 0x8
-(define system_types-from_2_to_2point5_hours 9  ) ; 0x9
-(define system_types-from_2point5_to_3_hours 10  ) ; 0xa
-(define system_types-from_31_to_45_minutes 5  ) ; 0x5
-(define system_types-from_3_to_4_hours 11  ) ; 0xb
-(define system_types-from_46_minutes_to_1_hour 6  ) ; 0x6
-(define system_types-from_4_to_6_hours 12  ) ; 0xc
-(define system_types-from_6_to_8_hours 13  ) ; 0xd
-(define system_types-from_8_to_10_hours 14  ) ; 0xe
-(define system_types-gridlock_status_aborted 3  ) ; 0x3
-(define system_types-gridlock_status_active 1  ) ; 0x1
-(define system_types-gridlock_status_none 0  ) ; 0x0
-(define system_types-gridlock_status_ready 2  ) ; 0x2
-(define system_types-guide 0  ) ; 0x0
-(define system_types-have_complied 2  ) ; 0x2
-(define system_types-head_up 9  ) ; 0x9
-(define system_types-helicopter_control_unit 12  ) ; 0xc
-(define system_types-helo 26  ) ; 0x1a
-(define system_types-helo_active_sonar 8  ) ; 0x8
-(define system_types-helo_dipping_sonar 9  ) ; 0x9
-(define system_types-helo_passive_sonar 9  ) ; 0x9
-(define system_types-hold_down 0  ) ; 0x0
-(define system_types-hold_fire 5  ) ; 0x5
-(define system_types-holding_contact 1  ) ; 0x1
-(define system_types-horizontal_polarisation 2  ) ; 0x2
-(define system_types-identification 3  ) ; 0x3
-(define system_types-identity_assumed_friend 1  ) ; 0x1
-(define system_types-identity_faker 8  ) ; 0x8
-(define system_types-identity_friend 2  ) ; 0x2
-(define system_types-identity_hostile 4  ) ; 0x4
-(define system_types-identity_joker 7  ) ; 0x7
-(define system_types-identity_neutral 6  ) ; 0x6
-(define system_types-identity_no_statement 9  ) ; 0x9
-(define system_types-identity_pending 0  ) ; 0x0
-(define system_types-identity_size 10  ) ; 0xa
-(define system_types-identity_suspect 3  ) ; 0x3
-(define system_types-identity_unknown 5  ) ; 0x5
-(define system_types-iff_multiple 0  ) ; 0x0
-(define system_types-iff_sif 33  ) ; 0x21
-(define system_types-iff_support1 1  ) ; 0x1
-(define system_types-iff_support2 2  ) ; 0x2
-(define system_types-iff_support3 3  ) ; 0x3
-(define system_types-iff_support4 4  ) ; 0x4
-(define system_types-impedence_zero 0  ) ; 0x0
-(define system_types-infrared_system 31  ) ; 0x1f
-(define system_types-init 0  ) ; 0x0
-(define system_types-intelligence_AOP_source 3  ) ; 0x3
-(define system_types-intelligence_asw_sensor_contact 11  ) ; 0xb
-(define system_types-intruder_asw_secondary_mission 8  ) ; 0x8
-(define system_types-intruder_current_surface_mission 11  ) ; 0xb
-(define system_types-invalid_iff_mode4_IN_DLP 4  ) ; 0x4
-(define system_types-invalid_response 2  ) ; 0x2
-(define system_types-itass 36  ) ; 0x24
-(define system_types-jitter 1  ) ; 0x1
-(define system_types-keyed_telegraph 8  ) ; 0x8
-(define system_types-land_environment 3  ) ; 0x3
-(define system_types-land_platform 5  ) ; 0x5
-(define system_types-laser_CM_ecm_amplifying_char 5  ) ; 0x5
-(define system_types-laser_CM_esm_amplifying_char 21  ) ; 0x15
-(define system_types-launch_heli 4  ) ; 0x4
-(define system_types-less_than_10_hours 13  ) ; 0xd
-(define system_types-less_than_10_minutes 3  ) ; 0x3
-(define system_types-less_than_15_minutes 4  ) ; 0x4
-(define system_types-less_than_1_hour 8  ) ; 0x8
-(define system_types-less_than_20_minutes 5  ) ; 0x5
-(define system_types-less_than_25_minutes 6  ) ; 0x6
-(define system_types-less_than_2_hours 9  ) ; 0x9
-(define system_types-less_than_2_minutes 1  ) ; 0x1
-(define system_types-less_than_30_minutes 7  ) ; 0x7
-(define system_types-less_than_3_hours 10  ) ; 0xa
-(define system_types-less_than_4_hours 11  ) ; 0xb
-(define system_types-less_than_5_hours 12  ) ; 0xc
-(define system_types-less_than_5_minutes 2  ) ; 0x2
-(define system_types-link_11_broadcast_unit 37  ) ; 0x25
-(define system_types-link_11_control_unit 36  ) ; 0x24
-(define system_types-link_11_net_control_ship 30  ) ; 0x1e
-(define system_types-link_14_broadcast_ship 31  ) ; 0x1f
-(define system_types-link_dlrp 26  ) ; 0x1a
-(define system_types-link_monitor 24  ) ; 0x18
-(define system_types-link_received_only 3  ) ; 0x3
-(define system_types-llltv 26  ) ; 0x1a
-(define system_types-local_aaw_coordinator 24  ) ; 0x18
-(define system_types-lock_on 1  ) ; 0x1
-(define system_types-lofar_area 14  ) ; 0xe
-(define system_types-lofar_c_fix 16  ) ; 0x10
-(define system_types-lofar_h_fix 15  ) ; 0xf
-(define system_types-lost 3  ) ; 0x3
-(define system_types-lost_but_correlated 4  ) ; 0x4
-(define system_types-low 4  ) ; 0x4
-(define system_types-machine_receipt 4  ) ; 0x4
-(define system_types-mad 13  ) ; 0xd
-(define system_types-management 21  ) ; 0x15
-(define system_types-mar_corps_tact_air_ops_centre 11  ) ; 0xb
-(define system_types-maritime_patrol_aircraft 21  ) ; 0x15
-(define system_types-marker 10  ) ; 0xa
-(define system_types-meteorological_guard 9  ) ; 0x9
-(define system_types-mine_laying 4  ) ; 0x4
-(define system_types-minewarfare_vessel 10  ) ; 0xa
-(define system_types-missile_platform 1  ) ; 0x1
-(define system_types-mode4_accept 0  ) ; 0x0
-(define system_types-mode4_conflict 2  ) ; 0x2
-(define system_types-mode4_reject 1  ) ; 0x1
-(define system_types-more_than_10_hours_aircraft_state 15  ) ; 0xf
-(define system_types-more_than_10_hours_asw_acoustic_time_remaining 14  ) ; 0xe
-(define system_types-mp_acu 22  ) ; 0x16
-(define system_types-mpa 1  ) ; 0x1
-(define system_types-msl_control_unit_airborne 6  ) ; 0x6
-(define system_types-msl_control_unit_subsurface_surface 7  ) ; 0x7
-(define system_types-multiple_jammer 8  ) ; 0x8
-(define system_types-multiplex 12  ) ; 0xc
-(define system_types-multiply_by_10000000hz 7  ) ; 0x7
-(define system_types-multiply_by_1000000hz 6  ) ; 0x6
-(define system_types-multiply_by_100000hz 5  ) ; 0x5
-(define system_types-multiply_by_10000hz 4  ) ; 0x4
-(define system_types-multiply_by_1000hz 3  ) ; 0x3
-(define system_types-multiply_by_100hz 2  ) ; 0x2
-(define system_types-multiply_by_10hz 1  ) ; 0x1
-(define system_types-national 36  ) ; 0x24
-(define system_types-national_tag_transfer 43  ) ; 0x2b
-(define system_types-ngs 3  ) ; 0x3
-(define system_types-nimrod 4  ) ; 0x4
-(define system_types-nine_or_more_usable 3  ) ; 0x3
-(define system_types-no_available_ntn_ass_rej_reason 2  ) ; 0x2
-(define system_types-no_conflict 1  ) ; 0x1
-(define system_types-no_contact 0  ) ; 0x0
-(define system_types-no_difference 1  ) ; 0x1
-(define system_types-no_handover_initiation 6  ) ; 0x6
-(define system_types-no_jitter 2  ) ; 0x2
-(define system_types-no_mach_receipt_RX_by_forw_unit 6  ) ; 0x6
-(define system_types-no_measurement_scan 2  ) ; 0x2
-(define system_types-no_rc_required 5  ) ; 0x5
-(define system_types-no_reply_received 5  ) ; 0x5
-(define system_types-no_response 1  ) ; 0x1
-(define system_types-no_statement_above_below_layer 0  ) ; 0x0
-(define system_types-no_statement_aircraft 0  ) ; 0x0
-(define system_types-no_statement_aircraft_state 0  ) ; 0x0
-(define system_types-no_statement_asw_acoustic_time_remaining 15  ) ; 0xf
-(define system_types-no_statement_asw_aircraft 0  ) ; 0x0
-(define system_types-no_statement_asw_bearing_class_ampl 0  ) ; 0x0
-(define system_types-no_statement_asw_bearing_sensor 0  ) ; 0x0
-(define system_types-no_statement_asw_secondary_mission 0  ) ; 0x0
-(define system_types-no_statement_asw_sensor_contact 0  ) ; 0x0
-(define system_types-no_statement_confidence_level 0  ) ; 0x0
-(define system_types-no_statement_contact_depth 6  ) ; 0x6
-(define system_types-no_statement_contacts_size 0  ) ; 0x0
-(define system_types-no_statement_current_surface_mission 0  ) ; 0x0
-(define system_types-no_statement_ecm_amplifying_char 0  ) ; 0x0
-(define system_types-no_statement_ecm_broad_classification 0  ) ; 0x0
-(define system_types-no_statement_esm_amplifying_char 0  ) ; 0x0
-(define system_types-no_statement_esm_broad_classification 0  ) ; 0x0
-(define system_types-no_statement_frequency_range 0  ) ; 0x0
-(define system_types-no_statement_height_source 0  ) ; 0x0
-(define system_types-no_statement_iff_mode4 0  ) ; 0x0
-(define system_types-no_statement_inventory_1 0  ) ; 0x0
-(define system_types-no_statement_inventory_2 0  ) ; 0x0
-(define system_types-no_statement_inventory_3 0  ) ; 0x0
-(define system_types-no_statement_jammer_signal_level 0  ) ; 0x0
-(define system_types-no_statement_jitter 0  ) ; 0x0
-(define system_types-no_statement_lock_on_spy 0  ) ; 0x0
-(define system_types-no_statement_main_rate_frequency 0  ) ; 0x0
-(define system_types-no_statement_platform 0  ) ; 0x0
-(define system_types-no_statement_platform_evaluation_conf 0  ) ; 0x0
-(define system_types-no_statement_polarisation 0  ) ; 0x0
-(define system_types-no_statement_possub_confidence_level 0  ) ; 0x0
-(define system_types-no_statement_pu 0  ) ; 0x0
-(define system_types-no_statement_request_response 0  ) ; 0x0
-(define system_types-no_statement_track_invest_period 0  ) ; 0x0
-(define system_types-no_statement_weapon 0  ) ; 0x0
-(define system_types-no_transmission_allowed_iff_upd_rej_reason 1  ) ; 0x1
-(define system_types-no_transmission_allowed_link_pointer_rej_reason 1  ) ; 0x1
-(define system_types-no_transmission_allowed_network_ass_rej_reason 1  ) ; 0x1
-(define system_types-no_transmission_allowed_track_number_reject_reason 2  ) ; 0x2
-(define system_types-non_existing 7  ) ; 0x7
-(define system_types-non_threat 1  ) ; 0x1
-(define system_types-none 0  ) ; 0x0
-(define system_types-none_air_cntrl_order 7  ) ; 0x7
-(define system_types-none_usable_inventory_1 1  ) ; 0x1
-(define system_types-none_usable_inventory_2 1  ) ; 0x1
-(define system_types-none_usable_inventory_3 1  ) ; 0x1
-(define system_types-normal 6  ) ; 0x6
-(define system_types-not_authorised 4  ) ; 0x4
-(define system_types-not_available 1  ) ; 0x1
-(define system_types-not_effective 7  ) ; 0x7
-(define system_types-not_link_involved 0  ) ; 0x0
-(define system_types-number_of_weapons_is_1 1  ) ; 0x1
-(define system_types-number_of_weapons_is_2 2  ) ; 0x2
-(define system_types-number_of_weapons_is_3 3  ) ; 0x3
-(define system_types-number_of_weapons_is_4 4  ) ; 0x4
-(define system_types-number_of_weapons_is_5 5  ) ; 0x5
-(define system_types-number_of_weapons_is_6 6  ) ; 0x6
-(define system_types-number_of_weapons_is_7 7  ) ; 0x7
-(define system_types-numbered_position_1 7  ) ; 0x7
-(define system_types-numbered_position_10 16  ) ; 0x10
-(define system_types-numbered_position_11 17  ) ; 0x11
-(define system_types-numbered_position_12 18  ) ; 0x12
-(define system_types-numbered_position_13 19  ) ; 0x13
-(define system_types-numbered_position_14 20  ) ; 0x14
-(define system_types-numbered_position_15 21  ) ; 0x15
-(define system_types-numbered_position_16 22  ) ; 0x16
-(define system_types-numbered_position_17 23  ) ; 0x17
-(define system_types-numbered_position_18 24  ) ; 0x18
-(define system_types-numbered_position_19 25  ) ; 0x19
-(define system_types-numbered_position_2 8  ) ; 0x8
-(define system_types-numbered_position_20 26  ) ; 0x1a
-(define system_types-numbered_position_21 27  ) ; 0x1b
-(define system_types-numbered_position_3 9  ) ; 0x9
-(define system_types-numbered_position_4 10  ) ; 0xa
-(define system_types-numbered_position_5 11  ) ; 0xb
-(define system_types-numbered_position_6 12  ) ; 0xc
-(define system_types-numbered_position_7 13  ) ; 0xd
-(define system_types-numbered_position_8 14  ) ; 0xe
-(define system_types-numbered_position_9 15  ) ; 0xf
-(define system_types-once_sector_report_duration 0  ) ; 0x0
-(define system_types-once_track_invest_period 1  ) ; 0x1
-(define system_types-one_minute 1  ) ; 0x1
-(define system_types-one_to_eight_usable 2  ) ; 0x2
-(define system_types-one_to_four_usable 2  ) ; 0x2
-(define system_types-one_usable 2  ) ; 0x2
-(define system_types-op_note 41  ) ; 0x29
-(define system_types-operator_height_source 4  ) ; 0x4
-(define system_types-order_already_booked_air_cntrl_order_rej_reas 0  ) ; 0x0
-(define system_types-order_already_booked_ew_coord_rej_reas 0  ) ; 0x0
-(define system_types-order_already_booked_order_reject_reason 0  ) ; 0x0
-(define system_types-original 6  ) ; 0x6
-(define system_types-otc 3  ) ; 0x3
-(define system_types-p_3a_b 2  ) ; 0x2
-(define system_types-p_3c 3  ) ; 0x3
-(define system_types-pair_assoc_correl 22  ) ; 0x16
-(define system_types-pairing 0  ) ; 0x0
-(define system_types-partially_effective 6  ) ; 0x6
-(define system_types-passive_directional_sonobuoy 32  ) ; 0x20
-(define system_types-passive_sonar 2  ) ; 0x2
-(define system_types-passive_sonobuoy_asw_bearing_sensor 3  ) ; 0x3
-(define system_types-passive_sonobuoy_asw_sensor_contact 20  ) ; 0x14
-(define system_types-passive_source 34  ) ; 0x22
-(define system_types-pending_threat_evaluation 0  ) ; 0x0
-(define system_types-perimeter_engagement 11  ) ; 0xb
-(define system_types-plane_guard 16  ) ; 0x10
-(define system_types-pointer 23  ) ; 0x17
-(define system_types-positive 1  ) ; 0x1
-(define system_types-positive_evaluation 7  ) ; 0x7
-(define system_types-possible 3  ) ; 0x3
-(define system_types-possub_1 1  ) ; 0x1
-(define system_types-possub_2 2  ) ; 0x2
-(define system_types-possub_3 3  ) ; 0x3
-(define system_types-possub_4 4  ) ; 0x4
-(define system_types-pri_aco_clas_amp_no_statement 0  ) ; 0x0
-(define system_types-pri_aco_clas_amp_size 3  ) ; 0x3
-(define system_types-pri_aco_clas_amp_sonobuoy 2  ) ; 0x2
-(define system_types-pri_aco_clas_amp_torpedo_alert 1  ) ; 0x1
-(define system_types-pri_air_ampl_civilian 5  ) ; 0x5
-(define system_types-pri_air_ampl_decoy 4  ) ; 0x4
-(define system_types-pri_air_ampl_fixed_wing 1  ) ; 0x1
-(define system_types-pri_air_ampl_helicopter 2  ) ; 0x2
-(define system_types-pri_air_ampl_missile 6  ) ; 0x6
-(define system_types-pri_air_ampl_missile_platform 3  ) ; 0x3
-(define system_types-pri_air_ampl_neutral 7  ) ; 0x7
-(define system_types-pri_air_ampl_no_statement 0  ) ; 0x0
-(define system_types-pri_air_ampl_size 8  ) ; 0x8
-(define system_types-pri_air_refpos_des_air_control 0  ) ; 0x0
-(define system_types-pri_air_refpos_des_size 1  ) ; 0x1
-(define system_types-pri_asw_refpos_des_no_statement 0  ) ; 0x0
-(define system_types-pri_asw_refpos_des_search 1  ) ; 0x1
-(define system_types-pri_asw_refpos_des_size 4  ) ; 0x4
-(define system_types-pri_asw_refpos_des_sonobuoy 2  ) ; 0x2
-(define system_types-pri_asw_refpos_des_underwater 3  ) ; 0x3
-(define system_types-pri_gen_refpos_des_emergency 1  ) ; 0x1
-(define system_types-pri_gen_refpos_des_enemy_point 13  ) ; 0xd
-(define system_types-pri_gen_refpos_des_formation 2  ) ; 0x2
-(define system_types-pri_gen_refpos_des_free_format 3  ) ; 0x3
-(define system_types-pri_gen_refpos_des_harbour 4  ) ; 0x4
-(define system_types-pri_gen_refpos_des_hazard 5  ) ; 0x5
-(define system_types-pri_gen_refpos_des_mine_warfare 10  ) ; 0xa
-(define system_types-pri_gen_refpos_des_no_statement 0  ) ; 0x0
-(define system_types-pri_gen_refpos_des_radar 11  ) ; 0xb
-(define system_types-pri_gen_refpos_des_route 6  ) ; 0x6
-(define system_types-pri_gen_refpos_des_site 12  ) ; 0xc
-(define system_types-pri_gen_refpos_des_size 14  ) ; 0xe
-(define system_types-pri_gen_refpos_des_station 7  ) ; 0x7
-(define system_types-pri_gen_refpos_des_supporting_unit 8  ) ; 0x8
-(define system_types-pri_gen_refpos_des_weapon 9  ) ; 0x9
-(define system_types-pri_subsurf_clas_ampl_anomaly 8  ) ; 0x8
-(define system_types-pri_subsurf_clas_ampl_bottum_return 9  ) ; 0x9
-(define system_types-pri_subsurf_clas_ampl_conventional_propulsion 2  ) ; 0x2
-(define system_types-pri_subsurf_clas_ampl_decoy 5  ) ; 0x5
-(define system_types-pri_subsurf_clas_ampl_marine_life 7  ) ; 0x7
-(define system_types-pri_subsurf_clas_ampl_mine 6  ) ; 0x6
-(define system_types-pri_subsurf_clas_ampl_no_statement 0  ) ; 0x0
-(define system_types-pri_subsurf_clas_ampl_nuclear_propulsion 3  ) ; 0x3
-(define system_types-pri_subsurf_clas_ampl_size 11  ) ; 0xb
-(define system_types-pri_subsurf_clas_ampl_surface_vessel 10  ) ; 0xa
-(define system_types-pri_subsurf_clas_ampl_torpedo_alert 4  ) ; 0x4
-(define system_types-pri_subsurf_clas_ampl_unknown_propulsion 1  ) ; 0x1
-(define system_types-pri_surf_ampl_amphibious 4  ) ; 0x4
-(define system_types-pri_surf_ampl_amphibious_assault 8  ) ; 0x8
-(define system_types-pri_surf_ampl_combatant 1  ) ; 0x1
-(define system_types-pri_surf_ampl_line 2  ) ; 0x2
-(define system_types-pri_surf_ampl_mine_warfare 7  ) ; 0x7
-(define system_types-pri_surf_ampl_no_statement 0  ) ; 0x0
-(define system_types-pri_surf_ampl_non_combatant 6  ) ; 0x6
-(define system_types-pri_surf_ampl_non_naval 5  ) ; 0x5
-(define system_types-pri_surf_ampl_patrol_vessel 3  ) ; 0x3
-(define system_types-pri_surf_ampl_size 8  ) ; 0x8
-(define system_types-probable 2  ) ; 0x2
-(define system_types-proceed_to_point 11  ) ; 0xb
-(define system_types-prohibit 1  ) ; 0x1
-(define system_types-prohibit_transmission 2  ) ; 0x2
-(define system_types-radar_asw_bearing_sensor 7  ) ; 0x7
-(define system_types-radar_asw_sensor_contact 10  ) ; 0xa
-(define system_types-radar_ecm_broad_classification 1  ) ; 0x1
-(define system_types-radar_esm_broad_classification 1  ) ; 0x1
-(define system_types-radhaz_relay 15  ) ; 0xf
-(define system_types-range_only 3  ) ; 0x3
-(define system_types-real_track 0  ) ; 0x0
-(define system_types-receive_link11_mode 3  ) ; 0x3
-(define system_types-receive_mode_control_command 3  ) ; 0x3
-(define system_types-reconnaissance_asw_secondary_mission 3  ) ; 0x3
-(define system_types-rejected_aircr_mis_result 3  ) ; 0x3
-(define system_types-rejected_order_result 1  ) ; 0x1
-(define system_types-remove_track_number 2  ) ; 0x2
-(define system_types-rendezvous_procedure 2  ) ; 0x2
-(define system_types-request 1  ) ; 0x1
-(define system_types-request_cntrl 5  ) ; 0x5
-(define system_types-resolved 2  ) ; 0x2
-(define system_types-response 2  ) ; 0x2
-(define system_types-retransmission 7  ) ; 0x7
-(define system_types-return_to_base 2  ) ; 0x2
-(define system_types-returning 1  ) ; 0x1
-(define system_types-rotational_polarisation 3  ) ; 0x3
-(define system_types-running 2  ) ; 0x2
-(define system_types-s_2e 6  ) ; 0x6
-(define system_types-s_3 7  ) ; 0x7
-(define system_types-safeguard 4  ) ; 0x4
-(define system_types-salvo_clear 8  ) ; 0x8
-(define system_types-sar_asw_secondary_mission 6  ) ; 0x6
-(define system_types-sar_current_surface_mission 5  ) ; 0x5
-(define system_types-sar_ship 17  ) ; 0x11
-(define system_types-sau_commander 2  ) ; 0x2
-(define system_types-scan_category_circular 2  ) ; 0x2
-(define system_types-scan_category_complex 7  ) ; 0x7
-(define system_types-scan_category_conical 6  ) ; 0x6
-(define system_types-scan_category_fixed 1  ) ; 0x1
-(define system_types-scan_category_height_finder 4  ) ; 0x4
-(define system_types-scan_category_lobe_switching 3  ) ; 0x3
-(define system_types-scan_category_manual 12  ) ; 0xc
-(define system_types-scan_category_no_statement 0  ) ; 0x0
-(define system_types-scan_category_raster 9  ) ; 0x9
-(define system_types-scan_category_sector 5  ) ; 0x5
-(define system_types-scan_category_spiral 8  ) ; 0x8
-(define system_types-scan_category_steady 11  ) ; 0xb
-(define system_types-scan_category_variable_random 10  ) ; 0xa
-(define system_types-screen 6  ) ; 0x6
-(define system_types-screen_commander 1  ) ; 0x1
-(define system_types-search_2D 1  ) ; 0x1
-(define system_types-search_3D 2  ) ; 0x2
-(define system_types-search_and_rescue 1  ) ; 0x1
-(define system_types-sec_aco_clas_amp_no_statement 0  ) ; 0x0
-(define system_types-sec_aco_clas_amp_size 1  ) ; 0x1
-(define system_types-sec_air_ampl_aew 2  ) ; 0x2
-(define system_types-sec_air_ampl_asw 14  ) ; 0xe
-(define system_types-sec_air_ampl_atds 18  ) ; 0x12
-(define system_types-sec_air_ampl_awacs 19  ) ; 0x13
-(define system_types-sec_air_ampl_bomber 1  ) ; 0x1
-(define system_types-sec_air_ampl_cap 20  ) ; 0x14
-(define system_types-sec_air_ampl_carrier_based_asw_aircraft 24  ) ; 0x18
-(define system_types-sec_air_ampl_cas_das 21  ) ; 0x15
-(define system_types-sec_air_ampl_drone_rpv 26  ) ; 0x1a
-(define system_types-sec_air_ampl_ecm_jammer 4  ) ; 0x4
-(define system_types-sec_air_ampl_esm 7  ) ; 0x7
-(define system_types-sec_air_ampl_faker 29  ) ; 0x1d
-(define system_types-sec_air_ampl_faker_jammer 30  ) ; 0x1e
-(define system_types-sec_air_ampl_fighter 3  ) ; 0x3
-(define system_types-sec_air_ampl_fixed_wing 15  ) ; 0xf
-(define system_types-sec_air_ampl_gunship 13  ) ; 0xd
-(define system_types-sec_air_ampl_helicopter 16  ) ; 0x10
-(define system_types-sec_air_ampl_interceptor 5  ) ; 0x5
-(define system_types-sec_air_ampl_interdiction 31  ) ; 0x1f
-(define system_types-sec_air_ampl_logistic 32  ) ; 0x20
-(define system_types-sec_air_ampl_lta 17  ) ; 0x11
-(define system_types-sec_air_ampl_medevac 33  ) ; 0x21
-(define system_types-sec_air_ampl_mil_training 28  ) ; 0x1c
-(define system_types-sec_air_ampl_mpa 6  ) ; 0x6
-(define system_types-sec_air_ampl_neutralized_faker 34  ) ; 0x22
-(define system_types-sec_air_ampl_no_statement 0  ) ; 0x0
-(define system_types-sec_air_ampl_reconnaissance 8  ) ; 0x8
-(define system_types-sec_air_ampl_rescap 22  ) ; 0x16
-(define system_types-sec_air_ampl_rtb 23  ) ; 0x17
-(define system_types-sec_air_ampl_sar 9  ) ; 0x9
-(define system_types-sec_air_ampl_size 37  ) ; 0x25
-(define system_types-sec_air_ampl_special_mission 35  ) ; 0x23
-(define system_types-sec_air_ampl_support 11  ) ; 0xb
-(define system_types-sec_air_ampl_tanker 12  ) ; 0xc
-(define system_types-sec_air_ampl_transport 10  ) ; 0xa
-(define system_types-sec_air_ampl_vs 36  ) ; 0x24
-(define system_types-sec_air_ampl_x_ray 27  ) ; 0x1b
-(define system_types-sec_air_ampl_zombie 25  ) ; 0x19
-(define system_types-sec_air_refpos_des_airborn_early_warning 1  ) ; 0x1
-(define system_types-sec_air_refpos_des_asw_fixed_wing 2  ) ; 0x2
-(define system_types-sec_air_refpos_des_asw_hc 3  ) ; 0x3
-(define system_types-sec_air_refpos_des_combat_air_patrol 4  ) ; 0x4
-(define system_types-sec_air_refpos_des_corridor_tab 5  ) ; 0x5
-(define system_types-sec_air_refpos_des_marshal_point 6  ) ; 0x6
-(define system_types-sec_air_refpos_des_no_statement 0  ) ; 0x0
-(define system_types-sec_air_refpos_des_replenishment 7  ) ; 0x7
-(define system_types-sec_air_refpos_des_replenishment_point 12  ) ; 0xc
-(define system_types-sec_air_refpos_des_rescue 11  ) ; 0xb
-(define system_types-sec_air_refpos_des_size 14  ) ; 0xe
-(define system_types-sec_air_refpos_des_strike_init_point 8  ) ; 0x8
-(define system_types-sec_air_refpos_des_tacan 9  ) ; 0x9
-(define system_types-sec_air_refpos_des_tanker 13  ) ; 0xd
-(define system_types-sec_air_refpos_des_tomcat 10  ) ; 0xa
-(define system_types-sec_asw_refpos_des_asw_station 11  ) ; 0xb
-(define system_types-sec_asw_refpos_des_asw_sub_station 13  ) ; 0xd
-(define system_types-sec_asw_refpos_des_bottomed_non_submarine 12  ) ; 0xc
-(define system_types-sec_asw_refpos_des_brief_contact 9  ) ; 0x9
-(define system_types-sec_asw_refpos_des_dip_position 2  ) ; 0x2
-(define system_types-sec_asw_refpos_des_estimated_position 14  ) ; 0xe
-(define system_types-sec_asw_refpos_des_kingpin 3  ) ; 0x3
-(define system_types-sec_asw_refpos_des_lost_contact 4  ) ; 0x4
-(define system_types-sec_asw_refpos_des_no_statement 0  ) ; 0x0
-(define system_types-sec_asw_refpos_des_notack_area 10  ) ; 0xa
-(define system_types-sec_asw_refpos_des_pattern_centre 5  ) ; 0x5
-(define system_types-sec_asw_refpos_des_search_area_point 6  ) ; 0x6
-(define system_types-sec_asw_refpos_des_search_centre 7  ) ; 0x7
-(define system_types-sec_asw_refpos_des_sinker 8  ) ; 0x8
-(define system_types-sec_asw_refpos_des_size 15  ) ; 0xf
-(define system_types-sec_asw_refpos_des_wreck 1  ) ; 0x1
-(define system_types-sec_gen_refpos_des_aadcp 29  ) ; 0x1d
-(define system_types-sec_gen_refpos_des_ada_boc_tds 30  ) ; 0x1e
-(define system_types-sec_gen_refpos_des_air_base 0  ) ; 0x0
-(define system_types-sec_gen_refpos_des_artillery 31  ) ; 0x1f
-(define system_types-sec_gen_refpos_des_asrt 46  ) ; 0x2e
-(define system_types-sec_gen_refpos_des_bridge 47  ) ; 0x2f
-(define system_types-sec_gen_refpos_des_buffer_centre 32  ) ; 0x20
-(define system_types-sec_gen_refpos_des_coastal_radar_station 27  ) ; 0x1b
-(define system_types-sec_gen_refpos_des_control_reporting_centre 33  ) ; 0x21
-(define system_types-sec_gen_refpos_des_control_reporting_post 48  ) ; 0x30
-(define system_types-sec_gen_refpos_des_convoy 34  ) ; 0x22
-(define system_types-sec_gen_refpos_des_dan_buoy 28  ) ; 0x1c
-(define system_types-sec_gen_refpos_des_dasc 35  ) ; 0x23
-(define system_types-sec_gen_refpos_des_direction_centre 36  ) ; 0x24
-(define system_types-sec_gen_refpos_des_disposition_centre 1  ) ; 0x1
-(define system_types-sec_gen_refpos_des_distressed_vessel 2  ) ; 0x2
-(define system_types-sec_gen_refpos_des_ditched_a_slash_c 3  ) ; 0x3
-(define system_types-sec_gen_refpos_des_diversion 4  ) ; 0x4
-(define system_types-sec_gen_refpos_des_ecm_decoy 37  ) ; 0x25
-(define system_types-sec_gen_refpos_des_entry_point_or_aming_point 5  ) ; 0x5
-(define system_types-sec_gen_refpos_des_facp 38  ) ; 0x26
-(define system_types-sec_gen_refpos_des_force_centre 6  ) ; 0x6
-(define system_types-sec_gen_refpos_des_formation_centre 7  ) ; 0x7
-(define system_types-sec_gen_refpos_des_fpu_fru 39  ) ; 0x27
-(define system_types-sec_gen_refpos_des_ground_zero 8  ) ; 0x8
-(define system_types-sec_gen_refpos_des_impact_point 9  ) ; 0x9
-(define system_types-sec_gen_refpos_des_man_in_water 10  ) ; 0xa
-(define system_types-sec_gen_refpos_des_mar_head_quatr 11  ) ; 0xb
-(define system_types-sec_gen_refpos_des_mine 12  ) ; 0xc
-(define system_types-sec_gen_refpos_des_msl_detect_point 13  ) ; 0xd
-(define system_types-sec_gen_refpos_des_navigational 14  ) ; 0xe
-(define system_types-sec_gen_refpos_des_no_statement 15  ) ; 0xf
-(define system_types-sec_gen_refpos_des_norad_control_centre 40  ) ; 0x28
-(define system_types-sec_gen_refpos_des_oil_rig 16  ) ; 0x10
-(define system_types-sec_gen_refpos_des_oribit_point 24  ) ; 0x18
-(define system_types-sec_gen_refpos_des_picket 18  ) ; 0x12
-(define system_types-sec_gen_refpos_des_pim 17  ) ; 0x11
-(define system_types-sec_gen_refpos_des_point_0 19  ) ; 0x13
-(define system_types-sec_gen_refpos_des_point_a 20  ) ; 0x14
-(define system_types-sec_gen_refpos_des_point_r 21  ) ; 0x15
-(define system_types-sec_gen_refpos_des_point_x 22  ) ; 0x16
-(define system_types-sec_gen_refpos_des_point_y 23  ) ; 0x17
-(define system_types-sec_gen_refpos_des_pu 41  ) ; 0x29
-(define system_types-sec_gen_refpos_des_rail 42  ) ; 0x2a
-(define system_types-sec_gen_refpos_des_regional_control_centre 43  ) ; 0x2b
-(define system_types-sec_gen_refpos_des_rendezvous 25  ) ; 0x19
-(define system_types-sec_gen_refpos_des_rescue 44  ) ; 0x2c
-(define system_types-sec_gen_refpos_des_sam_site 49  ) ; 0x31
-(define system_types-sec_gen_refpos_des_size 52  ) ; 0x34
-(define system_types-sec_gen_refpos_des_tactical_air_control_centre 51  ) ; 0x33
-(define system_types-sec_gen_refpos_des_tactical_air_ops_centre 50  ) ; 0x32
-(define system_types-sec_gen_refpos_des_troop_concentration 45  ) ; 0x2d
-(define system_types-sec_gen_refpos_des_waypoint 26  ) ; 0x1a
-(define system_types-sec_subsurf_clas_ampl_no_statement 0  ) ; 0x0
-(define system_types-sec_subsurf_clas_ampl_wake 1  ) ; 0x1
-(define system_types-sec_subsurf_clas_ampl_wreck 2  ) ; 0x2
-(define system_types-sec_surf_ampl_ACV_Hydro 19  ) ; 0x13
-(define system_types-sec_surf_ampl_ASUW 4  ) ; 0x4
-(define system_types-sec_surf_ampl_ASW 3  ) ; 0x3
-(define system_types-sec_surf_ampl_assault_vessel 14  ) ; 0xe
-(define system_types-sec_surf_ampl_auxiliary 20  ) ; 0x14
-(define system_types-sec_surf_ampl_battleship 21  ) ; 0x15
-(define system_types-sec_surf_ampl_cargo 22  ) ; 0x16
-(define system_types-sec_surf_ampl_carrier 1  ) ; 0x1
-(define system_types-sec_surf_ampl_carrier_based_ASW_aircraft 22  ) ; 0x16
-(define system_types-sec_surf_ampl_command 23  ) ; 0x17
-(define system_types-sec_surf_ampl_cruiser 10  ) ; 0xa
-(define system_types-sec_surf_ampl_destroyer 2  ) ; 0x2
-(define system_types-sec_surf_ampl_fishing 17  ) ; 0x11
-(define system_types-sec_surf_ampl_fleet_support 6  ) ; 0x6
-(define system_types-sec_surf_ampl_frigate 11  ) ; 0xb
-(define system_types-sec_surf_ampl_hospital 7  ) ; 0x7
-(define system_types-sec_surf_ampl_intelligence 15  ) ; 0xf
-(define system_types-sec_surf_ampl_landing_craft 13  ) ; 0xd
-(define system_types-sec_surf_ampl_landing_platform 26  ) ; 0x1a
-(define system_types-sec_surf_ampl_landing_ship 12  ) ; 0xc
-(define system_types-sec_surf_ampl_leisure 18  ) ; 0x12
-(define system_types-sec_surf_ampl_merchant 16  ) ; 0x10
-(define system_types-sec_surf_ampl_mine_layer 8  ) ; 0x8
-(define system_types-sec_surf_ampl_mine_sweeper 9  ) ; 0x9
-(define system_types-sec_surf_ampl_no_statement 0  ) ; 0x0
-(define system_types-sec_surf_ampl_ocean_research 27  ) ; 0x1b
-(define system_types-sec_surf_ampl_sec_surf_ampl_destroyer_AAW 24  ) ; 0x18
-(define system_types-sec_surf_ampl_sec_surf_ampl_destroyer_ASW 25  ) ; 0x19
-(define system_types-sec_surf_ampl_size 30  ) ; 0x1e
-(define system_types-sec_surf_ampl_surfaced_submarine 28  ) ; 0x1c
-(define system_types-sec_surf_ampl_tanker 29  ) ; 0x1d
-(define system_types-sec_surf_ampl_underway_replenishment 5  ) ; 0x5
-(define system_types-sector_aaw_coordinator 23  ) ; 0x17
-(define system_types-sensor 1  ) ; 0x1
-(define system_types-shadower 9  ) ; 0x9
-(define system_types-ship_active_sonar 1  ) ; 0x1
-(define system_types-ship_passive_sonar 2  ) ; 0x2
-(define system_types-ship_sonar 5  ) ; 0x5
-(define system_types-ship_variable_active_sonar 3  ) ; 0x3
-(define system_types-ship_variable_passive_sonar 4  ) ; 0x4
-(define system_types-side_lobe 6  ) ; 0x6
-(define system_types-sim_mode_mode_control_command 1  ) ; 0x1
-(define system_types-simulated_track 1  ) ; 0x1
-(define system_types-simulation_link11_mode 1  ) ; 0x1
-(define system_types-single_target 1  ) ; 0x1
-(define system_types-slant_polarisation 5  ) ; 0x5
-(define system_types-sofpb 33  ) ; 0x21
-(define system_types-sosus_AOP_source 4  ) ; 0x4
-(define system_types-sosus_asw_sensor_contact 38  ) ; 0x26
-(define system_types-special_point 13  ) ; 0xd
-(define system_types-special_point_ampl 14  ) ; 0xe
-(define system_types-special_processing_operator 3  ) ; 0x3
-(define system_types-specific_freq 0  ) ; 0x0
-(define system_types-specific_platform 1  ) ; 0x1
-(define system_types-spy 2  ) ; 0x2
-(define system_types-square_or_rectangle 0  ) ; 0x0
-(define system_types-ssn_control_ship 18  ) ; 0x12
-(define system_types-sssc 35  ) ; 0x23
-(define system_types-standby_link11_mode 0  ) ; 0x0
-(define system_types-standby_mode_control_command 0  ) ; 0x0
-(define system_types-start 0  ) ; 0x0
-(define system_types-start_transmission 0  ) ; 0x0
-(define system_types-steady_scan 3  ) ; 0x3
-(define system_types-stop 1  ) ; 0x1
-(define system_types-stop_emergency 4  ) ; 0x4
-(define system_types-stop_forcetell 6  ) ; 0x6
-(define system_types-stop_transmission 1  ) ; 0x1
-(define system_types-stopped 1  ) ; 0x1
-(define system_types-stopped_by_operator 6  ) ; 0x6
-(define system_types-strike 6  ) ; 0x6
-(define system_types-sub_propusion_disel_asw_bearing_class_ampl 3  ) ; 0x3
-(define system_types-sub_propusion_knuclear_asw_bearing_class_ampl 2  ) ; 0x2
-(define system_types-sub_propusion_unknown_asw_bearing_class_ampl 1  ) ; 0x1
-(define system_types-submarine_active_sonar 6  ) ; 0x6
-(define system_types-submarine_passive_sonar 7  ) ; 0x7
-(define system_types-subsurf_raid_rep_control_unit 14  ) ; 0xe
-(define system_types-subsurface_environment 4  ) ; 0x4
-(define system_types-subsurface_platform 4  ) ; 0x4
-(define system_types-supporting_info 25  ) ; 0x19
-(define system_types-surf_pos 4  ) ; 0x4
-(define system_types-surf_pos_ampl 5  ) ; 0x5
-(define system_types-surf_raid_rep_control_unit 13  ) ; 0xd
-(define system_types-surface_asw_bearing_class_ampl 12  ) ; 0xc
-(define system_types-surface_environment 2  ) ; 0x2
-(define system_types-surface_military_asw_bearing_class_ampl 16  ) ; 0x10
-(define system_types-surface_non_military_asw_bearing_class_ampl 17  ) ; 0x11
-(define system_types-surface_platform 3  ) ; 0x3
-(define system_types-sw_commander 34  ) ; 0x22
-(define system_types-system_limitations 0  ) ; 0x0
-(define system_types-tactical_air_control_centre_pu 12  ) ; 0xc
-(define system_types-tag_transfer 42  ) ; 0x2a
-(define system_types-target_destroyed 5  ) ; 0x5
-(define system_types-target_kind_AEW 4  ) ; 0x4
-(define system_types-target_kind_ASW 5  ) ; 0x5
-(define system_types-target_kind_FPB 17  ) ; 0x11
-(define system_types-target_kind_F_A_18 16  ) ; 0x10
-(define system_types-target_kind_HELO 6  ) ; 0x6
-(define system_types-target_kind_SS 12  ) ; 0xc
-(define system_types-target_kind_SSN 13  ) ; 0xd
-(define system_types-target_kind_bomber 15  ) ; 0xf
-(define system_types-target_kind_cruiser 9  ) ; 0x9
-(define system_types-target_kind_dummy 8  ) ; 0x8
-(define system_types-target_kind_f14 0  ) ; 0x0
-(define system_types-target_kind_f14_with_data_link 1  ) ; 0x1
-(define system_types-target_kind_f4 2  ) ; 0x2
-(define system_types-target_kind_f4_with_data_link 3  ) ; 0x3
-(define system_types-target_kind_missile 7  ) ; 0x7
-(define system_types-target_kind_non_exercise 14  ) ; 0xe
-(define system_types-target_kind_sec_surf_ampl_carrier 10  ) ; 0xa
-(define system_types-target_kind_sec_surf_ampl_destroyer 11  ) ; 0xb
-(define system_types-target_kind_spare_19 19  ) ; 0x13
-(define system_types-target_kind_spare_20 20  ) ; 0x14
-(define system_types-target_kind_spare_21 21  ) ; 0x15
-(define system_types-target_kind_spare_22 22  ) ; 0x16
-(define system_types-target_kind_spare_23 23  ) ; 0x17
-(define system_types-target_kind_spare_24 24  ) ; 0x18
-(define system_types-target_kind_spare_25 25  ) ; 0x19
-(define system_types-target_kind_spare_26 26  ) ; 0x1a
-(define system_types-target_kind_spare_27 27  ) ; 0x1b
-(define system_types-target_kind_spare_28 28  ) ; 0x1c
-(define system_types-target_kind_spare_29 29  ) ; 0x1d
-(define system_types-target_kind_spare_30 30  ) ; 0x1e
-(define system_types-target_kind_spare_31 31  ) ; 0x1f
-(define system_types-target_kind_torpedo 18  ) ; 0x12
-(define system_types-targeting_link 14  ) ; 0xe
-(define system_types-targeting_radar 13  ) ; 0xd
-(define system_types-teletype 9  ) ; 0x9
-(define system_types-terminal_guidance 17  ) ; 0x11
-(define system_types-terminate_pairing_association 3  ) ; 0x3
-(define system_types-test_mode_mode_control_command 2  ) ; 0x2
-(define system_types-test_state_none 0  ) ; 0x0
-(define system_types-threat 2  ) ; 0x2
-(define system_types-time_out_input 1  ) ; 0x1
-(define system_types-time_out_interrupt 2  ) ; 0x2
-(define system_types-time_out_output 0  ) ; 0x0
-(define system_types-time_scan 1  ) ; 0x1
-(define system_types-timing 37  ) ; 0x25
-(define system_types-tomcat_picket 27  ) ; 0x1b
-(define system_types-torpedo_asw_bearing_class_ampl 13  ) ; 0xd
-(define system_types-towed_array 30  ) ; 0x1e
-(define system_types-track_alert 4  ) ; 0x4
-(define system_types-track_arrived 8  ) ; 0x8
-(define system_types-track_kind_aco_bearing_track 1  ) ; 0x1
-(define system_types-track_kind_aco_fix_refpos 0  ) ; 0x0
-(define system_types-track_kind_air_point_track 2  ) ; 0x2
-(define system_types-track_kind_air_refpos 3  ) ; 0x3
-(define system_types-track_kind_asw_refpos 4  ) ; 0x4
-(define system_types-track_kind_datum_refpos 5  ) ; 0x5
-(define system_types-track_kind_ecm_bearing_track 7  ) ; 0x7
-(define system_types-track_kind_ecm_fix_refpos 6  ) ; 0x6
-(define system_types-track_kind_esm_bearing_track 9  ) ; 0x9
-(define system_types-track_kind_esm_fix_refpos 8  ) ; 0x8
-(define system_types-track_kind_gen_refpos 10  ) ; 0xa
-(define system_types-track_kind_land_point_track 13  ) ; 0xd
-(define system_types-track_kind_none 14  ) ; 0xe
-(define system_types-track_kind_subsurface_point_track 11  ) ; 0xb
-(define system_types-track_kind_surface_point_track 12  ) ; 0xc
-(define system_types-track_not_existing 0  ) ; 0x0
-(define system_types-track_number_pool_exceeded 1  ) ; 0x1
-(define system_types-track_quality_changed 3  ) ; 0x3
-(define system_types-tracking_network_track_phase 1  ) ; 0x1
-(define system_types-tracking_operator 1  ) ; 0x1
-(define system_types-tracking_track_phase 2  ) ; 0x2
-(define system_types-tracking_weapon_engagement_state 3  ) ; 0x3
-(define system_types-training 40  ) ; 0x28
-(define system_types-training_track 2  ) ; 0x2
-(define system_types-transfer_cntrl 3  ) ; 0x3
-(define system_types-transiting 5  ) ; 0x5
-(define system_types-transmitted_link_state 2  ) ; 0x2
-(define system_types-transmitted_order_result 2  ) ; 0x2
-(define system_types-twenty_minutes 3  ) ; 0x3
-(define system_types-two_or_more_usable 3  ) ; 0x3
-(define system_types-two_to_seven_targets 2  ) ; 0x2
-(define system_types-type_III_diesel_asw_bearing_class_ampl 11  ) ; 0xb
-(define system_types-type_III_nuclear_asw_bearing_class_ampl 6  ) ; 0x6
-(define system_types-type_II_diesel_asw_bearing_class_ampl 10  ) ; 0xa
-(define system_types-type_II_nuclear_asw_bearing_class_ampl 5  ) ; 0x5
-(define system_types-type_IV_nuclear_asw_bearing_class_ampl 7  ) ; 0x7
-(define system_types-type_I_diesel_asw_bearing_class_ampl 9  ) ; 0x9
-(define system_types-type_I_nuclear_asw_bearing_class_ampl 4  ) ; 0x4
-(define system_types-type_V_nuclear_asw_bearing_class_ampl 8  ) ; 0x8
-(define system_types-unacceptable_id 4  ) ; 0x4
-(define system_types-undefined_AOP_source 0  ) ; 0x0
-(define system_types-undefined_above_below_layer 3  ) ; 0x3
-(define system_types-undefined_asw_sensor_contact 33  ) ; 0x21
-(define system_types-undefined_current_surface_mission 12  ) ; 0xc
-(define system_types-undefined_track_invest_period 7  ) ; 0x7
-(define system_types-underwater_telephone 29  ) ; 0x1d
-(define system_types-underway_replenishment_current_surface_mission 4  ) ; 0x4
-(define system_types-unit_not_exercising_AC_cap 3  ) ; 0x3
-(define system_types-unknown 44  ) ; 0x2c
-(define system_types-unknown_aircraft_TN 2  ) ; 0x2
-(define system_types-unknown_contact_depth 0  ) ; 0x0
-(define system_types-unknown_ecm_amplifying_char 1  ) ; 0x1
-(define system_types-unknown_engage_TN 3  ) ; 0x3
-(define system_types-unknown_environment 0  ) ; 0x0
-(define system_types-unknown_ntn_friend 0  ) ; 0x0
-(define system_types-unknown_ntn_platform 3  ) ; 0x3
-(define system_types-unknown_ntn_target_order_reject_reason 2  ) ; 0x2
-(define system_types-unknown_ntn_target_weapon_engagement_reject_reason 1  ) ; 0x1
-(define system_types-unknown_pu_air_cntrl_order_rej_reas 1  ) ; 0x1
-(define system_types-unknown_pu_ew_coord_rej_reas 3  ) ; 0x3
-(define system_types-unknown_pu_link_pointer_rej_reason 0  ) ; 0x0
-(define system_types-unknown_pu_order_reject_reason 4  ) ; 0x4
-(define system_types-unknown_pu_transfer 4  ) ; 0x4
-(define system_types-unknown_related_EW_track 2  ) ; 0x2
-(define system_types-unknown_threat_evaluation 3  ) ; 0x3
-(define system_types-unknown_track_aircr_mis_reject_reason 0  ) ; 0x0
-(define system_types-unknown_track_ew_coord_rej_reas 1  ) ; 0x1
-(define system_types-unknown_track_iff_upd_rej_reason 0  ) ; 0x0
-(define system_types-unknown_track_order_reject_reason 1  ) ; 0x1
-(define system_types-update_filter 9  ) ; 0x9
-(define system_types-valid_response 3  ) ; 0x3
-(define system_types-vertical_polarisation 4  ) ; 0x4
-(define system_types-visual 27  ) ; 0x1b
-(define system_types-visual_electro_optics 6  ) ; 0x6
-(define system_types-voice 7  ) ; 0x7
-(define system_types-voice_report 5  ) ; 0x5
-(define system_types-weapon_coordinator 0  ) ; 0x0
-(define system_types-weapon_eng_status 38  ) ; 0x26
-(define system_types-weapon_not_in_configuration 3  ) ; 0x3
-(define system_types-weapon_status_impedence 2  ) ; 0x2
-(define system_types-weapons_free 0  ) ; 0x0
-(define system_types-weapons_tight 1  ) ; 0x1
-(define system_types-will_comply 0  ) ; 0x0
-(define system_types-window_chaff_guard_ship 19  ) ; 0x13
-(define system_types-wiped 2  ) ; 0x2
-(define system_types-wrong_interrupt_code 3  ) ; 0x3
-(define system_types-wrong_number_of_input_words 4  ) ; 0x4
-(define system_types-zero_minutes 0  ) ; 0x0
+(define system_types-AADCP 20  ) 
+(define system_types-AEW_aircraft 23  ) 
+(define system_types-AIR_TO_SURF_MISSILE 8  ) 
+(define system_types-ASW_AIRCRAFT_STATUS_KIND_FUEL 4  ) 
+(define system_types-ASW_AIRCRAFT_STATUS_KIND_NONE 0  ) 
+(define system_types-ASW_AIRCRAFT_STATUS_KIND_SENSOR 1  ) 
+(define system_types-ASW_AIRCRAFT_STATUS_KIND_SENSOR_FUEL 5  ) 
+(define system_types-ASW_AIRCRAFT_STATUS_KIND_SENSOR_WEAPON 3  ) 
+(define system_types-ASW_AIRCRAFT_STATUS_KIND_SENSOR_WEAPON_FUEL 7  ) 
+(define system_types-ASW_AIRCRAFT_STATUS_KIND_WEAPON 2  ) 
+(define system_types-ASW_AIRCRAFT_STATUS_KIND_WEAPON_FUEL 6  ) 
+(define system_types-ASW_HELO 3  ) 
+(define system_types-ASW_MISSILE 4  ) 
+(define system_types-ATDS_pu 24  ) 
+(define system_types-AWACS_pu 25  ) 
+(define system_types-CONVENTIONAL 7  ) 
+(define system_types-CRC 15  ) 
+(define system_types-CRP 16  ) 
+(define system_types-DC 19  ) 
+(define system_types-DD_escort_AAW 3  ) 
+(define system_types-DD_escort_ASW_pu 4  ) 
+(define system_types-DD_escort_General_pu 5  ) 
+(define system_types-DEPTH_CHARGE 5  ) 
+(define system_types-FIXED_WING_ASW_AIRCRAFT 2  ) 
+(define system_types-FPB 6  ) 
+(define system_types-IFF 2  ) 
+(define system_types-INTERCEPTOR 10  ) 
+(define system_types-IRCM_ecm_amplifying_char 4  ) 
+(define system_types-IRCM_esm_amplifying_char 20  ) 
+(define system_types-LCC 8  ) 
+(define system_types-LHA_LHD 7  ) 
+(define system_types-MAD 5  ) 
+(define system_types-MHQ 13  ) 
+(define system_types-NCC 17  ) 
+(define system_types-RCC 18  ) 
+(define system_types-R_10_DM 0  ) 
+(define system_types-R_15_DM 2  ) 
+(define system_types-R_20_DM 3  ) 
+(define system_types-R_5_DM 1  ) 
+(define system_types-SURF_TO_AIR_MISSILE 9  ) 
+(define system_types-SURF_TO_SURF_MISSILE 6  ) 
+(define system_types-S_slash_B_air_control_unit 8  ) 
+(define system_types-THRESHOLD_BELOW 0  ) 
+(define system_types-THRESHOLD_EXCEEDED 1  ) 
+(define system_types-THRESHOLD_FULL 2  ) 
+(define system_types-TORPEDO 1  ) 
+(define system_types-TSCALE_MILLISEC 0  ) 
+(define system_types-TSCALE_SEC 1  ) 
+(define system_types-TV_imagery 11  ) 
+(define system_types-T_1h 0  ) 
+(define system_types-T_1h30mn 2  ) 
+(define system_types-T_2h 3  ) 
+(define system_types-T_30mn 1  ) 
+(define system_types-WEAPON_TYPE_AIRCRAFT 12  ) 
+(define system_types-WEAPON_TYPE_ANY_ALL 11  ) 
+(define system_types-WEAPON_TYPE_CONVENTIONAL 14  ) 
+(define system_types-WEAPON_TYPE_MISSILE 13  ) 
+(define system_types-a10 16  ) 
+(define system_types-a18 19  ) 
+(define system_types-a3 10  ) 
+(define system_types-a4 11  ) 
+(define system_types-a5 12  ) 
+(define system_types-a6 13  ) 
+(define system_types-a7 14  ) 
+(define system_types-aaw 1  ) 
+(define system_types-aaw_air_control_unit 40  ) 
+(define system_types-aaw_coordinator 10  ) 
+(define system_types-aaw_picket 26  ) 
+(define system_types-above_layer_above_below_layer 1  ) 
+(define system_types-above_layer_contact_depth 2  ) 
+(define system_types-ac_not_under_PU_dest_control 5  ) 
+(define system_types-ac_not_under_pu_control 7  ) 
+(define system_types-accepted_order_result 0  ) 
+(define system_types-acquiring_on_position 0  ) 
+(define system_types-acquiring_on_track 1  ) 
+(define system_types-active_sonar 1  ) 
+(define system_types-active_sonobuoy 4  ) 
+(define system_types-active_sonobuoy_range 19  ) 
+(define system_types-active_sonobuoy_range_bearing 18  ) 
+(define system_types-addressee_inactive 5  ) 
+(define system_types-aew_control_ship 29  ) 
+(define system_types-air_control_unit 7  ) 
+(define system_types-air_environment 1  ) 
+(define system_types-air_pos 2  ) 
+(define system_types-air_pos_ampl 3  ) 
+(define system_types-air_raid_rep_control_ship 25  ) 
+(define system_types-air_strike_safety_ship 32  ) 
+(define system_types-airborne 2  ) 
+(define system_types-aircr_mission_status 31  ) 
+(define system_types-aircraft_control 30  ) 
+(define system_types-aircraft_control_impedence 16  ) 
+(define system_types-aircraft_mission_accepted 1  ) 
+(define system_types-aircraft_reported 3  ) 
+(define system_types-aircraft_sec_surf_ampl_carrier_pu 1  ) 
+(define system_types-aircraft_voice_report 2  ) 
+(define system_types-all_available 0  ) 
+(define system_types-allocate_track_number 0  ) 
+(define system_types-allocate_track_number_with_ntn_conflict 1  ) 
+(define system_types-already_being_controlled 1  ) 
+(define system_types-already_in_use 0  ) 
+(define system_types-ambiguous 1  ) 
+(define system_types-anti_ship_capable_missile_esm_broad_classification 3  ) 
+(define system_types-anti_shipping 1  ) 
+(define system_types-anti_submarine 2  ) 
+(define system_types-anti_surface_warfare 13  ) 
+(define system_types-any_platform 0  ) 
+(define system_types-aop_track 3  ) 
+(define system_types-area_of_prob_basic 27  ) 
+(define system_types-area_of_prob_basic_ampl 28  ) 
+(define system_types-area_of_prob_second 29  ) 
+(define system_types-assign 3  ) 
+(define system_types-assign_result_accepted 0  ) 
+(define system_types-assign_result_automatic 2  ) 
+(define system_types-assign_result_rejected 1  ) 
+(define system_types-assigned_investigating 2  ) 
+(define system_types-association 1  ) 
+(define system_types-association_impedence 1  ) 
+(define system_types-assume_cntrl 0  ) 
+(define system_types-assume_duties 15  ) 
+(define system_types-asw 2  ) 
+(define system_types-asw_air_control_unit 11  ) 
+(define system_types-asw_aircr_status 32  ) 
+(define system_types-asw_ampl 7  ) 
+(define system_types-asw_bearing 11  ) 
+(define system_types-asw_bearing_ampl 12  ) 
+(define system_types-asw_coordinator 20  ) 
+(define system_types-asw_helo_general 8  ) 
+(define system_types-asw_helo_weapon_sec_surf_ampl_carrier 10  ) 
+(define system_types-asw_mission_accepted 2  ) 
+(define system_types-asw_prim 6  ) 
+(define system_types-asw_prim_aco 9  ) 
+(define system_types-asw_prim_aco_ampl 10  ) 
+(define system_types-asw_search 5  ) 
+(define system_types-asw_second 8  ) 
+(define system_types-asw_sector_coordinator 21  ) 
+(define system_types-asw_sensor_derived 5  ) 
+(define system_types-at_15_min_intervals 4  ) 
+(define system_types-at_1_min_intervals 2  ) 
+(define system_types-at_5_min_intervals 3  ) 
+(define system_types-at_hourly_intervals 5  ) 
+(define system_types-aurora 12  ) 
+(define system_types-auto_accept 2  ) 
+(define system_types-auxiliary_asw_secondary_mission 10  ) 
+(define system_types-av8 15  ) 
+(define system_types-available 0  ) 
+(define system_types-bathy_guard 6  ) 
+(define system_types-beacon 15  ) 
+(define system_types-bearing_and_range 0  ) 
+(define system_types-below_layer_above_below_layer 2  ) 
+(define system_types-below_layer_contact_layer 3  ) 
+(define system_types-bottom_bounce 22  ) 
+(define system_types-bottomed 5  ) 
+(define system_types-breguet_atlantique 11  ) 
+(define system_types-buffer_centre_pu 14  ) 
+(define system_types-cac 4  ) 
+(define system_types-cancel_handover 6  ) 
+(define system_types-cancel_periodic_report 4  ) 
+(define system_types-cancel_update_and_watch 5  ) 
+(define system_types-cant_comply 1  ) 
+(define system_types-cant_process 3  ) 
+(define system_types-cap_aacu_control_ship 28  ) 
+(define system_types-cass 35  ) 
+(define system_types-cease_conducting_procedures 14  ) 
+(define system_types-cease_duties 16  ) 
+(define system_types-cease_engage 4  ) 
+(define system_types-cease_engage_specific 10  ) 
+(define system_types-cease_fire 6  ) 
+(define system_types-cease_proceeding_to_point 12  ) 
+(define system_types-chaff 7  ) 
+(define system_types-channel_test_link11_mode 2  ) 
+(define system_types-circle_or_ellipse 1  ) 
+(define system_types-circular_polarisation 1  ) 
+(define system_types-classification_acoustic_positive 5  ) 
+(define system_types-classification_certain_submarine 3  ) 
+(define system_types-classification_no_statement 0  ) 
+(define system_types-classification_non_submarine 4  ) 
+(define system_types-classification_possible_submarine 1  ) 
+(define system_types-classification_probable_submarine 2  ) 
+(define system_types-classification_size 6  ) 
+(define system_types-coastal_radar_station_pu 27  ) 
+(define system_types-command_already_performed 2  ) 
+(define system_types-command_and_control 9  ) 
+(define system_types-command_guidance 16  ) 
+(define system_types-command_impedence 8  ) 
+(define system_types-command_message_name 39  ) 
+(define system_types-command_was_already_performed_network_ass_rej_reason 3  ) 
+(define system_types-communication_ecm_broad_classification 3  ) 
+(define system_types-communication_esm_broad_classification 2  ) 
+(define system_types-conduct_procedures 13  ) 
+(define system_types-confidence_1 1  ) 
+(define system_types-confidence_2 2  ) 
+(define system_types-confidence_3 3  ) 
+(define system_types-confidence_4 4  ) 
+(define system_types-confidence_5 5  ) 
+(define system_types-confidence_6 6  ) 
+(define system_types-conflict 0  ) 
+(define system_types-control_and_engage 1  ) 
+(define system_types-controlled_ac_under_own_control 2  ) 
+(define system_types-controlled_ac_unknown 1  ) 
+(define system_types-controlling_unit_accepted 0  ) 
+(define system_types-convergence_zone_1 23  ) 
+(define system_types-convergence_zone_2 24  ) 
+(define system_types-convergence_zone_3 25  ) 
+(define system_types-correlated 4  ) 
+(define system_types-correlation 2  ) 
+(define system_types-counter_measures 4  ) 
+(define system_types-cover 7  ) 
+(define system_types-cruiser_pu 2  ) 
+(define system_types-cw 6  ) 
+(define system_types-dBm21_to_dBm25 1  ) 
+(define system_types-dBm25_to_dBm29 2  ) 
+(define system_types-dBm29_to_dBm33 3  ) 
+(define system_types-dBm33_to_dBm37 4  ) 
+(define system_types-dBm37_to_dBm41 5  ) 
+(define system_types-dBm41_to_dBm45 6  ) 
+(define system_types-dBm45_or_more 7  ) 
+(define system_types-data_exchange_link11_mode 4  ) 
+(define system_types-data_exchange_mode_control_command 4  ) 
+(define system_types-data_link 10  ) 
+(define system_types-data_ref_pos 0  ) 
+(define system_types-data_ref_pos_ampl 1  ) 
+(define system_types-deceptive_ecm_amplifying_char 3  ) 
+(define system_types-deceptive_esm_amplifying_char 19  ) 
+(define system_types-deceptive_interrogator 9  ) 
+(define system_types-decoy_asw_bearing_class_ampl 14  ) 
+(define system_types-degrees_10 1  ) 
+(define system_types-degrees_180 6  ) 
+(define system_types-degrees_20 2  ) 
+(define system_types-degrees_30 3  ) 
+(define system_types-degrees_360 7  ) 
+(define system_types-degrees_45 4  ) 
+(define system_types-degrees_5 0  ) 
+(define system_types-degrees_90 5  ) 
+(define system_types-deleted_by_sensor 5  ) 
+(define system_types-deleted_by_system 6  ) 
+(define system_types-designated_fix 28  ) 
+(define system_types-dicass 37  ) 
+(define system_types-difar 17  ) 
+(define system_types-difference 0  ) 
+(define system_types-different_test_word 5  ) 
+(define system_types-direct_path 21  ) 
+(define system_types-disruptive_ecm_amplifying_char 2  ) 
+(define system_types-disruptive_esm_amplifying_char 18  ) 
+(define system_types-dlrp_receive_mode 0  ) 
+(define system_types-dlrp_standalone_mode 2  ) 
+(define system_types-dlrp_transmit_mode 1  ) 
+(define system_types-doppler 5  ) 
+(define system_types-ecm_intercept 15  ) 
+(define system_types-eight_or_more_targets 3  ) 
+(define system_types-emergency 2  ) 
+(define system_types-emergency_and_forcetell 3  ) 
+(define system_types-emergency_network_assignment_command 3  ) 
+(define system_types-emergency_running 4  ) 
+(define system_types-engage 2  ) 
+(define system_types-engage_asm_ssm 17  ) 
+(define system_types-engage_specific 9  ) 
+(define system_types-engage_status_impedence 4  ) 
+(define system_types-engagement_broken 8  ) 
+(define system_types-engagement_interrupted 10  ) 
+(define system_types-enroute 2  ) 
+(define system_types-escort 7  ) 
+(define system_types-esm 12  ) 
+(define system_types-esm_ampl 17  ) 
+(define system_types-esm_parameter 18  ) 
+(define system_types-esm_parameter_ampl 19  ) 
+(define system_types-esm_prim 16  ) 
+(define system_types-estimated_by_rep_unit 1  ) 
+(define system_types-estimated_deep 4  ) 
+(define system_types-estimated_shalow 1  ) 
+(define system_types-eval_sector_using_bearing 3  ) 
+(define system_types-eval_sector_using_track 2  ) 
+(define system_types-eval_track_periodic_report 0  ) 
+(define system_types-eval_track_update_and_watch 1  ) 
+(define system_types-ew 7  ) 
+(define system_types-ew_bear_or_fix 2  ) 
+(define system_types-ew_control_ship 5  ) 
+(define system_types-ew_coordination 20  ) 
+(define system_types-ew_intelligence 34  ) 
+(define system_types-ew_intelligence_ampl 35  ) 
+(define system_types-ew_supervisor 2  ) 
+(define system_types-f0_to_100_MHz 1  ) 
+(define system_types-f0_to_250_MHz 1  ) 
+(define system_types-f10000_to_20000_MHz 10  ) 
+(define system_types-f1000_to_1100_MHz 11  ) 
+(define system_types-f1000_to_2000_MHz 4  ) 
+(define system_types-f100_to_200_MHz 2  ) 
+(define system_types-f101 5  ) 
+(define system_types-f102 6  ) 
+(define system_types-f104 7  ) 
+(define system_types-f106 8  ) 
+(define system_types-f1100_to_1200_MHz 12  ) 
+(define system_types-f111 9  ) 
+(define system_types-f1200_to_1300_MHz 13  ) 
+(define system_types-f1300_to_1400_MHz 14  ) 
+(define system_types-f14 3  ) 
+(define system_types-f1400_to_1500_MHz 15  ) 
+(define system_types-f15 4  ) 
+(define system_types-f1500_to_1600_MHz 16  ) 
+(define system_types-f16 17  ) 
+(define system_types-f1600_to_1700_MHz 17  ) 
+(define system_types-f1700_to_1800_MHz 18  ) 
+(define system_types-f18 18  ) 
+(define system_types-f1800_to_1900_MHz 19  ) 
+(define system_types-f1900_to_2000_MHz 20  ) 
+(define system_types-f20000_to_40000_MHz 11  ) 
+(define system_types-f2000_to_2100_MHz 21  ) 
+(define system_types-f2000_to_3000_MHz 5  ) 
+(define system_types-f200_to_300_MHz 3  ) 
+(define system_types-f2100_to_2200_MHz 22  ) 
+(define system_types-f2200_to_2300_MHz 23  ) 
+(define system_types-f2300_to_2400_MHz 24  ) 
+(define system_types-f2400_to_2500_MHz 25  ) 
+(define system_types-f250_to_500_MHz 2  ) 
+(define system_types-f3000_to_4000_MHz 6  ) 
+(define system_types-f300_to_400_MHz 4  ) 
+(define system_types-f4 1  ) 
+(define system_types-f40000_to_60000_MHz 12  ) 
+(define system_types-f4000_to_6000_MHz 7  ) 
+(define system_types-f400_to_500_MHz 5  ) 
+(define system_types-f5 20  ) 
+(define system_types-f500_to_1000_MHz 3  ) 
+(define system_types-f500_to_600_MHz 6  ) 
+(define system_types-f60000_to_100000_MHz 13  ) 
+(define system_types-f6000_to_8000_MHz 8  ) 
+(define system_types-f600_to_700_MHz 7  ) 
+(define system_types-f700_to_800_MHz 8  ) 
+(define system_types-f8 2  ) 
+(define system_types-f8000_to_10000_MHz 9  ) 
+(define system_types-f800_to_900_MHz 9  ) 
+(define system_types-f900_to_1000_MHz 10  ) 
+(define system_types-filtered_out 0  ) 
+(define system_types-finished 3  ) 
+(define system_types-fire_control_conventional 3  ) 
+(define system_types-fire_control_laser 4  ) 
+(define system_types-firing_engaging 4  ) 
+(define system_types-fish_marine_asw_bearing_class_ampl 15  ) 
+(define system_types-five_minutes 2  ) 
+(define system_types-five_or_more_usable 3  ) 
+(define system_types-fixed_wing_asw_asw_aircraft 5  ) 
+(define system_types-flir 39  ) 
+(define system_types-force_marshaller 39  ) 
+(define system_types-force_track_coordinator 38  ) 
+(define system_types-forcetell 1  ) 
+(define system_types-forcetell_network_assignment_command 5  ) 
+(define system_types-forcetell_running 5  ) 
+(define system_types-fr_reports_freq_range 0  ) 
+(define system_types-freq_range 1  ) 
+(define system_types-frequency_scan 0  ) 
+(define system_types-frigate_pu 9  ) 
+(define system_types-from_0_to_15_minutes 3  ) 
+(define system_types-from_16_to_30_minutes 4  ) 
+(define system_types-from_1_to_1point5_hours 7  ) 
+(define system_types-from_1point5_to_2_hours 8  ) 
+(define system_types-from_2_to_2point5_hours 9  ) 
+(define system_types-from_2point5_to_3_hours 10  ) 
+(define system_types-from_31_to_45_minutes 5  ) 
+(define system_types-from_3_to_4_hours 11  ) 
+(define system_types-from_46_minutes_to_1_hour 6  ) 
+(define system_types-from_4_to_6_hours 12  ) 
+(define system_types-from_6_to_8_hours 13  ) 
+(define system_types-from_8_to_10_hours 14  ) 
+(define system_types-gridlock_status_aborted 3  ) 
+(define system_types-gridlock_status_active 1  ) 
+(define system_types-gridlock_status_none 0  ) 
+(define system_types-gridlock_status_ready 2  ) 
+(define system_types-guide 0  ) 
+(define system_types-have_complied 2  ) 
+(define system_types-head_up 9  ) 
+(define system_types-helicopter_control_unit 12  ) 
+(define system_types-helo 26  ) 
+(define system_types-helo_active_sonar 8  ) 
+(define system_types-helo_dipping_sonar 9  ) 
+(define system_types-helo_passive_sonar 9  ) 
+(define system_types-hold_down 0  ) 
+(define system_types-hold_fire 5  ) 
+(define system_types-holding_contact 1  ) 
+(define system_types-horizontal_polarisation 2  ) 
+(define system_types-identification 3  ) 
+(define system_types-identity_assumed_friend 1  ) 
+(define system_types-identity_faker 8  ) 
+(define system_types-identity_friend 2  ) 
+(define system_types-identity_hostile 4  ) 
+(define system_types-identity_joker 7  ) 
+(define system_types-identity_neutral 6  ) 
+(define system_types-identity_no_statement 9  ) 
+(define system_types-identity_pending 0  ) 
+(define system_types-identity_size 10  ) 
+(define system_types-identity_suspect 3  ) 
+(define system_types-identity_unknown 5  ) 
+(define system_types-iff_multiple 0  ) 
+(define system_types-iff_sif 33  ) 
+(define system_types-iff_support1 1  ) 
+(define system_types-iff_support2 2  ) 
+(define system_types-iff_support3 3  ) 
+(define system_types-iff_support4 4  ) 
+(define system_types-impedence_zero 0  ) 
+(define system_types-infrared_system 31  ) 
+(define system_types-init 0  ) 
+(define system_types-intelligence_AOP_source 3  ) 
+(define system_types-intelligence_asw_sensor_contact 11  ) 
+(define system_types-intruder_asw_secondary_mission 8  ) 
+(define system_types-intruder_current_surface_mission 11  ) 
+(define system_types-invalid_iff_mode4_IN_DLP 4  ) 
+(define system_types-invalid_response 2  ) 
+(define system_types-itass 36  ) 
+(define system_types-jitter 1  ) 
+(define system_types-keyed_telegraph 8  ) 
+(define system_types-land_environment 3  ) 
+(define system_types-land_platform 5  ) 
+(define system_types-laser_CM_ecm_amplifying_char 5  ) 
+(define system_types-laser_CM_esm_amplifying_char 21  ) 
+(define system_types-launch_heli 4  ) 
+(define system_types-less_than_10_hours 13  ) 
+(define system_types-less_than_10_minutes 3  ) 
+(define system_types-less_than_15_minutes 4  ) 
+(define system_types-less_than_1_hour 8  ) 
+(define system_types-less_than_20_minutes 5  ) 
+(define system_types-less_than_25_minutes 6  ) 
+(define system_types-less_than_2_hours 9  ) 
+(define system_types-less_than_2_minutes 1  ) 
+(define system_types-less_than_30_minutes 7  ) 
+(define system_types-less_than_3_hours 10  ) 
+(define system_types-less_than_4_hours 11  ) 
+(define system_types-less_than_5_hours 12  ) 
+(define system_types-less_than_5_minutes 2  ) 
+(define system_types-link_11_broadcast_unit 37  ) 
+(define system_types-link_11_control_unit 36  ) 
+(define system_types-link_11_net_control_ship 30  ) 
+(define system_types-link_14_broadcast_ship 31  ) 
+(define system_types-link_dlrp 26  ) 
+(define system_types-link_monitor 24  ) 
+(define system_types-link_received_only 3  ) 
+(define system_types-llltv 26  ) 
+(define system_types-local_aaw_coordinator 24  ) 
+(define system_types-lock_on 1  ) 
+(define system_types-lofar_area 14  ) 
+(define system_types-lofar_c_fix 16  ) 
+(define system_types-lofar_h_fix 15  ) 
+(define system_types-lost 3  ) 
+(define system_types-lost_but_correlated 4  ) 
+(define system_types-low 4  ) 
+(define system_types-machine_receipt 4  ) 
+(define system_types-mad 13  ) 
+(define system_types-management 21  ) 
+(define system_types-mar_corps_tact_air_ops_centre 11  ) 
+(define system_types-maritime_patrol_aircraft 21  ) 
+(define system_types-marker 10  ) 
+(define system_types-meteorological_guard 9  ) 
+(define system_types-mine_laying 4  ) 
+(define system_types-minewarfare_vessel 10  ) 
+(define system_types-missile_platform 1  ) 
+(define system_types-mode4_accept 0  ) 
+(define system_types-mode4_conflict 2  ) 
+(define system_types-mode4_reject 1  ) 
+(define system_types-more_than_10_hours_aircraft_state 15  ) 
+(define system_types-more_than_10_hours_asw_acoustic_time_remaining 14  ) 
+(define system_types-mp_acu 22  ) 
+(define system_types-mpa 1  ) 
+(define system_types-msl_control_unit_airborne 6  ) 
+(define system_types-msl_control_unit_subsurface_surface 7  ) 
+(define system_types-multiple_jammer 8  ) 
+(define system_types-multiplex 12  ) 
+(define system_types-multiply_by_10000000hz 7  ) 
+(define system_types-multiply_by_1000000hz 6  ) 
+(define system_types-multiply_by_100000hz 5  ) 
+(define system_types-multiply_by_10000hz 4  ) 
+(define system_types-multiply_by_1000hz 3  ) 
+(define system_types-multiply_by_100hz 2  ) 
+(define system_types-multiply_by_10hz 1  ) 
+(define system_types-national 36  ) 
+(define system_types-national_tag_transfer 43  ) 
+(define system_types-ngs 3  ) 
+(define system_types-nimrod 4  ) 
+(define system_types-nine_or_more_usable 3  ) 
+(define system_types-no_available_ntn_ass_rej_reason 2  ) 
+(define system_types-no_conflict 1  ) 
+(define system_types-no_contact 0  ) 
+(define system_types-no_difference 1  ) 
+(define system_types-no_handover_initiation 6  ) 
+(define system_types-no_jitter 2  ) 
+(define system_types-no_mach_receipt_RX_by_forw_unit 6  ) 
+(define system_types-no_measurement_scan 2  ) 
+(define system_types-no_rc_required 5  ) 
+(define system_types-no_reply_received 5  ) 
+(define system_types-no_response 1  ) 
+(define system_types-no_statement_above_below_layer 0  ) 
+(define system_types-no_statement_aircraft 0  ) 
+(define system_types-no_statement_aircraft_state 0  ) 
+(define system_types-no_statement_asw_acoustic_time_remaining 15  ) 
+(define system_types-no_statement_asw_aircraft 0  ) 
+(define system_types-no_statement_asw_bearing_class_ampl 0  ) 
+(define system_types-no_statement_asw_bearing_sensor 0  ) 
+(define system_types-no_statement_asw_secondary_mission 0  ) 
+(define system_types-no_statement_asw_sensor_contact 0  ) 
+(define system_types-no_statement_confidence_level 0  ) 
+(define system_types-no_statement_contact_depth 6  ) 
+(define system_types-no_statement_contacts_size 0  ) 
+(define system_types-no_statement_current_surface_mission 0  ) 
+(define system_types-no_statement_ecm_amplifying_char 0  ) 
+(define system_types-no_statement_ecm_broad_classification 0  ) 
+(define system_types-no_statement_esm_amplifying_char 0  ) 
+(define system_types-no_statement_esm_broad_classification 0  ) 
+(define system_types-no_statement_frequency_range 0  ) 
+(define system_types-no_statement_height_source 0  ) 
+(define system_types-no_statement_iff_mode4 0  ) 
+(define system_types-no_statement_inventory_1 0  ) 
+(define system_types-no_statement_inventory_2 0  ) 
+(define system_types-no_statement_inventory_3 0  ) 
+(define system_types-no_statement_jammer_signal_level 0  ) 
+(define system_types-no_statement_jitter 0  ) 
+(define system_types-no_statement_lock_on_spy 0  ) 
+(define system_types-no_statement_main_rate_frequency 0  ) 
+(define system_types-no_statement_platform 0  ) 
+(define system_types-no_statement_platform_evaluation_conf 0  ) 
+(define system_types-no_statement_polarisation 0  ) 
+(define system_types-no_statement_possub_confidence_level 0  ) 
+(define system_types-no_statement_pu 0  ) 
+(define system_types-no_statement_request_response 0  ) 
+(define system_types-no_statement_track_invest_period 0  ) 
+(define system_types-no_statement_weapon 0  ) 
+(define system_types-no_transmission_allowed_iff_upd_rej_reason 1  ) 
+(define system_types-no_transmission_allowed_link_pointer_rej_reason 1  ) 
+(define system_types-no_transmission_allowed_network_ass_rej_reason 1  ) 
+(define system_types-no_transmission_allowed_track_number_reject_reason 2  ) 
+(define system_types-non_existing 7  ) 
+(define system_types-non_threat 1  ) 
+(define system_types-none 0  ) 
+(define system_types-none_air_cntrl_order 7  ) 
+(define system_types-none_usable_inventory_1 1  ) 
+(define system_types-none_usable_inventory_2 1  ) 
+(define system_types-none_usable_inventory_3 1  ) 
+(define system_types-normal 6  ) 
+(define system_types-not_authorised 4  ) 
+(define system_types-not_available 1  ) 
+(define system_types-not_effective 7  ) 
+(define system_types-not_link_involved 0  ) 
+(define system_types-number_of_weapons_is_1 1  ) 
+(define system_types-number_of_weapons_is_2 2  ) 
+(define system_types-number_of_weapons_is_3 3  ) 
+(define system_types-number_of_weapons_is_4 4  ) 
+(define system_types-number_of_weapons_is_5 5  ) 
+(define system_types-number_of_weapons_is_6 6  ) 
+(define system_types-number_of_weapons_is_7 7  ) 
+(define system_types-numbered_position_1 7  ) 
+(define system_types-numbered_position_10 16  ) 
+(define system_types-numbered_position_11 17  ) 
+(define system_types-numbered_position_12 18  ) 
+(define system_types-numbered_position_13 19  ) 
+(define system_types-numbered_position_14 20  ) 
+(define system_types-numbered_position_15 21  ) 
+(define system_types-numbered_position_16 22  ) 
+(define system_types-numbered_position_17 23  ) 
+(define system_types-numbered_position_18 24  ) 
+(define system_types-numbered_position_19 25  ) 
+(define system_types-numbered_position_2 8  ) 
+(define system_types-numbered_position_20 26  ) 
+(define system_types-numbered_position_21 27  ) 
+(define system_types-numbered_position_3 9  ) 
+(define system_types-numbered_position_4 10  ) 
+(define system_types-numbered_position_5 11  ) 
+(define system_types-numbered_position_6 12  ) 
+(define system_types-numbered_position_7 13  ) 
+(define system_types-numbered_position_8 14  ) 
+(define system_types-numbered_position_9 15  ) 
+(define system_types-once_sector_report_duration 0  ) 
+(define system_types-once_track_invest_period 1  ) 
+(define system_types-one_minute 1  ) 
+(define system_types-one_to_eight_usable 2  ) 
+(define system_types-one_to_four_usable 2  ) 
+(define system_types-one_usable 2  ) 
+(define system_types-op_note 41  ) 
+(define system_types-operator_height_source 4  ) 
+(define system_types-order_already_booked_air_cntrl_order_rej_reas 0  ) 
+(define system_types-order_already_booked_ew_coord_rej_reas 0  ) 
+(define system_types-order_already_booked_order_reject_reason 0  ) 
+(define system_types-original 6  ) 
+(define system_types-otc 3  ) 
+(define system_types-p_3a_b 2  ) 
+(define system_types-p_3c 3  ) 
+(define system_types-pair_assoc_correl 22  ) 
+(define system_types-pairing 0  ) 
+(define system_types-partially_effective 6  ) 
+(define system_types-passive_directional_sonobuoy 32  ) 
+(define system_types-passive_sonar 2  ) 
+(define system_types-passive_sonobuoy_asw_bearing_sensor 3  ) 
+(define system_types-passive_sonobuoy_asw_sensor_contact 20  ) 
+(define system_types-passive_source 34  ) 
+(define system_types-pending_threat_evaluation 0  ) 
+(define system_types-perimeter_engagement 11  ) 
+(define system_types-plane_guard 16  ) 
+(define system_types-pointer 23  ) 
+(define system_types-positive 1  ) 
+(define system_types-positive_evaluation 7  ) 
+(define system_types-possible 3  ) 
+(define system_types-possub_1 1  ) 
+(define system_types-possub_2 2  ) 
+(define system_types-possub_3 3  ) 
+(define system_types-possub_4 4  ) 
+(define system_types-pri_aco_clas_amp_no_statement 0  ) 
+(define system_types-pri_aco_clas_amp_size 3  ) 
+(define system_types-pri_aco_clas_amp_sonobuoy 2  ) 
+(define system_types-pri_aco_clas_amp_torpedo_alert 1  ) 
+(define system_types-pri_air_ampl_civilian 5  ) 
+(define system_types-pri_air_ampl_decoy 4  ) 
+(define system_types-pri_air_ampl_fixed_wing 1  ) 
+(define system_types-pri_air_ampl_helicopter 2  ) 
+(define system_types-pri_air_ampl_missile 6  ) 
+(define system_types-pri_air_ampl_missile_platform 3  ) 
+(define system_types-pri_air_ampl_neutral 7  ) 
+(define system_types-pri_air_ampl_no_statement 0  ) 
+(define system_types-pri_air_ampl_size 8  ) 
+(define system_types-pri_air_refpos_des_air_control 0  ) 
+(define system_types-pri_air_refpos_des_size 1  ) 
+(define system_types-pri_asw_refpos_des_no_statement 0  ) 
+(define system_types-pri_asw_refpos_des_search 1  ) 
+(define system_types-pri_asw_refpos_des_size 4  ) 
+(define system_types-pri_asw_refpos_des_sonobuoy 2  ) 
+(define system_types-pri_asw_refpos_des_underwater 3  ) 
+(define system_types-pri_gen_refpos_des_emergency 1  ) 
+(define system_types-pri_gen_refpos_des_enemy_point 13  ) 
+(define system_types-pri_gen_refpos_des_formation 2  ) 
+(define system_types-pri_gen_refpos_des_free_format 3  ) 
+(define system_types-pri_gen_refpos_des_harbour 4  ) 
+(define system_types-pri_gen_refpos_des_hazard 5  ) 
+(define system_types-pri_gen_refpos_des_mine_warfare 10  ) 
+(define system_types-pri_gen_refpos_des_no_statement 0  ) 
+(define system_types-pri_gen_refpos_des_radar 11  ) 
+(define system_types-pri_gen_refpos_des_route 6  ) 
+(define system_types-pri_gen_refpos_des_site 12  ) 
+(define system_types-pri_gen_refpos_des_size 14  ) 
+(define system_types-pri_gen_refpos_des_station 7  ) 
+(define system_types-pri_gen_refpos_des_supporting_unit 8  ) 
+(define system_types-pri_gen_refpos_des_weapon 9  ) 
+(define system_types-pri_subsurf_clas_ampl_anomaly 8  ) 
+(define system_types-pri_subsurf_clas_ampl_bottum_return 9  ) 
+(define system_types-pri_subsurf_clas_ampl_conventional_propulsion 2  ) 
+(define system_types-pri_subsurf_clas_ampl_decoy 5  ) 
+(define system_types-pri_subsurf_clas_ampl_marine_life 7  ) 
+(define system_types-pri_subsurf_clas_ampl_mine 6  ) 
+(define system_types-pri_subsurf_clas_ampl_no_statement 0  ) 
+(define system_types-pri_subsurf_clas_ampl_nuclear_propulsion 3  ) 
+(define system_types-pri_subsurf_clas_ampl_size 11  ) 
+(define system_types-pri_subsurf_clas_ampl_surface_vessel 10  ) 
+(define system_types-pri_subsurf_clas_ampl_torpedo_alert 4  ) 
+(define system_types-pri_subsurf_clas_ampl_unknown_propulsion 1  ) 
+(define system_types-pri_surf_ampl_amphibious 4  ) 
+(define system_types-pri_surf_ampl_amphibious_assault 8  ) 
+(define system_types-pri_surf_ampl_combatant 1  ) 
+(define system_types-pri_surf_ampl_line 2  ) 
+(define system_types-pri_surf_ampl_mine_warfare 7  ) 
+(define system_types-pri_surf_ampl_no_statement 0  ) 
+(define system_types-pri_surf_ampl_non_combatant 6  ) 
+(define system_types-pri_surf_ampl_non_naval 5  ) 
+(define system_types-pri_surf_ampl_patrol_vessel 3  ) 
+(define system_types-pri_surf_ampl_size 8  ) 
+(define system_types-probable 2  ) 
+(define system_types-proceed_to_point 11  ) 
+(define system_types-prohibit 1  ) 
+(define system_types-prohibit_transmission 2  ) 
+(define system_types-radar_asw_bearing_sensor 7  ) 
+(define system_types-radar_asw_sensor_contact 10  ) 
+(define system_types-radar_ecm_broad_classification 1  ) 
+(define system_types-radar_esm_broad_classification 1  ) 
+(define system_types-radhaz_relay 15  ) 
+(define system_types-range_only 3  ) 
+(define system_types-real_track 0  ) 
+(define system_types-receive_link11_mode 3  ) 
+(define system_types-receive_mode_control_command 3  ) 
+(define system_types-reconnaissance_asw_secondary_mission 3  ) 
+(define system_types-rejected_aircr_mis_result 3  ) 
+(define system_types-rejected_order_result 1  ) 
+(define system_types-remove_track_number 2  ) 
+(define system_types-rendezvous_procedure 2  ) 
+(define system_types-request 1  ) 
+(define system_types-request_cntrl 5  ) 
+(define system_types-resolved 2  ) 
+(define system_types-response 2  ) 
+(define system_types-retransmission 7  ) 
+(define system_types-return_to_base 2  ) 
+(define system_types-returning 1  ) 
+(define system_types-rotational_polarisation 3  ) 
+(define system_types-running 2  ) 
+(define system_types-s_2e 6  ) 
+(define system_types-s_3 7  ) 
+(define system_types-safeguard 4  ) 
+(define system_types-salvo_clear 8  ) 
+(define system_types-sar_asw_secondary_mission 6  ) 
+(define system_types-sar_current_surface_mission 5  ) 
+(define system_types-sar_ship 17  ) 
+(define system_types-sau_commander 2  ) 
+(define system_types-scan_category_circular 2  ) 
+(define system_types-scan_category_complex 7  ) 
+(define system_types-scan_category_conical 6  ) 
+(define system_types-scan_category_fixed 1  ) 
+(define system_types-scan_category_height_finder 4  ) 
+(define system_types-scan_category_lobe_switching 3  ) 
+(define system_types-scan_category_manual 12  ) 
+(define system_types-scan_category_no_statement 0  ) 
+(define system_types-scan_category_raster 9  ) 
+(define system_types-scan_category_sector 5  ) 
+(define system_types-scan_category_spiral 8  ) 
+(define system_types-scan_category_steady 11  ) 
+(define system_types-scan_category_variable_random 10  ) 
+(define system_types-screen 6  ) 
+(define system_types-screen_commander 1  ) 
+(define system_types-search_2D 1  ) 
+(define system_types-search_3D 2  ) 
+(define system_types-search_and_rescue 1  ) 
+(define system_types-sec_aco_clas_amp_no_statement 0  ) 
+(define system_types-sec_aco_clas_amp_size 1  ) 
+(define system_types-sec_air_ampl_aew 2  ) 
+(define system_types-sec_air_ampl_asw 14  ) 
+(define system_types-sec_air_ampl_atds 18  ) 
+(define system_types-sec_air_ampl_awacs 19  ) 
+(define system_types-sec_air_ampl_bomber 1  ) 
+(define system_types-sec_air_ampl_cap 20  ) 
+(define system_types-sec_air_ampl_carrier_based_asw_aircraft 24  ) 
+(define system_types-sec_air_ampl_cas_das 21  ) 
+(define system_types-sec_air_ampl_drone_rpv 26  ) 
+(define system_types-sec_air_ampl_ecm_jammer 4  ) 
+(define system_types-sec_air_ampl_esm 7  ) 
+(define system_types-sec_air_ampl_faker 29  ) 
+(define system_types-sec_air_ampl_faker_jammer 30  ) 
+(define system_types-sec_air_ampl_fighter 3  ) 
+(define system_types-sec_air_ampl_fixed_wing 15  ) 
+(define system_types-sec_air_ampl_gunship 13  ) 
+(define system_types-sec_air_ampl_helicopter 16  ) 
+(define system_types-sec_air_ampl_interceptor 5  ) 
+(define system_types-sec_air_ampl_interdiction 31  ) 
+(define system_types-sec_air_ampl_logistic 32  ) 
+(define system_types-sec_air_ampl_lta 17  ) 
+(define system_types-sec_air_ampl_medevac 33  ) 
+(define system_types-sec_air_ampl_mil_training 28  ) 
+(define system_types-sec_air_ampl_mpa 6  ) 
+(define system_types-sec_air_ampl_neutralized_faker 34  ) 
+(define system_types-sec_air_ampl_no_statement 0  ) 
+(define system_types-sec_air_ampl_reconnaissance 8  ) 
+(define system_types-sec_air_ampl_rescap 22  ) 
+(define system_types-sec_air_ampl_rtb 23  ) 
+(define system_types-sec_air_ampl_sar 9  ) 
+(define system_types-sec_air_ampl_size 37  ) 
+(define system_types-sec_air_ampl_special_mission 35  ) 
+(define system_types-sec_air_ampl_support 11  ) 
+(define system_types-sec_air_ampl_tanker 12  ) 
+(define system_types-sec_air_ampl_transport 10  ) 
+(define system_types-sec_air_ampl_vs 36  ) 
+(define system_types-sec_air_ampl_x_ray 27  ) 
+(define system_types-sec_air_ampl_zombie 25  ) 
+(define system_types-sec_air_refpos_des_airborn_early_warning 1  ) 
+(define system_types-sec_air_refpos_des_asw_fixed_wing 2  ) 
+(define system_types-sec_air_refpos_des_asw_hc 3  ) 
+(define system_types-sec_air_refpos_des_combat_air_patrol 4  ) 
+(define system_types-sec_air_refpos_des_corridor_tab 5  ) 
+(define system_types-sec_air_refpos_des_marshal_point 6  ) 
+(define system_types-sec_air_refpos_des_no_statement 0  ) 
+(define system_types-sec_air_refpos_des_replenishment 7  ) 
+(define system_types-sec_air_refpos_des_replenishment_point 12  ) 
+(define system_types-sec_air_refpos_des_rescue 11  ) 
+(define system_types-sec_air_refpos_des_size 14  ) 
+(define system_types-sec_air_refpos_des_strike_init_point 8  ) 
+(define system_types-sec_air_refpos_des_tacan 9  ) 
+(define system_types-sec_air_refpos_des_tanker 13  ) 
+(define system_types-sec_air_refpos_des_tomcat 10  ) 
+(define system_types-sec_asw_refpos_des_asw_station 11  ) 
+(define system_types-sec_asw_refpos_des_asw_sub_station 13  ) 
+(define system_types-sec_asw_refpos_des_bottomed_non_submarine 12  ) 
+(define system_types-sec_asw_refpos_des_brief_contact 9  ) 
+(define system_types-sec_asw_refpos_des_dip_position 2  ) 
+(define system_types-sec_asw_refpos_des_estimated_position 14  ) 
+(define system_types-sec_asw_refpos_des_kingpin 3  ) 
+(define system_types-sec_asw_refpos_des_lost_contact 4  ) 
+(define system_types-sec_asw_refpos_des_no_statement 0  ) 
+(define system_types-sec_asw_refpos_des_notack_area 10  ) 
+(define system_types-sec_asw_refpos_des_pattern_centre 5  ) 
+(define system_types-sec_asw_refpos_des_search_area_point 6  ) 
+(define system_types-sec_asw_refpos_des_search_centre 7  ) 
+(define system_types-sec_asw_refpos_des_sinker 8  ) 
+(define system_types-sec_asw_refpos_des_size 15  ) 
+(define system_types-sec_asw_refpos_des_wreck 1  ) 
+(define system_types-sec_gen_refpos_des_aadcp 29  ) 
+(define system_types-sec_gen_refpos_des_ada_boc_tds 30  ) 
+(define system_types-sec_gen_refpos_des_air_base 0  ) 
+(define system_types-sec_gen_refpos_des_artillery 31  ) 
+(define system_types-sec_gen_refpos_des_asrt 46  ) 
+(define system_types-sec_gen_refpos_des_bridge 47  ) 
+(define system_types-sec_gen_refpos_des_buffer_centre 32  ) 
+(define system_types-sec_gen_refpos_des_coastal_radar_station 27  ) 
+(define system_types-sec_gen_refpos_des_control_reporting_centre 33  ) 
+(define system_types-sec_gen_refpos_des_control_reporting_post 48  ) 
+(define system_types-sec_gen_refpos_des_convoy 34  ) 
+(define system_types-sec_gen_refpos_des_dan_buoy 28  ) 
+(define system_types-sec_gen_refpos_des_dasc 35  ) 
+(define system_types-sec_gen_refpos_des_direction_centre 36  ) 
+(define system_types-sec_gen_refpos_des_disposition_centre 1  ) 
+(define system_types-sec_gen_refpos_des_distressed_vessel 2  ) 
+(define system_types-sec_gen_refpos_des_ditched_a_slash_c 3  ) 
+(define system_types-sec_gen_refpos_des_diversion 4  ) 
+(define system_types-sec_gen_refpos_des_ecm_decoy 37  ) 
+(define system_types-sec_gen_refpos_des_entry_point_or_aming_point 5  ) 
+(define system_types-sec_gen_refpos_des_facp 38  ) 
+(define system_types-sec_gen_refpos_des_force_centre 6  ) 
+(define system_types-sec_gen_refpos_des_formation_centre 7  ) 
+(define system_types-sec_gen_refpos_des_fpu_fru 39  ) 
+(define system_types-sec_gen_refpos_des_ground_zero 8  ) 
+(define system_types-sec_gen_refpos_des_impact_point 9  ) 
+(define system_types-sec_gen_refpos_des_man_in_water 10  ) 
+(define system_types-sec_gen_refpos_des_mar_head_quatr 11  ) 
+(define system_types-sec_gen_refpos_des_mine 12  ) 
+(define system_types-sec_gen_refpos_des_msl_detect_point 13  ) 
+(define system_types-sec_gen_refpos_des_navigational 14  ) 
+(define system_types-sec_gen_refpos_des_no_statement 15  ) 
+(define system_types-sec_gen_refpos_des_norad_control_centre 40  ) 
+(define system_types-sec_gen_refpos_des_oil_rig 16  ) 
+(define system_types-sec_gen_refpos_des_oribit_point 24  ) 
+(define system_types-sec_gen_refpos_des_picket 18  ) 
+(define system_types-sec_gen_refpos_des_pim 17  ) 
+(define system_types-sec_gen_refpos_des_point_0 19  ) 
+(define system_types-sec_gen_refpos_des_point_a 20  ) 
+(define system_types-sec_gen_refpos_des_point_r 21  ) 
+(define system_types-sec_gen_refpos_des_point_x 22  ) 
+(define system_types-sec_gen_refpos_des_point_y 23  ) 
+(define system_types-sec_gen_refpos_des_pu 41  ) 
+(define system_types-sec_gen_refpos_des_rail 42  ) 
+(define system_types-sec_gen_refpos_des_regional_control_centre 43  ) 
+(define system_types-sec_gen_refpos_des_rendezvous 25  ) 
+(define system_types-sec_gen_refpos_des_rescue 44  ) 
+(define system_types-sec_gen_refpos_des_sam_site 49  ) 
+(define system_types-sec_gen_refpos_des_size 52  ) 
+(define system_types-sec_gen_refpos_des_tactical_air_control_centre 51  ) 
+(define system_types-sec_gen_refpos_des_tactical_air_ops_centre 50  ) 
+(define system_types-sec_gen_refpos_des_troop_concentration 45  ) 
+(define system_types-sec_gen_refpos_des_waypoint 26  ) 
+(define system_types-sec_subsurf_clas_ampl_no_statement 0  ) 
+(define system_types-sec_subsurf_clas_ampl_wake 1  ) 
+(define system_types-sec_subsurf_clas_ampl_wreck 2  ) 
+(define system_types-sec_surf_ampl_ACV_Hydro 19  ) 
+(define system_types-sec_surf_ampl_ASUW 4  ) 
+(define system_types-sec_surf_ampl_ASW 3  ) 
+(define system_types-sec_surf_ampl_assault_vessel 14  ) 
+(define system_types-sec_surf_ampl_auxiliary 20  ) 
+(define system_types-sec_surf_ampl_battleship 21  ) 
+(define system_types-sec_surf_ampl_cargo 22  ) 
+(define system_types-sec_surf_ampl_carrier 1  ) 
+(define system_types-sec_surf_ampl_carrier_based_ASW_aircraft 22  ) 
+(define system_types-sec_surf_ampl_command 23  ) 
+(define system_types-sec_surf_ampl_cruiser 10  ) 
+(define system_types-sec_surf_ampl_destroyer 2  ) 
+(define system_types-sec_surf_ampl_fishing 17  ) 
+(define system_types-sec_surf_ampl_fleet_support 6  ) 
+(define system_types-sec_surf_ampl_frigate 11  ) 
+(define system_types-sec_surf_ampl_hospital 7  ) 
+(define system_types-sec_surf_ampl_intelligence 15  ) 
+(define system_types-sec_surf_ampl_landing_craft 13  ) 
+(define system_types-sec_surf_ampl_landing_platform 26  ) 
+(define system_types-sec_surf_ampl_landing_ship 12  ) 
+(define system_types-sec_surf_ampl_leisure 18  ) 
+(define system_types-sec_surf_ampl_merchant 16  ) 
+(define system_types-sec_surf_ampl_mine_layer 8  ) 
+(define system_types-sec_surf_ampl_mine_sweeper 9  ) 
+(define system_types-sec_surf_ampl_no_statement 0  ) 
+(define system_types-sec_surf_ampl_ocean_research 27  ) 
+(define system_types-sec_surf_ampl_sec_surf_ampl_destroyer_AAW 24  ) 
+(define system_types-sec_surf_ampl_sec_surf_ampl_destroyer_ASW 25  ) 
+(define system_types-sec_surf_ampl_size 30  ) 
+(define system_types-sec_surf_ampl_surfaced_submarine 28  ) 
+(define system_types-sec_surf_ampl_tanker 29  ) 
+(define system_types-sec_surf_ampl_underway_replenishment 5  ) 
+(define system_types-sector_aaw_coordinator 23  ) 
+(define system_types-sensor 1  ) 
+(define system_types-shadower 9  ) 
+(define system_types-ship_active_sonar 1  ) 
+(define system_types-ship_passive_sonar 2  ) 
+(define system_types-ship_sonar 5  ) 
+(define system_types-ship_variable_active_sonar 3  ) 
+(define system_types-ship_variable_passive_sonar 4  ) 
+(define system_types-side_lobe 6  ) 
+(define system_types-sim_mode_mode_control_command 1  ) 
+(define system_types-simulated_track 1  ) 
+(define system_types-simulation_link11_mode 1  ) 
+(define system_types-single_target 1  ) 
+(define system_types-slant_polarisation 5  ) 
+(define system_types-sofpb 33  ) 
+(define system_types-sosus_AOP_source 4  ) 
+(define system_types-sosus_asw_sensor_contact 38  ) 
+(define system_types-special_point 13  ) 
+(define system_types-special_point_ampl 14  ) 
+(define system_types-special_processing_operator 3  ) 
+(define system_types-specific_freq 0  ) 
+(define system_types-specific_platform 1  ) 
+(define system_types-spy 2  ) 
+(define system_types-square_or_rectangle 0  ) 
+(define system_types-ssn_control_ship 18  ) 
+(define system_types-sssc 35  ) 
+(define system_types-standby_link11_mode 0  ) 
+(define system_types-standby_mode_control_command 0  ) 
+(define system_types-start 0  ) 
+(define system_types-start_transmission 0  ) 
+(define system_types-steady_scan 3  ) 
+(define system_types-stop 1  ) 
+(define system_types-stop_emergency 4  ) 
+(define system_types-stop_forcetell 6  ) 
+(define system_types-stop_transmission 1  ) 
+(define system_types-stopped 1  ) 
+(define system_types-stopped_by_operator 6  ) 
+(define system_types-strike 6  ) 
+(define system_types-sub_propusion_disel_asw_bearing_class_ampl 3  ) 
+(define system_types-sub_propusion_knuclear_asw_bearing_class_ampl 2  ) 
+(define system_types-sub_propusion_unknown_asw_bearing_class_ampl 1  ) 
+(define system_types-submarine_active_sonar 6  ) 
+(define system_types-submarine_passive_sonar 7  ) 
+(define system_types-subsurf_raid_rep_control_unit 14  ) 
+(define system_types-subsurface_environment 4  ) 
+(define system_types-subsurface_platform 4  ) 
+(define system_types-supporting_info 25  ) 
+(define system_types-surf_pos 4  ) 
+(define system_types-surf_pos_ampl 5  ) 
+(define system_types-surf_raid_rep_control_unit 13  ) 
+(define system_types-surface_asw_bearing_class_ampl 12  ) 
+(define system_types-surface_environment 2  ) 
+(define system_types-surface_military_asw_bearing_class_ampl 16  ) 
+(define system_types-surface_non_military_asw_bearing_class_ampl 17  ) 
+(define system_types-surface_platform 3  ) 
+(define system_types-sw_commander 34  ) 
+(define system_types-system_limitations 0  ) 
+(define system_types-tactical_air_control_centre_pu 12  ) 
+(define system_types-tag_transfer 42  ) 
+(define system_types-target_destroyed 5  ) 
+(define system_types-target_kind_AEW 4  ) 
+(define system_types-target_kind_ASW 5  ) 
+(define system_types-target_kind_FPB 17  ) 
+(define system_types-target_kind_F_A_18 16  ) 
+(define system_types-target_kind_HELO 6  ) 
+(define system_types-target_kind_SS 12  ) 
+(define system_types-target_kind_SSN 13  ) 
+(define system_types-target_kind_bomber 15  ) 
+(define system_types-target_kind_cruiser 9  ) 
+(define system_types-target_kind_dummy 8  ) 
+(define system_types-target_kind_f14 0  ) 
+(define system_types-target_kind_f14_with_data_link 1  ) 
+(define system_types-target_kind_f4 2  ) 
+(define system_types-target_kind_f4_with_data_link 3  ) 
+(define system_types-target_kind_missile 7  ) 
+(define system_types-target_kind_non_exercise 14  ) 
+(define system_types-target_kind_sec_surf_ampl_carrier 10  ) 
+(define system_types-target_kind_sec_surf_ampl_destroyer 11  ) 
+(define system_types-target_kind_spare_19 19  ) 
+(define system_types-target_kind_spare_20 20  ) 
+(define system_types-target_kind_spare_21 21  ) 
+(define system_types-target_kind_spare_22 22  ) 
+(define system_types-target_kind_spare_23 23  ) 
+(define system_types-target_kind_spare_24 24  ) 
+(define system_types-target_kind_spare_25 25  ) 
+(define system_types-target_kind_spare_26 26  ) 
+(define system_types-target_kind_spare_27 27  ) 
+(define system_types-target_kind_spare_28 28  ) 
+(define system_types-target_kind_spare_29 29  ) 
+(define system_types-target_kind_spare_30 30  ) 
+(define system_types-target_kind_spare_31 31  ) 
+(define system_types-target_kind_torpedo 18  ) 
+(define system_types-targeting_link 14  ) 
+(define system_types-targeting_radar 13  ) 
+(define system_types-teletype 9  ) 
+(define system_types-terminal_guidance 17  ) 
+(define system_types-terminate_pairing_association 3  ) 
+(define system_types-test_mode_mode_control_command 2  ) 
+(define system_types-test_state_none 0  ) 
+(define system_types-threat 2  ) 
+(define system_types-time_out_input 1  ) 
+(define system_types-time_out_interrupt 2  ) 
+(define system_types-time_out_output 0  ) 
+(define system_types-time_scan 1  ) 
+(define system_types-timing 37  ) 
+(define system_types-tomcat_picket 27  ) 
+(define system_types-torpedo_asw_bearing_class_ampl 13  ) 
+(define system_types-towed_array 30  ) 
+(define system_types-track_alert 4  ) 
+(define system_types-track_arrived 8  ) 
+(define system_types-track_kind_aco_bearing_track 1  ) 
+(define system_types-track_kind_aco_fix_refpos 0  ) 
+(define system_types-track_kind_air_point_track 2  ) 
+(define system_types-track_kind_air_refpos 3  ) 
+(define system_types-track_kind_asw_refpos 4  ) 
+(define system_types-track_kind_datum_refpos 5  ) 
+(define system_types-track_kind_ecm_bearing_track 7  ) 
+(define system_types-track_kind_ecm_fix_refpos 6  ) 
+(define system_types-track_kind_esm_bearing_track 9  ) 
+(define system_types-track_kind_esm_fix_refpos 8  ) 
+(define system_types-track_kind_gen_refpos 10  ) 
+(define system_types-track_kind_land_point_track 13  ) 
+(define system_types-track_kind_none 14  ) 
+(define system_types-track_kind_subsurface_point_track 11  ) 
+(define system_types-track_kind_surface_point_track 12  ) 
+(define system_types-track_not_existing 0  ) 
+(define system_types-track_number_pool_exceeded 1  ) 
+(define system_types-track_quality_changed 3  ) 
+(define system_types-tracking_network_track_phase 1  ) 
+(define system_types-tracking_operator 1  ) 
+(define system_types-tracking_track_phase 2  ) 
+(define system_types-tracking_weapon_engagement_state 3  ) 
+(define system_types-training 40  ) 
+(define system_types-training_track 2  ) 
+(define system_types-transfer_cntrl 3  ) 
+(define system_types-transiting 5  ) 
+(define system_types-transmitted_link_state 2  ) 
+(define system_types-transmitted_order_result 2  ) 
+(define system_types-twenty_minutes 3  ) 
+(define system_types-two_or_more_usable 3  ) 
+(define system_types-two_to_seven_targets 2  ) 
+(define system_types-type_III_diesel_asw_bearing_class_ampl 11  ) 
+(define system_types-type_III_nuclear_asw_bearing_class_ampl 6  ) 
+(define system_types-type_II_diesel_asw_bearing_class_ampl 10  ) 
+(define system_types-type_II_nuclear_asw_bearing_class_ampl 5  ) 
+(define system_types-type_IV_nuclear_asw_bearing_class_ampl 7  ) 
+(define system_types-type_I_diesel_asw_bearing_class_ampl 9  ) 
+(define system_types-type_I_nuclear_asw_bearing_class_ampl 4  ) 
+(define system_types-type_V_nuclear_asw_bearing_class_ampl 8  ) 
+(define system_types-unacceptable_id 4  ) 
+(define system_types-undefined_AOP_source 0  ) 
+(define system_types-undefined_above_below_layer 3  ) 
+(define system_types-undefined_asw_sensor_contact 33  ) 
+(define system_types-undefined_current_surface_mission 12  ) 
+(define system_types-undefined_track_invest_period 7  ) 
+(define system_types-underwater_telephone 29  ) 
+(define system_types-underway_replenishment_current_surface_mission 4  ) 
+(define system_types-unit_not_exercising_AC_cap 3  ) 
+(define system_types-unknown 44  ) 
+(define system_types-unknown_aircraft_TN 2  ) 
+(define system_types-unknown_contact_depth 0  ) 
+(define system_types-unknown_ecm_amplifying_char 1  ) 
+(define system_types-unknown_engage_TN 3  ) 
+(define system_types-unknown_environment 0  ) 
+(define system_types-unknown_ntn_friend 0  ) 
+(define system_types-unknown_ntn_platform 3  ) 
+(define system_types-unknown_ntn_target_order_reject_reason 2  ) 
+(define system_types-unknown_ntn_target_weapon_engagement_reject_reason 1  ) 
+(define system_types-unknown_pu_air_cntrl_order_rej_reas 1  ) 
+(define system_types-unknown_pu_ew_coord_rej_reas 3  ) 
+(define system_types-unknown_pu_link_pointer_rej_reason 0  ) 
+(define system_types-unknown_pu_order_reject_reason 4  ) 
+(define system_types-unknown_pu_transfer 4  ) 
+(define system_types-unknown_related_EW_track 2  ) 
+(define system_types-unknown_threat_evaluation 3  ) 
+(define system_types-unknown_track_aircr_mis_reject_reason 0  ) 
+(define system_types-unknown_track_ew_coord_rej_reas 1  ) 
+(define system_types-unknown_track_iff_upd_rej_reason 0  ) 
+(define system_types-unknown_track_order_reject_reason 1  ) 
+(define system_types-update_filter 9  ) 
+(define system_types-valid_response 3  ) 
+(define system_types-vertical_polarisation 4  ) 
+(define system_types-visual 27  ) 
+(define system_types-visual_electro_optics 6  ) 
+(define system_types-voice 7  ) 
+(define system_types-voice_report 5  ) 
+(define system_types-weapon_coordinator 0  ) 
+(define system_types-weapon_eng_status 38  ) 
+(define system_types-weapon_not_in_configuration 3  ) 
+(define system_types-weapon_status_impedence 2  ) 
+(define system_types-weapons_free 0  ) 
+(define system_types-weapons_tight 1  ) 
+(define system_types-will_comply 0  ) 
+(define system_types-window_chaff_guard_ship 19  ) 
+(define system_types-wiped 2  ) 
+(define system_types-wrong_interrupt_code 3  ) 
+(define system_types-wrong_number_of_input_words 4  ) 
+(define system_types-zero_minutes 0  ) 
