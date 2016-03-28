@@ -7,18 +7,13 @@
 /*------------------ Ugly internals -----------------------------------*/
 /*------------------ Of interest only to FFI users --------------------*/
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
-enum scheme_port_kind {
-  port_free=0,
-  port_file=1,
-  port_string=2,
-  port_srfi6=4,
-  port_input=16,
-  port_output=32,
-  port_saw_EOF=64
+enum scheme_port_kind { 
+  port_free=0, 
+  port_file=1, 
+  port_string=2, 
+  port_input=16, 
+  port_output=32 
 };
 
 typedef struct port {
@@ -27,10 +22,6 @@ typedef struct port {
     struct {
       FILE *file;
       int closeit;
-#if SHOW_ERROR_LINE
-      int curr_line;
-      char *filename;
-#endif
     } stdio;
     struct {
       char *start;
@@ -67,9 +58,8 @@ func_dealloc free;
 int retcode;
 int tracing;
 
-
-#define CELL_SEGSIZE    50000  /* # of cells in one segment */
-#define CELL_NSEGMENT   100    /* # of segments for cells */
+#define CELL_SEGSIZE    5000  /* # of cells in one segment */
+#define CELL_NSEGMENT   10    /* # of segments for cells */
 char *alloc_seg[CELL_NSEGMENT];
 pointer cell_seg[CELL_NSEGMENT];
 int     last_cell_seg;
@@ -94,9 +84,6 @@ struct cell _EOF_OBJ;
 pointer EOF_OBJ;         /* special cell representing end-of-file object */
 pointer oblist;          /* pointer to symbol table */
 pointer global_env;      /* pointer to global environment */
-pointer c_nest;          /* stack for nested calls from C */
-int case_sensitive;      /* whether the reader should be case sensitive */
-
 
 /* global pointers to special symbols */
 pointer LAMBDA;               /* pointer to syntax lambda */
@@ -109,7 +96,6 @@ pointer FEED_TO;         /* => */
 pointer COLON_HOOK;      /* *colon-hook* */
 pointer ERROR_HOOK;      /* *error-hook* */
 pointer SHARP_HOOK;  /* *sharp-hook* */
-pointer COMPILE_HOOK;  /* *compile-hook* */
 
 pointer free_cell;       /* pointer to top of free cells */
 long    fcells;          /* # of free cells */
@@ -128,10 +114,9 @@ int nesting;
 char    gc_verbose;      /* if gc_verbose is not zero, print gc status */
 char    no_memory;       /* Whether mem. alloc. has failed */
 
-#define LINESIZE 102400
+#define LINESIZE 1024
 char    linebuff[LINESIZE];
-#define STRBUFFSIZE 25600
-char    strbuff[STRBUFFSIZE];
+char    strbuff[256];
 
 FILE *tmpfp;
 int tok;
@@ -143,16 +128,16 @@ void *ext_data;     /* For the benefit of foreign functions */
 long gensym_cnt;
 
 struct scheme_interface *vptr;
-void *dump_base;    /* pointer to base of allocated dump stack */
-int dump_size;      /* number of frames allocated for dump stack */
+void *dump_base;	 /* pointer to base of allocated dump stack */
+int dump_size;		 /* number of frames allocated for dump stack */
 };
 
 /* operator code */
-enum scheme_opcodes {
-#define _OP_DEF(A,B,C,D,E,OP) OP,
-#include "opdefines.h"
-  OP_MAXDEFINED
-};
+enum scheme_opcodes { 
+#define _OP_DEF(A,B,C,D,E,OP) OP, 
+#include "opdefines.h" 
+  OP_MAXDEFINED 
+}; 
 
 
 #define cons(sc,a,b) _cons(sc,a,b,0)
@@ -199,14 +184,4 @@ int is_environment(pointer p);
 int is_immutable(pointer p);
 void setimmutable(pointer p);
 
-#ifdef __cplusplus
-}
 #endif
-
-#endif
-
-/*
-Local variables:
-c-file-style: "k&r"
-End:
-*/

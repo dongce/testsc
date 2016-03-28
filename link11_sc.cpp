@@ -361,7 +361,7 @@ void testsc_load(scheme*sc , const char* filename , const char *homepath = NULL)
   testsc_debug("tetsc-load %s", absfilename) ; 
   FILE* fin=fopen(absfilename,"r");
   if( NULL != fin ){
-    scheme_load_named_file(sc,fin,filename);
+    scheme_load_file(sc,fin);
     fclose(fin) ;
   }
 
@@ -532,7 +532,7 @@ long testsc_ivalue( const char *name )
   }
 
   
-  pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
+  pointer args = mk_symbol(&g_sc, name) ;
 
   if( NULL != args && g_sc.NIL != args  && is_integer(args)){
     long value = ivalue(args) ; 
