@@ -149,15 +149,22 @@ class JavaObject(object):
             new_object.__setattr__(name, getattr(self, name))
 
 
-class JavaString(str):
-    def __init__(self, *args, **kwargs):
-        str.__init__(self, *args, **kwargs)
+JavaString = str
+# class JavaString(str):
+#     # def __init__(self, *args, **kwargs):
+#     #     str.__init__(self, *args, **kwargs)
 
-    def __eq__(self, other):
-        if not isinstance(other, str):
-            return False
-        return str.__eq__(self, other)
+#     def __eq__(self, other):
+#         if not isinstance(other, str):
+#             return False
+#         # import pdb
+#         # pdb.set_trace()
+#         if len(self) != len(other) : return False ;
 
+#         for x in range(len(self)) :
+#             if self[x] != other[x] : return False
+
+#         return True
 
 class JavaEnum(JavaObject):
     def __init__(self, constant=None):
@@ -639,12 +646,12 @@ class JavaObjectMarshaller(JavaObjectConstants):
 
     def _writeStruct(self, unpack, length, args):
         ba = struct.pack(unpack, *args)
-        self.object_stream.write(ba)
+        self.object_stream.write(str(ba))
 
     def _writeString(self, string):
         length = len(string)
         self._writeStruct(">H", 2, (length, ))
-        self.object_stream.write(string)
+        self.object_stream.write(str(string))
 
     def write_string(self, obj):
         self._writeStruct(">B", 1, (self.TC_STRING,))
@@ -694,6 +701,7 @@ class JavaObjectMarshaller(JavaObjectConstants):
         del tmpcls
         for name, type in zip(all_names, all_types):
             try:
+                print(name)
                 self._write_value(type, getattr(obj, name))
             except AttributeError as e:
                 log_error("%s e, %s %s" % (str(e), repr(obj), repr(dir(obj))))

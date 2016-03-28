@@ -1065,7 +1065,7 @@ class DefaultObjectTransformer(object):
             new_object = self.JavaMap()
             java_object.copy(new_object)
 
-            for i in range((len(java_object.annotations) - 1) / 2):
+            for i in range((len(java_object.annotations) - 1) // 2):
                 new_object[java_object.annotations[i * 2 + 1]] = \
                                                 java_object.annotations[i * 2 + 2]
 
