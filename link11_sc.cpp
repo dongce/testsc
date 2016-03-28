@@ -450,11 +450,10 @@ foreign_testsc_init(scheme* sc , pointer args)
       NULL !=f ;
       f = NULL){
     dup2(fileno(f) , STDERR_FILENO) ;
-    fclose(f) ;
   }
           
   fprintf(stderr,"Errors encountered reading %s\n",absfilename);
-  
+  fflush(stderr) ; 
   g_testnum            = ivalue(pop_args(args)) ;
   memset(&g_trackdefault, 0, sizeof(g_trackdefault)) ; 
   memset(&g_admindefault, 0, sizeof(g_admindefault)) ; 
