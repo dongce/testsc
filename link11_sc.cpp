@@ -49,6 +49,8 @@ adminmap_t g_adminmap ;
 network_track_data_t g_trackdefault ; 
 admin_t              g_admindefault ; 
 
+FILE* g_debug = 0 ;
+char* g_buffer = 0 ; 
 struct foreign_symbol
 {
   char *name ;
@@ -63,36 +65,13 @@ pop_args(pointer & args )
   return c ;
 }
 
+void testsc_debug(const char*format ...) ; 
 
 
 pointer g_mmsg    = 0;
 pointer g_adminindex = 0 ; 
 int     g_testnum = 0;
 int     g_testsc_debug = 1 ; 
-
-void testsc_debug(const char*format ...)
-{
-  static FILE* debug = fopen("t:/ts/debug.txt", "ab") ; 
-
-  if(g_testsc_debug > 0 ){
-    va_list vlist;
-	
-    char buffer[1024] ; 
-    memset(buffer, 0x00, 1024) ; 
-	
-	
-	
-    va_start(vlist, format);
-    int formatsize = vsprintf(buffer, format, vlist);
-    va_end(vlist);
-
-    buffer[formatsize]= '\n' ;
-    buffer[formatsize+1]= NULL ; 
-  
-    fwrite(buffer , formatsize + 1 , 1 , debug) ;
-    fflush(debug) ; 
-  }
-} 
 
 uint32_t field_id(scheme* sc ,const std::string& fieldname)
 {
@@ -450,9 +429,18 @@ foreign_testsc_init(scheme* sc , pointer args)
       NULL !=f ;
       f = NULL){
     dup2(fileno(f) , STDERR_FILENO) ;
-    fclose(f) ;
   }
           
+  fprintf(stderr,"Errors encountered reading %s\n",absfilename);
+  fflush(stderr) ;
+
+  sprintf(absfilename,
+          "%s/debug.txt" ,
+          TINYSCHEME_HOME ) ;
+  
+  g_debug = fopen(absfilename, "ab") ; 
+  g_buffer = reinterpret_cast<char*>(malloc(10240) ); 
+
   
   g_testnum            = ivalue(pop_args(args)) ;
   memset(&g_trackdefault, 0, sizeof(g_trackdefault)) ; 
@@ -598,5 +586,33 @@ void testsc_track_set(uint32_t id , network_track_data_ptr t )
 
 void testsc_eval(const char *cmd)
 {
+  testsc_debug("testsc eval %s" , cmd) ; 
   scheme_load_string(&g_sc, cmd) ;
+}
+
+
+
+void testsc_debug(const char*format ...)
+{
+  va_list vlist;
+	
+  // memset(g_buffer, 0x00, 1024) ; 
+	
+	
+  va_start(vlist, format);
+  int formatsize = vsprintf(g_buffer, format, vlist);
+  va_end(vlist);
+
+  g_buffer[formatsize]= '\n' ;
+  g_buffer[formatsize+1]= NULL ; 
+
+  if(g_testsc_debug > 0 ){
+    fwrite(g_buffer , formatsize + 1 , 1 , g_debug) ;
+    fflush(g_debug) ;
+  }
+} 
+
+void testsc_close()
+{
+  scheme_deinit(&g_sc);
 }
