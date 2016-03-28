@@ -593,13 +593,13 @@ void testsc_eval(const char *cmd)
 
 void testsc_debug(const char*format ...)
 {
-  if(NULL == format){
-    fprintf(g_debug, "close testsc\n") ; 
-    fclose(g_debug) ;
-    scheme_deinit(&g_sc);
+  // if(NULL == format){
+  //   fprintf(g_debug, "close testsc\n") ; 
+  //   fclose(g_debug) ;
+  //   scheme_deinit(&g_sc);
     
-  }
-  else if(g_testsc_debug > 0 ){
+  // }
+  // else if(g_testsc_debug > 0 ){
     va_list vlist;
 	
     // memset(g_buffer, 0x00, 1024) ; 
@@ -614,5 +614,5 @@ void testsc_debug(const char*format ...)
   
     fwrite(g_buffer , formatsize + 1 , 1 , g_debug) ;
     fflush(g_debug) ; 
-  }
+  // }
 } 
