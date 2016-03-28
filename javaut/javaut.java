@@ -28,19 +28,25 @@ public class javaut {
 
        if( "" == usercode.trim() ){
          uuc.setUserCode(String.join("\r\n" , 
-                                     "void testsc_track_set(uint32_t id, network_track_data_ptr t ) ; " , 
-                                     "void testsc_track_set(uint32_t id, network_track_data_ptr t ) ; " , 
-                                     "void testsc_init(int testnum, const char *cmd, const char *homepath ) ; " , 
-                                     "void testsc_eval(const char *cmd) ; ")) ;
+                                     "void testsc_ivalue(const char* name) ; ", 
+                                     "void testsc_dvalue(const char* name) ; ", 
+                                     "char* testsc_strvalue(const char* name) ; ", 
+                                     "void testsc_eval(const char *cmd) ; ",
+                                     "void testsc_init(int testnum, const char *cmd, const char *homepath ) ; "  
+                                     )) ;
          changed = true ; 
        }
 
        usercode = ucs.getUserCode() ; 
 
        if( "" == usercode.trim() ){
-         ucs.setUserCode(String.join("\r\n" ,
-                                     String.format("testsc_init(CS_TESTCASENO(), \"(testsc-require %s)\")", args[2])
-                                     )) ; 
+
+         String uc =
+           String.join("\r\n" ,
+                       String.format("testsc_init(CS_TESTCASENO(), \"(testsc-require %s/t-0)\")", args[1]) , 
+                       String.format("testsc_eval( \"(testsc-require %s/t-%x)\")", args[1], args[2]), 
+                     )         
+         ucs.setUserCode(uc) ; 
          changed = true ; 
        }
        
@@ -48,6 +54,10 @@ public class javaut {
          ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(args[0]));
          oos.writeObject(uttest) ;
        }
+       else{
+         System.out.println(String.format("%s file not changed", args[0])) ;
+       }
+         
        
      }
      catch(Exception ex){
