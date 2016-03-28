@@ -596,7 +596,8 @@ void testsc_eval(const char *cmd)
 void testsc_debug(const char*format ...)
 {
   if(NULL == format){
-    fprintf(g_debug, "close testsc\n") ; 
+    fprintf(g_debug, "close testsc\n") ;
+    fflush(g_debug) ; 
     fclose(g_debug) ;
     scheme_deinit(&g_sc);
     
