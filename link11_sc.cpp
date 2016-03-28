@@ -73,16 +73,14 @@ int     g_testsc_debug = 1 ;
 void testsc_debug(const char*format ...)
 {
   static FILE* debug = fopen("t:/ts/debug.txt", "ab") ; 
-
+  static char* buffer = reinterpret_cast<char*>(malloc(10240) ); 
   if(NULL == format){
     fclose(debug) ;
   }
   else if(g_testsc_debug > 0 ){
     va_list vlist;
 	
-    char buffer[1024] ; 
-    memset(buffer, 0x00, 1024) ; 
-	
+    // memset(buffer, 0x00, 1024) ; 
 	
 	
     va_start(vlist, format);
