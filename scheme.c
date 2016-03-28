@@ -85,16 +85,16 @@ static int stricmp(const char *s1, const char *s2)
 }
 #endif /* __APPLE__ */
 
-// #if USE_STRLWR
-// static const char *strlwr(char *s) {
-//   const char *p=s;
-//   while(*s) {
-//     *s=tolower(*s);
-//     s++;
-//   }
-//   return p;
-// }
-// #endif
+#if USE_STRLWR
+static const char *strlwr(char *s) {
+  const char *p=s;
+  while(*s) {
+    *s=tolower(*s);
+    s++;
+  }
+  return p;
+}
+#endif
 
 #ifndef prompt
 # define prompt "ts> "
@@ -783,12 +783,10 @@ static void check_cell_alloced(pointer p, int expect_alloced)
   if(typeflag(p) & !expect_alloced)
     {
       fprintf(stderr,"Cell is already allocated!\n");
-      fflush(stderr) ; 
     }
   if(!(typeflag(p)) & expect_alloced)
     {
       fprintf(stderr,"Cell is not allocated!\n");
-      fflush(stderr) ; 
     }
 
 }
@@ -1078,10 +1076,6 @@ static pointer mk_atom(scheme *sc, char *q) {
      int has_dec_point=0;
      int has_fp_exp = 0;
 
-     if (!sc->case_sensitive) {
-          strlwr(q);
-     }
-
 #if USE_COLON_HOOK
      if((p=strstr(q,"::"))!=0) {
           *p=0;
@@ -1090,7 +1084,7 @@ static pointer mk_atom(scheme *sc, char *q) {
                               cons(sc,
                                    sc->QUOTE,
                                    cons(sc, mk_atom(sc,p+2), sc->NIL)),
-                              cons(sc, mk_symbol(sc,q), sc->NIL)));
+                              cons(sc, mk_symbol(sc,strlwr(q)), sc->NIL)));
      }
 #endif
 
@@ -1103,16 +1097,16 @@ static pointer mk_atom(scheme *sc, char *q) {
          c = *p++;
        }
        if (!isdigit(c)) {
-         return (mk_symbol(sc, q));
+         return (mk_symbol(sc, strlwr(q)));
        }
      } else if (c == '.') {
        has_dec_point=1;
        c = *p++;
        if (!isdigit(c)) {
-         return (mk_symbol(sc, q));
+         return (mk_symbol(sc, strlwr(q)));
        }
      } else if (!isdigit(c)) {
-       return (mk_symbol(sc, q));
+       return (mk_symbol(sc, strlwr(q)));
      }
 
      for ( ; (c = *p) != 0; ++p) {
@@ -1133,7 +1127,7 @@ static pointer mk_atom(scheme *sc, char *q) {
                           }
                        }
                }
-               return (mk_symbol(sc, q));
+               return (mk_symbol(sc, strlwr(q)));
           }
      }
      if(has_dec_point) {
@@ -2369,7 +2363,7 @@ struct dump_stack_frame {
   pointer code;
 };
 
-#define STACK_GROWTH 30
+#define STACK_GROWTH 3
 
 static void s_save(scheme *sc, enum scheme_opcodes op, pointer args, pointer code)
 {
@@ -3979,12 +3973,6 @@ static pointer opexe_4(scheme *sc, enum scheme_opcodes op) {
      case OP_CURR_ENV: /* current-environment */
           s_return(sc,sc->envir);
 
-     case OP_CASE_SENSITIVE: /* read-case-sensitive */
-          if (sc->args != sc->NIL) {
-               sc->case_sensitive=(car(sc->args)!=sc->F);
-          }
-          s_return(sc,sc->case_sensitive ? sc->T : sc->F);
-
      }
      return sc->T;
 }
@@ -4481,7 +4469,6 @@ static void Eval_Cycle(scheme *sc, enum scheme_opcodes op) {
     }
     if(sc->no_memory) {
       fprintf(stderr,"No memory!\n");
-      fflush(stderr) ; 
       return;
     }
   }
@@ -4677,8 +4664,6 @@ int scheme_init_custom_alloc(scheme *sc, func_alloc malloc, func_dealloc free) {
   sc->loadport=sc->NIL;
   sc->nesting=0;
   sc->interactive_repl=0;
-  sc->case_sensitive=0; /* default to case insensitive reader following R5RS */
-  sc->case_sensitive=1; /* 필드명 처리를 위해 대소문자를 구분한다.  */
 
   if (alloc_cellseg(sc,FIRST_CELLSEGS) != FIRST_CELLSEGS) {
     sc->no_memory=1;
@@ -4958,8 +4943,6 @@ pointer scheme_eval(scheme *sc, pointer obj)
 /* ========== Main ========== */
 
 #if STANDALONE
-pointer
-foreign_testsc_init(scheme* sc , pointer args) ; 
 
 #if defined(__APPLE__) && !defined (OSX)
 int main()
@@ -4995,7 +4978,6 @@ int main(int argc, char **argv) {
   }
   if(!scheme_init(&sc)) {
     fprintf(stderr,"Could not initialize!\n");
-    fflush(stderr) ; 
     return 2;
   }
   scheme_set_input_port_file(&sc, stdin);
@@ -5034,7 +5016,6 @@ int main(int argc, char **argv) {
     }
     if(isfile && fin==0) {
       fprintf(stderr,"Could not open file %s\n",file_name);
-      fflush(stderr) ; 
     } else {
       if(isfile) {
         scheme_load_named_file(&sc,fin,file_name);
@@ -5044,7 +5025,6 @@ int main(int argc, char **argv) {
       if(!isfile || fin!=stdin) {
         if(sc.retcode!=0) {
           fprintf(stderr,"Errors encountered reading %s\n",file_name);
-          fflush(stderr) ; 
         }
         if(isfile) {
           fclose(fin);
@@ -5054,11 +5034,6 @@ int main(int argc, char **argv) {
     file_name=*argv++;
   } while(file_name!=0);
   if(argc==1) {
-    scheme_define(&sc ,
-                  sc.global_env ,
-                  mk_symbol(&sc , "testsc-init" ) ,
-                  mk_foreign_func(&sc , foreign_testsc_init)) ;
-       
     scheme_load_named_file(&sc,stdin,0);
   }
   retcode=sc.retcode;
