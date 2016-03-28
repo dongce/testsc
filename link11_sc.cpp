@@ -453,6 +453,7 @@ foreign_testsc_init(scheme* sc , pointer args)
     fclose(f) ;
   }
           
+  fprintf(stderr,"Errors encountered reading %s\n",absfilename);
   
   g_testnum            = ivalue(pop_args(args)) ;
   memset(&g_trackdefault, 0, sizeof(g_trackdefault)) ; 
