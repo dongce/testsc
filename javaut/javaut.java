@@ -11,8 +11,11 @@ public class javaut {
 
    public static void main (String args[]) {
      try{
+       
        Boolean changed = false ; 
-       System.out.println(args[0]) ; 
+       // System.out.println(args[0]) ; 
+       // System.out.println(args[1]) ; 
+       // System.out.println(args[2]) ; 
        FileInputStream fin = new FileInputStream(args[0]);
        ObjectInputStream ois = new ObjectInputStream(fin);
        UtTest uttest = (UtTest) ois.readObject();
@@ -21,12 +24,13 @@ public class javaut {
        UtUserCode uuc = tcs.getGlobalUserCode() ;
        UtUserCode ucs = tcs.getUserCodeStart() ;
 
+       String empty = new String("") ; 
        String usercode = uuc.getUserCode() ; 
        ois.close();
 
-       System.out.println(usercode) ; 
+       // System.out.println(usercode) ; 
 
-       if( "" == usercode.trim() ){
+       if( empty.equals( usercode.trim()  )){
          uuc.setUserCode(String.join("\r\n" , 
                                      "void testsc_ivalue(const char* name) ; ", 
                                      "void testsc_dvalue(const char* name) ; ", 
@@ -39,13 +43,13 @@ public class javaut {
 
        usercode = ucs.getUserCode() ; 
 
-       if( "" == usercode.trim() ){
+       if( empty.equals( usercode.trim()  )){
 
          String uc =
            String.join("\r\n" ,
                        String.format("testsc_init(CS_TESTCASENO(), \"(testsc-require %s/t-0)\")", args[1]) , 
-                       String.format("testsc_eval( \"(testsc-require %s/t-%x)\")", args[1], args[2]), 
-                     )         
+                       String.format("testsc_eval( \"(testsc-require %s/t-%s)\")", args[1], args[2]) 
+                       ) ;          
          ucs.setUserCode(uc) ; 
          changed = true ; 
        }
