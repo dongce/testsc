@@ -17,6 +17,8 @@
 (define  KILLO       1000.0                                  )
 (define  MILLI       0.001                                   )
 (define  MICRO       0.000001                                )
+
+
 (define  PREAFRAMEM9DSW1                       #x800039                           )
 (define  ARCSECOND_TO_RADIAN                   4.8481368110953599359e-6            )
 (define  RADIAN_TO_ARCSECOND                   206264.80624709635515647335733078   );3600 * 180/PI
@@ -61,6 +63,7 @@
 (define MAX_EMITTER_MODE        MAX_PU_ADDRESS)
 (define MAX_SOURCE_ID           2147483647    )
 (define MIN_SOURCE_ID           0             )
+
 (define  MESSAGE_NUMBER_M0     0             )
 (define  MESSAGE_NUMBER_M1     1             )
 (define  MESSAGE_NUMBER_M2     2             )
@@ -132,26 +135,26 @@
 
 
 
-(define  POINT_ECM_FIX                     0 )  ;;;
-(define  POINT_HAZARD                      2 )  ;;;
-(define  POINT_MINE_WARFARE                3 )  ;;;
-(define  POINT_REFERENCE_POINT_GENERAL     4 )  ;;;
-(define  POINT_STATION_GENERAL             5 )  ;;;
-(define  POINT_STATION_AIR                 6 )  ;;;
-(define  POINT_EMERGENCY                   7 )  ;;;
-(define  POINT_SITE                        13 ) ;;;
-(define  POINT_SUPPORTING_UNIT             14 ) ;;;
-(define  POINT_ENEMY                       15 ) ;;;
-(define  POINT_STATION_AIR_EXT             9 )  ;;; //!!!ticket:2620 20120512 김동일 | PIDS 동기화 
-(define  POINT_AMPLIFY_TOMCAT              1 )  ;;;
-(define  POINT_AMPLIFY_MARSHAL_PT          1 )  ;;;
-(define  POINT_AMPLIFY_DAN_BUOY            1 )  ;;;	// unused
-(define  POINT_AMPLIFY_CORRIDOR_TAB        3 )  ;;;
-(define  POINT_AMPLIFY_SEARCH_AREA_POINT   7 )  ;;;
-(define  POINT_AMPLIFY_REPLENISHMENT       5 ) ;;; 
-(define  POINT_AMPLIFY_RESCUE              6 ) ;;; 
-(define  POINT_AMPLIFY_TANKER              0 )  ;;;//!!!ticket:2620 20120512 김동일 | PIDS 동기화 
-(define  POINT_AMPLIFY_ORIBIT_POINT        1 )  ;;;//!!!ticket:2620 20120512 김동일 | PIDS 동기화 
+(define  POINT_ECM_FIX                     0 )  
+(define  POINT_HAZARD                      2 )  
+(define  POINT_MINE_WARFARE                3 )  
+(define  POINT_REFERENCE_POINT_GENERAL     4 )  
+(define  POINT_STATION_GENERAL             5 )  
+(define  POINT_STATION_AIR                 6 )  
+(define  POINT_EMERGENCY                   7 )  
+(define  POINT_SITE                        13 ) 
+(define  POINT_SUPPORTING_UNIT             14 ) 
+(define  POINT_ENEMY                       15 ) 
+(define  POINT_STATION_AIR_EXT             9 )  
+(define  POINT_AMPLIFY_TOMCAT              1 )  
+(define  POINT_AMPLIFY_MARSHAL_PT          1 )  
+(define  POINT_AMPLIFY_DAN_BUOY            1 )  
+(define  POINT_AMPLIFY_CORRIDOR_TAB        3 )  
+(define  POINT_AMPLIFY_SEARCH_AREA_POINT   7 )  
+(define  POINT_AMPLIFY_REPLENISHMENT       5 ) 
+(define  POINT_AMPLIFY_RESCUE              6 ) 
+(define  POINT_AMPLIFY_TANKER              0 )  
+(define  POINT_AMPLIFY_ORIBIT_POINT        1 )  
 
 
 (define  M1MN                 0  )

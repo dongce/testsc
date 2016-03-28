@@ -8,26 +8,95 @@ util3
 util4
 const done
 tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-const done
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-const done
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m5/t-1) start
+testsc eval (testsc-require pm_m5/t-1)
 t-1
-testsc eval (testsc-require pm_m5/t-1) done 
-T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:43
-T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:47
+154
+T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:44
+testsc_ivalue when integer is 4
+testsc_ivalue when integer is 17
+testsc_ivalue when integer is 17
+T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:51
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+const done
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m5/t-1)
+t-1
+154
+cell* foreign_mmsg_set(scheme*, pointer)
+cell* foreign_mmsg_set(scheme*, pointer) 0 2 154
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 162
+cell* foreign_mmsg_set(scheme*, pointer) 0 2 155
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.track_kind, 4 done
+T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:44
+testsc_ivalue when integer is 4
+testsc_ivalue when integer is 17
+testsc_ivalue when integer is 17
+testnum(56)link11_sc.cpp:517, get_field_value debug 154, 2
+testnum(56)link11_sc.cpp:517, get_field_value debug 162, 2
+testnum(56)link11_sc.cpp:517, get_field_value debug 155, 2
+T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:51
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+const done
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m5/t-1)
+t-1
+154
+cell* foreign_mmsg_set(scheme*, pointer)
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 154
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 162
+cell* foreign_mmsg_set(scheme*, pointer) 0 2 155
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 161
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 160
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.track_kind, 4 done
+T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:44
+testsc_ivalue when integer is 4
+testsc_ivalue when integer is 17
+testsc_ivalue when integer is 17
+testnum(57)link11_sc.cpp:517, get_field_value debug 154, 2
+testnum(57)link11_sc.cpp:517, get_field_value debug 162, 2
+testnum(57)link11_sc.cpp:517, get_field_value debug 161, 2
+testnum(57)link11_sc.cpp:517, get_field_value debug 160, 2
+T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:51
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+const done
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m5/t-1)
+t-1
+154
+T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:44
+T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:51
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+const done
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m5/t-1)
+t-1
+154
+T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:44
+testsc_ivalue when integer is 3
+T:\codescroll2\process_message_m5\.csdata\src\simulation\..\..\..\unittest\process_message_m5_fill_network_track_data_test0.c:51
