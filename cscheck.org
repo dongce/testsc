@@ -18,9 +18,14 @@ update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ;
 sqlite3 xxx.csp update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ; 
 #+END_SRC
 
-*** 
 
-** 진척률 [0/91]
+** 진행방법 
+
+ 1. 파일 체크아웃
+ 2. 타임아웃 설정
+ 3. 일괄 테스트 수행
+ 4. 
+** 진척률 [1/91]
 
 *** TODO DP_L11EventHandler
 *** TODO LINK11_DSF_MANAGER
@@ -57,7 +62,7 @@ sqlite3 xxx.csp update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ;
 *** TODO general_output
 *** TODO gettimeofday
 *** TODO intf_vme
-*** TODO lifecycle_controller
+*** STARTED lifecycle_controller
 *** TODO link11_filter
 *** TODO looptest
 *** TODO mmsg_buff
@@ -90,9 +95,12 @@ sqlite3 xxx.csp update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ;
 *** TODO process_message_m4ab
 *** TODO process_message_m4c
 *** TODO process_message_m4d
-*** STARTED process_message_m5
+*** DONE process_message_m5                                    :QUESTIONMARK:
+    CLOSED: [2016-03-28 Mon 23:53]
  스크립트 폴더 pm5
-*** TODO process_message_m6a
+
+? 가 생기는 원인 확인 필요. 
+*** STARTED process_message_m6a
 *** TODO process_message_m6b
 *** TODO process_message_m6c
 *** TODO process_message_m6d
@@ -110,7 +118,7 @@ sqlite3 xxx.csp update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ;
 *** TODO simulated_track
 *** TODO start_dlps
 *** TODO status_checker
-*** TODO track_controller
+*** STARTED track_controller
 *** TODO track_input
 *** TODO track_output
 *** TODO usr_channel

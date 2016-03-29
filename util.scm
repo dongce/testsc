@@ -1,4 +1,4 @@
-(testsc-set-debug 0)
+(testsc-set-debug 1)
 (testsc-debug "util")
 (define (loadit x)
   (load (symbol->string x)))
