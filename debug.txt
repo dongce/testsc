@@ -7,8 +7,12 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-81)
+testsc eval (testsc-require lf/t-13)
 cell* foreign_testsc_track_nset(scheme*, pointer)
+field set _track_source_filter, 1 done
+testsc eval (testsc-require lf/t-13)
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set _track_source_filter, 1 done
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -17,57 +21,73 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-81)
+testsc eval (testsc-require lf/t-13)
 cell* foreign_testsc_track_nset(scheme*, pointer)
-testsc_track_get with id 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-81)
+field set _track_source_filter, 1 done
+testsc eval (testsc-require lf/t-13)
 cell* foreign_testsc_track_nset(scheme*, pointer)
-cell* foreign_testsc_track_nset(scheme*, pointer)
-testsc_track_get with id 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-81)
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.aop_data.validity, 0 done
-testsc_track_get with id 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-81)
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.aop_data.validity, 1 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.aop_data.counter, 0 done
-testsc_track_get with id 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-26)
+field set _track_source_filter, 1 done
 testsc_ivalue when integer is 1
-testsc_ivalue when integer is -1
-testsc_ivalue when integer is -1
-testsc_ivalue when integer is -1
+testsc_ivalue when integer is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require lf/t-8)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require lf/t-8)
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set _track_source_filter, 1 done
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.link_state, 0 done
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require lf/t-8)
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set _track_source_filter, 1 done
+cell* foreign_testsc_track_nset(scheme*, pointer)
+field set general.link_state, 4 done
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require lf/t-8)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require lf/t-8)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require lf/t-8)

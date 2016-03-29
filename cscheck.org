@@ -24,8 +24,11 @@ sqlite3 xxx.csp update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ;
  1. 파일 체크아웃
  2. 타임아웃 설정
  3. 일괄 테스트 수행
- 4. 
-** 진척률 [2/91]
+ 4. 셀프스텁 기록 필요.
+ 5. 셀프서텁 사용 후 원복
+ 6. 파일 완료 후에는 커밋 필수 
+
+** 진척률 [3/91]
 
 *** TODO DP_L11EventHandler
 *** TODO LINK11_DSF_MANAGER
@@ -46,8 +49,12 @@ sqlite3 xxx.csp update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ;
 *** TODO build_message_special_code
 *** TODO build_message_supporting_information
 *** TODO build_message_tag
-*** STARTED build_message_track
+*** STARTED build_message_track                                    :SELFSTUB:
  스크립트 폴더 따로 작성하지 아니하였음. 
+**** get_amplifying_message_period
+const track_selection_t * build_message_track::find_track_transmission_characteristic(network_track_data_t * arg0)
+
+
 *** TODO build_message_training
 *** TODO build_message_update_request
 *** TODO build_message_weapon_engagement
@@ -62,8 +69,9 @@ sqlite3 xxx.csp update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ;
 *** TODO general_output
 *** TODO gettimeofday
 *** TODO intf_vme
-*** STARTED lifecycle_controller
-*** TODO link11_filter
+*** DONE lifecycle_controller
+    CLOSED: [2016-03-29 Tue 14:27]
+*** STARTED link11_filter
 *** TODO looptest
 *** TODO mmsg_buff
 *** TODO network_rx
