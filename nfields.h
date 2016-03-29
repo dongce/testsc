@@ -34,6 +34,8 @@
 \
       TEMPLATE(general.aop_data.position.x_position                                , it, fieldnum) ; \
       TEMPLATE(general.aop_data.position.y_position                                , it, fieldnum) ; \
+      TEMPLATE(general.aop_data.validity                                           , it, fieldnum) ; \
+      TEMPLATE(general.aop_data.counter                                            , it, fieldnum) ; \
       TEMPLATE(general.tactical                                 , it, fieldnum) ; \
       TEMPLATE(general.network                                  , it, fieldnum) ; \
       TEMPLATE(general.NTN                                      , it, fieldnum) ; \
