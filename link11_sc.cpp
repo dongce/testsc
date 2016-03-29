@@ -584,6 +584,17 @@ void testsc_track_set(uint32_t id , network_track_data_ptr t )
   g_trackmap[id] = t ; 
 }
 
+
+network_track_data_ptr  testsc_track_get(uint32_t id )
+{
+  trackmap_t::iterator it =  g_trackmap.find(id) ;
+
+  if(g_trackmap.end() ==  it){
+    return NULL ;
+  }
+
+  return it->second ;
+}
 void testsc_eval(const char *cmd)
 {
   testsc_debug("testsc eval %s" , cmd) ; 
