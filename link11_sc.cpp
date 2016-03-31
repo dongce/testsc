@@ -70,7 +70,6 @@ void testsc_debug(const char*format ...) ;
 
 
 pointer g_mmsg    = 0;
-pointer g_adminindex = 0 ; 
 int     g_testnum = 0;
 int     g_testsc_debug = 1 ; 
 
@@ -231,38 +230,20 @@ foreign_testsc_admin_nset(scheme *sc , pointer args)
   return mk_integer(sc, g_adminmap.size()); ; 
 }
 
-pointer
-foreign_testsc_admin_index(scheme *sc , pointer args)
-{
-  g_adminindex = pop_args(args) ;
-  return g_adminindex ; 
-}
 
 pointer
 foreign_testsc_admin_length(scheme *sc , pointer args)
 {
-  return mk_integer(sc, sc->vptr->vector_length(g_adminindex)); 
+  return mk_integer(sc, g_adminmap.size()) ; 
 }
 
 pointer
 foreign_testsc_admin_erase(scheme *sc , pointer args)
 {
-  const int length = sc->vptr->vector_length(g_adminindex) ;
-  const int index  = ivalue(pop_args(args)) ; 
-  if(length > index ){
-    pointer newindex = sc->vptr->mk_vector(sc, length-1);
-    
-    for(int it = 0 , i = 0 ; i < length ; i++){
-      if( i == index ){
-        continue ;
-      }
-      sc->vptr->set_vector_elem(newindex, it++ , sc->vptr->vector_elem(g_adminindex, i )) ;
-    }
-
-    return newindex ; 
-  }
-
-  return g_adminindex ;
+  const int length = g_adminmap.size() ; 
+  const int index  = ivalue(pop_args(args)) ;
+  g_adminmap.erase(index) ; 
+  return args ; 
 }
 
 
@@ -458,7 +439,6 @@ foreign_testsc_init(scheme* sc , pointer args)
     {"testsc-track-nget" , foreign_testsc_track_nget   }, 
     {"testsc-admin-nset" , foreign_testsc_admin_nset   }, 
     {"testsc-admin-nget" , foreign_testsc_admin_nget   }, 
-    {"testsc-admin-index", foreign_testsc_admin_index  }, 
     {"testsc-admin-length", foreign_testsc_admin_length  }, 
     {"testsc-admin-erase" , foreign_testsc_admin_erase  }, 
     {"testsc-numtest" , foreign_testsc_numtest  }, 
@@ -547,7 +527,7 @@ long testsc_ivalue( const char *name )
 char* testsc_admin_get( int i )
 {
 
-  adminmap_t::iterator it = g_adminmap.find(ivalue(g_sc.vptr->vector_elem(g_adminindex, i ))) ;
+  adminmap_t::iterator it = g_adminmap.find(i) ; 
 
   if( g_adminmap.end() ==  it){
     return NULL ;
@@ -558,29 +538,14 @@ char* testsc_admin_get( int i )
 int testsc_admin_length( void )
 {
 
-  return ivalue(g_adminindex) ;
+  return g_adminmap.size() ; 
 
 }
 
 
 void testsc_admin_erase(int index )
 {
-  if( 0 == g_sc.NIL){
-    return ;
-  }
-  const int length = g_sc.vptr->vector_length(g_adminindex) ;
-  if(length > index ){
-    pointer newindex = g_sc.vptr->mk_vector(&g_sc, length-1);
-    
-    for(int it = 0 , i = 0 ; i < length ; i++){
-      if( i == index ){
-        continue ;
-      }
-      g_sc.vptr->set_vector_elem(newindex, it++ , g_sc.vptr->vector_elem(g_adminindex, i )) ;
-    }
-
-    g_adminindex = newindex ; 
-  }
+  g_adminmap.erase(index) ;
 }
 
 void testsc_track_set(uint32_t id , network_track_data_ptr t )
