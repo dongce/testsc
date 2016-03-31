@@ -72,6 +72,10 @@ const track_selection_t * build_message_track::find_track_transmission_character
 *** DONE lifecycle_controller
     CLOSED: [2016-03-29 Tue 14:27]
 *** STARTED link11_filter
+
+**** self strub
+is_track_filter_exception 
+
 *** TODO looptest
 *** TODO mmsg_buff
 *** TODO network_rx
@@ -110,7 +114,9 @@ const track_selection_t * build_message_track::find_track_transmission_character
 ? 가 생기는 원인 확인 필요. 
 *** DONE process_message_m6a
     CLOSED: [2016-03-29 Tue 11:43]
-*** TODO process_message_m6b
+*** STARTED process_message_m6b
+**** existing_track 
+stup : get_last_created_network
 *** TODO process_message_m6c
 *** TODO process_message_m6d
 *** TODO process_message_m9a

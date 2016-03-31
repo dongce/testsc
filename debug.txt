@@ -7,12 +7,6 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require lf/t-13)
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set _track_source_filter, 1 done
-testsc eval (testsc-require lf/t-13)
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set _track_source_filter, 1 done
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -21,14 +15,254 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require lf/t-13)
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set _track_source_filter, 1 done
-testsc eval (testsc-require lf/t-13)
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set _track_source_filter, 1 done
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
+cell* foreign_mmsg_set(scheme*, pointer)
+cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
+cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
+cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
+cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 2
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 191, 2
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 192, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 193, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 201, 2
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 197, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
+cell* foreign_mmsg_set(scheme*, pointer)
+cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
+cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
+cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
+cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 2
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 191, 2
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 192, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 193, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 201, 2
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 197, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
+cell* foreign_mmsg_set(scheme*, pointer)
+cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
+cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 201
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 198
+cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(10)link11_sc.cpp:498, get_field_value debug 191, 2
+testsc_ivalue when integer is 1
+testnum(10)link11_sc.cpp:498, get_field_value debug 192, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(10)link11_sc.cpp:498, get_field_value debug 193, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(10)link11_sc.cpp:498, get_field_value debug 201, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
+cell* foreign_mmsg_set(scheme*, pointer)
+cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
+cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
+cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
+cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 3
+testsc_ivalue when integer is 1
+testnum(11)link11_sc.cpp:498, get_field_value debug 191, 2
+testsc_ivalue when integer is 1
+testnum(11)link11_sc.cpp:498, get_field_value debug 192, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(11)link11_sc.cpp:498, get_field_value debug 193, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(11)link11_sc.cpp:498, get_field_value debug 201, 2
+testsc_ivalue when integer is 1
+testnum(11)link11_sc.cpp:498, get_field_value debug 197, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
+cell* foreign_mmsg_set(scheme*, pointer)
+cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
+cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
+cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
+cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
 testsc_ivalue when integer is 1
 testsc_ivalue when integer is 0
+testsc_ivalue when integer is 1
+testnum(12)link11_sc.cpp:498, get_field_value debug 191, 2
+testsc_ivalue when integer is 1
+testnum(12)link11_sc.cpp:498, get_field_value debug 192, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(12)link11_sc.cpp:498, get_field_value debug 193, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(12)link11_sc.cpp:498, get_field_value debug 201, 2
+testsc_ivalue when integer is 1
+testnum(12)link11_sc.cpp:498, get_field_value debug 197, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -37,57 +271,5 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require lf/t-8)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require lf/t-8)
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set _track_source_filter, 1 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.link_state, 0 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require lf/t-8)
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set _track_source_filter, 1 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.link_state, 4 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require lf/t-8)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require lf/t-8)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require lf/t-8)
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
