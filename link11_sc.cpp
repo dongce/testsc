@@ -35,6 +35,7 @@ union admin_t {
   depromotion_t          _depromotion ; 
   update_request_t       _update_request ; 
   weapon_engagement_t    _weapon_engagement ;
+  new_assignment_t       _assign_request ;
 } ;
 
 typedef std::map<uint32_t, admin_t> adminmap_t ;
@@ -547,7 +548,10 @@ char* testsc_admin_get( int i )
 {
 
   adminmap_t::iterator it = g_adminmap.find(ivalue(g_sc.vptr->vector_elem(g_adminindex, i ))) ;
-  
+
+  if( g_adminmap.end() ==  it){
+    return NULL ;
+  }
   reinterpret_cast<char*>( &(it->second) ) ; 
 }
 
