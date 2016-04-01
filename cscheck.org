@@ -18,6 +18,74 @@ update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ;
 sqlite3 xxx.csp update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ; 
 #+END_SRC
 
+*** 자주 사용하는 코드 
+
+#+BEGIN_SRC cpp
+
+if(testsc_ivalue("testsc") > 0) return testsc_ivalue("") ; 
+
+#+END_SRC
+** stub
+*** get_admission
+#+BEGIN_SRC cpp
+admission_t  os_data::get_admission()
+{
+	admission_t cs_returnValue = {0, };
+	cs_returnValue.max_ntn_track = 500 ; 
+	cs_returnValue.ntn_track_threshold_percent = 80 ;
+	cs_returnValue.max_tx_ntn_track = 500 ;
+	cs_returnValue.tx_ntn_track_threshold_percent = 80 ; 
+
+	return cs_returnValue;
+}
+#+END_SRC
+*** read_channel
+#+BEGIN_SRC cpp
+char* testsc_admin_get( int i ) ;
+void testsc_debug(const char*format ...) ;
+
+int  read_channel(const char * arg0, char * arg1, unsigned int arg2)
+{
+	static int count = 1 ;
+	if( testsc_ivalue("testsc") > 0 ){
+		char *it = testsc_admin_get(count++) ;
+		new_assignment_t* it2 = (new_assignment_t*) it ;
+
+		if(0 == it ) return 0 ;
+		testsc_debug("%d:%d:%d %s:%d", it2->tactical, it2->assignment_kind, arg2, __FILE__, __LINE__ ) ;
+		memcpy(arg1, it, arg2) ;
+		//new_assignment_t* it2 = (new_assignment_t*) it ;
+
+		testsc_debug("%d:%d:%d %s:%d", it2->tactical, it2->assignment_kind, arg2, __FILE__, __LINE__ ) ;
+		return arg2 ;
+	}
+	return 0;
+}
+
+#+END_SRC
+*** message_admin
+#+BEGIN_SRC cpp
+
+if(testsc_ivalue("testsc")>0) return testsc_ivalue("mas") ; 
+
+char* testsc_admin_get( int i ) ;
+
+if( testsc_ivalue("testsc") > 0 ){return testsc_admin_get(arg0) ;}
+
+#+END_SRC
+*** ntdb
+
+#+BEGIN_SRC cpp
+  static int id = 1 ; 
+
+  if(testsc_ivalue("testsc") > 0 ){
+    if( testsc_ivalue("con") > 0 ){
+      return testsc_track_get(testsc_ivalue("con") ) ;
+    }
+    return testsc_track_get(id++) ; 
+  }
+  return 0 ; 
+#+END_SRC
 
 ** 진행방법 
 
@@ -27,6 +95,8 @@ sqlite3 xxx.csp update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ;
  4. 셀프스텁 기록 필요.
  5. 셀프서텁 사용 후 원복
  6. 파일 완료 후에는 커밋 필수 
+
+
 
 ** 진척률 [3/91]
 
@@ -54,6 +124,12 @@ sqlite3 xxx.csp update Module set linkFlag='-Lc:/ts/ -ltinyscheme' ;
 **** get_amplifying_message_period
 const track_selection_t * build_message_track::find_track_transmission_characteristic(network_track_data_t * arg0)
 
+**** output_tracks
+
+- stubs 
+#+BEGIN_SRC cpp
+
+#+END_SRC
 
 *** TODO build_message_training
 *** TODO build_message_update_request
