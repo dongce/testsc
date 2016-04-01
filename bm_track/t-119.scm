@@ -1,0 +1,18 @@
+(testsc-require dlplink11types)
+(testsc-require system_types)
+
+(case (testsc-get-testnum)
+  ((1)
+   (define testsc 1 )
+   (define maa 512 )
+   (testsc-admin-nset 1 (list '_ew_request.ew_intelligence_data.nationallity_alliance 2))
+   (testsc-admin-nset 2 (list '_ew_request.ew_intelligence_data.nationallity_alliance 0))
+   (testsc-track-nset 0 (list 'transmission_info.info_validation 1 )))
+
+  ((2)
+   (define testsc 1 )
+   (define maa 512 )
+   (testsc-admin-nset 1 (list '_ew_request.ew_intelligence_data.nationality_alliance 2))
+   ;; (testsc-admin-nset 2 (list '_ew_request.ew_intelligence_data.nationality_alliance 0))
+   (testsc-track-nset 0 (list 'transmission_info.info_validation 0 )))
+  )

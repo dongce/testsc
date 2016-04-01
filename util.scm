@@ -54,3 +54,9 @@
       (i start (+ i 1)))
      ((>= i end) (reverse result ))
    (set! result  (cons i result))))
+
+(define (tnset id sym val)
+  (testsc-track-nset id (list sym val)))
+
+(define (anset id sym val )
+  (testsc-admin-nset id (list sym val)))

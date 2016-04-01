@@ -7,6 +7,14 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require bm_track/t-120)
+dlplink11types
+testsc_ivalue testsc is 1
+0:0:4 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:4 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_ivalue testsc is 1
+testsc_ivalue maa is 512
+testsc_ivalue testsc is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -15,6 +23,18 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require bm_track/t-119)
+dlplink11types
+field set transmission_info.info_validation, 1 done
+testsc_ivalue testsc is 1
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -23,6 +43,8 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require bm_track/t-119)
+dlplink11types
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -31,6 +53,14 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require bm_track/t-119)
+dlplink11types
+field set transmission_info.info_validation, 0 done
+testsc_ivalue testsc is 1
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -39,22 +69,18 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6b/t-27)
-t-27
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
+testsc eval (testsc-require bm_track/t-119)
+dlplink11types
+field set transmission_info.info_validation, 1 done
+testsc_ivalue testsc is 1
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -63,22 +89,14 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6b/t-27)
-t-27
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
+testsc eval (testsc-require bm_track/t-119)
+dlplink11types
+field set transmission_info.info_validation, 0 done
+testsc_ivalue testsc is 1
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -87,33 +105,20 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6b/t-27)
-t-27
-cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
-cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
-cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
-cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
-cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 2
-testsc_ivalue when integer is 1
-testnum(9)link11_sc.cpp:498, get_field_value debug 191, 2
-testsc_ivalue when integer is 1
-testnum(9)link11_sc.cpp:498, get_field_value debug 192, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testnum(9)link11_sc.cpp:498, get_field_value debug 193, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testnum(9)link11_sc.cpp:498, get_field_value debug 201, 2
-testsc_ivalue when integer is 1
-testnum(9)link11_sc.cpp:498, get_field_value debug 197, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
+testsc eval (testsc-require bm_track/t-119)
+dlplink11types
+field set _ew_request.ew_intelligence_data.nationallity_alliance, 2 done
+field set _ew_request.ew_intelligence_data.nationallity_alliance, 0 done
+field set transmission_info.info_validation, 1 done
+testsc_ivalue testsc is 1
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:48 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -122,8 +127,23 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6b/t-27)
-t-27
+testsc eval (testsc-require bm_track/t-105)
+dlplink11types
+field set transmission_info.info_validation, 1 done
+field set transmission_info.info_validation, 0 done
+field set transmission_info.info_validation, 1 done
+field set general.ew_intelligence_validity, 1 done
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+0:0:4 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:4 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_track_get with id 2
+testsc_track_get with id 3
+testsc_track_get with id 4
+testsc_track_get with id 5
+testsc_track_get with id 6
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -132,33 +152,8 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6b/t-27)
-t-27
-cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
-cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
-cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
-cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
-cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 2
-testsc_ivalue when integer is 1
-testnum(9)link11_sc.cpp:498, get_field_value debug 191, 2
-testsc_ivalue when integer is 1
-testnum(9)link11_sc.cpp:498, get_field_value debug 192, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testnum(9)link11_sc.cpp:498, get_field_value debug 193, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testnum(9)link11_sc.cpp:498, get_field_value debug 201, 2
-testsc_ivalue when integer is 1
-testnum(9)link11_sc.cpp:498, get_field_value debug 197, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
+testsc eval (testsc-require bm_track/t-105)
+dlplink11types
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -167,32 +162,9 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6b/t-27)
-t-27
-cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
-cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
-cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
-cell* foreign_mmsg_set(scheme*, pointer) 1 2 201
-cell* foreign_mmsg_set(scheme*, pointer) 1 2 198
-cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testnum(10)link11_sc.cpp:498, get_field_value debug 191, 2
-testsc_ivalue when integer is 1
-testnum(10)link11_sc.cpp:498, get_field_value debug 192, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testnum(10)link11_sc.cpp:498, get_field_value debug 193, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testnum(10)link11_sc.cpp:498, get_field_value debug 201, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
+testsc eval (testsc-require bm_track/t-15)
+dlplink11types
+testsc_ivalue testsc is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -201,33 +173,43 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6b/t-27)
-t-27
-cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
-cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
-cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
-cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
-cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 3
-testsc_ivalue when integer is 1
-testnum(11)link11_sc.cpp:498, get_field_value debug 191, 2
-testsc_ivalue when integer is 1
-testnum(11)link11_sc.cpp:498, get_field_value debug 192, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testnum(11)link11_sc.cpp:498, get_field_value debug 193, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testnum(11)link11_sc.cpp:498, get_field_value debug 201, 2
-testsc_ivalue when integer is 1
-testnum(11)link11_sc.cpp:498, get_field_value debug 197, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
+testsc eval (testsc-require bm_track/t-15)
+dlplink11types
+field set _alert_report.track_alert_state, 0 done
+field set _alert_report.track_alert_state, 2 done
+field set _alert_report.track_alert_state, 2 done
+field set _alert_report.track_alert_state, 2 done
+field set transmission_info.info_validation, 1 done
+field set transmission_info.info_validation, 1 done
+field set transmission_info.info_validation, 1 done
+field set transmission_info.info_validation, 1 done
+field set general.link_state, 2 done
+field set general.link_state, 2 done
+field set general.link_state, 2 done
+field set general.track_alert_state, 2 done
+field set general.track_alert_state, 1 done
+field set general.track_alert_state, -1 done
+testsc_ivalue testsc is 1
+0:0:16 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:16 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+0:0:16 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:16 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+0:0:16 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:16 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+0:0:16 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:19
+0:0:16 T:\codescroll1\build_message_track\.csdata\src\simulation\..\build\..\..\..\stub\read_channel_stub2493142999.c:23
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -236,33 +218,32 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6b/t-27)
-t-27
-cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
-cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
-cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
-cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
-cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 0
-testsc_ivalue when integer is 1
-testnum(12)link11_sc.cpp:498, get_field_value debug 191, 2
-testsc_ivalue when integer is 1
-testnum(12)link11_sc.cpp:498, get_field_value debug 192, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testnum(12)link11_sc.cpp:498, get_field_value debug 193, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testnum(12)link11_sc.cpp:498, get_field_value debug 201, 2
-testsc_ivalue when integer is 1
-testnum(12)link11_sc.cpp:498, get_field_value debug 197, 2
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
-testsc_ivalue when integer is 1
+testsc eval (testsc-require bm_track/t-82)
+dlplink11types
+field set transmission_info.info_validation, 1 done
+field set general.link_state, 2 done
+field set transmission_info.info_validation, 1 done
+field set general.link_state, 2 done
+field set transmission_info.info_validation, 1 done
+field set general.link_state, 2 done
+field set transmission_info.info_validation, 1 done
+field set general.link_state, 2 done
+field set transmission_info.info_validation, 0 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_ivalue maa is 512
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_ivalue maa is 512
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_ivalue maa is 512
+testsc_track_get with id 5
+testsc_track_get with id 6
+testsc_track_get with id 7
+testsc_track_get with id 8
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -271,5 +252,51 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6b/t-27)
-t-27
+testsc eval (testsc-require bm_track/t-3)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue icsv is 1
+testsc_ivalue testsc is 1
+testsc_ivalue imnv is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require bm_track/t-3)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue icsv is 1
+testsc_ivalue testsc is 1
+testsc_ivalue imnv is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require bm_track/t-3)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue icsv is 1
+testsc_ivalue testsc is 1
+testsc_ivalue imnv is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require bm_track/t-3)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue icsv is 1
+testsc_ivalue testsc is 1
+testsc_ivalue imnv is 1
