@@ -38,6 +38,7 @@ struct admin_t {
     update_request_t       _update_request ; 
     weapon_engagement_t    _weapon_engagement ;
     new_assignment_t       _assign_request ;
+    track_alert_report_t   _alert_report ; 
     ew_intelligence_types::ew_intelligence_request_record _ew_request; 
   } ; 
 } ;
