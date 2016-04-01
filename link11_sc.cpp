@@ -22,20 +22,22 @@ typedef std::map<std::string, uint32_t>           fieldmap_t ;
 typedef std::pair<uint32_t, network_track_data_ptr> trackpair_t ; 
 typedef std::pair<std::string, uint32_t>          fieldpair_t ; 
 
-union admin_t {
-  wipe_proposal_t        _wipe_proposal ; 
-  network_track_number_t _network_track_number ;
-  pair_assoc_t           _pair_assoc ;
-  monitor_t              _monitor ;
-  aircraft_control_t     _aircraft_control ;
-  command_order_t        _command_order ;
-  // emitter_eval_info_type _emitter_eval_info ;
-  // ew_coord_info_type     _ew_coord_info ;
-  link_pointer_t         _link_pointer ; 
-  depromotion_t          _depromotion ; 
-  update_request_t       _update_request ; 
-  weapon_engagement_t    _weapon_engagement ;
-  new_assignment_t       _assign_request ;
+struct admin_t {
+  union{
+    wipe_proposal_t        _wipe_proposal ; 
+    network_track_number_t _network_track_number ;
+    pair_assoc_t           _pair_assoc ;
+    monitor_t              _monitor ;
+    aircraft_control_t     _aircraft_control ;
+    command_order_t        _command_order ;
+    // emitter_eval_info_type _emitter_eval_info ;
+    // ew_coord_info_type     _ew_coord_info ;
+    link_pointer_t         _link_pointer ; 
+    depromotion_t          _depromotion ; 
+    update_request_t       _update_request ; 
+    weapon_engagement_t    _weapon_engagement ;
+    new_assignment_t       _assign_request ;
+  } ; 
 } ;
 
 typedef std::map<uint32_t, admin_t*> adminmap_t ;
