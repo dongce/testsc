@@ -290,6 +290,7 @@ TEMPLATE(_wipe_proposal.network            ,it, fieldnum) ;             \
       TEMPLATE(general.datum_error                              , it, fieldnum) ; \
       TEMPLATE(general.nineteen_bit_action                      , it, fieldnum) ; \
       TEMPLATE(general.ew_intelligence_category                 , it, fieldnum) ; \
+      TEMPLATE(general.ew_intelligence_data.category            , it, fieldnum) ; \
       TEMPLATE(general.ew_intelligence_general                  , it, fieldnum) ; \
       TEMPLATE(general.ew_intelligence_validity                 , it, fieldnum) ; \
       TEMPLATE(general.ew_intelligence_changed                  , it, fieldnum) ; \
