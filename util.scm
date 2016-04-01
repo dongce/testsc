@@ -49,4 +49,8 @@
 
 
 
-
+(define (num-list start end  )
+ (do ((result '())
+      (i start (+ i 1)))
+     ((>= i end) (reverse result ))
+   (set! result  (cons i result))))
