@@ -10,7 +10,10 @@ TEMPLATE(_wipe_proposal.network            ,it, fieldnum) ;             \
  TEMPLATE(_wipe_proposal.source_id          ,it, fieldnum) ;             \
  TEMPLATE(_wipe_proposal.wipe_result        ,it, fieldnum) ;             \
  TEMPLATE(_wipe_proposal.wipe_reject_reason ,it, fieldnum) ;             \
-                                                                        \
+ TEMPLATE(_alert_report.network          ,it, fieldnum) ;             \
+ TEMPLATE(_alert_report.NTN              ,it, fieldnum) ;             \
+ TEMPLATE(_alert_report.track_alert_state,it, fieldnum) ;             \
+ TEMPLATE(_alert_report.pu_sending       ,it, fieldnum) ;             \
  TEMPLATE(_network_track_number.tactical                        ,it, fieldnum) ; \
  TEMPLATE(_network_track_number.pu_address                      ,it, fieldnum) ; \
  TEMPLATE(_network_track_number.NTN                             ,it, fieldnum) ; \
