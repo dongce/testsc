@@ -1,0 +1,48 @@
+(testsc-requie ew_types)
+(define testsc 1 )
+(define rp ew_intelligence_types-T)
+(define tp ew_intelligence_types-T)
+(define m11table 
+  '(
+    (ew_intelligence_types-air_category   ew_intelligence_types-no_statement_general)
+    (ew_intelligence_types-air_category   ew_intelligence_types-interceptor_general)
+    (ew_intelligence_types-air_category   ew_intelligence_types-bomber_attack_general)
+    (ew_intelligence_types-air_category   ew_intelligence_types-bomber_general)
+    (ew_intelligence_types-air_category   ew_intelligence_types-helo_general)
+    (ew_intelligence_types-air_category   ew_intelligence_types-attack_helo_general)
+    (ew_intelligence_types-air_category   ew_intelligence_types-drone_general)
+    (ew_intelligence_types-air_category   ew_intelligence_types-support_general)
+    (ew_intelligence_types-air_category   ew_intelligence_types-civil_general)
+    (ew_intelligence_types-air_category   ew_intelligence_types-patrol_general)
+    (ew_intelligence_types-air_category   ew_intelligence_types-AEW_general)
+
+    (ew_intelligence_types-surface_category   ew_intelligence_types-aircraft_sec_surf_ampl_carrier_general)
+    (ew_intelligence_types-surface_category   ew_intelligence_types-sec_surf_ampl_destroyer_general)
+    (ew_intelligence_types-surface_category   ew_intelligence_types-cruiser_general)
+    (ew_intelligence_types-surface_category   ew_intelligence_types-frigate_general)
+    (ew_intelligence_types-surface_category   ew_intelligence_types-patrol_general)
+    (ew_intelligence_types-surface_category   ew_intelligence_types-mine_warfare_general)
+    (ew_intelligence_types-surface_category   ew_intelligence_types-pri_surf_ampl_amphibious_general)
+    (ew_intelligence_types-surface_category   ew_intelligence_types-support_general)
+    (ew_intelligence_types-surface_category   ew_intelligence_types-tanker_general)
+    (ew_intelligence_types-surface_category   ew_intelligence_types-sec_surf_ampl_fishing_boat_general)
+    (ew_intelligence_types-surface_category   ew_intelligence_types-sec_surf_ampl_merchant_general)
+
+    (ew_intelligence_types-subsurface_category   ew_intelligence_types-attack_general)
+    (ew_intelligence_types-subsurface_category   ew_intelligence_types-cruise_msl_general)
+    (ew_intelligence_types-subsurface_category   ew_intelligence_types-ballistic_msl_general)
+    (ew_intelligence_types-subsurface_category   ew_intelligence_types-nuclear_sub_general)
+    (ew_intelligence_types-subsurface_category   ew_intelligence_types-diesel_sub_general)
+    (ew_intelligence_types-subsurface_category   ew_intelligence_types-other_korea_sub_general)
+
+    (ew_intelligence_types-land_category 0)
+    ))
+
+(let ((n (- (testsc-get-testnum) 0) ))
+  (if (>= n 0 )
+      (let ((m11 (nth n m11table)))
+        (tnset 1 'general.ew_intelligence_data.category (eval  (car  m11)) )
+        (tnset 1 'general.ew_intelligence_general       (eval  (cadr m11)) )
+        )))
+
+
