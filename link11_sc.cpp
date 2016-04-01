@@ -216,7 +216,6 @@ foreign_testsc_track_nset(scheme *sc , pointer args)
 pointer
 foreign_testsc_admin_nset(scheme *sc , pointer args)
 {
-  testsc_debug(__PRETTY_FUNCTION__) ; 
   uint32_t adminid = ivalue(pop_args(args)) ;
 
   adminmap_t::iterator it = g_adminmap.find(adminid) ; 
@@ -544,7 +543,7 @@ char* testsc_admin_get( int i )
   if( g_adminmap.end() ==  it){
     return NULL ;
   }
-  reinterpret_cast<char*>( (it->second) ) ; 
+  return reinterpret_cast<char*>( (it->second) ) ; 
 }
 
 int testsc_admin_length( void )
