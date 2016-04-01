@@ -38,8 +38,8 @@ union admin_t {
   new_assignment_t       _assign_request ;
 } ;
 
-typedef std::map<uint32_t, admin_t> adminmap_t ;
-typedef std::pair<uint32_t, admin_t> adminpair_t ; 
+typedef std::map<uint32_t, admin_t*> adminmap_t ;
+typedef std::pair<uint32_t, admin_t*> adminpair_t ; 
 
 
 trackmap_t g_trackmap ;
@@ -213,7 +213,9 @@ foreign_testsc_admin_nset(scheme *sc , pointer args)
 
   adminmap_t::iterator it = g_adminmap.find(adminid) ; 
   if( g_adminmap.end() == it ){
-    g_adminmap.insert(adminpair_t(adminid, g_admindefault)) ;
+    admin_t* nit = reinterpret_cast<admin_t*>(malloc(sizeof(admin_t)));
+    memcpy(nit, &g_admindefault, sizeof(g_admindefault)) ; 
+    g_adminmap.insert(adminpair_t(adminid, nit)) ;
     it = g_adminmap.find(adminid) ;
   }
     
@@ -257,7 +259,9 @@ foreign_testsc_admin_nget(scheme *sc , pointer args)
   pointer result = sc->NIL ; 
   adminmap_t::iterator it = g_adminmap.find(adminid) ; 
   if( g_adminmap.end() == it ){
-    g_adminmap.insert(adminpair_t(adminid, g_admindefault)) ;
+    admin_t* nit = reinterpret_cast<admin_t*>(malloc(sizeof(admin_t)));
+    memcpy(nit, &g_admindefault, sizeof(g_admindefault)) ; 
+    g_adminmap.insert(adminpair_t(adminid, nit)) ;
     it = g_adminmap.find(adminid) ;
   }
     
@@ -532,7 +536,7 @@ char* testsc_admin_get( int i )
   if( g_adminmap.end() ==  it){
     return NULL ;
   }
-  reinterpret_cast<char*>( &(it->second) ) ; 
+  reinterpret_cast<char*>( (it->second) ) ; 
 }
 
 int testsc_admin_length( void )
