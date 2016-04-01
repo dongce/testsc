@@ -3,8 +3,122 @@
       // TEMPLATE(_air_mission_data.general_mission                 , it, fieldnum) ; 
       // TEMPLATE(_air_mission_data.asw_mission                     , it, fieldnum) ; 
       // TEMPLATE(transmission_info.track_selection                              , it, fieldnum) ; 
-#define ADMIN_FIELDS(TEMPLATE, it, fieldnum)  
-#define TRACK_FIELDS(TEMPLATE, it, fieldnum)                                 \
+#define ADMIN_FIELDS(TEMPLATE, it, fieldnum)                            \
+ TEMPLATE(_wipe_proposal.network            ,it, fieldnum) ;             \
+ TEMPLATE(_wipe_proposal.source_id          ,it, fieldnum) ;             \
+ TEMPLATE(_wipe_proposal.wipe_result        ,it, fieldnum) ;             \
+ TEMPLATE(_wipe_proposal.wipe_reject_reason ,it, fieldnum) ;             \
+                                                                        \
+ TEMPLATE(_network_track_number.tactical                        ,it, fieldnum) ; \
+ TEMPLATE(_network_track_number.pu_address                      ,it, fieldnum) ; \
+ TEMPLATE(_network_track_number.NTN                             ,it, fieldnum) ; \
+ TEMPLATE(_network_track_number.track_number_command            ,it, fieldnum) ; \
+ TEMPLATE(_network_track_number.track_number_result             ,it, fieldnum) ; \
+ TEMPLATE(_network_track_number.track_number_reject_reason      ,it, fieldnum) ; \
+ TEMPLATE(_network_track_number.automatic_allocation            ,it, fieldnum) ; \
+ TEMPLATE(_network_track_number.used_capacity_track_number_pool ,it, fieldnum) ; \
+                                                                        \
+ TEMPLATE(_pair_assoc.pu_originator               ,it, fieldnum) ;       \
+ TEMPLATE(_pair_assoc.network_one                 ,it, fieldnum) ;       \
+ TEMPLATE(_pair_assoc.network_two                 ,it, fieldnum) ;       \
+ TEMPLATE(_pair_assoc.action                      ,it, fieldnum) ;       \
+ TEMPLATE(_pair_assoc.pairing_association_counter ,it, fieldnum) ;       \
+ TEMPLATE(_pair_assoc.time_of_initiation.coarse_time  ,it, fieldnum) ;       \
+ TEMPLATE(_pair_assoc.time_of_initiation.fine_time    ,it, fieldnum) ;       \
+                                                                        \
+ TEMPLATE(_monitor.pu_address                                ,it, fieldnum) ; \
+ TEMPLATE(_monitor.netcycle_time_in_sec                      ,it, fieldnum) ; \
+ TEMPLATE(_monitor.transmission_quality                      ,it, fieldnum) ; \
+ TEMPLATE(_monitor.reception_quality                         ,it, fieldnum) ; \
+ TEMPLATE(_monitor.total_error_rate                          ,it, fieldnum) ; \
+ TEMPLATE(_monitor.number_of_data_reports                    ,it, fieldnum) ; \
+ TEMPLATE(_monitor.counter_begin                             ,it, fieldnum) ; \
+ TEMPLATE(_monitor.counter_end                               ,it, fieldnum) ; \
+ TEMPLATE(_monitor.time_of_last_update.coarse_time           ,it, fieldnum) ; \
+ TEMPLATE(_monitor.time_of_last_update.fine_time             ,it, fieldnum) ; \
+                                                                        \
+ TEMPLATE(_aircraft_control.aircraft_network                 ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.engage_network                   ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.order                            ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.reply                            ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.air_cntrl_cant_proc_reas         ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.pu_destination                   ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.pu_transfer                      ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.pu_sending                       ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.source_id                        ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.counter                          ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.M10AFRAME                        ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.M10BFRAME                        ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.result                           ,it, fieldnum) ; \
+ TEMPLATE(_aircraft_control.reject_reason                    ,it, fieldnum) ; \
+                                                                        \
+ TEMPLATE(_command_order.ntn_platform                        ,it, fieldnum) ; \
+ TEMPLATE(_command_order.ntn_target                          ,it, fieldnum) ; \
+ TEMPLATE(_command_order.pu_destination                      ,it, fieldnum) ; \
+ TEMPLATE(_command_order.pu_sending                          ,it, fieldnum) ; \
+ TEMPLATE(_command_order.command                             ,it, fieldnum) ; \
+ TEMPLATE(_command_order.weapon_platform                     ,it, fieldnum) ; \
+ TEMPLATE(_command_order.weapon                              ,it, fieldnum) ; \
+ TEMPLATE(_command_order.number_of_weapons                   ,it, fieldnum) ; \
+ TEMPLATE(_command_order.gmt_time_of_impact                  ,it, fieldnum) ; \
+ TEMPLATE(_command_order.gmt_time_of_impact_valid            ,it, fieldnum) ; \
+ TEMPLATE(_command_order.duty                                ,it, fieldnum) ; \
+ TEMPLATE(_command_order.procedur                            ,it, fieldnum) ; \
+ TEMPLATE(_command_order.order_reply                         ,it, fieldnum) ; \
+ TEMPLATE(_command_order.aframe                              ,it, fieldnum) ; \
+ TEMPLATE(_command_order.bframe                              ,it, fieldnum) ; \
+ TEMPLATE(_command_order.command_counter                     ,it, fieldnum) ; \
+ TEMPLATE(_command_order.order_result                        ,it, fieldnum) ; \
+ TEMPLATE(_command_order.order_reject_reason                 ,it, fieldnum) ; \
+                                                                        \
+ TEMPLATE(_link_pointer.pu                                   ,it, fieldnum) ; \
+ TEMPLATE(_link_pointer.operator_position                    ,it, fieldnum) ; \
+ TEMPLATE(_link_pointer.x_position                           ,it, fieldnum) ; \
+ TEMPLATE(_link_pointer.y_position                           ,it, fieldnum) ; \
+ TEMPLATE(_link_pointer.latitude                             ,it, fieldnum) ; \
+ TEMPLATE(_link_pointer.longitude                            ,it, fieldnum) ; \
+ TEMPLATE(_link_pointer.link_pointer_result                  ,it, fieldnum) ; \
+ TEMPLATE(_link_pointer.link_pointer_reject_reason           ,it, fieldnum) ; \
+ TEMPLATE(_link_pointer.training_NTN                         ,it, fieldnum) ; \
+ TEMPLATE(_link_pointer.training_kind                        ,it, fieldnum) ; \
+                                                                        \
+ TEMPLATE(_depromotion.NTN                                   ,it, fieldnum) ; \
+ TEMPLATE(_depromotion.counter                               ,it, fieldnum) ; \
+                                                                        \
+ TEMPLATE(_update_request.pu_address                         ,it, fieldnum) ; \
+ TEMPLATE(_update_request.source_id                          ,it, fieldnum) ; \
+ TEMPLATE(_update_request.counter                            ,it, fieldnum) ; \
+ TEMPLATE(_update_request.order_result                       ,it, fieldnum) ; \
+ TEMPLATE(_update_request.order_reject_reason                ,it, fieldnum) ; \
+                                                                        \
+ TEMPLATE(_weapon_engagement.network_friend                  ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.source_id                       ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.pu_origin                       ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.NTN_target                      ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.NTN_friend                      ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.weapon                          ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.weapon_range_validity           ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.weapon_engagement_state         ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.weapon_range                    ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.inventories_validity            ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.hot_inventory                   ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.cold_inventory                  ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.weapon_engagement_result        ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.weapon_engagement_reject_reason ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.engagement_active               ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.weapon_counter                  ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.engagement_counter              ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.head_up_counter                 ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.engagement_broken_counter       ,it, fieldnum) ; \
+ TEMPLATE(_weapon_engagement.target_destroyed_counter        ,it, fieldnum) ; \
+                                                                        \
+ TEMPLATE(_assign_request.tactical                           ,it, fieldnum) ; \
+ TEMPLATE(_assign_request.assignment_kind                    ,it, fieldnum) ;
+
+
+  
+
+#define TRACK_FIELDS(TEMPLATE, it, fieldnum)                            \
       TEMPLATE(network_kinetics.x_position , it, fieldnum) ;            \
       TEMPLATE(network_kinetics.y_position , it, fieldnum) ;            \
       TEMPLATE(network_kinetics.x_velocity , it, fieldnum) ;            \
