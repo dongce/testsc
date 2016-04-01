@@ -7,15 +7,6 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 10 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.primary_gen_designator, 1 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.secondary_gen_designator, 15 done
-t92 done
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -24,15 +15,6 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 10 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.primary_gen_designator, 2 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.secondary_gen_designator, 15 done
-t92 done
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -41,15 +23,6 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 10 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.primary_gen_designator, 2 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.secondary_gen_designator, 7 done
-t92 done
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -58,8 +31,6 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -68,8 +39,22 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -78,15 +63,22 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 10 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 2 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.quality_syst, 0 done
-t92 done
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -95,56 +87,32 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 11 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.quality_syst, 0 done
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 11 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.quality_syst, 0 done
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6a/t-12)
-t-12
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
 cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 6 2 0
-cell* foreign_mmsg_set(scheme*, pointer) 0 2 171
+cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
+cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
+cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
+cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
 testsc_ivalue when integer is 1
 testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 0, 2
 testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 171, 2
+testsc_ivalue when integer is 2
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 191, 2
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 192, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 193, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 201, 2
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 197, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
 testsc_ivalue when integer is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
@@ -154,15 +122,8 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 4 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.primary_asw_designator, 1 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.secondary_asw_designator, 10 done
-t92 done
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -171,21 +132,31 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6a/t-12)
-t-12
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
 cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 0 0 167
-cell* foreign_mmsg_set(scheme*, pointer) 6 2 0
-cell* foreign_mmsg_set(scheme*, pointer) 0 2 171
-cell* foreign_mmsg_set(scheme*, pointer) 1 2 170
+cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
+cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
+cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
+cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
 testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 167, 0
 testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 0, 2
 testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 171, 2
+testsc_ivalue when integer is 2
 testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 170, 2
+testnum(9)link11_sc.cpp:498, get_field_value debug 191, 2
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 192, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 193, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 201, 2
+testsc_ivalue when integer is 1
+testnum(9)link11_sc.cpp:498, get_field_value debug 197, 2
+testsc_ivalue when integer is 1
 testsc_ivalue when integer is 1
 testsc_ivalue when integer is 1
 tetsc-load t:/ts/init.scm
@@ -196,21 +167,30 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6a/t-12)
-t-12
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
 cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 0 0 167
-cell* foreign_mmsg_set(scheme*, pointer) 6 2 0
-cell* foreign_mmsg_set(scheme*, pointer) 0 2 171
-cell* foreign_mmsg_set(scheme*, pointer) 1 2 170
+cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
+cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 201
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 198
+cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
 testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 167, 0
 testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 0, 2
 testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 171, 2
 testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 170, 2
+testsc_ivalue when integer is 1
+testnum(10)link11_sc.cpp:498, get_field_value debug 191, 2
+testsc_ivalue when integer is 1
+testnum(10)link11_sc.cpp:498, get_field_value debug 192, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(10)link11_sc.cpp:498, get_field_value debug 193, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(10)link11_sc.cpp:498, get_field_value debug 201, 2
+testsc_ivalue when integer is 1
 testsc_ivalue when integer is 1
 testsc_ivalue when integer is 1
 tetsc-load t:/ts/init.scm
@@ -221,33 +201,33 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6a/t-12)
-t-12
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6a/t-12)
-t-12
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
 cell* foreign_mmsg_set(scheme*, pointer)
-cell* foreign_mmsg_set(scheme*, pointer) 0 0 167
-cell* foreign_mmsg_set(scheme*, pointer) 6 2 0
-cell* foreign_mmsg_set(scheme*, pointer) 0 2 171
-cell* foreign_mmsg_set(scheme*, pointer) 1 2 170
-testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 167, 0
-testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 0, 2
-testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 171, 2
-testsc_ivalue when integer is 1
-testnum(1)link11_sc.cpp:517, get_field_value debug 170, 2
+cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
+cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
+cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
+cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
 testsc_ivalue when integer is 1
 testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 3
+testsc_ivalue when integer is 1
+testnum(11)link11_sc.cpp:498, get_field_value debug 191, 2
+testsc_ivalue when integer is 1
+testnum(11)link11_sc.cpp:498, get_field_value debug 192, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(11)link11_sc.cpp:498, get_field_value debug 193, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(11)link11_sc.cpp:498, get_field_value debug 201, 2
+testsc_ivalue when integer is 1
+testnum(11)link11_sc.cpp:498, get_field_value debug 197, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -256,338 +236,33 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require pm_m6a/t-12)
-t-12
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc_ivalue when integer is 5000
-testsc_ivalue when integer is 5000
-testsc_ivalue when integer is 5000
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc_ivalue when integer is 50000
-testsc_ivalue when integer is 50000
-testsc_ivalue when integer is 3000
-testsc_ivalue when integer is 3000
-testsc_ivalue when integer is 50000
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc_ivalue when integer is 50000
-testsc_ivalue when integer is 50000
-testsc_ivalue when integer is 3000
-testsc_ivalue when integer is 3000
-testsc_ivalue when integer is 50000
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m6b/t-27)
+t-27
+cell* foreign_mmsg_set(scheme*, pointer)
+cell* foreign_mmsg_set(scheme*, pointer) 10 2 191
+cell* foreign_mmsg_set(scheme*, pointer) 1 2 192
+cell* foreign_mmsg_set(scheme*, pointer) 0 2 201
+cell* foreign_mmsg_set(scheme*, pointer) 14 2 197
+cell* foreign_mmsg_set(scheme*, pointer) 3 2 193
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
 testsc_ivalue when integer is 0
-testsc_ivalue when integer is 0
-testsc_ivalue when integer is 3000
-testsc_ivalue when integer is 3000
-testsc_ivalue when integer is 0
+testsc_ivalue when integer is 1
+testnum(12)link11_sc.cpp:498, get_field_value debug 191, 2
+testsc_ivalue when integer is 1
+testnum(12)link11_sc.cpp:498, get_field_value debug 192, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(12)link11_sc.cpp:498, get_field_value debug 193, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testnum(12)link11_sc.cpp:498, get_field_value debug 201, 2
+testsc_ivalue when integer is 1
+testnum(12)link11_sc.cpp:498, get_field_value debug 197, 2
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
+testsc_ivalue when integer is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -596,706 +271,5 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc_ivalue when integer is 50000
-testsc_ivalue when integer is 50000
-testsc_ivalue when integer is 3000
-testsc_ivalue when integer is 3000
-testsc_ivalue when integer is 50000
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 10 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.primary_gen_designator, 1 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.secondary_gen_designator, 15 done
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 10 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.primary_gen_designator, 2 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.secondary_gen_designator, 7 done
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 10 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 2 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.quality_syst, 0 done
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 11 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.quality_syst, 0 done
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 11 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.quality_syst, 0 done
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-92)
-t92
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.track_kind, 4 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.primary_asw_designator, 1 done
-cell* foreign_testsc_track_nset(scheme*, pointer)
-field set general.secondary_asw_designator, 10 done
-t92 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-93)
+testsc eval (testsc-require pm_m6b/t-27)
+t-27

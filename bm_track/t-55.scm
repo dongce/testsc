@@ -1,0 +1,7 @@
+(case (testsc-get-testnum)
+  ((2)
+   (define testsc 1 )
+   (define rc 1 )
+   (testsc-admin-nset 1 (list '_addign_request.tactical 1 ))
+   (testsc-track-nset 1 (list 'general.tactical 1 ))
+   ))

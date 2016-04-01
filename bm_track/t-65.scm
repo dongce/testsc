@@ -1,0 +1,5 @@
+(case (testsc-get-testnum)
+  ((27)
+   (define testsc 1)
+   (testsc-track-net 1 (list 'general.NTN 0 ))
+   (define par 500 )))

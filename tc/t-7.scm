@@ -1,0 +1,8 @@
+(testsc-require system_types)
+(case (testsc-get-testnum)
+  ((1)
+   (define glm system_types-data_exchange_link11_mode))
+  ((2)
+   (testsc-track-nset 1 (list 'general.aop_data.validity  1) )
+   (testsc-track-nset 1 (list 'general.aop_data.counter  0) )
+   ))
