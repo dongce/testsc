@@ -115,6 +115,11 @@ void FIELD_NSET_LOG(const char* fname ,  const num& b)
   }
 }
 
+template<typename TYPE>
+void FIELD_NGET_LOG(const char* fname ,  const TYPE& b)
+{
+  testsc_debug("field get %s, %d done", fname , b) ; 
+}
 
 
 template<typename TYPE>
@@ -137,13 +142,15 @@ FIELD_NSET((i)->second->f , (v)) ;                                      \
 FIELD_NSET_LOG(#f, (v)) ;                                               \
 break; }
 
-#define FIELD_NGET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ (v) = cons(sc, FIELD_NGET(sc, (i)->second->f ), v) ; break; }
+#define FIELD_NGET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ \
+(v) = cons(sc, FIELD_NGET(sc, (i)->second->f ), v) ;                    \
+FIELD_NGET_LOG(#f, (i)->second->f) ;                                    \
+break; }
 
 
 pointer
 foreign_testsc_track_strset(scheme *sc , pointer args)
 {
-  testsc_debug(__PRETTY_FUNCTION__) ; 
   uint32_t trackid = ivalue(pop_args(args)) ;
 
   trackmap_t::iterator it = g_trackmap.find(trackid) ; 
@@ -174,7 +181,6 @@ foreign_testsc_track_strset(scheme *sc , pointer args)
 pointer
 foreign_testsc_track_nset(scheme *sc , pointer args)
 {
-  testsc_debug(__PRETTY_FUNCTION__) ; 
   uint32_t trackid = ivalue(pop_args(args)) ;
 
   trackmap_t::iterator it = g_trackmap.find(trackid) ; 
@@ -521,7 +527,7 @@ long testsc_ivalue( const char *name )
 
   if( NULL != args && g_sc.NIL != args  && is_integer(args)){
     long value = ivalue(args) ; 
-    testsc_debug("testsc_ivalue when integer is %d" , value) ;
+    testsc_debug("testsc_ivalue %s is %d" , name, value) ;
     return value ;
   }
   return 0 ; 
