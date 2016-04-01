@@ -4,7 +4,9 @@
       // TEMPLATE(_air_mission_data.asw_mission                     , it, fieldnum) ; 
       // TEMPLATE(transmission_info.track_selection                              , it, fieldnum) ; 
 #define ADMIN_FIELDS(TEMPLATE, it, fieldnum)                            \
- TEMPLATE(_wipe_proposal.network            ,it, fieldnum) ;             \
+TEMPLATE(_ew_request.tactical_track_id            ,it, fieldnum) ;             \
+TEMPLATE(_ew_request.ew_intelligence_data.nationallity_alliance ,it, fieldnum) ;             \
+TEMPLATE(_wipe_proposal.network            ,it, fieldnum) ;             \
  TEMPLATE(_wipe_proposal.source_id          ,it, fieldnum) ;             \
  TEMPLATE(_wipe_proposal.wipe_result        ,it, fieldnum) ;             \
  TEMPLATE(_wipe_proposal.wipe_reject_reason ,it, fieldnum) ;             \
