@@ -1,4 +1,10 @@
 * CODESCROLL 동저 시험 
+** TODO [#A] trunk 반영 필요. 
+intds_intf.h
+build_message_track.cpp
+build_message_training.cpp 
+process_message_m4d.cpp 
+
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
  - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
@@ -130,7 +136,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [6/91]
+** 진척률 [11/91]
 
 *** TODO DP_L11EventHandler
 *** TODO LINK11_DSF_MANAGER
@@ -168,8 +174,28 @@ const track_selection_t * build_message_track::find_track_transmission_character
 
 #+END_SRC
 
-*** TODO build_message_training
-*** TODO build_message_update_request
+*** DONE build_message_training
+    CLOSED: [2016-04-02 Sat 22:07]
+    - State "STARTED"    from "TODO"       [2016-04-02 Sat 19:38]
+ - [X] 일괄 실행 
+*** DONE build_message_update_request
+    CLOSED: [2016-04-02 Sat 23:38]
+    - State "STARTED"    from "TODO"       [2016-04-02 Sat 22:08]
+ - [X] 일괄 실행 
+
+
+*** self stub 
+**** process_data_update_requests 
+validate_data_update_request
+
+
+**** bool build_message_update_request::validate_data_update_request(update_request_t &   update_request )
+ update_request_t * build_message_update_request::find_update_request(const update_request_t & arg0)
+ {
+	 return 1 ;
+	 return 0;
+ }
+
 *** TODO build_message_weapon_engagement
 *** TODO dlp_unit
 *** TODO dlptime
@@ -184,12 +210,15 @@ const track_selection_t * build_message_track::find_track_transmission_character
 *** TODO intf_vme
 *** DONE lifecycle_controller
     CLOSED: [2016-03-29 Tue 14:27]
-*** STARTED link11_filter
+*** DONE link11_filter
+    CLOSED: [2016-04-02 Sat 19:28]
 
 **** self strub
 is_track_filter_exception 
 
-*** TODO looptest
+*** STARTED looptest
+    - State "STARTED"    from "TODO"       [2016-04-02 Sat 19:29]
+ - [X] 일괄 실행 
 *** TODO mmsg_buff
 *** TODO network_rx
 *** TODO network_track_data_base
@@ -226,10 +255,16 @@ bool process_message_m4ab::is_depth_valid(mmsg_buff *m) ;
 bool process_message_m4ab::is_gmt_valid(mmsg_buff *m)
 #+END_INFO
 
-*** STARTED process_message_m4c
+*** DONE process_message_m4c
+    CLOSED: [2016-04-02 Sat 20:21]
     - State "STARTED"    from "TODO"       [2016-04-02 Sat 18:35]
  - [X] 일괄 실행 
-*** TODO process_message_m4d
+ - [X] 일괄 실행 
+*** DONE process_message_m4d
+    CLOSED: [2016-04-03 Sun 00:09]
+    - State "STARTED"    from "TODO"       [2016-04-02 Sat 20:24]
+ - [X] 일괄 빌드 
+
 *** DONE process_message_m5                                    :QUESTIONMARK:
     CLOSED: [2016-03-28 Mon 23:53]
  스크립트 폴더 pm5
