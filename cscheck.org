@@ -87,6 +87,33 @@ if( testsc_ivalue("testsc") > 0 ){return testsc_admin_get(arg0) ;}
   return 0 ; 
 #+END_SRC
 
+*** mmsg_buff
+single()  구현 필요. 
+
+
+
+** testcase 수정 방법 
+다음과 같은 주석이 있으면 사용자 코드가 삭제가 아니되는 것으로 보임 
+#+BEGIN_SRC cpp
+
+/*
+	TODO : Constructor Code Here
+	Class name : vector<uintptr_t, allocator<uintptr_t> > 
+	Object name : networks
+*/
+
+/*	FIXME : Abnormal code	*/
+	vector<uintptr_t, allocator<uintptr_t> > networks=vector<uintptr_t, allocator<uintptr_t> >();
+
+
+
+for(int i = 0 ; i < 10 ; i ++){
+  networks.push_back(i) ; 
+}
+	/* build_message_tag::output_tag_transfers(const vector<unsigned long, allocator<unsigned long> > &) */
+	object_build_message_tag.output_tag_transfers(networks);
+
+#+END_SRC
 ** 진행방법 
 
  1. 파일 체크아웃
@@ -98,7 +125,7 @@ if( testsc_ivalue("testsc") > 0 ){return testsc_admin_get(arg0) ;}
 
 
 
-** 진척률 [3/91]
+** 진척률 [4/91]
 
 *** TODO DP_L11EventHandler
 *** TODO LINK11_DSF_MANAGER
@@ -118,8 +145,12 @@ if( testsc_ivalue("testsc") > 0 ){return testsc_admin_get(arg0) ;}
 *** TODO build_message_reception_quality
 *** TODO build_message_special_code
 *** TODO build_message_supporting_information
-*** TODO build_message_tag
-*** STARTED build_message_track                                    :SELFSTUB:
+*** STARTED build_message_tag
+    - State "STARTED"    from              [2016-04-02 Sat 12:13]
+CASE_RETURN_WITH_VALUE 변경 
+
+ - [ ] 일괄 실행 
+*** DONE build_message_track                                       :SELFSTUB:
  스크립트 폴더 따로 작성하지 아니하였음. 
 **** get_amplifying_message_period
 const track_selection_t * build_message_track::find_track_transmission_characteristic(network_track_data_t * arg0)
@@ -180,7 +211,14 @@ is_track_filter_exception
 *** TODO process_message_m1_rp1
 *** TODO process_message_m2
 *** TODO process_message_m3
-*** TODO process_message_m4ab
+*** STARTED process_message_m4ab
+
+**** self stub 
+#+BEGIN_INFO 
+bool process_message_m4ab::is_depth_valid(mmsg_buff *m) ;
+bool process_message_m4ab::is_gmt_valid(mmsg_buff *m)
+#+END_INFO
+
 *** TODO process_message_m4c
 *** TODO process_message_m4d
 *** DONE process_message_m5                                    :QUESTIONMARK:
@@ -209,8 +247,11 @@ stup : get_last_created_network
 *** TODO simulated_track
 *** TODO start_dlps
 *** TODO status_checker
-*** STARTED track_controller
-*** TODO track_input
+*** TODO track_controller
+*** STARTED track_input
+    - State "STARTED"    from "TODO"       [2016-04-02 Sat 12:44]
+
+ - [X] 최초 실행  
 *** TODO track_output
 *** TODO usr_channel
 *** TODO utility

@@ -7,11 +7,52 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-m11)
-try tnset
+bC
+testsc eval (testsc-require pm_m4ab/t-13)
+dlplink11types
 testsc_ivalue testsc is 1
-testsc_ivalue rp is 0
-testsc_ivalue tp is 0
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:526, get_field_value debug (64, 0, 2) , 64, 0
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -20,12 +61,26 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-m11)
-try tnset
-field set general.ew_intelligence_data.category, 6 done
-testsc_ivalue testsc is 1
-testsc_ivalue rp is 0
-testsc_ivalue tp is 0
+bC
+testsc eval (testsc-require pm_m4ab/t-13)
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
+testsc values is 0
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -34,25 +89,50 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-m11)
-try tnset
-field set general.ew_intelligence_category, 0 done
-field set general.ew_intelligence_data.category, 0 done
+bC
+testsc eval (testsc-require pm_m4ab/t-13)
+dlplink11types
 testsc_ivalue testsc is 1
-testsc_ivalue rp is 0
-testsc_ivalue tp is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc eval (testsc-require bm_track/t-m11)
-try tnset
-field set general.ew_intelligence_category, -1 done
-field set general.ew_intelligence_data.category, 0 done
+testsc values is 1
 testsc_ivalue testsc is 1
-testsc_ivalue rp is 0
-testsc_ivalue tp is 0
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:526, get_field_value debug (64, 0, 3) , 64, 0
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:526, get_field_value debug (71, 2, 10) , 71, 2
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc values is 1
+testsc_ivalue testsc is 1

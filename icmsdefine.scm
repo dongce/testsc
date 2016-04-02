@@ -3788,11 +3788,11 @@
 
 ;; enum _ENUM_TDL_MODECODE_BY_OPERATOR_FLAG ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
 ;; {                                        ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
-;; 	TDL_MODECODE_NONE_BY_OPERATOR = 0x00 , ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
-;; 	TDL_MODECODE1_BY_OPERATOR     = 0x01 , ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
-;; 	TDL_MODECODE2_BY_OPERATOR     = 0x02 , ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
-;; 	TDL_MODECODE3_BY_OPERATOR     = 0x04 , ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
-;; 	TDL_MODECODE4_BY_OPERATOR     = 0x08   ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
+(define TDL_MODECODE_NONE_BY_OPERATOR #x0 ) ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
+(define TDL_MODECODE1_BY_OPERATOR     #x1 ) ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
+(define TDL_MODECODE2_BY_OPERATOR     #x2 ) ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
+(define TDL_MODECODE3_BY_OPERATOR     #x4 ) ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
+(define TDL_MODECODE4_BY_OPERATOR     #x8 ) ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
 ;; };                                      ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
 
 
