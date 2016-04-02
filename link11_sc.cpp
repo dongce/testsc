@@ -505,7 +505,7 @@ void testsc_init(int testnum , const char* cmd, const char* homepath)
 
 #if !STANDALONE
 
-inline long tests_eval_ivalue(pointer x)
+inline long testsc_eval_ivalue(pointer x)
 {
   if(is_symbol(x)){
     return ivalue(scheme_eval(&g_sc ,x)) ;
@@ -513,7 +513,7 @@ inline long tests_eval_ivalue(pointer x)
   return ivalue(x) ; 
 }
 
-int mmsg_get_field_value( int a, int b , const char* name)
+int mmsg_get_field_value_with_name( int a, int b , const char* name)
 {
   for (pointer it = scheme_eval(&g_sc, mk_symbol(&g_sc, name) ) ;
        NULL != it && it != g_sc.NIL;
@@ -546,7 +546,7 @@ int mmsg_get_field_value( int a, int b , const char* name)
 
 int mmsg_get_field_value( int a, int b )
 {
-  return mmsg_get_field_value(a, b, "*mmsg*") ; 
+  return mmsg_get_field_value_with_name(a, b, "*mmsg*") ; 
 }
 
 long testsc_ivalue( const char *name )
