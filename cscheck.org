@@ -140,7 +140,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [11/91]
+** 진척률 [12/91]
 
 *** TODO DP_L11EventHandler
 *** TODO LINK11_DSF_MANAGER
@@ -220,7 +220,8 @@ validate_data_update_request
 **** self strub
 is_track_filter_exception 
 
-*** STARTED looptest
+*** DONE looptest
+    CLOSED: [2016-04-03 Sun 02:22]
     - State "STARTED"    from "TODO"       [2016-04-02 Sat 19:29]
  - [X] 일괄 실행 
 
