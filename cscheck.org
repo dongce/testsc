@@ -90,6 +90,11 @@ if( testsc_ivalue("testsc") > 0 ){return testsc_admin_get(arg0) ;}
 *** mmsg_buff
 single()  구현 필요. 
 
+#+BEGIN_SRC c++
+long mmsg_get_field_value( int a, int b ) ; 
+
+if(testsc_ivalue("testsc")) return  mmsg_get_field_value( arg0, arg1 )  ; 
+#+END_SRC
 
 
 ** testcase 수정 방법 
@@ -223,7 +228,7 @@ bool process_message_m4ab::is_gmt_valid(mmsg_buff *m)
 
 *** STARTED process_message_m4c
     - State "STARTED"    from "TODO"       [2016-04-02 Sat 18:35]
- - [ ] 일괄 실행 
+ - [X] 일괄 실행 
 *** TODO process_message_m4d
 *** DONE process_message_m5                                    :QUESTIONMARK:
     CLOSED: [2016-03-28 Mon 23:53]

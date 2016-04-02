@@ -7,203 +7,11 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-bC
-testsc eval (testsc-require pm_m4ab/t-30)
-debug1
-debug1
-debug1
-dlplink11types
-debug1
-debug2
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testnum(7)link11_sc.cpp:533, get_field_value debug (78, 2, -1) , 78, 2
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testnum(7)link11_sc.cpp:533, get_field_value debug (79, 2, 0) , 79, 2
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-bC
-testsc eval (testsc-require pm_m4ab/t-30)
-debug1
-debug1
-debug1
-dlplink11types
-debug1
-debug2
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testnum(7)link11_sc.cpp:533, get_field_value debug (78, 2, -1) , 78, 2
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testnum(7)link11_sc.cpp:533, get_field_value debug (79, 2, 127) , 79, 2
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_tag/t-4)
-dlplink11types
-field set general.tag_validity, 1 done
-field set general.link_state, 2 done
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 0
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 1
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 2
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 3
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 4
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 5
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 6
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 7
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 8
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 9
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_tag/t-4)
-dlplink11types
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require lf/t-9)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_tag/t-4)
-dlplink11types
-field set _track_source_filter, 1 done
-tetsc-load t:/ts/init.scm
-dlplink11types
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require lf/t-9)
 dlplink11types
-field set general.identity, 3 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require lf/t-9)
-dlplink11types
-field set general.NTN, 1 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-tetsc-load t:/ts/init.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/util.scm
-
-testsc eval (testsc-require lf/t-9)
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require ti/t-45)
-dlplink11types
+field set _track_source_filter, 0 done
+field set general.NTN, 0 done
 field set general.track_kind, 2 done
 field set general.identity, 2 done
 tetsc-load t:/ts/init.scm
@@ -217,6 +25,7 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require lf/t-9)
 dlplink11types
+field set _track_source_filter, 0 done
 field set general.track_alert_state, 0 done
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
@@ -227,61 +36,11 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require ti/t-45)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_tag/t-4)
-dlplink11types
-field set general.tag_validity, 1 done
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 0
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 1
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 2
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 3
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 4
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 5
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 6
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 7
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 8
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 9
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
 testsc eval (testsc-require lf/t-9)
 dlplink11types
-field set general.identity, 3 done
+field set _track_source_filter, 0 done
+field set general.identity, -1 done
+field set general.track_alert_state, 0 done
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -294,18 +53,9 @@ tetsc-load t:/ts/temp.scm
 testsc eval (testsc-require lf/t-9)
 dlplink11types
 field set _track_source_filter, 0 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require lf/t-9)
-dlplink11types
-field set _track_source_filter, 1 done
+field set general.NTN, 0 done
+field set general.identity, -1 done
+field set general.track_alert_state, 0 done
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -318,6 +68,10 @@ tetsc-load t:/ts/temp.scm
 testsc eval (testsc-require lf/t-9)
 dlplink11types
 field set _track_source_filter, 0 done
+field set general.NTN, 0 done
+field set general.track_kind, 2 done
+field set general.secondary_air_id_ampl, 5 done
+field set general.identity, 2 done
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -327,112 +81,5 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require lf/t-9)
-dlplink11types
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require lf/t-9)
-dlplink11types
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require lf/t-9)
-dlplink11types
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_tag/t-4)
-dlplink11types
-field set general.tag_validity, 1 done
+testsc eval (testsc-require lf/t-1)
 testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 0
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 1
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 2
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 3
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 4
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 5
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 6
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 7
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 8
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 9
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_tag/t-4)
-dlplink11types
-field set general.tag_validity, 1 done
-field set general.link_state, 2 done
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 0
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 1
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 2
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 3
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 4
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 5
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 6
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 7
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 8
-testsc_ivalue testsc is 1
-testsc_ivalue usepar is 1
-testsc_track_get with id 9
