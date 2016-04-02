@@ -503,8 +503,15 @@ void testsc_init(int testnum , const char* cmd, const char* homepath)
 
 
 
-
 #if !STANDALONE
+
+inline long tests_eval_ivalue(pointer x)
+{
+  if(is_symbol(x)){
+    return ivalue(scheme_eval(&g_sc ,x)) ;
+  }
+  return ivalue(x) ; 
+}
 
 int mmsg_get_field_value( int a, int b , const char* name)
 {
@@ -512,9 +519,9 @@ int mmsg_get_field_value( int a, int b , const char* name)
        NULL != it && it != g_sc.NIL;
        it = pair_cdr(it)) {
     pointer x = pair_car(it) ;
-    const long field  = ivalue(testsc_car(x)) ; 
-    const long offset = ivalue(testsc_cadr(x)) ; 
-    const long value  = ivalue(testsc_caddr(x)) ; 
+    const long field  = testsc_eval_ivalue(testsc_car(x)) ; 
+    const long offset = testsc_eval_ivalue(testsc_cadr(x)) ; 
+    const long value  = testsc_eval_ivalue(testsc_caddr(x)) ; 
 
     
     if( ( a == field  ) &&
