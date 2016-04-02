@@ -503,17 +503,24 @@ int mmsg_get_field_value( int a, int b )
   }
   for (pointer it = g_mmsg ; NULL != it && it != g_sc.NIL; it = pair_cdr(it)) {
     pointer x = pair_car(it) ;
+    const long field  = ivalue(pop_args(x)) ; 
+    const long offset = ivalue(pop_args(x)) ; 
+    const long value  = ivalue(pop_args(x)) ;
 
-    if( a == ivalue(pop_args(x)) &&
-        b == ivalue(pop_args(x))) {
-      testsc_debug("testnum(%d)%s:%d, get_field_value debug %d, %d",
+      testsc_debug("testnum(%d)%s:%d, get_field_value debug (%d, %d, %d) , %d, %d",
                    g_testnum,
                    __FILE__,
                    __LINE__,
+                   field,
+                   offset,
+                   value,
                    a,
                    b ) ; 
+    
+    if( ( a == field  ) &&
+        ( b == offset ) ) {
         
-      return ivalue(pop_args(x)) ;
+      return value ; 
     }
   }
   
@@ -567,6 +574,10 @@ void testsc_track_set(uint32_t id , network_track_data_ptr t )
   g_trackmap[id] = t ; 
 }
 
+void testsc_track_clear_set(uint32_t id , network_track_data_ptr t )
+{
+  g_trackmap[id] = t ; 
+}
 
 network_track_data_ptr  testsc_track_get(uint32_t id )
 {
