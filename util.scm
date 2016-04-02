@@ -10,7 +10,7 @@
 (define-macro (testsc-require x)
   `(load (string-append *testsc-home* (symbol->string (quote ,x)) ".scm")))
 
-(define *mmsg* nil )
+(define *mmsg* '() )
 (define (mmsg-set . args) (set! *mmsg* args))
 
 (define-macro (mmsg . x)

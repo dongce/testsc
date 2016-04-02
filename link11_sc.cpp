@@ -503,6 +503,9 @@ void testsc_init(int testnum , const char* cmd, const char* homepath)
 
 
 
+
+#if !STANDALONE
+
 int mmsg_get_field_value( int a, int b , const char* name)
 {
   for (pointer it = scheme_eval(&g_sc, mk_symbol(&g_sc, name) ) ;
@@ -539,7 +542,6 @@ int mmsg_get_field_value( int a, int b )
   return mmsg_get_field_value(a, b, "*mmsg*") ; 
 }
 
-#if !STANDALONE
 long testsc_ivalue( const char *name )
 {
   if( 0 == g_sc.NIL ){
