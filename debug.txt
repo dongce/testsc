@@ -8,39 +8,27 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 bC
-testsc eval (testsc-require pm_m4ab/t-13)
+testsc eval (testsc-require pm_m4ab/t-30)
+debug1
+debug1
+debug1
 dlplink11types
+debug1
+debug2
 testsc_ivalue testsc is 1
 testsc values is 1
 testsc_ivalue testsc is 1
 testsc_ivalue testsc is 1
 testsc values is 1
 testsc_ivalue testsc is 1
-testnum(10)link11_sc.cpp:526, get_field_value debug (64, 0, 2) , 64, 0
+testnum(7)link11_sc.cpp:533, get_field_value debug (78, 2, -1) , 78, 2
 testsc_ivalue testsc is 1
 testsc values is 1
 testsc_ivalue testsc is 1
 testsc_ivalue testsc is 1
 testsc values is 1
 testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:533, get_field_value debug (79, 2, 0) , 79, 2
 testsc_ivalue testsc is 1
 testsc values is 1
 testsc_ivalue testsc is 1
@@ -62,68 +50,27 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 bC
-testsc eval (testsc-require pm_m4ab/t-13)
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-testsc values is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-bC
-testsc eval (testsc-require pm_m4ab/t-13)
+testsc eval (testsc-require pm_m4ab/t-30)
+debug1
+debug1
+debug1
 dlplink11types
+debug1
+debug2
 testsc_ivalue testsc is 1
 testsc values is 1
 testsc_ivalue testsc is 1
 testsc_ivalue testsc is 1
 testsc values is 1
 testsc_ivalue testsc is 1
-testnum(11)link11_sc.cpp:526, get_field_value debug (64, 0, 3) , 64, 0
+testnum(7)link11_sc.cpp:533, get_field_value debug (78, 2, -1) , 78, 2
 testsc_ivalue testsc is 1
 testsc values is 1
 testsc_ivalue testsc is 1
 testsc_ivalue testsc is 1
 testsc values is 1
 testsc_ivalue testsc is 1
-testnum(11)link11_sc.cpp:526, get_field_value debug (71, 2, 10) , 71, 2
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc values is 1
-testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:533, get_field_value debug (79, 2, 127) , 79, 2
 testsc_ivalue testsc is 1
 testsc values is 1
 testsc_ivalue testsc is 1
