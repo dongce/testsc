@@ -23,7 +23,6 @@
 (define COM_NOT_ALLOWED_FAILURE 1 )
 (define CONFLICT 1 )
 (define CONVENTIONAL_CONST #x0C0000 )
-(define CURRENT_PU ,
 (define CU_REPORT 6 )
 (define DATA_FROM_DEVICE_BYTES 20480 )
 (define DATA_UPDATE_REQUEST 3 )
@@ -47,6 +46,7 @@
 (define EMCON_ENABLED 0 )
 (define EMCON_INDEX 0 )
 (define EMCON_RADIO_SILENCE 1 )
+
 (define ESM_AMP_CLASS_SIZE 8 )
 (define ESM_BROAD_CLASS_SIZE 8 )
 (define EVERY_CONSOLE_ID -1 )
@@ -97,6 +97,7 @@
 (define INVALID_TRACK_ID 0 )
 (define KILLO 1000.0 )
 (define KNTDS_NOT_RESPONSE 4 )
+
 (define L11_EOR 3 )
 (define L11_PTR 6 )
 (define L11_PTT 5 )
@@ -197,6 +198,7 @@
 (define M1231RR 360 )
 (define M1231SI 359 )
 (define M12AT 436 )
+
 (define M12DT 437 )
 (define M12HEIGHT 441 )
 (define M12IFFM1 446 )
@@ -397,6 +399,7 @@
 (define M82HOURS 34 )
 (define M82HS 39 )
 (define M82IDAMP 38 )
+
 (define M82MINUTES 33 )
 (define M82MN 28 )
 (define M82SP1 35 )
@@ -671,7 +674,7 @@
 (define NETMODE_ROLE_CALL 2 )
 (define NETMODE_SHORT_BROADCAST 3 )
 (define NETWORK_ID_LAST 2000000000 )
-(define NETWORK_ID_START OWNSHIP_NETWORK + 1 )
+(define NETWORK_ID_START  1 )
 (define NETWORK_TRACK_QUALITY_TYPE_FIRST 0 )
 (define NM_TO_M 1852.0 )
 (define NO_FAILURE 0 )
