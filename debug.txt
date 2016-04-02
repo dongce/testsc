@@ -2082,3 +2082,490 @@ tetsc-load t:/ts/temp.scm
 ª'
 testsc eval (testsc-require pm_m4d/t-12)
 dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 1
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is -1
+testsc_ivalue noc is 1
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 0
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 1
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 2
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 1
+testsc_ivalue nic is 1
+testsc_ivalue tp1 is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 2
+testsc_ivalue nic is 1
+testsc_ivalue tp1 is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 2
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 2
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 2
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 2
+testsc_ivalue nic is 1
+testsc_ivalue tp1 is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 2
+testsc_ivalue nic is 1
+testsc_ivalue ntc is 2
+testsc_ivalue tp1 is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue tc is 1
+testsc_ivalue noc is 1
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue tc is 1
+testsc_ivalue noc is 1
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue tc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 1
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue tc is 0
+testsc_ivalue ts is -1
+testsc_ivalue noc is 1
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue tc is 0
+testsc_ivalue ts is 2
+testsc_ivalue noc is 1
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue tc is 0
+testsc_ivalue ts is 2
+testsc_ivalue noc is 1
+testsc_ivalue nic is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue tc is 1
+testsc_ivalue ts is 2
+testsc_ivalue noc is 1
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue tc is 0
+testsc_ivalue ts is -1
+testsc_ivalue noc is 1
+testsc_ivalue nic is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+}D
+testsc eval (testsc-require looptest/t-ptt)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue tc is 0
+testsc_ivalue ts is 2
+testsc_ivalue noc is 1
+testsc_ivalue nic is 2

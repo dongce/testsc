@@ -1,9 +1,13 @@
 * CODESCROLL 동저 시험 
+** 100 이지만 이상종료하는 것 
+looptest::looptest_ptt
 ** TODO [#A] trunk 반영 필요. 
 intds_intf.h
 build_message_track.cpp
 build_message_training.cpp 
 process_message_m4d.cpp 
+looptest.cpp
+looptest.h
 
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
@@ -219,6 +223,15 @@ is_track_filter_exception
 *** STARTED looptest
     - State "STARTED"    from "TODO"       [2016-04-02 Sat 19:29]
  - [X] 일괄 실행 
+
+
+**** self stup 
+***** looptest_ptr(
+
+update
+***** looptest_ptt(
+
+update
 *** TODO mmsg_buff
 *** TODO network_rx
 *** TODO network_track_data_base
