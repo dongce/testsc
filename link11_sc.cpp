@@ -17,6 +17,10 @@
 #define tinyscheme_list3(sc , a , b , c)     cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , (sc)->NIL)))
 #define tinyscheme_list2(sc , a , b )        cons((sc) , (a) , cons((sc) , (b) , (sc)->NIL))
 
+#define testsc_car(x) pair_car((x))
+#define testsc_cadr(x) pair_car(pair_cdr((x)))
+#define testsc_caddr(x) pair_car(pair_cdr(pair_cdr((x))))
+
 typedef std::map<uint32_t, network_track_data_ptr>  trackmap_t ; 
 typedef std::map<std::string, uint32_t>           fieldmap_t ; 
 
@@ -329,11 +333,14 @@ foreign_mmsg_set(scheme *sc , pointer args)
 
   for (pointer it = args; it != sc->NIL; it = pair_cdr(it)) {
     pointer x = pair_car(it) ;
+    const long field  = ivalue(testsc_car(x)) ; 
+    const long offset = ivalue(testsc_cadr(x)) ; 
+    const long value  = ivalue(testsc_caddr(x)) ; 
     testsc_debug("%s %d %d %d" ,
-                 __PRETTY_FUNCTION__, 
-                 ivalue(pop_args(x)), 
-                 ivalue(pop_args(x)), 
-                 ivalue(pop_args(x))) ;
+                 __PRETTY_FUNCTION__,
+                 field ,
+                 offset ,
+                 value) ; 
   }
   
   return args ; 
@@ -503,22 +510,23 @@ int mmsg_get_field_value( int a, int b )
   }
   for (pointer it = g_mmsg ; NULL != it && it != g_sc.NIL; it = pair_cdr(it)) {
     pointer x = pair_car(it) ;
-    const long field  = ivalue(pop_args(x)) ; 
-    const long offset = ivalue(pop_args(x)) ; 
-    const long value  = ivalue(pop_args(x)) ;
+    const long field  = ivalue(testsc_car(x)) ; 
+    const long offset = ivalue(testsc_cadr(x)) ; 
+    const long value  = ivalue(testsc_caddr(x)) ; 
 
-      testsc_debug("testnum(%d)%s:%d, get_field_value debug (%d, %d, %d) , %d, %d",
-                   g_testnum,
-                   __FILE__,
-                   __LINE__,
-                   field,
-                   offset,
-                   value,
-                   a,
-                   b ) ; 
     
     if( ( a == field  ) &&
         ( b == offset ) ) {
+
+      testsc_debug("testnum(%d)%s:%d, get_field_value debug (%d, %d, %d) , %d, %d",
+                 g_testnum,
+                 __FILE__,
+                 __LINE__,
+                 field,
+                 offset,
+                 value,
+                 a,
+                 b ) ; 
         
       return value ; 
     }
