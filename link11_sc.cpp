@@ -325,26 +325,26 @@ foreign_testsc_track_nget(scheme *sc , pointer args)
 
 
 
-pointer
-foreign_mmsg_set(scheme *sc , pointer args)
-{
-  g_mmsg = args ;
-  testsc_debug(__PRETTY_FUNCTION__) ; 
-
-  for (pointer it = args; it != sc->NIL; it = pair_cdr(it)) {
-    pointer x = pair_car(it) ;
-    const long field  = ivalue(testsc_car(x)) ; 
-    const long offset = ivalue(testsc_cadr(x)) ; 
-    const long value  = ivalue(testsc_caddr(x)) ; 
-    testsc_debug("%s %d %d %d" ,
-                 __PRETTY_FUNCTION__,
-                 field ,
-                 offset ,
-                 value) ; 
-  }
-  
-  return args ; 
-}
+//deprecated//pointer
+//deprecated//foreign_mmsg_set(scheme *sc , pointer args)
+//deprecated//{
+//deprecated//  g_mmsg = args ;
+//deprecated//  testsc_debug(__PRETTY_FUNCTION__) ; 
+//deprecated//
+//deprecated//  for (pointer it = args; it != sc->NIL; it = pair_cdr(it)) {
+//deprecated//    pointer x = pair_car(it) ;
+//deprecated//    const long field  = ivalue(testsc_car(x)) ; 
+//deprecated//    const long offset = ivalue(testsc_cadr(x)) ; 
+//deprecated//    const long value  = ivalue(testsc_caddr(x)) ; 
+//deprecated//    testsc_debug("%s %d %d %d" ,
+//deprecated//                 __PRETTY_FUNCTION__,
+//deprecated//                 field ,
+//deprecated//                 offset ,
+//deprecated//                 value) ; 
+//deprecated//  }
+//deprecated//  
+//deprecated//  return args ; 
+//deprecated//}
 
 pointer
 foreign_testnum_set(scheme *sc , pointer args)
@@ -450,7 +450,7 @@ foreign_testsc_init(scheme* sc , pointer args)
   memset(&g_admindefault, 0, sizeof(g_admindefault)) ; 
     
   foreign_symbol symbols [] = {
-    {"mmsg-set"         , foreign_mmsg_set}, 
+    //deprecated//{"mmsg-set"         , foreign_mmsg_set}, 
     // {"testsc-load"      , foreign_testsc_load},
     {"testsc-set-debug" , foreign_testsc_set_debug},
     {"testsc-debug"     , foreign_testsc_debug}, 
@@ -502,13 +502,12 @@ void testsc_init(int testnum , const char* cmd, const char* homepath)
 }
 
 
-int mmsg_get_field_value( int a, int b )
-{
 
-  if( 0 == g_sc.NIL ){
-    return 0 ;
-  }
-  for (pointer it = g_mmsg ; NULL != it && it != g_sc.NIL; it = pair_cdr(it)) {
+int mmsg_get_field_value( int a, int b , const char* name)
+{
+  for (pointer it = scheme_eval(&g_sc, mk_symbol(&g_sc, name) ) ;
+       NULL != it && it != g_sc.NIL;
+       it = pair_cdr(it)) {
     pointer x = pair_car(it) ;
     const long field  = ivalue(testsc_car(x)) ; 
     const long offset = ivalue(testsc_cadr(x)) ; 
@@ -534,6 +533,12 @@ int mmsg_get_field_value( int a, int b )
   
   return 0 ; 
 }
+
+int mmsg_get_field_value( int a, int b )
+{
+  return mmsg_get_field_value(a, b, "*mmsg*") ; 
+}
+
 #if !STANDALONE
 long testsc_ivalue( const char *name )
 {
