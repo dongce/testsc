@@ -1,0 +1,32 @@
+(testsc-set-debug 1 )
+(testsc-debug "t-1")
+(testsc-debug (number->string M85SW ))
+;; (case (testsc-get-testnum)
+;;   ((55)
+;;    (mmsg-set
+;;     (list  M85SW   SECOND_FRAME_OFFSET 0)
+;;     (list  M85TSW  SECOND_FRAME_OFFSET 0)
+;;     (list  M85REF  SECOND_FRAME_OFFSET 0))
+;;     (testsc-track-nset 1 'general.track_kind  system_types-track_kind_gen_refpos  )
+;;     (testsc-track-nset 1 'general.secondary_gen_designator  system_types-sec_gen_refpos_des_pim ))
+;;   ((56)
+;;    (mmsg-set
+;;     (list  M85SW   SECOND_FRAME_OFFSET 0)
+;;     (list  M85TSW  SECOND_FRAME_OFFSET 1)
+;;     (list  M85REF  SECOND_FRAME_OFFSET 0))
+;;    (testsc-track-nset 1 'general.track_kind  system_types-track_kind_asw_refpos  )
+;;    )
+;;   ((57)
+;;    (mmsg-set
+;;     (list  M85SW   SEC0ND_FRAME_OFFSET 1)
+;;     (list  M85TSW  SECOND_FRAME_OFFSET 1)
+;;     (list  M85REF  SECOND_FRAME_OFFSET 0)
+
+;;     (list M85HOURS  SECOND_FRAME_OFFSET 1)
+;;     (list M85MINUTES  SECOND_FRAME_OFFSET 1))
+;;    (testsc-track-nset 1 'general.track_kind  system_types-track_kind_asw_refpos  )
+;;    )
+;;   )
+
+;; (testsc-set-debug 1 )
+(testsc-debug "require done")

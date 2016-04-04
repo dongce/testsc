@@ -12,6 +12,7 @@
 
 (define *mmsg* '() )
 (define (mmsg-set . args) (set! *mmsg* args))
+(define (m-set  arg) (set! *mmsg* arg))
 
 (define-macro (mmsg . x)
   `(apply mmsg-set (quote ,x)))
@@ -60,6 +61,9 @@
 
 (define (tnset id sym val)
   (testsc-track-nset id (list sym val)))
+
+(define (tstrset id sym str)
+  (testsc-track-strset id (list sym str)))
 
 (define (anset id sym val )
   (testsc-admin-nset id (list sym val)))
