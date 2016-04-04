@@ -9,3 +9,13 @@ util4
 tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require gi/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require gi/t-14)

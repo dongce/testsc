@@ -70,15 +70,15 @@
     (testsc-debug "testsc-track-nset22")
     (testsc-track-nset id (list (car sym-vals) (eval-symbol  (cadr sym-vals))))))
 
-(define (tnset-values tnum id field . values )
+(define (tnset-values tnum id field  . values )
   (if (t-offset? tnum)
-      (tnset field (nth (t-offset tnum) values))))
+      (tnset id field (nth (t-offset tnum) values))))
 
 
 (define (tnset-fields tnum id . field-values )
   (for-each
    (lambda (x)
-     (tnset-values tnum id (car x) (cdr x)))
+     (apply (lambda (y) (tnset-values tnum id (car x)) y) (cdr x)))
    field-values))
 
 (define (tstrset id sym str)
