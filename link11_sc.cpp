@@ -513,7 +513,7 @@ inline long testsc_eval_ivalue(pointer x)
   return ivalue(x) ; 
 }
 
-int mmsg_get_field_value_with_name( int a, int b , const char* name)
+long mmsg_get_field_value_with_name( int a, int b , const char* name)
 {
   for (pointer it = scheme_eval(&g_sc, mk_symbol(&g_sc, name) ) ;
        NULL != it && it != g_sc.NIL;
@@ -544,7 +544,7 @@ int mmsg_get_field_value_with_name( int a, int b , const char* name)
   return 0 ; 
 }
 
-int mmsg_get_field_value( int a, int b )
+long mmsg_get_field_value( int a, int b )
 {
   return mmsg_get_field_value_with_name(a, b, "*mmsg*") ; 
 }
@@ -559,7 +559,7 @@ long testsc_ivalue( const char *name )
   pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
 
   if( NULL != args && g_sc.NIL != args  && is_integer(args)){
-    long value = ivalue(args) ; 
+    long value = testsc_eval_ivalue(args) ; 
     testsc_debug("testsc_ivalue %s is %d" , name, value) ;
     return value ;
   }
