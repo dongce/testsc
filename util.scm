@@ -60,6 +60,7 @@
    (set! result  (cons i result))))
 
 (define (tnset id . args )
+  (testsc-track-nset id )
   (do ((sym-vals args (cddr sym-vals)))
       ((>= (length sym-vals) 2 ))
   (testsc-track-nset id (list (car sym-vals) (cadr sym-vals)))))
@@ -68,6 +69,7 @@
   (testsc-track-strset id (list sym str)))
 
 (define (anset id . args )
+  (testsc-admin-nset id)
   (do ((sym-vals args (cddr sym-vals)))
       ((>= (length sym-vals) 2 ))
     (testsc-admin-nset id (list (car sym-vals) (cadr sym-vals)))))

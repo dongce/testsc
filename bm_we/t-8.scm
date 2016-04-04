@@ -1,0 +1,35 @@
+
+;; (testsc-require l11const)
+;; (testsc-require system_types)
+;; (testsc-require dlplink11types)
+
+(case (testsc-get-testnum)
+  ((63)
+   (define testsc 1 )
+   (define mtdm 20 )
+   )         
+  ((64)
+   (define testsc 1 )
+   (define mtdm 55 )
+   )         
+  ((65)
+   (define testsc 1 )
+   (define mtdm 17 )
+   )         
+  ((66)
+   (define testsc 1 )
+   (define mtdm 100 )
+   )         
+
+
+  ((67)
+   (define testsc 1 )
+   (define mtdm 45 )
+   )         
+  ((68)
+   (define testsc 1 )
+   (define mtdm 105 )
+   )         
+
+  )
+

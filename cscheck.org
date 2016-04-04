@@ -165,7 +165,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [13/91]
+** 진척률 [14/91]
 
 *** TODO DP_L11EventHandler
 *** TODO LINK11_DSF_MANAGER
@@ -274,7 +274,7 @@ update
 
 **** self stub 
 ***** allocate_ntn_transmi
-
+***** check_out_addr
 
 
 
@@ -351,7 +351,8 @@ stup : get_last_created_network
     - State "STARTED"    from "TODO"       [2016-04-02 Sat 12:44]
 
  - [X] 최초 실행  
-*** STARTED track_output
+*** DONE track_output
+    CLOSED: [2016-04-04 Mon 16:22]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 12:37]
 
  - [X] 일괄 실행 
