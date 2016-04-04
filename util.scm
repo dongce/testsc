@@ -78,8 +78,8 @@
 (define (tnset-fields tnum id . field-values )
   (for-each
    (lambda (x)
-     (tnset-values tnum id (car field-values) (cdr field-values)))
-   args))
+     (tnset-values tnum id (car x) (cdr x)))
+   field-values))
 
 (define (tstrset id sym str)
   (testsc-track-strset id (list sym str)))
