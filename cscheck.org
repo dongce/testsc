@@ -169,7 +169,12 @@ for(int i = 0 ; i < 10 ; i ++){
 
 ** 진척률 [15/91]
 
-*** TODO DP_L11EventHandler
+*** STARTED DP_L11EventHandler
+    - State "STARTED"    from "TODO"       [2016-04-04 Mon 20:03]
+ - [ ] 일괄 실행 
+
+
+
 *** TODO LINK11_DSF_MANAGER
 *** TODO SQLite3Interface
 *** TODO build_message_aircraft_control
