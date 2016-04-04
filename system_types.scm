@@ -1063,3 +1063,5 @@
 (define system_types-wrong_interrupt_code 3  ) 
 (define system_types-wrong_number_of_input_words 4  ) 
 (define system_types-zero_minutes 0  ) 
+
+(define enum-none -1)
