@@ -22,13 +22,13 @@
 #define testsc_caddr(x) pair_car(pair_cdr(pair_cdr((x))))
 
 
-inline num eval_nvalue(scheme*sc , pointer x)
-{
-  if(is_symbol(x)){
-    return nvalue(scheme_eval(sc ,x)) ;
-  }
-  return nvalue(x) ; 
-}
+// inline num eval_nvalue(scheme*sc , pointer x)
+// {
+//   if(is_symbol(x)){
+//     return nvalue(sc->vptr->scheme_eval(sc ,x)) ;
+//   }
+//   return nvalue(x) ; 
+// }
 
 
 typedef std::map<uint32_t, network_track_data_ptr>  trackmap_t ; 
@@ -220,7 +220,7 @@ foreign_testsc_track_nset(scheme *sc , pointer args)
   for (pointer field = pop_args(args); is_pair(field); field = pop_args(args)) {
     const char *sym = symname(pop_args(field) ); 
     const std::string fieldname(sym);
-    const num         fieldnum   = eval_nvalue(sc, pop_args(field)) ;
+    const num         fieldnum   = nvalue( pop_args(field)) ;
 
     FOR_FIELD_ID(fieldname){
       TRACK_FIELDS(FIELD_NSET_VALUE, it, fieldnum) ; 
@@ -246,7 +246,7 @@ foreign_testsc_admin_nset(scheme *sc , pointer args)
   for (pointer field = pop_args(args); is_pair(field); field = pop_args(args)) {
     const char *sym = symname(pop_args(field) ); 
     const std::string fieldname(sym);
-    const num         fieldnum   = eval_nvalue(sc, pop_args(field)) ;
+    const num         fieldnum   = nvalue( pop_args(field)) ;
 
     FOR_FIELD_ID(fieldname){
       ADMIN_FIELDS(FIELD_NSET_VALUE, it, fieldnum) ; 
