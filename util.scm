@@ -102,3 +102,11 @@
         (> offset -1)
         (and (> offset -1) (> (car len ) offset ) ))))
     
+(define (perm . args)
+  (if (= 1 (length args))
+      (map list (car  args))
+      (let ((cdrperm  (apply perm (cdr args))))
+        (car
+         (map
+          (lambda (x)
+            (map (lambda (y) (cons x y )) cdrperm)) (car args))))))

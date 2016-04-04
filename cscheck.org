@@ -1,4 +1,6 @@
 * CODESCROLL 동저 시험 
+** permutation 
+[[file:mb/t-4.scm::(if%20(=%20tnum-start%20(testsc-get-testnum))]]
 ** admin_t 
 #+BEGIN_SRC cpp
 struct admin_t {
@@ -36,6 +38,7 @@ network_track_data_base.h
 usr_channel.h
 usr_channel.cpp
 general_input.cpp 
+DP_L11EventHandler.cpp
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
  - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
@@ -167,7 +170,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [15/91]
+** 진척률 [17/91]
 
 *** STARTED DP_L11EventHandler
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 20:03]
@@ -242,7 +245,8 @@ validate_data_update_request
 *** TODO dts_serial
 *** TODO ew_intelligence_types
 *** TODO ffx_unit
-*** STARTED general_input
+*** DONE general_input
+    CLOSED: [2016-04-04 Mon 21:33]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 12:30]
  - [X] 일괄 실행 
  - [X] 타임 아웃 변경 
@@ -271,7 +275,9 @@ update
 ***** looptest_ptt(
 
 update
-*** TODO mmsg_buff
+*** STARTED mmsg_buff
+    - State "STARTED"    from "TODO"       [2016-04-04 Mon 21:37]
+ - [X] 일괄 실행 
 *** TODO network_rx
 *** DONE network_track_data_base
     CLOSED: [2016-04-04 Mon 12:33]
@@ -365,6 +371,7 @@ stup : get_last_created_network
 
  - [X] 일괄 실행 
 
-*** STARTED usr_channel
+*** DONE usr_channel
+    CLOSED: [2016-04-05 Tue 00:00]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 16:36]
 *** TODO utility
