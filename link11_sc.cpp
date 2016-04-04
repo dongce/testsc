@@ -578,7 +578,7 @@ long testsc_ivalue( const char *name )
   return 0 ; 
 }
 
-long testsc_strvalue( const char *name )
+char* testsc_strvalue( const char *name )
 {
   if( 0 == g_sc.NIL ){
     return 0 ;
