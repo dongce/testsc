@@ -59,11 +59,19 @@
      ((>= i end) (reverse result ))
    (set! result  (cons i result))))
 
-(define (tnset id sym val)
-  (testsc-track-nset id (list sym val)))
+(define (tnset id . args )
+  (do ((sym-vals args (cddr sym-vals)))
+      ((>= (length sym-vals) 2 ))
+  (testsc-track-nset id (list (car sym-vals) (cadr sym-vals)))))
 
 (define (tstrset id sym str)
   (testsc-track-strset id (list sym str)))
 
-(define (anset id sym val )
-  (testsc-admin-nset id (list sym val)))
+(define (anset id . args )
+  (do ((sym-vals args (cddr sym-vals)))
+      ((>= (length sym-vals) 2 ))
+    (testsc-admin-nset id (list (car sym-vals) (cadr sym-vals)))))
+
+(define (t-offset start) (- (testsc-get-testnum) start))
+
+(define (t-offset? start) (> (t-offset start ) -1))
