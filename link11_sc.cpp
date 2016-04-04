@@ -577,6 +577,24 @@ long testsc_ivalue( const char *name )
   }
   return 0 ; 
 }
+
+long testsc_strvalue( const char *name )
+{
+  if( 0 == g_sc.NIL ){
+    return 0 ;
+  }
+
+  
+  pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
+
+  if( NULL != args && g_sc.NIL != args  && is_string(args)){
+    const char *strvalue = string_value(args) ; 
+    testsc_debug("testsc_ivalue %s is %d" , name, strvalue) ;
+    return strvalue ;
+  }
+  return 0 ; 
+}
+
 #endif
 
 char* testsc_admin_get( int i )
