@@ -9,6 +9,11 @@ util4
 tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require gi/t-14)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 3 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -19,3 +24,18 @@ util4
 tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require gi/t-14)
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require gi/t-14)
+testsc-track-nset
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
