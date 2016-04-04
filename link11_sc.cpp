@@ -588,7 +588,7 @@ char* testsc_strvalue( const char *name )
   pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
 
   if( NULL != args && g_sc.NIL != args  && is_string(args)){
-    const char *strvalue = string_value(args) ; 
+    char *strvalue = string_value(args) ; 
     testsc_debug("testsc_ivalue %s is %d" , name, strvalue) ;
     return strvalue ;
   }
