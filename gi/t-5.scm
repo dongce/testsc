@@ -6,7 +6,7 @@
 (case (testsc-get-testnum)
   ((6)
    (define testsc 1 )
-   (define gpaa system_types-pairing)
+   (define gpaa -1)
    )
   )
 

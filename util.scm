@@ -59,11 +59,16 @@
      ((>= i end) (reverse result ))
    (set! result  (cons i result))))
 
+(define (eval-symbol x)
+  (if (symbol? x ) (eval x ) x))
+
 (define (tnset id . args )
+  (testsc-debug "testsc-track-nset")
   (testsc-track-nset id )
   (do ((sym-vals args (cddr sym-vals)))
-      ((>= (length sym-vals) 2 ))
-  (testsc-track-nset id (list (car sym-vals) (cadr sym-vals)))))
+      ((> 2 (length sym-vals)  ))
+    (testsc-debug "testsc-track-nset22")
+    (testsc-track-nset id (list (car sym-vals) (eval-symbol  (cadr sym-vals))))))
 
 (define (tstrset id sym str)
   (testsc-track-strset id (list sym str)))
@@ -71,8 +76,8 @@
 (define (anset id . args )
   (testsc-admin-nset id)
   (do ((sym-vals args (cddr sym-vals)))
-      ((>= (length sym-vals) 2 ))
-    (testsc-admin-nset id (list (car sym-vals) (cadr sym-vals)))))
+      ((> 2 (length sym-vals)  ))
+    (testsc-admin-nset id (list (car sym-vals) (eval-symbol  (cadr sym-vals))))))
 
 (define (t-offset start) (- (testsc-get-testnum) start))
 
