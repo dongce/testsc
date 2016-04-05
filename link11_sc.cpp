@@ -527,6 +527,14 @@ inline long testsc_eval_ivalue(pointer x)
 
 long mmsg_get_field_value_with_name( int a, int b , const char* name)
 {
+
+  testsc_debug("testnum(%d)%s:%d, get_field_value debug  ( %d, %d )",
+               g_testnum,
+               __FILE__,
+               __LINE__,
+               a,
+               b ) ; 
+  
   for (pointer it = scheme_eval(&g_sc, mk_symbol(&g_sc, name) ) ;
        NULL != it && it != g_sc.NIL;
        it = pair_cdr(it)) {
@@ -577,6 +585,13 @@ long testsc_ivalue( const char *name )
   }
   return 0 ; 
 }
+
+long testsc_setenv( const char *name , const char *value)
+{
+  return setenv(name, value, 1 ) ; 
+}
+
+
 
 char* testsc_strvalue( const char *name )
 {
