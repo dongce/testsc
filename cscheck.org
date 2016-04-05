@@ -171,7 +171,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [18/91]
+** 진척률 [19/91]
 
 *** STARTED DP_L11EventHandler
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 20:03]
@@ -276,7 +276,8 @@ update
 ***** looptest_ptt(
 
 update
-*** STARTED mmsg_buff
+*** DONE mmsg_buff
+    CLOSED: [2016-04-05 Tue 21:35]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 21:37]
  - [X] 일괄 실행 
 *** TODO network_rx
@@ -348,7 +349,15 @@ bool process_message_m4ab::is_gmt_valid(mmsg_buff *m)
 stup : get_last_created_network
 *** TODO process_message_m6c
 *** TODO process_message_m6d
-*** TODO process_message_m9a
+*** STARTED process_message_m9a
+    - State "STARTED"    from "TODO"       [2016-04-05 Tue 19:51]
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [X] 일괄 실행 
+    - [X] 체크아웃 
+
+
 *** TODO process_message_m9b
 *** TODO process_message_m9c
 *** TODO process_message_m9d

@@ -401,3 +401,75 @@
 
 (testsc-debug "tnumber is ")
 (testsc-debug (number->string tnum-start))
+
+;; 158
+
+(for-each
+ (lambda (x)
+   (if (= tnum-start (testsc-get-testnum))
+       (m-set (apply append  x)))
+   (set! tnum-start (+ 1 tnum-start)))
+ (perm
+  '(
+    ( (M1MN        0 MESSAGE_NUMBER_M1 ) (M1RP 0 0) )
+    )
+  '(
+    ( (M1MN        2 MESSAGE_NUMBER_M1) )
+    )
+  '(
+    ( (M1MN        4 MESSAGE_NUMBER_M8) )
+    )
+  ))
+
+(for-each
+ (lambda (x)
+   (if (= tnum-start (testsc-get-testnum))
+       (m-set (apply append  x)))
+   (set! tnum-start (+ 1 tnum-start)))
+ (perm
+  '(
+    ( (M1MN        0 MESSAGE_NUMBER_M1 ) (M1RP 0 1) )
+    )
+  '(
+    ( (M1MN        2 MESSAGE_NUMBER_M1) )
+    )
+  '(
+    ( (M1MN        4 MESSAGE_NUMBER_M5) )
+    )
+  '(
+    ( (M1MN        6 MESSAGE_NUMBER_M8) )
+    )
+  ))
+
+(for-each
+ (lambda (x)
+   (if (= tnum-start (testsc-get-testnum))
+       (m-set (apply append  x)))
+   (set! tnum-start (+ 1 tnum-start)))
+ (perm
+  '(
+    ( (M1MN        0 MESSAGE_NUMBER_M1 ) (M1RP 0 1) )
+    )
+  '(
+    ( (M1MN        2 MESSAGE_NUMBER_M5) )
+    )
+  '(
+    ( (M1MN        4 MESSAGE_NUMBER_M8) )
+    )
+  ))
+(for-each
+ (lambda (x)
+   (if (= tnum-start (testsc-get-testnum))
+       (m-set (apply append  x)))
+   (set! tnum-start (+ 1 tnum-start)))
+ (perm 
+  '(
+    ((M1MN  0 MESSAGE_NUMBER_M5 )  )
+    )
+
+  '(
+    ( (M1MN  2 8)  )
+    )
+  ))
+
+;; 162
