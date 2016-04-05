@@ -37,6 +37,13 @@ typedef std::map<std::string, uint32_t>           fieldmap_t ;
 typedef std::pair<uint32_t, network_track_data_ptr> trackpair_t ; 
 typedef std::pair<std::string, uint32_t>          fieldpair_t ; 
 
+
+typedef struct cdo_check_t 
+{
+  uint32_t  counter;
+  uint32_t  network ; 
+  uint32_t  pu_address ; 
+} cdo_check_t ; 
 struct admin_t {
   union{
     wipe_proposal_t        _wipe_proposal ; 
@@ -52,7 +59,8 @@ struct admin_t {
     update_request_t       _update_request ; 
     weapon_engagement_t    _weapon_engagement ;
     new_assignment_t       _assign_request ;
-    track_alert_report_t   _alert_report ; 
+    track_alert_report_t   _alert_report ;
+    cdo_check_t            _cdo_check ; 
     ew_intelligence_types::ew_intelligence_request_record _ew_request; 
   } ; 
 } ;

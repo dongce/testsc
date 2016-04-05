@@ -118,8 +118,11 @@ TEMPLATE(_wipe_proposal.network            ,it, fieldnum) ;             \
  TEMPLATE(_weapon_engagement.target_destroyed_counter        ,it, fieldnum) ; \
                                                                         \
  TEMPLATE(_assign_request.tactical                           ,it, fieldnum) ; \
- TEMPLATE(_assign_request.assignment_kind                    ,it, fieldnum) ;
-
+ TEMPLATE(_assign_request.assignment_kind                    ,it, fieldnum) ; \
+                                                                        \
+ TEMPLATE(_cdo_check.counter    ,it,fieldnum) ;                         \
+ TEMPLATE(_cdo_check.network    ,it,fieldnum) ;                         \
+ TEMPLATE(_cdo_check.pu_address ,it,fieldnum) ; 
 
   
 
