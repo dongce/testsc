@@ -12,6 +12,7 @@
 #include <locale>
 #include "nfields.h"
 #include "ew_intelligence_types.h"
+#include "opspec_types.h"
 
 #define tinyscheme_list4(sc , a , b , c , d) cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , cons((sc) , (d) , (sc)->NIL))))
 #define tinyscheme_list3(sc , a , b , c)     cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , (sc)->NIL)))
@@ -60,7 +61,8 @@ struct admin_t {
     weapon_engagement_t    _weapon_engagement ;
     new_assignment_t       _assign_request ;
     track_alert_report_t   _alert_report ;
-    cdo_check_t            _cdo_check ; 
+    cdo_check_t            _cdo_check ;
+    opspec_types::opnote_t _opnote ; 
     ew_intelligence_types::ew_intelligence_request_record _ew_request; 
   } ; 
 } ;

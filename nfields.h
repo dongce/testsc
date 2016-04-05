@@ -122,9 +122,19 @@ TEMPLATE(_wipe_proposal.network            ,it, fieldnum) ;             \
                                                                         \
  TEMPLATE(_cdo_check.counter    ,it,fieldnum) ;                         \
  TEMPLATE(_cdo_check.network    ,it,fieldnum) ;                         \
- TEMPLATE(_cdo_check.pu_address ,it,fieldnum) ; 
-
-  
+ TEMPLATE(_cdo_check.pu_address ,it,fieldnum) ;                         \
+                                                                        \
+TEMPLATE(_opnote.source_id         , it, fieldnum) ;                    \
+TEMPLATE(_opnote.serial_number     , it, fieldnum) ;                    \
+TEMPLATE(_opnote.origin_TN         , it, fieldnum) ;                    \
+TEMPLATE(_opnote.addressee_TN      , it, fieldnum) ;                    \
+TEMPLATE(_opnote.transm_indicator  , it, fieldnum) ;                    \
+TEMPLATE(_opnote.broadcast         , it, fieldnum) ;                    \
+TEMPLATE(_opnote.text_message[100] , it, fieldnum) ;                    \
+TEMPLATE(_opnote.counter           , it, fieldnum) ;                    \
+TEMPLATE(_opnote.store_time.coarse_time        , it, fieldnum) ;                    \
+TEMPLATE(_opnote.store_time.fine_time        , it, fieldnum) ;                    \
+TEMPLATE(_opnote.validity          , it, fieldnum) ; 
 
 #define TRACK_FIELDS(TEMPLATE, it, fieldnum)                            \
       TEMPLATE(network_kinetics.x_position , it, fieldnum) ;            \
