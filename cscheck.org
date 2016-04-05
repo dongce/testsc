@@ -39,6 +39,7 @@ usr_channel.h
 usr_channel.cpp
 general_input.cpp 
 DP_L11EventHandler.cpp
+track_controller.cpp
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
  - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
@@ -170,7 +171,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [17/91]
+** 진척률 [18/91]
 
 *** STARTED DP_L11EventHandler
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 20:03]
@@ -282,7 +283,8 @@ update
 *** DONE network_track_data_base
     CLOSED: [2016-04-04 Mon 12:33]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 12:27]
-*** STARTED network_track_data_bash_hash
+*** DONE network_track_data_bash_hash
+    CLOSED: [2016-04-05 Tue 19:47]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 12:41]
  - [X] 일괄 실행 
 
@@ -360,7 +362,16 @@ stup : get_last_created_network
 *** TODO simulated_track
 *** TODO start_dlps
 *** TODO status_checker
-*** TODO track_controller
+*** STARTED track_controller
+    - State "STARTED"    from "TODO"       [2016-04-05 Tue 09:36]
+
+**** 확인 사항  
+
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+
 *** STARTED track_input
     - State "STARTED"    from "TODO"       [2016-04-02 Sat 12:44]
 
