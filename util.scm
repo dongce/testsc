@@ -27,6 +27,7 @@
 (testsc-debug "util2")
 
 (define (nth n l)
+  (display  l)
   (do ((i 0 (+ i 1)))
       ((>= i n ))
     (set! l (cdr l)))
@@ -71,14 +72,14 @@
     (testsc-track-nset id (list (car sym-vals) (eval-symbol  (cadr sym-vals))))))
 
 (define (tnset-values tnum id field  . values )
-  (if (t-offset? tnum)
+  (if (t-offset? tnum (length values) )
       (tnset id field (nth (t-offset tnum) values))))
 
 
 (define (tnset-fields tnum id . field-values )
   (for-each
    (lambda (x)
-     (apply (lambda (y) (tnset-values tnum id (car x)) y) (cdr x)))
+     (apply tnset-values tnum id (car x) (cdr x)))
    field-values))
 
 (define (tstrset id sym str)
@@ -93,3 +94,19 @@
 (define (t-offset start) (- (testsc-get-testnum) start))
 
 (define (t-offset? start) (> (t-offset start ) -1))
+
+
+(define (t-offset? start . len)
+  (let ((offset (t-offset start )))
+    (if (eq? '() len)
+        (> offset -1)
+        (and (> offset -1) (> (car len ) offset ) ))))
+    
+(define (perm . args)
+  (if (= 1 (length args))
+      (map list (car  args))
+      (let ((cdrperm  (apply perm (cdr args))))
+        (car
+         (map
+          (lambda (x)
+            (map (lambda (y) (cons x y )) cdrperm)) (car args))))))
