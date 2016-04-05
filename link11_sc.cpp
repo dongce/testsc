@@ -586,10 +586,10 @@ long testsc_ivalue( const char *name )
   return 0 ; 
 }
 
-long testsc_setenv( const char *name , const char *value)
-{
-  return setenv(name, value, 1 ) ; 
-}
+// long testsc_setenv( const char *name , const char *value)
+// {
+//   return setenv(name, value, 1 ) ; 
+// }
 
 
 
