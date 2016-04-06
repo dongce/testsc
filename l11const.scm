@@ -54,6 +54,11 @@
 (define Env_Cat_Air 1 )
 (define Env_Cat_Subsurface 3 )
 (define Env_Cat_Surface 2 )
+
+(define ENV_CAT_AIR 1 )
+(define ENV_CAT_SUBSURFACE 3 )
+(define ENV_CAT_SURFACE 2 )
+
 (define FIFTH_FRAME_OFFSET 8 )
 (define FIVE_TIMES 5 )
 (define FIXED_CONST #x040000 )
