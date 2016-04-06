@@ -43,6 +43,10 @@ track_controller.cpp
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
  - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
+dts_controller.cpp
+
+[[file:/opt/vboxshare/gitdir/DLP_LINK11/src/csds_manager/OWNFFXDefine.h::#define%20_LINK11%201][_STEST_]] OWNDefine.h
+
 ** 구현 필요. 
 *** TODO nth 
  C 로 구현해서 성능 향상 필요. 
@@ -171,7 +175,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [19/91]
+** 진척률 [20/91]
 
 *** STARTED DP_L11EventHandler
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 20:03]
@@ -181,9 +185,22 @@ for(int i = 0 ; i < 10 ; i ++){
 
 *** TODO LINK11_DSF_MANAGER
 *** TODO SQLite3Interface
-*** TODO build_message_aircraft_control
-*** TODO build_message_aircraft_status
-*** TODO build_message_cdo
+*** REVIEW build_message_aircraft_control
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+
+*** REVIEW build_message_aircraft_status
+*** REVIEW build_message_cdo
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO build_message_command
 *** TODO build_message_difference_report
 *** TODO build_message_emitter_eval
@@ -242,7 +259,14 @@ validate_data_update_request
  - [X] 일괄 실행 
 *** TODO dlp_unit
 *** TODO dlptime
-*** TODO dts_controller
+*** STARTED dts_controller
+    - State "STARTED"    from "TODO"       [2016-04-05 Tue 21:38]
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO dts_serial
 *** TODO ew_intelligence_types
 *** TODO ffx_unit
@@ -344,26 +368,78 @@ bool process_message_m4ab::is_gmt_valid(mmsg_buff *m)
 ? 가 생기는 원인 확인 필요. 
 *** DONE process_message_m6a
     CLOSED: [2016-03-29 Tue 11:43]
-*** STARTED process_message_m6b
+*** DONE process_message_m6b
+    CLOSED: [2016-04-06 Wed 08:47]
 **** existing_track 
 stup : get_last_created_network
-*** TODO process_message_m6c
-*** TODO process_message_m6d
+*** REVIEW process_message_m6c
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+*** REVIEW process_message_m6d
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+
 *** STARTED process_message_m9a
     - State "STARTED"    from "TODO"       [2016-04-05 Tue 19:51]
 
 **** 확인 사항  
-    - [ ] 타이머 설정 
+    - [X] 타이머 설정 
     - [X] 일괄 실행 
     - [X] 체크아웃 
 
 
-*** TODO process_message_m9b
-*** TODO process_message_m9c
-*** TODO process_message_m9d
-*** TODO process_message_m9e
-*** TODO process_message_m9f
-*** TODO process_message_m9g
+*** REVIEW process_message_m9b
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+
+*** REVIEW process_message_m9c
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+*** REVIEW process_message_m9d
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+      
+*** REVIEW process_message_m9e
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+
+*** REVIEW process_message_m9f
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+*** REVIEW process_message_m9g
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO pu_data
 *** TODO received_frame_filter
 *** TODO remote_control
