@@ -192,8 +192,179 @@ for(int i = 0 ; i < 10 ; i ++){
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
+**** script 
+***** output_aircraft_control_orders(void)
+
+(1)
+(anset 1 '_aircraft_control.counter 1 )
+(anset 1 '_aircraft_control.order system_types-assume_cntrl  )
+
+(anset 1 '_aircraft_control.counter 0 )
+(anset 1 '_aircraft_control.order system_types-assume_cntrl  )
+
+(tnset 1 _air_mission_data.air_control_active 1 )
+
+(2)
+
+build_m10a_original_and_ack 0 
+
+(3)
+build_m10a_original_and_ack 1
+
+(4)
+(anset 1 '_aircraft_control.counter 7 )
+
+
+***** process_aircraft_control_order()
+
+(1)
+rh0 1
+rh1 0 
+vco 1
+
+(2)
+rh0 1 
+vco 1
+
+
+
+
+***** process_ackn_aircraft_control_order()
+
+(1)
+rh0 1
+rh1 0 
+vco 1
+
+(2)
+rh0 1 
+vco 1
+
+
+
+
+***** process_rc_request_for_original()
+(1)
+anset 0 _aircraft_control.M10AFRAME ORDER_CANCEL_INDICATO
+anset 1 
+ita 1 
+
+(1)
+anset 0 _aircraft_control.M10AFRAME ORDER_CANCEL_INDICATO
+anset 1 
+ita 0
+
+alloc ait 
+
+
+
+***** process_rc_request_for_reply()
+(0)
+(anset 0 _aircraft_control.reply system_types::machine_receipt)
+(anset 1 _aircraft_control.reply system_types::will_comply)
+
+ita 1
+
+(1)
+(anset 0 _aircraft_control.reply system_types::machine_receipt)
+(anset 1 _aircraft_control.reply system_types::will_comply)
+
+ita 0 
+alloc 0 
+
+(2)
+(anset 0 _aircraft_control.reply system_types::machine_receipt)
+(anset 1 _aircraft_control.reply system_types::will_comply)
+
+ita 0 
+alloc ait
+
+
+
+
+
+***** validate_ackn_control_order(const aircraft_control_t & ackn_control_order )
+
+(1)
+search_booked_order 0 
+
+(2)
+search_booked_order sboit 
+
+
+(3)
+ ackn_control_order.order == system_types::control_and_engage  
+
+(4)
+itn 0 
+
+(4)
+itn 1 
+
+(5)
+ackn_control_order.order == system_types::transfer_cntrl
+
+(6)
+ipv 1 
+
+(6)
+ipv 0
+
+
+(7)
+
+
+***** process_validated_ackn_control_order(const aircraft_control_t & ackn_to_process)
+(1)
+alloc 0
+(2)
+alloc arit 
+
+(anset 1 _aircraft_control.reply system_types::will_comply)
+(anset 1 _aircraft_control.order -1y)
+
+
+(3)
+(tnset 0 )
+
+
+(4)
+(tnset 0 supporting_info.info_validation 1)
+
+
+***** process_aircraft_cancel_transmission
+(anset 0 )
+
+
 
 *** REVIEW build_message_aircraft_status
+
+**** script 
+***** output_aircraft_status(const keyvector_t& networks )
+
+(1)
+(tnset 1 '_air_mission_data.air_control_active 1 )
+(tnset 1 '_air_mission_data.kind AIRCRAFT_STATUS_KIND_AIR_GENERAL )
+(tnset 1 '_air_mission_data.general_mission.mission_status_validity 1)
+      
+(2)
+(tnset 1 '_air_mission_data.general_mission_counter 1)
+(tnset 1 '_air_mission_data.general_mission_counter 0)
+
+(3)
+(tnset 1 '_air_mission_data.air_control_active 1)
+(tnset 1  '_air_mission_data.kind AIRCRAFT_STATUE_KIND_ASW )
+
+(4)
+(tnset 1 '_air_mission_data.asw_mission_counter 1 )
+        decrease_counter(&t->_air_mission_data.asw_mission_counter);
+
+(5)
+(tnset 1 '_air_mission_data.asw_mission_counter 0 )
+(tnset 1 '_air_mission_data.asw_mission_repetition_counter == 1U
+
+
+
 *** REVIEW build_message_cdo
 
 **** 확인 사항  
@@ -379,12 +550,219 @@ stup : get_last_created_network
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
+**** script 
+***** process_message
+(1)
+M1MN SECOND_FRAME_OFFSET MESSAGE_NUMBER_M8
+M86CARPSW  SECOND_FRAME_OFFSET 0
+(tnset 1 'general.track_kind system_types::track_kind_esm_bearing_track )
+
+(2)
+M1MN SECOND_FRAME_OFFSET MESSAGE_NUMBER_M8
+M86CARPSW  SECOND_FRAME_OFFSET 1
+(tnset 1 'general.track_kind system_types::track_kind_esm_bearing_track )
+
+
+
+
 *** REVIEW process_message_m6d
 
 **** 확인 사항  
     - [ ] 타이머 설정 
     - [ ] 일괄 실행 
     - [X] 체크아웃 
+
+**** script
+***** process_message(network_track_data_ptr t1 , network_track_data_ptr t2 )
+
+(1)
+M6DTN 0 1
+(2)
+M6DTN 0 0
+(3)
+M6DTN 0 3
+(4)
+M6DTN 0 7
+(5)
+M6DTN 0 8
+(6)
+M6DTN 0 12
+(7)
+M6DTN 0 13
+(8)
+M6DTN 0 14
+(9)
+M6DTN 0 15
+(9)
+M6DTN 0 -1
+
+
+***** process_request_periodic_report(uint32_t m6d_tn_tactical_id )
+
+(1)
+_m6d_rc -1
+_m6d_tnadde 1
+
+(2)
+_m6d_rc -1
+_m6d_tnadde 0
+
+
+(3)    
+_m6d_rc RC_COMPLIANCE_REQUIRED:
+_m6d_tnadde 0
+(4)
+_m6d_rc RC_NO_COMPLIANCE:
+_m6d_tnadde 0
+(5)
+_m6d_rc RC_MACHINE_RECEIPT:
+_m6d_tnadde 0
+(6)
+_m6d_rc RC_CANT_COMPLY:
+_m6d_tnadde 0
+
+
+
+
+
+***** process_request_update_then_watch(uint32_t m6d_tn_tactical_id )
+
+(1)
+_m6d_rc -1
+_m6d_tnadde 1
+
+(2)
+_m6d_rc -1
+_m6d_tnadde 0
+
+(3)
+_m6d_rc -1
+_m6d_tnadde 0
+
+(4)
+_m6d_rc  RC_COMPLIANCE_REQUIRED
+_m6d_tnadde 0
+(5)
+_m6d_rc  RC_NO_COMPLIANCE
+_m6d_tnadde 0
+(6)
+_m6d_rc  RC_MACHINE_RECEIPT
+_m6d_tnadde 0
+(7)
+_m6d_rc  RC_CANT_COMPLY
+_m6d_tnadde 0
+
+
+
+
+***** process_cancel_request_cease_report(uint32_t m6d_tn_tactical_id )
+
+(1)
+ _m6d_rc -1 
+_m6d_tnaddee 1
+
+(2)
+
+_m6d_rcV 0
+
+(3)
+_m6d_rcV 1
+
+
+(4)
+ _m6d_rc RC_COMPLIANCE_REQUIRED
+(5)
+ _m6d_rc RC_NO_COMPLIANCE
+(6)
+ _m6d_rc RC_MACHINE_RECEIPT
+(7)
+ _m6d_rc RC_CANT_COMPLY
+
+
+
+
+***** process_emitter_evaluation(uint32_t m6d_tn_tactical_id )
+(1)
+m6d_tn_tactical_id 0 
+
+
+(2)
+_m6d_mul 0
+(3)
+_m6d_mul 1
+
+
+
+
+***** process_ew_request_response(uint32_t m6d_rtn_tactical_id)
+
+(1)
+m6d_rtn_tactical_id 0
+
+(2)
+m6d_rtn_tactical_id 1
+
+(3)
+_m6d_rcV 0 
+
+(4)
+_m6d_rcV 3
+
+(5)
+_m6d_rcV 14
+
+(6)
+_m6d_rcV 15
+
+
+
+
+
+***** process_evaluate_track_received(uint32_t m6d_tn_tactical_id)
+
+(1)   
+_m6d_rc -1 
+_m6d_tnaddee 1
+
+(2)   
+_m6d_rc -1 
+_m6d_tnaddee 0
+
+
+
+(3)   
+_m6d_rc  RC_COMPLIANCE_REQUIRED
+(4)   
+_m6d_rc  RC_NO_COMPLIANCE
+(5)   
+_m6d_rc  RC_MACHINE_RECEIPT
+(6)   
+_m6d_rc  RC_CANT_COMPLY
+
+
+
+
+***** process_evaluate_sector_received()
+
+(1)   
+_m6d_rc -1 
+_m6d_tnaddee 1
+
+(2)   
+_m6d_rc  RC_COMPLIANCE_REQUIRED
+(3)   
+_m6d_rc  RC_NO_COMPLIANCE
+(4)   
+_m6d_rc  RC_MACHINE_RECEIPT
+(5)   
+_m6d_rc  RC_CANT_COMPLY
+
+
+
+
+
+
+
 
 
 *** STARTED process_message_m9a
@@ -404,11 +782,42 @@ stup : get_last_created_network
     - [X] 체크아웃 
 
 
+**** script 
+
+***** process_message(network_track_data_ptr a , network_track_data_ptr b )
+
+(1)
+a 0
+b 0
+
+(2)
+M9BAC   0 0 
+(3)
+M9BAC   0 -1
+(4)
+M9BAC   0  6
+(5)
+M9BAC   0  15 
+
+(anset 1 )
+      
+
 *** REVIEW process_message_m9c
 **** 확인 사항  
     - [ ] 타이머 설정 
     - [ ] 일괄 실행 
     - [X] 체크아웃 
+
+
+
+
+**** script 
+***** process_message()
+
+(1)
+
+(mmsg-set '(M9CPUADDE 0 1))
+
 
 *** REVIEW process_message_m9d
 
@@ -416,6 +825,18 @@ stup : get_last_created_network
     - [ ] 타이머 설정 
     - [ ] 일괄 실행 
     - [X] 체크아웃 
+
+
+**** script 
+
+***** process_message()
+
+(1)
+(mmsg-set (M9DSW 0 SOFTWARE_END_OF_TRANSMISSION))
+(2)
+(mmsg-set (M9DSW 0 SOFTWARE_END_OF_TRANSMISSION))
+
+
 
       
 *** REVIEW process_message_m9e
@@ -425,7 +846,14 @@ stup : get_last_created_network
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-
+**** script 
+***** process_voice_control_frequency_received
+t = 0 
+***** process_mission_number_received
+t = 0 
+***** process_call_sign_receive
+t = 0 
+ 
 *** REVIEW process_message_m9f
 
 **** 확인 사항  
@@ -433,12 +861,71 @@ stup : get_last_created_network
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
+**** script
+
+***** existing_track( network_track_data_ptr t )
+(2)
+ M9FACT 0  M9F_BASIC 
+(3)
+ M9FACT 0  M9F_SECONDARY
+
+
+
+***** fill_network_track_data(network_track_data_ptr t )
+
+(define  Env_Cat_Air         = 1)
+(define  Env_Cat_Surface     = 2)
+(define  Env_Cat_Subsurface  = 3)
+(define  Src_EW          = 1)
+(define  Src_Intel       = 2)
+(define  Src_Sosus       = 3)
+(define  Src_ASW_Sensor      = 4)
+
+(1)
+( M89FCAT , SECOND_FRAME_OFFSET Env_Cat_Air)
+(2)
+( M89FCAT , SECOND_FRAME_OFFSET Env_Cat_Surface)
+(3)
+( M89FCAT , SECOND_FRAME_OFFSET Env_Cat_Subsurface)
+(4)
+( M89FCAT , SECOND_FRAME_OFFSET -1)
+
+(5)
+M89FSRC , SECOND_FRAME_OFFSET   Src_EW
+(6)
+M89FSRC , SECOND_FRAME_OFFSET   Src_Intel
+(7)
+M89FSRC , SECOND_FRAME_OFFSET   Src_Sosus
+(8)
+M89FSRC , SECOND_FRAME_OFFSET   Src_ASW_Sensor
+
+
+***** fill_network_track_data_secondary(network_track_data_ptr t )
+(1)
+ M9FSW 0 0 
+(2)
+ M9FSW 0 1
+
+
+
 *** REVIEW process_message_m9g
 
 **** 확인 사항  
     - [ ] 타이머 설정 
     - [ ] 일괄 실행 
     - [X] 체크아웃 
+
+**** script 
+***** process_message()
+(define  South  1)
+(define  West   1)
+
+(1)
+M9GLATMI 0 60
+
+M9GN 0 South
+M9GE 0 West
+
 
 *** TODO pu_data
 *** TODO received_frame_filter
