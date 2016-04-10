@@ -175,7 +175,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [20/91]
+** 진척률 [20/75]
 
 *** STARTED DP_L11EventHandler
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 20:03]
@@ -185,7 +185,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 *** TODO LINK11_DSF_MANAGER
 *** TODO SQLite3Interface
-*** REVIEW build_message_aircraft_control
+*** REVIEW build_message_aircrafta_control
 
 **** 확인 사항  
     - [ ] 타이머 설정 
@@ -365,6 +365,164 @@ alloc arit
 
 
 
+
+***** output_controlling_unit_report(const keyvector_t& networks )
+
+networks.push_back(1) ; 
+networks.push_back(2) ; 
+build_message_ownship::single()->get_transmission_counter() 
+
+(define gtc 8 0)
+
+(1)
+(tnset 1 )
+(tnset 2 'general.NTN 1 
+         '_air_mission_data.control_counter 1 
+         'general.pu_controlling -1)
+
+
+}
+
+***** process_aircraft_status_general(void)
+
+validate_aircraft_status_genera 
+(define vasg 1 )
+
+read_channel
+
+testsc_admin_get !=0 return size 
+
+(anset 0 )
+
+***** process_aircraft_status_asw(void)
+
+  aircraft_status_asw_t status = STRUCT_ZERO_INIT_VALUE ; 
+
+can_take_pu_controllin
+(anset 0 )
+(anset 1_aircraft_status_asw.network 1 )
+
+(1)
+(define ctpc 1 ) 
+(anset 1_aircraft_status_asw.network 1 )
+
+(2)
+(define ctpc 0 ) 
+
+
+***** set_aircraft_status_general(const aircraft_status_general_t &    air_mission )
+
+(anset 0 )
+(anset 1 _aircraft_status_general.network 1 
+         _aircraft_status_general.fuel_validity 1 
+         _aircraft_status_general.time_of_task_availability 1
+)
+
+(tnset 1 _air_mission_data.air_control_active 0 )
+(tnset 1 _air_mission_data.air_control_active 1 )
+
+
+
+
+***** validate_aircraft_status_general(const  aircraft_status_general_t &   air_mission  )
+check_out_network 
+testsc_track_get(arg0)
+
+network_track_data_base::single()->is_there_networ
+(define itn 1 )
+
+(anet 0 )
+
+
+
+***** stop_controlling_unit(const controlling_unit_t &   controlling_unit)
+check_output_network
+
+(tnset 0 _air_mission_data.air_control_active 1 )
+
+
+void build_message_aircraft_status::set_controlling_unit_command(const controlling_unit_t &   controlling_unit)
+{
+  //@@@ 
+  //@@@ for(항공통제 정보와 관련한 표적 정보 t){
+  //@@@   if( can_take_pu_controlling 함수를 호출하여 확인한 결과 항공통제 가능하다 ){
+  //@@@     if(항공봉제 정보가 시작 정보이다){
+  //@@@       start_controlling_unit 함수를 호출하여 항공통제를 시작한다. 
+  //@@@     }
+  //@@@     else {
+  //@@@       stop_controlling_unit 함수를 호출하여 항공통제를 중시한다. 
+  //@@@     }
+  //@@@   }
+  //@@@ }
+  //@@@ send_aircraft_mission_report 함수를 호출하여 항공통제 정보를 처리했음을 알린다. 
+
+  ////////////////////////////////////////////////////////////////////////
+  //	controlling unit 명령이다. 함수이름이 이상하다. 
+  ////////////////////////////////////////////////////////////////////////
+  const uint32_t    three_times = 3U;
+  system_types::aircr_mis_result_e       aircr_mis_result  = system_types::rejected_aircr_mis_result;
+  system_types::aircr_mis_reject_reason_e    aircr_mis_reject_reason = system_types::unknown_track_aircr_mis_reject_reason;
+
+  if(network_track_data_base::single()->is_there_network( controlling_unit.network )){
+
+    if(can_take_pu_controlling(controlling_unit.network)){
+      aircr_mis_result  = system_types::controlling_unit_accepted;
+
+
+      if ( system_types::start == controlling_unit.command ){
+        start_controlling_unit(controlling_unit) ; 
+      }
+      else {
+        stop_controlling_unit(controlling_unit) ; 
+      }
+        
+    }
+    else{
+      aircr_mis_result  = system_types::rejected_aircr_mis_result;
+      aircr_mis_reject_reason = system_types::already_being_controlled;
+    }
+  }
+  else{
+    printf("No Network Track\n") ; 
+    printf("No Network Track\n") ; 
+    printf("No Network Track\n") ; 
+  }
+    
+
+
+
+  send_aircraft_mission_report (controlling_unit.NTN , 
+                                aircr_mis_result,
+                                aircr_mis_reject_reason);
+
+}
+
+
+***** set_controlling_unit_command(const controlling_unit_t &   controlling_unit)
+
+network_track_data_base::single()->is_there_network( controlling_unit.network )
+can_take_pu_controlling(controlling_unit.network
+(1)
+(define itn 1 )
+(define ctpc 1 )
+
+(2)
+(define itn 0 )
+(define ctpc 1 )
+
+
+
+***** can_take_pu_controlling(const uint32_t network ) 
+
+check_out_network 
+
+(1)
+(tnset 0)
+
+
+
+
+
 *** REVIEW build_message_cdo
 
 **** 확인 사항  
@@ -372,7 +530,268 @@ alloc arit
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
+**** script 
+
+***** validate_change_data_order( change_data_t     &cdo)
+
+(1)
+(tnset 0 'link11.change_data_order_running 1 )
+
+(2)
+(tnset 0 'link11.change_data_order_running 0 )
+
+
+***** process_validated_change_data_order( change_data_t &change_data_command)
+
+(1)
+(tnset 0  'general.link_state system_types-transmitted_link_state 0 )
+
+(2)
+(tnset 0  'general.link_state system_types-transmitted_link_state 0 )
+
+
+***** process_change_data_orders(void)
+validate_change_data_orde 
+(define vcdo 1 )
+
+(1)
+(anset 0 )
+
+***** build_message_M9AC2(network_track_data_ptr t )
+
+t->_change_data_order_counter 
+
+***** output_change_data_order(const keyvector_t& networks )
+
+(tnset 0 _change_data_order_counter 1 )
+(tnset 1 '_change_data_order_counter 0 
+         'link11.change_data_order_running 1 
+         '_change_data_order.network_cdo  1)
+
+
+
+
 *** TODO build_message_command
+
+**** stub
+read_channel 
+static int id=0 ; 
+return testsc_admin_get(id++) ; 
+
+**** script 
+
+***** output_commands(void)
+
+decrease_counter(&(o->command_counter)) ; 
+
+if( testsc_ivalue("testsc")){
+  args = 0 ; 
+}
+
+
+(1)
+(anset 0 _command_order.order_reply -1 )
+(anset 1 _command_order.order_reply  system_types::original )
+(anset 1 _command_order.command_counter 8 )
+
+
+
+
+***** remove_command( const command_order_t *cmd )
+
+if(CS_TESTCASENO() == 1 ){
+  cmd = 0 ; 
+}
+
+
+***** find_command_with_destination(const command_order_t &cmd , const uint32_t destination )
+
+(1)
+(anset 0 )
+(anset 1 _command_order.ntn_platform 1 )
+
+
+***** find_command_with_source(const command_order_t &cmd , const uint32_t source )
+
+(anet 0 _command_order.order_reply -1 )
+(anet 1 _command_order.order_reply system_types-machine_receipt )    
+(anet 2_command_order.order_reply system_types-machine_receipt )    
+(anet 2_command_order.ntn_platform  1 )    
+
+
+***** find_command_with_frame(const command_order_t & cmd )
+
+(anset 0 )
+(anset 1 _command_order.aframe 1 )    
+
+
+***** process_rc_request_for_received(void)
+(anset 0 _command_order.order_reply system_types::will_comply       )
+(anset 1 _command_order.order_reply -1      )
+     
+
+***** process_rc_request_cant_process(void)
+(anset 0 )
+
+
+
+***** get_command_frame(command_order_t & cmd )
+
+if(testsc_ivalue("testsc")){
+ cmd.command = testsc_ivalue("command") ; 
+ cmd.weapon_platform = testsc_ivalue("wp") ;
+ cmd.gmt_time_of_impact_valid = testsc_ivalue("gtoiv") ;  
+}
+
+
+(1)
+(define command system_types::assume_duties)
+(2)
+(define command system_types::conduct_procedures )
+
+(3)
+(define command system_types::proceed_to_point  )
+
+(4)
+(define command system_types::weapons_free )
+
+(5)
+(define command system_types::hold_fire )
+(define wp -1) 
+
+(6)
+(define command system_types::cease_fire )
+(define wp system_types::any_platform) 
+
+(7)
+(define command  system_types::engage)
+(define wp -1) 
+(8)
+(define command system_types::cease_engage  )
+(define wp system_types::any_platform) 
+
+
+(9)
+(define command  system_types::engage_asm_ssm   )
+(define gtoiv 1)
+
+(10)
+(define command  system_types::engage_specific )
+(11)
+(define command  -1)
+
+
+
+***** validate_command( command_order_t &cmd )
+
+if(testsc_ivalue("testsc")){
+ cmd.command = testsc_ivalue("command") ; 
+ cmd.weapon_platform = testsc_ivalue("wp") ;
+ cmd.gmt_time_of_impact_valid = testsc_ivalue("gtoiv") ;  
+}
+
+  if (! network_track_data_base::single()->is_there_ntn( cmd.pu_destination ) && return testsc_ivalue("itn") ;  
+  if(NULL != find_command_with_frame( cmd ) ){ return testsc_ivalue("fcwf") ; 
+
+(tnset 0 )
+
+(1)
+(define itn 0 )
+(define command -1)
+(define fcwf 1 )
+
+{2)
+
+(define itn 0 )
+(define command system_types::hold_fire)
+
+
+{2)
+
+(define itn 0 )
+(define command system_types::hold_fire)
+
+
+
+
+***** process_command_orders(void)
+
+      if(true == validate_command ( command_order ) ){ return testsc_ivalue("vc") ; 
+
+(1)
+(for-each-index 
+  (lambda (index cmd )
+    (if (= (testsc-get-testnum ) (+ 1 index ))
+      (anset index  '_command_order.command cmd )))
+'( 
+ system_types-assume_duties
+ system_types-cease_duties  
+ system_types-conduct_procedures
+ system_types-cease_conducting_procedures
+ system_types-weapons_free
+ system_types-weapons_tight
+ system_types-proceed_to_point
+ system_types-cease_proceeding_to_point
+ system_types-engage
+ system_types-assign
+ system_types-cease_engage
+ system_types-hold_fire
+ system_types-cease_fire
+ system_types-cover
+ system_types-salvo_clear          
+ system_types-engage_specific      
+ system_types-cease_engage_specific
+ system_types-engage_asm_ssm 
+-1)) 
+
+***** validate_acknowledge_command( command_order_t &   ackn )
+
+  if(!network_track_data_base::single()->is_there_ntn(ackn.ntn_target)){
+   return testsc_ivalue("itn") ; 
+  }
+
+find_command_with_destination( ackn , ackn.pu_destination ) ; 
+return testsc_admin_get(testsc_ivalue("fcwd") ; 
+
+if(testsc_ivalue("command")){
+  ackn.command = testsc_ivalue("command") ; 
+}
+
+
+(1)
+
+(define command  system_types::weapons_free) || 
+
+(2)
+(define command  -1) 
+
+
+(3)
+(define command  -1) 
+(anset 0 )
+
+(4)
+(define command  -1) 
+(anset 0 _command_order.aframe 1 )
+
+
+
+***** process_ackn_command_from_system(void)
+validate_acknowledge_comman
+return testsc_admin_get("vac") ;
+ 
+read_channel 
+if(testsc_ivalue("testsc")){
+static int id = 0 ; 
+testsc_admin_get(id++) ; 
+}
+
+(1)
+(anset 0 )
+(define vac 1 )
+
+
+
 *** TODO build_message_difference_report
 *** TODO build_message_emitter_eval
 *** TODO build_message_ew_coord

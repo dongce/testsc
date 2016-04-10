@@ -111,3 +111,12 @@
          (map
           (lambda (x)
             (map (lambda (y) (cons x y )) cdrperm)) (car args))))))
+
+(define (for-each-index proc . args )
+  (let ((index 0 ))
+    (for-each
+     (lambda (index x)
+       (proc x )
+       (set! index (+ 1 index )))
+     args )))
+     
