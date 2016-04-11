@@ -116,7 +116,7 @@
   (let ((index 0 ))
     (for-each
      (lambda (index x)
-       (proc x )
+       (proc index x )
        (set! index (+ 1 index )))
      args )))
      

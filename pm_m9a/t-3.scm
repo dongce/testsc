@@ -12,6 +12,12 @@
    (define testsc 1 )
    (mmsg-set '(M9ENVCAT 0 ENV_CAT_SURFACE))
    )
+
+  
+  ((4)
+   (define testsc 1 )
+   (mmsg-set '(M9ENVCAT 0 ENV_CAT_AIR))
+   )
   )
 
 
