@@ -176,11 +176,12 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [23/91]
+** 진척률 [24/91]
 
-*** STARTED DP_L11EventHandler
+*** DONE DP_L11EventHandler
+    CLOSED: [2016-04-12 Tue 00:34]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 20:03]
- - [ ] 일괄 실행 
+ - [X] 일괄 실행 
 
 
 
@@ -1370,7 +1371,14 @@ M9GE 0 West
 *** TODO rx_monitor
 *** TODO simulated_track
 *** TODO start_dlps
-*** TODO status_checker
+*** STARTED status_checker
+    - State "STARTED"    from "TODO"       [2016-04-12 Tue 00:16]
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** DONE track_controller
     CLOSED: [2016-04-12 Tue 00:10]
     - State "STARTED"    from "TODO"       [2016-04-05 Tue 09:36]
