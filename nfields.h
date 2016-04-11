@@ -123,7 +123,12 @@ TEMPLATE(_wipe_proposal.network            ,it, fieldnum) ;             \
  TEMPLATE(_cdo_check.counter    ,it,fieldnum) ;                         \
  TEMPLATE(_cdo_check.network    ,it,fieldnum) ;                         \
  TEMPLATE(_cdo_check.pu_address ,it,fieldnum) ;                         \
-                                                                        \
+TEMPLATE(_network_assignment.tactical                 , it, fieldnum) ; \
+TEMPLATE(_network_assignment.source_id                , it, fieldnum) ; \
+TEMPLATE(_network_assignment.assignment_command       , it, fieldnum) ; \
+TEMPLATE(_network_assignment.link_state               , it, fieldnum) ; \
+TEMPLATE(_network_assignment.assignment_result        , it, fieldnum) ; \
+TEMPLATE(_network_assignment.assignment_reject_reason , it, fieldnum) ; \
 TEMPLATE(_opnote.source_id         , it, fieldnum) ;                    \
 TEMPLATE(_opnote.serial_number     , it, fieldnum) ;                    \
 TEMPLATE(_opnote.origin_TN         , it, fieldnum) ;                    \

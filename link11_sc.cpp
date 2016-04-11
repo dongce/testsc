@@ -62,6 +62,7 @@ struct admin_t {
     new_assignment_t       _assign_request ;
     track_alert_report_t   _alert_report ;
     cdo_check_t            _cdo_check ;
+    network_assignment_t   _network_assignment ; 
     opspec_types::opnote_t _opnote ; 
     ew_intelligence_types::ew_intelligence_request_record _ew_request; 
   } ; 
@@ -628,8 +629,10 @@ char* testsc_admin_get( int i )
   adminmap_t::iterator it = g_adminmap.find(i) ; 
 
   if( g_adminmap.end() ==  it){
+    testsc_debug("admin get not exist %d" , i) ; 
     return NULL ;
   }
+  testsc_debug("admin get exist %d" , i) ; 
   return reinterpret_cast<char*>( (it->second) ) ; 
 }
 
