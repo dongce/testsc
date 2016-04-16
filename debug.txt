@@ -8,11 +8,2228 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require pm_m6c/t-5)
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+load t:/ts/init.scm
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-43)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
 dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-7)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-47)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-47)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-47)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-47)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-47)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+load t:/ts/util.scm
+util4
+util
+util2
+util5
+load t:/ts/temp.scm
+util3
+
+testsc eval (testsc-require bm_as/t-21)
+testsc-track-nset
+emp.scm
+
+estsc_ivalue testsc is 1
+testsc eval (testsc-require du/t-47)
+testsc_ivalue testsc is 1
+testsc_ivalue ctpc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-47)
+testsc_ivalue testsc is 1
+testsc_ivalue minus is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-12)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-13)
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+etsc-load t:/ts/init.scm
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-13)
 testsc-track-nset
 testsc-track-nset22
-field set general.track_kind, 9 done
+field set _air_mission_data.air_control_active, 1 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -22,30 +2239,1189 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require pm_m6c/t-5)
+testsc eval (testsc-require pm_m6d/t-11)
 dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-1)
+testsc-track-nset
+testsc_ivalue testsc is 1
+testsc_ivalue itn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue ctpc is 1
+testsc_ivalue testsc is 1
+testsc_track_get with id -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-1)
+testsc-track-nset
+testsc_ivalue testsc is 1
+testsc_ivalue itn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue ctpc is 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-1)
+testsc-track-nset
+testsc_ivalue testsc is 1
+testsc_ivalue itn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue ctpc is 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-1)
+testsc-track-nset
+testsc_ivalue testsc is 1
+testsc_ivalue itn is 0
+testsc_track_get with id 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-37)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-14)
 testsc-track-nset
 testsc-track-nset22
-field set general.track_kind, 9 done
+field set _air_mission_data.air_control_active, 1 done
 testsc_ivalue testsc is 1
-testnum(1)link11_sc.cpp:545, get_field_value debug  ( 207, 0 )
-testsc_ivalue testsc is 1
-testnum(1)link11_sc.cpp:545, get_field_value debug  ( 208, 0 )
-testsc_ivalue testsc is 1
-testnum(1)link11_sc.cpp:545, get_field_value debug  ( 211, 0 )
-testsc_ivalue testsc is 1
-testnum(1)link11_sc.cpp:545, get_field_value debug  ( 213, 0 )
-testsc_ivalue testsc is 1
-testnum(1)link11_sc.cpp:545, get_field_value debug  ( 212, 0 )
-testsc_ivalue testsc is 1
-testnum(1)link11_sc.cpp:545, get_field_value debug  ( 215, 2 )
-testsc_ivalue testsc is 1
-testnum(1)link11_sc.cpp:545, get_field_value debug  ( 217, 2 )
-testsc_ivalue testsc is 1
-testnum(1)link11_sc.cpp:545, get_field_value debug  ( 218, 2 )
-testsc_ivalue testsc is 1
-testnum(1)link11_sc.cpp:545, get_field_value debug  ( 219, 2 )
-testnum(1)link11_sc.cpp:564, get_field_value debug (219, 2, 1) , 219, 2
+testsc_track_get with id 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -55,23 +3431,9 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require ac/t-1)
-dlplink11types
-testsc-track-nset
-testsc-track-nset
+testsc eval (testsc-require bm_as/t-12)
 testsc_ivalue testsc is 1
-testsc_ivalue order is 5
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue itn-check is 2
-testsc_ivalue itn-check is 2
-testsc_ivalue testsc is 1
-testsc_ivalue itntn is 1
-testsc_ivalue testsc is 1
-testsc_ivalue itn-check is 2
-testsc_ivalue itn-check is 2
-testsc_ivalue testsc is 1
-testsc_track_get with id 2
+admin get not exist 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -81,24 +3443,41 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require ac/t-1)
+testsc eval (testsc-require pm_m6d/t-11)
 dlplink11types
-testsc-track-nset
-testsc-track-nset
 testsc_ivalue testsc is 1
-testsc_ivalue order is 5
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
 testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(1)link11_sc.cpp:564, get_field_value debug (222, 0, 1) , 222, 0
 testsc_ivalue testsc is 1
-testsc_ivalue itn-check is 2
-testsc_ivalue itn-check is 2
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
 testsc_ivalue testsc is 1
-testsc_ivalue itntn is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
 testsc_ivalue testsc is 1
-testsc_ivalue itn-check is 2
-testsc_ivalue itn-check is 2
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
 testsc_ivalue testsc is 1
-testsc_track_get with id 2
-itn
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -108,274 +3487,3721 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require ac/t-1)
+testsc eval (testsc-require pm_m6d/t-11)
 dlplink11types
 testsc_ivalue testsc is 1
-testsc_ivalue order is -1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
 testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(2)link11_sc.cpp:564, get_field_value debug (222, 0, 2) , 222, 0
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(2)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(3)link11_sc.cpp:564, get_field_value debug (222, 0, 4) , 222, 0
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(3)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(4)link11_sc.cpp:564, get_field_value debug (222, 0, 5) , 222, 0
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(4)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(5)link11_sc.cpp:564, get_field_value debug (222, 0, 6) , 222, 0
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(5)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+load t:/ts/init.scm
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+dlplink11types
+tetsc-load t:/ts/util.scm
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+util
+c_ivalue testsc is 1
+util2
+m(6)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+util5
+m(6)link11_sc.cpp:564, get_field_value debug (222, 0, 9) , 222, 0
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+tetsc-load t:/ts/temp.scm
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+
+estsc_ivalue testsc is 1
+testsc eval (testsc-require du/t-55)
+d_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(6)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+k11types
+util3
+util4
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/temp.scm
+5, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+
+estnum(7)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc eval (testsc-require du/t-55)
+d_value debug (222, 0, 10) , 222, 0
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+tetsc-load t:/ts/util.scm
+util
+-load t:/ts/temp.scm
+util2
+util5
+util3
+ eval (testsc-require pm_m6d/t-11)
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(8)link11_sc.cpp:564, get_field_value debug (222, 0, 11) , 222, 0
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+tetsc-load t:/ts/init.scm
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+tetsc-load t:/ts/util.scm
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/temp.scm
+5, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+
+estnum(8)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+e du/t-55)
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+tetsc-load t:/ts/util.scm
+util3
+util
+
+util2
+util5
+load t:/ts/temp.scm
+util3
+util4
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(9)link11_sc.cpp:564, get_field_value debug (222, 0, 0) , 222, 0
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+util
+c_ivalue testsc is 1
+util2
+m(9)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+util5
+_ivalue testsc is 1
+util3
+m(9)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+util4
+_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+tetsc-load t:/ts/temp.scm
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+
+estsc_ivalue testsc is 1
+testsc eval (testsc-require du/t-55)
+d_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+load t:/ts/init.scm
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(10)link11_sc.cpp:564, get_field_value debug (222, 0, 3) , 222, 0
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(10)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+dlplink11types
+s/temp.scm
+
+testsc_ivalue testsc is 1
+e du/t-55)
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(11)link11_sc.cpp:564, get_field_value debug (222, 0, 7) , 222, 0
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(11)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+tetsc-load t:/ts/util.scm
+util3
+util
+
+util2
+util5
+load t:/ts/temp.scm
+util3
+util4
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(12)link11_sc.cpp:564, get_field_value debug (222, 0, 8) , 222, 0
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/util.scm
+45, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+util
+um(12)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+util2
+_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+e du/t-55)
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(12)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+tetsc-load t:/ts/util.scm
+util4
+tetsc-load t:/ts/temp.scm
+util2
+
+til5
+testsc eval (testsc-require du/t-55)
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+tetsc-load t:/ts/init.scm
+testsc_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(13)link11_sc.cpp:564, get_field_value debug (222, 0, 12) , 222, 0
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/util.scm
+45, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testscutil5
+e testsc is 1
+util3
+m(13)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+util4
+_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+tetsc-load t:/ts/temp.scm
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+
+estsc_ivalue testsc is 1
+testsc eval (testsc-require du/t-55)
+ld_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(13)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+dlplink11types
+tetsc-load t:/ts/util.scm
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(14)link11_sc.cpp:564, get_field_value debug (222, 0, 13) , 222, 0
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+e du/t-55)
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(14)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+dlplink11types
+tetsc-load t:/ts/temp.scm
+
+estsc_ivalue testsc is 1
+testsc eval (testsc-require du/t-55)
+ld_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(15)link11_sc.cpp:564, get_field_value debug (222, 0, 14) , 222, 0
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(15)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(16)link11_sc.cpp:564, get_field_value debug (222, 0, 15) , 222, 0
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+tetsc-load t:/ts/init.scm
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(16)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/util.scm
+45, get_field_value debug  ( 237, 0 )
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+lplink11types
+testsc eval (testsc-require du/t-55)
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testnum(17)link11_sc.cpp:564, get_field_value debug (222, 0, -1) , 222, 0
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(17)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+45, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+tetsc-load t:/ts/util.scm
+testnum(18)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/init.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/util.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+tetsc-load t:/ts/util.scm
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+util
+c_ivalue testsc is 1
+util2
+m(19)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnuutil3
+ink11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+util4
+_ivalue testsc is 1
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+tetsc-load t:/ts/temp.scm
+testnum(19)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(20)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+-load t:/ts/util.scm
+util
+
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+45, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/util.scm
+45, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+util
+um(21)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+util2
+_ivalue testsc is 1
+util5
+m(21)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+util3
+_ivalue testsc is 1
+util4
+m(21)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/temp.scm
+45, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+
+estnum(21)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc eval (testsc-require du/t-55)
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(21)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/temp.scm
+util
+
+til2
+testsc eval (testsc-require du/t-55)
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+tetsc-load t:/ts/init.scm
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+util
+um(22)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+util2
+_ivalue testsc is 1
+util5
+m(22)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+util3
+_ivalue testsc is 1
+util4
+m(22)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/temp.scm
+45, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+
+estnum(22)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc eval (testsc-require du/t-55)
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(22)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+dlplink11types
+tetsc-load t:/ts/util.scm
+util
+util2
+_ivalue testsc is 1
+util5
+m(23)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/temp.scm
+45, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+
+estnum(23)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc eval (testsc-require du/t-55)
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(23)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-12)
+tetsc-load t:/ts/util.scm
+testsc_ivalue testsc is 1
+util
+ get exist 0
+util2
+_ivalue testsc is 1
+testsc_ivalue vasg is 1
+util3
+_ivalue testsc is 1
+util4
+_track_get with id 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+scm
+
+testsc_ivalue testsc is 1
+e du/t-55)
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(24)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+util
+c_ivalue testsc is 1
+util2
+m(25)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+util5
+_ivalue testsc is 1
+util3
+m(25)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(25)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+tetsc-load t:/ts/util.scm
+util4
+util
+util2
+load t:/ts/temp.scm
+util5
+util3
+util4
+ eval (testsc-require du/t-55)
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+dlplink11types
+tetsc-load t:/ts/temp.scm
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+e du/t-55)
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(26)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+45, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(27)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+load t:/ts/init.scm
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+tetsc-load t:/ts/util.scm
+e pm_m6d/t-11)
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+tetsc-load t:/ts/util.scm
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+util
+c_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(28)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+tetsc-load t:/ts/util.scm
+util4
+util
+tetsc-load t:/ts/temp.scm
+util5
+
+til3
+util4
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(29)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(29)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(29)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(29)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(29)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(29)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(29)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(29)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(29)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+util
+um(29)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+util2
+_ivalue testsc is 1
+util5
+m(29)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+util3
+_ivalue testsc is 1
+util4
+m(29)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/temp.scm
+45, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+
+estnum(29)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc eval (testsc-require du/t-55)
+testnum(29)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(29)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+load t:/ts/util.scm
+util5
+util3
+util4
+util5
+tetsc-load t:/ts/temp.scm
+util4
+
+tetsc-load t:/ts/temp.scm
+e du/t-55)
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+util5
+util3
+m(30)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+util4
+_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+tetsc-load t:/ts/temp.scm
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+
+estsc_ivalue testsc is 1
+testsc eval (testsc-require du/t-55)
+ld_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(30)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+load t:/ts/init.scm
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/init.scm
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnuutil5
+ink11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+util3
+_ivalue testsc is 1
+util4
+m(31)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+e du/t-55)
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(31)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/util.scm
+45, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(32)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-55)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(33)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(34)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(35)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-11)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 221, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 222, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 223, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 224, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 226, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 227, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 228, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 229, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 230, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 231, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 232, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 233, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 234, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 235, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 236, 0 )
+testsc_ivalue testsc is 1
+testnum(36)link11_sc.cpp:545, get_field_value debug  ( 237, 0 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-9)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-12)
 testsc_ivalue testsc is 1
 admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require ac/t-1)
-dlplink11types
-field set _aircraft_control.order, 6 done
-testsc-track-nset
 testsc_ivalue testsc is 1
-testsc_ivalue order is 6
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require du/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue ssgen is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require du/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue ssgen is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require du/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue ssgen is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require du/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue ssgen is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require du/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue ssgen is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require du/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue ssgen is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require du/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue ssgen is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require du/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue ssgen is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require du/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue ssgen is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require du/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue ssgen is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require ac/t-1)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue order is 6
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require ac/t-1)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue order is 6
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require ac/t-1)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue order is 6
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-testsc_ivalue testsc is 1
-admin get not exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-testsc_ivalue testsc is 1
-testsc_ivalue itntn is 1
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-testsc_ivalue testsc is 1
-admin get not exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-testsc_ivalue testsc is 1
-admin get not exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require ac/t-1)
-dlplink11types
-field set _aircraft_control.order, 0 done
-testsc-track-nset
-testsc_ivalue testsc is 1
-testsc_ivalue order is 6
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require ac/t-1)
-dlplink11types
-field set _aircraft_control.order, 0 done
-field set _aircraft_control.pu_transfer, 1 done
-testsc-track-nset
-testsc_ivalue testsc is 1
-testsc_ivalue order is 6
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-testsc_ivalue testsc is 1
-testsc_ivalue itntn is 1
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue mas is 1
-testsc_ivalue testsc is 1
-admin get exist 0
+testsc_ivalue vasg is 1
 testsc_ivalue testsc is 1
 testsc_track_get with id 0
 testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-9)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+load t:/ts/util.scm
+tetsc-load t:/ts/temp.scm
+util2
+util5
+util3
+ eval (testsc-require bm_as/t-9)
+util4
+tetsc-load t:/ts/temp.scm
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue ctpc is 1
+ire pm_m6d/t-2)
+testsc_ivalue testsc is 1
 testsc_track_get with id 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+lplink11types
+testsc eval (testsc-require bm_as/t-9)
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 6
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue ctpc is 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-9)
+testsc-track-nset
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue ctpc is 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-9)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-20)
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 0 done
+testsc-track-nset22
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set general.pu_controlling, -1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-2)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-20)
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 0 done
+testsc-track-nset22
+field set _air_mission_data.control_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set general.pu_controlling, -1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.control_counter, 1 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-9)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-9)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-9)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-22)
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-22)
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-22)
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-22)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-29)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-29)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-29)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-29)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-29)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-29)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-29)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-22)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-14)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-22)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-22)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-22)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-22)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-22)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 2 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 1 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 1 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-22)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 0 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc-track-nset22
+field set _air_mission_data.general_mission_counter, 2 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 1 done
+testsc-track-nset22
+field set _air_mission_data.asw_mission_repetition_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 1 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc-track-nset22
+field set _air_mission_data.asw_mission_counter, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.NTN, 1 done
+testsc-track-nset22
+field set _air_mission_data.air_control_active, 1 done
+testsc-track-nset22
+field set _air_mission_data.kind, 1 done
+testsc-track-nset22
+field set _add_info_count, 1 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-15)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-15)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_as/t-15)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue m6drc is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
+dlplink11types
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6d/t-4)
