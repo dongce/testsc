@@ -8,16 +8,44 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require ac/t-1)
+testsc eval (testsc-require pm_m6c/t-5)
 dlplink11types
 testsc-track-nset
 testsc-track-nset22
-field set general.link_state, 0 done
+field set general.track_kind, 9 done
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m6c/t-5)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set general.track_kind, 9 done
 testsc_ivalue testsc is 1
-testsc_ivalue order is 0
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 207, 0 )
 testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 208, 0 )
 testsc_ivalue testsc is 1
-testsc_track_get with id 0
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 211, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 213, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 212, 0 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 215, 2 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 217, 2 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 218, 2 )
+testsc_ivalue testsc is 1
+testnum(1)link11_sc.cpp:545, get_field_value debug  ( 219, 2 )
+testnum(1)link11_sc.cpp:564, get_field_value debug (219, 2, 1) , 219, 2
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -30,11 +58,20 @@ tetsc-load t:/ts/temp.scm
 testsc eval (testsc-require ac/t-1)
 dlplink11types
 testsc-track-nset
+testsc-track-nset
 testsc_ivalue testsc is 1
-testsc_ivalue order is 0
+testsc_ivalue order is 5
 testsc_ivalue testsc is 1
 testsc_ivalue testsc is 1
-testsc_track_get with id 0
+testsc_ivalue itn-check is 2
+testsc_ivalue itn-check is 2
+testsc_ivalue testsc is 1
+testsc_ivalue itntn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue itn-check is 2
+testsc_ivalue itn-check is 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -44,47 +81,21 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require pm_m9a/t-13)
-dlplink11types
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m9a/t-13)
-dlplink11types
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m9a/t-13)
+testsc eval (testsc-require ac/t-1)
 dlplink11types
 testsc-track-nset
-testsc-track-nset22
-field set link11.change_data_order_running, 0 done
 testsc-track-nset
-testsc-track-nset22
-field set general.pu_origin, 1 done
-testsc-track-nset
-testsc-track-nset22
-field set general.track_kind, 12 done
 testsc_ivalue testsc is 1
-testnum(20)link11_sc.cpp:545, get_field_value debug  ( 241, 0 )
-testnum(20)link11_sc.cpp:564, get_field_value debug (241, 0, 2) , 241, 0
+testsc_ivalue order is 5
 testsc_ivalue testsc is 1
-testnum(20)link11_sc.cpp:545, get_field_value debug  ( 246, 0 )
 testsc_ivalue testsc is 1
-testnum(20)link11_sc.cpp:545, get_field_value debug  ( 245, 0 )
-testnum(20)link11_sc.cpp:564, get_field_value debug (245, 0, -1) , 245, 0
+testsc_ivalue itn-check is 2
+testsc_ivalue itn-check is 2
 testsc_ivalue testsc is 1
-testnum(20)link11_sc.cpp:545, get_field_value debug  ( 242, 0 )
-testnum(20)link11_sc.cpp:564, get_field_value debug (242, 0, -1) , 242, 0
+testsc_ivalue itntn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue itn-check is 2
+testsc_ivalue itn-check is 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+itn

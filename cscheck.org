@@ -42,6 +42,7 @@ DP_L11EventHandler.cpp
 track_controller.cpp
 process_message_m9a.cpp
 dlp_unit.cpp
+mmsg_buff.h
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
  - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
@@ -177,7 +178,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [25/91]
+** 진척률 [26/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -981,8 +982,9 @@ bool process_message_m4ab::is_gmt_valid(mmsg_buff *m)
     CLOSED: [2016-04-06 Wed 08:47]
 **** existing_track 
 stup : get_last_created_network
-*** REVIEW process_message_m6c
-
+*** DONE process_message_m6c
+    CLOSED: [2016-04-16 Sat 20:18]
+    - State "STARTED"    from "REVIEW"     [2016-04-16 Sat 19:25]
 **** 확인 사항  
     - [ ] 타이머 설정 
     - [ ] 일괄 실행 
