@@ -178,7 +178,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [28/91]
+** 진척률 [29/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -1013,7 +1013,8 @@ M86CARPSW  SECOND_FRAME_OFFSET 1
 
 
 
-*** STARTED process_message_m6d
+*** DONE process_message_m6d
+    CLOSED: [2016-04-16 Sat 23:23]
     - State "STARTED"    from "REVIEW"     [2016-04-16 Sat 20:27]
 **** 확인 사항  
     - [X] 타이머 설정 

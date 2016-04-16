@@ -19,3 +19,12 @@
  RC_WILL_COMPLY)
 
 
+
+(for-each-index-offset
+ 11
+ (lambda (x)
+   (set! testsc 1 )
+   (set! m6drc x )
+   )
+ RC_COMPLIANCE_REQUIRED
+ )
