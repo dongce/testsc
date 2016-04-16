@@ -178,7 +178,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [26/91]
+** 진척률 [27/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -189,7 +189,8 @@ for(int i = 0 ; i < 10 ; i ++){
 
 *** TODO LINK11_DSF_MANAGER
 *** TODO SQLite3Interface
-*** STARTED build_message_aircrafta_control
+*** DONE build_message_aircrafta_control
+    CLOSED: [2016-04-16 Sat 20:44]
     - State "STARTED"    from "REVIEW"     [2016-04-15 Fri 22:04]
 **** 확인 사항  
     - [X] 타이머 설정 
@@ -1005,8 +1006,8 @@ M86CARPSW  SECOND_FRAME_OFFSET 1
 
 
 
-*** REVIEW process_message_m6d
-
+*** STARTED process_message_m6d
+    - State "STARTED"    from "REVIEW"     [2016-04-16 Sat 20:27]
 **** 확인 사항  
     - [ ] 타이머 설정 
     - [ ] 일괄 실행 

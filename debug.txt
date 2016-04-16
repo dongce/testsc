@@ -99,3 +99,283 @@ testsc_ivalue itn-check is 2
 testsc_ivalue testsc is 1
 testsc_track_get with id 2
 itn
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ac/t-1)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue order is -1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ac/t-1)
+dlplink11types
+field set _aircraft_control.order, 6 done
+testsc-track-nset
+testsc_ivalue testsc is 1
+testsc_ivalue order is 6
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require du/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue ssgen is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ac/t-1)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue order is 6
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ac/t-1)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue order is 6
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue itn is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ac/t-1)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue order is 6
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+testsc_ivalue itn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue itntn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ac/t-1)
+dlplink11types
+field set _aircraft_control.order, 0 done
+testsc-track-nset
+testsc_ivalue testsc is 1
+testsc_ivalue order is 6
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ac/t-1)
+dlplink11types
+field set _aircraft_control.order, 0 done
+field set _aircraft_control.pu_transfer, 1 done
+testsc-track-nset
+testsc_ivalue testsc is 1
+testsc_ivalue order is 6
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+testsc_ivalue itn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue itntn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
