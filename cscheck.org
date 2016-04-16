@@ -41,6 +41,7 @@ general_input.cpp
 DP_L11EventHandler.cpp
 track_controller.cpp
 process_message_m9a.cpp
+dlp_unit.cpp
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
  - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
@@ -176,7 +177,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [24/91]
+** 진척률 [25/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -187,10 +188,10 @@ for(int i = 0 ; i < 10 ; i ++){
 
 *** TODO LINK11_DSF_MANAGER
 *** TODO SQLite3Interface
-*** REVIEW build_message_aircrafta_control
-
+*** STARTED build_message_aircrafta_control
+    - State "STARTED"    from "REVIEW"     [2016-04-15 Fri 22:04]
 **** 확인 사항  
-    - [ ] 타이머 설정 
+    - [X] 타이머 설정 
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
@@ -1202,7 +1203,8 @@ _m6d_rc  RC_CANT_COMPLY
 
 
 
-*** STARTED process_message_m9a
+*** DONE process_message_m9a
+    CLOSED: [2016-04-16 Sat 17:53]
     - State "STARTED"    from "TODO"       [2016-04-05 Tue 19:51]
 
 [[file:/opt/vboxshare/codescroll/process_message_m9a/.csdata/src/instrumented/process_message_m9a_1.cpp::/%20private%20:]]

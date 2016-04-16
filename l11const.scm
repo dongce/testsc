@@ -914,3 +914,12 @@
 (define max_time_without_m9b 240 )
 (define retransmission_request 1 )
 (define three_times 3 )
+
+(define SIMULATED_TRACK 1)
+(define  EMERGENCY  0)
+
+
+
+(define SI_TRACK_NOT_SIMULATED  0)
+(define SPI_NO_SPECIAL_PROCESSING_REQUIRED  0)
+

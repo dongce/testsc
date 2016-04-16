@@ -3,11 +3,10 @@
 ;; (testsc-require system_types)
 ;; (testsc-require dlplink11types)
 
-(case (testsc-get-testnum)
-  ((2)
+
+
    (define testsc 1 )
-   (anset  0 )
-   )
-  )
+   (define itn 1 )
+   (define hit 1 )
 
 
