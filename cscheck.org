@@ -178,7 +178,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [29/91]
+** 진척률 [30/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -859,7 +859,8 @@ validate_data_update_request
     CLOSED: [2016-04-04 Mon 19:59]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 12:28]
  - [X] 일괄 실행 
-*** STARTED dlp_unit
+*** DONE dlp_unit
+    CLOSED: [2016-04-16 Sat 23:34]
     - State "STARTED"    from "TODO"       [2016-04-11 Mon 22:38]
 
 **** 확인 사항  
