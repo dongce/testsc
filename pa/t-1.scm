@@ -1,0 +1,40 @@
+
+;; (testsc-require l11const)
+(testsc-require system_types)
+;; (testsc-require dlplink11types)
+
+(case (testsc-get-testnum)
+  ((29)
+   (define testsc 1 )
+   (define dta 0 )
+   (define dlrp_lat 0 )
+   (define dlrp_lng 0 )
+   (define gs system_types-gridlock_status_active)
+   (tnset 1 'general.link_state -1)
+   (tnset 2 'general.link_state system_types-link_received_only)
+   )
+
+  
+  ((31)
+   (define testsc 1 )
+   (define dta 0 )
+   (define dlrp_lat 0 )
+   (define dlrp_lng 0 )
+   (define gs system_types-gridlock_status_active)
+   (tnset 1 'general.link_state -1)
+   (tnset 2 'general.link_state system_types-link_received_only)
+   )
+
+  ((32)
+   (define testsc 1 )
+   (define dta 0 )
+   (define dlrp_lat 0 )
+   (define dlrp_lng 0 )
+   (define gs system_types-gridlock_status_ready)
+   (define glm -1)
+   (tnset 1 'general.link_state -1)
+   (tnset 2 'general.link_state system_types-link_received_only)
+   )
+  
+  )
+

@@ -44,6 +44,7 @@ process_message_m9a.cpp
 dlp_unit.cpp
 mmsg_buff.h
 process_message_m9d.cpp
+build_message_command.cpp
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
  - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
@@ -186,7 +187,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [33/91]
+** 진척률 [34/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -966,7 +967,14 @@ update
 *** TODO ntds_intf
 *** TODO ntn_controller
 *** TODO os_data
-*** TODO parameter_adapter
+*** STARTED parameter_adapter
+    - State "STARTED"    from "TODO"       [2016-04-18 Mon 13:57]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+
 *** TODO periodic_controller
 *** TODO pool
 *** TODO process_message
@@ -1295,7 +1303,8 @@ M9BAC   0  15
 (mmsg-set '(M9CPUADDE 0 1))
 
 
-*** STARTED process_message_m9d
+*** DONE process_message_m9d
+    CLOSED: [2016-04-18 Mon 13:56]
     - State "STARTED"    from "REVIEW"     [2016-04-18 Mon 13:13]
 **** 확인 사항  
     - [X] 타이머 설정 
