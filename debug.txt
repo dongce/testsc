@@ -3776,3 +3776,1668 @@ testsc_ivalue testsc is 1
 testsc_ivalue glm is -1
 testsc_ivalue testsc is 1
 testsc_ivalue gs is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-22)
+dlplink11types
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-22)
+field set _command_order.order_reply, 4 done
+message_admin::size
+testsc_ivalue testsc is 1
+admin get not exist 9
+testsc_ivalue testsc is 1
+admin get not exist 8
+testsc_ivalue testsc is 1
+admin get not exist 7
+testsc_ivalue testsc is 1
+admin get not exist 6
+testsc_ivalue testsc is 1
+admin get not exist 5
+testsc_ivalue testsc is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-22)
+field set _command_order.order_reply, -1 done
+message_admin::size
+testsc_ivalue testsc is 1
+admin get not exist 9
+testsc_ivalue testsc is 1
+admin get not exist 8
+testsc_ivalue testsc is 1
+admin get not exist 7
+testsc_ivalue testsc is 1
+admin get not exist 6
+testsc_ivalue testsc is 1
+admin get not exist 5
+testsc_ivalue testsc is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-22)
+field set _command_order.order_reply, -1 done
+field set _command_order.order_reply, 6 done
+field set _command_order.command_counter, 8 done
+message_admin::size
+testsc_ivalue testsc is 1
+admin get not exist 9
+testsc_ivalue testsc is 1
+admin get not exist 8
+testsc_ivalue testsc is 1
+admin get not exist 7
+testsc_ivalue testsc is 1
+admin get not exist 6
+testsc_ivalue testsc is 1
+admin get not exist 5
+testsc_ivalue testsc is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-1)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, -1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 3 done
+testsc_ivalue testsc is 1
+testsc_ivalue glm is -1
+testsc_ivalue testsc is 1
+testsc_ivalue dlrp_lat is 100
+testsc_ivalue dlrp_lng is 100
+testsc_ivalue testsc is 1
+testsc_ivalue glm is -1
+testsc_ivalue testsc is 1
+testsc_ivalue gs is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-1)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, -1 done
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 3 done
+testsc_ivalue testsc is 1
+testsc_ivalue glm is -1
+testsc_ivalue testsc is 1
+testsc_ivalue dlrp_lat is 100
+testsc_ivalue dlrp_lng is 100
+testsc_ivalue testsc is 1
+testsc_ivalue glm is -1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue gs is 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-22)
+dlplink11types
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º#
+testsc eval (testsc-require go/t-22)
+dlplink11types
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-22)
+dlplink11types
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 96
+testsc_ivalue gmt is 96
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-22)
+dlplink11types
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 95
+testsc_ivalue gmt is 95
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-10)
+message_admin::size
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-22)
+dlplink11types
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 45
+testsc_ivalue gmt is 45
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-10)
+message_admin::size
+testsc_ivalue testsc is 1
+admin get not exist 9
+testsc_ivalue testsc is 1
+admin get not exist 8
+testsc_ivalue testsc is 1
+admin get not exist 7
+testsc_ivalue testsc is 1
+admin get not exist 6
+testsc_ivalue testsc is 1
+admin get not exist 5
+testsc_ivalue testsc is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+admin get not exist 1
+testsc_ivalue testsc is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-15)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º"
+testsc eval (testsc-require go/t-22)
+dlplink11types
+field set _command_order.ntn_platform, -1 done
+field set _command_order.ntn_target, -1 done
+field set _command_order.pu_destination, -1 done
+field set _command_order.pu_sending, -1 done
+field set _command_order.command, -1 done
+field set _command_order.weapon_platform, -1 done
+field set _command_order.weapon, -1 done
+field set _command_order.number_of_weapons, -1 done
+field set _command_order.gmt_time_of_impact, -1 done
+field set _command_order.gmt_time_of_impact_valid, -1 done
+field set _command_order.duty, -1 done
+field set _command_order.procedur, -1 done
+field set _command_order.order_reply, -1 done
+field set _command_order.aframe, -1 done
+field set _command_order.bframe, -1 done
+field set _command_order.command_counter, -1 done
+field set _command_order.order_result, -1 done
+field set _command_order.order_reject_reason, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 108
+testsc_ivalue gmt is 108
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-22)
+dlplink11types
+field set _command_order.ntn_platform, -1 done
+field set _command_order.ntn_target, -1 done
+field set _command_order.pu_destination, -1 done
+field set _command_order.pu_sending, -1 done
+field set _command_order.command, -1 done
+field set _command_order.weapon_platform, -1 done
+field set _command_order.weapon, -1 done
+field set _command_order.number_of_weapons, -1 done
+field set _command_order.gmt_time_of_impact, -1 done
+field set _command_order.gmt_time_of_impact_valid, -1 done
+field set _command_order.duty, -1 done
+field set _command_order.procedur, -1 done
+field set _command_order.order_reply, -1 done
+field set _command_order.aframe, -1 done
+field set _command_order.bframe, -1 done
+field set _command_order.command_counter, -1 done
+field set _command_order.order_result, -1 done
+field set _command_order.order_reject_reason, -1 done
+field set _command_order.ntn_platform, -1 done
+field set _command_order.ntn_target, -1 done
+field set _command_order.pu_destination, -1 done
+field set _command_order.pu_sending, -1 done
+field set _command_order.command, -1 done
+field set _command_order.weapon_platform, -1 done
+field set _command_order.weapon, -1 done
+field set _command_order.number_of_weapons, -1 done
+field set _command_order.gmt_time_of_impact, -1 done
+field set _command_order.gmt_time_of_impact_valid, -1 done
+field set _command_order.duty, -1 done
+field set _command_order.procedur, -1 done
+field set _command_order.order_reply, -1 done
+field set _command_order.aframe, -1 done
+field set _command_order.bframe, -1 done
+field set _command_order.command_counter, -1 done
+field set _command_order.order_result, -1 done
+field set _command_order.order_reject_reason, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 108
+testsc_ivalue gmt is 108
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-22)
+dlplink11types
+field set _command_order.ntn_platform, -1 done
+field set _command_order.ntn_target, -1 done
+field set _command_order.pu_destination, -1 done
+field set _command_order.pu_sending, -1 done
+field set _command_order.command, -1 done
+field set _command_order.weapon_platform, -1 done
+field set _command_order.weapon, -1 done
+field set _command_order.number_of_weapons, -1 done
+field set _command_order.gmt_time_of_impact, -1 done
+field set _command_order.gmt_time_of_impact_valid, -1 done
+field set _command_order.duty, -1 done
+field set _command_order.procedur, -1 done
+field set _command_order.order_reply, -1 done
+field set _command_order.aframe, -1 done
+field set _command_order.bframe, -1 done
+field set _command_order.command_counter, -1 done
+field set _command_order.order_result, -1 done
+field set _command_order.order_reject_reason, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 108
+testsc_ivalue gmt is 108
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º)
+testsc eval (testsc-require go/t-22)
+dlplink11types
+field set _aircraft_control.aircraft_network, 1 done
+field set _aircraft_control.engage_network, 1 done
+field set _command_order.ntn_platform, -1 done
+field set _command_order.ntn_target, -1 done
+field set _command_order.pu_destination, -1 done
+field set _command_order.pu_sending, -1 done
+field set _command_order.command, -1 done
+field set _command_order.weapon_platform, -1 done
+field set _command_order.weapon, -1 done
+field set _command_order.number_of_weapons, -1 done
+field set _command_order.gmt_time_of_impact, -1 done
+field set _command_order.gmt_time_of_impact_valid, -1 done
+field set _command_order.duty, -1 done
+field set _command_order.procedur, -1 done
+field set _command_order.order_reply, -1 done
+field set _command_order.aframe, -1 done
+field set _command_order.bframe, -1 done
+field set _command_order.command_counter, -1 done
+field set _command_order.order_result, -1 done
+field set _command_order.order_reject_reason, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 108
+testsc_ivalue gmt is 108
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-22)
+dlplink11types
+field set _aircraft_control.aircraft_network, 1 done
+field set _aircraft_control.engage_network, 1 done
+field set _command_order.ntn_platform, -1 done
+field set _command_order.ntn_target, -1 done
+field set _command_order.pu_destination, -1 done
+field set _command_order.pu_sending, -1 done
+field set _command_order.command, -1 done
+field set _command_order.weapon_platform, -1 done
+field set _command_order.weapon, -1 done
+field set _command_order.number_of_weapons, -1 done
+field set _command_order.gmt_time_of_impact, -1 done
+field set _command_order.gmt_time_of_impact_valid, -1 done
+field set _command_order.duty, -1 done
+field set _command_order.procedur, -1 done
+field set _command_order.order_reply, -1 done
+field set _command_order.aframe, -1 done
+field set _command_order.bframe, -1 done
+field set _command_order.command_counter, -1 done
+field set _command_order.order_result, -1 done
+field set _command_order.order_reject_reason, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 108
+testsc_ivalue gmt is 108
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º 
+testsc eval (testsc-require go/t-22)
+dlplink11types
+field set _aircraft_control.aircraft_network, 1 done
+field set _aircraft_control.engage_network, 1 done
+field set _command_order.ntn_platform, -1 done
+field set _command_order.ntn_target, -1 done
+field set _command_order.pu_destination, -1 done
+field set _command_order.pu_sending, -1 done
+field set _command_order.command, -1 done
+field set _command_order.weapon_platform, -1 done
+field set _command_order.weapon, -1 done
+field set _command_order.number_of_weapons, -1 done
+field set _command_order.gmt_time_of_impact, -1 done
+field set _command_order.gmt_time_of_impact_valid, -1 done
+field set _command_order.duty, -1 done
+field set _command_order.procedur, -1 done
+field set _command_order.order_reply, -1 done
+field set _command_order.aframe, -1 done
+field set _command_order.bframe, -1 done
+field set _command_order.command_counter, -1 done
+field set _command_order.order_result, -1 done
+field set _command_order.order_reject_reason, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 108
+testsc_ivalue gmt is 108
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º$
+testsc eval (testsc-require go/t-22)
+dlplink11types
+field set _aircraft_control.aircraft_network, 1 done
+field set _aircraft_control.engage_network, 1 done
+field set _command_order.ntn_platform, -1 done
+field set _command_order.ntn_target, -1 done
+field set _command_order.pu_destination, -1 done
+field set _command_order.pu_sending, -1 done
+field set _command_order.command, -1 done
+field set _command_order.weapon_platform, -1 done
+field set _command_order.weapon, -1 done
+field set _command_order.number_of_weapons, -1 done
+field set _command_order.gmt_time_of_impact, -1 done
+field set _command_order.gmt_time_of_impact_valid, -1 done
+field set _command_order.duty, -1 done
+field set _command_order.procedur, -1 done
+field set _command_order.order_reply, -1 done
+field set _command_order.aframe, -1 done
+field set _command_order.bframe, -1 done
+field set _command_order.command_counter, -1 done
+field set _command_order.order_result, -1 done
+field set _command_order.order_reject_reason, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 108
+testsc_ivalue gmt is 108
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-22)
+dlplink11types
+field set _aircraft_control.aircraft_network, 1 done
+field set _aircraft_control.engage_network, 1 done
+field set _command_order.ntn_platform, -1 done
+field set _command_order.ntn_target, -1 done
+field set _command_order.pu_destination, -1 done
+field set _command_order.pu_sending, -1 done
+field set _command_order.command, -1 done
+field set _command_order.weapon_platform, -1 done
+field set _command_order.weapon, -1 done
+field set _command_order.number_of_weapons, -1 done
+field set _command_order.gmt_time_of_impact, -1 done
+field set _command_order.gmt_time_of_impact_valid, -1 done
+field set _command_order.duty, -1 done
+field set _command_order.procedur, -1 done
+field set _command_order.order_reply, -1 done
+field set _command_order.aframe, -1 done
+field set _command_order.bframe, -1 done
+field set _command_order.command_counter, -1 done
+field set _command_order.order_result, -1 done
+field set _command_order.order_reject_reason, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 108
+testsc_ivalue gmt is 108
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º.
+testsc eval (testsc-require go/t-22)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-22)
+dlplink11types
+field set _aircraft_control.aircraft_network, 1 done
+field set _aircraft_control.engage_network, 1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 104
+testsc_ivalue gmt is 104
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-22)
+dlplink11types
+field set _command_order.ntn_platform, -1 done
+field set _command_order.ntn_target, -1 done
+field set _command_order.pu_destination, -1 done
+field set _command_order.pu_sending, -1 done
+field set _command_order.command, -1 done
+field set _command_order.weapon_platform, -1 done
+field set _command_order.weapon, -1 done
+field set _command_order.number_of_weapons, -1 done
+field set _command_order.gmt_time_of_impact, -1 done
+field set _command_order.gmt_time_of_impact_valid, -1 done
+field set _command_order.duty, -1 done
+field set _command_order.procedur, -1 done
+field set _command_order.order_reply, -1 done
+field set _command_order.aframe, -1 done
+field set _command_order.bframe, -1 done
+field set _command_order.command_counter, -1 done
+field set _command_order.order_result, -1 done
+field set _command_order.order_reject_reason, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue gmt is 104
+testsc_ivalue gmt is 104
