@@ -8067,3 +8067,140 @@ testsc_ivalue testsc is 1
 testsc_track_get with id 18
 testsc_ivalue testsc is 1
 testsc_track_get with id 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m9b/t-6)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(7)link11_sc.cpp:545, get_field_value debug  ( 382, 0 )
+testnum(7)link11_sc.cpp:564, get_field_value debug (382, 0, 15) , 382, 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-25)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m9b/t-6)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-25)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m9b/t-4)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m9b/t-4)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-25)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º 
+testsc eval (testsc-require go/t-25)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m9b/t-4)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+º
+testsc eval (testsc-require go/t-25)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m9b/t-4)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m9b/t-4)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get exist 0

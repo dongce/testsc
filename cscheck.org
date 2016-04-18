@@ -185,7 +185,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [31/91]
+** 진척률 [32/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -591,12 +591,21 @@ t->_change_data_order_counter
 
 
 
-*** TODO build_message_command
+*** STARTED build_message_command
+    - State "STARTED"    from "TODO"       [2016-04-18 Mon 11:14]
+
+
 
 **** stub
 read_channel 
 static int id=0 ; 
 return testsc_admin_get(id++) ; 
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 
 **** script 
 
@@ -1240,7 +1249,8 @@ _m6d_rc  RC_CANT_COMPLY
     - [X] 체크아웃 
 
 
-*** STARTED process_message_m9b
+*** DONE process_message_m9b
+    CLOSED: [2016-04-18 Mon 11:44]
     - State "STARTED"    from "REVIEW"     [2016-04-18 Mon 08:26]
 **** 확인 사항  
     - [ ] 타이머 설정 
