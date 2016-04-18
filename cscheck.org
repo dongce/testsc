@@ -144,7 +144,14 @@ long mmsg_get_field_value( int a, int b ) ;
 if(testsc_ivalue("testsc")) return  mmsg_get_field_value( arg0, arg1 )  ; 
 #+END_SRC
 
+*** check_out_network 
 
+#+BEGIN_SRC cpp
+
+network_track_data_ptr  testsc_track_get(uint32_t id ) ; 
+	if(testsc_ivalue("testsc")) return testsc_track_get(arg0) ; 
+
+#+END_SRC
 ** testcase 수정 방법 
 다음과 같은 주석이 있으면 사용자 코드가 삭제가 아니되는 것으로 보임 
 #+BEGIN_SRC cpp
@@ -178,7 +185,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [30/91]
+** 진척률 [31/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -535,8 +542,9 @@ check_out_network
 
 
 
-*** REVIEW build_message_cdo
-
+*** DONE build_message_cdo
+    CLOSED: [2016-04-18 Mon 11:11]
+    - State "STARTED"    from "REVIEW"     [2016-04-18 Mon 08:26]
 **** 확인 사항  
     - [ ] 타이머 설정 
     - [ ] 일괄 실행 
@@ -895,7 +903,13 @@ validate_data_update_request
  - [X] 일괄 실행 
  - [X] 타임 아웃 변경 
 *** TODO general_library
-*** TODO general_output
+*** STARTED general_output
+    - State "STARTED"    from "TODO"       [2016-04-18 Mon 08:29]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO gettimeofday
 *** TODO intf_vme
 *** DONE lifecycle_controller
@@ -1226,8 +1240,8 @@ _m6d_rc  RC_CANT_COMPLY
     - [X] 체크아웃 
 
 
-*** REVIEW process_message_m9b
-
+*** STARTED process_message_m9b
+    - State "STARTED"    from "REVIEW"     [2016-04-18 Mon 08:26]
 **** 확인 사항  
     - [ ] 타이머 설정 
     - [ ] 일괄 실행 
