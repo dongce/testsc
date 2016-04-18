@@ -4,14 +4,8 @@
 ;; (testsc-require dlplink11types)
 
 (case (testsc-get-testnum)
-  ((8)
+  ((3)
    (define testsc 1 )
-   (tnset 6)
-   )
-  ((13)
-   (define testsc 1 )
-   (define itn 1)
-   (for-each (lambda (x) (anset x )) (num-list 0 10))
-   )
-  )
+   (define gfv 0)
+  ))
 
