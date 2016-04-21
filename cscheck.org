@@ -192,7 +192,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [37/91]
+** 진척률 [38/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -934,7 +934,15 @@ validate_data_update_request
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO gettimeofday
+*** DONE gettimeofday
+    CLOSED: [2016-04-21 Thu 21:20]
+    - State "STARTED"    from "TODO"       [2016-04-21 Thu 20:51]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+
 *** TODO intf_vme
 *** DONE lifecycle_controller
     CLOSED: [2016-03-29 Tue 14:27]

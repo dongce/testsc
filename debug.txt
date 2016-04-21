@@ -2756,3 +2756,181 @@ util4
 tetsc-load t:/ts/temp.scm
 ÅC
 testsc eval (testsc-require bm_dr/t-6)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ÇC
+testsc eval (testsc-require bm_dr/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ÄC
+testsc eval (testsc-require bm_dr/t-11)
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+admin get not exist 4
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ÄC
+testsc eval (testsc-require bm_dr/t-11)
+testsc-track-nset
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usedk is 1
+testsc_ivalue dk is -1
+testsc_track_get with id 0
+admin get not exist 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ÄC
+testsc eval (testsc-require bm_dr/t-11)
+testsc-track-nset
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usedk is 1
+testsc_ivalue dk is 0
+testsc_track_get with id 0
+admin get not exist 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ÄC
+testsc eval (testsc-require bm_dr/t-11)
+testsc-track-nset
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usedk is 1
+testsc_ivalue dk is 1
+testsc_track_get with id 0
+admin get not exist 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ÄC
+testsc eval (testsc-require bm_dr/t-11)
+testsc-track-nset
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usedk is 1
+testsc_ivalue dk is 2
+testsc_track_get with id 0
+admin get not exist 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ÄC
+testsc eval (testsc-require bm_dr/t-11)
+testsc-track-nset
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usedk is 1
+testsc_ivalue dk is 3
+testsc_track_get with id 0
+admin get not exist 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ÄC
+testsc eval (testsc-require bm_dr/t-11)
+testsc-track-nset
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usedk is 1
+testsc_ivalue dk is 4
+testsc_track_get with id 0
+admin get not exist 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ÄC
+testsc eval (testsc-require bm_dr/t-11)
+testsc-track-nset
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usedk is 1
+testsc_ivalue dk is 5
+testsc_track_get with id 0
+admin get not exist 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ÄC
+testsc eval (testsc-require bm_dr/t-11)
+testsc-track-nset
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue usedk is 1
+testsc_ivalue dk is 6
+testsc_track_get with id 0
+admin get not exist 1
+testsc_ivalue testsc is 1
