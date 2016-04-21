@@ -192,7 +192,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [38/91]
+** 진척률 [39/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -829,7 +829,8 @@ testsc_admin_get(id++) ;
 
 
 
-*** STARTED build_message_difference_report
+*** DONE build_message_difference_report
+    CLOSED: [2016-04-21 Thu 21:34]
     - State "STARTED"    from "TODO"       [2016-04-21 Thu 17:40]
 **** 확인 사항  
     - [X] 타이머 설정 
@@ -938,12 +939,18 @@ validate_data_update_request
     CLOSED: [2016-04-21 Thu 21:20]
     - State "STARTED"    from "TODO"       [2016-04-21 Thu 20:51]
 **** 확인 사항  
-    - [ ] 타이머 설정 
+    - [X] 타이머 설정 
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
 
-*** TODO intf_vme
+*** STARTED intf_vme
+    - State "STARTED"    from "TODO"       [2016-04-21 Thu 21:24]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** DONE lifecycle_controller
     CLOSED: [2016-03-29 Tue 14:27]
 *** DONE link11_filter
