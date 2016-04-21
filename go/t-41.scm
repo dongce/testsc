@@ -1,0 +1,25 @@
+
+
+;; (testsc-require l11const)
+;; (testsc-require system_types)
+;; (testsc-require dlplink11types)
+
+(case (testsc-get-testnum)
+  ((6)
+   (define testsc 1 )
+   (define ser -1)
+   )
+  ((2)
+   (define testsc 1 )
+   (define ecd 0)
+   )
+  ((3)
+   (define testsc 1 )
+   (define ecd 1)
+   )
+  ((4)
+   (define testsc 1 )
+   (define ecd 2)
+   )
+  )
+

@@ -8,1864 +8,10 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-18)
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 1
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 2
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 3
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 4
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 5
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 6
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 7
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 8
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 9
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 10
-message_admin::size
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
 tetsc-load t:/ts/init.scm
-message_admin::size
-testsc_ivalue testsc is 1
-util
- get exist 0
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-1)
-testsc_ivalue testsc is 1
-testsc_ivalue dlrp_lat is 0
-testsc_ivalue dlrp_lng is 0
-testsc_ivalue testsc is 1
-testsc_ivalue gs is 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 11
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 12
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 13
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-testsc-track-nset
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 2
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 3
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 4
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 5
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 6
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 7
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 8
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-message_admin::size
-testsc_ivalue testsc is 1
-testsc_track_get with id 6
-testsc_ivalue testsc is 1
-testsc_track_get with id 6
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º 
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _pair_assoc.action, 3 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º.
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _pair_assoc.action, 3 done
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _pair_assoc.action, 3 done
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _pair_assoc.action, 3 done
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-18)
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 1
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 2
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 3
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 4
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 5
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 6
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 7
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 8
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 9
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 10
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-testsc-track-nset
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 2
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 3
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 4
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 5
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 6
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 7
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 8
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-message_admin::size
-testsc_ivalue testsc is 1
-testsc_track_get with id 6
-testsc_ivalue testsc is 1
-testsc_track_get with id 6
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
 util2
@@ -1874,7 +20,11 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-2)
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -1884,7 +34,10 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-2)
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -1894,314 +47,11 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-18)
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 1
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 2
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 3
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 4
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 5
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 6
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 7
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 8
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 9
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get exist 10
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2211,34 +61,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-18)
-field set _command_order.command, 15 done
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-testsc_ivalue testsc is 1
-admin get not exist 8
-testsc_ivalue testsc is 1
-admin get not exist 7
-testsc_ivalue testsc is 1
-admin get not exist 6
-testsc_ivalue testsc is 1
-admin get not exist 5
-testsc_ivalue testsc is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-admin get not exist 1
+testsc eval (testsc-require bm_cmd/t-14)
 testsc_ivalue testsc is 1
 admin get exist 0
 testsc_ivalue testsc is 1
@@ -2252,34 +75,361 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-18)
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-17)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-17)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-17)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-17)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-17)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-17)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-17)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-17)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-17)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
 field set _command_order.command, -1 done
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-testsc_ivalue testsc is 1
-admin get not exist 8
-testsc_ivalue testsc is 1
-admin get not exist 7
-testsc_ivalue testsc is 1
-admin get not exist 6
-testsc_ivalue testsc is 1
-admin get not exist 5
-testsc_ivalue testsc is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-admin get not exist 1
 testsc_ivalue testsc is 1
 admin get exist 0
 testsc_ivalue testsc is 1
@@ -2293,33 +443,8 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-18)
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-testsc_ivalue testsc is 1
-admin get not exist 8
-testsc_ivalue testsc is 1
-admin get not exist 7
-testsc_ivalue testsc is 1
-admin get not exist 6
-testsc_ivalue testsc is 1
-admin get not exist 5
-testsc_ivalue testsc is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-admin get not exist 1
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 0 done
 testsc_ivalue testsc is 1
 admin get exist 0
 testsc_ivalue testsc is 1
@@ -2333,9 +458,8 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-18)
-field set _command_order.order_reply, -1 done
-message_admin::size
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 1 done
 testsc_ivalue testsc is 1
 admin get exist 0
 testsc_ivalue testsc is 1
@@ -2349,36 +473,11 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-18)
-field set _command_order.command, 15 done
-message_admin::size
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 2 done
 testsc_ivalue testsc is 1
 admin get exist 0
-message_admin::size
-message_admin::size
 testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-testsc_ivalue testsc is 1
-admin get not exist 8
-testsc_ivalue testsc is 1
-admin get not exist 7
-testsc_ivalue testsc is 1
-admin get not exist 6
-testsc_ivalue testsc is 1
-admin get not exist 5
-testsc_ivalue testsc is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
 testsc_ivalue testsc is 1
 admin get not exist 1
 tetsc-load t:/ts/init.scm
@@ -2390,9 +489,171 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-18)
-field set _command_order.order_reply, -1 done
-message_admin::size
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 3 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 4 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 5 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 6 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 7 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 8 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 9 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 10 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 11 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 12 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 13 done
 testsc_ivalue testsc is 1
 admin get exist 0
 testsc_ivalue testsc is 1
@@ -2406,7 +667,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2416,7 +677,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2426,7 +687,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2436,7 +697,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2446,7 +707,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2456,7 +717,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2466,7 +727,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2476,7 +737,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2486,7 +747,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2496,7 +757,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2506,7 +767,7 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2516,7 +777,9 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
+testsc_ivalue ser is -1
+testsc_ivalue ser is -1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2526,7 +789,9 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
+testsc_ivalue ecd is 0
+testsc_ivalue ecd is 0
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2536,7 +801,9 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
+testsc_ivalue ecd is 1
+testsc_ivalue ecd is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2546,436 +813,1068 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-1)
+testsc eval (testsc-require go/t-63)
+testsc_ivalue ecd is 2
+testsc_ivalue ecd is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 0 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 2 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 3 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc_ivalue testsc is 1
+admin get not exist 1
+quire pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+load t:/ts/init.scm
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 4 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+c_ivalue testsc is 1
+util2
+get not exist 1
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+etsc-load t:/ts/init.scm
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 5 done
+testsc_ivalue testsc is 1
+admin get exist 0
+tetsc-load t:/ts/util.scm
+testsc_ivalue testsc is 1
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc_ivalue testsc is 1
+
+dmin get not exist 1
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/util.scm
+util
+util2
+ eval (testsc-require bm_cmd/t-14)
+util5
+util3
+set _command_order.command, 6 done
+util4
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/temp.scm
+testsc_ivalue testsc is 1
+
+estsc_ivalue testsc is 1
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 7 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+load t:/ts/init.scm
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/util.scm
+testsc eval (testsc-require pa/t-2)
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 8 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 9 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 10 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 11 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 12 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 13 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 14 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
 field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 16 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 17 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-35)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-35)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-35)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-35)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 0 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 2 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 3 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 4 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 5 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 6 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 7 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 8 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 9 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 10 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 11 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 12 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 13 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 14 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
 field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
-field set _command_order.command, 15 done
-field set _command_order.aframe, 3145728 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 16 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 17 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-43)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-43)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-43)
+testsc_ivalue testsc is 1
+testsc_ivalue nomas is 0
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 11 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_cmd/t-14)
+field set _command_order.command, 9 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue itn is 1
 testsc_ivalue testsc is 1
 testsc_ivalue itn is 1
 message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-1)
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-field set _command_order.command, 15 done
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 9
-testsc_ivalue testsc is 1
-admin get exist 8
-testsc_ivalue testsc is 1
-admin get exist 7
-testsc_ivalue testsc is 1
-admin get exist 6
-testsc_ivalue testsc is 1
-admin get exist 5
-testsc_ivalue testsc is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-testsc-track-nset
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 2
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 3
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 4
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 5
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 6
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 7
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 8
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-message_admin::size
-testsc_ivalue testsc is 1
-testsc_track_get with id 6
-testsc_ivalue testsc is 1
-testsc_track_get with id 6
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-13)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-13)
-message_admin::size
-message_admin::size
 testsc_ivalue testsc is 1
 admin get exist 0
 message_admin::size
@@ -3006,2438 +1905,9 @@ message_admin::size
 testsc_ivalue testsc is 1
 admin get not exist 9
 message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-5)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-5)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-5)
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 2
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 3
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 4
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 5
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 6
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 7
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 8
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-5)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-5)
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 2
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 3
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 4
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 5
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 6
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 7
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 8
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-tetsc-load t:/ts/init.scm
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-l.scm
-message_admin::size
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-1)
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, -1 done
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, 3 done
-testsc_ivalue testsc is 1
-testsc_ivalue dlrp_lat is 0
-testsc_ivalue dlrp_lng is 0
-testsc_ivalue testsc is 1
-testsc_ivalue gs is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-1)
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, -1 done
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, 3 done
-testsc_ivalue testsc is 1
-testsc_ivalue dlrp_lat is 0
-testsc_ivalue dlrp_lng is 0
-testsc_ivalue testsc is 1
-testsc_ivalue gs is 1
 testsc_ivalue testsc is 1
 testsc_track_get with id 0
 testsc_ivalue testsc is 1
-testsc_track_get with id 1
-testsc_ivalue testsc is 1
-testsc_track_get with id 2
-testsc_ivalue testsc is 1
-testsc_track_get with id 3
-testsc_ivalue testsc is 1
-testsc_track_get with id 4
-testsc_ivalue testsc is 1
-testsc_track_get with id 5
-testsc_ivalue testsc is 1
-testsc_track_get with id 6
-testsc_ivalue testsc is 1
-testsc_track_get with id 7
-testsc_ivalue testsc is 1
-testsc_track_get with id 8
-testsc_ivalue testsc is 1
-testsc_track_get with id 9
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-field set _command_order.order_reply, 4 done
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 2
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 3
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 4
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 5
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 6
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 7
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 8
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-20)
-field set _command_order.order_reply, 4 done
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-1)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-1)
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, -1 done
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, 3 done
-testsc_ivalue testsc is 1
-testsc_ivalue dlrp_lat is 0
-testsc_ivalue dlrp_lng is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-22)
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-load t:/ts/util.scm
-tetsc-load t:/ts/temp.scm
-util2
-
-til5
-util3
-util4
- eval (testsc-require pa/t-1)
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-22)
-message_admin::size
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, -1 done
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, 3 done
-testsc_ivalue testsc is 1
-testsc_ivalue glm is -1
-testsc_ivalue testsc is 1
-testsc_ivalue dlrp_lat is 0
-testsc_ivalue dlrp_lng is 0
-testsc_ivalue testsc is 1
-testsc_ivalue glm is -1
-testsc_ivalue testsc is 1
-testsc_ivalue gs is 2
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-testsc_ivalue testsc is 1
-admin get not exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-22)
-field set _command_order.order_reply, 4 done
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-testsc_ivalue testsc is 1
-admin get not exist 8
-testsc_ivalue testsc is 1
-admin get not exist 7
-testsc_ivalue testsc is 1
-admin get not exist 6
-testsc_ivalue testsc is 1
-admin get not exist 5
-testsc_ivalue testsc is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get not exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-22)
-field set _command_order.order_reply, -1 done
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-testsc_ivalue testsc is 1
-admin get not exist 8
-testsc_ivalue testsc is 1
-admin get not exist 7
-testsc_ivalue testsc is 1
-admin get not exist 6
-testsc_ivalue testsc is 1
-admin get not exist 5
-testsc_ivalue testsc is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get not exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-22)
-field set _command_order.order_reply, -1 done
-field set _command_order.order_reply, 6 done
-field set _command_order.command_counter, 8 done
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-testsc_ivalue testsc is 1
-admin get not exist 8
-testsc_ivalue testsc is 1
-admin get not exist 7
-testsc_ivalue testsc is 1
-admin get not exist 6
-testsc_ivalue testsc is 1
-admin get not exist 5
-testsc_ivalue testsc is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-admin get not exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-1)
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, -1 done
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, 3 done
-testsc_ivalue testsc is 1
-testsc_ivalue glm is -1
-testsc_ivalue testsc is 1
-testsc_ivalue dlrp_lat is 100
-testsc_ivalue dlrp_lng is 100
-testsc_ivalue testsc is 1
-testsc_ivalue glm is -1
-testsc_ivalue testsc is 1
-testsc_ivalue gs is 2
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-1)
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, -1 done
-testsc-track-nset
-testsc-track-nset22
-field set general.link_state, 3 done
-testsc_ivalue testsc is 1
-testsc_ivalue glm is -1
-testsc_ivalue testsc is 1
-testsc_ivalue dlrp_lat is 100
-testsc_ivalue dlrp_lng is 100
-testsc_ivalue testsc is 1
-testsc_ivalue glm is -1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue gs is 2
-testsc_ivalue testsc is 1
 testsc_track_get with id 0
 testsc_ivalue testsc is 1
-testsc_track_get with id 1
-testsc_ivalue testsc is 1
-testsc_track_get with id 2
-testsc_ivalue testsc is 1
-testsc_track_get with id 3
-testsc_ivalue testsc is 1
-testsc_track_get with id 4
-testsc_ivalue testsc is 1
-testsc_track_get with id 5
-testsc_ivalue testsc is 1
-testsc_track_get with id 6
-testsc_ivalue testsc is 1
-testsc_track_get with id 7
-testsc_ivalue testsc is 1
-testsc_track_get with id 8
-testsc_ivalue testsc is 1
-testsc_track_get with id 9
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-testsc_ivalue testsc is 1
-admin get not exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º#
-testsc eval (testsc-require go/t-22)
-dlplink11types
-testsc_ivalue testsc is 1
-admin get not exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 96
-testsc_ivalue gmt is 96
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 95
-testsc_ivalue gmt is 95
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-10)
-message_admin::size
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 45
-testsc_ivalue gmt is 45
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-10)
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-testsc_ivalue testsc is 1
-admin get not exist 8
-testsc_ivalue testsc is 1
-admin get not exist 7
-testsc_ivalue testsc is 1
-admin get not exist 6
-testsc_ivalue testsc is 1
-admin get not exist 5
-testsc_ivalue testsc is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
 admin get not exist 1
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-15)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º"
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _command_order.ntn_platform, -1 done
-field set _command_order.ntn_target, -1 done
-field set _command_order.pu_destination, -1 done
-field set _command_order.pu_sending, -1 done
-field set _command_order.command, -1 done
-field set _command_order.weapon_platform, -1 done
-field set _command_order.weapon, -1 done
-field set _command_order.number_of_weapons, -1 done
-field set _command_order.gmt_time_of_impact, -1 done
-field set _command_order.gmt_time_of_impact_valid, -1 done
-field set _command_order.duty, -1 done
-field set _command_order.procedur, -1 done
-field set _command_order.order_reply, -1 done
-field set _command_order.aframe, -1 done
-field set _command_order.bframe, -1 done
-field set _command_order.command_counter, -1 done
-field set _command_order.order_result, -1 done
-field set _command_order.order_reject_reason, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 108
-testsc_ivalue gmt is 108
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _command_order.ntn_platform, -1 done
-field set _command_order.ntn_target, -1 done
-field set _command_order.pu_destination, -1 done
-field set _command_order.pu_sending, -1 done
-field set _command_order.command, -1 done
-field set _command_order.weapon_platform, -1 done
-field set _command_order.weapon, -1 done
-field set _command_order.number_of_weapons, -1 done
-field set _command_order.gmt_time_of_impact, -1 done
-field set _command_order.gmt_time_of_impact_valid, -1 done
-field set _command_order.duty, -1 done
-field set _command_order.procedur, -1 done
-field set _command_order.order_reply, -1 done
-field set _command_order.aframe, -1 done
-field set _command_order.bframe, -1 done
-field set _command_order.command_counter, -1 done
-field set _command_order.order_result, -1 done
-field set _command_order.order_reject_reason, -1 done
-field set _command_order.ntn_platform, -1 done
-field set _command_order.ntn_target, -1 done
-field set _command_order.pu_destination, -1 done
-field set _command_order.pu_sending, -1 done
-field set _command_order.command, -1 done
-field set _command_order.weapon_platform, -1 done
-field set _command_order.weapon, -1 done
-field set _command_order.number_of_weapons, -1 done
-field set _command_order.gmt_time_of_impact, -1 done
-field set _command_order.gmt_time_of_impact_valid, -1 done
-field set _command_order.duty, -1 done
-field set _command_order.procedur, -1 done
-field set _command_order.order_reply, -1 done
-field set _command_order.aframe, -1 done
-field set _command_order.bframe, -1 done
-field set _command_order.command_counter, -1 done
-field set _command_order.order_result, -1 done
-field set _command_order.order_reject_reason, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 108
-testsc_ivalue gmt is 108
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _command_order.ntn_platform, -1 done
-field set _command_order.ntn_target, -1 done
-field set _command_order.pu_destination, -1 done
-field set _command_order.pu_sending, -1 done
-field set _command_order.command, -1 done
-field set _command_order.weapon_platform, -1 done
-field set _command_order.weapon, -1 done
-field set _command_order.number_of_weapons, -1 done
-field set _command_order.gmt_time_of_impact, -1 done
-field set _command_order.gmt_time_of_impact_valid, -1 done
-field set _command_order.duty, -1 done
-field set _command_order.procedur, -1 done
-field set _command_order.order_reply, -1 done
-field set _command_order.aframe, -1 done
-field set _command_order.bframe, -1 done
-field set _command_order.command_counter, -1 done
-field set _command_order.order_result, -1 done
-field set _command_order.order_reject_reason, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 108
-testsc_ivalue gmt is 108
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º)
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _aircraft_control.aircraft_network, 1 done
-field set _aircraft_control.engage_network, 1 done
-field set _command_order.ntn_platform, -1 done
-field set _command_order.ntn_target, -1 done
-field set _command_order.pu_destination, -1 done
-field set _command_order.pu_sending, -1 done
-field set _command_order.command, -1 done
-field set _command_order.weapon_platform, -1 done
-field set _command_order.weapon, -1 done
-field set _command_order.number_of_weapons, -1 done
-field set _command_order.gmt_time_of_impact, -1 done
-field set _command_order.gmt_time_of_impact_valid, -1 done
-field set _command_order.duty, -1 done
-field set _command_order.procedur, -1 done
-field set _command_order.order_reply, -1 done
-field set _command_order.aframe, -1 done
-field set _command_order.bframe, -1 done
-field set _command_order.command_counter, -1 done
-field set _command_order.order_result, -1 done
-field set _command_order.order_reject_reason, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 108
-testsc_ivalue gmt is 108
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _aircraft_control.aircraft_network, 1 done
-field set _aircraft_control.engage_network, 1 done
-field set _command_order.ntn_platform, -1 done
-field set _command_order.ntn_target, -1 done
-field set _command_order.pu_destination, -1 done
-field set _command_order.pu_sending, -1 done
-field set _command_order.command, -1 done
-field set _command_order.weapon_platform, -1 done
-field set _command_order.weapon, -1 done
-field set _command_order.number_of_weapons, -1 done
-field set _command_order.gmt_time_of_impact, -1 done
-field set _command_order.gmt_time_of_impact_valid, -1 done
-field set _command_order.duty, -1 done
-field set _command_order.procedur, -1 done
-field set _command_order.order_reply, -1 done
-field set _command_order.aframe, -1 done
-field set _command_order.bframe, -1 done
-field set _command_order.command_counter, -1 done
-field set _command_order.order_result, -1 done
-field set _command_order.order_reject_reason, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 108
-testsc_ivalue gmt is 108
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º 
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _aircraft_control.aircraft_network, 1 done
-field set _aircraft_control.engage_network, 1 done
-field set _command_order.ntn_platform, -1 done
-field set _command_order.ntn_target, -1 done
-field set _command_order.pu_destination, -1 done
-field set _command_order.pu_sending, -1 done
-field set _command_order.command, -1 done
-field set _command_order.weapon_platform, -1 done
-field set _command_order.weapon, -1 done
-field set _command_order.number_of_weapons, -1 done
-field set _command_order.gmt_time_of_impact, -1 done
-field set _command_order.gmt_time_of_impact_valid, -1 done
-field set _command_order.duty, -1 done
-field set _command_order.procedur, -1 done
-field set _command_order.order_reply, -1 done
-field set _command_order.aframe, -1 done
-field set _command_order.bframe, -1 done
-field set _command_order.command_counter, -1 done
-field set _command_order.order_result, -1 done
-field set _command_order.order_reject_reason, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 108
-testsc_ivalue gmt is 108
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º$
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _aircraft_control.aircraft_network, 1 done
-field set _aircraft_control.engage_network, 1 done
-field set _command_order.ntn_platform, -1 done
-field set _command_order.ntn_target, -1 done
-field set _command_order.pu_destination, -1 done
-field set _command_order.pu_sending, -1 done
-field set _command_order.command, -1 done
-field set _command_order.weapon_platform, -1 done
-field set _command_order.weapon, -1 done
-field set _command_order.number_of_weapons, -1 done
-field set _command_order.gmt_time_of_impact, -1 done
-field set _command_order.gmt_time_of_impact_valid, -1 done
-field set _command_order.duty, -1 done
-field set _command_order.procedur, -1 done
-field set _command_order.order_reply, -1 done
-field set _command_order.aframe, -1 done
-field set _command_order.bframe, -1 done
-field set _command_order.command_counter, -1 done
-field set _command_order.order_result, -1 done
-field set _command_order.order_reject_reason, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 108
-testsc_ivalue gmt is 108
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get not exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _aircraft_control.aircraft_network, 1 done
-field set _aircraft_control.engage_network, 1 done
-field set _command_order.ntn_platform, -1 done
-field set _command_order.ntn_target, -1 done
-field set _command_order.pu_destination, -1 done
-field set _command_order.pu_sending, -1 done
-field set _command_order.command, -1 done
-field set _command_order.weapon_platform, -1 done
-field set _command_order.weapon, -1 done
-field set _command_order.number_of_weapons, -1 done
-field set _command_order.gmt_time_of_impact, -1 done
-field set _command_order.gmt_time_of_impact_valid, -1 done
-field set _command_order.duty, -1 done
-field set _command_order.procedur, -1 done
-field set _command_order.order_reply, -1 done
-field set _command_order.aframe, -1 done
-field set _command_order.bframe, -1 done
-field set _command_order.command_counter, -1 done
-field set _command_order.order_result, -1 done
-field set _command_order.order_reject_reason, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 108
-testsc_ivalue gmt is 108
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 4
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 3
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 2
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 1
-testsc_ivalue testsc is 1
-testsc_ivalue usemag is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º.
-testsc eval (testsc-require go/t-22)
-dlplink11types
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _aircraft_control.aircraft_network, 1 done
-field set _aircraft_control.engage_network, 1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 104
-testsc_ivalue gmt is 104
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-º
-testsc eval (testsc-require go/t-22)
-dlplink11types
-field set _command_order.ntn_platform, -1 done
-field set _command_order.ntn_target, -1 done
-field set _command_order.pu_destination, -1 done
-field set _command_order.pu_sending, -1 done
-field set _command_order.command, -1 done
-field set _command_order.weapon_platform, -1 done
-field set _command_order.weapon, -1 done
-field set _command_order.number_of_weapons, -1 done
-field set _command_order.gmt_time_of_impact, -1 done
-field set _command_order.gmt_time_of_impact_valid, -1 done
-field set _command_order.duty, -1 done
-field set _command_order.procedur, -1 done
-field set _command_order.order_reply, -1 done
-field set _command_order.aframe, -1 done
-field set _command_order.bframe, -1 done
-field set _command_order.command_counter, -1 done
-field set _command_order.order_result, -1 done
-field set _command_order.order_reject_reason, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue gmt is 104
-testsc_ivalue gmt is 104
