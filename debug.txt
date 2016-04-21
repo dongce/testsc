@@ -8,1906 +8,2731 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
+testsc eval (testsc-require go/t-4)
+dlplink11types
 testsc_ivalue testsc is 1
-admin get exist 0
 testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-17)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-17)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-17)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-17)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-17)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-17)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-17)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-17)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-17)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 0 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 2 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 3 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 4 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 5 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 6 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 7 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 8 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 9 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 10 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 11 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 12 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 13 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-testsc_ivalue ser is -1
-testsc_ivalue ser is -1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-testsc_ivalue ecd is 0
-testsc_ivalue ecd is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-testsc_ivalue ecd is 1
-testsc_ivalue ecd is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-63)
-testsc_ivalue ecd is 2
-testsc_ivalue ecd is 2
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 0 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 2 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 3 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc_ivalue testsc is 1
-admin get not exist 1
-quire pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-load t:/ts/init.scm
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 4 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-c_ivalue testsc is 1
-util2
-get not exist 1
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-etsc-load t:/ts/init.scm
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 5 done
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/util.scm
-testsc_ivalue testsc is 1
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-testsc_ivalue testsc is 1
-
-dmin get not exist 1
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/init.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/util.scm
-util
-util2
- eval (testsc-require bm_cmd/t-14)
-util5
-util3
-set _command_order.command, 6 done
-util4
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/temp.scm
-testsc_ivalue testsc is 1
-
-estsc_ivalue testsc is 1
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 7 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-load t:/ts/init.scm
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/util.scm
-testsc eval (testsc-require pa/t-2)
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 8 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pa/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 9 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 10 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 11 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 12 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 13 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 14 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 15 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 16 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 17 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-35)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-35)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-35)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-35)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-testsc_ivalue testsc is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, -1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 0 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 1 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 2 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 3 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 4 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 5 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 6 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 7 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 8 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 9 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 10 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 11 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 12 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 13 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 14 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 15 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 16 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 17 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-43)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-43)
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require go/t-43)
-testsc_ivalue testsc is 1
-testsc_ivalue nomas is 0
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 11 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require bm_cmd/t-14)
-field set _command_order.command, 9 done
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-testsc_ivalue testsc is 1
-testsc_ivalue itn is 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get exist 0
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 1
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 2
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 3
-message_admin::size
-testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
 admin get not exist 4
-message_admin::size
 testsc_ivalue testsc is 1
-admin get not exist 5
-message_admin::size
+testsc_ivalue usemag is 1
+admin get not exist 3
 testsc_ivalue testsc is 1
-admin get not exist 6
-message_admin::size
+testsc_ivalue usemag is 1
+admin get not exist 2
 testsc_ivalue testsc is 1
-admin get not exist 7
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 8
-message_admin::size
-testsc_ivalue testsc is 1
-admin get not exist 9
-message_admin::size
-testsc_ivalue testsc is 1
-testsc_track_get with id 0
-testsc_ivalue testsc is 1
-testsc_track_get with id 0
-testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
 admin get not exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+admin get not exist 3
+tetsc-load t:/ts/init.scm
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+admin get not exist 1
+tetsc-load t:/ts/util.scm
+testsc_ivalue usemag is 1
+util
+c_ivalue west is 1
+util2
+get exist 0
+util5
+_ivalue west is 1
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5804
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is -1
+testsc_ivalue sts is -1
+testsc_ivalue con is -1
+testsc_ivalue tor is -1
+testsc_ivalue asw is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5749
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is -1
+testsc_ivalue sts is -1
+testsc_ivalue con is -1
+testsc_ivalue tor is -1
+testsc_ivalue asw is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5720
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is -1
+testsc_ivalue sts is -1
+testsc_ivalue con is -1
+testsc_ivalue tor is -1
+testsc_ivalue asw is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5783
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is -1
+testsc_ivalue sts is -1
+testsc_ivalue con is -1
+testsc_ivalue tor is -1
+testsc_ivalue asw is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5864
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is -1
+testsc_ivalue sts is -1
+testsc_ivalue con is -1
+testsc_ivalue tor is -1
+testsc_ivalue asw is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5804
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is 0
+testsc_ivalue sts is 0
+testsc_ivalue con is 0
+testsc_ivalue tor is 0
+cm
+testsc_ivalue asw is 0
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get not exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5749
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is 0
+testsc_ivalue sts is 0
+testsc_ivalue con is 0
+testsc_ivalue tor is 0
+testsc_ivalue asw is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5720
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is 0
+testsc_ivalue sts is 0
+testsc_ivalue con is 0
+testsc_ivalue tor is 0
+testsc_ivalue asw is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5783
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is 0
+testsc_ivalue sts is 0
+testsc_ivalue con is 0
+testsc_ivalue tor is 0
+testsc_ivalue asw is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5864
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is 0
+testsc_ivalue sts is 0
+testsc_ivalue con is 0
+testsc_ivalue tor is 0
+testsc_ivalue asw is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+_ivalue testsc is 1
+util3
+_ivalue testsc is 1
+util4
+get not exist 0
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+s 1
+testsc_ivalue west is 1
+admin get not exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+admin get not exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+admin get exist 0
+testsc_ivalue west is 1
+testsc_ivalue wes is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+tetsc-load t:/ts/util.scm
+util
+-load t:/ts/temp.scm
+~C
+l2
+testsc eval (testsc-require bm_dr/t-4)
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/temp.scm
+testsc_ivalue testsc is 1
+~C
+tsc_ivalue testsc is 1
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/util.scm
+util
+util
+
+util5
+util3
+util4
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+util
+util2
+util5
+ eval (testsc-require pa/t-2)
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/util.scm
+util
+util2
+ eval (testsc-require bm_dr/t-4)
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+tetsc-util5
+:/ts/util.scm
+util3
+util4
+util2
+tetsc-load t:/ts/temp.scm
+util3
+~C
+l4
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+quire bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+tetsc-load t:/ts/util.scm
+util5
+util
+
+util2
+util5
+tetsc-load t:/ts/temp.scm
+util4
+~C
+testsc eval (testsc-require bm_dr/t-4)
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/util.scm
+util
+tetsc-load t:/ts/init.scm
+util2
+load t:/ts/util.scm
+util
+util2
+util5
+util4
+util3
+tetsc-load t:/ts/temp.scm
+
+etsc-load t:/ts/temp.scm
+testsc eval (testsc-require pa/t-2)
+~C
+testsc eval (testsc-require bm_dr/t-4)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+_ivalue testsc is 1
+util3
+_ivalue testsc is 1
+admin get not exist 0
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+testsc eval (testsc-require go/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/temp.scm
+
+til
+util2
+ eval (testsc-require pa/t-2)
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+admin get not exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+tetsc-load t:/ts/init.scm
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue usemag is 1
+testsc_ivalue west is 1
+admin get not exist 1
+tetsc-load t:/ts/util.scm
+testsc_ivalue usemag is 1
+util
+c_ivalue west is 1
+util2
+get exist 0
+util5
+_ivalue west is 1
+util3
+_ivalue wes is -1
+util4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+load t:/ts/init.scm
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/util.scm
+utitestsc eval (testsc-require bm_dr/t-4)
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+testsc_ivalue mid is 5804
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is -1
+ire bm_dr/t-4)
+testsc_ivalue sts is -1
+testsc_ivalue con is -1
+testsc_ivalue tor is -1
+testsc_ivalue asw is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5749
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is -1
+testsc_ivalue sts is -1
+testsc_ivalue con is -1
+testsc_ivalue tor is -1
+testsc_ivalue asw is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5720
+testsc_ivalue testsc is 1
+admin get exist 0
+tetsc-load t:/ts/util.scm
+testsc_ivalue sts is -1
+util
+c_ivalue con is -1
+testsc_ivalue tor is -1
+testsc_ivalue asw is -1
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/temp.scm
+util
+
+til2
+testscutil3
+(testsc-require pa/t-2)
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5783
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is -1
+testsc_ivalue sts is -1
+testsc_ivalue con is -1
+testsc_ivalue tor is -1
+testsc_ivalue asw is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5864
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is -1
+testsc_ivalue sts is -1
+testsc_ivalue con is -1
+m
+testsc_ivalue tor is -1
+testsc_ivalue asw is -1
+testsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+tetsc-load t:/ts/util.scm
+util3
+util
+
+util2
+util5
+load t:/ts/temp.scm
+util3
+utitestsc eval (testsc-require bm_dr/t-4)
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5804
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is 0
+testsc_ivalue sts is 0
+testsc_ivalue con is 0
+testsc_ivalue tor is 0
+testsc_ivalue asw is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/init.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/util.scm
+~C
+util
+c eval (testsc-require bm_dr/t-4)
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+
+util
+c eval (testsc-require pa/t-2)
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+testsc eval (testsc-require bm_dr/t-4)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5749
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is 0
+testsc_ivalue sts is 0
+testsc_ivalue con is 0
+testsc_ivalue tor is 0
+testsc_ivalue asw is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+~C
+tsc_ivalue testsc is 1
+testsc eval (testsc-require bm_dr/t-4)
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is 0
+testsc_ivalue sts is 0
+testsc_ivalue con is 0
+testsc_ivalue tor is 0
+testsc_ivalue asw is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5783
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is 0
+testsc_ivalue sts is 0
+testsc_ivalue con is 0
+testsc_ivalue tor is 0
+testsc_ivalue asw is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue mid is 5864
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue sta is 0
+testsc_ivalue sts is 0
+testsc_ivalue con is 0
+testsc_ivalue tor is 0
+testsc_ivalue asw is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-19)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-19)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-19)
+testsc-track-nset
+testsc-track-nset
+testsc-track-nset
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_track_get with id 0
+testsc_track_get with id 1
+testsc_track_get with id 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-19)
+testsc-track-nset
+testsc-track-nset
+testsc-track-nset
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_track_get with id 0
+testsc_track_get with id 1
+testsc_track_get with id 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-2)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-19)
+testsc-track-nset
+testsc-track-nset
+testsc-track-nset22
+field set transmission_info.info_validation, 1 done
+testsc-track-nset22
+field set general.link_state, 2 done
+testsc-track-nset
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_track_get with id 0
+testsc_track_get with id 1
+testsc_track_get with id 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-19)
+testsc-track-nset
+testsc-track-nset
+testsc-track-nset22
+field set transmission_info.info_validation, 1 done
+testsc-track-nset22
+field set general.link_state, -1 done
+testsc-track-nset
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_track_get with id 0
+testsc_track_get with id 1
+testsc_track_get with id 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-19)
+testsc-track-nset
+testsc-track-nset
+testsc-track-nset22
+field set transmission_info.info_validation, 1 done
+testsc-track-nset22
+field set transmission_info.information_difference_counter, 1 done
+testsc-track-nset22
+field set general.link_state, -1 done
+testsc-track-nset
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_track_get with id 0
+testsc_track_get with id 1
+testsc_track_get with id 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-19)
+testsc-track-nset
+testsc-track-nset
+testsc-track-nset22
+field set transmission_info.info_validation, 1 done
+testsc-track-nset22
+field set transmission_info.information_difference_counter, 1 done
+testsc-track-nset22
+field set link11.change_data_order_running, 1 done
+testsc-track-nset22
+field set link11.identity_R2indiff_resolve, 1 done
+testsc-track-nset22
+field set general.link_state, -1 done
+testsc-track-nset
+testsc-track-nset22
+field set transmission_info.info_validation, 1 done
+testsc-track-nset22
+field set transmission_info.information_difference_counter, 1 done
+testsc-track-nset22
+field set general.link_state, -1 done
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_ivalue netcounts is 3
+testsc_track_get with id 0
+testsc_track_get with id 1
+testsc_track_get with id 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-21)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 112
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 162
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 170
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 168
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 158
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 180
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-16)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-16)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-16)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-16)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 158
+testsc_ivalue eos is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 112
+testsc_ivalue eos is 0
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 162
+testsc_ivalue eos is 0
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+tetsc-load t:/ts/init.scm
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-16)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 170
+testsc_ivalue eos is 0
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+€C
+testsc eval (testsc-require bm_dr/t-16)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+tetsc-load t:/ts/init.scm
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 168
+tetsc-load t:/ts/util.scm
+testsc_ivalue testsc is 1
+util
+ get not exist 0
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-16)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/init.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/util.scm
+util
+util2
+ eval (testsc-require pa/t-18)
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+€C
+testsc eval (testsc-require bm_dr/t-16)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 158
+testsc_ivalue eos is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 158
+testsc_ivalue eos is 0
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 180
+testsc_ivalue eos is 0
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 112
+testsc_ivalue eos is 0
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 162
+testsc_ivalue eos is 0
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 170
+testsc_ivalue eos is 0
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 168
+testsc_ivalue eos is 0
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 158
+testsc_ivalue eos is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 158
+testsc_ivalue eos is 0
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is 180
+testsc_ivalue eos is 0
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 1
+testsc_ivalue esi is -1
+testsc_ivalue eos is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-6)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+tetsc-load t:/ts/temp.scm
+testsc_ivalue testsc is 0
+
+testsc eval (testsc-require go/t-6)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+-load t:/ts/util.scm
+util2
+util5
+util3
+util4
+util3
+util4
+load t:/ts/temp.scm
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pa/t-18)
+
+testsc eval (testsc-require go/t-6)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+tetsc-load t:/ts/init.scm
+e go/t-6)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+tetsc-load t:/ts/init.scm
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-6)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+-load t:/ts/init.scm
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-6)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require go/t-6)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-18)
+testsc_ivalue testsc is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+‚C
+testsc eval (testsc-require bm_dr/t-3)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-6)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-6)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pa/t-6)

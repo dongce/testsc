@@ -6,7 +6,7 @@
 (case (testsc-get-testnum)
   ((1)
    (define testsc 1 )
-   (define nomas  0 )
+   (define nomas  1 )
    (anset 0 )
    (anset 1 )
    (anset 2 )

@@ -48,6 +48,8 @@ build_message_command.cpp
 parameter_adapter.cpp
 status_checker.h
 general_output.cpp
+difference_report.cpp
+parameter_adaptor.cpp
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
  - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
@@ -190,7 +192,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [35/91]
+** 진척률 [36/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -827,7 +829,13 @@ testsc_admin_get(id++) ;
 
 
 
-*** TODO build_message_difference_report
+*** STARTED build_message_difference_report
+    - State "STARTED"    from "TODO"       [2016-04-21 Thu 17:40]
+**** 확인 사항  
+    - [X] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO build_message_emitter_eval
 *** TODO build_message_ew_coord
 *** TODO build_message_iff_sif
@@ -971,7 +979,8 @@ update
 *** TODO ntds_intf
 *** TODO ntn_controller
 *** TODO os_data
-*** STARTED parameter_adapter
+*** DONE parameter_adapter
+    CLOSED: [2016-04-21 Thu 20:40]
     - State "STARTED"    from "TODO"       [2016-04-18 Mon 13:57]
 **** 확인 사항  
     - [ ] 타이머 설정 
