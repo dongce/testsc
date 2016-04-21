@@ -3395,3 +3395,2147 @@ testsc eval (testsc-require pc/t-6)
 testsc-track-nset
 testsc-track-nset22
 field set general.link_state, 2 done
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª)
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª(
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª*
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require pc/t-6)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, 2 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª0
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª.
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª*
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª"
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª-
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª#
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª)
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, -1 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª+
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª+
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+testsc-track-nset
+testsc-track-nset22
+field set general.link_state, -1 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+testsc_ivalue testsc is 1
+testsc_track_get with id 5
+testsc_ivalue testsc is 1
+testsc_track_get with id 6
+testsc_ivalue testsc is 1
+testsc_track_get with id 7
+testsc_ivalue testsc is 1
+testsc_track_get with id 8
+testsc_ivalue testsc is 1
+testsc_track_get with id 9
+testsc_ivalue testsc is 1
+testsc_track_get with id 10
+testsc_ivalue testsc is 1
+testsc_track_get with id 11
+testsc_ivalue testsc is 1
+testsc_track_get with id 12
+testsc_ivalue testsc is 1
+testsc_track_get with id 13
+testsc_ivalue testsc is 1
+testsc_track_get with id 14
+testsc_ivalue testsc is 1
+testsc_track_get with id 15
+testsc_ivalue testsc is 1
+testsc_track_get with id 16
+testsc_ivalue testsc is 1
+testsc_track_get with id 17
+testsc_ivalue testsc is 1
+testsc_track_get with id 18
+testsc_ivalue testsc is 1
+testsc_track_get with id 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª(
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª"
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª'
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pc/t-2)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ecounter is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ee/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ecounter is 1
