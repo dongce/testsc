@@ -534,6 +534,14 @@ inline long testsc_eval_ivalue(pointer x)
   return ivalue(x) ; 
 }
 
+inline double testsc_eval_rvalue(pointer x)
+{
+  if(is_symbol(x)){
+    return rvalue(scheme_eval(&g_sc ,x)) ;
+  }
+  return rvalue(x) ; 
+}
+
 
 
 long mmsg_get_field_value_with_name( int a, int b , const char* name)
@@ -596,6 +604,24 @@ long testsc_ivalue( const char *name )
   }
   return 0 ; 
 }
+
+double testsc_rvalue( const char *name )
+{
+  if( 0 == g_sc.NIL ){
+    return 0 ;
+  }
+
+  
+  pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
+
+  if( NULL != args && g_sc.NIL != args  && is_integer(args)){
+    long value = testsc_eval_rvalue(args) ; 
+    testsc_debug("testsc_rvalue %s is %d" , name, value) ;
+    return value ;
+  }
+  return 0 ; 
+}
+
 
 // long testsc_setenv( const char *name , const char *value)
 // {
