@@ -192,7 +192,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [45/91]
+** 진척률 [47/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -932,8 +932,22 @@ validate_data_update_request
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO dts_serial
-*** TODO ew_intelligence_types
+*** PENDING dts_serial
+    CLOSED: [2016-04-22 Fri 16:47]
+    - State "STARTED"    from "TODO"       [2016-04-22 Fri 16:01]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+*** DONE ew_intelligence_types
+    CLOSED: [2016-04-22 Fri 16:53]
+    - State "STARTED"    from "TODO"       [2016-04-22 Fri 16:48]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO ffx_unit
 *** DONE general_input
     CLOSED: [2016-04-04 Mon 21:33]
