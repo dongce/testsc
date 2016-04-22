@@ -119,7 +119,7 @@
        (proc index x )
        (set! index (+ 1 index )))
      args )))
-     
+
 (define (for-each-index-offset offset proc  . args )
   (let ((index 0 ))
     (for-each
@@ -128,3 +128,6 @@
            (proc x ))
        (set! index (+ 1 index )))
      args )))
+
+
+(define feio offset proc args (apply for-each-index-offset offset proc args))

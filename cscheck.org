@@ -1024,7 +1024,13 @@ update
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO os_data
+*** STARTED os_data
+    - State "STARTED"    from "TODO"       [2016-04-22 Fri 14:52]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** DONE parameter_adapter
     CLOSED: [2016-04-21 Thu 20:40]
     - State "STARTED"    from "TODO"       [2016-04-18 Mon 13:57]
