@@ -616,7 +616,7 @@ double testsc_dvalue( const char *name )
 
   if( NULL != args && g_sc.NIL != args  && is_integer(args)){
     long value = testsc_eval_dvalue(args) ; 
-    testsc_debug("testsc_dvalue %s is %d" , name, value) ;
+    testsc_debug("testsc_dvalue %s is %f" , name, value) ;
     return value ;
   }
   return 0 ; 
