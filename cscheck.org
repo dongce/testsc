@@ -192,7 +192,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [44/91]
+** 진척률 [45/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -958,7 +958,8 @@ validate_data_update_request
     - [X] 체크아웃 
 
 
-*** STARTED intf_vme
+*** PENDING intf_vme
+    CLOSED: [2016-04-22 Fri 15:56]
     - State "STARTED"    from "TODO"       [2016-04-21 Thu 21:24]
 **** 확인 사항  
     - [ ] 타이머 설정 
