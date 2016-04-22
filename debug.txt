@@ -134,3 +134,3400 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require os/t-29)
 testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-21)
+testsc_ivalue testsc is 1
+testsc_ivalue punotvalid is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewpd is 0
+testsc_ivalue ewor is 4
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 3
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 2
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-112)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-112)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-112)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-112)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-112)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-40)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-40)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-40)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-40)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-48)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-48)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-48)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-48)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-48)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-48)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-48)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-48)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-115)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-115)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-115)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-115)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-115)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-115)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-115)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-115)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 5
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 4
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 0
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-65)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-65)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-65)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-65)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-65)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-99)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-99)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-99)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-99)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-99)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-99)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-99)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-99)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is -1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is -1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is -1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is -1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is -1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 100
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 100
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 100
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 100
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 100
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is -1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 1
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is -1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 2
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is -1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 3
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is -1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 4
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is -1
+testsc_ivalue ewor is 0
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue nontn is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 1
+testsc_ivalue testsc is 1
+testsc_ivalue mas is 5
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue ewiv is 1
+testsc_ivalue ewod is 3
+testsc_ivalue ewor is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue ittwn is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_ew/t-23)
+testsc_ivalue testsc is 1
+testsc_ivalue nontn is 1

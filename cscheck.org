@@ -955,6 +955,28 @@ validate_data_update_request
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
+**** 수정 사항 
+
+#+BEGIN_SRC cpp
+
+get_asw_class
+get_frequency_range
+get_jitter
+get_nework_track_phase
+get_notack_radius
+
+get_order_reply
+get_polarisation
+get_pri_asw_refpos_des
+
+get_scan_category
+get_track_number_reject_reason
+get_track_number_result
+get_track_quality
+
+#+END_SRC
+
+
 
 *** DONE general_input
     CLOSED: [2016-04-04 Mon 21:33]
