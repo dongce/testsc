@@ -192,7 +192,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [49/91]
+** 진척률 [50/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -854,7 +854,15 @@ testsc_admin_get(id++) ;
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO build_message_iff_sif
+*** DONE build_message_iff_sif
+    CLOSED: [2016-04-22 Fri 22:16]
+    - State "STARTED"    from "TODO"       [2016-04-22 Fri 21:13]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+
 *** TODO build_message_link_pointer
 *** TODO build_message_opnote
 *** TODO build_message_ownship
