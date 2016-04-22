@@ -534,7 +534,7 @@ inline long testsc_eval_ivalue(pointer x)
   return ivalue(x) ; 
 }
 
-inline double testsc_eval_rvalue(pointer x)
+inline double testsc_eval_dvalue(pointer x)
 {
   if(is_symbol(x)){
     return rvalue(scheme_eval(&g_sc ,x)) ;
@@ -605,7 +605,7 @@ long testsc_ivalue( const char *name )
   return 0 ; 
 }
 
-double testsc_rvalue( const char *name )
+double testsc_dvalue( const char *name )
 {
   if( 0 == g_sc.NIL ){
     return 0 ;
@@ -615,8 +615,8 @@ double testsc_rvalue( const char *name )
   pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
 
   if( NULL != args && g_sc.NIL != args  && is_integer(args)){
-    long value = testsc_eval_rvalue(args) ; 
-    testsc_debug("testsc_rvalue %s is %d" , name, value) ;
+    long value = testsc_eval_dvalue(args) ; 
+    testsc_debug("testsc_dvalue %s is %d" , name, value) ;
     return value ;
   }
   return 0 ; 
