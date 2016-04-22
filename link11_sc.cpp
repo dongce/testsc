@@ -598,7 +598,8 @@ long testsc_ivalue( const char *name )
   pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
 
   if( NULL != args && g_sc.NIL != args  && is_integer(args)){
-    long value = testsc_eval_ivalue(args) ; 
+    // long value = testsc_eval_ivalue(args) ; 
+    long value = ivalue(args) ; 
     testsc_debug("testsc_ivalue %s is %d" , name, value) ;
     return value ;
   }
@@ -615,7 +616,7 @@ double testsc_dvalue( const char *name )
   pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
 
   if( NULL != args && g_sc.NIL != args  && is_real(args)){
-    long value = testsc_eval_dvalue(args) ; 
+    double value = rvalue(args) ; 
     testsc_debug("testsc_dvalue %s is %f" , name, value) ;
     return value ;
   }
