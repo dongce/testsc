@@ -13,4 +13,13 @@
  )
 
 
+(apply
+ for-each-index-offset
+ 9
+ (lambda (x)
+   (anset 0 )
+   (set! ewor x))
+ (num-list -1 6)
+ )
+
 

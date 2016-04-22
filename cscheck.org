@@ -192,7 +192,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [47/91]
+** 진척률 [48/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -948,7 +948,14 @@ validate_data_update_request
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO ffx_unit
+*** STARTED ffx_unit
+    - State "STARTED"    from "TODO"       [2016-04-22 Fri 16:54]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+
 *** DONE general_input
     CLOSED: [2016-04-04 Mon 21:33]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 12:30]
@@ -1039,7 +1046,8 @@ update
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** STARTED os_data
+*** DONE os_data
+    CLOSED: [2016-04-22 Fri 17:54]
     - State "STARTED"    from "TODO"       [2016-04-22 Fri 14:52]
 **** 확인 사항  
     - [ ] 타이머 설정 
