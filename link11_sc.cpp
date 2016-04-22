@@ -614,7 +614,7 @@ double testsc_dvalue( const char *name )
   
   pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
 
-  if( NULL != args && g_sc.NIL != args  && is_integer(args)){
+  if( NULL != args && g_sc.NIL != args  && is_real(args)){
     long value = testsc_eval_dvalue(args) ; 
     testsc_debug("testsc_dvalue %s is %f" , name, value) ;
     return value ;
