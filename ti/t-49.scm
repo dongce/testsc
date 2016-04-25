@@ -42,6 +42,7 @@
   ((22)
    (define testsc 1 )
    (set! ibs 0 )
+   (tnset 0 'general.tactical 111)
    (define findint 1)
    (define findint-value 111)
    )

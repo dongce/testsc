@@ -17,13 +17,13 @@
 
  '(
 
-   (    system_types-pri_surf_ampl_no_statement     system_types-sec_surf_ampl_no_statement)
-   (    system_types-pri_surf_ampl_no_statement     system_types-sec_surf_ampl_carrier)
-   (    system_types-pri_surf_ampl_no_statement     system_types-sec_surf_ampl_destroyer)
-   (    system_types-pri_surf_ampl_no_statement     system_types-sec_surf_ampl_cruiser)
-   (    system_types-pri_surf_ampl_no_statement     system_types-sec_surf_ampl_frigate)
-   (    system_types-pri_surf_ampl_no_statement     system_types-sec_surf_ampl_battleship)
-   (    system_types-pri_surf_ampl_no_statement     -1)
+   (    system_types-pri_surf_ampl_line     system_types-sec_surf_ampl_no_statement)
+   (    system_types-pri_surf_ampl_line     system_types-sec_surf_ampl_carrier)
+   (    system_types-pri_surf_ampl_line     system_types-sec_surf_ampl_destroyer)
+   (    system_types-pri_surf_ampl_line     system_types-sec_surf_ampl_cruiser)
+   (    system_types-pri_surf_ampl_line     system_types-sec_surf_ampl_frigate)
+   (    system_types-pri_surf_ampl_line     system_types-sec_surf_ampl_battleship)
+   (    system_types-pri_surf_ampl_line     -1)
 
    (    system_types-pri_surf_ampl_patrol_vessel    system_types-sec_surf_ampl_ASW)
    (    system_types-pri_surf_ampl_patrol_vessel    system_types-sec_surf_ampl_ASUW)
