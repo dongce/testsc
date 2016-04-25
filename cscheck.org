@@ -50,6 +50,9 @@ status_checker.h
 general_output.cpp
 difference_report.cpp
 parameter_adaptor.cpp
+build_message_opnote.cpp
+process_message_m9e.cpp
+build_message_ownship.cpp
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
  - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
@@ -192,7 +195,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [45/91]
+** 진척률 [53/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -845,7 +848,8 @@ testsc_admin_get(id++) ;
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** STARTED build_message_ew_coord
+*** DONE build_message_ew_coord
+    CLOSED: [2016-04-22 Fri 21:11]
     - State "STARTED"    from "TODO"       [2016-04-22 Fri 08:01]
 
 **** 확인 사항  
@@ -853,10 +857,38 @@ testsc_admin_get(id++) ;
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO build_message_iff_sif
-*** TODO build_message_link_pointer
-*** TODO build_message_opnote
-*** TODO build_message_ownship
+*** DONE build_message_iff_sif
+    CLOSED: [2016-04-22 Fri 22:16]
+    - State "STARTED"    from "TODO"       [2016-04-22 Fri 21:13]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+
+*** DONE build_message_link_pointer
+    CLOSED: [2016-04-25 Mon 15:31]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+*** DONE build_message_opnote
+    CLOSED: [2016-04-25 Mon 16:24]
+    - State "STARTED"    from "TODO"       [2016-04-25 Mon 15:32]
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+*** STARTED build_message_ownship
+    - State "STARTED"    from "TODO"       [2016-04-25 Mon 16:29]
+**** 확인 사항  
+    - [X] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO build_message_pairing_association
 *** TODO build_message_reception_quality
 *** TODO build_message_special_code
@@ -932,9 +964,52 @@ validate_data_update_request
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO dts_serial
-*** TODO ew_intelligence_types
-*** TODO ffx_unit
+*** PENDING dts_serial
+    CLOSED: [2016-04-22 Fri 16:47]
+    - State "STARTED"    from "TODO"       [2016-04-22 Fri 16:01]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+*** DONE ew_intelligence_types
+    CLOSED: [2016-04-22 Fri 16:53]
+    - State "STARTED"    from "TODO"       [2016-04-22 Fri 16:48]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+*** STARTED ffx_unit
+    - State "STARTED"    from "TODO"       [2016-04-22 Fri 16:54]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+**** 수정 사항 
+
+#+BEGIN_SRC cpp
+
+get_asw_class
+get_frequency_range
+get_jitter
+get_nework_track_phase
+get_notack_radius
+
+get_order_reply
+get_polarisation
+get_pri_asw_refpos_des
+
+get_scan_category
+get_track_number_reject_reason
+get_track_number_result
+get_track_quality
+
+#+END_SRC
+
+
+
 *** DONE general_input
     CLOSED: [2016-04-04 Mon 21:33]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 12:30]
@@ -1025,7 +1100,8 @@ update
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** STARTED os_data
+*** DONE os_data
+    CLOSED: [2016-04-22 Fri 17:54]
     - State "STARTED"    from "TODO"       [2016-04-22 Fri 14:52]
 **** 확인 사항  
     - [ ] 타이머 설정 
@@ -1403,7 +1479,8 @@ M9BAC   0  15
 
 
       
-*** REVIEW process_message_m9e
+*** DONE process_message_m9e
+    CLOSED: [2016-04-25 Mon 17:19]
 
 **** 확인 사항  
     - [ ] 타이머 설정 
@@ -1519,7 +1596,26 @@ M9GE 0 West
 *** STARTED track_input
     - State "STARTED"    from "TODO"       [2016-04-02 Sat 12:44]
 
- - [X] 최초 실행  
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+**** 로그 추가 
+
+
+로그 추가 필요. 
+#+BEGIN_INFO 
+land_point_track N/A N/A N/A N/A 
+aco_fix_refpos_track N/A N/A N/A N/A 
+ecm_fix_refpos_track N/A N/A N/A N/A 
+esm_fix_refpos_track N/A N/A N/A N/A 
+update_ISDL_NETWORK_TRACK_ADD_INFO N/A N/A N/A N/A 
+update_track_alert N/A N/A N/A N/A 
+#+END_INFO
+
+
+
 *** DONE track_output
     CLOSED: [2016-04-04 Mon 16:22]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 12:37]

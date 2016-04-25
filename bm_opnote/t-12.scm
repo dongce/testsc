@@ -1,26 +1,12 @@
 
-
-
 ;; (testsc-require l11const)
 ;; (testsc-require system_types)
 ;; (testsc-require dlplink11types)
-(define r2d -30.9999)
 
 (case (testsc-get-testnum)
   ((1)
    (define testsc 1 )
-   (define r2d 96)
+   (anset 0 )
    )
-
-  ((2)
-   (define testsc 1 )
-   (define r2d 30.9999)
-   )
-
-  ((3)
-   (define testsc 1 )
-   (define r2d -30.9999)
-   )
-  
   )
 
