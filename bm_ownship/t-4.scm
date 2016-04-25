@@ -5,7 +5,9 @@
 
 (case (testsc-get-testnum)
   ((1)
-   (define testsc 1 )
+   (define testsc 1)
+   (define gcm 0)
    )
+  
   )
 

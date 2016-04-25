@@ -8657,3 +8657,3837 @@ util2
 util5
 util3
 util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 9
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 10
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 11
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 12
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 13
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 14
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 15
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 16
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 17
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 18
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+tetsc-load t:/ts/init.scm
+
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-10)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+tetsc-util5
+:/ts/util.scm
+util3
+util4
+util2
+tetsc-load t:/ts/temp.scm
+util3
+
+til4
+testsc eval (testsc-require fu/t-124)
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 10
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require ti/t-10)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 11
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-5)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 12
+ª 
+testsc eval (testsc-require ti/t-5)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+testsc eval (testsc-require fu/t-124)
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-5)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 13
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª"
+l
+testsc eval (testsc-require ti/t-5)
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-5)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 14
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-6)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-6)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 15
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-6)
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 16
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+ª
+testsc eval (testsc-require ti/t-6)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 17
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+load t:/ts/util.scm
+util3
+util4
+util2
+tetsc-load t:/ts/temp.scm
+util3
+util4
+ª
+testsc eval (testsc-require ti/t-6)
+tetsc-load t:/ts/temp.scm
+
+testsc_ivalue testsc is 1
+e fu/t-124)
+admin get not exist 1
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 18
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 9
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 10
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 11
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 12
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 13
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 14
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 15
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 16
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 17
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 18
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 9
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 10
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 11
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 12
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 13
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 14
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 15
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 16
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 17
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 18
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+
+testsc eval (testsc-require fu/t-124)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-10)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+load t:/ts/init.scm
+util4
+tetsc-load t:/ts/temp.scm
+ª"
+testsc eval (testsc-require ti/t-10)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª"
+testsc eval (testsc-require ti/t-10)
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 14
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 18
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 20
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 26
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 15
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 13
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 16
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 32
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 28
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 22
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 23
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 9
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 35
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 12
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 10
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 36
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 14
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 18
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 20
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 26
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 15
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 13
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 16
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 32
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 28
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 22
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 23
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 9
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 35
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 12
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 10
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 36
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 14
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 18
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 20
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 26
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 15
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 13
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 16
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 32
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 28
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 22
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 23
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 9
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 35
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 12
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 10
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 36
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 14
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 18
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 20
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 26
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 15
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 13
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 16
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 32
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 28
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 22
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 23
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 9
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 35
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 12
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 10
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 36
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 14
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 18
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 19
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 20
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 26
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 15
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 13
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 16
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 32
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 28
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 22
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 23
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 9
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 35
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 12
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 10
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 36
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m9e/t-6)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m9e/t-6)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+load t:/ts/util.scm
+util3
+util4
+util2
+tetsc-load t:/ts/temp.scm
+util3
+
+til4
+testsc eval (testsc-require fu/t-124)
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m9e/t-1)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+tetsc-load t:/ts/init.scm
+e pm_m9e/t-1)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/util.scm
+util
+util
+
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/temp.scm
+
+
+estsc eval (testsc-require fu/t-124)
+testsc eval (testsc-require pm_m9e/t-7)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m9e/t-7)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-124)
+testsc_ivalue testsc is 1
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require ti/t-49)
+testsc-track-nset
+testsc-track-nset22
+field set general.track_kind, 9 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+admin get not exist 99
+testsc_ivalue testsc is 1
+admin get not exist 99
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª+
+testsc eval (testsc-require ti/t-49)
+testsc-track-nset
+testsc-track-nset22
+field set general.track_kind, 7 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+admin get not exist 99
+testsc_ivalue testsc is 1
+admin get not exist 99
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-49)
+testsc-track-nset
+testsc-track-nset22
+field set general.track_kind, 1 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+admin get not exist 99
+testsc_ivalue testsc is 1
+admin get not exist 99
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-49)
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
+testsc_ivalue testsc is 0
