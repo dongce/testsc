@@ -494,3 +494,729 @@ find arg0 is 2477848
 find arg0 is 2477848
 find arg0 is 2477848
 find arg0 is 2490328
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+field set _pair_assoc.action, 2 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+field set _pair_assoc.action, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-1)
+testsc-track-nset
+find arg0 is -1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist -1
+find arg0 is -1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist -1
+find arg0 is 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+find arg0 is 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+find arg0 is 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+find arg0 is 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_track_get with id 1
+testsc_ivalue testsc is 1
+testsc_track_get with id 2
+testsc_ivalue testsc is 1
+testsc_track_get with id 3
+testsc_ivalue testsc is 1
+testsc_track_get with id 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-1)
+find arg0 is 3
+find arg0 is 3
+find arg0 is 1756952
+find arg0 is 1756952
+find arg0 is 1756952
+find arg0 is 1769432
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-1)
+find arg0 is 0
+find arg0 is 0
+find arg0 is 1756952
+find arg0 is 1756952
+find arg0 is 1756952
+find arg0 is 1769432
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª)
+testsc eval (testsc-require ti/t-1)
+find arg0 is 1
+find arg0 is 1
+find arg0 is 2871064
+find arg0 is 2871064
+find arg0 is 2871064
+find arg0 is 2883544
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-1)
+find arg0 is 1
+find arg0 is 1
+find arg0 is 2150168
+find arg0 is 2150168
+find arg0 is 2150168
+find arg0 is 2162648
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-1)
+find arg0 is 2
+find arg0 is 2
+find arg0 is 2019096
+find arg0 is 2019096
+find arg0 is 2019096
+find arg0 is 2031576
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require ti/t-1)
+find arg0 is 0
+find arg0 is 0
+find arg0 is 2674456
+find arg0 is 2674456
+find arg0 is 2674456
+find arg0 is 2686936
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+field set _pair_assoc.action, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue fepa is 2
+admin get not exist 2
+testsc_ivalue testsc is 1
+testsc_ivalue allocid is 2
+admin get not exist 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+field set _pair_assoc.action, -1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 99
+find arg0 is 99
+find arg0 is 9
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 8
+find arg0 is 8
+find arg0 is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require ti/t-13)
+find arg0 is 2
+find arg0 is 0
+find arg0 is 0
+find arg0 is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 0
+find arg0 is 0
+find arg0 is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 10
+find arg0 is 10
+find arg0 is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 7
+find arg0 is 7
+find arg0 is 14
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 3
+find arg0 is 3
+find arg0 is 13
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require ti/t-13)
+find arg0 is 6
+find arg0 is 6
+find arg0 is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require ti/t-13)
+find arg0 is 0
+find arg0 is 100
+find arg0 is 100
+find arg0 is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª#
+testsc eval (testsc-require ti/t-13)
+find arg0 is 14
+find arg0 is 14
+find arg0 is 12
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require ti/t-13)
+find arg0 is 32767
+find arg0 is 32767
+find arg0 is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª)
+testsc eval (testsc-require ti/t-13)
+find arg0 is 3
+find arg0 is 101
+find arg0 is 101
+find arg0 is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require ti/t-13)
+find arg0 is 13
+find arg0 is 13
+find arg0 is 99
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 2
+find arg0 is 2
+find arg0 is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 12
+find arg0 is 12
+find arg0 is 101
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª#
+testsc eval (testsc-require ti/t-13)
+find arg0 is 9
+find arg0 is 9
+find arg0 is 100
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 1
+find arg0 is 1
+find arg0 is 10
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+field set _pair_assoc.action, -1 done
+field set _pair_assoc.action, 1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue fepa is 2
+admin get exist 2
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require ti/t-13)
+find arg0 is 0
+find arg0 is 0
+find arg0 is 32767
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 5
+find arg0 is 5
+find arg0 is 11
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 1
+find arg0 is 1
+find arg0 is 1691416
+find arg0 is 1691416
+find arg0 is 1691416
+find arg0 is 1703896
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-13)
+find arg0 is 4
+find arg0 is 4
+find arg0 is 4
+find arg0 is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+field set _pair_assoc.action, 3 done
+field set _pair_assoc.action, 1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue fepa is 2
+admin get exist 2
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-13)
+field set _pair_assoc.action, -1 done
+field set _pair_assoc.action, 1 done
+testsc_ivalue testsc is 1
+admin get exist 0
+testsc_ivalue testsc is 1
+testsc_ivalue fepa is 2
+admin get exist 2
+testsc_ivalue testsc is 1
+admin get not exist 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-7)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-7)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-7)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_pairing_association/t-7)

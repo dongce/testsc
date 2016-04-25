@@ -196,7 +196,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [58/91]
+** 진척률 [60/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -891,7 +891,8 @@ testsc_admin_get(id++) ;
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** STARTED build_message_pairing_association
+*** DONE build_message_pairing_association
+    CLOSED: [2016-04-25 Mon 21:19]
     - State "STARTED"    from "TODO"       [2016-04-25 Mon 19:13]
 **** 확인 사항  
     - [X] 타이머 설정 
@@ -1149,7 +1150,14 @@ update
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO process_message
+*** PENDING process_message
+    CLOSED: [2016-04-25 Mon 21:18]
+    - State "STARTED"    from "TODO"       [2016-04-25 Mon 21:03]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO process_message_m10
 *** TODO process_message_m11b
 *** TODO process_message_m11c
@@ -1161,7 +1169,13 @@ update
 *** TODO process_message_m13
 *** TODO process_message_m14
 *** TODO process_message_m15
-*** TODO process_message_m1_rp0
+*** STARTED process_message_m1_rp0
+    - State "STARTED"    from "TODO"       [2016-04-25 Mon 21:01]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO process_message_m1_rp1
 *** TODO process_message_m2
 *** TODO process_message_m3
