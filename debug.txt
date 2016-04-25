@@ -5311,3 +5311,492 @@ testsc_ivalue testsc is 1
 testsc_ivalue testsc is 1
 testsc_track_get with id 19
 testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-8)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-115)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª+
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª(
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª*
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª,
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª,
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª'
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª+
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set general.iff_data.iff_mode1, 1 done
+testsc-track-nset
+testsc-track-nset22
+field set link11.iff_mode1_local, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set link11.iff_mode2_conflict_state, 0 done
+testsc-track-nset
+testsc-track-nset22
+field set link11.iff_mode4_conflict_state, 1 done
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff1 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff1 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff1 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª'
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set general.iff_data.iff_mode1, 1 done
+testsc_ivalue testsc is 1
+testsc_ivalue mcbf is 6
+testsc_ivalue testsc is 1
+testsc_ivalue iff1 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff1 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff1 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff1 is 0
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff1 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff1 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff1 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff2 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue iff3 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue iff4 is -1
+testsc_ivalue testsc is 1
+testsc_ivalue iff4 is -1
+testsc_ivalue testsc is 1
+testsc_ivalue iff4 is -1
+testsc_ivalue testsc is 1
+testsc_ivalue iff4 is -1
+testsc_ivalue testsc is 1
+testsc_ivalue iff4 is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª#
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set cmsdata.iff_mode4, 1 done
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff4 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff4 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff4 is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require ti/t-45)
+dlplink11types
+testsc-track-nset
+testsc-track-nset22
+field set cmsdata.iff_mode4, 1 done
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff4 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff4 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue iff4 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue gmr is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require fu/t-115)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_lp/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_lp/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_lp/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_lp/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_lp/t-3)
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
