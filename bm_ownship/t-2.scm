@@ -11,6 +11,7 @@
   
   ((2)
    (define testsc 1)
+   (define idtp 1)
    (define iac 1)
    )
   )

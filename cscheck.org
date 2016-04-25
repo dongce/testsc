@@ -195,7 +195,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [53/91]
+** 진척률 [54/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -882,7 +882,8 @@ testsc_admin_get(id++) ;
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** STARTED build_message_ownship
+*** DONE build_message_ownship
+    CLOSED: [2016-04-25 Mon 18:11]
     - State "STARTED"    from "TODO"       [2016-04-25 Mon 16:29]
 **** 확인 사항  
     - [X] 타이머 설정 
@@ -1498,7 +1499,7 @@ t = 0
 *** REVIEW process_message_m9f
 
 **** 확인 사항  
-    - [ ] 타이머 설정 
+    - [X] 타이머 설정 
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 

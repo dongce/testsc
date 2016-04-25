@@ -6,7 +6,7 @@
 (case (testsc-get-testnum)
   ((5)
    (define testsc 1)
-   (define lldt -1)
+   (define lldt 9999999999999999)
    )
   )
 
