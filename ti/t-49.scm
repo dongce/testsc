@@ -19,6 +19,7 @@
         system_types-track_kind_ecm_bearing_track
         system_types-track_kind_aco_bearing_track
         system_types-track_kind_aco_bearing_track
+        system_types-track_kind_aco_bearing_track
         )))
 
 
@@ -42,10 +43,24 @@
   ((22)
    (define testsc 1 )
    (set! ibs 0 )
-   (tnset 0 'general.tactical 111)
+   (tnset 0
+          'own_or_lro       lro_track
+          'general.tactical 111)
    (define findint 1)
    (define findint-value 111)
    )
+
+  ((23)
+   (define testsc 1 )
+   (set! ibs 0 )
+   (set! gls 0 )
+   
+   (tnset 0
+          'own_or_lro       lro_track
+          'general.tactical 111)
+   (define findint 1)
+   (define findint-value 0))
+  
   )
 
 

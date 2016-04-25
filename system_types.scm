@@ -1065,3 +1065,6 @@
 (define system_types-zero_minutes 0  ) 
 
 (define enum-none -1)
+
+(define own_track 0 )
+(define lro_track 1 )
