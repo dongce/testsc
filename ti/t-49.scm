@@ -17,13 +17,34 @@
        (list
         system_types-track_kind_esm_bearing_track 
         system_types-track_kind_ecm_bearing_track
-        system_types-track_kind_aco_bearing_track )))
+        system_types-track_kind_aco_bearing_track
+        system_types-track_kind_aco_bearing_track
+        )))
 
 
 (feio
  20
 
  (lambda (x)
-   (set! ibs 0 ))
- '( 20 21)
+   (set! ibs 0 )
+   (if (= 21 x)
+       (tnset 0 'general.network_track_phase system_types-wiped))
+   )
+ '( 20 21 )
  )
+
+
+;; (testsc-require l11const)
+;; (testsc-require system_types)
+;; (testsc-require dlplink11types)
+
+(case (testsc-get-testnum)
+  ((22)
+   (define testsc 1 )
+   (set! ibs 0 )
+   (define findint 1)
+   (define findint-value 111)
+   )
+  )
+
+
