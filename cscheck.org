@@ -50,6 +50,7 @@ status_checker.h
 general_output.cpp
 difference_report.cpp
 parameter_adaptor.cpp
+build_message_opnote.cpp
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
  - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
@@ -192,7 +193,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [51/91]
+** 진척률 [52/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -870,7 +871,15 @@ testsc_admin_get(id++) ;
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO build_message_opnote
+*** DONE build_message_opnote
+    CLOSED: [2016-04-25 Mon 16:24]
+    - State "STARTED"    from "TODO"       [2016-04-25 Mon 15:32]
+
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO build_message_ownship
 *** TODO build_message_pairing_association
 *** TODO build_message_reception_quality

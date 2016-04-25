@@ -130,4 +130,4 @@
      args )))
 
 
-(define feio offset proc args (apply for-each-index-offset offset proc args))
+(define ( feio offset proc args ) (apply for-each-index-offset offset proc args))
