@@ -537,7 +537,7 @@ inline long testsc_eval_ivalue(pointer x)
 inline double testsc_eval_dvalue(pointer x)
 {
   if(is_symbol(x)){
-    x = scheme_eval(&g_sc ,x)
+    x = scheme_eval(&g_sc ,x) ; 
   }
 
   if(is_integer(x)){
