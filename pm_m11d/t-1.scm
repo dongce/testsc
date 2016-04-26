@@ -4,15 +4,13 @@
 ;; (testsc-require dlplink11types)
 
 (case (testsc-get-testnum)
-  ((1)
-   (define testsc 1)
-   (define idtp 0)
+  ((8)
+   (define testsc 1 )
+   (define m2valid 0 )
    )
-  
-  ((2)
-   (define testsc 1)
-   (define idtp 1)
-   (define iac 1)
+  ((9)
+   (define testsc 1 )
+   (define m2valid 1 )
    )
   )
 

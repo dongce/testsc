@@ -3,16 +3,15 @@
 ;; (testsc-require system_types)
 ;; (testsc-require dlplink11types)
 
+(define  South  1)
+(define  West   1)
+
 (case (testsc-get-testnum)
-  ((1)
-   (define testsc 1)
-   (define idtp 0)
-   )
-  
   ((2)
-   (define testsc 1)
-   (define idtp 1)
-   (define iac 1)
+   (define testsc 1 )
+   
+   (mmsg-set 
+    (list M9GNS 0 South)
+    (list M9GEW 0 West))
    )
   )
-

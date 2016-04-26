@@ -4,15 +4,9 @@
 ;; (testsc-require dlplink11types)
 
 (case (testsc-get-testnum)
-  ((1)
-   (define testsc 1)
-   (define idtp 0)
-   )
-  
-  ((2)
-   (define testsc 1)
-   (define idtp 1)
-   (define iac 1)
+  ((3)
+   (define testsc 1 )
+   (define dlrplat 10000)
    )
   )
 
