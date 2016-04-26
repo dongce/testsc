@@ -54,7 +54,7 @@
 (feio
  9
  (lambda (x)
-   (mmsg-set (car x) (cadr x) (list M10ARC  0 RC_COMPLIANCE_REQUIRED) )
+   (mmsg-set (car x) (cadr x)  )
    )
  
 (perm 
@@ -62,7 +62,7 @@
    )
 
  '(
-   (M10ARC 0 RC_CANT_PROCESS)
+   (M10ARC 0 RC_COMPLIANCE_REQUIRED)
    ))
  )
 

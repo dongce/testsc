@@ -41,7 +41,7 @@ system_types-track_kind_esm_fix_refpos
    ;; (set! ibs 0 )
    (tnset 0 'own_or_lro lro_track)
    )
- '( 34 35 36 37 38)
+ '( 34 35 36 37 38 39)
  )
 
 
@@ -51,52 +51,61 @@ system_types-track_kind_esm_fix_refpos
    (tnset 0 'general.track_existence system_types-training_track)
    )
   ((35)
+   (define gi system_types-identity_friend )
    (define ge system_types-air_environment)
+   (tnset 0  'cmsdata.identity gi)
    )
 
   ((36)
+   (define gi system_types-identity_friend )
    (define ge system_types-surface_environment)
    (tnset 0  'cmsdata.environment ge)
+   (tnset 0  'general.identity gi)
    )
   ((37)
+   (define gi system_types-identity_friend )
    (define ge system_types-air_environment)
    (tnset 0 'link11.environment_OSindiff_resolve 1)
+   (tnset 0 'link11.identity_OSindiff_resolve 1)
    )
 
   ((38)
+   (define gi system_types-identity_friend )
    (define ge system_types-air_environment)
-   (tnset 0  'general.track_kind system_types-surface_environment)
+   (tnset 0  'general.track_kind system_types-track_kind_surface_point_track )
    )
-  
+  ((39)
+   (define gi system_types-identity_friend )
+   (define ge system_types-surface_environment)
+   (tnset 0  'general.track_kind system_types-track_kind_air_point_track )
+   )
+   
 )
 
 
-;; (testsc-require l11const)
-;; (testsc-require system_types)
-;; (testsc-require dlplink11types)
 
-;; (case (testsc-get-testnum)
-;;   ((32)
-;;    (define testsc 1 )
-;;    (set! ibs 0 )
-;;    (tnset 0
-;;           'own_or_lro       lro_track
-;;           'general.tactical 111)
-;;    (define findint 1)
-;;    (define findint-value 111)
-;;    )
+(case (testsc-get-testnum)
+  ((40)
+   (set! testsc 1 )
+   (set! ibs 0 )
+   (tnset 0
+          'own_or_lro       lro_track
+          'general.tactical 111)
+   (define findint 1)
+   (define findint-value 111)
+   )
 
-;;   ((33)
-;;    (define testsc 1 )
-;;    (set! ibs 0 )
-;;    (set! gls 0 )
+  ((41)
+   (set! testsc 1 )
+   (set! ibs 0 )
+   (set! gls 0 )
    
-;;    (tnset 0
-;;           'own_or_lro       lro_track
-;;           'general.tactical 111)
-;;    (define findint 1)
-;;    (define findint-value 0))
+   (tnset 0
+          'own_or_lro       lro_track
+          'general.tactical 111)
+   (define findint 1)
+   (define findint-value 0))
   
-;;   )
+  )
 
 
