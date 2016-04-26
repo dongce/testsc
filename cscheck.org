@@ -27,6 +27,7 @@ struct admin_t {
 ** 100 이지만 이상종료하는 것 
 looptest::looptest_ptt
 ** TODO [#A] trunk 반영 필요. 
+LINK11_DSF_MANAGER.cpp
 process_message_m11b.cpp
 build_message_supporting_information.cpp
 process_message_m10.cpp
@@ -200,7 +201,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [68/91]
+** 진척률 [69/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -209,7 +210,8 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-*** STARTED LINK11_DSF_MANAGER
+*** DONE LINK11_DSF_MANAGER
+    CLOSED: [2016-04-26 Tue 19:38]
     - State "STARTED"    from "TODO"       [2016-04-26 Tue 16:23]
 **** 확인 사항  
     - [ ] 타이머 설정 
@@ -1245,7 +1247,13 @@ update
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO process_message_m2
+*** STARTED process_message_m2
+    - State "STARTED"    from "TODO"       [2016-04-26 Tue 16:42]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO process_message_m3
 *** DONE process_message_m4ab
     CLOSED: [2016-04-02 Sat 17:52]

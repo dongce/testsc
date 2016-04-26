@@ -8,5 +8,9 @@
    (define testsc 1 )
    (define m2valid 0 )
    )
+  ((9)
+   (define testsc 1 )
+   (define m2valid 1 )
+   )
   )
 
