@@ -27,6 +27,7 @@ struct admin_t {
 ** 100 이지만 이상종료하는 것 
 looptest::looptest_ptt
 ** TODO [#A] trunk 반영 필요. 
+process_message_m10.cpp
 intds_intf.h
 build_message_track.cpp
 build_message_training.cpp 
@@ -54,6 +55,7 @@ build_message_opnote.cpp
 process_message_m9e.cpp
 build_message_ownship.cpp
 general_library.cpp
+process_message_m1_rp0.cpp
 ** 주의사항 
  - [ ] 스크립트 폴더별로 작성 주의 
  - [ ] 시작전 최신 파일 체크아웃 (.cpp, .h)
@@ -196,7 +198,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [60/91]
+** 진척률 [61/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -899,7 +901,15 @@ testsc_admin_get(id++) ;
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO build_message_reception_quality
+*** DONE build_message_reception_quality
+    CLOSED: [2016-04-26 Tue 12:34]
+    - State "STARTED"    from "TODO"       [2016-04-26 Tue 10:15]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
+
 *** TODO build_message_special_code
 *** TODO build_message_supporting_information
 *** DONE build_message_tag
@@ -1150,7 +1160,7 @@ update
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** PENDING process_message
+*** DONE process_message
     CLOSED: [2016-04-25 Mon 21:18]
     - State "STARTED"    from "TODO"       [2016-04-25 Mon 21:03]
 **** 확인 사항  
@@ -1158,7 +1168,13 @@ update
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO process_message_m10
+*** STARTED process_message_m10
+    - State "STARTED"    from "TODO"       [2016-04-26 Tue 11:14]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO process_message_m11b
 *** TODO process_message_m11c
 *** TODO process_message_m11d
