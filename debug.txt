@@ -55,3 +55,194 @@ testnum(8)link11_sc.cpp:553, get_field_value debug  ( 0, 4 )
 testnum(8)link11_sc.cpp:572, get_field_value debug (0, 4, 5) , 0, 4
 testsc_ivalue testsc is 1
 testnum(8)link11_sc.cpp:553, get_field_value debug  ( 146, 4 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m1_rp1/t-6)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:553, get_field_value debug  ( 5, 0 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:553, get_field_value debug  ( 0, 2 )
+testnum(8)link11_sc.cpp:572, get_field_value debug (0, 2, 1) , 0, 2
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:553, get_field_value debug  ( 5, 2 )
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:553, get_field_value debug  ( 0, 4 )
+testnum(8)link11_sc.cpp:572, get_field_value debug (0, 4, 5) , 0, 4
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:553, get_field_value debug  ( 146, 4 )
+testnum(8)link11_sc.cpp:572, get_field_value debug (146, 4, 1) , 146, 4
+testsc_ivalue testsc is 1
+testnum(8)link11_sc.cpp:553, get_field_value debug  ( 148, 4 )
+testnum(8)link11_sc.cpp:572, get_field_value debug (148, 4, 13) , 148, 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require ti/t-34)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_si/t-3)
+testsc-track-nset
+testsc-track-nset22
+field set supporting_info.info_validation, 1 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_si/t-3)
+testsc-track-nset
+testsc-track-nset22
+field set supporting_info.info_validation, 0 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m1_rp1/t-6)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:553, get_field_value debug  ( 5, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:553, get_field_value debug  ( 0, 2 )
+testnum(9)link11_sc.cpp:572, get_field_value debug (0, 2, 5) , 0, 2
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:553, get_field_value debug  ( 0, 2 )
+testnum(9)link11_sc.cpp:572, get_field_value debug (0, 2, 5) , 0, 2
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:553, get_field_value debug  ( 146, 2 )
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_si/t-3)
+testsc-track-nset
+testsc-track-nset22
+field set supporting_info.info_validation, 1 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_si/t-3)
+testsc-track-nset
+testsc-track-nset22
+field set supporting_info.info_validation, 0 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-34)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m1_rp1/t-6)
+dlplink11types
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:553, get_field_value debug  ( 5, 0 )
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:553, get_field_value debug  ( 0, 2 )
+testnum(9)link11_sc.cpp:572, get_field_value debug (0, 2, 5) , 0, 2
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:553, get_field_value debug  ( 0, 2 )
+testnum(9)link11_sc.cpp:572, get_field_value debug (0, 2, 5) , 0, 2
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:553, get_field_value debug  ( 146, 2 )
+testnum(9)link11_sc.cpp:572, get_field_value debug (146, 2, 1) , 146, 2
+testsc_ivalue testsc is 1
+testnum(9)link11_sc.cpp:553, get_field_value debug  ( 148, 2 )
+testnum(9)link11_sc.cpp:572, get_field_value debug (148, 2, 13) , 148, 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_si/t-3)
+testsc-track-nset
+testsc-track-nset22
+field set supporting_info.info_validation, 1 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_ivalue imrv is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require bm_si/t-3)
+testsc-track-nset
+testsc-track-nset22
+field set supporting_info.info_validation, 0 done
+testsc_ivalue testsc is 1
+testsc_track_get with id 0
+testsc_ivalue testsc is 1
+testsc_ivalue imrv is 1
