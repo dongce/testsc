@@ -105,6 +105,26 @@ system_types-track_kind_esm_fix_refpos
           'general.tactical 111)
    (define findint 1)
    (define findint-value 0))
+  ((42)
+   (set! testsc 1 )
+   (set! ibs 0 )
+   (tnset 0
+          'own_or_lro       lro_track
+          'general.tactical 111)
+   (define findint 1)
+   (define findint-value 99)
+   )
+  ((43)
+   (set! testsc 1 )
+   (set! ibs 0 )
+   (tnset 0
+          'own_or_lro       lro_track
+          'general.tactical 111
+          'general.network_track_phase system_types-wiped
+          )
+   (define findint 1)
+   (define findint-value 99)
+   )
   
   )
 
