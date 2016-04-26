@@ -40,15 +40,16 @@ system_types-track_kind_esm_fix_refpos
    (set! testsc 1 )
    ;; (set! ibs 0 )
    (tnset 0 'own_or_lro lro_track)
-   (if (= 34 x)
-       (tnset 0 'general.track_existence system_types-training_track))
    )
- '( 34 35 36 37)
+ '( 34 35 36 37 38)
  )
 
 
 
 (case (testsc-get-testnum)
+  ((34)
+   (tnset 0 'general.track_existence system_types-training_track)
+   )
   ((35)
    (define ge system_types-air_environment)
    )
@@ -64,7 +65,7 @@ system_types-track_kind_esm_fix_refpos
 
   ((38)
    (define ge system_types-air_environment)
-   (tnset 0  'general.track_kind -1)
+   (tnset 0  'general.track_kind system_types-surface_environment)
    )
   
 )

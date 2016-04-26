@@ -42,6 +42,7 @@
   ((42)
    (set! testsc 1 )
    (mmsg-set (list  M81ENVCAT  THIRD_FRAME_OFFSET 2 )
+             (list  M81MU  THIRD_FRAME_OFFSET 1)
              '(M81SI  THIRD_FRAME_OFFSET 1))
    )
   
