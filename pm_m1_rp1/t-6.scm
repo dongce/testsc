@@ -57,5 +57,9 @@
    (mmsg-set
     (list  M1SPI 0 1 )           
     (list  M1MN  SECOND_FRAME_OFFSET 0)))
-  
+
+  ((10)
+   (define gcp 1 )
+   (define gcp-value 90000 )
+   )
   )

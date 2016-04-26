@@ -200,7 +200,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [67/91]
+** 진척률 [68/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -209,7 +209,13 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-*** TODO LINK11_DSF_MANAGER
+*** STARTED LINK11_DSF_MANAGER
+    - State "STARTED"    from "TODO"       [2016-04-26 Tue 16:23]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO SQLite3Interface
 *** DONE build_message_aircrafta_control
     CLOSED: [2016-04-16 Sat 20:44]
@@ -956,12 +962,12 @@ const track_selection_t * build_message_track::find_track_transmission_character
  - [X] 일괄 실행 
 
 
-*** self stub 
-**** process_data_update_requests 
+**** self stub 
+***** process_data_update_requests 
 validate_data_update_request
 
 
-**** bool build_message_update_request::validate_data_update_request(update_request_t &   update_request )
+***** bool build_message_update_request::validate_data_update_request(update_request_t &   update_request )
  update_request_t * build_message_update_request::find_update_request(const update_request_t & arg0)
  {
 	 return 1 ;
@@ -1230,7 +1236,8 @@ update
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** STARTED process_message_m1_rp1
+*** DONE process_message_m1_rp1
+    CLOSED: [2016-04-26 Tue 16:40]
     - State "STARTED"    from "TODO"       [2016-04-26 Tue 14:21]
 
 **** 확인 사항  
