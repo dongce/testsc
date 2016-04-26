@@ -19,8 +19,17 @@
   ((1)
    (mmsg-set (list  M1MN  SECOND_FRAME_OFFSET MESSAGE_NUMBER_M1)
              (list  M1RP  SECOND_FRAME_OFFSET 1)
-             (list  M1MN  THIRD_FRAME_OFFSET MESSAGE_NUMBER_M8)
+             (list  M1MN  THIRD_FRAME_OFFSET MESSAGE_NUMBER_M5)
              ))
+
+  ((8)
+   (mmsg-set (list  M1MN  SECOND_FRAME_OFFSET MESSAGE_NUMBER_M1)
+             (list  M1RP  SECOND_FRAME_OFFSET 1)
+             ;; (list  M5TN     THIRD_FRAME_OFFSET 1) 
+             (list  M5POINT  THIRD_FRAME_OFFSET 13)
+             (list  M1MN  THIRD_FRAME_OFFSET MESSAGE_NUMBER_M5)
+             ))
+  
   
   ((2)
    (mmsg-set (list  M1MN  SECOND_FRAME_OFFSET MESSAGE_NUMBER_M5)))
@@ -45,5 +54,3 @@
     (list  M1MN  SECOND_FRAME_OFFSET 0)))
   
   )
-
-

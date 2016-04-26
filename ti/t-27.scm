@@ -27,3 +27,11 @@
    (set! byPRIType x))
  (num-list -1 6)
  )
+
+
+
+(case (testsc-get-testnum)
+  ((23)
+   (set! ewprim 0 ))
+  )
+
