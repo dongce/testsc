@@ -54,7 +54,6 @@
    (set! lynxesm 1)
    (set! byThreatLevel x))
  
- '(3)
  '(#x0 #x6 #x81)
  )
 
@@ -65,7 +64,6 @@
    (set! lynxesm 1)
    (set! byPRIType x))
  
- '(3)
 (num-list -1 8)
  )
 
