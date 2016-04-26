@@ -54,7 +54,7 @@
    (set! lynxesm 1)
    (set! byThreatLevel x))
  
- '(#x0 #x6 #x81)
+ '(#x0 #x6 #x81 8000)
  )
 
 (feio
