@@ -284,12 +284,28 @@ foreign_testsc_admin_strset(scheme *sc , pointer args)
   for (pointer field = pop_args(args); is_pair(field); field = pop_args(args)) {
     const char *sym = symname(pop_args(field) ); 
     const std::string fieldname(sym);
-    const char* fieldstr =  string_value( pop_args(field)) ;
 
-    testsc_debug("admin_strset %x %x %s:%d" , fieldstr[0] , fieldstr[1], __FILE__, __LINE__) ; 
-    FOR_FIELD_ID(fieldname){
-      FIELD_STRSET_VALUE(_buff , it, fieldstr) ; 
+    pointer sit = pop_args(field) ;
+
+    if( is_string(sit)){
+      const char* fieldstr =  string_value( sit ) ;
+
+      FOR_FIELD_ID(fieldname){
+        FIELD_STRSET_VALUE(_buff , it, fieldstr) ; 
+      }
     }
+    else{
+      int counter = 0 ; 
+      while(is_pair(sit)){
+        it->second->_buff[counter++] = static_cast<uint8_t>(ivalue(pop_args(sit) ));
+      }
+    }
+
+    testsc_debug("admin_strset %x %x %s:%d" ,
+                 it->second->_buff[0] ,
+                 it->second->_buff[1],
+                 __FILE__,
+                 __LINE__) ; 
   }
   
   return mk_integer(sc, g_adminmap.size()); ; 
