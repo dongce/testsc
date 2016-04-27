@@ -132,7 +132,8 @@
        (if ( =  (+ offset index ) (testsc-get-testnum))
            (proc x ))
        (set! index (+ 1 index )))
-     args )))
+     args )
+    (testsc-debug (string-append  "for-each-index-offset " (number->string index)))))
 
 
 (define ( feio offset proc args ) (apply for-each-index-offset offset proc args))
@@ -146,4 +147,4 @@
          (cons (car l) (remove-duplicates (cdr l))))))
 
 (define (switchperm c . args )
-  (map (lambda (x) (list c x))) (cons -1  args))
+  (map (lambda (x) (list c x)) (cons -1  args)))

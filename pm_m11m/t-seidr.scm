@@ -41,8 +41,7 @@
    ew_intelligence_types-support_general
    ew_intelligence_types-tanker_general
    ew_intelligence_types-sec_surf_ampl_fishing_boat_general
-   ew_intelligence_types-sec_surf_ampl_merchant_general
-   )
+   ew_intelligence_types-sec_surf_ampl_merchant_general)
 
   (switchperm 
    ew_intelligence_types-subsurface_category
@@ -52,8 +51,7 @@
    ew_intelligence_types-ballistic_msl_general
    ew_intelligence_types-nuclear_sub_general
    ew_intelligence_types-diesel_sub_general
-   ew_intelligence_types-other_korea_sub_general
-   )
+   ew_intelligence_types-other_korea_sub_general)
 
   (switchperm 
    ew_intelligence_types-surface_category
@@ -68,8 +66,7 @@
    ew_intelligence_types-support_general
    ew_intelligence_types-tanker_general
    ew_intelligence_types-sec_surf_ampl_fishing_boat_general
-   ew_intelligence_types-sec_surf_ampl_merchant_general
-   )
+   ew_intelligence_types-sec_surf_ampl_merchant_general)
 
 
   (switchperm 
@@ -80,5 +77,5 @@
    ew_intelligence_types-ballistic_msl_general
    ew_intelligence_types-nuclear_sub_general
    ew_intelligence_types-diesel_sub_general
-   ew_intelligence_types-other_korea_sub_general
-   )))
+   ew_intelligence_types-other_korea_sub_general)))
+
