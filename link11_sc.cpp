@@ -65,7 +65,7 @@ struct admin_t {
     network_assignment_t   _network_assignment ; 
     opspec_types::opnote_t _opnote ; 
     ew_intelligence_types::ew_intelligence_request_record _ew_request; 
-    uint8_t _buff[2048] ; 
+    uint8_t _buff[204800] ; 
   } ;
 } ;
 
