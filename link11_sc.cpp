@@ -65,7 +65,8 @@ struct admin_t {
     network_assignment_t   _network_assignment ; 
     opspec_types::opnote_t _opnote ; 
     ew_intelligence_types::ew_intelligence_request_record _ew_request; 
-  } ; 
+  } ;
+  uint8_t _buff[2048] ; 
 } ;
 
 typedef std::map<uint32_t, admin_t*> adminmap_t ;
@@ -267,6 +268,31 @@ foreign_testsc_admin_nset(scheme *sc , pointer args)
   return mk_integer(sc, g_adminmap.size()); ; 
 }
 
+pointer
+foreign_testsc_admin_strset(scheme *sc , pointer args)
+{
+  uint32_t adminid = ivalue(pop_args(args)) ;
+
+  adminmap_t::iterator it = g_adminmap.find(adminid) ; 
+  if( g_adminmap.end() == it ){
+    admin_t* nit = reinterpret_cast<admin_t*>(malloc(sizeof(admin_t)));
+    memcpy(nit, &g_admindefault, sizeof(g_admindefault)) ; 
+    g_adminmap.insert(adminpair_t(adminid, nit)) ;
+    it = g_adminmap.find(adminid) ;
+  }
+    
+  for (pointer field = pop_args(args); is_pair(field); field = pop_args(args)) {
+    const char *sym = symname(pop_args(field) ); 
+    const std::string fieldname(sym);
+    const char* fieldstr =  string_value( pop_args(field)) ;
+
+    FOR_FIELD_ID(fieldname){
+      FIELD_STRSET_VALUE(_buff , it, fieldstr) ; 
+    }
+  }
+  
+  return mk_integer(sc, g_adminmap.size()); ; 
+}
 
 pointer
 foreign_testsc_admin_length(scheme *sc , pointer args)
@@ -480,6 +506,7 @@ foreign_testsc_init(scheme* sc , pointer args)
     {"testsc-track-nset" , foreign_testsc_track_nset   }, 
     {"testsc-track-nget" , foreign_testsc_track_nget   }, 
     {"testsc-admin-nset" , foreign_testsc_admin_nset   }, 
+    {"testsc-admin-strset" , foreign_testsc_admin_strset   }, 
     {"testsc-admin-nget" , foreign_testsc_admin_nget   }, 
     {"testsc-admin-length", foreign_testsc_admin_length  }, 
     {"testsc-admin-erase" , foreign_testsc_admin_erase  }, 
