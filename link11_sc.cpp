@@ -65,8 +65,8 @@ struct admin_t {
     network_assignment_t   _network_assignment ; 
     opspec_types::opnote_t _opnote ; 
     ew_intelligence_types::ew_intelligence_request_record _ew_request; 
+    uint8_t _buff[2048] ; 
   } ;
-  uint8_t _buff[2048] ; 
 } ;
 
 typedef std::map<uint32_t, admin_t*> adminmap_t ;
@@ -286,7 +286,7 @@ foreign_testsc_admin_strset(scheme *sc , pointer args)
     const std::string fieldname(sym);
     const char* fieldstr =  string_value( pop_args(field)) ;
 
-    testsc_debug("admin_strset %x %x" , fieldstr[0] , fieldstr[1]) ; 
+    testsc_debug("admin_strset %x %x %s:%d" , fieldstr[0] , fieldstr[1], __FILE__, __LINE__) ; 
     FOR_FIELD_ID(fieldname){
       FIELD_STRSET_VALUE(_buff , it, fieldstr) ; 
     }
