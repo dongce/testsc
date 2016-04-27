@@ -286,6 +286,7 @@ foreign_testsc_admin_strset(scheme *sc , pointer args)
     const std::string fieldname(sym);
     const char* fieldstr =  string_value( pop_args(field)) ;
 
+    testsc_debug("admin_strset %x %x" , fieldstr[0] , fieldstr[1]) ; 
     FOR_FIELD_ID(fieldname){
       FIELD_STRSET_VALUE(_buff , it, fieldstr) ; 
     }
