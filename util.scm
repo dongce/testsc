@@ -144,3 +144,6 @@
          (remove-duplicates (cdr l)))
         (else
          (cons (car l) (remove-duplicates (cdr l))))))
+
+(define (switchperm c . args )
+  (map (lambda (x) (list c x))) (cons -1  args))

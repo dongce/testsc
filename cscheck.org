@@ -203,7 +203,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [72/91]
+** 진척률 [73/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -1256,7 +1256,8 @@ update
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** STARTED process_message_m2
+*** DONE process_message_m2
+    CLOSED: [2016-04-28 Thu 08:30]
     - State "STARTED"    from "TODO"       [2016-04-26 Tue 16:42]
 **** 확인 사항  
     - [ ] 타이머 설정 
