@@ -93,7 +93,7 @@
 
 (define (astrset id  arg )
   (testsc-admin-nset id)
-    (testsc-admin-strset id '_buff arg))
+  (testsc-admin-strset id (list '_buff arg)))
 
 
 (define (t-offset start) (- (testsc-get-testnum) start))

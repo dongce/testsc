@@ -27,6 +27,7 @@ struct admin_t {
 ** 100 이지만 이상종료하는 것 
 looptest::looptest_ptt
 ** TODO [#A] trunk 반영 필요. 
+process_message_m2.cpp 
 track_input.cpp
 LINK11_DSF_MANAGER.cpp
 process_message_m11b.cpp
@@ -1701,7 +1702,13 @@ M9GE 0 West
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO remote_control
+*** STARTED remote_control
+    - State "STARTED"    from "TODO"       [2016-04-27 Wed 12:42]
+**** 확인 사항  
+    - [ ] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO rx_monitor
 *** TODO simulated_track
 *** TODO start_dlps
