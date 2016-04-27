@@ -91,6 +91,11 @@
       ((> 2 (length sym-vals)  ))
     (testsc-admin-nset id (list (car sym-vals) (eval-symbol  (cadr sym-vals))))))
 
+(define (astrset id  arg )
+  (testsc-admin-nset id)
+    (testsc-admin-strset id '_buff arg))
+
+
 (define (t-offset start) (- (testsc-get-testnum) start))
 
 (define (t-offset? start) (> (t-offset start ) -1))
