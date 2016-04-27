@@ -202,7 +202,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [71/91]
+** 진척률 [72/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -1693,7 +1693,14 @@ M9GE 0 West
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO received_frame_filter
+*** DONE received_frame_filter
+    CLOSED: [2016-04-27 Wed 12:40]
+    - State "STARTED"    from "TODO"       [2016-04-27 Wed 09:05]
+**** 확인 사항  
+    - [X] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO remote_control
 *** TODO rx_monitor
 *** TODO simulated_track

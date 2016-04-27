@@ -31,3 +31,1580 @@ tetsc-load t:/ts/temp.scm
 testsc eval (testsc-require pu_data/t-7)
 testsc_ivalue testsc is 1
 testsc_dvalue dlrplat is 10000.000000
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 5
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is -1
+testsc_ivalue byScanType is -1
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 255
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 127
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 1
+testsc_ivalue byScanType is 1
+testsc_ivalue byPRIType is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 0
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 2
+testsc_ivalue byScanType is 2
+testsc_ivalue byPRIType is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/init.scm
+find arg0 is 4
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+ª
+d arg0 is 7
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 4
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 4
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+tetsc-load t:/ts/util.scm
+util5
+util
+
+util2
+util5
+util3
+load t:/ts/temp.scm
+util4
+ª$
+tetsc-load t:/ts/temp.scm
+e pm_m2/t-prt)
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 9
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 5
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/init.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 0
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 6
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/init.scm
+find arg0 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 7
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+load t:/ts/util.scm
+tetsc-load t:/ts/temp.scm
+util2
+
+til5
+testsc eval (testsc-require ti/t-7)
+util4
+tetsc-load t:/ts/temp.scm
+find arg0 is 256
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+e pm_m2/t-prt)
+testsc_ivalue byThreatLevel is 8
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+load t:/ts/util.scm
+tetsc-load t:/ts/temp.scm
+util2
+util5
+util3
+ eval (testsc-require pm_m2/t-prt)
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 10
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 9
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/util.scm
+util2
+util
+
+util2
+util5
+util3
+util4
+load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 12
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/util.scm
+util
+util2
+load t:/ts/init.scm
+util5
+load t:/ts/util.scm
+util3
+util4
+util2
+util5
+load t:/ts/temp.scm
+util3
+
+til4
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/temp.scm
+ª
+find arg0 is 2147483647
+ire pm_m2/t-prt)
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+tetsc-load t:/ts/init.scm
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+tetsc-load t:/ts/init.scm
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/util.scm
+util
+find autil5
+ 6
+util3
+_ivalue testsc is 1
+util4
+_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+tetsc-load t:/ts/temp.scm
+s 0
+testsc_ivalue byPRIType is -1
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/util.scm
+util2
+util
+
+util2
+util5
+util3
+util4
+load t:/ts/temp.scm
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require pm_m2/t-prt)
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 126
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/util.scm
+util
+util2
+tetsc-load t:/ts/init.scm
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª'
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 0
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 11
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 0
+testsc_ivalue testsc is 1
+util
+c_ivalue ewprim is 1
+util2
+_ivalue byThreatLevel is 0
+util5
+_ivalue byScanType is 0
+util3
+_ivalue byPRIType is -1
+util4
+tetsc-load t:/ts/temp.scm
+ª$
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+-load t:/ts/util.scm
+util2
+util
+
+util2
+util4
+util3
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require ti/t-7)
+ª 
+testsc eval (testsc-require pm_m2/t-prt)
+find arg0 is 254
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 128
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+load t:/ts/init.scm
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/init.scm
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/temp.scm
+
+til
+testsc eval (testsc-require ti/t-7)
+util5
+util3
+util4
+tetsc-load t:/ttestsc_ivalue testsc is 1
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 1
+ pm_m2/t-prt)
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 3
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+tetsc-load t:/ts/util.scm
+util4
+util
+util2
+load t:/ts/temp.scm
+util5
+util3
+util4
+ eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 1
+testsc_ivalue byThreatLevel is 6
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª"
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 1
+testsc_ivalue byThreatLevel is 129
+tetsc-load t:/ts/init.scm
+s 0
+testsc_ivalue byPRIType is 1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/util.scm
+find arg0 is 2
+util
+c_ivalue testsc is 1
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 1
+testsc_ivalue byThreatLevel is 8000
+tetsc-load t:/ts/temp.scm
+s 0
+testsc_ivalue byPRIType is 2
+ª.
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 2
+tetsc-load t:/ts/init.scm
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 4
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/temp.scm
+util
+util2
+util5
+ eval (testsc-require pm_m2/t-prt)
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+load t:/ts/util.scm
+util4
+util
+tetsc-load t:/ts/temp.scm
+util5
+ª
+l3
+util4
+ eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+-load t:/ts/util.scm
+util2
+util
+
+util2
+util5
+util3
+util4
+load t:/ts/temp.scm
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require ti/t-7)
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+tetsc-load t:/ts/init.scm
+s 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+load t:/ts/util.scm
+util5
+util3
+util4
+util5
+tetsc-load t:/ts/temp.scm
+util4
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+tetsc-load t:/ts/init.scm
+util4
+tetsc-load t:/ts/temp.scm
+ª)
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª0
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+]C
+testsc eval (testsc-require rff/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+]C
+testsc eval (testsc-require rff/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+]C
+testsc eval (testsc-require rff/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+]C
+testsc eval (testsc-require rff/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+]C
+testsc eval (testsc-require rff/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+]C
+testsc eval (testsc-require rff/t-1)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+]C
+testsc eval (testsc-require rff/t-1)
+testsc_ivalue testsc is 1
+admin get not exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 5
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is -1
+testsc_ivalue byScanType is -1
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 255
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 127
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 1
+testsc_ivalue byScanType is 1
+testsc_ivalue byPRIType is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 0
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 2
+testsc_ivalue byScanType is 2
+testsc_ivalue byPRIType is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 4
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 0
+testsc_ivalue testsc is 1
+testsc_ivalue testsc is 1
+admin get not exist 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 7
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 4
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 9
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 5
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 0
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 6
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+-load t:/ts/util.scm
+util
+
+util2
+util5
+util3
+tetsc-load t:/ts/temp.scm
+
+etsc-load t:/ts/temp.scm
+testsc eval (testsc-require ti/t-7)
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+find arg0 is 1
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 7
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/init.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 256
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 8
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+load t:/ts/util.scm
+util
+
+util2
+util5
+util3
+util4
+load t:/ts/temp.scm
+tetsc-load t:/ts/temp.scm
+testsc eval (testsc-require ti/t-7)
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+find arg0 is 10
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 9
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+load t:/ts/init.scm
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª'
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 12
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 2147483647
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 3
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/init.scm
+find arg0 is 6
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª#
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 126
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+load t:/ts/util.scm
+util4
+util
+tetsc-load t:/ts/temp.scm
+util5
+
+til3
+util4
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/temp.scm
+ª
+d arg0 is 0
+testsc_ivalue testsc is 1
+e pm_m2/t-prt)
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª!
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/init.scm
+find arg0 is 11
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/init.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/util.scm
+
+util
+c eval (testsc-require ti/t-7)
+util2
+util5
+find arg0 is 0
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 254
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+tetsc-load t:/ts/util.scm
+util3
+util
+
+util2
+tetsc-load t:/ts/temp.scm
+util3
+
+til4
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/temp.scm
+ª
+find arg0 is 128
+sc-require pm_m2/t-prt)
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª#
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/init.scm
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 1
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/init.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+tetsc-load t:/ts/util.scm
+
+testsc eval (testsc-require ti/t-7)
+util2
+util5
+util3
+util4
+find arg0 is 2
+tetsc-load t:/ts/temp.scm
+testsc_ivalue ewprim is 0
+ª+
+tsc_ivalue testsc is 1
+testsc eval (testsc-require pm_m2/t-prt)
+testsc_ivalue byThreatLevel is 0
+testsc_ivalue byScanType is 3
+testsc_ivalue byPRIType is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+tetsc-load t:/ts/util.scm
+tetsc-load t:/ts/temp.scm
+util
+ª!
+l2
+testsc eval (testsc-require pm_m2/t-prt)
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+find arg0 is 2
+testsc_ivalue testsc is 1
+testsc_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 1
+testsc_ivalue byThreatLevel is 6
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+load t:/ts/init.scm
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require ti/t-7)
+tetsc-load t:/ts/util.scm
+util
+arg0 is 2
+util2
+_ivalue testsc is 1
+util5
+_ivalue ewprim is 0
+testsc_ivalue testsc is 1
+testsc_ivalue lynxesm is 1
+testsc_ivalue byThreatLevel is 129
+testsc_ivalue byScanType is 0
+testsc_ivalue byPRIType is 1
+ª
+testsc eval (testsc-require pm_m2/t-prt)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
