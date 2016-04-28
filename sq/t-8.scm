@@ -12,6 +12,7 @@
 (define sr   0 )
 (define ss   0 )
 
+(anset 0 )
 (feio
  1
 

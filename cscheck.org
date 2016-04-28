@@ -209,7 +209,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [79/91]
+** 진척률 [80/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -1801,7 +1801,8 @@ update_track_alert N/A N/A N/A N/A
 *** DONE usr_channel
     CLOSED: [2016-04-05 Tue 00:00]
     - State "STARTED"    from "TODO"       [2016-04-04 Mon 16:36]
-*** STARTED utility
+*** DONE utility
+    CLOSED: [2016-04-28 Thu 14:49]
     - State "STARTED"    from "TODO"       [2016-04-28 Thu 11:31]
 **** 확인 사항  
     - [X] 타이머 설정 
