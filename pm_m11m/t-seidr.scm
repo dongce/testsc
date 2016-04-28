@@ -28,6 +28,21 @@
    (set! general_type (cadr x)))
  
  (append 
+
+  (switchperm 
+   ew_intelligence_types-air_category
+   
+   ew_intelligence_types-interceptor_general
+   ew_intelligence_types-bomber_attack_general
+   ew_intelligence_types-bomber_general
+   ew_intelligence_types-helo_general
+   ew_intelligence_types-attack_helo_general
+   ew_intelligence_types-drone_general
+   ew_intelligence_types-support_general
+   ew_intelligence_types-civil_general
+   ew_intelligence_types-patrol_general
+   ew_intelligence_types-AEW_general)
+
   (switchperm 
    ew_intelligence_types-surface_category
 
@@ -77,5 +92,20 @@
    ew_intelligence_types-ballistic_msl_general
    ew_intelligence_types-nuclear_sub_general
    ew_intelligence_types-diesel_sub_general
-   ew_intelligence_types-other_korea_sub_general)))
+   ew_intelligence_types-other_korea_sub_general)
+
+  ))
+
+
+
+(feio
+ 63
+ (lambda (x)
+   (set! category x)
+   (set! general_type x)
+   )
+
+ (num-list -1 10)
+ )
+
 

@@ -8,330 +8,12 @@ util3
 util4
 tetsc-load t:/ts/temp.scm
 
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 191
-recv_serial admin_strset 2 21 0 83
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue rslen is 191
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 191
-recv_serial admin_strset 2 21 bf 83
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue rslen is 191
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 191
-recv_serial admin_strset 2 21 bf 83
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue rslen is 191
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 191
-recv_serial admin_strset 2 21 bf 83
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue rslen is 191
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 1 1 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 128
-recv_serial admin_strset 1 1 0 2
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue rslen is 128
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 191
-recv_serial admin_strset 2 21 bf 84
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue rslen is 191
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
+for-each-index-offset 11
+for-each-index-offset 49
 testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 100000000
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is -1
+testsc_ivalue category is 1
 testsc_ivalue general_type is -1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
@@ -344,64 +26,10 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 1
-testsc_ivalue general_type is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 2
-testsc_ivalue general_type is 2
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 3
-testsc_ivalue general_type is 3
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 4
 testsc_ivalue general_type is 4
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
@@ -414,8 +42,42 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
-testsc_ivalue category is 5
+testsc_ivalue category is 1
+testsc_ivalue general_type is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 1
+testsc_ivalue general_type is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 1
 testsc_ivalue general_type is 5
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
@@ -428,8 +90,10 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
-testsc_ivalue category is 6
+testsc_ivalue category is 1
 testsc_ivalue general_type is 6
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
@@ -442,8 +106,10 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
-testsc_ivalue category is 7
+testsc_ivalue category is 1
 testsc_ivalue general_type is 7
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
@@ -456,8 +122,10 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
-testsc_ivalue category is 8
+testsc_ivalue category is 1
 testsc_ivalue general_type is 8
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
@@ -470,8 +138,10 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
-testsc_ivalue category is 9
+testsc_ivalue category is 1
 testsc_ivalue general_type is 9
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
@@ -484,377 +154,21 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
 tetsc-load t:/ts/init.scm
+for-each-index-offset 12
+for-each-index-offset 62
 tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
 testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 100000000
-recv_serial admin_strset 2 21 bf 84
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-tetsc-load t:/ts/util.scm
-util5
-util
-
-util2
-util5
-util3
-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-util4
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-e pm_m2/t-2)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util4
-util5
-tetsc-load t:/ts/temp.scm
-util4
-
-tetsc-load t:/ts/temp.scm
-e pm_m2/t-2)
-ª#
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-tetsc-load t:/ts/init.scm
-testsc eval (testsc-require pm_m2/t-2)
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª(
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m2/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-util
-c_ivalue testsc is 1
-util2
-_ivalue testsc is 1
-util5
-_ivalue testsc is 1
-util3
-_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m2/t-2)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª,
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
+testsc_ivalue category is 1
+testsc_ivalue general_type is 10
 util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
 ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
+testsc eval (testsc-require ti/t-52)
 tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª#
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 100000000
-recv_serial admin_strset 2 21 bf 84
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-tetsc-load t:/ts/init.scm
+dlplink11types
 tetsc-load t:/ts/util.scm
 util
 util2
@@ -864,576 +178,12 @@ util4
 tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
+for-each-index-offset 10
+testsc_ivalue testsc is 1
+testsc_ivalue gec is 3
 dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is -1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 2
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 3
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 4
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 5
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 6
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 7
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 8
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 9
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 100000000
-recv_serial admin_strset 2 21 bf 84
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 100000000
-recv_serial admin_strset 2 21 bf 84
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 100000000
-recv_serial admin_strset 2 21 bf 84
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 100000000
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 191
-recv_serial admin_strset 2 21 bf 84
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue rslen is 191
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 20480
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 204
-recv_serial admin_strset 2 21 bf 84
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue rslen is 204
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 256
-recv_serial admin_strset 2 21 bf 84
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue rslen is 256
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 256
-recv_serial admin_strset 2 21 bf 84
-testsc_ivalue testsc is 1
-testsc_ivalue idmc-0 is 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue rslen is 256
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-1)
-admin_strset 0 0 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-testsc_ivalue rslen is 128
-recv_serial admin_strset 0 0 0 0
-testsc_ivalue testsc is 1
-admin get not exist 1
-testsc_ivalue rslen is 128
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-3)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-admin get exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-3)
-testsc_ivalue testsc is 1
-admin get not exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 4
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 5
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 6
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 7
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 8
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 9
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 1
-testsc_ivalue general_type is 10
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 1
 testsc_ivalue general_type is 11
@@ -1448,6 +198,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 1
 testsc_ivalue general_type is 12
@@ -1462,6 +214,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 1
 testsc_ivalue general_type is 13
@@ -1476,514 +230,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-3)
-admin_strset 2 21 link11_sc.cpp:308
-testsc_ivalue testsc is 1
-dlplink11types
- 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-_ivalue testsc is 1
-util5
-_ivalue category is 0
-util3
-_ivalue general_type is 0
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-3)
-testsc_ivalue testsc is 1
-admin get not exist 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª 
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue gi is -1
-testsc_ivalue testsc is 1
-testsc_ivalue gi is -1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-testsc_ivalue testsc is 1
-testsc_ivalue category is 0
-testsc_ivalue general_type is 0
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is -1
@@ -1998,24 +246,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
-testsc_ivalue testsc is 1
-testsc_ivalue category is 2
-testsc_ivalue general_type is -1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
-dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 14
@@ -2030,8 +262,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 15
@@ -2046,8 +278,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 16
@@ -2062,8 +294,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 17
@@ -2078,8 +310,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 12
@@ -2094,27 +326,38 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 18
 tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
 util2
 util5
 util3
 util4
+tetsc-load t:/ts/util.scm
+util
+util2
+ eval (testsc-require pm_m11m/t-seidr)
+util5
+util3
+util4
 tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require pm_m11m/t-seidr)
+ª 
+testsc eval (testsc-require ti/t-52)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 19
+testsc_ivalue testsc is 1
+testsc_ivalue gec is 4
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
@@ -2126,8 +369,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 10
@@ -2142,8 +385,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 20
@@ -2158,8 +401,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 21
@@ -2174,8 +417,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 22
@@ -2190,8 +433,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 3
 testsc_ivalue general_type is -1
@@ -2206,8 +449,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 3
 testsc_ivalue general_type is 23
@@ -2222,8 +465,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 3
 testsc_ivalue general_type is 24
@@ -2238,8 +481,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 3
 testsc_ivalue general_type is 25
@@ -2254,8 +497,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 3
 testsc_ivalue general_type is 26
@@ -2270,8 +513,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 3
 testsc_ivalue general_type is 27
@@ -2286,18 +529,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-2)
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 3
 testsc_ivalue general_type is 28
@@ -2307,63 +540,29 @@ util
 util2
 util5
 util3
-load t:/ts/init.scm
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-2)
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
 util4
 tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
-tetsc-load t:/ts/init.scm
 dlplink11types
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-
-testsc eval (testsc-require rc/t-2)
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is -1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
-tetsc-load t:/ts/util.scm
 util
-util2
 util2
 util5
 util3
 util4
-util4
-tetsc-load t:/ts/temp.scm
 tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
-testsc eval (testsc-require rc/t-2)
 dlplink11types
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-for-each-index-offset 11
-testsc eval (testsc-require rc/t-2)
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 14
@@ -2378,8 +577,8 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 15
@@ -2391,20 +590,17 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-ª$
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 2
+testsc_ivalue general_type is 16
 tetsc-load t:/ts/init.scm
-e ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
 tetsc-load t:/ts/util.scm
-testsc_ivalue testsc is 1
 util
-c_ivalue testsc is 1
 util2
 util5
 util3
@@ -2413,128 +609,24 @@ tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-2
-testsc_ivalue testsc is 1
- is 16
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-load t:/ts/util.scm
-util4
-util
-tetsc-load t:/ts/temp.scm
-util5
-util3
-util4
-testsc eval (testsc-require pm_m11m/t-seidr)
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue gi is -1
-testsc_ivalue testsc is 1
-testsc_ivalue gi is -1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-dlplink11types
-tetsc-load t:/ts/init.scm
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 17
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
 util2
 util5
-load t:/ts/init.scm
 util3
 util4
 tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-tetsc-load t:/ts/util.scm
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-tetsc-load t:/ts/temp.scm
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
 
 testsc eval (testsc-require pm_m11m/t-seidr)
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-for-each-index-offset 11
-for-each-index-offset 38
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 12
@@ -2546,18 +638,15 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
+testsc_ivalue category is 2
+testsc_ivalue general_type is 18
+tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
 util
 util2
@@ -2567,133 +656,25 @@ util4
 tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
-tetsc-load t:/ts/init.scm
 dlplink11types
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª'
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
-testsc_ivalue general_type is 18
-tetsc-load t:/ts/init.scm
+testsc_ivalue general_type is 19
 tetsc-load t:/ts/init.scm
 tetsc-load t:/ts/util.scm
-tetsc-load t:/ts/util.scm
-util2
 util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
 
-util2
-util5
-util3
-util4
-load t:/ts/temp.scm
-ª&
-sc-load t:/ts/temp.scm
-testsc eval (testsc-require ti/t-48)
-
-testsc_ivalue testsc is 1
-e pm_m11m/t-seidr)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-k11types
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª+
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-ach-index-offset 11
-util2
-util5
-ch-index-offset 38
-util3
-util4
-_ivalue testsc is 1
-testsc_ivalue category is 2
-tetsc-load t:/ts/temp.scm
- is 19
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-tetsc-util5
-:/ts/util.scm
-util3
-util4
-util2
-util5
-tetsc-load t:/ts/temp.scm
-util3
-c eval (testsc-require pm_m11m/t-seidr)
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-for-each-index-offset 11
-for-each-index-offset 38
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 10
@@ -2705,48 +686,11 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-ª(
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
-tetsc-load t:/ts/init.scm
 dlplink11types
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
-ª
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 20
@@ -2758,31 +702,11 @@ util5
 util3
 util4
 tetsc-load t:/ts/temp.scm
-ª#
-testsc eval (testsc-require ti/t-48)
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-testsc_ivalue strlen is 1
-testsc_ivalue testsc is 1
-testsc_ivalue testsc is 1
-tetsc-load t:/ts/init.scm
-tetsc-load t:/ts/util.scm
-util
-util2
-util5
-util3
-util4
-tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
 dlplink11types
-for-each-index-offset 11
-for-each-index-offset 38
+for-each-index-offset 12
+for-each-index-offset 62
 testsc_ivalue testsc is 1
 testsc_ivalue category is 2
 testsc_ivalue general_type is 21
@@ -2796,3 +720,802 @@ util4
 tetsc-load t:/ts/temp.scm
 
 testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 2
+testsc_ivalue general_type is 22
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 3
+testsc_ivalue general_type is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 3
+testsc_ivalue general_type is 23
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 3
+testsc_ivalue general_type is 24
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 3
+testsc_ivalue general_type is 25
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 3
+testsc_ivalue general_type is 26
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 3
+testsc_ivalue general_type is 27
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 3
+testsc_ivalue general_type is 28
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require rx_monitor/t-8)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is -1
+testsc_ivalue general_type is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 1
+testsc_ivalue general_type is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 2
+testsc_ivalue general_type is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 3
+testsc_ivalue general_type is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 4
+testsc_ivalue general_type is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 5
+testsc_ivalue general_type is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 6
+testsc_ivalue general_type is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 7
+testsc_ivalue general_type is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 8
+testsc_ivalue general_type is 8
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 9
+testsc_ivalue general_type is 9
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-seidr)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-23)
+dlplink11types
+for-each-index-offset 10
+testsc_ivalue testsc is 1
+testsc_ivalue gec is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-23)
+dlplink11types
+for-each-index-offset 10
+testsc_ivalue testsc is 1
+testsc_ivalue gec is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-23)
+dlplink11types
+for-each-index-offset 10
+testsc_ivalue testsc is 1
+testsc_ivalue gec is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require ti/t-23)
+dlplink11types
+for-each-index-offset 10
+testsc_ivalue testsc is 1
+testsc_ivalue gec is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-23)
+dlplink11types
+for-each-index-offset 10
+testsc_ivalue testsc is 1
+testsc_ivalue gec is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª#
+testsc eval (testsc-require ti/t-23)
+dlplink11types
+for-each-index-offset 10
+testsc_ivalue testsc is 1
+testsc_ivalue gec is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-23)
+dlplink11types
+for-each-index-offset 10
+testsc_ivalue testsc is 1
+testsc_ivalue gec is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª
+testsc eval (testsc-require ti/t-23)
+dlplink11types
+for-each-index-offset 10
+testsc_ivalue testsc is 1
+testsc_ivalue gec is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª&
+testsc eval (testsc-require ti/t-23)
+dlplink11types
+for-each-index-offset 10
+testsc_ivalue testsc is 1
+testsc_ivalue gec is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+ª 
+testsc eval (testsc-require ti/t-23)
+dlplink11types
+for-each-index-offset 10
+testsc_ivalue testsc is 1
+testsc_ivalue gec is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require rx_monitor/t-8)
+testsc_ivalue testsc is 1
+admin get exist 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-feid)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is -1
+testsc_ivalue general_type is -1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-feid)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 0
+testsc_ivalue general_type is 0
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-feid)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 1
+testsc_ivalue general_type is 1
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-feid)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 2
+testsc_ivalue general_type is 2
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-feid)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 3
+testsc_ivalue general_type is 3
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-feid)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 4
+testsc_ivalue general_type is 4
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-feid)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 5
+testsc_ivalue general_type is 5
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-feid)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 6
+testsc_ivalue general_type is 6
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-feid)
+dlplink11types
+for-each-index-offset 12
+for-each-index-offset 62
+for-each-index-offset 74
+testsc_ivalue testsc is 1
+testsc_ivalue category is 7
+testsc_ivalue general_type is 7
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm
+
+testsc eval (testsc-require pm_m11m/t-feid)
+tetsc-load t:/ts/init.scm
+tetsc-load t:/ts/util.scm
+util
+util2
+util5
+util3
+util4
+tetsc-load t:/ts/temp.scm

@@ -133,7 +133,7 @@
            (proc x ))
        (set! index (+ 1 index )))
      args )
-    (testsc-debug (string-append  "for-each-index-offset " (number->string index)))))
+    (testsc-debug (string-append  "for-each-index-offset " (number->string (+ offset  index))))))
 
 
 (define ( feio offset proc args ) (apply for-each-index-offset offset proc args))
