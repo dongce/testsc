@@ -7,7 +7,9 @@
 
 (case (testsc-get-testnum)
   ((3)
-   (define testsc 1 )
-   (anset 0)
+   (anset 0))
+  ((4)
+   (anset 0))
+  
   )
 

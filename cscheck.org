@@ -207,7 +207,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [75/91]
+** 진척률 [76/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -1721,7 +1721,8 @@ M9GE 0 West
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** STARTED rx_monitor
+*** DONE rx_monitor
+    CLOSED: [2016-04-28 Thu 11:20]
     - State "STARTED"    from "TODO"       [2016-04-28 Thu 08:47]
 **** 확인 사항  
     - [ ] 타이머 설정 
