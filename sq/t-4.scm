@@ -31,3 +31,15 @@
 
  (num-list -1 2)
  )
+
+
+(case (testsc-get-testnum)
+  ((4)
+   (define wss 1 )
+   (define wss-0 SQLITE_ROW)
+   (define wss-1 SQLITE_ROW)
+   (define wss-2 0)
+   (anset 0))
+  
+  )
+

@@ -31,3 +31,19 @@
 
  (num-list -1 2)
  )
+
+
+
+;; (testsc-require l11const)
+;; (testsc-require system_types)
+;; (testsc-require dlplink11types)
+
+(case (testsc-get-testnum)
+  ((4)
+   (define wss 1 )
+   (define wss-0 SQLITE_ROW)
+   (define wss-1 0)
+   
+   )
+  )
+

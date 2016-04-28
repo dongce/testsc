@@ -31,3 +31,16 @@
 
  (num-list -1 2)
  )
+
+(
+ ;; (testsc-require l11const)
+ ;; (testsc-require system_types)
+ ;; (testsc-require dlplink11types)
+ 
+ (case (testsc-get-testnum)
+   ((8)
+    (set! sci  100 )
+    )
+   )
+ 
+)
