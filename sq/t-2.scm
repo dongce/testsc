@@ -1,17 +1,18 @@
 (define testsc 1 )
 
-(define sbb  x )
-(define sc   x )
-(define scb  x )
-(define scbs x )
-(define sci  x )
-(define sf   x )
-(define so   x )
-(define so2  x )
-(define sp   x )
-(define sr   x )
-(define ss   x )
+(define sbb  0 )
+(define sc   0 )
+(define scb  0 )
+(define scbs 0 )
+(define sci  0 )
+(define sf   0 )
+(define so   0 )
+(define so2  0 )
+(define sp   0 )
+(define sr   0 )
+(define ss   0 )
 
+(anset 0 )
 (feio
  1
 
