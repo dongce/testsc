@@ -1,4 +1,8 @@
 * CODESCROLL 동저 시험 
+** 일괄 적어로 STUB 기록할 것 
+self stub 항목 기록 필요. 
+
+
 ** permutation 
 [[file:mb/t-4.scm::(if%20(=%20tnum-start%20(testsc-get-testnum))]]
 ** admin_t 
@@ -203,7 +207,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [74/91]
+** 진척률 [75/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -1745,7 +1749,8 @@ M9GE 0 West
     - [X] 체크아웃 
 
 
-*** STARTED track_input
+*** DONE track_input
+    CLOSED: [2016-04-28 Thu 11:11]
     - State "STARTED"    from "TODO"       [2016-04-02 Sat 12:44]
 
 **** 확인 사항  
