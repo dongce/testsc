@@ -209,7 +209,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [80/91]
+** 진척률 [81/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -226,7 +226,8 @@ for(int i = 0 ; i < 10 ; i ++){
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** STARTED SQLite3Interface
+*** DONE SQLite3Interface
+    CLOSED: [2016-04-29 Fri 09:54]
     - State "STARTED"    from "TODO"       [2016-04-28 Thu 11:46]
 
 **** 확인 사항  
