@@ -13,8 +13,9 @@
    (set! testsc 1 )
    (set! gfv 1 )
    (mmsg-add
-    '(M12IFFM2 0 4)
-    '(M12IFFM1 0 4)
+    '(M12IFFMC  0 4)
+    '(M12IFFM3A 0 4)
     '(M12MI 0 3)))
   )
+
 

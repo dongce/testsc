@@ -30,6 +30,10 @@
   ASSUME_DUTIES
   ENGAGE_SSM
   ENGAGE_SSM
+  ENGAGE_SSM
+  ENGAGE_SSM
+  ENGAGE_SSM
+  ENGAGE_SSM
    )
  ) 
 
@@ -53,11 +57,40 @@
 
   ((10)
    (define gcm ( * 3600 23 ))
+   (set! testsc 1 )
+   (set! gfv 1 )
    (mmsg-add
     ;; '(M15TNADDE 0 127)
-    '(M15RC 0 MACHINE_RECEIPT )
+    '(M15RC 0 2)
     '(M15COMMAMPLI 0 1)))
 
+  ((11)
+   (define gcm ( * 3600 23 ))
+   (set! testsc 1 )
+   (set! gfv 1 )
+   (mmsg-add
+    '(M15TNADDE 0 12)
+    '(M15RC 0 ORIGINAL_NO_COMPLIANCE_REQUIRED )
+    '(M15COMMAMPLI 0 1)))
+
+  ((12)
+   (define gcm ( * 3600 23 ))
+   (set! testsc 1 )
+   (set! gfv 1 )
+   (mmsg-add
+    ;; '(M15TNADDE 0 127)
+    '(M15RC 0 ORIGINAL_COMPLIANCE_REQUIRED )
+    '(M15COMMAMPLI 0 1)))
+
+  
+  ;; ((12)
+  ;;  (define gcm ( * 3600 23 ))
+  ;;  (set! testsc 1 )
+  ;;  (set! gfv 1 )
+  ;;  (mmsg-add
+  ;;   '(M15TNADDE 0 127)
+  ;;   '(M15RC 0 ORIGINAL_NO_COMPLIANCE_REQUIRED )
+  ;;   '(M15COMMAMPLI 0 1)))
   
   )
 
