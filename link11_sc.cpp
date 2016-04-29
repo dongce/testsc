@@ -13,6 +13,7 @@
 #include "nfields.h"
 #include "ew_intelligence_types.h"
 #include "opspec_types.h"
+#include "sntds.h"
 
 #define tinyscheme_list4(sc , a , b , c , d) cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , cons((sc) , (d) , (sc)->NIL))))
 #define tinyscheme_list3(sc , a , b , c)     cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , (sc)->NIL)))
@@ -64,7 +65,8 @@ struct admin_t {
     cdo_check_t            _cdo_check ;
     network_assignment_t   _network_assignment ; 
     opspec_types::opnote_t _opnote ; 
-    ew_intelligence_types::ew_intelligence_request_record _ew_request; 
+    ew_intelligence_types::ew_intelligence_request_record _ew_request;
+    sntds_MEM              _sntds ; 
     uint8_t _buff[204800] ; 
   } ;
 } ;
