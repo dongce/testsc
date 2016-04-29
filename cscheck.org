@@ -210,7 +210,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [82/91]
+** 진척률 [83/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -1157,7 +1157,14 @@ update
 
 
 
-*** TODO network_tx
+*** DONE network_tx
+    CLOSED: [2016-04-29 Fri 14:06]
+    - State "STARTED"    from "TODO"       [2016-04-29 Fri 13:58]
+**** 확인 사항  
+    - [X] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** DONE ntds_intf
     CLOSED: [2016-04-22 Fri 13:11]
     - State "STARTED"    from "TODO"       [2016-04-22 Fri 12:45]
@@ -1265,7 +1272,13 @@ update
 
 *** TODO process_message_m12_30
 *** TODO process_message_m12_31
-*** TODO process_message_m13
+*** STARTED process_message_m13
+    - State "STARTED"    from "TODO"       [2016-04-29 Fri 14:04]
+**** 확인 사항  
+    - [X] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** TODO process_message_m14
 *** TODO process_message_m15
 *** DONE process_message_m1_rp0
