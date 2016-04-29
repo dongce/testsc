@@ -31,6 +31,7 @@ struct admin_t {
 ** 100 이지만 이상종료하는 것 
 looptest::looptest_ptt
 ** TODO [#A] trunk 반영 필요. 
+startup_dlps.cpp
 process_message.h
 utility.h
 process_message_m11m.cpp 
@@ -210,7 +211,7 @@ for(int i = 0 ; i < 10 ; i ++){
 
 
 
-** 진척률 [84/91]
+** 진척률 [85/91]
 
 *** DONE DP_L11EventHandler
     CLOSED: [2016-04-12 Tue 00:34]
@@ -1272,7 +1273,8 @@ update
 
 *** TODO process_message_m12_30
 *** TODO process_message_m12_31
-*** STARTED process_message_m13
+*** DONE process_message_m13
+    CLOSED: [2016-04-29 Fri 16:51]
     - State "STARTED"    from "TODO"       [2016-04-29 Fri 14:04]
 **** 확인 사항  
     - [X] 타이머 설정 
@@ -1782,7 +1784,13 @@ M9GE 0 West
     - [ ] 일괄 실행 
     - [X] 체크아웃 
 
-*** TODO start_dlps
+*** STARTED start_dlps
+    - State "STARTED"    from "TODO"       [2016-04-29 Fri 15:11]
+**** 확인 사항  
+    - [X] 타이머 설정 
+    - [ ] 일괄 실행 
+    - [X] 체크아웃 
+
 *** DONE status_checker
     CLOSED: [2016-04-29 Fri 15:09]
     - State "STARTED"    from "TODO"       [2016-04-12 Tue 00:16]
