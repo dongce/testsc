@@ -12,6 +12,8 @@
 
 (define *mmsg* '() )
 (define (mmsg-set . args) (set! *mmsg* args))
+(define (mmsg-add . args) (set! *mmsg* (append  args *mmsg* )))
+
 (define (m-set  arg) (set! *mmsg* arg))
 
 (define-macro (mmsg . x)

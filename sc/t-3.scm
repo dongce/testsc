@@ -10,8 +10,13 @@
    (define gplm system_types-standby_link11_mode))
   ((9)
    (define testsc 1 )
-   (define gplm system_types-standby_link11_mode))
+   (define gplm system_types-standby_link11_mode)
    (define gppsc 1))
+  ((11)
+   (define testsc 1 )
+   (define gplm system_types-standby_link11_mode)
+   (define gpps 1))
+
   )
 
 
