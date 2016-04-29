@@ -1105,7 +1105,7 @@ get_track_quality
     - [X] 체크아웃 
 
 
-*** PENDING intf_vme
+*** DONE intf_vme
     CLOSED: [2016-04-22 Fri 15:56]
     - State "STARTED"    from "TODO"       [2016-04-21 Thu 21:24]
 **** 확인 사항  

@@ -13,5 +13,6 @@ void testsc_init(int testnum, const char *cmd, const char *homepath ) ;
 long mmsg_get_field_value( int a, int b ) ; 
 long mmsg_get_field_value_with_name( int a, int b , const char* name) ; 
 char* testsc_admin_get( int i ) ; 
+void testsc_debug(const char*format ...) ; 
 
 #endif
