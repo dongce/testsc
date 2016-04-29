@@ -1,6 +1,6 @@
 (testsc-require dlplink11types)
 (testsc-require system_types)
-
+(define strlen 10)
 (case (testsc-get-testnum)
   ((2)
    (define testsc 1 )
