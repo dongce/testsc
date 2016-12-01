@@ -8,7 +8,7 @@ int testsc_admin_length( void ) ;
 void testsc_admin_erase(int index ) ;
 void testsc_track_set(uint32_t id , network_track_data_ptr t ) ;
 void testsc_eval(const char *cmd) ; 
-void testsc_init(int testnum, const char *cmd, const char *homepath ) ; 
+void testsc_init(int testnum, const char *cmd, const char *homepath = 0 ) ; 
 
 long mmsg_get_field_value( int a, int b ) ; 
 long mmsg_get_field_value_with_name( int a, int b , const char* name) ; 
