@@ -4,17 +4,15 @@
 ;; (testsc-require dlplink11types)
 
 (case (testsc-get-testnum)
-  ((7)
+  ((1)
    (define testsc 1 )
-   (define m1valid 0 )
+   (define testsc-network 1)
+   (testsc-track-nset 1 '(general.NTN 100))
    )
-  ((8)
+  ((3)
    (define testsc 1 )
-   (define m1valid 0 )
-   (mmsg-set
-    '(M84ACBI  0 0)
-    ) 
+   (define testsc-network 1)
+   (testsc-track-nset 1 '(general.NTN 100))
    )
-
+  
   )
-
