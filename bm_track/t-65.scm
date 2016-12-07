@@ -2,4 +2,5 @@
   ((27)
    (define testsc 1)
    (testsc-track-net 1 (list 'general.NTN 0 ))
+   (define ntn 0)
    (define par 500 )))

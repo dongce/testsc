@@ -28,10 +28,7 @@
   ((13)
    (define testsc 1 )
    (mmsg-set (list  M9ACT 0 1)
-             '(M9AC1CI 0 1 )
-             )
-   
-   )
+             '(M9AC1CI 0 1 )))
   ((14)
    (define testsc 1 )
    (mmsg-set (list  M9ACT 0 -1)
@@ -39,6 +36,16 @@
              )
    
    )
+  ((6)
+   (define testsc 1 )
+   (mmsg-add (list  M9SI 0 SIMULATED_TRACK)))
+
+  ((15)
+   (define testsc 1 )
+   (mmsg-set (list  M9ACT 0 1)
+             '(M9AC1CI 0 1 )
+             (list M9ENVCAT 0 ENV_CAT_AIR )
+             ))
   
   )
 
