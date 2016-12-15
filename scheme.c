@@ -85,16 +85,16 @@ static int stricmp(const char *s1, const char *s2)
 }
 #endif /* __APPLE__ */
 
-// #if USE_STRLWR
-// static const char *strlwr(char *s) {
-//   const char *p=s;
-//   while(*s) {
-//     *s=tolower(*s);
-//     s++;
-//   }
-//   return p;
-// }
-// #endif
+#if USE_STRLWR
+ static const char *strlwr(char *s) {
+   const char *p=s;
+   while(*s) {
+     *s=tolower(*s);
+     s++;
+   }
+   return p;
+ }
+#endif
 
 #ifndef prompt
 # define prompt "ts> "

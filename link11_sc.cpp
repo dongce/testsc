@@ -47,7 +47,7 @@ typedef struct cdo_check_t
   uint32_t  pu_address ; 
 } cdo_check_t ; 
 struct admin_t {
-  union{
+  //struct {
     wipe_proposal_t        _wipe_proposal ; 
     network_track_number_t _network_track_number ;
     pair_assoc_t           _pair_assoc ;
@@ -68,7 +68,7 @@ struct admin_t {
     ew_intelligence_types::ew_intelligence_request_record _ew_request;
     //sntds_MEM              _sntds ; 
     uint8_t _buff[204800] ; 
-  } ;
+  //} ;
 } ;
 
 typedef std::map<uint32_t, admin_t*> adminmap_t ;
