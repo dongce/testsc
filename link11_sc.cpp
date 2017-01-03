@@ -488,7 +488,7 @@ extern "C" pointer
 foreign_testsc_init(scheme* sc , pointer args)
 {
   const char* TINYSCHEME_HOME =
-    (  NULL == getenv("TINYSCHEME_HOME") ? "t:/ts"  : getenv("TINYSCHEME_HOME")  );
+    (  NULL == getenv("TINYSCHEME_HOME") ? "/ts"  : getenv("TINYSCHEME_HOME")  );
 
   char absfilename[1024] ;
   sprintf(absfilename,
