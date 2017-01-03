@@ -1,11 +1,13 @@
 CFLAGS=-I/ICMS/devenv/icmslib/include  \
 -I/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/include  \
--I/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/common  
+-I/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/ntds_drv \
+-I/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/common \
+-I/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/include  
 
 
-all : libtinyscheme.a
+all : libtinyschemel.a
 
-libtinyscheme.a : scheme.o link11_sc.o
+libtinyschemel.a : scheme.o link11_sc.o
 	ar crs $@ scheme.o link11_sc.o 
 scheme.o : scheme.c 
 	gcc -c -DSTANDALONE=0 -DUSE_STRLWR=1 -DUSE_STRCASECMP=0 -DUSE_DL=0 -DUSE_MATH=1 -DUSE_ASCII_NAMES=0  $< 
@@ -14,6 +16,6 @@ link11_sc.o : link11_sc.cpp
 	g++ -c $(CFLAGS) -DSTANDALONE=0 -DUSE_INTERFACE=1  -DUSE_INTERFACE=1 -DUSE_STRLWR=1 -DUSE_STRCASECMP=0 -DUSE_DL=0 -DUSE_MATH=1 -DUSE_ASCII_NAMES=0   $<
 
 clean :
-	rm -f libtinyscheme.a *.o
+	rm -f libtinyschemel.a *.o
 
 

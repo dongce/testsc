@@ -423,8 +423,11 @@ foreign_testnum_set(scheme *sc , pointer args)
 
 void testsc_load(scheme*sc , const char* filename , const char *homepath = NULL)
 {
-
+#if defined (__linux__)
   static const char* TINYSCHEME_HOME =(  NULL == getenv("TINYSCHEME_HOME") ? "t:/ts"  : getenv("TINYSCHEME_HOME")  );
+#else
+  static const char* TINYSCHEME_HOME =(  NULL == getenv("TINYSCHEME_HOME") ? "t:/ts"  : getenv("TINYSCHEME_HOME")  );
+#endif
 
   char absfilename[1024] ;
   sprintf(absfilename, "%s/%s" , (NULL != homepath && strlen(homepath) > 0 ? homepath: TINYSCHEME_HOME) , filename ) ;
