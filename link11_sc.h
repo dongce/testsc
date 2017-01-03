@@ -14,5 +14,6 @@ long mmsg_get_field_value( int a, int b ) ;
 long mmsg_get_field_value_with_name( int a, int b , const char* name) ; 
 char* testsc_admin_get( int i ) ; 
 network_track_data_ptr  testsc_track_get(uint32_t id ) ;
-void testsc_debug(const char*format ...) ; 
+void testsc_debug(const char*format ...) ;
+#define UINT32 uint32_t
 #endif

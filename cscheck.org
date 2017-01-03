@@ -1878,3 +1878,65 @@ update_track_alert N/A N/A N/A N/A
     - [ ] 일괄 실행 
     - [X] 체크아웃 
           utility.cpp 만 체크아웃 헤더는 변경 사항 사용
+* 타겟환경 동적 시험 
+
+** log
+  868  sqlite3 .dump *.csp
+  869  sqlite3 *.csp .dump
+  870  sqlite3 *.csp .dump | grep "t:"
+  871  sqlite3 *.csp .dump | grep "gitdir"
+  872  sqlite3 *.csp 
+  873  sqlite3 *.csp .dump 
+  874  sqlite3 *.csp .dump | grep "t:"
+  875  sqlite3 *.csp .dump | grep "gitdir"
+  876  sqlite3 *.csp .dump "SourceFile"
+  877  sqlite3 *.csp ".dump 'SourceFile'"
+  878  sqlite3 *.csp ".dump 'SourceFile'" > sf.sql
+  881  sqlite3 .csp ".dump" | grep ".cpp"
+  882  sqlite3 .csp ".dump" | grep "cpp"
+  883  sqlite3 .csp ".dump" 
+  884  sqlite3 *.csp ".dump"
+  885  sqlite3 *.csp ".dump" | grep "cpp"
+  893  sqlite3 *.csp ".dump" | grep "cpp"
+  900  sqlite3 *.csp ".dump" | grep "cpp"
+  901  sqlite3 *.csp ".dump" | grep "cpp" > /tmp/y.patch
+  902  sqlite3 *.csp ".dump" | grep "icmslib"
+  903  sqlite3 *.csp ".dump" | grep "icmslib" | less
+  904  sqlite3 *.csp ".dump" | grep "\-I"
+  905  sqlite3 *.csp ".dump" | grep "\-I" > /tmp/x
+  913  sqlite3 *.csp "select * from SourceFile where id = 1 "
+  914  sqlite3 *.csp ".desc SourceFile"
+  915  sqlite3 *.csp
+  916  sqlite3 *.csp "select * from SourceFile where idSourceFile=1"
+  917  sqlite3 *.csp "select * from SourceFile where idSourceFile=1" > x.patch
+  921  sqlite3 *.csp
+ 1008  sqlite3 *.csp ".dump SourceFile" 
+ 1009  sqlite3 *.csp ".dump select * from SourceFile where idSourcFile=1" 
+ 1010  sqlite3 *.csp " select * from SourceFile where idSourcFile=1" 
+ 1011  sqlite3 *.csp " select * from SourceFile where idSourcCode=1" 
+ 1012  sqlite3 *.csp
+ 1013  sqlite3 *.csp " select * from SourceFile where idSourcFile=1" 
+ 1014  sqlite3 *.csp " select * from SourceFile where idSourceFile=1" 
+ 1018  history | grep "sqlite3"
+ 1019  history | grep "sqlite3" > /tmp/log.txt
+
+** source file 
+#+BEGIN_INFO
+ sqlite3 *.csp " select * from SourceFile where idSourceFile=1" 
+ sqlite3 *.csp " delete from SourceFile where idSourceFile=1"
+ sqlite3 *.csp ".dump"  | grep "t:/"
+
+#+END_INFO 
+INSERT INTO "SourceFile" VALUES(1,'C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\targetSource\TARGETCS1\fs\icms\cfcs\dlplink11\ip_l11\ip_l11\src\network_tx\build_message_aircraft_control.cpp','build_message_aircraft_control.cpp',1481695113,0,0,NULL,NULL);
+INSERT INTO "TranslationUnit" VALUES(1,1,1,'-c -g -o -DNO_NRM_E -DNDDS_EMUL -DGUILE_CHANNEL_LOGGING -DLINUX -D_LINUX_ -DSTC_LINUX -DRTI_LINUX -DRTDBP -DCLASS_MEMBER_VISIBILITY=public -Dlinux -D_SNTDS_ -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/common" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/csds_manager" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/db_access_main" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/dts_controller" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/include" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/network_rx" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/network_tx" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/ntds_drv" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/ntds_drv/include/gef" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/remote_control" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/startup" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/src/status_checker" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/dsfgen" -I"/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/proj/winproj2005" -I"/ICMS/devenv/icmsdlpcachelib/include" -I"/ICMS/devenv/PSCLib/inc" -I"/ICMS/devenv/icmslib/include" -I"/ICMS/devenv/GEFVME/inc" -I"/ICMS/CFCS/IPNTAC/TM/TM/Lib" -I"/ICMS/devenv/DSSLib/inc/csds" -I"/ICMS/devenv/DSSLib/inc" -I"/ICMS/devenv/DSSLib/inc/Util" -I"/ICMS/devenv/DSSLib/inc/tinyxml" -I"/ICMS/devenv/DSSLib/inc/Synchronization" -I"/ICMS/devenv/DSSLib/inc/Structure" -I"/ICMS/devenv/DSSLib/inc/PSM" -I"/ICMS/devenv/DSSLib/inc/oxf" -I"/ICMS/devenv/DSSLib/inc/Database" -I"/ICMS/devenv/DSSLib/inc/ndds/ndds" -I"/ICMS/devenv/DSSLib/inc/boost" -I"/ICMS/devenv/DSSLib/inc/ndds"',3,1,1,1,0,0,NULL,18);
+INSERT INTO "Properties" VALUES('TARGET_BUILD_LOCATION',0,'/ICMS/CFCS/DLPLINK11/IP_L11/IP_L11/proj/makeproj');
+INSERT INTO "Properties" VALUES('TARGET_BUILD_DATE',0,'2016-12-14 05:34');
+INSERT INTO "Properties" VALUES('TARGET_MODULE_NAME',0,'ip_link11.out');
+INSERT INTO "Properties" VALUES('TARGET_PROJECT_NAME',0,'DLPLINK11');
+INSERT INTO "Properties" VALUES('TARGET_TOOLCHAIN_CPP_COMPILER_HASH',0,'/usr/bin/x86_64-target-linux-gnu-wrapper.sh::d8a832f20358581947cba7767b3b9f24');
+INSERT INTO "Properties" VALUES('TARGET_TOOLCHAIN_NAME',0,'WR_LINUX');
+INSERT INTO "Properties" VALUES('TARGET_TOOLCHAIN_C_COMPILER_HASH',0,'/usr/bin/x86_64-target-linux-gnu-wrapper.sh::d8a832f20358581947cba7767b3b9f24');
+INSERT INTO "Properties" VALUES('TARGET_SERVER_IP',0,'192.168.137.11');
+INSERT INTO "Properties" VALUES('TARGET_SERVER_PORT',0,'6060');
+INSERT INTO "Properties" VALUES('TARGET_FS',0,'C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\targetSource\TARGETCS1\fs');
+INSERT INTO "Properties" VALUES('TARGET_SERVER_NAME',0,'TARGETCS1');

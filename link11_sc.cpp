@@ -13,7 +13,8 @@
 #include "nfields.h"
 #include "ew_intelligence_types.h"
 #include "opspec_types.h"
-//#include "sntds.h"
+#include "sntds.h"
+#include <unistd.h>
 
 #define tinyscheme_list4(sc , a , b , c , d) cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , cons((sc) , (d) , (sc)->NIL))))
 #define tinyscheme_list3(sc , a , b , c)     cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , (sc)->NIL)))
@@ -47,7 +48,7 @@ typedef struct cdo_check_t
   uint32_t  pu_address ; 
 } cdo_check_t ; 
 struct admin_t {
-  //struct {
+  union {
     wipe_proposal_t        _wipe_proposal ; 
     network_track_number_t _network_track_number ;
     pair_assoc_t           _pair_assoc ;
@@ -66,9 +67,9 @@ struct admin_t {
     network_assignment_t   _network_assignment ; 
     opspec_types::opnote_t _opnote ; 
     ew_intelligence_types::ew_intelligence_request_record _ew_request;
-    //sntds_MEM              _sntds ; 
+    sntds_MEM              _sntds ; 
     uint8_t _buff[204800] ; 
-  //} ;
+  } ;
 } ;
 
 typedef std::map<uint32_t, admin_t*> adminmap_t ;
