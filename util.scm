@@ -3,7 +3,7 @@
 (define (loadit x)
   (load (symbol->string x)))
 
-(define *testsc-home* "t:/ts/")
+(define *testsc-home* "/ts/")
 ;; (define *testsc-home* "t:/gitdir/tinyscheme/")
 
 
