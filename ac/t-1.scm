@@ -33,7 +33,7 @@
 
    )
   ((10)
-   (set! 1 )
+   (set! testsc 1 )
    (set! order  system_types-launch_heli)
    (define itn 1 )
    (define itntn 1 )
