@@ -28,6 +28,7 @@
   ((28)  (set! r2d 17) (define cea1 512))
   ((29)  (set! r2d 40) (define cea1 512))
   ((112) (set! r2d 1) (define cea1 512))
+  ((39)  (set! r2d 9) (define cea1 512))
   )
 
 (define usemtm 0 )

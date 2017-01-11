@@ -46,6 +46,13 @@
     (define nic 1) 
     (define ntc 2) 
     )
+  ((177
+   (define testsc  1)
+   (define ts system_types-running) 
+   (define noc 2) 
+   (define tp1 1) 
+   (define nic 1) 
+   )
   
   
   )

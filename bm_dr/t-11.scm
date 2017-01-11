@@ -13,3 +13,12 @@
 
  (num-list -1 10)
  )
+
+
+(case (testsc-get-testnum)
+  ((9)
+   (set! testsc 1 )
+   (set! dk 3)
+   (define mas 1)
+   (anset 0)))
+

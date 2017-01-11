@@ -18,6 +18,13 @@
    (anset 2 '_pair_assoc.action 1)
    )
 
+  ((17)
+   (define testsc 1 )
+   (define fepa 2)
+   (define allocid 300)
+   (anset 0 '_pair_assoc.action -1)
+   (anset 2 '_pair_assoc.action 1)
+   )
   )
 
 
