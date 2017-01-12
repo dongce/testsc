@@ -10,7 +10,12 @@
    )         
   ((17)
    (define testsc 1 )
+   (define allocexc 1 )
    )         
+  ((18)
+   (define allocexc 1 )
+   )         
+
 
   )
 

@@ -8,7 +8,12 @@
 
 (case (testsc-get-testnum)
   ((6)
-   (tnset 0 'general.network 10 )
-   (set! fninc 0)
+   (define fnexc 1 )
 
-   ))
+   )
+  ((8)
+   (define fnid 1000 )
+
+   )
+
+  )

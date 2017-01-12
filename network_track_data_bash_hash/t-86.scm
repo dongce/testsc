@@ -29,4 +29,30 @@
    (tnset 1 'is_checkouted 1)
 
    )
+
+  ((8)
+   (define findexc 1)
+   (tnset 1 'general.tactical 10 )
+   (set! fninc 1)
+   (tnset 0 'is_checkouted 1)
+   (tnset 1 'is_checkouted 1)
+
+   )
+  ((9)
+   (define findadmin 1)
+   (tnset 1 'general.tactical 10 )
+   (set! fninc 1)
+   (tnset 0 'is_checkouted 1)
+   (tnset 1 'is_checkouted 1)
+
+   )
+  ((10)
+   (define findadmin2 1)
+   ;; (tnset 1 'general.tactical 10 )
+   (set! fninc 1)
+   (tnset 0 'is_checkouted 1)
+;;   (tnset 1 'is_checkouted 1)
+
+   )
+
   )
