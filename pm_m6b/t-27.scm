@@ -74,4 +74,15 @@
     (list M86BEVSW  SECOND_FRAME_OFFSET 0)
     (list M86BFREQFREQRANGE  SECOND_FRAME_OFFSET 14)
     (list  M86BBA  SECOND_FRAME_OFFSET 3  )))
+
+  ((16)
+   (define testsc 1)
+   (define  te system_types-threat ) 
+   (mmsg-set
+    (list M86BTIMESTALE  SECOND_FRAME_OFFSET 10)
+    (list  M86BRS  SECOND_FRAME_OFFSET 0)
+    (list M86BEVSW  SECOND_FRAME_OFFSET 0)
+    (list M86BFREQFREQRANGE  SECOND_FRAME_OFFSET 14)
+    (list  M86BBA  SECOND_FRAME_OFFSET 3  )))
+
   )
