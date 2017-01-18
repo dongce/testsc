@@ -23,5 +23,10 @@
    (mmsg-set (list M4ADRTYPE 0 -1)
              (list  M84AASWPTTYPE  SECOND_FRAME_OFFSET -1 ))
    )
+  ((14)
+   (define testsc 1)
+   (mmsg-set (list M4ADRTYPE 0 0)
+             (list  M84AASWPTTYPE  SECOND_FRAME_OFFSET -1 ))
+   )
   
   )
