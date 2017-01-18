@@ -32,5 +32,24 @@
    (define vw-1 1)
    (define vw-2 1)
    )
- 
+
+   ((6)
+    (anset 0
+           '_sntds.icb.icb_cmdstate (+ 1 ICB_CS_FINISHED)
+           '_sntds.icb.ircv_number 0
+           '_sntds.icb.icb_cmdrs ICB_CRS_IN_USE
+           )
+    (anset 1
+           '_sntds.icb.icb_cmdstate (+ 1 ICB_CS_FINISHED)
+           '_sntds.icb.ircv_number 100
+           '_sntds.icb.icb_cmdrs ICB_CRS_IN_USE
+           )
+
+    (anset 80)
+    (define vdr 0)
+    (define vw-1 1)
+    (define vw-2 1)
+    )
+
+
   )
