@@ -37,4 +37,27 @@
    (tnset 1 'is_checkouted 1)
 
    )
+
+  ((9)
+   (define findexc 1 )
+   (tnset 1 'general.tactical 10 )
+   (set! testsc 0)
+   (tnset 0 'is_checkouted 1)
+   (tnset 1 'is_checkouted 1)
+
+   )
+  ((10)
+   (define findadmin 1 )
+   (tnset 1 'general.tactical 10 )
+   (set! testsc 0)
+   (tnset 0 'is_checkouted 1)
+   (tnset 1 'is_checkouted 1)
+
+   )
+  ((11)
+   (define findadmin2 1 )
+   (tnset 0 'is_checkouted 1)
+   (define fnid 0)
+   )
+
   )

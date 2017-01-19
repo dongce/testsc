@@ -52,5 +52,13 @@
 
   ((19)
    (define testsc 1)
-   (testsc-track-nset 1 (list  '_track_source_filter 1))))
+   (testsc-track-nset 1 (list  '_track_source_filter 1)))
+  ((21) (define envf 1))
+  ((22) (define etcf 1))
+  ((23) (define idf 1))
+  ((24) (define kf 1))
+  ((25) (define sf 1))
+  ((26) (define idf 1))
+  ((27) (define etcf 1))
+  )
 

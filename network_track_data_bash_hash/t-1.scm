@@ -27,5 +27,13 @@
    (tnset 1 'is_checkouted 1)
 
    )
+  ((8)
+   (tnset 1 'general.network 10 )
+   (set! fninc 1)
+   (tnset 0 'is_checkouted 1)
+   (tnset 1 'is_checkouted 1)
+   (define mutexexc 0)
+   )
+
   )
 

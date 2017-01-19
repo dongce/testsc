@@ -1,0 +1,22 @@
+
+
+
+(case (testsc-get-testnum)
+  ((1)
+   (define testsc 1 )
+   
+   (define itst 1)
+
+   (define llpc 1 )
+   (define lldc ID_RESULT_A)
+   (define iorr 0)
+
+   (tnset 1
+          'general.track_kind   system_types-track_kind_surface_point_track 
+          'cmsdata.environment  system_types-surface_environment 
+          'general.track_existence  system_types-real_track )
+   )
+  )
+
+
+

@@ -69,3 +69,10 @@
 
 
 
+(case (testsc-get-testnum)
+  ((1)
+   (define ewprim 0)
+   (define lynxesm 1)
+   
+   )
+  )

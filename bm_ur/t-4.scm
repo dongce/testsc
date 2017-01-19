@@ -12,7 +12,12 @@
   ((4)
    (define testsc 1 )
    (anset 0 '_update_request.counter 1 )
-   (anset 1 '_update_request.counter 1 )
+   (anset 1 '_update_request.counter 2 )
+   )
+  ((5)
+   (define testsc 1 )
+   (anset 0 '_update_request.counter 2 )
+   (anset 1 '_update_request.counter 2 )
    )
   )
 

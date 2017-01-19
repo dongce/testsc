@@ -46,7 +46,22 @@
     (define nic 1) 
     (define ntc 2) 
     )
-  
+  ((17)
+   (define testsc  1)
+   (define noc 2) 
+   (define tp1 1) 
+   (define ntc 2) 
+   (define nic 1) 
+   (define ts system_types-running) 
+   )
+  ((18)
+   (define testsc  1)
+   (define ts system_types-running) 
+   (define noc 2) 
+   ;;(define tp1 1) 
+   (define nic 1) 
+   )
+
   
   )
 

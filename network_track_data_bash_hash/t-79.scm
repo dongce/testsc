@@ -17,5 +17,13 @@
    (tnset  0)
    (tnset  1)
    )
+  ((6)
+   (testsc-set-debug 0 )
+   (define testsc 1 )
+   (define fnid 1)
+   (tnset  0)
+   (tnset  1)
+   )
+ 
   )
 

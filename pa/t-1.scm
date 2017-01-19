@@ -23,7 +23,7 @@
    (define gs system_types-gridlock_status_active)
    (tnset 1 'general.link_state -1)
    (tnset 2 'general.link_state system_types-link_received_only)
-   )
+   (define contn 1))
 
   ((32)
    (define testsc 1 )
@@ -34,7 +34,14 @@
    (define glm -1)
    (tnset 1 'general.link_state -1)
    (tnset 2 'general.link_state system_types-link_received_only)
+   (define contn 1)
    )
-  
+
+  ((33 34 12 34) 
+   (tnset 1 'general.link_state -1)
+   (tnset 2 'general.link_state system_types-link_received_only)
+   (define contw 1)
+   (define cott 1)
+   (define contn 1))
   )
 
