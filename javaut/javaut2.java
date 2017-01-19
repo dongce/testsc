@@ -34,7 +34,8 @@ public class javaut2 {
                    "void testsc_init(int testnum, const char *cmd, const char *homepath ) ; "  
                                     ).trim() ; 
 
-       
+       String comp2 = "void testsc_init(int testnum, const char *cmd, const char *homepath = 0) ;" ;
+       comp2 = comp2.trim() ; 
        System.out.println(usercode) ; 
        System.out.println(usercode.length()) ; 
        System.out.println(compare.length()) ; 
@@ -43,7 +44,23 @@ public class javaut2 {
          uuc.setUserCode("#include \"link11_sc.h\"") ; 
          changed = true ; 
        }
+       if( comp2.equals( usercode.trim()  ) || usercode.trim().length() == 0 ) {
+         uuc.setUserCode("#include \"link11_sc.h\"") ; 
+         changed = true ; 
+       }
 
+         // usercode = ucs.getUserCode() ; 
+
+         // String [] sarray = usercode.split("\n") ;
+
+         // for(int i = 0 ; i < sarray.length; i++){
+         //   sarray[i] += ";" ; 
+         // }
+
+         //   String uc = String.join("\r\n" ,sarray) ;          
+         //  ucs.setUserCode(uc) ; 
+         //   changed = true ; 
+         //   System.out.println(uc) ; 
        
        if(changed){
          ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(args[0]));
