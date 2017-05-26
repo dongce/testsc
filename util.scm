@@ -3,8 +3,8 @@
 (define (loadit x)
   (load (symbol->string x)))
 
-(define *testsc-home* "t:/ts/")
-;; (define *testsc-home* "t:/gitdir/tinyscheme/")
+;;(define *testsc-home* "t:/ts/")
+ (define *testsc-home* "t:/gitdir/tinyscheme/")
 
 
 (define-macro (testsc-require x)
@@ -35,9 +35,10 @@
     (set! l (cdr l)))
   (car l))
 (testsc-debug "util5")
-    
-(define-macro (testcase-values tnum-start symbol values)
-  `(define ,symbol (nth (- ( testsc-get-testnum ) ,tnum-start) ,values)))
+
+
+;;notwork;;(define-macro (testcase-values tnum-start symbol values)
+;;notwork;;  `(define ,symbol (nth (- ( testsc-get-testnum ) ,tnum-start) ,values)))
 
 
 (testsc-debug "util3")
@@ -109,7 +110,7 @@
         (> offset -1)
         (and (> offset -1) (> (car len ) offset ) ))))
     
-(define (perm . args)
+(define (combi . args)
   (if (= 1 (length args))
       (map list (car  args))
       (let ((cdrperm  (apply perm (cdr args))))
@@ -118,6 +119,8 @@
          (map
           (lambda (x)
             (map (lambda (y) (cons x y )) cdrperm)) (car args))))))
+
+(define perm combi)                     ;사실 combination 이다. 
 
 (define (for-each-index proc . args )
   (let ((index 0 ))

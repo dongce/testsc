@@ -254,7 +254,8 @@ TEMPLATE(_opnote.validity          , it, fieldnum) ;
       TEMPLATE(general.esm_data.esm_amplifying_characteristics, it, fieldnum) ; \
       TEMPLATE(general.esm_data.lock_on_spy                   , it, fieldnum) ; \
       TEMPLATE(general.esm_data.scan_characteristics          , it, fieldnum) ; \
-      TEMPLATE(general.esm_data.esmjitter                     , it, fieldnum) ; \
+      //TEMPLATE(general.esm_data.esmjitter                     , it, fieldnum) ; \
+      TEMPLATE(general.esm_data.jitter                     , it, fieldnum) ; \
       TEMPLATE(general.esm_data.polarisation                  , it, fieldnum) ; \
       TEMPLATE(general.esm_data.PRF                           , it, fieldnum) ; \
       TEMPLATE(general.esm_data.pulse_width                   , it, fieldnum) ; \

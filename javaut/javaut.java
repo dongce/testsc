@@ -41,14 +41,7 @@ public class javaut {
        
        if( empty.equals( usercode.trim()  )){
          uuc.setUserCode(String.join("\r\n" , 
-                                     "long testsc_ivalue(const char* name) ; ", 
-                                     "double testsc_dvalue(const char* name) ; ", 
-                                     "char* testsc_strvalue(const char* name) ; ",
-                                     "int testsc_admin_length( void ) ;",
-                                     "void testsc_admin_erase(int index ) ;",
-                                     "void testsc_track_set(uint32_t id , network_track_data_ptr t ) ;",
-                                     "void testsc_eval(const char *cmd) ; ",
-                                     "void testsc_init(int testnum, const char *cmd, const char *homepath ) ; "  
+                                     "void testsc_track_set(uint32_t id , network_track_data_ptr t ) ;"
                                      )) ;
          changed = true ; 
        }
@@ -64,9 +57,7 @@ public class javaut {
 
          String uc =
            String.join("\r\n" ,
-                       String.format("testsc_init(CS_TESTCASENO(), \"(testsc-require %s/t-0)\", 0);", args[1]) ,
-                       String.format("testsc_track_set(1, 0) ;" ) , 
-                       String.format("testsc_eval( \"(testsc-require %s/t-%s)\") ;", args[1], args[2]) 
+                       String.format("testsc_track_set(1, 0) ;" )  
                        ) ;          
          ucs.setUserCode(uc) ; 
          changed = true ; 

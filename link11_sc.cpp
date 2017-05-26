@@ -487,8 +487,14 @@ foreign_testsc_numtest(scheme*sc , pointer args )
 extern "C" pointer
 foreign_testsc_init(scheme* sc , pointer args)
 {
-  const char* TINYSCHEME_HOME =
-    (  NULL == getenv("TINYSCHEME_HOME") ? "t:/ts"  : getenv("TINYSCHEME_HOME")  );
+  g_testnum            = ivalue(pop_args(args)) ;
+  const char* initcmd  = string_value(pop_args(args)) ; 
+  const char* TINYSCHEME_HOME = string_value(pop_args(args)) ;
+
+  if(0 == strlen(TINYSCHEME_HOME)){
+    TINYSCHEME_HOME = (  NULL == getenv("TINYSCHEME_HOME") ? "t:/ts"  : getenv("TINYSCHEME_HOME")  );
+  }
+  
 
   char absfilename[1024] ;
   sprintf(absfilename,
@@ -511,7 +517,6 @@ foreign_testsc_init(scheme* sc , pointer args)
   g_buffer = reinterpret_cast<char*>(malloc(10240) ); 
 
   
-  g_testnum            = ivalue(pop_args(args)) ;
   memset(&g_trackdefault, 0, sizeof(g_trackdefault)) ; 
   memset(&g_admindefault, 0, sizeof(g_admindefault)) ; 
     
