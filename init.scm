@@ -715,8 +715,10 @@
 
 (gc-verbose #f)
 
-(load "util.scm")
 
-(define-macro (testsc-init testnum initcmd)
-  (testsc-init-ext testnum "./")
-  initcmd)
+(if (testsc-interactive?)
+    (begin
+      (load "util.scm")
+      (testsc-init-ext 1 "./")
+      ))
+

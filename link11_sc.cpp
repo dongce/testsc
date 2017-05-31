@@ -456,6 +456,16 @@ foreign_testsc_get_testnum(scheme* sc, pointer args)
 {
   return mk_integer(sc, (long) g_testnum); 
 }
+
+pointer
+foreign_testsc_set_testnum(scheme* sc, pointer args)
+{
+  g_testnum = ivalue(pop_args(args)) ; 
+  return mk_integer(sc, (long) g_testnum); 
+}
+
+
+
 pointer
 foreign_testsc_debug_string(scheme*sc , pointer args )
 {
@@ -535,6 +545,7 @@ foreign_testsc_init_ext(scheme* sc , pointer args)
     {"testsc-set-debug" , foreign_testsc_set_debug},
     {"testsc-debug-string"     , foreign_testsc_debug_string}, 
     {"testsc-get-testnum", foreign_testsc_get_testnum   },
+    {"testsc-set-testnum", foreign_testsc_set_testnum   },
     {"testsc-track-strset" , foreign_testsc_track_strset   }, 
     {"testsc-track-nset" , foreign_testsc_track_nset   }, 
     {"testsc-track-nget" , foreign_testsc_track_nget   }, 
