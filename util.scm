@@ -1,10 +1,31 @@
-(testsc-set-debug 1)
-(testsc-debug "util")
+(define (string-join joiner . args)
+  (if (null? args) ""
+      (apply string-append
+             (car args)
+             (map (lambda (s) (string-append joiner s)) (cdr args)))))
+(define (testsc-debug . args)
+  (let* ((port (open-output-string))
+         (result 
+          (apply string-join
+           " "
+           (map
+            (lambda (x)
+              (display x port)
+              (get-output-string port))
+            args))))
+    (if (testsc-interactive?)
+        (begin  (display result ) (display "\n"))
+        (testsc-debug-string  result ))
+    (close-output-port port)))
+
+(testsc-debug "\n--------------------------------------" )
+
+
 (define (loadit x)
   (load (symbol->string x)))
 
 ;;(define *testsc-home* "t:/ts/")
- (define *testsc-home* "t:/gitdir/tinyscheme/")
+ ;; (define *testsc-home* "t:/gitdir/tinyscheme/")
 
 
 (define-macro (testsc-require x)

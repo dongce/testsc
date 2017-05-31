@@ -714,3 +714,9 @@
             (else (error "cond-expand : unknown operator" (car condition)))))))
 
 (gc-verbose #f)
+
+(load "util.scm")
+
+(define-macro (testsc-init testnum initcmd)
+  (testsc-init-ext testnum "./")
+  initcmd)

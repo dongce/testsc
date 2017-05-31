@@ -325,7 +325,7 @@ static int is_ascii_name(const char *name, int *pc) {
 
 static int file_push(scheme *sc, const char *fname);
 static void file_pop(scheme *sc);
-static int file_interactive(scheme *sc);
+INTERFACE int file_interactive(scheme *sc);
 static INLINE int is_one_of(char *s, int c);
 static int alloc_cellseg(scheme *sc, int n);
 static long binary_decode(const char *s);
@@ -1367,7 +1367,7 @@ static void file_pop(scheme *sc) {
  }
 }
 
-static int file_interactive(scheme *sc) {
+INTERFACE int file_interactive(scheme *sc) {
  return sc->file_i==0 && sc->load_stack[0].rep.stdio.file==stdin
      && sc->inport->_object._port->kind&port_file;
 }
@@ -4959,7 +4959,9 @@ pointer scheme_eval(scheme *sc, pointer obj)
 
 #if STANDALONE
 pointer
-foreign_testsc_init(scheme* sc , pointer args) ; 
+foreign_testsc_init_ext(scheme* sc , pointer args) ; 
+pointer
+foreign_testsc_interactive(scheme* sc , pointer args) ; 
 
 #if defined(__APPLE__) && !defined (OSX)
 int main()
@@ -5010,6 +5012,12 @@ int main(int argc, char **argv) {
       file_name=p;
     }
   }
+
+  scheme_define(&sc ,
+                sc.global_env ,
+                mk_symbol(&sc , "testsc-interactive?" ) ,
+                mk_foreign_func(&sc , foreign_testsc_interactive)) ;
+
   do {
     if(strcmp(file_name,"-")==0) {
       fin=stdin;
@@ -5056,9 +5064,10 @@ int main(int argc, char **argv) {
   if(argc==1) {
     scheme_define(&sc ,
                   sc.global_env ,
-                  mk_symbol(&sc , "testsc-init" ) ,
-                  mk_foreign_func(&sc , foreign_testsc_init)) ;
-       
+                  mk_symbol(&sc , "testsc-init-ext" ) ,
+                  mk_foreign_func(&sc , foreign_testsc_init_ext)) ;
+
+
     scheme_load_named_file(&sc,stdin,0);
   }
   retcode=sc.retcode;

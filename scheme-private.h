@@ -169,7 +169,7 @@ int is_real(pointer p);
 int is_character(pointer p);
 long charvalue(pointer p);
 int is_vector(pointer p);
-
+int file_interactive(scheme *sc);
 int is_port(pointer p);
 
 int is_pair(pointer p);

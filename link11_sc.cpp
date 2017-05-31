@@ -457,7 +457,7 @@ foreign_testsc_get_testnum(scheme* sc, pointer args)
   return mk_integer(sc, (long) g_testnum); 
 }
 pointer
-foreign_testsc_debug(scheme*sc , pointer args )
+foreign_testsc_debug_string(scheme*sc , pointer args )
 {
   testsc_debug(string_value(pop_args(args))) ;
   
@@ -484,11 +484,20 @@ foreign_testsc_numtest(scheme*sc , pointer args )
 //   return sc->vptr->scheme_eval(sc, mk_string(sc, string_value(pop_args(args)))) ;
 // }
 
+
 extern "C" pointer
-foreign_testsc_init(scheme* sc , pointer args)
+foreign_testsc_interactive(scheme* sc , pointer args)
+{
+  if(file_interactive(sc)){
+    return sc->T ; 
+  }
+  return sc->NIL; 
+}
+
+extern "C" pointer
+foreign_testsc_init_ext(scheme* sc , pointer args)
 {
   g_testnum            = ivalue(pop_args(args)) ;
-  const char* initcmd  = string_value(pop_args(args)) ; 
   const char* TINYSCHEME_HOME = string_value(pop_args(args)) ;
 
   if(0 == strlen(TINYSCHEME_HOME)){
@@ -524,7 +533,7 @@ foreign_testsc_init(scheme* sc , pointer args)
     //deprecated//{"mmsg-set"         , foreign_mmsg_set}, 
     // {"testsc-load"      , foreign_testsc_load},
     {"testsc-set-debug" , foreign_testsc_set_debug},
-    {"testsc-debug"     , foreign_testsc_debug}, 
+    {"testsc-debug-string"     , foreign_testsc_debug_string}, 
     {"testsc-get-testnum", foreign_testsc_get_testnum   },
     {"testsc-track-strset" , foreign_testsc_track_strset   }, 
     {"testsc-track-nset" , foreign_testsc_track_nset   }, 
@@ -538,6 +547,12 @@ foreign_testsc_init(scheme* sc , pointer args)
     // {"testsc-ivalue" ,      foreign_testsc_ivalue  }, 
   } ;
 
+  scheme_define(sc ,
+                sc->global_env ,
+                mk_symbol(sc , "*testsc-home*" ) ,
+                mk_string(sc , TINYSCHEME_HOME)) ;
+
+
   for(foreign_symbol *s = symbols ;
       s < symbols + sizeof(symbols)/sizeof(foreign_symbol) ;
       s++) {
@@ -548,7 +563,6 @@ foreign_testsc_init(scheme* sc , pointer args)
                   mk_foreign_func(sc , s->fun)) ;
   }
 
-
   return sc->NIL ; 
 }
 
@@ -558,18 +572,16 @@ void testsc_init(int testnum , const char* cmd, const char* homepath)
 {
 
   scheme_init(&g_sc) ;
-  foreign_testsc_init(&g_sc,
-                      tinyscheme_list3(&g_sc,
+  testsc_load(&g_sc, "init.scm", homepath) ; 
+  foreign_testsc_init_ext(&g_sc,
+                      tinyscheme_list2(&g_sc,
                                        mk_integer(&g_sc, testnum) ,
-                                       mk_string(&g_sc, NULL != cmd? cmd : ""),
                                        mk_string(&g_sc, NULL != homepath ? homepath : ""))) ;
 
-  testsc_load(&g_sc, "init.scm", homepath) ; 
   testsc_load(&g_sc, "util.scm", homepath) ;
   if( NULL != cmd ){
     scheme_load_string(&g_sc, cmd) ;
   }
-  testsc_load(&g_sc, "temp.scm", homepath) ;
 
 }
 
