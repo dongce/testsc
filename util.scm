@@ -24,8 +24,9 @@
 (define (loadit x)
   (load (symbol->string x)))
 
-;;(define *testsc-home* "t:/ts/")
- ;; (define *testsc-home* "t:/gitdir/tinyscheme/")
+;;; *testsc-home* is read only variable 
+;;window-default;;(define *testsc-home* "t:/ts/")
+;;linux-default;;(define *testsc-home* "/ts/")
 
 
 (define-macro (testsc-require x)

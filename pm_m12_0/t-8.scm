@@ -69,19 +69,20 @@
 (define ttg   0)
 (define ttgid 0)
 
+(tnset 0 )
 (feio
  5
  (lambda (x)
    (set! ttg 1)
    (tnset 0 'training_target_kind x))
- '(
-   system_types-target_kind_cruiser 
-   system_types-target_kind_torpedo
-   system_types-target_kind_non_exercise 
-   system_types-target_kind_cruiser
-   system_types::target_kind_f14
-   system_types-target_kind_torpedo
-   )
+'(
+ system_types-target_kind_cruiser
+ system_types-target_kind_torpedo
+ system_types-target_kind_non_exercise 
+ system_types-target_kind_cruiser
+ system_types::target_kind_f14
+ system_types-target_kind_torpedo)
+ 
  )
 
 ;; (testsc-require l11const)
@@ -105,6 +106,24 @@
   ((14)
    (mmsg-add 
     '(M12SUBLABEL  0 1)))
-  
+
+  ((15)
+   (mmsg-add
+    '(M1MN FOURTH_FRAME_OFFSET MESSAGE_NUMBER_M12)
+    '(M12SUBLABEL  FOURTH_FRAME_OFFSET 3)
+    '(M1MN  FIFTH_FRAME_OFFSET MESSAGE_NUMBER_M12)
+    '(M12SUBLABEL  SECOND_FRAME_OFFSET 1)
+    '(M12SUBLABEL  FIFTH_FRAME_OFFSET 4)
+
+    ))
+
+  ((16)
+   (mmsg-add
+    '(M1MN FOURTH_FRAME_OFFSET MESSAGE_NUMBER_M12)
+    '(M12SUBLABEL  FOURTH_FRAME_OFFSET 4)
+    ))
+
   )
+
+
 

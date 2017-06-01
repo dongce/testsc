@@ -96,6 +96,14 @@
    (define ittwn 1)
    (for-each (lambda (x) (anset x)) (num-list 0 5))
    )
+  ((19)
+   (define testsc 1 )
+   (define mas 5 )
+   (define ewiv 1 )
+   (define ewor ew_original_order )
+   (define ewod 3 )
+   (for-each (lambda (x) (anset x)) (num-list 0 5))
+   )
   
   )
 

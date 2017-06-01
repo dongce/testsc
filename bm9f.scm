@@ -6,4 +6,6 @@
   ((9) (define m2dm 5000))
   ((10) (define cea1 3000))
   ((11) (define m2dm 50000) (define mpstdm1 3000))
+  ((12) (define m2dm 1000) (define mpstdm1 3000))
+  ((13) (define m2dm 1000000) (define cea1 3000))
   )

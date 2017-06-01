@@ -139,46 +139,45 @@ TEMPLATE(_opnote.text_message[100] , it, fieldnum) ;                    \
 TEMPLATE(_opnote.counter           , it, fieldnum) ;                    \
 TEMPLATE(_opnote.store_time.coarse_time        , it, fieldnum) ;                    \
 TEMPLATE(_opnote.store_time.fine_time        , it, fieldnum) ;                    \
-TEMPLATE(_opnote.validity          , it, fieldnum) ;                    
-                                                                        
-//TEMPLATE(_sntds.icb.icb_cmdstate   , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.icb.icb_cmdstate   , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.icb.icb_cmdstate   , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.icb.ircv_number    , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.icb.icb_cmdrs      , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.icb.icb_cmdrs      , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.icb.icb_cmdrs      , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.ntds_width     , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.ntds_type      , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.out_mode       , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.out_pack       , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.in_mode        , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.in_pack        , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.echo           , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.loopback       , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.debug          , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.copy_fifo      , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.o_wait_first   , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.i_wait_first   , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.internal       , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.in_fef         , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.i_handshake    , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.ccb_cmdstate   , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.ccb_cmdrs      , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.ccb_cmdstate   , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.ccb_cmdrs      , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ccb.loopback       , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.mcb.valid_flag[0]  , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.mcb.valid_flag[1]  , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.mcb.valid_flag[0]  , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.mcb.valid_flag[1]  , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.mcb.on_line        , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.mcb.valid_flag[0]  , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.mcb.valid_flag[1]  , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ocb.ocb_cmdstate   , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ocb.ocb_cmdstate   , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ocb.ocb_cmdstate   , it, fieldnum) ;                    \
-//TEMPLATE(_sntds.ocb.ocb_cmdrs      , it, fieldnum) ; 
+TEMPLATE(_opnote.validity          , it, fieldnum) ;                    \
+TEMPLATE(_sntds.icb.icb_cmdstate   , it, fieldnum) ;                    \
+TEMPLATE(_sntds.icb.icb_cmdstate   , it, fieldnum) ;                    \
+TEMPLATE(_sntds.icb.icb_cmdstate   , it, fieldnum) ;                    \
+TEMPLATE(_sntds.icb.ircv_number    , it, fieldnum) ;                    \
+TEMPLATE(_sntds.icb.icb_cmdrs      , it, fieldnum) ;                    \
+TEMPLATE(_sntds.icb.icb_cmdrs      , it, fieldnum) ;                    \
+TEMPLATE(_sntds.icb.icb_cmdrs      , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.ntds_width     , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.ntds_type      , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.out_mode       , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.out_pack       , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.in_mode        , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.in_pack        , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.echo           , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.loopback       , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.debug          , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.copy_fifo      , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.o_wait_first   , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.i_wait_first   , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.internal       , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.in_fef         , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.i_handshake    , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.ccb_cmdstate   , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.ccb_cmdrs      , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.ccb_cmdstate   , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.ccb_cmdrs      , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ccb.loopback       , it, fieldnum) ;                    \
+TEMPLATE(_sntds.mcb.valid_flag[0]  , it, fieldnum) ;                    \
+TEMPLATE(_sntds.mcb.valid_flag[1]  , it, fieldnum) ;                    \
+TEMPLATE(_sntds.mcb.valid_flag[0]  , it, fieldnum) ;                    \
+TEMPLATE(_sntds.mcb.valid_flag[1]  , it, fieldnum) ;                    \
+TEMPLATE(_sntds.mcb.on_line        , it, fieldnum) ;                    \
+TEMPLATE(_sntds.mcb.valid_flag[0]  , it, fieldnum) ;                    \
+TEMPLATE(_sntds.mcb.valid_flag[1]  , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ocb.ocb_cmdstate   , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ocb.ocb_cmdstate   , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ocb.ocb_cmdstate   , it, fieldnum) ;                    \
+TEMPLATE(_sntds.ocb.ocb_cmdrs      , it, fieldnum) ; 
 
 
 #define TRACK_FIELDS(TEMPLATE, it, fieldnum)                            \

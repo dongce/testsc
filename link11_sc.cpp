@@ -13,7 +13,8 @@
 #include "nfields.h"
 #include "ew_intelligence_types.h"
 #include "opspec_types.h"
-//#include "sntds.h"
+#include "sntds.h"
+#include <unistd.h>
 
 #define tinyscheme_list4(sc , a , b , c , d) cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , cons((sc) , (d) , (sc)->NIL))))
 #define tinyscheme_list3(sc , a , b , c)     cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , (sc)->NIL)))
@@ -47,7 +48,7 @@ typedef struct cdo_check_t
   uint32_t  pu_address ; 
 } cdo_check_t ; 
 struct admin_t {
-  //struct {
+  union {
     wipe_proposal_t        _wipe_proposal ; 
     network_track_number_t _network_track_number ;
     pair_assoc_t           _pair_assoc ;
@@ -66,9 +67,9 @@ struct admin_t {
     network_assignment_t   _network_assignment ; 
     opspec_types::opnote_t _opnote ; 
     ew_intelligence_types::ew_intelligence_request_record _ew_request;
-    //sntds_MEM              _sntds ; 
+    sntds_MEM              _sntds ; 
     uint8_t _buff[204800] ; 
-  //} ;
+  } ;
 } ;
 
 typedef std::map<uint32_t, admin_t*> adminmap_t ;
@@ -422,8 +423,11 @@ foreign_testnum_set(scheme *sc , pointer args)
 
 void testsc_load(scheme*sc , const char* filename , const char *homepath = NULL)
 {
-
+#if defined (__linux__)
+  static const char* TINYSCHEME_HOME =(  NULL == getenv("TINYSCHEME_HOME") ? "/ts"  : getenv("TINYSCHEME_HOME")  );
+#else
   static const char* TINYSCHEME_HOME =(  NULL == getenv("TINYSCHEME_HOME") ? "t:/ts"  : getenv("TINYSCHEME_HOME")  );
+#endif
 
   char absfilename[1024] ;
   sprintf(absfilename, "%s/%s" , (NULL != homepath && strlen(homepath) > 0 ? homepath: TINYSCHEME_HOME) , filename ) ;
@@ -511,7 +515,11 @@ foreign_testsc_init_ext(scheme* sc , pointer args)
   const char* TINYSCHEME_HOME = string_value(pop_args(args)) ;
 
   if(0 == strlen(TINYSCHEME_HOME)){
+#if defined(__linux__)
+    TINYSCHEME_HOME = (  NULL == getenv("TINYSCHEME_HOME") ? "/ts"  : getenv("TINYSCHEME_HOME")  );
+#else
     TINYSCHEME_HOME = (  NULL == getenv("TINYSCHEME_HOME") ? "t:/ts"  : getenv("TINYSCHEME_HOME")  );
+#endif
   }
   
 

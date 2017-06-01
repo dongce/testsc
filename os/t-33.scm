@@ -6,7 +6,12 @@
 (case (testsc-get-testnum)
   ((3)
    (define testsc 1 )
-   (define d2r 10.0)
-  ))
+   (define d2r 10.0))
+  ((4)
+   (define testsc 1 )
+   (define nr 50000 )
+   (define usenr 1))
+
+  )
 
 

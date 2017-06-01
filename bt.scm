@@ -22,6 +22,46 @@
 (if (> (testsc-get-testnum)  25)
     (define r2d (- (testsc-get-testnum) 25)))
 
+(case (testsc-get-testnum)
+  ((23)  (set! r2d 8) (define cea1 512))
+  ((27)  (set! r2d 4) (define cea1 512))
+  ((28)  (set! r2d 17) (define cea1 512))
+  ((29)  (set! r2d 40) (define cea1 512))
+  ((112) (set! r2d 1) (define cea1 512))
+  )
+
+(define usemtm 0 )
+(define mtm 0)
+(for-each-index-offset
+ 116
+ (lambda (x)
+   (set! usemtm 1 )
+   (set! mtm x)
+   )
+
+ 6 9
+ 11 14
+ 16 19
+ 21 24
+ 26 29
+ 31 34
+ 36 39
+ 41 44
+ 46 49
+ 51 54
+ 56 59
+ 61 64
+ 66 69
+ 71 74
+ 76 79
+ 81 88
+ 86 89
+
+
+ )
+
+
+
 (testcase-values 40 r2icd 
                  (gen-values
                   '(5 10 15 20 25 30 35 40 45 50 55 60 65 70 75)
@@ -30,11 +70,5 @@
                   ))
 
 
-(case (testsc-get-testnum)
-  ((23) (define r2d 8) (define cea1 512))
-  ((27) (define r2d 4) (define cea1 512))
-  ((28) (define r2d 17) (define cea1 512))
-  ((29) (define r2d 40) (define cea1 512))
-  )
 
 

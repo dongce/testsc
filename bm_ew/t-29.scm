@@ -4,7 +4,7 @@
 ;; (testsc-require dlplink11types)
 
 (case (testsc-get-testnum)
-  ((9)
+  ((9 10)
    (define testsc 1 )
    )
   )

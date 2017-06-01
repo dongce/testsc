@@ -1,2 +1,12 @@
 (define wr 100)
+(anset 0)
+(anset 1 '_sntds.ccb.ccb_cmdstate CCB_CS_FINISHED)
+(anset 2 '_sntds.ccb.ccb_cmdstate CCB_CS_FINISHED)
+(anset 3 '_sntds.ccb.ccb_cmdstate CCB_CS_FINISHED)
+(anset 5 '_sntds.ccb.ccb_cmdstate CCB_CS_FINISHED)
+(anset 5 '_sntds.ccb.ccb_cmdstate CCB_CS_FINISHED)
+(anset 6 '_sntds.ccb.ccb_cmdstate CCB_CS_FINISHED)
+(anset 7 '_sntds.ccb.ccb_cmdstate CCB_CS_FINISHED)
+
 (anset 0 '_sntds.ccb.ccb_cmdrs (+ 1  CCB_CRS_OK ))
+(anset 1 '_sntds.ccb.ccb_cmdrs (+ 1  CCB_CRS_OK ))

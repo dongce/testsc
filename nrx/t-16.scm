@@ -1,0 +1,5 @@
+(case (testsc-get-testnum)
+  ((3)
+   (define exc 1)
+   )
+  )

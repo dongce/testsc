@@ -23,3 +23,9 @@
  )
 
 
+(case (testsc-get-testnum)
+  ((14)
+   (set! testsc 0 )
+   )
+  )
+

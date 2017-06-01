@@ -2,13 +2,17 @@
 ;; (testsc-require l11const)
 ;; (testsc-require system_types)
 ;; (testsc-require dlplink11types)
+(define vw-0 1)
 
 (case (testsc-get-testnum)
   ((2)
    (anset 0
           '_sntds.icb.icb_cmdrs OCB_CRS_IN_USE
           )
-   (define vw-0 1)
+   )
+  ((3)
+   (set! vw-0 0)
+   (define vw-1 1)
    )
   ((4)
    (anset 0

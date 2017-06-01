@@ -21,6 +21,13 @@
    (define testsc 1 )
    (set! cc 0 )
    )
-  
+  ((14)
+   (define testsc 1 )
+   (define itn 1)
+   (define ntdbexc 1)
+   )
+  ((15)
+   (define ntdbexc 1)
+   )
   )
 

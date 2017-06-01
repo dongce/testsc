@@ -33,7 +33,7 @@
 
    )
   ((10)
-   (set! 1 )
+   (set! testsc 1 )
    (set! order  system_types-launch_heli)
    (define itn 1 )
    (define itntn 1 )
@@ -90,6 +90,17 @@
    (set! order  system_types-cancel_handover)
    (anset 0 '_aircraft_control.order system_types-assume_cntrl
           '_aircraft_control.pu_transfer 1)
+   (tnset 0 )
+   )
+  ((19)
+   (set! testsc 1 )
+   (define itn 1 )
+   (define itntn 1 )
+   (define mas 1)
+   (set! order  system_types-cancel_handover)
+   (anset 0 '_aircraft_control.order system_types-assume_cntrl
+          '_aircraft_control.pu_transfer 1)
+   (define cae 0 )
    (tnset 0 )
    )
   
