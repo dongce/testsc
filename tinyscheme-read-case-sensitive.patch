@@ -1,0 +1,99 @@
+diff --git a/opdefines.h b/opdefines.h
+index ceb4d0e..9ec43f3 100644
+--- a/opdefines.h
++++ b/opdefines.h
+@@ -169,6 +169,7 @@
+     _OP_DEF(opexe_4, "close-output-port",              1,  1,       TST_OUTPORT,                     OP_CLOSE_OUTPORT    )
+     _OP_DEF(opexe_4, "interaction-environment",        0,  0,       0,                               OP_INT_ENV          )
+     _OP_DEF(opexe_4, "current-environment",            0,  0,       0,                               OP_CURR_ENV         )
++    _OP_DEF(opexe_4, "read-case-sensitive",            0,   1,      0,                               OP_CASE_SENSITIVE   )
+     _OP_DEF(opexe_5, "read",                           0,  1,       TST_INPORT,                      OP_READ             )
+     _OP_DEF(opexe_5, "read-char",                      0,  1,       TST_INPORT,                      OP_READ_CHAR        )
+     _OP_DEF(opexe_5, "peek-char",                      0,  1,       TST_INPORT,                      OP_PEEK_CHAR        )
+diff --git a/scheme-private.h b/scheme-private.h
+index 3395328..5fb52be 100644
+--- a/scheme-private.h
++++ b/scheme-private.h
+@@ -95,6 +95,8 @@ pointer EOF_OBJ;         /* special cell representing end-of-file object */
+ pointer oblist;          /* pointer to symbol table */
+ pointer global_env;      /* pointer to global environment */
+ pointer c_nest;          /* stack for nested calls from C */
++int case_sensitive;      /* whether the reader should be case sensitive */
++
+ 
+ /* global pointers to special symbols */
+ pointer LAMBDA;               /* pointer to syntax lambda */
+diff --git a/scheme.c b/scheme.c
+index 99f9106..901a256 100644
+--- a/scheme.c
++++ b/scheme.c
+@@ -1076,6 +1076,10 @@ static pointer mk_atom(scheme *sc, char *q) {
+      int has_dec_point=0;
+      int has_fp_exp = 0;
+ 
++     if (!sc->case_sensitive) {
++          strlwr(q);
++     }
++
+ #if USE_COLON_HOOK
+      if((p=strstr(q,"::"))!=0) {
+           *p=0;
+@@ -1084,7 +1088,7 @@ static pointer mk_atom(scheme *sc, char *q) {
+                               cons(sc,
+                                    sc->QUOTE,
+                                    cons(sc, mk_atom(sc,p+2), sc->NIL)),
+-                              cons(sc, mk_symbol(sc,strlwr(q)), sc->NIL)));
++                              cons(sc, mk_symbol(sc,q), sc->NIL)));
+      }
+ #endif
+ 
+@@ -1097,16 +1101,16 @@ static pointer mk_atom(scheme *sc, char *q) {
+          c = *p++;
+        }
+        if (!isdigit(c)) {
+-         return (mk_symbol(sc, strlwr(q)));
++         return (mk_symbol(sc, q));
+        }
+      } else if (c == '.') {
+        has_dec_point=1;
+        c = *p++;
+        if (!isdigit(c)) {
+-         return (mk_symbol(sc, strlwr(q)));
++         return (mk_symbol(sc, q));
+        }
+      } else if (!isdigit(c)) {
+-       return (mk_symbol(sc, strlwr(q)));
++       return (mk_symbol(sc, q));
+      }
+ 
+      for ( ; (c = *p) != 0; ++p) {
+@@ -1127,7 +1131,7 @@ static pointer mk_atom(scheme *sc, char *q) {
+                           }
+                        }
+                }
+-               return (mk_symbol(sc, strlwr(q)));
++               return (mk_symbol(sc, q));
+           }
+      }
+      if(has_dec_point) {
+@@ -3973,6 +3977,12 @@ static pointer opexe_4(scheme *sc, enum scheme_opcodes op) {
+      case OP_CURR_ENV: /* current-environment */
+           s_return(sc,sc->envir);
+ 
++     case OP_CASE_SENSITIVE: /* read-case-sensitive */
++          if (sc->args != sc->NIL) {
++               sc->case_sensitive=(car(sc->args)!=sc->F);
++          }
++          s_return(sc,sc->case_sensitive ? sc->T : sc->F);
++
+      }
+      return sc->T;
+ }
+@@ -4664,6 +4674,7 @@ int scheme_init_custom_alloc(scheme *sc, func_alloc malloc, func_dealloc free) {
+   sc->loadport=sc->NIL;
+   sc->nesting=0;
+   sc->interactive_repl=0;
++  sc->case_sensitive=0; /* default to case insensitive reader following R5RS */
+ 
+   if (alloc_cellseg(sc,FIRST_CELLSEGS) != FIRST_CELLSEGS) {
+     sc->no_memory=1;

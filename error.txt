@@ -1,0 +1,97 @@
+link11_sc.cpp:1:0: warning: -fpic ignored for target (all code is position independent) [enabled by default]
+In file included from t:/gitdir/DLP_LINK11/src/include/link11_const.h:4:0,
+                 from t:/gitdir/DLP_LINK11/src/include/dlp_link11_types.h:40,
+                 from link11_sc.cpp:8:
+t:/gitdir/DLP_LINK11/src/common/utility.h:17:0: warning: "ERROR" redefined [enabled by default]
+In file included from c:\toolchain\gnutoolchain\gcc-4.7.2\bin\../lib/gcc/mingw32/4.7.2/../../../../include/windows.h:52:0,
+                 from c:\toolchain\gnutoolchain\gcc-4.7.2\bin\../lib/gcc/mingw32/4.7.2/../../../../include/winsock2.h:22,
+                 from t:/gitdir/DLP_LINK11/src/common/utility.h:9,
+                 from t:/gitdir/DLP_LINK11/src/include/link11_const.h:4,
+                 from t:/gitdir/DLP_LINK11/src/include/dlp_link11_types.h:40,
+                 from link11_sc.cpp:8:
+c:\toolchain\gnutoolchain\gcc-4.7.2\bin\../lib/gcc/mingw32/4.7.2/../../../../include/wingdi.h:313:0: note: this is the location of the previous definition
+In file included from t:/gitdir/DLP_LINK11/src/include/link11_const.h:4:0,
+                 from t:/gitdir/DLP_LINK11/src/include/dlp_link11_types.h:40,
+                 from link11_sc.cpp:8:
+t:/gitdir/DLP_LINK11/src/common/utility.h:82:22: warning: anonymous variadic macros were introduced in C99 [-Wvariadic-macros]
+In file included from t:/gitdir/DLP_LINK11/src/include/link11_const.h:8:0,
+                 from t:/gitdir/DLP_LINK11/src/include/dlp_link11_types.h:40,
+                 from link11_sc.cpp:8:
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:675:16: warning: use of C++0x long long integer constant [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:876:32: warning: use of C++0x long long integer constant [-Wlong-long]
+In file included from link11_sc.cpp:7:0:
+t:/gitdir/DLP_LINK11/src/include/system_types.h:50:41: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:57:29: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:236:29: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:244:19: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:273:26: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:589:24: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:623:24: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:636:25: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:643:27: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:655:29: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:673:28: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:681:29: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:703:28: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:726:28: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:804:31: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:927:17: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:940:30: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:1030:10: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:1098:19: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:1141:14: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:1153:30: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:1260:31: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:1398:41: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:1601:20: warning: comma at end of enumerator list [-pedantic]
+t:/gitdir/DLP_LINK11/src/include/system_types.h:1614:52: warning: comma at end of enumerator list [-pedantic]
+In file included from t:/gitdir/DLP_LINK11/src/include/link11_const.h:8:0,
+                 from t:/gitdir/DLP_LINK11/src/include/dlp_link11_types.h:40,
+                 from link11_sc.cpp:8:
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:663:30: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:672:1: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:672:27: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h: In function 'long long int ULL2LL(long long unsigned int)':
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:674:2: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:676:12: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h: At global scope:
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:681:1: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:681:36: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h: In function 'long long unsigned int LL2ULL(long long int)':
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:683:2: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:685:13: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h: At global scope:
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:806:19: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:824:29: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:873:1: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h: In function 'long long unsigned int L2ULL(long int)':
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:875:2: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:877:13: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h: At global scope:
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:1052:18: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:1381:30: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:3615:44: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:3896:54: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:3942:37: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:4172:26: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:4184:23: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:4190:29: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:4213:32: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:4792:37: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:4820:34: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:4850:40: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:4867:29: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:4878:38: warning: comma at end of enumerator list [-pedantic]
+t:\FFX-II\devenv\icmslib\include/ICMSDefine.h:4891:31: warning: comma at end of enumerator list [-pedantic]
+In file included from link11_sc.cpp:8:0:
+t:/gitdir/DLP_LINK11/src/include/dlp_link11_types.h:1199:28: warning: comma at end of enumerator list [-pedantic]
+link11_sc.cpp: In function 'void testsc_debug(const char*, ...)':
+link11_sc.cpp:64:27: warning: converting to non-pointer type 'char' from NULL [-Wconversion-null]
+link11_sc.cpp: In function 'cell* foreign_testsc_init(scheme*, pointer)':
+link11_sc.cpp:573:3: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+link11_sc.cpp:573:3: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+link11_sc.cpp:573:3: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+link11_sc.cpp:573:3: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+link11_sc.cpp:573:3: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+link11_sc.cpp:573:3: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+link11_sc.cpp:573:3: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
