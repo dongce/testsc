@@ -540,7 +540,12 @@ foreign_testsc_init_ext(scheme* sc , pointer args)
           "%s/debug.txt" ,
           TINYSCHEME_HOME ) ;
   
-  g_debug = fopen(absfilename, "ab") ; 
+  g_debug = fopen(absfilename, "ab") ;
+  if(!file_interactive(sc)){
+    scheme_set_output_port_file(sc, g_debug);
+  }
+
+
   g_buffer = reinterpret_cast<char*>(malloc(10240) ); 
 
   
