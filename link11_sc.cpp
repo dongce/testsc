@@ -14,6 +14,9 @@
 #include "ew_intelligence_types.h"
 #include "opspec_types.h"
 #include "sntds.h"
+#include "link11_sc.h"
+#include <algorithm>
+#include <cctype>
 //#include <unistd.h>
 
 #define tinyscheme_list4(sc , a , b , c , d) cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , cons((sc) , (d) , (sc)->NIL))))
@@ -64,6 +67,7 @@ struct admin_t {
     new_assignment_t       _assign_request ;
     track_alert_report_t   _alert_report ;
     cdo_check_t            _cdo_check ;
+    cdo_check_t            _cdo_check_array[3] ;
     network_assignment_t   _network_assignment ; 
     opspec_types::opnote_t _opnote ; 
     ew_intelligence_types::ew_intelligence_request_record _ew_request;
@@ -111,11 +115,19 @@ pointer g_mmsg    = 0;
 int     g_testnum = 0;
 int     g_testsc_debug = 1 ; 
 
-uint32_t field_id(scheme* sc ,const std::string& fieldname)
+uint32_t field_id(scheme* sc ,std::string fieldname)
 {
   static uint32_t fieldid = 1000U ;
-  // testsc_debug("field id %s ", fieldname.c_str() ) ; 
+  testsc_debug("field id %s ", fieldname.c_str() ) ; 
 
+  fieldname.erase(std::remove(fieldname.begin(), fieldname.end() , ' ')) ; 
+  fieldname.erase(std::remove(fieldname.begin(), fieldname.end() , '\f')) ; 
+  fieldname.erase(std::remove(fieldname.begin(), fieldname.end() , '\n')) ; 
+  fieldname.erase(std::remove(fieldname.begin(), fieldname.end() , '\r')) ; 
+  fieldname.erase(std::remove(fieldname.begin(), fieldname.end() , '\t')) ; 
+  fieldname.erase(std::remove(fieldname.begin(), fieldname.end() , '\v')) ; 
+
+  
   fieldmap_t::iterator it = g_fieldmap.find(fieldname) ;
 
   // testsc_debug("field id %s %s:%d", fieldname.c_str() , __FILE__, __LINE__) ; 
@@ -133,8 +145,6 @@ uint32_t field_id(scheme* sc ,const std::string& fieldname)
 template<typename TYPE>
 void FIELD_NSET(TYPE& a, pointer arg)
 {
-  testsc_debug("is pair %d", is_pair(arg) ) ; 
-
   num b = nvalue(arg) ; 
 
   if(b.is_fixnum){
@@ -149,12 +159,10 @@ void FIELD_NSET(TYPE& a, pointer arg)
 template< typename TYPE, size_t N>
 void FIELD_NSET(TYPE (&args)[N], pointer b )
 {
-  testsc_debug("field is array") ; 
-  for(int i = 0 ; i < N ; i++){
-    FIELD_NSET(args[i], pop_args(b)  ) ;
-
+  int i = 0 ; 
+  for(pointer it = b ; !is_nil(it)  ; it = pair_cdr(it) ){
+    FIELD_NSET(args[i++], pair_car(it)) ;
   }
-
 }
 
 
@@ -199,8 +207,9 @@ pointer FIELD_NGET(scheme*sc, const TYPE& a)
 #define FIELD_STRSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ strcpy((char*)(i)->second->f , (v)) ; break; }
 
 #define FIELD_NSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ \
-FIELD_NSET((i)->second->f , (v)) ;                                      \
-FIELD_NSET_LOG(#f, (v)) ;                                               \
+pointer vit = (v) ;                                                     \
+FIELD_NSET((i)->second->f , (vit)) ;                                    \
+FIELD_NSET_LOG(#f, (vit)) ;                                             \
 break; }
 
 #define FIELD_NGET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ \
@@ -293,6 +302,7 @@ foreign_testsc_admin_nset(scheme *sc , pointer args)
     FOR_FIELD_ID(fieldname){
       ADMIN_FIELDS(FIELD_NSET_VALUE, it, pop_args(field)) ;
       FIELD_NSET_VALUE(_buff, it, pop_args(field)) ; 
+      FIELD_NSET_VALUE(_cdo_check_array[0].network, it, pop_args(field)) ; 
     }
   }
   
@@ -536,9 +546,26 @@ foreign_testsc_numtest(scheme*sc , pointer args )
 //deprecated//  return sc->NIL; 
 //deprecated//}
 
+#if defined(STANDALONE)
+scheme* g_sc  = reinterpret_cast<scheme*>(malloc(sizeof(scheme)) );
+#else
+scheme* g_sc = NULL ; 
+#endif
+
+bool is_nil(pointer it)
+{
+  return g_sc->NIL == it;
+}
+
+
 extern "C" pointer
 foreign_testsc_init_ext(scheme* sc , pointer args)
 {
+
+  if(g_sc != sc){
+    g_sc = sc; 
+  }
+
   g_testnum            = ivalue(pop_args(args)) ;
   const char* TINYSCHEME_HOME = string_value(pop_args(args)) ;
 
@@ -619,19 +646,18 @@ foreign_testsc_init_ext(scheme* sc , pointer args)
 }
 
 //////////////TEST CASE 에서 호출할 수 있는 함수들 ////////////////
-scheme g_sc  = {0, }; 
 void testsc_init(int testnum , const char* cmd, const char* homepath)
 {
 
-  scheme_init(&g_sc) ;
-  testsc_load(&g_sc, "init.scm", homepath) ;
-  foreign_testsc_init_ext(&g_sc,
-                          tinyscheme_list2(&g_sc,
-                                       mk_integer(&g_sc, testnum) ,
-                                       mk_string(&g_sc, NULL != homepath ? homepath : ""))) ;
+  scheme_init(g_sc) ;
+  testsc_load(g_sc, "init.scm", homepath) ;
+  foreign_testsc_init_ext(g_sc,
+                          tinyscheme_list2(g_sc,
+                                       mk_integer(g_sc, testnum) ,
+                                       mk_string(g_sc, NULL != homepath ? homepath : ""))) ;
 
   if( NULL != cmd ){
-    scheme_load_string(&g_sc, cmd) ;
+    scheme_load_string(g_sc, cmd) ;
   }
 
 }
@@ -643,7 +669,7 @@ void testsc_init(int testnum , const char* cmd, const char* homepath)
 inline long testsc_eval_ivalue(pointer x)
 {
   if(is_symbol(x)){
-    return ivalue(scheme_eval(&g_sc ,x)) ;
+    return ivalue(scheme_eval(g_sc ,x)) ;
   }
   return ivalue(x) ; 
 }
@@ -651,7 +677,7 @@ inline long testsc_eval_ivalue(pointer x)
 inline double testsc_eval_dvalue(pointer x)
 {
   if(is_symbol(x)){
-    x = scheme_eval(&g_sc ,x) ; 
+    x = scheme_eval(g_sc ,x) ; 
   }
 
   if(is_integer(x)){
@@ -673,8 +699,8 @@ long mmsg_get_field_value_with_name( int a, int b , const char* name)
                a,
                b ) ; 
   
-  for (pointer it = scheme_eval(&g_sc, mk_symbol(&g_sc, name) ) ;
-       NULL != it && it != g_sc.NIL;
+  for (pointer it = scheme_eval(g_sc, mk_symbol(g_sc, name) ) ;
+       NULL != it && it != g_sc->NIL;
        it = pair_cdr(it)) {
     pointer x = pair_car(it) ;
     const long field  = testsc_eval_ivalue(testsc_car(x)) ; 
@@ -709,14 +735,14 @@ long mmsg_get_field_value( int a, int b )
 
 long testsc_ivalue( const char *name )
 {
-  if( 0 == g_sc.NIL ){
+  if( 0 == g_sc->NIL ){
     return 0 ;
   }
 
   
-  pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
+  pointer args = scheme_eval(g_sc, mk_symbol(g_sc, name) );
 
-  if( NULL != args && g_sc.NIL != args  && ( is_integer(args) || is_symbol(args)) ){
+  if( NULL != args && g_sc->NIL != args  && ( is_integer(args) || is_symbol(args)) ){
     long value = testsc_eval_ivalue(args) ; 
     // long value = ivalue(args) ; 
     testsc_debug("testsc_ivalue %s is %d" , name, value) ;
@@ -727,14 +753,14 @@ long testsc_ivalue( const char *name )
 
 double testsc_dvalue( const char *name )
 {
-  if( 0 == g_sc.NIL ){
+  if( 0 == g_sc->NIL ){
     return 0 ;
   }
 
   
-  pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
+  pointer args = scheme_eval(g_sc, mk_symbol(g_sc, name) );
 
-  if( NULL != args && g_sc.NIL != args  && (is_real(args) || is_integer(args) || is_symbol(args))){
+  if( NULL != args && g_sc->NIL != args  && (is_real(args) || is_integer(args) || is_symbol(args))){
     double value = testsc_eval_dvalue(args) ; 
     // double value = rvalue(args) ; 
     testsc_debug("testsc_dvalue %s is %f" , name, value) ;
@@ -753,14 +779,14 @@ double testsc_dvalue( const char *name )
 
 char* testsc_strvalue( const char *name )
 {
-  if( 0 == g_sc.NIL ){
+  if( 0 == g_sc->NIL ){
     return 0 ;
   }
 
   
-  pointer args = scheme_eval(&g_sc, mk_symbol(&g_sc, name) );
+  pointer args = scheme_eval(g_sc, mk_symbol(g_sc, name) );
 
-  if( NULL != args && g_sc.NIL != args  && is_string(args)){
+  if( NULL != args && g_sc->NIL != args  && is_string(args)){
     char *strvalue = string_value(args) ; 
     testsc_debug("testsc_ivalue %s is %d" , name, strvalue) ;
     return strvalue ;
@@ -821,7 +847,7 @@ network_track_data_ptr  testsc_track_get(uint32_t id )
 void testsc_eval(const char *cmd)
 {
   testsc_debug("testsc eval %s" , cmd) ; 
-  scheme_load_string(&g_sc, cmd) ;
+  scheme_load_string(g_sc, cmd) ;
 }
 
 
@@ -848,5 +874,5 @@ void testsc_debug(const char*format ...)
 
 void testsc_close()
 {
-  scheme_deinit(&g_sc);
+  scheme_deinit(g_sc);
 }
