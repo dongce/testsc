@@ -5066,10 +5066,7 @@ int main(int argc, char **argv) {
     file_name=*argv++;
   } while(file_name!=0);
   if(argc==1) {
-       foreign_testsc_init_ext(&sc,
-                               tinyscheme_list2(&sc,
-                                                mk_integer(&sc, 1) ,
-                                                mk_string(&sc ,  "./"))) ;
+       foreign_testsc_init_ext(&sc, cons(&sc, mk_integer(&sc, 1), cons(&sc , mk_string(&sc ,  "./") ,  sc.NIL))) ;
        scheme_load_named_file(&sc,stdin,0);
   }
   retcode=sc.retcode;
