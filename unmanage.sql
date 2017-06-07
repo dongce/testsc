@@ -1,0 +1,1 @@
+update UtTest set isManaged = 0 ; 
