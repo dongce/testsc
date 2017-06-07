@@ -14,7 +14,7 @@
 #include "ew_intelligence_types.h"
 #include "opspec_types.h"
 #include "sntds.h"
-#include "link11_sc.h"
+#include "testsc.h"
 #include <algorithm>
 #include <cctype>
 //#include <unistd.h>
