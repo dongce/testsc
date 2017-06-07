@@ -1,5 +1,5 @@
-#if !defined(__LINK11_SC_H__)
-#define __LINK11_SC_H__
+#if !defined(__TESTSC_H__)
+#define __TESTSC_H__
 typedef struct network_track_data_t* network_track_data_ptr ; 
 long testsc_ivalue(const char* name) ; 
 double testsc_dvalue(const char* name) ; 
