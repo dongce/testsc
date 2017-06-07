@@ -173,7 +173,7 @@
       (testsc-require icmsdefine)
       #+END_SRC
 
-   2. [[test_variable][테스트 변수]] 및 [[testsc_struct][testsc 구조체]]를 선언 한다. 
+   2. [[test_variable][테스트 변수]]를 선언 한다. <<declare_test_variable>>
       scheme 의 define 을 이용하여 변수를 선언한다. 
 
       CodeScroll이 정의한 변수인 경우 편리를 위해 같은 이름으로 정의한다.
@@ -183,25 +183,20 @@
       
       
       #+BEGIN_SRC scheme
-      (define value1 "kim")
+      (define value1 TRACK_IDENTITY_FRIEND)
       (define value2 32.1234)
+      (define value3 "testsctring" )
       #+END_SRC
 
-      [[testsc_struct][testsc 구조체]]는 테스트에 사용되는 구조체 생성을 위해 *testsc* 가
-      내부적으로 사용하는 구조체를 의미한다. 
+      테스트에 사용되는 구조체의 경우 CodeScroll 에서 [[test_variable][테스트 변수]]를 이용하여
+      구조체 필드의 값을 설정한다. 대부분의 경우 변수를 이용하여 충분히 설정을
+      할 수 있으나, 특이한 경우 변수만으로는 설정이 어려울 수 있다. 
 
-      다음은 식별자 0 으로 _track.TMSIndex 필드 값이 0 _track.identity 가 FRIEND
-      구조체를 생성한다.  
+      *testsc* 는 [[testsc_struct][testsc 구조체]] 를 이용하여 구조체 테스트 데이터를 생성할 수
+      있다. 상세한 내용은 [[testsc_struct][testsc 구조체]]부분 참조.   
 
-      [[testsc_struct][testsc 구조체]]에 대한 상세한 내용은 [[testsc_struct][testsc 구조체]]부분 참조 
-      #+BEGIN_SRC scheme
-      (testsc-stset 0 
-                      '_track.TMSIndex 10
-                      '_track.identit  FRIEND )
-      #+END_SRC
-
-   3. [[scheme_test_script][scheme 파일 작성]]부분을 참조하여 *TESTCASENO* 에 따라  [[test_variable][테스트 변수]] 및
-      [[testsc_struct][testsc 구조체]]를 설정한다. 
+   3. [[scheme_test_script][scheme 파일 작성]]부분을 참조하여 *TESTCASENO* 에 따라  [[test_variable][테스트 변수]]를
+      설정한다. 
       
       상세한 내용은 [[scheme_test_script][scheme 파일 작성]] 및 [[testsc 구조체][testsc_struct]]부분을 참조한다
 
@@ -371,17 +366,40 @@
   데이터가 필요할 경우 사용한다. 추가적으로 C 함수를 구현해야 하는데, 구조체의
   필드별로 테스트변수를 만들어서 설정하는방식과 비교하여 한번 구현해 두면 유리할 경우 추가 구현하여 사용한다. 
 
-
-
 C 함수 추가
   구현이 필요한 부분으로써 관련 구조체가 빈번히 사용될 경우 구현을 하면 
 
 C 구현이
   필요하기 때문에 내부에서 자주 사용하는 구조체에 대하여 구현을 사고 
+
+
+
+      [[test_variable][테스트 변수]]를 활용해서 구조체의 필드에 값을 설정할 수 있다. 대부분의 경우
+      
+      [[testsc_struct][testsc 구조체]]는 테스트에 사용되는 구조체 생성을 위해 *testsc* 가
+      내부적으로 사용하는 구조체를 의미한다. 
+
+      다음은 식별자 0 으로 _track.TMSIndex 필드 값이 0 _track.identity 가 FRIEND
+      구조체를 생성한다.  
+
+      [[testsc_struct][testsc 구조체]]에 대한 상세한 내용은 [[testsc_struct][testsc 구조체]]부분 참조 
+      #+BEGIN_SRC scheme
+      (testsc-stset 0 
+                      '_track.TMSIndex 10
+                      '_track.identit  FRIEND )
+      #+END_SRC
+
 ** 구조체 테스트 데이터 생성 
    확장 모듈을 이용하여 구조체 테스트 데이터를 생성할 수 있다. 
    [[testsc_admin_get]] 을 이용하여 scheme 파일에서 생성한 구조체를 가져 온다. 
 
+** 빌드 방법 
+   build.bat 파일을 이용하여 빌드를 수행한다. 
+
+   scheme.exe 파일을 생성하기 위해서는 -DSTANDALONE=1 을 컴파일러로 전달해야 한다. 
+
+   libtestsc.a 파일을 생성하기 위해서는 -DSTANDALONE=0 을 컴파일러로 전달해야 한다.  
+   
 * Best Practice 
 ** 비관리 코드 활용 
    CodeScroll 테스트케이스 생성 및 일괄 빌드 후 비관리 코드 전환을 수행하고
@@ -1191,3 +1209,4 @@ C 구현이
 ** scheme 파일 <<scheme_file>>
    테스트 데이터를 생성하는 scheme 테스트 스크립트를 의미한다. 
 ** testsc 홈 <<testsc_home>>
+** 테스트 변수 <<test_variable>>
