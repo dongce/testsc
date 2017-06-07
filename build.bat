@@ -1,5 +1,5 @@
 
-set PATH=C:\toolchain\gnutoolchain\gcc -w-4.7.2\bin;%PATH%
+set PATH=C:\toolchain\gnutoolchain\gcc-4.7.2\bin;%PATH%
 
 rem scheme.exe 
 rem g++ -w -fpic -pedantic -I. -It:/gitdir/DLP_LINK11/src/csds_manager -It:/gitdir/DLP_LINK11/src/include -It:/gitdir/DLP_LINK11/src/common -It:/ICMS/devenv/icmsdlpcachelib/include -It:/ICMS/devenv/icmslib/include -c  -Wno-char-subscripts -O -DSTANDALONE=1 -DUSE_INTERFACE=1 -DUSE_STRLWR=0 -DUSE_STRCASECMP=0 -DUSE_DL=0 -DUSE_MATH=1 -DUSE_ASCII_NAMES=0 -DSTC_WIN32  t:/gitdir/DLP_LINK11/src/common/utility.cpp
