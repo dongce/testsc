@@ -14,7 +14,7 @@
 #include "ew_intelligence_types.h"
 #include "opspec_types.h"
 #include "sntds.h"
-#include <unistd.h>
+//#include <unistd.h>
 
 #define tinyscheme_list4(sc , a , b , c , d) cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , cons((sc) , (d) , (sc)->NIL))))
 #define tinyscheme_list3(sc , a , b , c)     cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , (sc)->NIL)))
@@ -84,7 +84,11 @@ adminmap_t g_adminmap ;
 network_track_data_t g_trackdefault ; 
 admin_t              g_admindefault ; 
 
-FILE* g_debug = 0 ;
+#if defined(STANDALONE)
+FILE* g_debug = stdout ;
+#else
+FILE* g_debug = NULL ;
+#endif
 char* g_buffer = 0 ; 
 struct foreign_symbol
 {
@@ -127,8 +131,12 @@ uint32_t field_id(scheme* sc ,const std::string& fieldname)
 }
 
 template<typename TYPE>
-void FIELD_NSET(TYPE& a, const num& b)
+void FIELD_NSET(TYPE& a, pointer arg)
 {
+  testsc_debug("is pair %d", is_pair(arg) ) ; 
+
+  num b = nvalue(arg) ; 
+
   if(b.is_fixnum){
     a = static_cast<TYPE>(b.value.ivalue) ;
   }
@@ -136,16 +144,36 @@ void FIELD_NSET(TYPE& a, const num& b)
     a = static_cast<TYPE>(b.value.rvalue) ;
   }
 
-    
 }
 
-void FIELD_NSET_LOG(const char* fname ,  const num& b)
+template< typename TYPE, size_t N>
+void FIELD_NSET(TYPE (&args)[N], pointer b )
 {
-  if(b.is_fixnum){
-    testsc_debug("field set %s, %d done", fname , b.value.ivalue) ; 
+  testsc_debug("field is array") ; 
+  for(int i = 0 ; i < N ; i++){
+    FIELD_NSET(args[i], pop_args(b)  ) ;
+
+  }
+
+}
+
+
+
+void FIELD_NSET_LOG(const char* fname ,  pointer a)
+{
+  if(is_pair(a)){
+    testsc_debug("field array set %s", fname ) ; 
+    
   }
   else{
-    testsc_debug("field set %s, %f done", fname , b.value.rvalue) ; 
+    num b = nvalue(a) ; 
+    
+    if(b.is_fixnum){
+      testsc_debug("field set %s, %d done", fname , b.value.ivalue) ; 
+    }
+    else{
+      testsc_debug("field set %s, %f done", fname , b.value.rvalue) ; 
+    }
   }
 }
 
@@ -235,10 +263,10 @@ foreign_testsc_track_nset(scheme *sc , pointer args)
   for (pointer field = pop_args(args); is_pair(field); field = pop_args(args)) {
     const char *sym = symname(pop_args(field) ); 
     const std::string fieldname(sym);
-    const num         fieldnum   = nvalue( pop_args(field)) ;
+    // const num         fieldnum   = nvalue( pop_args(field)) ;
 
     FOR_FIELD_ID(fieldname){
-      TRACK_FIELDS(FIELD_NSET_VALUE, it, fieldnum) ; 
+      TRACK_FIELDS(FIELD_NSET_VALUE, it, pop_args(field)) ; 
     }
   }
   
@@ -261,10 +289,11 @@ foreign_testsc_admin_nset(scheme *sc , pointer args)
   for (pointer field = pop_args(args); is_pair(field); field = pop_args(args)) {
     const char *sym = symname(pop_args(field) ); 
     const std::string fieldname(sym);
-    const num         fieldnum   = nvalue( pop_args(field)) ;
+    // const num         fieldnum   = nvalue( pop_args(field)) ;
 
     FOR_FIELD_ID(fieldname){
-      ADMIN_FIELDS(FIELD_NSET_VALUE, it, fieldnum) ; 
+      ADMIN_FIELDS(FIELD_NSET_VALUE, it, pop_args(field)) ;
+      FIELD_NSET_VALUE(_buff, it, pop_args(field)) ; 
     }
   }
   
@@ -499,14 +528,14 @@ foreign_testsc_numtest(scheme*sc , pointer args )
 // }
 
 
-extern "C" pointer
-foreign_testsc_interactive(scheme* sc , pointer args)
-{
-  if(file_interactive(sc)){
-    return sc->T ; 
-  }
-  return sc->NIL; 
-}
+//deprecated//extern "C" pointer
+//deprecated//foreign_testsc_interactive(scheme* sc , pointer args)
+//deprecated//{
+//deprecated//  if(file_interactive(sc)){
+//deprecated//    return sc->T ; 
+//deprecated//  }
+//deprecated//  return sc->NIL; 
+//deprecated//}
 
 extern "C" pointer
 foreign_testsc_init_ext(scheme* sc , pointer args)
@@ -523,6 +552,7 @@ foreign_testsc_init_ext(scheme* sc , pointer args)
   }
   
 
+#if !defined(STANDALONE)
   char absfilename[1024] ;
   sprintf(absfilename,
           "%s/testsc-error.txt" ,
@@ -532,19 +562,18 @@ foreign_testsc_init_ext(scheme* sc , pointer args)
       f = NULL){
     dup2(fileno(f) , STDERR_FILENO) ;
   }
-          
-  fprintf(stderr,"Errors encountered reading %s\n",absfilename);
+
   fflush(stderr) ;
 
   sprintf(absfilename,
-          "%s/debug.txt" ,
+          "%s/testsc-debug.txt" ,
           TINYSCHEME_HOME ) ;
   
   g_debug = fopen(absfilename, "ab") ;
   if(!file_interactive(sc)){
-    scheme_set_output_port_file(sc, g_debug);
+   scheme_set_output_port_file(sc, g_debug);
   }
-
+#endif
 
   g_buffer = reinterpret_cast<char*>(malloc(10240) ); 
 
@@ -596,13 +625,12 @@ void testsc_init(int testnum , const char* cmd, const char* homepath)
 {
 
   scheme_init(&g_sc) ;
-  testsc_load(&g_sc, "init.scm", homepath) ; 
+  testsc_load(&g_sc, "init.scm", homepath) ;
   foreign_testsc_init_ext(&g_sc,
-                      tinyscheme_list2(&g_sc,
+                          tinyscheme_list2(&g_sc,
                                        mk_integer(&g_sc, testnum) ,
                                        mk_string(&g_sc, NULL != homepath ? homepath : ""))) ;
 
-  testsc_load(&g_sc, "util.scm", homepath) ;
   if( NULL != cmd ){
     scheme_load_string(&g_sc, cmd) ;
   }

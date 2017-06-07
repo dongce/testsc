@@ -5017,10 +5017,10 @@ int main(int argc, char **argv) {
                 sc.global_env ,
                 mk_symbol(&sc , "testsc-init-ext" ) ,
                 mk_foreign_func(&sc , foreign_testsc_init_ext)) ;
-  scheme_define(&sc ,
-                sc.global_env ,
-                mk_symbol(&sc , "testsc-interactive?" ) ,
-                mk_foreign_func(&sc , foreign_testsc_interactive)) ;
+  //deprecated//scheme_define(&sc ,
+  //deprecated//              sc.global_env ,
+  //deprecated//              mk_symbol(&sc , "testsc-interactive?" ) ,
+  //deprecated//              mk_foreign_func(&sc , foreign_testsc_interactive)) ;
 
   do {
     if(strcmp(file_name,"-")==0) {

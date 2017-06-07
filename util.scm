@@ -3,22 +3,7 @@
       (apply string-append
              (car args)
              (map (lambda (s) (string-append joiner s)) (cdr args)))))
-(define (testsc-debug . args)
-  (let* ((port (open-output-string))
-         (result 
-          (apply string-join
-           " "
-           (map
-            (lambda (x)
-              (display x port)
-              (get-output-string port))
-            args))))
-    (if (testsc-interactive?)
-        (begin  (display result ) (display "\n"))
-        (testsc-debug-string  result ))
-    (close-output-port port)))
 
-(testsc-debug "\n--------------------------------------" )
 
 
 (define (loadit x)
@@ -48,7 +33,6 @@
 (define (meter-to-dm meter) (/ meter 1828.8))
 (define (dm-to-meter dm)    (* dm 1828.8))
 
-(testsc-debug "util2")
 
 (define (nth n l)
   (display  l)
@@ -56,18 +40,15 @@
       ((>= i n ))
     (set! l (cdr l)))
   (car l))
-(testsc-debug "util5")
 
 
 ;;notwork;;(define-macro (testcase-values tnum-start symbol values)
 ;;notwork;;  `(define ,symbol (nth (- ( testsc-get-testnum ) ,tnum-start) ,values)))
 
 
-(testsc-debug "util3")
 
 (define (gen-values values . procs )
   (apply append  (map (lambda (value) (cons value  (map (lambda (proc) (proc value)) procs))) values )))
-(testsc-debug "util4")
 
 (define (testcase-track-nset tnum-start tid symbol values)
   (let ((n (- (testsc-get-testnum) tnum-start) ))
@@ -120,7 +101,16 @@
   (testsc-admin-nset id)
   (testsc-admin-strset id (list '_buff arg)))
 
-
+(define (adminset id . args )
+  (testsc-admin-nset id)
+  (do ((sym-vals args (cddr sym-vals)))
+      ((> 2 (length sym-vals)  ))
+    (let ((value (eval-symbol  (cadr sym-vals))))
+      (cond ((string? value)
+             (testsc-admin-strset id (list (car sym-vals) value)))
+            (else
+             (testsc-admin-nset id (list (car sym-vals) value)))))))
+  
 (define (t-offset start) (- (testsc-get-testnum) start))
 
 (define (t-offset? start) (> (t-offset start ) -1))
@@ -175,3 +165,5 @@
 
 (define (switchperm c . args )
   (map (lambda (x) (list c x)) (cons -1  args)))
+
+
