@@ -154,12 +154,123 @@
     #+END_SRC
 
 ** 테스트스크립트 작성 
-*** 변수 값 선언 
-    #+BEGIN_SRC scheme
-      (define value1 10)
-      (define value2 3.1415926378)
-      (define value3 "string 테스트 데이터")
-    #+END_SRC
+
+*** 테스트 데이터 생성 법
+**** 함수내의 모든 분기문을 확인한다. 
+
+     if, switch 등의 분기문에서 사용하는 변수, 구조체 필드, 함수 리턴값 등을
+     식별한다. &&(and) , ||(or) 로 조건이 중첩 되어 있는 경우 로직 연산자의 좌·우
+     (operand)를 각각 따로 식별 한다. 
+
+     CodeScroll은 테스트케이스를 생성할 때 이 항목들을 테스트입력값이나 Stub 으로
+     대부분 식별한다. 
+
+
+     #+BEGIN_SRC cpp
+       void check_track(track_data_t* track, int value)
+       {
+         if(is_online() == true ){ //→ is_online() 리턴값
+
+           switch(track->link_state){  //→ track->link_state
+           case link_received :
+             if( ( value > 3000 ) && (track->x_position > 10000) ){//→ value, track->x_position
+               ....
+             }
+             else if( ( value < 700 ) || (track->x_position < 5000 ) ){//→ value, track->x_position
+               ....
+             }
+             else {
+               ....
+             }
+             break ; 
+      
+           case link_transmitted :
+             break ; 
+           case not_link_involved :
+             break ; 
+           default :
+             break ; 
+         }
+  
+       }
+     #+END_SRC
+
+**** 식별한 항목이 가져야 하는 값을 확인한다. 
+
+     항목별로 조건들을 나열한 후 이로 부터 테스트 데이터(값의 범위)를 생성한다.
+     조건으로 평가 되는 경우 true/false 가 되는 값들이며 switch의 경우
+     case/default의 모든 항목 값 이다. 값의 범위 (>, <) 로 평가하는 경우 구간별로
+     데이터를 포함한다. 
+
+     - 항목별 조건 나열
+     #+BEGIN_INFO 
+     is_online 리턴 값    ⇰ is_online() == true 
+     value                ⇰ value > 3000 ,  value < 700 
+     track->x_position    ⇰ track->x_position > 10000 , track->x_position < 5000 
+     track->link_state    ⇰ switch(track->link_state)
+     #+END_INFO
+
+     - 항목별 테스트 데이터 생성
+ 
+     #+BEGIN_INFO 
+
+     is_online 리턴 값    ⇰ (1 0 )
+     value                ⇰ (4000 2000 100 )  범위 구간 마다 데이트데이터 생성
+     track->x_position    ⇰ (11000 7000 3000) 범위 구간 마다 데이트데이터 생성
+     track->link_state    ⇰ (link_received link_transmitted not_link_involved)
+
+     #+END_INFO
+
+**** 테스트 변수를 확인한다. 
+     앞의 두 단계에서 확인한 값들에 대하여 변수를 정의한다. scheme 파일에서
+     테스트 데이터를 정의하는데 사용한다.
+
+     대부분 CodeScroll 이 생성하는 테스트 입력값과 같으나, CodeScroll 이 생성을 
+     하지 아니한 경우에도 변수를 지정해 줄 수 있다. 이렇게 지정한 변수는 Stub
+     등을 구현하는데 사용할 수 있다. [[stub_implementation][스텁구현 참조]]
+     #+BEGIN_SRC scheme
+       (define value1 10)
+       (define value2 3.1415926378)
+       (define value3 "string 테스트 데이터")
+       (anset 0 ) 
+     #+END_SRC
+
+**** scheme 파일을 작성한다. 
+
+     [[combi]] 함수를 이용하여 모든 테스트 데이터 조합을 생성한다. 
+
+     #+BEGIN_SRC scheme
+       (combi '(1 0 ) '(4000 2000 100 ) '(11000 7000 3000) '(link_received link_transmitted not_link_involved) )
+     #+END_SRC
+
+   
+     조합한 데이터를 테스트변수에 할당한다. 
+
+     #+BEGIN_SRC scheme
+       (define is_online 0 ) ;;테스트 정의 
+       (define value     0 ) ;;테스트 정의
+       (anset  0 
+       'track.link_state 0
+       'track.x_position 0) ;;테스트 admin 값 생성( id=0 )
+
+
+       (feio
+         1
+         (lambda (x)
+           (set! is_online (nth 1 x ))
+           (set! value     (nth 2 x ))
+           (anset 0
+                  'track.x_position (nth 3 x )
+                  'track.link_state (nth 4 x )))
+          (combi '(1 0 ) '(4000 2000 100 ) '(11000 7000 3000) '(link_received link_transmitted not_link_involved) ))
+       ;;         ↑ is_online range
+       ;;                 ↑ value range
+       ;;                                    ↑ track.x_position range
+       ;;                                                      ↑ track.link_state range 
+     #+END_SRC
+
+
+
 
 ** 테스트스크립트 디버깅
    값이 예상과 다르거나 스크립트 로딩에 오류가 있는 것 같을 때 수행 
@@ -177,7 +288,6 @@
     ts> testsc
     1
     #+END_SRC
-
 
 * reference 
 ** C API - <<testsc_c_api>>
@@ -321,7 +431,6 @@
    C 를 이용하여 추가적인 기능을 구현할 수 있다.
 *** 구조체 테스트 데이터 생성 
     
-
 * scheme 문법 <<scheme_syntax>>
 ** 15분 만에 scheme 배우기
    #+BEGIN_SRC scheme
