@@ -5013,10 +5013,10 @@ int main(int argc, char **argv) {
     }
   }
 
-  scheme_define(&sc ,
-                sc.global_env ,
-                mk_symbol(&sc , "testsc-init-ext" ) ,
-                mk_foreign_func(&sc , foreign_testsc_init_ext)) ;
+  //depredated//scheme_define(&sc ,
+  //depredated//              sc.global_env ,
+  //depredated//              mk_symbol(&sc , "testsc-init-ext" ) ,
+  //depredated//              mk_foreign_func(&sc , foreign_testsc_init_ext)) ;
   //deprecated//scheme_define(&sc ,
   //deprecated//              sc.global_env ,
   //deprecated//              mk_symbol(&sc , "testsc-interactive?" ) ,
@@ -5066,7 +5066,11 @@ int main(int argc, char **argv) {
     file_name=*argv++;
   } while(file_name!=0);
   if(argc==1) {
-    scheme_load_named_file(&sc,stdin,0);
+       foreign_testsc_init_ext(&sc,
+                               tinyscheme_list2(&sc,
+                                                mk_integer(&sc, 1) ,
+                                                mk_string(&sc ,  "./"))) ;
+       scheme_load_named_file(&sc,stdin,0);
   }
   retcode=sc.retcode;
   scheme_deinit(&sc);

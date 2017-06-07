@@ -163,7 +163,6 @@ void FIELD_NSET_LOG(const char* fname ,  pointer a)
 {
   if(is_pair(a)){
     testsc_debug("field array set %s", fname ) ; 
-    
   }
   else{
     num b = nvalue(a) ; 

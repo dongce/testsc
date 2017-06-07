@@ -716,6 +716,3 @@
 (gc-verbose #f)
 
 (load "util.scm")
-(define-macro (testsc-init x initcmd)
-  (testsc-init-ext x "./")
-  `(testsc-require ,initcmd))

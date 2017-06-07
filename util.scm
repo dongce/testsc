@@ -17,6 +17,15 @@
 (define-macro (testsc-require x)
   `(load (string-append *testsc-home* (symbol->string (quote ,x)) ".scm")))
 
+(define-macro (testsc-init x . initcmd)
+  (testsc-set-testnum x)
+  (mapcar
+   (lambda (x)
+     (load (string-append *testsc-home* (symbol->string x ) ".scm")))
+   `(,@initcmd)))
+
+
+
 (define *mmsg* '() )
 (define (mmsg-set . args) (set! *mmsg* args))
 (define (mmsg-add . args) (set! *mmsg* (append  args *mmsg* )))

@@ -167,11 +167,14 @@
       #+END_SRC
 
    2. 테스트변수를 define 한다. 
-      scheme 의 define 을 이용하여 변수를 선언한다. 
+      scheme 의 define 을 이용하여 변수를 선언한다. [[testsc_struct][testsc 구조체]]를 사용하는
+      경우 anset 
       CodeScroll 이 정의한 변수인 경우 편리를 위해 같은 이름으로 정의한다.
       CodeScroll 이 정의하지 아니한 값이라도 [[scheme_file][scheme 파일]] 에서 정의하여 사용할 수
       있다. stub 등을 작성할 때 관련 변수를 사용할 수 있다. 
 
+      
+      
       #+BEGIN_SRC scheme
       (define value1 "kim")
       (define value2 32.1234)
