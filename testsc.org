@@ -396,6 +396,7 @@ C 구현이
   필요하기 때문에 내부에서 자주 사용하는 구조체에 대하여 구현을 사고 
 
 
+GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다. 
 
       [[test_variable][테스트 변수]]를 활용해서 구조체의 필드에 값을 설정할 수 있다. 대부분의 경우
       
@@ -489,6 +490,7 @@ C 구현이
 ** C API - <<testsc_c_api>>
    CodeScroll 에서 스텁등을 작성할 때 사용한다. 
 *** testsc.cpp
+    [[test_variable][테스트 변수]]를 처리하는 함수
 **** 함수 
 ***** long testsc_ivalue(const char* name)  <<testsc_ivalue>>
       #+BEGIN_SRC 
@@ -496,15 +498,17 @@ C 구현이
       #+END_SRC
 ***** double testsc_dvalue(const char* name)  <<testsc_dvalue>>
 ***** char* testsc_strvalue(const char* name)  <<testsc_strvalue>>
-***** int testsc_admin_length( void ) <<testsc_admin_length>>
-***** void testsc_admin_erase(int index ) <<testsc_admin_erase>>
-***** void testsc_track_set(uint32_t id , network_track_data_ptr t ) <<testsc_track_set>>
 ***** void testsc_eval(const char *cmd)  <<testsc_eval>>
 ***** void testsc_init(int testnum, const char *cmd, const char *homepath = 0 )  <<testsc_init>>
-***** char* testsc_admin_get( int i )  <<testsc_admin_get>>
-****** 구현 방법 
 ***** void testsc_debug(const char*format ...)  <<testsc_debug>>
 
+
+*** testsc_ext.cpp
+**** 함수 
+***** int testsc_ext_length( void ) <<testsc_ext_length>>
+***** void testsc_ext_erase(int index ) <<testsc_ext_erase>>
+***** char* testsc_ext_get( int i )  <<testsc_ext_get>>
+****** 구현 방법 
 ***** pop_args 
 
 ** scheme API - <<testsc_scheme_api>>

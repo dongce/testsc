@@ -144,11 +144,7 @@ foreign_testsc_init_ext(scheme* sc , pointer args)
   const char* TINYSCHEME_HOME = string_value(pop_args(args)) ;
 
   if(0 == strlen(TINYSCHEME_HOME)){
-#if defined(__linux__)
-    TINYSCHEME_HOME = (  NULL == getenv("TINYSCHEME_HOME") ? "/ts"  : getenv("TINYSCHEME_HOME")  );
-#else
-    TINYSCHEME_HOME = (  NULL == getenv("TINYSCHEME_HOME") ? "t:/ts"  : getenv("TINYSCHEME_HOME")  );
-#endif
+    TINYSCHEME_HOME = (  NULL == getenv("TINYSCHEME_HOME") ? "/testsc/"  : getenv("TINYSCHEME_HOME")  );
   }
   
 
