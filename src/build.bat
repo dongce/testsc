@@ -13,16 +13,16 @@ gcc %CFLAGS% -DSTANDALONE=1 scheme.c
 g++ %CFLAGS% -DSTANDALONE=1 testsc.cpp 
 g++ %CFLAGS% -DSTANDALONE=1 %EXTRAINCLUDE%  testsc_ext.cpp 
 
-g++ -w -fpic -pedantic -o ../scheme  -Wno-char-subscripts  scheme.o testsc.o testsc_ext.o -lm
+g++ -w -fpic -pedantic -o ../home/scheme  -Wno-char-subscripts  scheme.o testsc.o testsc_ext.o -lm
 
 
 rem make libtestsc.a
 
-del ..\libtestsc.a *.o
+del ..\lib\libtestsc.a *.o
 
 gcc %CFLAGS% -DSTANDALONE=0 scheme.c
 g++ %CFLAGS% -DSTANDALONE=0 testsc.cpp
 g++ %CFLAGS% -DSTANDALONE=0 %EXTRAINCLUDE% testsc_ext.cpp
 
 
-ar crs ../libtestsc.a scheme.o testsc.o testsc_ext.o
+ar crs ../lib/libtestsc.a scheme.o testsc.o testsc_ext.o
