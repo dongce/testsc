@@ -716,3 +716,5 @@
 (gc-verbose #f)
 
 (load "util.scm")
+(load "testsc.scm")
+(load "testsc-ext.scm")
