@@ -9,7 +9,7 @@ double testsc_dvalue(const char* name) ;
 char* testsc_strvalue(const char* name) ; 
 
 void testsc_eval(const char *cmd) ;
-void testsc_init(int testnum, const char *cmd, const char *homepath = "/testsc/" ) ; 
+void testsc_init(int testnum, const char *cmd, const char *homepath = "/testsc/home/" ) ; 
 
 void testsc_debug(const char*format ...) ;
 
