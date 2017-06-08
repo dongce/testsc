@@ -10,9 +10,10 @@ set EXTRAINCLUDE=-It:/gitdir/DLP_LINK11/src/include -It:/gitdir/DLP_LINK11/src/c
 
 gcc %CFLAGS% -DSTANDALONE=1 scheme.c
 
-g++ %CFLAGS% -DSTANDALONE=1 %EXTRAINCLUDE%  testsc.cpp 
+g++ %CFLAGS% -DSTANDALONE=1 testsc.cpp 
+g++ %CFLAGS% -DSTANDALONE=1 %EXTRAINCLUDE%  testsc_ext.cpp 
 
-g++ -w -fpic -pedantic -o scheme  -Wno-char-subscripts  testsc.o scheme.o -lm
+g++ -w -fpic -pedantic -o scheme  -Wno-char-subscripts  scheme.o testsc.o testsc_ext.o -lm
 
 
 rem make libtestsc.a
@@ -20,7 +21,8 @@ rem make libtestsc.a
 del libtestsc.a *.o
 
 gcc %CFLAGS% -DSTANDALONE=0 scheme.c
-g++ %CFLAGS% -DSTANDALONE=0 %EXTRAINCLUDE%   testsc.cpp
+g++ %CFLAGS% -DSTANDALONE=0 testsc.cpp
+g++ %CFLAGS% -DSTANDALONE=0 %EXTRAINCLUDE% testsc_ext.cpp
 
 
-ar crs libtestsc.a scheme.o testsc.o 
+ar crs libtestsc.a scheme.o testsc.o testsc_ext.o

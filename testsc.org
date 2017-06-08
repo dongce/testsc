@@ -1,6 +1,8 @@
 #+TITLE: testsc 동적 시험 도움 라이브러리
 #+SETUPFILE: t:\usr\local\editor\emacsW32\site-lisp\thirdparty\orghtmltheme\setup\theme-readtheorg-local.setup
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="styles/pygments.css" />
 #+OPTIONS: toc:2 ^:{}
+#+EXPORT_EXCLUDE_TAGS: noexport
 
 # http://orgmode.org/manual/Table-of-contents.html
 
@@ -181,25 +183,38 @@
       CodeScroll이 정의하지 아니한 변수라도 [[scheme_file][scheme 파일]] 에서 정의하여 사용할 수
       있으며, stub 등을 작성할 때 관련 변수를 사용할 수 있다. 
       
-      
       #+BEGIN_SRC scheme
       (define value1 TRACK_IDENTITY_FRIEND)
       (define value2 32.1234)
       (define value3 "testsctring" )
       #+END_SRC
 
-      테스트에 사용되는 구조체의 경우 CodeScroll 에서 [[test_variable][테스트 변수]]를 이용하여
-      구조체 필드의 값을 설정한다. 대부분의 경우 변수를 이용하여 충분히 설정을
-      할 수 있으나, 특이한 경우 변수만으로는 설정이 어려울 수 있다. 
-
-      *testsc* 는 [[testsc_struct][testsc 구조체]] 를 이용하여 구조체 테스트 데이터를 생성할 수
-      있다. 상세한 내용은 [[testsc_struct][testsc 구조체]]부분 참조.   
+      - [[testsc_struct][testsc 구조체]]
+        테스트에 사용되는 구조체의 경우 CodeScroll 에서 [[test_variable][테스트 변수]]를 이용하여
+        구조체 필드의 값을 설정한다. 대부분의 경우 변수를 이용하여 충분히 설정을
+        할 수 있으나, 특이한 경우 변수만으로는 설정이 어려울 수 있다. *testsc*
+        는 [[testsc_struct][testsc 구조체]] 를 이용하여 구조체 테스트 데이터를 생성할 수 있다.
+        상세한 내용은 [[testsc_struct][testsc 구조체]]부분 참조.    
 
    3. [[scheme_test_script][scheme 파일 작성]]부분을 참조하여 *TESTCASENO* 에 따라  [[test_variable][테스트 변수]]를
       설정한다. 
       
       상세한 내용은 [[scheme_test_script][scheme 파일 작성]] 및 [[testsc 구조체][testsc_struct]]부분을 참조한다
 
+   4. scheme.exe 를 실행하여 [[scheme_file][scheme 파일]]의 문법 오류를 확인한다. 
+
+      [[testsc-init]] 를 이용하여 작성한 [[scheme_file][scheme 파일]]을 실행한다. 
+
+      다음은 TESTCASENO 를 1로 설정하고 [[testsc_home][testsc 홈]] 폴더 아래 track/t-1.scm 파일을
+      실행한다. 문법 오류가 있을 경우 오류가 있는 라인번호를 출력한다. 
+
+      정상적으로 실행이 된 후 [[test_variable][테스트 변수]]를 입력하면 실행한 파일에 의해 설정된
+      값을 확인할 수 있다. 
+      #+BEGIN_SRC scheme
+      (testsc-init 1 track/t-1 )
+      #+END_SRC
+
+      
 ** CodeScroll [[test_case][테스트 케이스]] 빌드 및 커버리지 평가 
 *** 포함 파일 추가
     [[testsc_home][testsc 홈]] 을 포함 디렉토리에 추가한다. 
@@ -213,6 +228,14 @@
     실행결과로 생성되는 커버리지를 참조하여 추가가 필요한 [[test_variable][테스트 변수]]값을
     [[scheme_file][scheme 파일]]에 설정한다.  CodeScroll 의 사용자 인터페이스를 통하여 값을
     설정하는 것 보다 빠르게 커버리지를 올릴 수 있다.  
+
+    다음 파일은 [[testcase][테스트케이스]]가 실행하면서 출력하는 것을 저장하는 파일이다. 
+
+    - testsc-stderr.txt : [[testsc_home][testsc 홈]] 폴더 아래 위치한다. [[testcase][테스트케이스]]가
+      실행하면서 출력하는 표준에러 출력을 저장한다. 
+
+    - testsc-stdout.txt : [[testsc_home][testsc 홈]] 폴더 아래 위치한다. [[testcase][테스트케이스]]가
+      실행하면서 출력하는 표준출력 및 [[testsc_debug]] 출력을 저장한다. 
 
 * scheme 파일 작성 <<scheme_test_script>>
     :PROPERTIES:
@@ -596,6 +619,7 @@ C 구현이
         + start : 시작 값(포함)
         + end : 종료 값(불포함)
 
+***** (define-macro (testsc-init x  initcmd) ...) <<testsc-init>>
 ***** populate
       구현 필요. 
 **** test_sc.c 
