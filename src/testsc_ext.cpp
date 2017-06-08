@@ -4,23 +4,13 @@
 #include <string.h>
 #include <strings.h>
 #include <stdlib.h>
-#include <system_types.h>
-#include <dlp_link11_types.h>
 #include <map>
 #include <string>
 #include <typeinfo>
 #include <locale>
-#include "nfields.h"
-#include "ew_intelligence_types.h"
-#include "opspec_types.h"
-#include "sntds.h"
 #include "testsc.h"
 #include <algorithm>
 #include <cctype>
-#include "nfields.h"
-#include "ew_intelligence_types.h"
-#include "opspec_types.h"
-#include "sntds.h"
 //#include <unistd.h>
 
 
@@ -45,30 +35,16 @@ typedef struct cdo_check_t
 {
   uint32_t  counter;
   uint32_t  network ; 
-  uint32_t  pu_address ; 
+  uint32_t  pu_address ;
+  char      cdoname[1023] ; 
 } cdo_check_t ; 
+
+
+
 struct admin_t {
   union {
-    wipe_proposal_t        _wipe_proposal ; 
-    network_track_number_t _network_track_number ;
-    pair_assoc_t           _pair_assoc ;
-    monitor_t              _monitor ;
-    aircraft_control_t     _aircraft_control ;
-    command_order_t        _command_order ;
-    // emitter_eval_info_type _emitter_eval_info ;
-    // ew_coord_info_type     _ew_coord_info ;
-    link_pointer_t         _link_pointer ; 
-    depromotion_t          _depromotion ; 
-    update_request_t       _update_request ; 
-    weapon_engagement_t    _weapon_engagement ;
-    new_assignment_t       _assign_request ;
-    track_alert_report_t   _alert_report ;
     cdo_check_t            _cdo_check ;
     cdo_check_t            _cdo_check_array[3] ;
-    network_assignment_t   _network_assignment ; 
-    opspec_types::opnote_t _opnote ; 
-    ew_intelligence_types::ew_intelligence_request_record _ew_request;
-    sntds_MEM              _sntds ; 
     uint8_t _buff[204800] ; 
   } ;
 } ;
@@ -154,27 +130,14 @@ void FIELD_NSET_LOG(const char* fname ,  pointer a)
   }
 }
 
-template<typename TYPE>
-void FIELD_NGET_LOG(const char* fname ,  const TYPE& b)
-{
-  testsc_debug("field get %s, %d done", fname , b) ; 
-}
 
+#define FOR_FIELD_ID(f) for(uint32_t ___field_id = field_id(sc, (f)) ; ___field_id > 0 ; ___field_id = 0 ) 
 
-template<typename TYPE>
-pointer FIELD_NGET(scheme*sc, const TYPE& a)
-{
-  if(typeid(TYPE) == typeid(double) ||
-     typeid(TYPE) == typeid(float)){
-    return mk_real(sc, a ) ;
-  }
-  return mk_integer(sc, a) ; 
-}
-
-
-
-#define FOR_FIELD_ID(f) for(uint32_t ___field_id = field_id(sc, (f)) ; ___field_id > 0 ; ___field_id = 0 )
-#define FIELD_STRSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ strcpy((char*)(i)->second->f , (v)) ; break; }
+#define FIELD_STRSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ \
+char* vitstr = string_value((v)) ;                                       \
+strcpy((char*)(i)->second->f , vitstr) ;                                \
+testsc_debug("field set %s, %s done", #f , vitstr) ;                    \
+break; }
 
 #define FIELD_NSET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ \
 pointer vit = (v) ;                                                     \
@@ -182,10 +145,6 @@ FIELD_NSET((i)->second->f , (vit)) ;                                    \
 FIELD_NSET_LOG(#f, (vit)) ;                                             \
 break; }
 
-#define FIELD_NGET_VALUE(f, i, v ) if(field_id(sc, #f) == ___field_id){ \
-(v) = cons(sc, FIELD_NGET(sc, (i)->second->f ), v) ;                    \
-FIELD_NGET_LOG(#f, (i)->second->f) ;                                    \
-break; }
 
 
 
@@ -204,12 +163,27 @@ pointer foreign_testsc_ext_nset(scheme *sc , pointer args)
   for (pointer field = pop_args(args); is_pair(field); field = pop_args(args)) {
     const char *sym = symname(pop_args(field) ); 
     const std::string fieldname(sym);
-    // const num         fieldnum   = nvalue( pop_args(field)) ;
 
     FOR_FIELD_ID(fieldname){
-      ADMIN_FIELDS(FIELD_NSET_VALUE, it, pop_args(field)) ;
+
       FIELD_NSET_VALUE(_buff, it, pop_args(field)) ; 
+
+      FIELD_NSET_VALUE(_cdo_check.counter, it, pop_args(field)) ; 
+      FIELD_NSET_VALUE(_cdo_check.network, it, pop_args(field)) ; 
+      FIELD_NSET_VALUE(_cdo_check.pu_address, it, pop_args(field)) ; 
+
+      FIELD_NSET_VALUE(_cdo_check_array[0].counter, it, pop_args(field)) ; 
       FIELD_NSET_VALUE(_cdo_check_array[0].network, it, pop_args(field)) ; 
+      FIELD_NSET_VALUE(_cdo_check_array[0].pu_address, it, pop_args(field)) ; 
+
+      FIELD_NSET_VALUE(_cdo_check_array[1].counter, it, pop_args(field)) ;
+      FIELD_NSET_VALUE(_cdo_check_array[1].network, it, pop_args(field)) ; 
+      FIELD_NSET_VALUE(_cdo_check_array[1].pu_address, it, pop_args(field)) ; 
+
+      FIELD_NSET_VALUE(_cdo_check_array[2].counter, it, pop_args(field)) ;
+      FIELD_NSET_VALUE(_cdo_check_array[2].network, it, pop_args(field)) ; 
+      FIELD_NSET_VALUE(_cdo_check_array[2].pu_address, it, pop_args(field)) ; 
+
     }
   }
   
@@ -232,27 +206,13 @@ pointer foreign_testsc_ext_strset(scheme *sc , pointer args)
     const char *sym = symname(pop_args(field) ); 
     const std::string fieldname(sym);
 
-    pointer sit = pop_args(field) ;
 
-    if( is_string(sit)){
-      const char* fieldstr =  string_value( sit ) ;
-
-      FOR_FIELD_ID(fieldname){
-        FIELD_STRSET_VALUE(_buff , it, fieldstr) ; 
-      }
+    FOR_FIELD_ID(fieldname){
+      FIELD_STRSET_VALUE(_cdo_check.cdoname,          it, pop_args(field)) ; 
+      FIELD_STRSET_VALUE(_cdo_check_array[0].cdoname, it, pop_args(field)) ; 
+      FIELD_STRSET_VALUE(_cdo_check_array[1].cdoname, it, pop_args(field)) ; 
+      FIELD_STRSET_VALUE(_cdo_check_array[2].cdoname, it, pop_args(field)) ; 
     }
-    else{
-      int counter = 0 ; 
-      while(is_pair(sit)){
-        it->second->_buff[counter++] = static_cast<uint8_t>(ivalue(pop_args(sit) ));
-      }
-    }
-
-    testsc_debug("admin_strset %x %x %s:%d" ,
-                 it->second->_buff[0] ,
-                 it->second->_buff[1],
-                 __FILE__,
-                 __LINE__) ; 
   }
   
   return mk_integer(sc, g_adminmap.size()); ; 
@@ -269,33 +229,6 @@ pointer foreign_testsc_ext_erase(scheme *sc , pointer args)
   const int index  = ivalue(pop_args(args)) ;
   g_adminmap.erase(index) ; 
   return args ; 
-}
-
-
-
-pointer foreign_testsc_ext_nget(scheme *sc , pointer args)
-{
-  testsc_debug(__PRETTY_FUNCTION__) ; 
-  uint32_t adminid = ivalue(pop_args(args)) ;
-
-  pointer result = sc->NIL ; 
-  adminmap_t::iterator it = g_adminmap.find(adminid) ; 
-  if( g_adminmap.end() == it ){
-    admin_t* nit = reinterpret_cast<admin_t*>(malloc(sizeof(admin_t)));
-    memcpy(nit, &g_admindefault, sizeof(g_admindefault)) ; 
-    g_adminmap.insert(adminpair_t(adminid, nit)) ;
-    it = g_adminmap.find(adminid) ;
-  }
-    
-  for (pointer field = pop_args(args); is_symbol(field); field = pop_args(args)) {
-    const std::string fieldname(symname(field));
-
-    FOR_FIELD_ID(fieldname){
-      ADMIN_FIELDS(FIELD_NGET_VALUE, it, result) ; 
-    }
-  }
-  
-  return result ; 
 }
 
 
@@ -337,7 +270,6 @@ void testsc_ext_init(scheme* sc)
   foreign_symbol symbols [] = {
     {"testsc-ext-nset" , foreign_testsc_ext_nset   }, 
     {"testsc-ext-strset" , foreign_testsc_ext_strset   }, 
-    {"testsc-ext-nget" , foreign_testsc_ext_nget   }, 
     {"testsc-ext-length", foreign_testsc_ext_length  }, 
     {"testsc-ext-erase" , foreign_testsc_ext_erase  }, 
   } ;

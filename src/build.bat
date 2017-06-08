@@ -1,7 +1,7 @@
 
 set PATH=C:\toolchain\gnutoolchain\gcc-4.7.2\bin;%PATH%
 
-del scheme.exe *.o
+del ..\scheme.exe *.o
 
 rem make scheme.exe 
 set CFLAGS=-w -fpic -pedantic -I. -c  -Wno-char-subscripts -O  -DUSE_INTERFACE=1 -DUSE_STRLWR=0 -DUSE_STRCASECMP=0 -DUSE_DL=0 -DUSE_MATH=1 -DUSE_ASCII_NAMES=0
@@ -13,16 +13,16 @@ gcc %CFLAGS% -DSTANDALONE=1 scheme.c
 g++ %CFLAGS% -DSTANDALONE=1 testsc.cpp 
 g++ %CFLAGS% -DSTANDALONE=1 %EXTRAINCLUDE%  testsc_ext.cpp 
 
-g++ -w -fpic -pedantic -o scheme  -Wno-char-subscripts  scheme.o testsc.o testsc_ext.o -lm
+g++ -w -fpic -pedantic -o ../scheme  -Wno-char-subscripts  scheme.o testsc.o testsc_ext.o -lm
 
 
 rem make libtestsc.a
 
-del libtestsc.a *.o
+del ..\libtestsc.a *.o
 
 gcc %CFLAGS% -DSTANDALONE=0 scheme.c
 g++ %CFLAGS% -DSTANDALONE=0 testsc.cpp
 g++ %CFLAGS% -DSTANDALONE=0 %EXTRAINCLUDE% testsc_ext.cpp
 
 
-ar crs libtestsc.a scheme.o testsc.o testsc_ext.o
+ar crs ../libtestsc.a scheme.o testsc.o testsc_ext.o
