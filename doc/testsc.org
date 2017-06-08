@@ -89,16 +89,16 @@
     각 함수의 상세 내용은 [[testsc_c_api]] 을 참조한다. 
     
     #+BEGIN_SRC cpp
-      testsc_init(CS_TESTCASENO(), "(testsc-require mb/t-9)", "c:/testsc/");
+      testsc_init(CS_TESTCASENO(), "(testsc-require mb/t-9)", "/testsc/home/");
     #+END_SRC
 
     [[testsc_init]] 를 호출하여 testsc 를 초기화 한다. 첫번째 파라미터는
-    CS_TESTCASENO() 으로써 테스트번호를 전달하게 된다. 두번째 파라미터는 실행할
+    CS_TESTCASENO() 으로써 테스트번호를 전달한다. 두번째 파라미터는 실행할
     scheme 구문이다. [[testsc-require]] 를 호출하여 [[scheme_file][scheme 파일]]을 읽어 온다. 마지막
     파라미터는 *testsc* 의 HOME 경로가 된다.  [[testsc-require]] 는 홈 경로아래에서
     [[scheme_file][scheme 파일]] 을 불러온다. 경로를 파라미터로 넘기지 아니할 경우 프로젝트가
-    있는 드라이브의 testsc 폴더가 홈이 된다. ( C 드라이브에 프로젝트 폴더가 있을
-    경우 c:\testsc\ 폴더, 리눅스의 경우 //testsc//) 
+    있는 드라이브의 =/testsc/home= 폴더가 홈이 된다. ( C 드라이브에 프로젝트 폴더가
+    있을 경우 =c:\testsc\home= 폴더, 리눅스의 경우 =/testsc/home= ) 
 
     [[testsc-require]]의 파라미터는 불러오고자 하는 [[scheme_file][scheme 파일]]이다. (testsc-require
     mb/t-9) 은 홈 폴더 아래의 *mb/t-9.scm* 파일을 호출한다. 경로명에 공백이

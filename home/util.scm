@@ -6,30 +6,6 @@
 
 
 
-(define (loadit x)
-  (load (symbol->string x)))
-
-;;; *testsc-home* is read only variable 
-;;window-default;;(define *testsc-home* "t:/ts/")
-;;linux-default;;(define *testsc-home* "/ts/")
-
-
-(define-macro (testsc-require x)
-  `(load (string-append *testsc-home* (symbol->string (quote ,x)) ".scm")))
-
-(define-macro (testsc-init x  initcmd)
-  (testsc-set-testnum x)
-  `(testsc-require ,initcmd))
-
-
-(define *mmsg* '() )
-(define (mmsg-set . args) (set! *mmsg* args))
-(define (mmsg-add . args) (set! *mmsg* (append  args *mmsg* )))
-
-(define (m-set  arg) (set! *mmsg* arg))
-
-(define-macro (mmsg . x)
-  `(apply mmsg-set (quote ,x)))
 
 (define *PI* (* 2 (acos 0 )))
 (define *2PI* (* *PI* 2 ))
@@ -46,21 +22,8 @@
     (set! l (cdr l)))
   (car l))
 
-
-;;notwork;;(define-macro (testcase-values tnum-start symbol values)
-;;notwork;;  `(define ,symbol (nth (- ( testsc-get-testnum ) ,tnum-start) ,values)))
-
-
-
 (define (gen-values values . procs )
   (apply append  (map (lambda (value) (cons value  (map (lambda (proc) (proc value)) procs))) values )))
-
-(define (testcase-track-nset tnum-start tid symbol values)
-  (let ((n (- (testsc-get-testnum) tnum-start) ))
-    (if (>= n 0 )
-        (testsc-track-nset
-         tid
-         (list symbol (nth n values))))))
 
 
 
@@ -74,59 +37,6 @@
 (define (eval-symbol x)
   (if (symbol? x ) (eval x ) x))
 
-(define (tnset id . args )
-  (testsc-debug "testsc-track-nset")
-  (testsc-track-nset id )
-  (do ((sym-vals args (cddr sym-vals)))
-      ((> 2 (length sym-vals)  ))
-    (testsc-debug "testsc-track-nset22")
-    (testsc-track-nset id (list (car sym-vals) (eval-symbol  (cadr sym-vals))))))
-
-(define (tnset-values tnum id field  . values )
-  (if (t-offset? tnum (length values) )
-      (tnset id field (nth (t-offset tnum) values))))
-
-
-(define (tnset-fields tnum id . field-values )
-  (for-each
-   (lambda (x)
-     (apply tnset-values tnum id (car x) (cdr x)))
-   field-values))
-
-(define (tstrset id sym str)
-  (testsc-track-strset id (list sym str)))
-
-(define (anset id . args )
-  (testsc-admin-nset id)
-  (do ((sym-vals args (cddr sym-vals)))
-      ((> 2 (length sym-vals)  ))
-    (testsc-admin-nset id (list (car sym-vals) (eval-symbol  (cadr sym-vals))))))
-
-(define (astrset id  arg )
-  (testsc-admin-nset id)
-  (testsc-admin-strset id (list '_buff arg)))
-
-(define (adminset id . args )
-  (testsc-admin-nset id)
-  (do ((sym-vals args (cddr sym-vals)))
-      ((> 2 (length sym-vals)  ))
-    (let ((value (eval-symbol  (cadr sym-vals))))
-      (cond ((string? value)
-             (testsc-admin-strset id (list (car sym-vals) value)))
-            (else
-             (testsc-admin-nset id (list (car sym-vals) value)))))))
-  
-(define (t-offset start) (- (testsc-get-testnum) start))
-
-(define (t-offset? start) (> (t-offset start ) -1))
-
-
-(define (t-offset? start . len)
-  (let ((offset (t-offset start )))
-    (if (eq? '() len)
-        (> offset -1)
-        (and (> offset -1) (> (car len ) offset ) ))))
-    
 (define (combi . args)
   (if (= 1 (length args))
       (map list (car  args))
@@ -146,19 +56,6 @@
        (proc index x )
        (set! index (+ 1 index )))
      args )))
-
-(define (for-each-index-offset offset proc  . args )
-  (let ((index 0 ))
-    (for-each
-     (lambda (x)
-       (if ( =  (+ offset index ) (testsc-get-testnum))
-           (proc x ))
-       (set! index (+ 1 index )))
-     args )
-    (testsc-debug (string-append  "for-each-index-offset " (number->string (+ offset  index))))))
-
-
-(define ( feio offset proc args ) (apply for-each-index-offset offset proc args))
 
 
 (define (remove-duplicates l)
