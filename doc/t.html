@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-06-08 목 14:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>testsc 동적 시험 라이브러리</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="styles/pygments.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">testsc 동적 시험 라이브러리</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org519f22f">test</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org519f22f" class="outline-2">
+<h2 id="org519f22f">test</h2>
+<div class="outline-text-2" id="text-org519f22f">
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span class="cp">#include &quot;scheme.h&quot;</span>
+<span class="cp">#include &quot;scheme-private.h&quot;</span>
+<span class="cp">#include &lt;stdarg.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+<span class="cp">#include &lt;strings.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;map&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+<span class="cp">#include &lt;typeinfo&gt;</span>
+<span class="cp">#include &lt;locale&gt;</span>
+<span class="cp">#include &quot;testsc.h&quot;</span>
+<span class="cp">#include &lt;algorithm&gt;</span>
+<span class="cp">#include &lt;cctype&gt;</span>
+<span class="c1">//#include &lt;unistd.h&gt;</span>
+
+
+
+
+<span class="cp">#if defined(STANDALONE)</span>
+<span class="kt">FILE</span><span class="o">*</span> <span class="n">g_debug</span> <span class="o">=</span> <span class="n">stdout</span> <span class="p">;</span>
+<span class="cp">#else</span>
+<span class="kt">FILE</span><span class="o">*</span> <span class="n">g_debug</span> <span class="o">=</span> <span class="nb">NULL</span> <span class="p">;</span>
+<span class="cp">#endif</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">g_buffer</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> 
+
+
+<span class="kt">void</span> <span class="nf">testsc_debug</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="n">format</span> <span class="p">...)</span> <span class="p">;</span> 
+
+
+<span class="kt">int</span>     <span class="n">g_testnum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span>     <span class="n">g_testsc_debug</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">;</span> 
+
+<span class="n">pointer</span>
+<span class="nf">foreign_testnum_set</span><span class="p">(</span><span class="n">scheme</span> <span class="o">*</span><span class="n">sc</span> <span class="p">,</span> <span class="n">pointer</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">g_testnum</span> <span class="o">=</span> <span class="n">ivalue</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="p">;</span> 
+  <span class="k">return</span> <span class="n">args</span> <span class="p">;</span> 
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="nf">testsc_load</span><span class="p">(</span><span class="n">scheme</span><span class="o">*</span><span class="n">sc</span> <span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">filename</span> <span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">homepath</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="cp">#if defined (__linux__)</span>
+  <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">TINYSCHEME_HOME</span> <span class="o">=</span><span class="p">(</span>  <span class="nb">NULL</span> <span class="o">==</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&quot;TINYSCHEME_HOME&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="s">&quot;/ts&quot;</span>  <span class="o">:</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&quot;TINYSCHEME_HOME&quot;</span><span class="p">)</span>  <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">TINYSCHEME_HOME</span> <span class="o">=</span><span class="p">(</span>  <span class="nb">NULL</span> <span class="o">==</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&quot;TINYSCHEME_HOME&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="s">&quot;t:/ts&quot;</span>  <span class="o">:</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&quot;TINYSCHEME_HOME&quot;</span><span class="p">)</span>  <span class="p">);</span>
+<span class="cp">#endif</span>
+
+  <span class="kt">char</span> <span class="n">absfilename</span><span class="p">[</span><span class="mi">1024</span><span class="p">]</span> <span class="p">;</span>
+  <span class="n">sprintf</span><span class="p">(</span><span class="n">absfilename</span><span class="p">,</span> <span class="s">&quot;%s/%s&quot;</span> <span class="p">,</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">!=</span> <span class="n">homepath</span> <span class="o">&amp;&amp;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">homepath</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nl">homepath</span><span class="p">:</span> <span class="n">TINYSCHEME_HOME</span><span class="p">)</span> <span class="p">,</span> <span class="n">filename</span> <span class="p">)</span> <span class="p">;</span>
+  <span class="n">testsc_debug</span><span class="p">(</span><span class="s">&quot;tetsc-load %s&quot;</span><span class="p">,</span> <span class="n">absfilename</span><span class="p">)</span> <span class="p">;</span> 
+  <span class="kt">FILE</span><span class="o">*</span> <span class="n">fin</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="n">absfilename</span><span class="p">,</span><span class="s">&quot;r&quot;</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span> <span class="nb">NULL</span> <span class="o">!=</span> <span class="n">fin</span> <span class="p">){</span>
+    <span class="n">scheme_load_named_file</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span><span class="n">fin</span><span class="p">,</span><span class="n">filename</span><span class="p">);</span>
+    <span class="n">fclose</span><span class="p">(</span><span class="n">fin</span><span class="p">)</span> <span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="c1">// pointer</span>
+<span class="c1">// foreign_testsc_load(scheme*sc , pointer args )</span>
+<span class="c1">// {</span>
+<span class="c1">//   testsc_load(sc, string_value(pop_args(args))) ;</span>
+<span class="c1">//   return sc-&gt;NIL ; </span>
+<span class="c1">// }</span>
+
+<span class="n">pointer</span>
+<span class="nf">foreign_testsc_set_debug</span><span class="p">(</span><span class="n">scheme</span><span class="o">*</span><span class="n">sc</span> <span class="p">,</span> <span class="n">pointer</span> <span class="n">args</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">g_testsc_debug</span> <span class="o">=</span> <span class="n">ivalue</span><span class="p">(</span><span class="n">pop_args</span><span class="p">(</span><span class="n">args</span><span class="p">))</span> <span class="p">;</span>
+
+  <span class="k">return</span> <span class="n">args</span> <span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="n">pointer</span>
+<span class="nf">foreign_testsc_get_testnum</span><span class="p">(</span><span class="n">scheme</span><span class="o">*</span> <span class="n">sc</span><span class="p">,</span> <span class="n">pointer</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">mk_integer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span> <span class="n">g_testnum</span><span class="p">);</span> 
+<span class="p">}</span>
+
+<span class="n">pointer</span>
+<span class="nf">foreign_testsc_set_testnum</span><span class="p">(</span><span class="n">scheme</span><span class="o">*</span> <span class="n">sc</span><span class="p">,</span> <span class="n">pointer</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">g_testnum</span> <span class="o">=</span> <span class="n">ivalue</span><span class="p">(</span><span class="n">pop_args</span><span class="p">(</span><span class="n">args</span><span class="p">))</span> <span class="p">;</span> 
+  <span class="k">return</span> <span class="n">mk_integer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span> <span class="n">g_testnum</span><span class="p">);</span> 
+<span class="p">}</span>
+
+
+
+<span class="n">pointer</span>
+<span class="nf">foreign_testsc_debug_string</span><span class="p">(</span><span class="n">scheme</span><span class="o">*</span><span class="n">sc</span> <span class="p">,</span> <span class="n">pointer</span> <span class="n">args</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">testsc_debug</span><span class="p">(</span><span class="n">string_value</span><span class="p">(</span><span class="n">pop_args</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span> <span class="p">;</span>
+
+  <span class="k">return</span> <span class="n">args</span> <span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="n">pointer</span>
+<span class="nf">foreign_testsc_numtest</span><span class="p">(</span><span class="n">scheme</span><span class="o">*</span><span class="n">sc</span> <span class="p">,</span> <span class="n">pointer</span> <span class="n">args</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">pointer</span> <span class="n">ar</span> <span class="o">=</span> <span class="n">pop_args</span><span class="p">(</span> <span class="n">args</span> <span class="p">)</span> <span class="p">;</span> 
+
+  <span class="k">if</span><span class="p">(</span> <span class="n">is_number</span><span class="p">(</span><span class="n">ar</span><span class="p">)</span> <span class="p">){</span>
+    <span class="n">num</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nvalue</span><span class="p">(</span><span class="n">ar</span><span class="p">)</span> <span class="p">;</span> 
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;number is %d %d %f</span><span class="se">\n</span><span class="s">&quot;</span> <span class="p">,</span> <span class="n">n</span><span class="p">.</span><span class="n">is_fixnum</span> <span class="p">,</span> <span class="n">n</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">ivalue</span> <span class="p">,</span> <span class="n">n</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">rvalue</span><span class="p">)</span> <span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">args</span> <span class="p">;</span> 
+<span class="p">}</span>
+
+
+<span class="c1">// pointer</span>
+<span class="c1">// foreign_testsc_ivalue(scheme*sc , pointer args )</span>
+<span class="c1">// {</span>
+<span class="c1">//   return sc-&gt;vptr-&gt;scheme_eval(sc, mk_string(sc, string_value(pop_args(args)))) ;</span>
+<span class="c1">// }</span>
+
+
+<span class="c1">//deprecated//extern &quot;C&quot; pointer</span>
+<span class="c1">//deprecated//foreign_testsc_interactive(scheme* sc , pointer args)</span>
+<span class="c1">//deprecated//{</span>
+<span class="c1">//deprecated//  if(file_interactive(sc)){</span>
+<span class="c1">//deprecated//    return sc-&gt;T ; </span>
+<span class="c1">//deprecated//  }</span>
+<span class="c1">//deprecated//  return sc-&gt;NIL; </span>
+<span class="c1">//deprecated//}</span>
+
+<span class="cp">#if defined(STANDALONE)</span>
+<span class="n">scheme</span><span class="o">*</span> <span class="n">g_sc</span>  <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">scheme</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">scheme</span><span class="p">))</span> <span class="p">);</span>
+<span class="cp">#else</span>
+<span class="n">scheme</span><span class="o">*</span> <span class="n">g_sc</span> <span class="o">=</span> <span class="nb">NULL</span> <span class="p">;</span> 
+<span class="cp">#endif</span>
+
+
+<span class="k">extern</span> <span class="s">&quot;C&quot;</span> <span class="n">pointer</span>
+<span class="n">foreign_testsc_init_ext</span><span class="p">(</span><span class="n">scheme</span><span class="o">*</span> <span class="n">sc</span> <span class="p">,</span> <span class="n">pointer</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">g_sc</span> <span class="o">!=</span> <span class="n">sc</span><span class="p">){</span>
+    <span class="n">g_sc</span> <span class="o">=</span> <span class="n">sc</span><span class="p">;</span> 
+  <span class="p">}</span>
+
+  <span class="n">g_testnum</span>            <span class="o">=</span> <span class="n">ivalue</span><span class="p">(</span><span class="n">pop_args</span><span class="p">(</span><span class="n">args</span><span class="p">))</span> <span class="p">;</span>
+  <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">TINYSCHEME_HOME</span> <span class="o">=</span> <span class="n">string_value</span><span class="p">(</span><span class="n">pop_args</span><span class="p">(</span><span class="n">args</span><span class="p">))</span> <span class="p">;</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">strlen</span><span class="p">(</span><span class="n">TINYSCHEME_HOME</span><span class="p">)){</span>
+    <span class="n">TINYSCHEME_HOME</span> <span class="o">=</span> <span class="p">(</span>  <span class="nb">NULL</span> <span class="o">==</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&quot;TINYSCHEME_HOME&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="s">&quot;/testsc/&quot;</span>  <span class="o">:</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&quot;TINYSCHEME_HOME&quot;</span><span class="p">)</span>  <span class="p">);</span>
+  <span class="p">}</span>
+
+
+<span class="cp">#if !defined(STANDALONE)</span>
+  <span class="kt">char</span> <span class="n">absfilename</span><span class="p">[</span><span class="mi">1024</span><span class="p">]</span> <span class="p">;</span>
+  <span class="n">sprintf</span><span class="p">(</span><span class="n">absfilename</span><span class="p">,</span>
+          <span class="s">&quot;%s/testsc-stderr.txt&quot;</span> <span class="p">,</span>
+          <span class="n">TINYSCHEME_HOME</span> <span class="p">)</span> <span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">FILE</span><span class="o">*</span> <span class="n">f</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">absfilename</span><span class="p">,</span> <span class="s">&quot;ab&quot;</span><span class="p">)</span> <span class="p">;</span>
+      <span class="nb">NULL</span> <span class="o">!=</span><span class="n">f</span> <span class="p">;</span>
+      <span class="n">f</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">){</span>
+    <span class="n">dup2</span><span class="p">(</span><span class="n">fileno</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="p">,</span> <span class="n">STDERR_FILENO</span><span class="p">)</span> <span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">fflush</span><span class="p">(</span><span class="n">stderr</span><span class="p">)</span> <span class="p">;</span>
+
+  <span class="n">sprintf</span><span class="p">(</span><span class="n">absfilename</span><span class="p">,</span>
+          <span class="s">&quot;%s/testsc-stdout.txt&quot;</span> <span class="p">,</span>
+          <span class="n">TINYSCHEME_HOME</span> <span class="p">)</span> <span class="p">;</span>
+
+
+  <span class="n">g_debug</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">absfilename</span><span class="p">,</span> <span class="s">&quot;ab&quot;</span><span class="p">)</span> <span class="p">;</span>
+
+  <span class="n">dup2</span><span class="p">(</span><span class="n">fileno</span><span class="p">(</span><span class="n">g_debug</span><span class="p">)</span> <span class="p">,</span> <span class="n">STDOUT_FILENO</span><span class="p">)</span> <span class="p">;</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">file_interactive</span><span class="p">(</span><span class="n">sc</span><span class="p">)){</span>
+   <span class="n">scheme_set_output_port_file</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">g_debug</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="cp">#endif</span>
+
+  <span class="n">g_buffer</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">malloc</span><span class="p">(</span><span class="mi">10240</span><span class="p">)</span> <span class="p">);</span> 
+
+
+
+  <span class="n">foreign_symbol</span> <span class="n">symbols</span> <span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">//deprecated//{&quot;mmsg-set&quot;         , foreign_mmsg_set}, </span>
+    <span class="c1">// {&quot;testsc-load&quot;      , foreign_testsc_load},</span>
+    <span class="p">{</span><span class="s">&quot;testsc-set-debug&quot;</span> <span class="p">,</span> <span class="n">foreign_testsc_set_debug</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">&quot;testsc-debug-string&quot;</span>     <span class="p">,</span> <span class="n">foreign_testsc_debug_string</span><span class="p">},</span> 
+    <span class="p">{</span><span class="s">&quot;testsc-get-testnum&quot;</span><span class="p">,</span> <span class="n">foreign_testsc_get_testnum</span>   <span class="p">},</span>
+    <span class="p">{</span><span class="s">&quot;testsc-set-testnum&quot;</span><span class="p">,</span> <span class="n">foreign_testsc_set_testnum</span>   <span class="p">},</span>
+    <span class="p">{</span><span class="s">&quot;testsc-numtest&quot;</span> <span class="p">,</span> <span class="n">foreign_testsc_numtest</span>  <span class="p">},</span> 
+    <span class="c1">// {&quot;testsc-ivalue&quot; ,      foreign_testsc_ivalue  }, </span>
+  <span class="p">}</span> <span class="p">;</span>
+
+  <span class="n">scheme_define</span><span class="p">(</span><span class="n">sc</span> <span class="p">,</span>
+                <span class="n">sc</span><span class="o">-&gt;</span><span class="n">global_env</span> <span class="p">,</span>
+                <span class="n">mk_symbol</span><span class="p">(</span><span class="n">sc</span> <span class="p">,</span> <span class="s">&quot;*testsc-home*&quot;</span> <span class="p">)</span> <span class="p">,</span>
+                <span class="n">mk_string</span><span class="p">(</span><span class="n">sc</span> <span class="p">,</span> <span class="n">TINYSCHEME_HOME</span><span class="p">))</span> <span class="p">;</span>
+
+
+  <span class="k">for</span><span class="p">(</span><span class="n">foreign_symbol</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="n">symbols</span> <span class="p">;</span>
+      <span class="n">s</span> <span class="o">&lt;</span> <span class="n">symbols</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="n">foreign_symbol</span><span class="p">)</span> <span class="p">;</span>
+      <span class="n">s</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">scheme_define</span><span class="p">(</span><span class="n">sc</span> <span class="p">,</span>
+                  <span class="n">sc</span><span class="o">-&gt;</span><span class="n">global_env</span> <span class="p">,</span>
+                  <span class="n">mk_symbol</span><span class="p">(</span><span class="n">sc</span> <span class="p">,</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">name</span> <span class="p">)</span> <span class="p">,</span>
+                  <span class="n">mk_foreign_func</span><span class="p">(</span><span class="n">sc</span> <span class="p">,</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">fun</span><span class="p">))</span> <span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">testsc_ext_init</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span> <span class="p">;</span> 
+
+  <span class="k">return</span> <span class="n">sc</span><span class="o">-&gt;</span><span class="n">NIL</span> <span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//////////////TEST CASE 에서 호출할 수 있는 함수들 ////////////////</span>
+<span class="kt">void</span> <span class="n">testsc_init</span><span class="p">(</span><span class="kt">int</span> <span class="n">testnum</span> <span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">cmd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">homepath</span><span class="p">)</span>
+<span class="p">{</span>
+
+  <span class="n">scheme_init</span><span class="p">(</span><span class="n">g_sc</span><span class="p">)</span> <span class="p">;</span>
+  <span class="n">testsc_load</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span> <span class="s">&quot;init.scm&quot;</span><span class="p">,</span> <span class="n">homepath</span><span class="p">)</span> <span class="p">;</span>
+  <span class="n">foreign_testsc_init_ext</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span>
+                          <span class="n">tinyscheme_list2</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span>
+                                       <span class="n">mk_integer</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span> <span class="n">testnum</span><span class="p">)</span> <span class="p">,</span>
+                                       <span class="n">mk_string</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span> <span class="nb">NULL</span> <span class="o">!=</span> <span class="n">homepath</span> <span class="o">?</span> <span class="nl">homepath</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">)))</span> <span class="p">;</span>
+
+  <span class="k">if</span><span class="p">(</span> <span class="nb">NULL</span> <span class="o">!=</span> <span class="n">cmd</span> <span class="p">){</span>
+    <span class="n">scheme_load_string</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span> <span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+
+
+
+<span class="cp">#if !defined(STANDALONE)</span>
+
+<span class="kr">inline</span> <span class="kt">long</span> <span class="n">testsc_eval_ivalue</span><span class="p">(</span><span class="n">pointer</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">is_symbol</span><span class="p">(</span><span class="n">x</span><span class="p">)){</span>
+    <span class="k">return</span> <span class="n">ivalue</span><span class="p">(</span><span class="n">scheme_eval</span><span class="p">(</span><span class="n">g_sc</span> <span class="p">,</span><span class="n">x</span><span class="p">))</span> <span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">ivalue</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="kr">inline</span> <span class="kt">double</span> <span class="n">testsc_eval_dvalue</span><span class="p">(</span><span class="n">pointer</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">is_symbol</span><span class="p">(</span><span class="n">x</span><span class="p">)){</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">scheme_eval</span><span class="p">(</span><span class="n">g_sc</span> <span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="p">;</span> 
+  <span class="p">}</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">is_integer</span><span class="p">(</span><span class="n">x</span><span class="p">)){</span>
+    <span class="k">return</span> <span class="n">ivalue</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">;</span> 
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">rvalue</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="kt">long</span> <span class="n">testsc_ivalue</span><span class="p">(</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">g_sc</span><span class="o">-&gt;</span><span class="n">NIL</span> <span class="p">){</span>
+    <span class="k">return</span> <span class="mi">0</span> <span class="p">;</span>
+  <span class="p">}</span>
+
+
+  <span class="n">pointer</span> <span class="n">args</span> <span class="o">=</span> <span class="n">scheme_eval</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span> <span class="n">mk_symbol</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span> <span class="nb">NULL</span> <span class="o">!=</span> <span class="n">args</span> <span class="o">&amp;&amp;</span> <span class="n">g_sc</span><span class="o">-&gt;</span><span class="n">NIL</span> <span class="o">!=</span> <span class="n">args</span>  <span class="o">&amp;&amp;</span> <span class="p">(</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">||</span> <span class="n">is_symbol</span><span class="p">(</span><span class="n">args</span><span class="p">))</span> <span class="p">){</span>
+    <span class="kt">long</span> <span class="n">value</span> <span class="o">=</span> <span class="n">testsc_eval_ivalue</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="p">;</span> 
+    <span class="c1">// long value = ivalue(args) ; </span>
+    <span class="n">testsc_debug</span><span class="p">(</span><span class="s">&quot;testsc_ivalue %s is %d&quot;</span> <span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="p">;</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span> <span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="kt">double</span> <span class="n">testsc_dvalue</span><span class="p">(</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">g_sc</span><span class="o">-&gt;</span><span class="n">NIL</span> <span class="p">){</span>
+    <span class="k">return</span> <span class="mi">0</span> <span class="p">;</span>
+  <span class="p">}</span>
+
+
+  <span class="n">pointer</span> <span class="n">args</span> <span class="o">=</span> <span class="n">scheme_eval</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span> <span class="n">mk_symbol</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span> <span class="nb">NULL</span> <span class="o">!=</span> <span class="n">args</span> <span class="o">&amp;&amp;</span> <span class="n">g_sc</span><span class="o">-&gt;</span><span class="n">NIL</span> <span class="o">!=</span> <span class="n">args</span>  <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">is_real</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">||</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">||</span> <span class="n">is_symbol</span><span class="p">(</span><span class="n">args</span><span class="p">))){</span>
+    <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="n">testsc_eval_dvalue</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="p">;</span> 
+    <span class="c1">// double value = rvalue(args) ; </span>
+    <span class="n">testsc_debug</span><span class="p">(</span><span class="s">&quot;testsc_dvalue %s is %f&quot;</span> <span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="p">;</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span> <span class="p">;</span> 
+<span class="p">}</span>
+
+
+<span class="c1">// long testsc_setenv( const char *name , const char *value)</span>
+<span class="c1">// {</span>
+<span class="c1">//   return setenv(name, value, 1 ) ; </span>
+<span class="c1">// }</span>
+
+
+
+<span class="kt">char</span><span class="o">*</span> <span class="n">testsc_strvalue</span><span class="p">(</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">g_sc</span><span class="o">-&gt;</span><span class="n">NIL</span> <span class="p">){</span>
+    <span class="k">return</span> <span class="mi">0</span> <span class="p">;</span>
+  <span class="p">}</span>
+
+
+  <span class="n">pointer</span> <span class="n">args</span> <span class="o">=</span> <span class="n">scheme_eval</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span> <span class="n">mk_symbol</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span> <span class="nb">NULL</span> <span class="o">!=</span> <span class="n">args</span> <span class="o">&amp;&amp;</span> <span class="n">g_sc</span><span class="o">-&gt;</span><span class="n">NIL</span> <span class="o">!=</span> <span class="n">args</span>  <span class="o">&amp;&amp;</span> <span class="n">is_string</span><span class="p">(</span><span class="n">args</span><span class="p">)){</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">strvalue</span> <span class="o">=</span> <span class="n">string_value</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="p">;</span> 
+    <span class="n">testsc_debug</span><span class="p">(</span><span class="s">&quot;testsc_ivalue %s is %d&quot;</span> <span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">strvalue</span><span class="p">)</span> <span class="p">;</span>
+    <span class="k">return</span> <span class="n">strvalue</span> <span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span> <span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="cp">#endif</span>
+
+<span class="kt">void</span> <span class="n">testsc_eval</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">cmd</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">testsc_debug</span><span class="p">(</span><span class="s">&quot;testsc eval %s&quot;</span> <span class="p">,</span> <span class="n">cmd</span><span class="p">)</span> <span class="p">;</span> 
+  <span class="n">scheme_load_string</span><span class="p">(</span><span class="n">g_sc</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+
+
+
+<span class="kt">void</span> <span class="n">testsc_debug</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="n">format</span> <span class="p">...)</span>
+<span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">vlist</span><span class="p">;</span>
+
+  <span class="c1">// memset(g_buffer, 0x00, 1024) ; </span>
+
+
+  <span class="n">va_start</span><span class="p">(</span><span class="n">vlist</span><span class="p">,</span> <span class="n">format</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">formatsize</span> <span class="o">=</span> <span class="n">vsprintf</span><span class="p">(</span><span class="n">g_buffer</span><span class="p">,</span> <span class="n">format</span><span class="p">,</span> <span class="n">vlist</span><span class="p">);</span>
+  <span class="n">va_end</span><span class="p">(</span><span class="n">vlist</span><span class="p">);</span>
+
+  <span class="n">g_buffer</span><span class="p">[</span><span class="n">formatsize</span><span class="p">]</span><span class="o">=</span> <span class="sc">&#39;\n&#39;</span> <span class="p">;</span>
+  <span class="n">g_buffer</span><span class="p">[</span><span class="n">formatsize</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="nb">NULL</span> <span class="p">;</span> 
+
+  <span class="k">if</span><span class="p">(</span><span class="n">g_testsc_debug</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">){</span>
+    <span class="n">fwrite</span><span class="p">(</span><span class="n">g_buffer</span> <span class="p">,</span> <span class="n">formatsize</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">,</span> <span class="mi">1</span> <span class="p">,</span> <span class="n">g_debug</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">fflush</span><span class="p">(</span><span class="n">g_debug</span><span class="p">)</span> <span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span> 
+
+<span class="kt">void</span> <span class="n">testsc_close</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">scheme_deinit</span><span class="p">(</span><span class="n">g_sc</span><span class="p">);</span>
+<span class="p">}</span></pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

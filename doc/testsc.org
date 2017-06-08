@@ -1,77 +1,60 @@
-#+TITLE: testsc 동적 시험 도움 라이브러리
-#+SETUPFILE: t:\usr\local\editor\emacsW32\site-lisp\thirdparty\orghtmltheme\setup\theme-readtheorg-local.setup
+#+TITLE: testsc - 동적 시험 라이브러리
+#+SETUPFILE: setup\theme-readtheorg-local.setup
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="styles/pygments.css" />
-#+OPTIONS: toc:2 ^:{}
+#+OPTIONS: toc:3 ^:{} num:3
 #+EXPORT_EXCLUDE_TAGS: noexport
 
 # http://orgmode.org/manual/Table-of-contents.html
 
-* testsc - 동적 시험 라이브러리 
+* 기본 사항 
 ** 무엇을 하는 것인가? 
-   동적 시험시 필요한 테스트데이터를 파일로 부터 읽어 오는 라이브러리이다.
-   파일의 형식은 scheme 스트립트이다. 간단한 데이터의 정의 뿐만 아니라
-   프로그래밍을 통한 데이터의 생성이 가능하다. 
-   
-   #+BEGIN_SRC dot :file concept.png
-     digraph {
-     rankdir =LR ; 
-        C [shape=box,  label="CodeScroll"] //style=filled, color="gray"
-        T [shape=circle,   label="test .exe"] 
-        TL [shape=doublecircle,   label="testsc library"] 
-        S [shape=polygon, sides=4, skew=.3 ,  label="scheme file\ngenerage test data"] 
-        C -> T
-        T -> TL [dir=none] [label="linking"]
-        S -> TL
-     }
-   #+END_SRC
+   동적 시험시 필요한 [[test_variable][테스트 변수]]를 파일로 부터 읽어 오는 라이브러리이다. 파일의
+   형식은 scheme 스트립트이다. 간단한 데이터의 정의 뿐만 아니라 프로그래밍을
+   통한 데이터의 생성이 가능하다.   
 
-   #+RESULTS:
    [[file:concept.png]]
 
 
-   #+BEGIN_SRC ditta
-   
-   
-   #+end_SRC
-
+*** genfigure                                                     :noexport:
+    #+BEGIN_SRC dot :file concept.png
+      digraph {
+      rankdir =LR ; 
+         C [shape=box,  label="CodeScroll"] //style=filled, color="gray"
+         T [shape=circle,   label="test .exe"] 
+         TL [shape=doublecircle,   label="testsc library"] 
+         S [shape=polygon, sides=4, skew=.3 ,  label="scheme file\ngenerage test data"] 
+         C -> T
+         T -> TL [dir=none] [label="linking"]
+         S -> TL
+      }
+    #+END_SRC
+    
 ** 장점 
 *** 테스트 데이터 조합 가능
-    CodeScroll가 함수 입력값에 대한 테스트데이터를 생성하기는 한다. 각
-    파라미터에 대하여 개별로 테스트 데이터를 생성해 주는 것으로 보이며 변수들의
-    상관관계를 고려하여 만드는 것은 아닌 것 같다. 가령 함수의 인자로 3개의 enum
-    타입을 사용하는 경우 입력 가능한 모든 조합의 생성이 가능함에도 불구하고
-    사용자가 수동으로 입력하고 있는 실정이다. testsc 를 사용하며 각 입력값이
-    가지는 범위를 이용하여 다수의 파라미터에 대한 조합을 생성할 수 있다.  
+    [[test_variable][테스트 변수]]의 범위를 이용하여 데이터 조합을 생성할 수 이다. 가령 인자로
+    3개의 enum 타입을 사용하는 함수의 경우 각 파라미터가 가지는 값들의 범위를
+    이용하여 존재가능한 모든 파라미터 데이터 조합을 생성할 수 있다. 
 *** 다수의 테스트케이스 생성
     테스트 데이터가 많을 경우 CodeScroll 이 제공하는 UI 를 통하여 데이터를
     입력하기가 불편하다. 프로그래밍을 통하여 다수의 데이터도 간편하게 생성이
     가능한다.  
 *** 테스트 데이터 재활용
-    Codescroll 에서 같은 scheme 파일을 읽어 오도록 설정하면 테스트 데이터를
-    재활용할 수 있다. 
-    구조가 같은 함수가 다수 있을 때 사용하면 편리하다. 
-
+    Codescroll 에서 같은 [[scheme_file][scheme 파일]]을 읽어 오도록 설정하면 테스트 데이터를
+    재활용할 수 있다. 구조가 같은 함수가 다수 있을 때 사용하면 편리하다. 
     라이브러리 구성이 간단하여 리눅스 타겟환경 테스트를 수행할 때도
-    정적라이브러리 링크를 통하여 사용할 수 있다.  
-
+    정적라이브러리 링크를 통하여 사용할 수 있다. 
 ** 단점 
    scheme 언어에 대하여 지식이 있어야 사용 가능하다. 
-
    [[scheme_syntax][scheme 문법 참조]]
-
 * 사용방법 
     :PROPERTIES:
     :ATTACH_DIR: u:/orgdir/testsc/
     :END:
-** Codescroll 에서 테스트케이스 생성 
+** 테스트케이스 생성 
    기존 방식 대로 CodeScroll 메뉴얼을 참고하여 테스트케이스를 생성한다. 
-** Codescroll 에서 [[scheme_file][scheme 파일]] 호출 부분을 작성한다. 
-   다음에 나오는 함수의 상세 내용은 [[testsc_c_api]] 을 참조한다. 
-
-   비관리로 전환을 하였을 경우 테스트케이스 파일을 직접 편집할 수 있다. 비관리
-   코드로 전환하면 CodeScroll 없이 작업을 할 수 있어 라이센스를 절약할 수 있다. 
-
-*** 관련 헤더파일 include <<global_include>>
+** *testsc* 초기화 
+   다음에 나오는 C/Scheme 함수의 상세 내용은 [[reference]] 을 참조한다. 
+*** testsc 헤더파일 추가 <<global_include>>
     *유닛테스트* 더블클릭 >>  *테스트 정보* >> *테스트 전역 코드*
     
     *testsc.h* 파일을 포함하도록 한다. 
@@ -82,89 +65,44 @@
     [[file:u:/orgdir/testsc/testglobalcode.png]]
 
 *** 사용자 코드 작성 <<user_code>>
-    *유닛테스트* 더블클릭 >>  *테스트 정보* >> *사용자 코드*
+    - *유닛테스트* 더블클릭 >>  *테스트 정보* >> *사용자 코드*
+      테스트스크립트를 로딩하는 부분으로써 다음과 같이 호출한다. 
     
-    테스트스크립트를 로딩하는 부분으로써 다음과 같이 호출한다. 
-    
-    각 함수의 상세 내용은 [[testsc_c_api]] 을 참조한다. 
-    
-    #+BEGIN_SRC cpp
-      testsc_init(CS_TESTCASENO(), "(testsc-require mb/t-9)", "/testsc/home/");
-    #+END_SRC
+      #+BEGIN_SRC cpp
+        testsc_init(CS_TESTCASENO(), "(testsc-require mb/t-9)", "/testsc/home/");
+      #+END_SRC
 
-    [[testsc_init]] 를 호출하여 testsc 를 초기화 한다. 첫번째 파라미터는
-    CS_TESTCASENO() 으로써 테스트번호를 전달한다. 두번째 파라미터는 실행할
-    scheme 구문이다. [[testsc-require]] 를 호출하여 [[scheme_file][scheme 파일]]을 읽어 온다. 마지막
-    파라미터는 *testsc* 의 HOME 경로가 된다.  [[testsc-require]] 는 홈 경로아래에서
-    [[scheme_file][scheme 파일]] 을 불러온다. 경로를 파라미터로 넘기지 아니할 경우 프로젝트가
-    있는 드라이브의 =/testsc/home= 폴더가 홈이 된다. ( C 드라이브에 프로젝트 폴더가
-    있을 경우 =c:\testsc\home= 폴더, 리눅스의 경우 =/testsc/home= ) 
+      [[testsc_init]] 를 호출하여 *testsc* 를 초기화 한다. 첫번째 파라미터는
+      CS_TESTCASENO()으로써 *testsc* 으로 테스트번호를 전달한다. 두번째
+      파라미터는 실행할 scheme 명령이다. 마지막 파라미터는 [[testsc_home][testsc 홈]]경로가 된다. 
 
-    [[testsc-require]]의 파라미터는 불러오고자 하는 [[scheme_file][scheme 파일]]이다. (testsc-require
-    mb/t-9) 은 홈 폴더 아래의 *mb/t-9.scm* 파일을 호출한다. 경로명에 공백이
-    있어서는 아니되고 파일의 확장자인 *.scm* 은 생략해야 한다. 
+      + 참조 : [[testsc_init]] , [[testsc_eval]] , [[testsc-require]]
 
-    경로명은 다음과 같는 명명 규칙을 사용한다. 단순한 convention이며 따르지
-    아니하여도 상관없음. 기억하기 쉽고 짧을 수록 유리
-
-    #+BEGIN_QUOTE
-      - 폴더명 : 테스트하고자 하는 .cpp 파일을 나타내는 약어
-      - t-testname.scm : 테스트케이스(함수별) 를 나타내는 약어. *t-* 으로 시작
-        하도록 한다. 
-    #+END_QUOTE
 
     [[file:u:/orgdir/testsc/usercode.png]]
 
-
-    - scheme 파일 추가 실행 
-      다음과 같이 수행하면 관련 scheme 파일을
-    #+BEGIN_SRC cpp
-      testsc_eval( "(testsc-require mb/t-9)") ;
-    #+END_SRC
-
 *** 호출전 코드 및 stub 코드 작성 <<before_call_code>>
-
 **** 호출 전 코드 
-     *유닛테스트* 더블클릭 >>  *테스트 정보* >> *테스트 대상 함수* >> *호출 전 코드*
+     - *유닛테스트* 더블클릭 >>  *테스트 정보* >> *테스트 대상 함수* >> *호출 전 코드*
     
-     테스트스크립트에서 읽은 값을 codescroll 변수에 설정한다. 
+       테스트스크립트에서 읽은 값을 codescroll [[test_variable][테스트 변수]]에 설정한다. 
 
-     #+BEGIN_SRC cpp
-       iValue1    = testsc_ivalue("value1") ; 
-       dValue2    = testsc_dvalue("value2") ; 
-       strValue3  = testsc_strvalue("value3") ;
-       pValue4    = (track_t*)testsc_admin_get(0) ; 
-     #+END_SRC
-
-     CodeScroll 의 테스트데이터과 같이 사용하고자 할 경우 *CS_TESTCASENO()* 를
-     이용하여 관련 부분이 실행이 아니되게 할 수 있다. 다음과 같이 실행하며 10
-     보다 큰 테스트케이스에 대해서만 [[scheme_file][scheme 파일]]로 부터 값을 읽어 온다. 
-
-     #+BEGIN_SRC cpp
-
-       if(CS_TESTCASENO() > 10){
-         iValue1    = testsc_ivalue("value1") ; 
-         dValue2    = testsc_dvalue("value2") ; 
-         strValue3  = testsc_strvalue("value3") ;
-         pValue4    = (track_t*)testsc_admin_get(0) ; 
-        }
-     #+END_SRC
+        #+BEGIN_SRC cpp
+          iValue1    = testsc_ivalue("value1") ; 
+          dValue2    = testsc_dvalue("value2") ; 
+          strValue3  = testsc_strvalue("value3") ;
+          pValue4    = (track_t*)testsc_ext_get(0) ; 
+        #+END_SRC
 
 **** stub 코드 작성 
-     테스트대상 함수 내부에 있는 값들은 CodeScroll 이 생성하지만 stub 의 동작을
-     제어하기 위한 변수는 생성을 하지 아니한다.  
-
-     stub 에서 사용할 변수 역시 [[scheme_file][scheme 파일]]에서 지정하고 관련 값을 stub을
-     구현하는데 사용할 수 있다. 
-
+     CodeScroll은  stub 의 동작을 제어하기 위한 변수는 생성을 하지 아니한다.
+     [[scheme_file][scheme 파일]]에서 stub을 제어할 변수를 설정하고 stub 구현부에서 [[testsc_c_api][testsc C API]]
+     관련 함수를 이용하여 [[test_variable][테스트 변수]]값을 가져와 사용할 수 있다. 
      테스트전역 코드에 *testsc.h* 파일이 포함되어 있기 때문에 별도의 선언 없이
-     [[scheme_file][scheme 파일]] 에서 testsc 관련 함수를 사용할 수 있다. 
+     [[testsc_c_api][testsc C API]] 관련 함수를 사용할 수 있다.  
+
     
 ** [[scheme_file][scheme 파일]] 작성 <<make_scheme_file>>
-
-
-   [[make_scheme_file][scheme 파일 작성]]을 할 때는 CodeScroll이 필요 없다. CodeScroll에서
-   [[test_case][테스트 케이스]]를 닫아 라이센스를 절약할 수 있다.  
 
    앞서 지정한 testsc 홈 폴더에 [[scheme_file][scheme 파일]]을 다음과 같은 순서로 작성한다. 
 
@@ -177,9 +115,7 @@
 
    2. [[test_variable][테스트 변수]]를 선언 한다. <<declare_test_variable>>
       scheme 의 define 을 이용하여 변수를 선언한다. 
-
       CodeScroll이 정의한 변수인 경우 편리를 위해 같은 이름으로 정의한다.
-
       CodeScroll이 정의하지 아니한 변수라도 [[scheme_file][scheme 파일]] 에서 정의하여 사용할 수
       있으며, stub 등을 작성할 때 관련 변수를 사용할 수 있다. 
       
@@ -199,22 +135,19 @@
    3. [[scheme_test_script][scheme 파일 작성]]부분을 참조하여 *TESTCASENO* 에 따라  [[test_variable][테스트 변수]]를
       설정한다. 
       
-      상세한 내용은 [[scheme_test_script][scheme 파일 작성]] 및 [[testsc 구조체][testsc_struct]]부분을 참조한다
+      상세한 내용은 [[scheme_test_script][scheme 파일 작성]] 및 [[testsc_struct][testsc 구조체]]부분을 참조한다
 
    4. scheme.exe 를 실행하여 [[scheme_file][scheme 파일]]의 문법 오류를 확인한다. 
 
       [[testsc-init]] 를 이용하여 작성한 [[scheme_file][scheme 파일]]을 실행한다. 
-
       다음은 TESTCASENO 를 1로 설정하고 [[testsc_home][testsc 홈]] 폴더 아래 track/t-1.scm 파일을
       실행한다. 문법 오류가 있을 경우 오류가 있는 라인번호를 출력한다. 
-
       정상적으로 실행이 된 후 [[test_variable][테스트 변수]]를 입력하면 실행한 파일에 의해 설정된
       값을 확인할 수 있다. 
       #+BEGIN_SRC scheme
       (testsc-init 1 track/t-1 )
       #+END_SRC
 
-      
 ** CodeScroll [[test_case][테스트 케이스]] 빌드 및 커버리지 평가 
 *** 포함 파일 추가
     [[testsc_home][testsc 홈]] 을 포함 디렉토리에 추가한다. 
@@ -228,20 +161,19 @@
     실행결과로 생성되는 커버리지를 참조하여 추가가 필요한 [[test_variable][테스트 변수]]값을
     [[scheme_file][scheme 파일]]에 설정한다.  CodeScroll 의 사용자 인터페이스를 통하여 값을
     설정하는 것 보다 빠르게 커버리지를 올릴 수 있다.  
+    다음 파일은 [[test_case][테스트케이스]]가 실행하면서 출력하는 것을 저장하는 파일이다. 
 
-    다음 파일은 [[testcase][테스트케이스]]가 실행하면서 출력하는 것을 저장하는 파일이다. 
-
-    - testsc-stderr.txt : [[testsc_home][testsc 홈]] 폴더 아래 위치한다. [[testcase][테스트케이스]]가
+    - testsc-stderr.txt : [[testsc_home][testsc 홈]] 폴더 아래 위치한다. [[test_case][테스트케이스]]가
       실행하면서 출력하는 표준에러 출력을 저장한다. 
 
-    - testsc-stdout.txt : [[testsc_home][testsc 홈]] 폴더 아래 위치한다. [[testcase][테스트케이스]]가
+    - testsc-stdout.txt : [[testsc_home][testsc 홈]] 폴더 아래 위치한다. [[test_case][테스트케이스]]가
       실행하면서 출력하는 표준출력 및 [[testsc_debug]] 출력을 저장한다. 
 
-* scheme 파일 작성 <<scheme_test_script>>
+* [[scheme_file][scheme 파일]] 작성 <<scheme_test_script>>
     :PROPERTIES:
     :ATTACH_DIR: u:/orgdir/testsc/
     :END:
-** scheme 파일 작성 법
+** scheme 파일 작성
 *** 함수내의 모든 분기문을 확인한다. 
 
     if, switch 등의 분기문에서 사용하는 변수, 구조체 필드, 함수 리턴값 등을
@@ -313,7 +245,7 @@
 
     대부분 CodeScroll 이 생성하는 테스트 입력값과 같으나, CodeScroll 이 생성을 
     하지 아니한 경우에도 변수를 지정해 줄 수 있다. 이렇게 지정한 변수는 Stub
-    등을 구현하는데 사용할 수 있다. [[stub_implementation][스텁구현 참조]]
+    등을 구현하는데 사용할 수 있다.
     #+BEGIN_SRC scheme
       (define value1 10)
       (define value2 3.1415926378)
@@ -373,8 +305,7 @@
     1
     #+END_SRC
 
-** 예제 1 - 값을 정의하고 사용하는 부분 
-   정의 파일 사용 법 cond, 
+** 예제 1 - 값을 정의하고 사용
 ** 예제 2 - enum 변수 확인 
 ** 예제 3 - filter check 
 ** 예제 4 - 구조체 예제
@@ -415,7 +346,7 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 
 ** 구조체 테스트 데이터 생성 
    확장 모듈을 이용하여 구조체 테스트 데이터를 생성할 수 있다. 
-   [[testsc_admin_get]] 을 이용하여 scheme 파일에서 생성한 구조체를 가져 온다. 
+   [[testsc_ext_get]] 을 이용하여 scheme 파일에서 생성한 구조체를 가져 온다. 
 
 ** 빌드 방법 
    build.bat 파일을 이용하여 빌드를 수행한다. 
@@ -426,6 +357,14 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
    
 * Best Practice 
 ** 비관리 코드 활용 
+
+
+   [[test_case][테스트케이스]]생성후 바로 비관리로 전환하며 직접 입력할 수 도 있다. 
+
+   비관리로 전환을 하였을 경우 테스트케이스 파일을 직접 편집할 수 있다. 비관리
+   코드로 전환하면 CodeScroll 없이 작업을 할 수 있어 라이센스를 절약할 수 있다. 
+
+
    CodeScroll 테스트케이스 생성 및 일괄 빌드 후 비관리 코드 전환을 수행하고
    테스트를 CodeScroll 없이 테스트를 편집할 수 있다. 결과적으로 CodeScroll
    라이센스를 절약할 수 있다.  
@@ -453,6 +392,21 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
     - User code start 부분을 찾아서 [[user_code][사용자 코드 작성]] 부분을 직접 편집한다.
     - 테스트 대상 함수 호출 전에 [[before_call_code][호출전 코드 및 stub 코드 작성]] 부분을 직접 편집한다.  
 
+** CodeScroll 의 테스트데이터와 같이 사용
+   *CS_TESTCASENO()* 를 이용하여 관련 부분이 실행이 아니되게 할 수 있다. 다음과
+   같이 실행하며 10 보다 큰 테스트케이스에 대해서만 [[scheme_file][scheme 파일]]로 부터 값을 읽어
+   온다.  
+
+    #+BEGIN_SRC cpp
+
+      if(CS_TESTCASENO() > 10){
+        iValue1    = testsc_ivalue("value1") ; 
+        dValue2    = testsc_dvalue("value2") ; 
+        strValue3  = testsc_strvalue("value3") ;
+        pValue4    = (track_t*)testsc_ext_get(0) ; 
+      }
+    #+END_SRC
+
 ** testsc 확장 모듈 
    C 를 이용하여 확장 할 수 있다. C 확장을 불필요하게 생성하는 것을 지양하고
    최대한 scheme 파일을 활용할 수 있도록 한다. 구조체에 대한 확장 정도만 구현을
@@ -460,7 +414,7 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 
 *** 구조체 테스트 데이터 생성 
     확장 모듈을 이용하여 구조체 테스트 데이터를 생성할 수 있다. 
-    [[testsc_admin_get]] 을 이용하여 scheme 파일에서 생성한 구조체를 가져 온다. 
+    [[testsc_ext_get]] 을 이용하여 scheme 파일에서 생성한 구조체를 가져 온다. 
 
 *** 테스트 데이터를 파일에서 가져오게 한다. 
 **** 컴파일 없이 테스트 수행을 할 수 있다. 
@@ -486,7 +440,7 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 
     두번 정의가 될 경우 뒤에 나오는 값으로 설정이 된다. 
 
-* reference 
+* Reference <<reference>>
 ** C API - <<testsc_c_api>>
    CodeScroll 에서 스텁등을 작성할 때 사용한다. 
 *** testsc.cpp
@@ -499,9 +453,34 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 ***** double testsc_dvalue(const char* name)  <<testsc_dvalue>>
 ***** char* testsc_strvalue(const char* name)  <<testsc_strvalue>>
 ***** void testsc_eval(const char *cmd)  <<testsc_eval>>
-***** void testsc_init(int testnum, const char *cmd, const char *homepath = 0 )  <<testsc_init>>
-***** void testsc_debug(const char*format ...)  <<testsc_debug>>
+      [[testsc_init]] 에서 초기화 하면서 scheme 을 실행하는 것에 더하여 추가적으로
+      다른 scheme 명령을 실행고 싶을 때 사용한다. [[testsc-require]] 명령을 이용하여
+      다른 파일을 불러 올 수 있다. 
 
+ [[scheme_file][scheme 파일]]를 불어오는 것에 추가적으로 다른 파일을 불러
+      오고 싶을 사용한다. 
+    - scheme 파일 추가 실행 
+      다음과 같이 수행하면 관련 scheme 파일을
+    #+BEGIN_SRC cpp
+      testsc_eval( "(testsc-require mb/t-9)") ;
+    #+END_SRC
+
+***** void testsc_init(int testnum, const char *cmd, const char *homepath = 0 )  <<testsc_init>>
+
+
+
+      [[testsc_init]] 를 호출하여 *testsc* 를 초기화 한다. 첫번째 파라미터는
+      CS_TESTCASENO() 으로써 테스트번호를 전달한다. 두번째 파라미터는 실행할
+      scheme 명령이다. [[testsc-require]] 를 호출하여 [[scheme_file][scheme 파일]]을 읽어 올 수 있다.
+      마지막 파라미터는 *testsc* 의 HOME 경로가 된다. [[testsc-require]] 는 홈
+      경로아래에서 [[scheme_file][scheme 파일]] 을 불러온다. 경로를 파라미터로 넘기지 아니할 경우
+      프로젝트가 있는 드라이브의 =/testsc/home= 폴더가 홈이 된다. (C 드라이브에
+      프로젝트 폴더가 있을 경우 =c:\testsc\home= 폴더, 리눅스의 경우
+      =/testsc/home= )       
+
+
+
+***** void testsc_debug(const char*format ...)  <<testsc_debug>>
 
 *** testsc_ext.cpp
 **** 함수 
@@ -526,6 +505,20 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 
 **** 함수 
 ***** (define-macro (testsc-require x) ...) <<testsc-require>>
+
+
+    [[testsc-require]] 의 파라미터는 불러오고자 하는 [[scheme_file][scheme 파일]]이다. (testsc-require
+    mb/t-9) 은 홈 폴더 아래의 *mb/t-9.scm* 파일을 호출한다. 경로명에 공백이
+    있어서는 아니되고 파일의 확장자인 *.scm* 은 생략해야 한다. 
+
+    경로명은 다음과 같는 명명 규칙을 사용한다. 단순한 convention이며 따르지
+    아니하여도 상관없음. 기억하기 쉽고 짧을 수록 유리
+
+    #+BEGIN_QUOTE
+      - 폴더명 : 테스트하고자 하는 .cpp 파일을 나타내는 약어
+      - t-testname.scm : 테스트케이스(함수별) 를 나타내는 약어. *t-* 으로 시작
+        하도록 한다. 
+    #+END_QUOTE
 ***** (define (t-offset start) ...) <<t-offset>> 
       (define (t-offset start) (- (testsc-get-testnum) start))
 
@@ -1238,3 +1231,9 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
    테스트 데이터를 생성하는 scheme 테스트 스크립트를 의미한다. 
 ** testsc 홈 <<testsc_home>>
 ** 테스트 변수 <<test_variable>>
+
+* export 관련                                                     :noexport:
+** no description 
+   #+BEGIN_QUOTE
+   ox-html 에서 html link 부분을 수정한다.  
+   #+END_QUOTE
