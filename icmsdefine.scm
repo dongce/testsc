@@ -1,4575 +1,2094 @@
+
+(define  EMERGENCY      0)
+(define  STOP_EMERGENCY 1)
+(define  FORCETELL      2)
+(define  STOP_FORCETELL 3)
+
+(define clear_request     0)
+(define difference_report 1)
+
+(define AIRCRAFT_STATUS_KIND_AIR_GENERAL 0) 
+(define AIRCRAFT_STATUE_KIND_ASW         1) 
+(define AIRCRAFT_STATUE_KIND_NONE        2) 
+
+(define ew_cancel_transmission_ew_compliance     0)
+(define machine_receipt_for_order_ew_compliance  1)
+(define machine_receipt_for_ackn_ew_compliance   2)
+(define no_compliance_ew_compliance              3) 
+
+
+
+
+(define ID_RESULT_A 0)
+(define ID_RESULT_C 1) 
+(define ID_RESULT_D 2) 
+(define ID_RESULT_V 3) 
+
+(define CONFLICT_REPORT_IDENTITY_AIR        0 )
+(define CONFLICT_REPORT_IDENTITY_SURF       1 )
+(define CONFLICT_REPORT_ENVIRONMENT         2 )
+(define CONFLICT_REPORT_POSITION            3 )
+(define CONFLICT_REPORT_TRACK_NUMBER        4 )
+(define CONFLICT_REPORT_IFF_MODE1           5 )
+(define CONFLICT_REPORT_IFF_MODE2           6 )
+(define CONFLICT_REPORT_IFF_MODE3           7 )
+(define CONFLICT_REPORT_IFF_MODE4_DOWNGRADE 8 )
+(define CONFLICT_REPORT_IFF_MODE4_CONFLICT  9 )          
+
+(define DIFFERENCE_REPORT_IDENTITY_AIR     0 )
+(define DIFFERENCE_REPORT_IDENTITY_SURF    1 )
+(define DIFFERENCE_REPORT_ENVIRONMENT      2 )
+(define DIFFERENCE_REPORT_IFF_SIF          3 ) 
+(define DIFFERENCE_REPORT_NONE             4 ) 
+
+(define AUTHORIZED                 0 )
+(define NOT_AUTHORIZED             1 )
+(define NO_STATEMENT_AUTHORIZATION 2 )
+
+(define AUTOMATIC_CORRELATION 0)
+
+(define ASSIGNMENT_AUTOMATIC 0)
+(define ASSIGNMENT_MANUAL    1)
+
+
+(define ADMISSION_TRANSMISSION_INTERVAL_IN_SEC 1 )
+(define ALL_PUS #x0007F0 )
+(define AMP_SUB_NUM 5 )
+(define ARCMINUTE_TO_RADIAN 2.9088820866572159615394846141477e-4)
+(define ARCSECOND_TO_RADIAN 4.8481368110953599359e-6 )
+(define ASW_POINT_ACOUSTIC_FIX 10)
+(define ASW_POINT_NOTACK_AREA 12 )
+(define CANCEL_ORDER 1 )
+(define CANCEL_WATCH #x000003 )
+(define CANTCO 6 )
+(define CANTPRO 7 )
+(define CCV_Request_Periodic_Report 0 )
+(define CCV_Request_Update_And_Watch 3 )
+(define CFCS_MODE_ID_TACTICAL 1 )
+(define CFCS_MODE_ID_TRAIN1 2 )
+(define CFCS_MODE_ID_TRAIN2 3 )
+(define CHANGE_DATA_ORDER 2 )
+(define CLASS_AMPL_TORPEDOCOMM_ALERT 2)
+(define CLEAN_ADDRESSEE #x01FFFF )
+(define CLEAN_RC #xCFFFFF )
+(define CLEAN_RC_ADDRESSEE #x1FF80F )
+(define CLEAN_TN2 #x000FFF )
+(define COM_NOT_ALLOWED_FAILURE 1 )
+(define CONFLICT 1 )
+(define CONVENTIONAL_CONST #x0C0000 )
+(define CU_REPORT 6 )
+(define DATA_FROM_DEVICE_BYTES 20480 )
+(define DATA_UPDATE_REQUEST 3 )
+(define DEFAULT_AMPL 0 )
+(define DLRP_60_DEGREE_LATITUDE (degree-to-radian 60))
+(define DMASKM4 #x00003F )
+(define DMASKM5 #x0000FF )
+(define DROP_TRACK 4 )
+(define DROP_TRACK_COUNT 2 )
+(define DTSCTRL_BUFF_LENGTH 1024 )
+(define DTSCTRL_EOM #x03 )
+(define DTSCTRL_EXTRA #xFF )
+(define DTSCTRL_SOM #x02 )
+(define DTS_ERROR_BIT_MASK #x30000000 )
+(define DTS_NOT_RESPONSE 2 )
+(define DURATION_FOR_PERIODIC_PROCESSING 2000 )
+(define EARTH_RADIUS 6378122.88 )
+(define ECM_AMP_CLASS_SIZE 8 )
+(define ECM_BROAD_CLASS_SIZE 8 )
+(define EI_MASK #x00000007 )
+(define EMCON_ENABLED 0 )
+(define EMCON_INDEX 0 )
+(define EMCON_RADIO_SILENCE 1 )
+(define ESM_AMP_CLASS_SIZE 8 )
+(define ESM_BROAD_CLASS_SIZE 8 )
+(define EVERY_CONSOLE_ID -1 )
+(define EWC #x100000 )
+(define EXTENSION #x004000 )
+(define Env_Cat_Air 1 )
+(define Env_Cat_Subsurface 3 )
+(define Env_Cat_Surface 2 )
+
+(define ENV_CAT_AIR 1 )
+(define ENV_CAT_SUBSURFACE 3 )
+(define ENV_CAT_SURFACE 2 )
+
+(define FIFTH_FRAME_OFFSET 8 )
+(define FIVE_TIMES 5 )
+(define FIXED_CONST #x040000 )
+(define FM 6 )
+(define FOURTH_FRAME_OFFSET 6 )
+(define FRAME_BYTES 8 )
+(define FRAME_WORDS 2 )
+(define FTSW #x000000 )
+(define FTSW #x100000 )
+(define FUEL_TIME_NOVALUE 0 )
+(define HALF_PI 1.57079632679489661923132169163975144 )
+(define HAVCO 4 )
+(define HEIGHTMASK #x0000FF )
+(define HMASKM5 #x0000FF )
+(define HUNDREAD_TIMES 100 )
+(define ICU_ALL_DOMAIN 4 )
+(define ICU_IPN_DOMAIN 1 )
+(define IFF_CLEAR_1 1 )
+(define IFF_CLEAR_1 2 )
+(define IFF_CLEAR_1_2_3 0 )
+(define IFF_CLEAR_2 1 )
+(define IFF_CLEAR_2 4 )
+(define IFF_CLEAR_3 1 )
+(define IFF_CLEAR_3 6 )
+(define IFF_CLEAR_4 1 )
+(define IFF_CLEAR_4 3 )
+(define IFF_SIF_MANAGEMENT 9 )
+(define IFF_iff_mode1_FIRST 0 )
+(define IFF_iff_mode1_LAST 59 )
+(define IFF_iff_mode2_3_FIRST 0 )
+(define IFF_iff_mode2_3_last 4095 )
+(define INTERRUPT_MASK #x00000007 )
+(define INVALID_DLP_IFF_MODE1 #xFFFFFFFF )
+(define INVALID_DLP_IFF_MODE2 #xFFFFFFFF )
+(define INVALID_DLP_IFF_MODE3 #xFFFFFFFF )
+(define INVALID_DLP_IFF_MODE4 #xFFFFFFFF )
+(define INVALID_FIELD_VALUE -1 )
+(define INVALID_IFF_MODE -1 )
+(define INVALID_TRACK_ID 0 )
+(define INVALID_PU INVALID_TRACK_ID)
+(define KILLO 1000.0 )
+(define KNTDS_NOT_RESPONSE 4 )
+(define L11_EOR 3 )
+(define L11_PTR 6 )
+(define L11_PTT 5 )
+(define L11_PTTB 7 )
+(define L11_RST 2 )
+(define LABEL_NUMBER_M11B 1 )
+(define LABEL_NUMBER_M11C 2 )
+(define LABEL_NUMBER_M11D 3 )
+(define LABEL_NUMBER_M11M 12 )
+(define LABEL_NUMBER_M4A 0 )
+(define LABEL_NUMBER_M4B 1 )
+(define LABEL_NUMBER_M4C 2 )
+(define LABEL_NUMBER_M4D 3 )
+(define LABEL_NUMBER_M6A 0 )
+(define LABEL_NUMBER_M6B 1 )
+(define LABEL_NUMBER_M6C 2 )
+(define LABEL_NUMBER_M6D 3 )
+(define LABEL_NUMBER_M9A 0 )
+(define LABEL_NUMBER_M9B 1 )
+(define LABEL_NUMBER_M9C 2 )
+(define LABEL_NUMBER_M9D 3 )
+(define LABEL_NUMBER_M9E 4 )
+(define LABEL_NUMBER_M9F 5 )
+(define LABEL_NUMBER_M9G 6 )
+(define LAN_FAILURE -1 )
+(define LOCK_STRUCT_MAX_COUNT 10 )
+(define LSB_7_BIT_MASK #x7F )
+(define M10A 0 )
+(define M10ACANTPROAMP 267 )
+(define M10ACI 268 )
+(define M10ALABEL 265 )
+(define M10AMN 263 )
+(define M10AORDER 266 )
+(define M10APURUADDEE 264 )
+(define M10ARC 269 )
+(define M10ATN1 270 )
+(define M10ATN2 271 )
+(define M11BAC 327 )
+(define M11BFT 326 )
+(define M11BFTSW 320 )
+(define M11BLABEL 318 )
+(define M11BMN 317 )
+(define M11BORDA 321 )
+(define M11BORDB 322 )
+(define M11BORDC 323 )
+(define M11BORDD 324 )
+(define M11BTN 319 )
+(define M11BWPT 325 )
+(define M11CAC 346 )
+(define M11CBSW 332 )
+(define M11CFUEL 347 )
+(define M11CLABEL 329 )
+(define M11CMN 328 )
+(define M11CNAS 344 )
+(define M11CNCD 337 )
+(define M11CNCM 341 )
+(define M11CNCT 339 )
+(define M11CNPS 345 )
+(define M11CNR 343 )
+(define M11CNSD 338 )
+(define M11CNSM 342 )
+(define M11CNST 340 )
+(define M11CSENSOR26 333 )
+(define M11CSENSOR27 334 )
+(define M11CSENSOR28 335 )
+(define M11CSENSOR30 336 )
+(define M11CTIME 331 )
+(define M11CTN 330 )
+(define M11DLABEL 349 )
+(define M11DMN 348 )
+(define M11DMODE1 355 )
+(define M11DMODE2 354 )
+(define M11DMODE3 356 )
+(define M11DMODE4 352 )
+(define M11DSPECCODE 357 )
+(define M11DSW 351 )
+(define M11DTN 350 )
+(define M11DTR 353 )
+(define M11MCAT 419 )
+(define M11MGENTYPE 422 )
+(define M11MLABEL 416 )
+(define M11MMN 415 )
+(define M11MNATION 420 )
+(define M11MPUSRC 423 )
+(define M11MSPECTYPE 421 )
+(define M11MSPI 417 )
+(define M11MTN 418 )
+(define M1203STIN 435 )
+(define M1230CHAR1 453 )
+(define M1230CHAR2 454 )
+(define M1230CHAR3 455 )
+(define M1230NUM1 451 )
+(define M1230NUM2 452 )
+(define M1230TN 450 )
+(define M1231CNT 361 )
+(define M1231GMT 362 )
+(define M1231MN 358 )
+(define M1231RR 360 )
+(define M1231SI 359 )
+(define M12AT 436 )
+(define M12DT 437 )
+(define M12HEIGHT 441 )
+(define M12IFFM1 446 )
+(define M12IFFM2 447 )
+(define M12IFFM3A 448 )
+(define M12IFFMC 449 )
+(define M12MI 445 )
+(define M12STI 433 )
+(define M12STIN 434 )
+(define M12SUBLABEL 432 )
+(define M12SW 442 )
+(define M12TT 440 )
+(define M12XCOOR 438 )
+(define M12XDOT 443 )
+(define M12YCOOR 439 )
+(define M12YDOT 444 )
+(define M1307ADDRESSEE 465 )
+(define M1307CHARN 466 )
+(define M1307CHARN1 467 )
+(define M1307CHARN2 468 )
+(define M1307CHARN3 469 )
+(define M1307EI 458 )
+(define M1307GI 460 )
+(define M1307LI 461 )
+(define M1307NUM 463 )
+(define M1307ORIGIN 464 )
+(define M1307TI 459 )
+(define M1307TNM 462 )
+(define M13SI 456 )
+(define M13SUBLABEL 457 )
+(define M14CI 282 )
+(define M14HI 281 )
+(define M14MN 272 )
+(define M14NOS 276 )
+(define M14PURUSOURCE 278 )
+(define M14TNFRIEND 279 )
+(define M14TNTARGET 280 )
+(define M14WES 273 )
+(define M14WH 277 )
+(define M14WR 275 )
+(define M14WT 274 )
+(define M15COMAMPLMASK #x000FFF )
+(define M15COMD 286 )
+(define M15COMMAMPLI 290 )
+(define M15IT 292 )
+(define M15MN 283 )
+(define M15RC 288 )
+(define M15RCMASK #x700000 )
+(define M15SP1 289 )
+(define M15TNADDE 284 )
+(define M15TNADDEEMASK #x0007F0 )
+(define M15TNTARGET 291 )
+(define M15TWA 285 )
+(define M15WN 293 )
+(define M15WT 287 )
+(define M1DLAT 4 )
+(define M1DLONG 6 )
+(define M1MN 0 )
+(define M1PURU 5 )
+(define M1RP 1 )
+(define M1SP1 3 )
+(define M1SPI 2 )
+(define M2ID 23 )
+(define M2MN 21 )
+(define M2SI 24 )
+(define M2TN 22 )
+(define M2TQ 25 )
+(define M2XCOOR 26 )
+(define M2YCOOR 27 )
+(define M3ID 42 )
+(define M3MN 40 )
+(define M3SI 43 )
+(define M3TN 41 )
+(define M3TQ 44 )
+(define M3XCOOR 45 )
+(define M3YCOOR 46 )
+(define M4ADRTYPE 64 )
+(define M4AID 63 )
+(define M4ALABEL 67 )
+(define M4AMN 61 )
+(define M4ANRT 65 )
+(define M4ASI 66 )
+(define M4ATN 62 )
+(define M4AXCOOR 68 )
+(define M4AYCOOR 69 )
+(define M4BDATUMERROR 91 )
+(define M4BHOURS 89 )
+(define M4BLABEL 87 )
+(define M4BMINUTES 88 )
+(define M4BMISSION 85 )
+(define M4BMN 83 )
+(define M4BMSLCAP 92 )
+(define M4BSP1 86 )
+(define M4BTIMESW 90 )
+(define M4BTN 84 )
+(define M4CCS 97 )
+(define M4CID 95 )
+(define M4CLABEL 99 )
+(define M4CMN 93 )
+(define M4CSI 98 )
+(define M4CSW 96 )
+(define M4CTN 94 )
+(define M4CXCOOR 100 )
+(define M4CYCOOR 101 )
+(define M4DAF 123 )
+(define M4DAUDIO 125 )
+(define M4DBB 124 )
+(define M4DBRT 118 )
+(define M4DBSW 119 )
+(define M4DDOPP 127 )
+(define M4DID 117 )
+(define M4DLABEL 120 )
+(define M4DLAYER 128 )
+(define M4DMN 115 )
+(define M4DSPP 126 )
+(define M4DTN 116 )
+(define M4DXCOOR 121 )
+(define M4DYCOOR 122 )
+(define M5MN 145 )
+(define M5POINT 148 )
+(define M5POINTAMP 149 )
+(define M5SI 147 )
+(define M5TN 146 )
+(define M5XCOOR 150 )
+(define M5YCOOR 151 )
+(define M6AAC 179 )
+(define M6AACT 170 )
+(define M6ABA 168 )
+(define M6ABC 169 )
+(define M6ABEARING 174 )
+(define M6AELEVATION 177 )
+(define M6AFREQUENCY 181 )
+(define M6AJRSL 176 )
+(define M6ALABEL 171 )
+(define M6AMN 166 )
+(define M6APL 173 )
+(define M6ASW 178 )
+(define M6ATE 172 )
+(define M6ATIMESTALE 180 )
+(define M6ATN 167 )
+(define M6ATNOFORIGIN 175 )
+(define M6BFB 184 )
+(define M6BLABEL 187 )
+(define M6BMN 182 )
+(define M6BPL 186 )
+(define M6BTE 185 )
+(define M6BTN 183 )
+(define M6BXCOOR 188 )
+(define M6BYCOOR 189 )
+(define M6CJT 208 )
+(define M6CLABEL 210 )
+(define M6CMN 206 )
+(define M6CPRF 213 )
+(define M6CPS 212 )
+(define M6CSCH 211 )
+(define M6CSP1 209 )
+(define M6CTN 207 )
+(define M6DBEARING 235 )
+(define M6DBW 237 )
+(define M6DCCV 233 )
+(define M6DCONF 231 )
+(define M6DCTRL 222 )
+(define M6DEMITTERNR 229 )
+(define M6DEWC 224 )
+(define M6DLABEL 225 )
+(define M6DMN 220 )
+(define M6DMODENR 230 )
+(define M6DMUL 232 )
+(define M6DPERIOD 226 )
+(define M6DRC 223 )
+(define M6DRCV 228 )
+(define M6DRD 236 )
+(define M6DRTN 234 )
+(define M6DTN 221 )
+(define M6DTNADDEE 227 )
+(define M811MCU 429 )
+(define M811MCURACT 425 )
+(define M811MDISCID 430 )
+(define M811MMISSION 424 )
+(define M811MOPSTAT 426 )
+(define M811MSW 427 )
+(define M811MTN2 428 )
+(define M81AAWC 9 )
+(define M81ASWC 10 )
+(define M81CAC 11 )
+(define M81ENVCAT 17 )
+(define M81HC 12 )
+(define M81HD 14 )
+(define M81MN 7 )
+(define M81MU 19 )
+(define M81PURU 8 )
+(define M81SI 20 )
+(define M81SP1 13 )
+(define M81TY 18 )
+(define M81XDOT 15 )
+(define M81YDOT 16 )
+(define M82HEIGHT 30 )
+(define M82HOURS 34 )
+(define M82HS 39 )
+(define M82IDAMP 38 )
+(define M82MINUTES 33 )
+(define M82MN 28 )
+(define M82SP1 35 )
+(define M82SW 36 )
+(define M82SZ 37 )
+(define M82TN 29 )
+(define M82XDOT 31 )
+(define M82YDOT 32 )
+(define M83CM 50 )
+(define M83HC 60 )
+(define M83HOURS 54 )
+(define M83IDAMP 58 )
+(define M83MINUTES 53 )
+(define M83MN 47 )
+(define M83SP1 55 )
+(define M83SP2 59 )
+(define M83SW 56 )
+(define M83SZ 57 )
+(define M83TN 48 )
+(define M83UC 49 )
+(define M83XDOT 51 )
+(define M83YDOT 52 )
+(define M84AASWPTTYPE 71 )
+(define M84ACA 74 )
+(define M84ACB 73 )
+(define M84ACBI 78 )
+(define M84ACLASS 72 )
+(define M84ADEPTH 75 )
+(define M84ADI 76 )
+(define M84AMN 70 )
+(define M84ANDUR 82 )
+(define M84ANRAD 81 )
+(define M84APOSSUB 80 )
+(define M84ASENSOR 77 )
+(define M84ASPEED 79 )
+(define M84CAC 106 )
+(define M84CBA 104 )
+(define M84CBEARING 105 )
+(define M84CCAL 113 )
+(define M84CCHNAMP 108 )
+(define M84CCHNBR 112 )
+(define M84CMN 102 )
+(define M84CMRF 103 )
+(define M84CRANGE 107 )
+(define M84CTD 111 )
+(define M84CTLOST 114 )
+(define M84CTREM 110 )
+(define M84CTYPE 109 )
+(define M84DBA 132 )
+(define M84DBD 131 )
+(define M84DBEARING1 137 )
+(define M84DBEARING2 142 )
+(define M84DBI1 138 )
+(define M84DBI2 143 )
+(define M84DCDEPHT 133 )
+(define M84DCLASS 134 )
+(define M84DCLASSAMP 135 )
+(define M84DFAAF 141 )
+(define M84DMN 129 )
+(define M84DRANGE 139 )
+(define M84DRANGEACC 140 )
+(define M84DSAAF 144 )
+(define M84DSENSOR 130 )
+(define M84DSW 136 )
+(define M85HD 163 )
+(define M85HDSW 164 )
+(define M85HOURS 161 )
+(define M85MINUTES 160 )
+(define M85MN 152 )
+(define M85REF 155 )
+(define M85RELTNTN 153 )
+(define M85SP1 156 )
+(define M85SP2 159 )
+(define M85SP3 165 )
+(define M85SW 154 )
+(define M85TSW 162 )
+(define M85XDOT 157 )
+(define M85YDOT 158 )
+(define M86BAC 200 )
+(define M86BBA 193 )
+(define M86BBC 199 )
+(define M86BBEARING 194 )
+(define M86BBI 195 )
+(define M86BCONF 204 )
+(define M86BEMITTERNR 202 )
+(define M86BEVSW 201 )
+(define M86BFM 198 )
+(define M86BFREQFREQRANGE 197 )
+(define M86BLS 196 )
+(define M86BMODE 203 )
+(define M86BPEC 205 )
+(define M86BRS 192 )
+(define M86BTIMESTALE 191 )
+(define M86Bn 190 )
+(define M86CARP 218 )
+(define M86CARPSW 219 )
+(define M86CMN 214 )
+(define M86CPOLAR 215 )
+(define M86CPULSEWIDTH 217 )
+(define M86CSP1 216 )
+(define M89FBRG 405 )
+(define M89FCAT 401 )
+(define M89FHOURS 400 )
+(define M89FMAJAXIS 407 )
+(define M89FMINAXIS 406 )
+(define M89FMINUTES 399 )
+(define M89FMN 398 )
+(define M89FPF 404 )
+(define M89FSQC 403 )
+(define M89FSRC 402 )
+(define M9A9ACT 296 )
+(define M9A9ISAC 303 )
+(define M9A9LABEL 295 )
+(define M9A9MI 304 )
+(define M9A9MN 294 )
+(define M9A9MODE1 297 )
+(define M9A9MODE2 298 )
+(define M9A9MODE3 299 )
+(define M9A9MODE4 300 )
+(define M9A9PURU 302 )
+(define M9A9TN 301 )
+(define M9AC1CI 431 )
+(define M9ACT 240 )
+(define M9AI 242 )
+(define M9BACT 382 )
+(define M9BLABEL 381 )
+(define M9BMN 380 )
+(define M9BTN1 384 )
+(define M9BTN2 385 )
+(define M9BTNORIGIN 383 )
+(define M9CLABEL 364 )
+(define M9CMN 363 )
+(define M9COPERPOS 367 )
+(define M9CPUADDEE 366 )
+(define M9CPUADDRESS 365 )
+(define M9CXCOORD 368 )
+(define M9CYCOORD 369 )
+(define M9DLABEL 306 )
+(define M9DMN 305 )
+(define M9DNETCYCLE 316 )
+(define M9DRQ1 308 )
+(define M9DRQ2 315 )
+(define M9DRQ3 313 )
+(define M9DRQ4 311 )
+(define M9DSW 310 )
+(define M9DTN1 309 )
+(define M9DTN2 307 )
+(define M9DTN3 314 )
+(define M9DTN4 312 )
+(define M9E19TN 388 )
+(define M9E19TNA1 389 )
+(define M9E19TNA2 390 )
+(define M9E19TNN 391 )
+(define M9E3SW 386 )
+(define M9E5SW 387 )
+(define M9EACT 252 )
+(define M9EMISSNR 259 )
+(define M9EMISSNRA1 261 )
+(define M9EMISSNRA2 262 )
+(define M9EMISSNRN 260 )
+(define M9ENVCAT 241 )
+(define M9ETN 251 )
+(define M9EVC 253 )
+(define M9EVC1 254 )
+(define M9EVC2 255 )
+(define M9EVC3 256 )
+(define M9EVC4 257 )
+(define M9EVCF 258 )
+(define M9FACT 395 )
+(define M9FLABEL 393 )
+(define M9FMN 392 )
+(define M9FSI 409 )
+(define M9FSW 408 )
+(define M9FTN 394 )
+(define M9FTNREL 414 )
+(define M9FXCOOR 396 )
+(define M9FXCRATE 412 )
+(define M9FXCSW 413 )
+(define M9FXDOT 410 )
+(define M9FYCOOR 397 )
+(define M9FYDOT 411 )
+(define M9F_BASIC 0 )
+(define M9F_SECONDARY 1 )
+(define M9GEW 377 )
+(define M9GLABEL 371 )
+(define M9GLATDEG 373 )
+(define M9GLATMIN 372 )
+(define M9GLONGDEG 376 )
+(define M9GLONGMIN 375 )
+(define M9GMN 370 )
+(define M9GNS 374 )
+(define M9ID 243 )
+(define M9IDAMP 244 )
+(define M9LABEL 239 )
+(define M9MN 238 )
+(define M9PURUAS 247 )
+(define M9SI 245 )
+(define M9SP 250 )
+(define M9SPI 249 )
+(define M9STI 248 )
+(define M9TN 246 )
+(define MAXIMUL_LINK_POINTERS 500 )
+(define MAXIMUM_NUMBER_OF_BITS 24 )
+(define MAXIMUM_NUMBER_OF_DELETED_TRACKS 5 )
+(define MAXIMUM_OF_TRAINING_TRACKS #o177 )
+(define MAXIMUM_TRACKS_TO_REPORT_SPECIAL_CODE_CHANGES 200 )
+(define MAX_AC_Type 15 )
+(define MAX_AMPL_SIZE 8 )
+(define MAX_ASW_POINT_TYPE 63 )
+(define MAX_Ampl_Class_Type 7 )
+(define MAX_BA_Type 3 )
+(define MAX_BA_Type 7 )
+(define MAX_CHANNEL_DATA_LENGTH 8192 )
+(define MAX_CLASS_SIZE 8 )
+(define MAX_DLRP_DELTA_RADIAN (degree-to-radian 17.06640625 ))
+(define MAX_PU_ADDRESS 63 )
+(define MAX_EMITTER_MODE MAX_PU_ADDRESS)
+(define MAX_EMITTER_NUMBER 16383 )
+(define MAX_ID_SIZE 16 )
+(define MAX_INITIAL_OPNOTE_LIST 100 )
+(define MAX_MOMENT (* 24 60 60 ) )
+(define MAX_NETWORK_TRACKS 500 )
+(define MAX_NETWORK_TRACK_NUMBER_TYPE 4095 )
+(define MAX_OP_NOTES 500 )
+(define MAX_PU 62 )
+(define MAX_PU_NUMBER_RANGE 62 )
+(define MAX_RECEPTION_QUALITY 7 )
+(define MAX_SIMULATED_TRACKS_PER_PU 400 )
+(define MAX_SOURCE_ID 2147483647 )
+(define MAX_TRACKS 5000)
+(define MAX_TRACK_ID 2000000000 )
+(define MAX_TRACK_ID_TYPE 2000000000 )
+(define MAX_weapon_e 11 )
+(define MCANTCO #x300000 )
+(define MEGA 1000000.0 )
+(define MESSAGE_NUMBER_M0 0 )
+(define MESSAGE_NUMBER_M1 1 )
+(define MESSAGE_NUMBER_M10 10 )
+(define MESSAGE_NUMBER_M11 11 )
+(define MESSAGE_NUMBER_M12 12 )
+(define MESSAGE_NUMBER_M13 13 )
+(define MESSAGE_NUMBER_M14 14 )
+(define MESSAGE_NUMBER_M15 15 )
+(define MESSAGE_NUMBER_M2 2 )
+(define MESSAGE_NUMBER_M3 3 )
+(define MESSAGE_NUMBER_M4 4 )
+(define MESSAGE_NUMBER_M5 5 )
+(define MESSAGE_NUMBER_M6 6 )
+(define MESSAGE_NUMBER_M7 7 )
+(define MESSAGE_NUMBER_M8 8 )
+(define MESSAGE_NUMBER_M9 9 )
+(define MICRO 0.000001 )
+(define MILLI 0.001 )
+(define MILLION_TIMES 10000 )
+(define MINIMUM_SECOND_FOR_QUALITY_DECREASE 20 )
+(define MINIMUM_TIME_FOR_NEW_ALLOC 120 )
+(define MIN_PU_ADDRESS_TYPE 1 )
+(define MIN_PU_NUMBER_RANGE 1 )
+(define MIN_SOURCE_ID 0 )
+(define MISSILE_CONST #x080000 )
+(define Mission_Spare 11 )
+(define NATIONAL_TAG_SUBLABEL 6 )
+(define NDDS_EMUL_LOGLEVEL_FUN #x00000001 )
+(define NDDS_EMUL_LOGLEVEL_INSERT_DATA #x00000008 )
+(define NDDS_EMUL_LOGLEVEL_READ_DATA #x00000002 )
+(define NDDS_EMUL_LOGLEVEL_WRITE_DATA #x00000004 )
+(define NDDS_MESSAGE_SERIAL_MAX 1024 )
+(define NETMODE_BROADCAST 4 )
+(define NETMODE_INDEX 3 )
+(define NETMODE_NET_SYNC 0 )
+(define NETMODE_NET_TEST 1 )
+(define NETMODE_ROLE_CALL 2 )
+(define NETMODE_SHORT_BROADCAST 3 )
+(define NETWORK_ID_LAST 2000000000 )
+(define NETWORK_ID_START  1 )
+(define NETWORK_TRACK_QUALITY_TYPE_FIRST 0 )
+(define NM_TO_M 1852.0 )
+(define NO_FAILURE 0 )
+(define NO_FIND #x0C0000 )
+(define NO_STATEMENT 0 )
+(define NTAG_START 0 )
+(define NTDS_EI_EOR 3 )
+(define NTDS_EI_PTR 6 )
+(define NTDS_EI_PTTB 7 )
+(define NTDS_EI_PTTD 5 )
+(define NTDS_EI_RESET 2 )
+(define ONE_DAY_IN_SEC (* 24 60 60 ) )
+(define ONE_DAY_IN_SEC (* 24 60 60 ))
+(define ONE_MINUTE_IN_SEC 60 )
+(define ONE_TIME 1 )
+(define OPNOTE_SERIAL_MODULATOR 256 )
+(define OPNOTE_SUBLABEL 7 )
+(define ORD_ASSUME_CONTROL 0 )
+(define ORD_CONTROL_AND_ENGAGE 1 )
+(define ORD_LAUNCH_FIGHTER 4 )
+(define ORD_LAUNCH_HELI 5 )
+(define ORD_RETURN_TO_BASE 3 )
+(define ORD_SPARE6 6 )
+(define ORD_SPARE7 7 )
+(define ORD_TRANSFER_CONTROL 2 )
+(define ORIGINAL_ORDER_RC 0 )
+(define OWNSHIP_WEAPON_CONFIG_UNAVAILABLE #xFF )
+(define PI 3.14159265358979323846264338327950288 )
+(define PMASK #x000FFF )
+(define PMASKM1 #x01FFFF )
+(define POINT_AMPLIFY_CORRIDOR_TAB 3 )
+(define POINT_AMPLIFY_DAN_BUOY 1 )
+(define POINT_AMPLIFY_MARSHAL_PT 1 )
+(define POINT_AMPLIFY_ORIBIT_POINT 1 )
+(define POINT_AMPLIFY_REPLENISHMENT 5 )
+(define POINT_AMPLIFY_RESCUE 6 )
+(define POINT_AMPLIFY_SEARCH_AREA_POINT 7 )
+(define POINT_AMPLIFY_TANKER 0 )
+(define POINT_AMPLIFY_TOMCAT 1 )
+(define POINT_ECM_FIX 0 )
+(define POINT_EMERGENCY 7 )
+(define POINT_ENEMY 15 )
+(define POINT_HAZARD 2 )
+(define POINT_MINE_WARFARE 3 )
+(define POINT_REFERENCE_POINT_GENERAL 4 )
+(define POINT_SITE 13 )
+(define POINT_STATION_AIR 6 )
+(define POINT_STATION_AIR_EXT 9 )
+(define POINT_STATION_GENERAL 5 )
+(define POINT_SUPPORTING_UNIT 14 )
+(define POUND_TO_KG_CONVERSION 0.453592 )
+(define PREAASWTORP0M4C #x8C0004 )
+(define PREAASWTORP0M84C #x000008 )
+(define PREAFRAME #x00000C )
+(define PREAFRAME #x0001EC )
+(define PREAFRAME #x00020C )
+(define PREAFRAME #x00040C )
+(define PREAFRAME #x00060C )
+(define PREAFRAME #x00080C )
+(define PREAFRAME #x00300D )
+(define PREAFRAME #x00380D )
+(define PREAFRAME #x08000C )
+(define PREAFRAMEM1 #x000001 )
+(define PREAFRAMEM11C #x00002B )
+(define PREAFRAMEM11D #x00003B )
+(define PREAFRAMEM11M #x0000CB )
+(define PREAFRAMEM1231 #x0001FC )
+(define PREAFRAMEM14 #x00000E )
+(define PREAFRAMEM14WES_ENG_BROKEN #x000080 )
+(define PREAFRAMEM14WES_ENG_INTERRUP #x0000A0 )
+(define PREAFRAMEM14WES_HEAD_UP #x000090 )
+(define PREAFRAMEM14WES_TARGET_DISTROYED #x000050 )
+(define PREAFRAMEM15RCIS2 #x200000 )
+(define PREAFRAMEM15RCIS7 #x700000 )
+(define PREAFRAMEM15_assign #x00600F )
+(define PREAFRAMEM15_assume_duties #x02400F )
+(define PREAFRAMEM15_break_engagement_of_weapon_specified #x01A00F )
+(define PREAFRAMEM15_cease_conducting_procedures #x02200F )
+(define PREAFRAMEM15_cease_duties #x02600F )
+(define PREAFRAMEM15_cease_engage #x00800F )
+(define PREAFRAMEM15_cease_fire #x00C00F )
+(define PREAFRAMEM15_cease_proceeding_to_point #x01E00F )
+(define PREAFRAMEM15_conduct_procedures #x02000F )
+(define PREAFRAMEM15_cover #x00E00F )
+(define PREAFRAMEM15_engage #x00400F )
+(define PREAFRAMEM15_engage_asm_ssm #x02800F )
+(define PREAFRAMEM15_engage_with_weapon_specified #x01800F )
+(define PREAFRAMEM15_hold_fire #x00A00F )
+(define PREAFRAMEM15_proceed_to_point #x01C00F )
+(define PREAFRAMEM15_salvo_clear #x01000F )
+(define PREAFRAMEM15_weapons_free #x00000F )
+(define PREAFRAMEM15_weapons_tight #x00200F )
+(define PREAFRAMEM2 #x000002 )
+(define PREAFRAMEM3 #x000003 )
+(define PREAFRAMEM4B #x400004 )
+(define PREAFRAMEM5 #x000005 )
+(define PREAFRAMEM6AACT0 #x000006 )
+(define PREAFRAMEM6AACT1 #x200006 )
+(define PREAFRAMEM6B #x400006 )
+(define PREAFRAMEM6C #x800006 )
+(define PREAFRAMEM81 #x000008 )
+(define PREAFRAMEM811M #x000008 )
+(define PREAFRAMEM82 #x000008 )
+(define PREAFRAMEM83 #x000008 )
+(define PREAFRAMEM85SW0 #x000008 )
+(define PREAFRAMEM85SW1 #x010008 )
+(define PREAFRAMEM86C #x000008 )
+(define PREAFRAMEM89F #x000008 )
+(define PREAFRAMEM9AC1 #x000109 )
+(define PREAFRAMEM9AC2 #x000209 )
+(define PREAFRAMEM9AC3 #x000309 )
+(define PREAFRAMEM9AC4 #x000409 )
+(define PREAFRAMEM9AC5 #x000509 )
+(define PREAFRAMEM9AC6 #x000609 )
+(define PREAFRAMEM9AC7 #x000709 )
+(define PREAFRAMEM9AC9 #x000909 )
+(define PREAFRAMEM9B #x000019 )
+(define PREAFRAMEM9C #x000029 )
+(define PREAFRAMEM9DSW0 #x000039 )
+(define PREAFRAMEM9DSW1 #x800039 )
+(define PREAFRAMEM9G #x000069 )
+(define PREAMBAFRAME #x00000A )
+(define PREAMBAFRAME #x80003B )
+(define PREAMBAFRAME #xC00006 )
+(define PREAMBFRAMEA #x100049 )
+(define PREAMBFRAMEA #x200049 )
+(define PREAMBFRAMEA #x300049 )
+(define PREAMBFRAMEA #x500049 )
+(define PREAMBFRAMEA #x600049 )
+(define PREANOTACKM84A #x000008 )
+(define PREASUBDATUM0M84A #x000008 )
+(define PREASUBDATUM1M84A #x000008 )
+(define PREASUBSURFTQ0M84A #x000008 )
+(define PREASUBSURFTQ1M84A #x000008 )
+(define PREBFRAME #x000000 )
+(define PREBFRAME #x000200 )
+(define PREBFRAMEM11CSW0 #x000000 )
+(define PREBFRAMEM11CSW1 #x000001 )
+(define PREBFRAMEM11CSW2 #x000002 )
+(define PREBFRAMEM4B #x000000 )
+(define PREBFRAMEM4B #x000800 )
+(define PREBFRAMEM82SW1 #x010000 )
+(define PREBFRAMEM83SW1 #x010000 )
+(define PREBFRAMEM85D #x100800 )
+(define PREBFRAMEM85H #x000800 )
+(define PREBFRAMEM85N #x0FF800 )
+(define PREBFRAMEM89F #x000000 )
+(define PREBFRAMEM9AC1 #x800000 )
+(define PREBFRAMEM9AC3 #x080000 )
+(define PREBFRAMEM9B #x000000 )
+(define PREBFRAMEM9F #x000000 )
+(define PREBSUBDATUM1M84A #x002000 )
+(define PU_ADDRESS_LAST 63 )
+(define PU_ENV_AIR #x030000 )
+(define PU_ENV_LAND #x020000 )
+(define PU_ENV_SUBSURFACE #x010000 )
+(define PU_ENV_SURFACE #x000000 )
+(define PU_NUMBER_RANGE 62 )
+(define QUARTER_PI 0.78539816339744830961566084581987572 )
+(define RADIAN_TO_ARCMINUTE 3437.7467707849392526078892888463 )
+(define RADIAN_TO_ARCSECOND 206264.80624709635515647335733078 )
+(define RC #x200000 )
+(define RC #x400000 )
+(define RCV_Evaluate_Sector 15 )
+(define RCV_Evaluate_Track 14 )
+(define RCV_Request_Periodic_Report 0 )
+(define RCV_Request_Update_And_Watch 3 )
+(define RCV_Request_Update_Then_Watch 3 )
+(define RC_CANT_COMPLY 3 )
+(define RC_CANT_COMPLY 6 )
+(define RC_CANT_PROCESS 7 )
+(define RC_COMPLIANCE_REQUIRED 0 )
+(define RC_MACHINE_RECEIPT 2 )
+(define RC_NO_COMPLIANCE 1 )
+(define RC_SPARE_1 1 )
+(define RC_SPARE_4 4 )
+(define RC_SPARE_5 5 )
+(define RC_WILL_COMPLY 3 )
+(define RECEIVED_TRAINING_TRACKS_RANGE_MAX MAXIMUM_OF_TRAINING_TRACKS )
+(define RECEIVED_TRAINING_TRACKS_RANGE_MAX MAXIMUM_OF_TRAINING_TRACKS)
+(define RECEPTION_QUALITY_CALCULATE_CYCLE 8 )
+(define RESPONSE #x0D0000 )
+(define R_C_NOT_REQUIRED_CONST #x100000 )
+(define SECOND_FRAME_OFFSET 2 )
+(define SENSOR_ON 1 )
+(define SI 0 )
+(define SIMULATION_TRACK 0 )
+(define SIXTH_PI 0.52359877559829887308 )
+(define SI_TRACK_NOT_SIMULATED 0 )
+(define SMASK #x0000FF )
+(define SMASK #x000FFF )
+(define SOURCE_FILTER_FORWARDING_ISDL_RECEIVED 2 )
+(define SOURCE_FILTER_FORWARDING_LINKK_RECEIVED 4 )
+(define SPECIAL_CODE_TYPE_FIRST 0 )
+(define SPECIAL_CODE_TYPE_LAST 4095 )
+(define SPI_NO_SPECIAL_PROCESSING_REQUIRED 0 )
+(define STATUS_EI #x04 )
+(define STOPINDICATION #x080000 )
+(define STOP_TRACKCOMM_ALERT 7 )
+(define SWITCH_TIME 1 )
+(define SWITCH_XYDOT 0 )
+(define SW_REFERENCE_SONOBUOY 3 )
+(define SW_SONOBUOY_POSITION 2 )
+(define SW_SPARE 1 )
+(define SW_Velocity 0 )
+(define South 1 )
+(define Src_ASW_Sensor 4 )
+(define Src_EW 1 )
+(define Src_Intel 2 )
+(define Src_Sosus 3 )
+(define TASK_DEFAULT_STACK (* 200 1024 ))
+(define TASK_TRACK_INPUT_PRIORITY 101 )
+(define TASK_TRACK_INPUT_STACK_SIZE 100000 )
+(define TEN_TIMES 10 )
+(define THIRD_FRAME_OFFSET 4 )
+(define THIRD_PI 1.04719755119659774615 )
+(define THOUSAND_TIMES 1000 )
+(define THREE_TIMES 3 )
+(define TIME_STALE #x0001F0 )
+(define TM_INVALID_NTN -1 )
+(define TO_LINK11_NETWORK 1 )
+(define TRACKCOMM_ALERT 5 )
+(define TRACK_QUALITY_7 7 )
+(define TRACK_QUALITY_OF_MANUAL_TRACK 0 )
+(define TWO_PI 6.28318530717958647692528676655900576 )
+(define Time_Remaining_No_Statement 15 )
+(define WAIT_READ_VECTOR #x41 )
+(define WAIT_WRITE_VECTOR #x42 )
+(define WILLCO 3 )
+(define WORD_BYTES 4 )
+(define West 1 )
+(define Word_Size 32 )
+(define command_and_control_source_id 119 )
+(define house_keeping_source_id 118 )
+(define max_time_without_m5 360 )
+(define max_time_without_m9b 240 )
+(define retransmission_request 1 )
+(define three_times 3 )
+
+(define SIMULATED_TRACK 1)
+(define  EMERGENCY  0)
+
+
+
+(define SI_TRACK_NOT_SIMULATED  0)
+(define SPI_NO_SPECIAL_PROCESSING_REQUIRED  0)
+
+
 (define TDL_FILTER_NON_REAL_TIME  1)	;;Ticket:1608 송영환 추가
 (define TDL_FILTER_CIVIL  2) ;;Ticket:1608 송영환 추가
-
-
-;; #ifndef _ICMS_DEFINE_H_
-;; #define _ICMS_DEFINE_H_
-
-;; #include "SysParamIndexDefine.h"
-
-;; struct IPNStartParameter
-;; {
-;; 	char* ipAddr;
-;; 	int iPriority;
-;; 	int idomain;
-;; 	int idiscoveryType;
-;; 	int iResilienceType;
-;; 	int iSubsystemID;
-;; };
-
-;; /******************************************/
-;; /******************************************/
-
-
-;; #define PI 				3.1415926535897932384626	;;π값 
-
-;; #define RAD2MIL			1018.59163578813			;;radian값을 mil로 변환 하는 상수
-;; #define RAD2DEG			(180.0/PI)					;;radian값을 degree로 변환 하는 상수
-;; #define RAD2MIN 		(10800./PI)					;;radina값을 mimnute로 변환 하는 상수
-;; #define MIL2DEG			0.05625						;;mil값을 degree값으로 변환 하는 상수
-;; #define DEG2MIL			17.777777777777				;;degree값을 mil값으로 변환 하는 상수
-
-;; #define KPH2MS			0.27777777					;;m/hour를 m/sec로 변환 하는 상수
-
-;; #define DEG2RAD			(PI/180.0)					;;degree값을 radian값으로 변환 하는 상수	
-;; #define MIL2RAD			0.000981747705				;;mil값을 radian값으로 변환 하는 상수
-
-;; #define MIN2DEG			(1./60.)					;;minute값을 degree값으로 변환 하는 상수
-;; #define	DEG2MIN			60.							;;degree값을 minute값으로 변환 하는 상수 
-
-;; #define POUND2KG		(0.453592)					;;pound를 kg로 변환 하는 상수 
-;; #define SQ2KG			(0.13)						;;square를 kg로 변환 하는 상수 (탄도 계산)
-
-;; #define MBARTONM2		(100.)						;;mbar를 newton/m^2로 변환 하는 상수
-
-;; #define	CONST_INITIAL_GRAVITY	9.80665				;;중력가속도 (RangeTable기준)
-;; #define CONST_EARTH_RADIUS		6356766.			;;지구평균반경 m (RangeTable기준)
-
-;; #define	CONST_GRAVITIY_CORRECTION_FACTOR_BY_HEIGHT					CONST_INITIAL_GRAVITY*2/CONST_EARTH_RADIUS ;;중력가속도 보정값 (RangeTable기준)
-;; #define CONST_EARTH_ROTATION										0.000073 ;;지구자전상수
-;; #define CONST_HEAT_CAPACITY_RATIO									1.4 ;;열용량 (RangeTable기준)
-
-;; #define CONST_GETMACHNUM_SOUNDVELOCITY								20.0468 ;;음속 factor (RangeTable기준)
-;; #define CONST_GETMACHNUM_AIRTEMPERATURE								0.0065 ;;기온 factor (RangeTable기준)
-
-;; #define KT2MS			(1852./3600.)				;;kts를 m/s로 변환 하는 상수 
-;; #define MS2KT			(3600./1852.)				;;m/s를 kts로 변환 하는 상수
-
-
-
-;; #define DmToM 1828.8								;; DM -> m								;;ticket:1320 101126 김영산
-;; #define MToDM 1/1828.8								;; m -> DM								;;ticket:1320 101126 김영산					
-;; #define DmToNM 1828.8/1852;							;; DM -> NM								;;ticket:1320 101126 김영산 ;;PKX-B ticket:133 140225 김영산
-;; #define NMToDM 1852/1828.8;							;; NM -> DM								;;ticket:1320 101126 김영산 ;;PKX-B ticket:133 140225 김영산
-
-;; #define INCH2METER		(0.0254)					;;inch를 m로 변환 하는 상수
-;; #define NM2M			1852.						;;nautical mile을 m로 변환 하는 상수 
-;; #define M2NM			(1./1852.)					;;m를 nautical mile로 변환 하는 상수
-
-;; #define FT2M 0.3048									;; feet  -> meter						;;ticket:1272 101123 송정훈
-;; #define M2FT  3.28084								;; meter -> feet						;;ticket:1272 101123 송정훈
-
-;; #define YD2M			0.91440183					;;yard를 m로 변환 하는 상수
-;; #define M2YD			(1./YD2M)					;;m를 yard로 변환 하는 상수				;; ticket:1049 20101022 송정훈, 이흥배 		
-
-;; #define	KNOT2MPS		0.51444444444444			;;knot를 m/sec값으로 변환 하는 상수
-;; #define MPS2KNOT		1.9438444924406				;;m/sec를 knot값으로 변환 하는 상수
-
-;; #define TORAD(d)	((d)/57.2957795131)
-;; #define TODEG(r)	((r)*57.2957795131)
-
-;; #define Sin(x)			sin(TORAD(x))
-;; #define Cos(x)			cos(TORAD(x))
-;; #define Tan(x)			tan(TORAD(x))
-;; #define Asin(x)			TODEG(asin(x))
-;; #define Acos(x)			TODEG(acos(x))
-;; #define Atan(x)			TODEG(atan(x))
-;; #define Atan2(x1,x2)	TODEG(atan2(x1,x2))
-
-;; #define RADIUS_G 6378137.
-;; #define RADIUS_G_NM (RADIUS_G*PI/180.0/1852.)
-
-;; #define WGS84_FF	(1.0/298.257223563)
-;; #define WGS84_FF_EQ	(sqrt(2.0*WGS84_FF-WGS84_FF*WGS84_FF))
-
-;; #define EMCON_UNDER_BAR 99 ;; H.GU 2010Y 05M 13D
-
-;; #define MAX_NUM_OF_NETWORK_TRACK 1000		;; ticket:1374 101214 송영환
-;; #define MAX_NUM_OF_ISDL   1000
-;; #define MAX_NUM_OF_LINK11  500
-
-
-
-
-
-;; #define FFX_COLOR_GREEN			RGB(0,138,1)				;; 녹색 : 가용
-;; #define FFX_COLOR_RED			RGB(165,32,33)				;; 적색 : 비가용
-;; #define FFX_COLOR_ORANGE		RGB(189,125,1)				;; 주황색 : 기능저하
-
-;; #define FFX_COLOR_BLACK			RGB(0,0,1)					;; 검정색
-;; #define FFX_COLOR_WHITE			RGB(255,255,255)			;; 흰색
-
-;; #define FFX_COLOR_EQUIPAVAIL		RGB(  0, 138,   1)
-;; #define FFX_COLOR_EQUIPDEGRADE		RGB(189, 125,   1)
-;; #define FFX_COLOR_EQUIPNOTAVAIL		RGB(165,  32,  33)
-;; #define FFX_COLOR_EQUIPABSENT		RGB(128, 128, 129)
-
-;; #define FFX_COLOR_BLANK				RGB(202, 202, 203)
-;; #define FFX_COLOR_BLUE				RGB(  0,   0, 225)
-
-;; #define COLOR_GREEN				RGB(0,138,1)				;; 녹색 : 가용
-;; #define COLOR_RED				RGB(165,32,33)				;; 적색 : 비가용
-;; #define COLOR_ORANGE			RGB(189,125,1)				;; 주황색 : 기능저하
-
-;; #define COLOR_BLACK				RGB(0,0,1)					;; 검정색
-;; #define COLOR_WHITE				RGB(255,255,255)			;; 흰색
-
-;; #define COLOR_EQUIPAVAIL		RGB(  0, 138,   1)
-;; #define COLOR_EQUIPDEGRADE		RGB(189, 125,   1)
-;; #define COLOR_EQUIPNOTAVAIL		RGB(165,  32,  33)
-;; #define COLOR_EQUIPABSENT		RGB(128, 128, 129)
-
-;; #define COLOR_BLANK				RGB(202, 202, 203)
-;; #define COLOR_BLUE				RGB(  0,   0, 225)
-
-
-;; #define MAX_NUM_OF_CONSOLE		8	;; Ticket:1647		110207 송영환
-
-
-;; #define FLOAT_EQUAL(a,b) ((((a)<(b))?(b)-(a):(a)-(b)) < (float)0.0000001)			;; TRUE : equal,  FALSE : not equal;;111114-정동한 수정.
-;; #define DOUBLE_EQUAL(a,b) ((((a)<(b))?(b)-(a):(a)-(b)) < (double)0.000000000000001)   ;; TRUE : equal,  FALSE : not equal;;130225 정두환 추가
-
-;; #define EXCEPTION_BGEIN\
-;; 	__try\
-;; {\
-
-;; #define EXCEPTION_ENDS }\
-;; 	__except(EXCEPTION_EXECUTE_HANDLER)\
-;; {\
-;; 	FILE* fp = NULL;\
-;; 	fp = fopen("c:\\mfcException.log","a+");\
-;; 	fprintf(fp,"%s:%s, 파일명:%s, 함수:%s, 라인:%d, 에러코드:%X\n",__DATE__,__TIME__,__FILE__,__FUNCTION__,__LINE__,GetExceptionCode());\
-;; 	fclose(fp);\
-;; }\
-
-
-
-
-
-
-;; #ifdef _HILS
-;; #define SET_CSDS_ADDRESS_WIN32_HILS(p,d) do{                            \
-;; 	const int INET_ADDR_LEN       = 20 ;                                  \
-;; 	char *csds_ipaddress            = (char*)malloc(INET_ADDR_LEN) ;      \
-;; 	const char *CSDS_NETWORK      = "192.168.1." ;                        \
-;; 	bool csds_found               = false ;                               \
-;; 	DDS_DomainParticipantQos participant_qos;                             \
-;; 	memset(csds_ipaddress , 0 , INET_ADDR_LEN ) ;                         \
-;; 	strncpy(csds_ipaddress , (d) , INET_ADDR_LEN ) ;                      \
-;; 	PIP_ADAPTER_INFO pAdapterInfo;                                        \
-;; 	ULONG ulOutBufLen = sizeof (IP_ADAPTER_INFO);                         \
-;; 	pAdapterInfo = (IP_ADAPTER_INFO *) malloc(ulOutBufLen) ;              \
-;; 	if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW) { \
-;; 	free(pAdapterInfo);                                                 \
-;; 	pAdapterInfo = (IP_ADAPTER_INFO *) malloc(ulOutBufLen) ;            \
-;; 	}                                                                     \
-;; 	if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) != NO_ERROR) {        \
-;; 	break;                                                              \
-;; 	}                                                                     \
-;; 	for(PIP_ADAPTER_INFO pAdapter = pAdapterInfo ; true !=csds_found && NULL != pAdapter; pAdapter = pAdapter->Next){ \
-;; 	for(PIP_ADDR_STRING x = &(pAdapter->IpAddressList) ; NULL != x ; x = x->Next ){ \
-;; 	if( NULL != x->IpAddress.String &&                                \
-;; 	0 == strncmp( x->IpAddress.String , CSDS_NETWORK , strlen(CSDS_NETWORK))){ \
-;; 	/*strncpy(csds_ipaddress , x->IpAddress.String , INET_ADDR_LEN) ;*/ \
-;; 	csds_found = true ;                                             \
-;; 	break ;                                                         \
-;; 	  }                                                                 \
-;; 	}                                                                   \
-;; 	}                                                                     \
-;; 	free(pAdapterInfo) ;                                                  \
-;; 	if(true !=csds_found){                                                \
-;; 	break ;                                                             \
-;; 	}                                                                     \
-;; 	if ((p)->participant->get_qos(participant_qos) != DDS_RETCODE_OK) {   \
-;; 	printf("error, impossible get participant qos");                \
-;; 	break;                                                          \
-;; 	}                                                                     \
-;; 	if (DDSPropertyQosPolicyHelper::add_property(participant_qos.property,\
-;; 	"dds.transport.UDPv4.builtin.parent.allow_interfaces",  		\
-;; 	csds_ipaddress,                                         		\
-;; 	DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {							\
-;; 	printf("***Error: get builtin transport property\n");               \
-;; 	break ;                                                             \
-;;   }                                                                     \
-;;   if ((p)->participant->set_qos(participant_qos) != DDS_RETCODE_OK) {   \
-;;   printf("error, impossible set participant qos");                \
-;;   break;                                                          \
-;;   }                                                                     \
-;;   printf("CSDS_ADDRESS is %s\n", csds_ipaddress) ;                      \
-;; } while(0)
-;; #else
-;; #define SET_CSDS_ADDRESS_WIN32(p) do{                                   \
-;;   const int INET_ADDR_LEN       = 20 ;                                  \
-;;   char *csds_ipaddress            = (char*)malloc(INET_ADDR_LEN) ;      \
-;;   const char *CSDS_NETWORK      = "192.168.1." ;                        \
-;;   bool csds_found               = false ;                               \
-;;   DDS_DomainParticipantQos participant_qos;                             \
-;;   memset(csds_ipaddress , 0 , INET_ADDR_LEN ) ;                         \
-;;   PIP_ADAPTER_INFO pAdapterInfo;                                        \
-;;   ULONG ulOutBufLen = sizeof (IP_ADAPTER_INFO);                         \
-;;   pAdapterInfo = (IP_ADAPTER_INFO *) malloc(ulOutBufLen) ;              \
-;;   if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW) { \
-;;     free(pAdapterInfo);                                                 \
-;;     pAdapterInfo = (IP_ADAPTER_INFO *) malloc(ulOutBufLen) ;            \
-;;   }                                                                     \
-;;   if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) != NO_ERROR) {        \
-;;     break;                                                              \
-;;   }                                                                     \
-;;   for(PIP_ADAPTER_INFO pAdapter = pAdapterInfo ; true !=csds_found && NULL != pAdapter; pAdapter = pAdapter->Next){ \
-;;     for(PIP_ADDR_STRING x = &(pAdapter->IpAddressList) ; NULL != x ; x = x->Next ){ \
-;;       if( NULL != x->IpAddress.String &&                                \
-;;           0 == strncmp( x->IpAddress.String , CSDS_NETWORK , strlen(CSDS_NETWORK))){ \
-;;         strncpy(csds_ipaddress , x->IpAddress.String , INET_ADDR_LEN) ; \
-;;         csds_found = true ;                                             \
-;;         break ;                                                         \
-;;       }                                                                 \
-;;     }                                                                   \
-;;   }                                                                     \
-;;   free(pAdapterInfo) ;                                                  \
-;;   if(true !=csds_found){                                                \
-;;     break ;                                                             \
-;;   }                                                                     \
-;;   if ((p)->participant->get_qos(participant_qos) != DDS_RETCODE_OK) {   \
-;;         printf("error, impossible get participant qos");                \
-;;         break;                                                          \
-;;   }                                                                     \
-;;   if (DDSPropertyQosPolicyHelper::add_property(participant_qos.property,\
-;; 		"dds.transport.UDPv4.builtin.parent.allow_interfaces",  		\
-;; 		csds_ipaddress,                                         		\
-;; 		DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {							\
-;;     printf("***Error: get builtin transport property\n");               \
-;;     break ;                                                             \
-;;   }                                                                     \
-;;   if ((p)->participant->set_qos(participant_qos) != DDS_RETCODE_OK) {   \
-;;         printf("error, impossible set participant qos");                \
-;;         break;                                                          \
-;;   }                                                                     \
-;;   printf("CSDS_ADDRESS is %s\n", csds_ipaddress) ;                      \
-;; } while(0)                                                              
-
-;; #define SET_CSDS_ADDRESS_VXWORKS(p) do{                                 \
-;;   bool csds_found        = false  ;                                     \
-;;   const char *nicnames[] = {getenv("CSDS_INTERFACE") ,                  \
-;;                             "RX0"                    ,                  \
-;;                             "geisc0"};                                  \
-;;   char *csds_ipaddress     = (char*)malloc(INET_ADDR_LEN) ;             \
-;;   DDS_DomainParticipantQos participant_qos;								\
-;;   memset(csds_ipaddress , 0 , INET_ADDR_LEN ) ;                         \
-;;   for(int i = 0 ; i < sizeof(nicnames)/sizeof(const char*) ; i++){      \
-;;     if(NULL != nicnames[i] &&                                           \
-;;        OK == ifAddrGet( (char*)nicnames[i] , csds_ipaddress)){          \
-;;       printf("OK csds interface is %s(%s)\n" ,                          \
-;;              nicnames[i],                                               \
-;;              csds_ipaddress) ;                                          \
-;;       csds_found = true;                                                \
-;;       break ;                                                           \
-;;     }                                                                   \
-;;   }                                                                     \
-;;   if(true !=csds_found){                                                \
-;;     break ;                                                             \
-;;   }                                                                     \
-;;   if ((p)->participant->get_qos(participant_qos) != DDS_RETCODE_OK) {   \
-;;         printf("error, impossible get participant qos");                \
-;;         break;                                                          \
-;;   }                                                                     \
-;;   if (DDSPropertyQosPolicyHelper::add_property(participant_qos.property,\
-;; 		"dds.transport.UDPv4.builtin.parent.allow_interfaces",  		\
-;; 		csds_ipaddress,                                         		\
-;; 		DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {							\
-;;     printf("***Error: get builtin transport property\n");               \
-;;     break ;                                                             \
-;;   }                                                                     \
-;;   if ((p)->participant->set_qos(participant_qos) != DDS_RETCODE_OK) {   \
-;;         printf("error, impossible set participant qos");                \
-;;         break;                                                          \
-;;   }                                                                     \
-;;   printf("CSDS_ADDRESS is %s\n", csds_ipaddress) ;                      \
-;; } while(0) 
-;; #endif
-
-;; #define SET_PMC610_GFEIF( p, d, v ) do{                                 \
-;;   char *DEFAULT_610INIT_STRING   = "-1:%d:-1:0:0:-1:-1:-1:-1:-1:-1:%0x" ; \
-;;   char *DEFAULT_675INIT_STRING   = "-1:0:0:0:0:0:-1:0:0:0:0x81100152:0" ; \
-;;   const char * (v)               = (NULL == getenv(#v) ? (d) : getenv(#v)) ; \
-;;   if( OK == setPMC610((p) , (char*)(v) , (char*)DEFAULT_610INIT_STRING)){ \
-;;     printf("OK - IPADDRESS_GFEIF  is %s\n" , (v)) ;                     \
-;;   }                                                                     \
-;;   else{                                                                 \
-;;     printf("NOT OK - SET IPADDRESS_GFEIF %s failed\n" , (v)) ;          \
-;;   }                                                                     \
-;; } while( 0 )                                                            \
-
-
-;; #define IS_TEMPERATURE_DEGRADED(x) ( 0.0 > (x) || (x) >= 55.0 )
-
-
-
-
-
-;; #include <limits.h>
-
-;; #define ICMS_SCHAR_MIN  SCHAR_MIN    /* minimum signed char value */
-;; #define ICMS_SCHAR_MAX  SCHAR_MAX    /* maximum signed char value */
-;; #define ICMS_UCHAR_MAX  UCHAR_MAX    /* maximum unsigned char value */
-;; #define ICMS_SHRT_MIN   SHRT_MIN     /* minimum (signed) short value */
-;; #define ICMS_SHRT_MAX   SHRT_MAX     /* maximum (signed) short value */
-;; #define ICMS_USHRT_MAX  USHRT_MAX    /* maximum unsigned short value */
-;; #define ICMS_INT_MIN    INT_MIN      /* minimum (signed) int value */
-;; #define ICMS_INT_MAX    INT_MAX      /* maximum (signed) int value */
-;; #define ICMS_UINT_MAX   UINT_MAX     /* maximum unsigned int value */
-;; #define ICMS_LONG_MIN   LONG_MIN     /* minimum (signed) long value */
-;; #define ICMS_LONG_MAX   LONG_MAX     /* maximum (signed) long value */
-;; #define ICMS_ULONG_MAX  ULONG_MAX    /* maximum unsigned long value */
-
-
-;; #if defined(_I64_MAX) 
-;; #define ICMS_LLONG_MAX  _I64_MAX     /* maximum signed long long int value */
-;; #else                   
-;; #define ICMS_LLONG_MAX  LLONG_MAX    /* maximum signed long long int value */
-;; #endif
-
-;; #if defined(_I64_MIN) 
-;; #define ICMS_LLONG_MIN  _I64_MIN     /* minimum signed long long int value */
-;; #else
-;; #define ICMS_LLONG_MIN  LLONG_MIN    /* minimum signed long long int value */
-;; #endif
-
-;; #if defined(_UI64_MAX) 
-;; #define ICMS_ULLONG_MAX _UI64_MAX    /* maximum unsigned long long int value */
-;; #else
-;; #define ICMS_ULLONG_MAX ULLONG_MAX   /* maximum unsigned long long int value */
-;; #endif
-
-
-  
-  
-
-
-;; /* .cpp 파일 */	
-;; inline unsigned int I2UI(int iSrc)     ;; int -> unsigned int
-;; {
-;; 	if (iSrc < 0)
-;; 		iSrc = 0;
-;; 	return (unsigned int)iSrc;
-;; }
-
-;; inline unsigned char I2UC(int iSrc)    ;; int -> unsigned char
-;; {
-;; 	if (iSrc < 0)
-;; 		iSrc = 0;
-;; 	if (iSrc > ICMS_UCHAR_MAX)
-;; 		iSrc = ICMS_UCHAR_MAX;
-
-;; 	return (unsigned char)iSrc;
-;; }
-
-;; inline unsigned char I2UC_MaxVal( int iSrc, int iMaxVal )
-;; {
-;; 	if (iSrc < 0)
-;; 		iSrc = 0;
-;; 	if (iSrc > ICMS_UCHAR_MAX)
-;; 		iSrc = ICMS_UCHAR_MAX;
-;; 	if(iSrc > iMaxVal )
-;; 		iSrc = iMaxVal;
-;; 	return (unsigned char)iSrc;
-;; }
-
-;; inline unsigned long L2UL( long lSrc )
-;; {
-;; 	unsigned long ulSrc = 0;
-;; 	if (lSrc > 0)
-;; 		ulSrc = (unsigned long)lSrc;
-
-;; 	return ulSrc;
-;; }
-
-;; inline unsigned short I2US(int iSrc)
-;; {
-;; 	unsigned short usSrc = 0;
-;; 	if (iSrc > 0 && iSrc <= ICMS_USHRT_MAX)
-;; 		usSrc = (unsigned short)iSrc;
-
-;; 	return usSrc;
-;; }
-
-;; inline long   UL2L(unsigned long ulSrc)
-;; {
-;; 	long lSrc = 0;
-;; 	if(ulSrc <= ICMS_LONG_MAX)
-;; 		lSrc = (long)ulSrc;
-
-;; 	return lSrc;
-;; }
-
-;; inline unsigned int   ULL2UI(unsigned long long ullSrc)
-;; {	
-;; 	unsigned int uiSrc = 0;
-;; 	if( ullSrc <= ICMS_UINT_MAX)
-;; 		uiSrc = (unsigned int)ullSrc;
-
-;; 	return uiSrc;
-;; }
-
-;; inline long long   ULL2LL(unsigned long long ullSrc)
-;; {	
-;; 	long long llSrc = 0;
-;; 	if( ullSrc <= ICMS_LLONG_MAX)
-;; 		llSrc = (long long)ullSrc;
-
-;; 	return llSrc;
-;; }
-
-;; inline unsigned long long   LL2ULL(long long llSrc)
-;; {	
-;; 	unsigned long long ullSrc = 0;
-;; 	if(llSrc > 0)
-;; 		ullSrc = (unsigned long long)llSrc;
-
-;; 	return ullSrc;
-;; }
-
-;; inline int   US2I(unsigned short usSrc)
-;; {	
-;; 	int iSrc = 0;	
-;; 	iSrc = (int)usSrc;
-
-;; 	return iSrc;
-;; }
-
-;; inline int   UI2I(unsigned int uiSrc)
-;; {	
-;; 	int iSrc = 0;
-;; 	if (uiSrc <= ICMS_INT_MAX)
-;; 		iSrc = (int)uiSrc;
-
-;; 	return iSrc;
-;; }
-
-;; inline short   UI2S(unsigned int uiSrc)
-;; {	
-;; 	short sSrc = 0;
-;; 	if (uiSrc <= ICMS_SHRT_MAX)
-;; 		sSrc = (short)uiSrc;
-
-;; 	return sSrc;
-;; }
-
-;; inline unsigned char UL2UC(unsigned long ulSrc)
-;; {
-;; 	unsigned char ucSrc = 0;
-;; 	if(ulSrc <= ICMS_UCHAR_MAX)
-;; 		ucSrc = (unsigned char)ulSrc;
-
-;; 	return ucSrc;
-;; }
-
-;; inline int L2I( long lSrc)
-;; {
-;; 	int iSrc = 0;
-;; 	;; 신뢰성 시험(QAC++) 분석 결과 조치
-;; 	;; [조건식-2][M] 조건문의 결과가 항상 true거나 false면 안된다.
-;; 	;; [조건식-5][N] 수행되지 않는 소스코드를 작성하지 말아야 한다.
-;; 	;; - false alarm ; 개발자 의도된 코드임.  
-;; 	;; lSrc 자료형은 long 형이고 비교하는 값은 int의 min, max값으로 비교하기 때문에 항상 true라고 경고함
-;; 	;; 개발자의 의도된 코드로 iSrc가 int값을 넘어가는 예외상황을 처리하기 위한 방어코드
-;; 	if((lSrc < ICMS_INT_MIN) || (lSrc > ICMS_INT_MAX))
-;; 		iSrc = 0;
-;; 	else
-;; 		iSrc = (int)lSrc;
-
-;; 	return iSrc;
-;; }
-
-;; inline unsigned short UL2US( unsigned long ulSrc )
-;; {
-;; 	unsigned short usSrc =0;
-;; 	if(ulSrc <= ICMS_USHRT_MAX)
-;; 		usSrc = (unsigned short)ulSrc;
-
-;; 	return usSrc;
-;; }
-
-;; inline unsigned long I2UL( int iSrc )
-;; {
-;; 	unsigned long ulSrc = 0;
-;; 	if(iSrc > 0)
-;; 		ulSrc = (unsigned long)iSrc;
-
-;; 	return ulSrc;
-;; }
-
-;; inline unsigned long UI2UL( unsigned int uiSrc )
-;; {
-;; 	unsigned long ulSrc = 0;
-;; 	if(uiSrc <= ICMS_ULONG_MAX)
-;; 		ulSrc = (unsigned long)uiSrc;
-
-;; 	return ulSrc;
-;; }
-
-;; inline int UL2I( unsigned long ulSrc )
-;; {
-;; 	int iSrc = 0;
-;; 	if(ulSrc <= ICMS_INT_MAX )
-;; 		iSrc = (int)ulSrc;
-
-;; 	return iSrc;
-;; }
-
-;; inline unsigned short S2US( short sSrc )
-;; {
-;; 	unsigned short usSrc = 0;
-;; 	if(sSrc > 0 )
-;; 		usSrc = (unsigned short)sSrc;
-
-;; 	return usSrc;
-;; }
-
-;; inline short US2S( unsigned short usSrc )
-;; {
-;; 	short sSrc = 0;
-;; 	if(usSrc <= S2US(ICMS_SHRT_MAX) )
-;; 		sSrc = (short)usSrc;
-
-;; 	return sSrc;
-;; }
-
-;; inline int UC2I( unsigned char ucSrc )
-;; {
-;; 	return (int)ucSrc;
-;; }
-
-;; inline short UC2S( unsigned char ucSrc )
-;; {
-;; 	return (short)ucSrc;
-;; }
-
-;; inline int ULL2I( unsigned long long ullSrc )
-;; {
-;; 	int iSrc = 0;
-;; 	if( ullSrc <= ICMS_INT_MAX )
-;; 		iSrc = (int)ullSrc;
-
-;; 	return iSrc;
-;; }
-
-;; inline unsigned long DO2UL( double doSrc )
-;; {
-;; 	unsigned long ulSrc = 0;
-;; 	if( doSrc > 0 )
-;; 		ulSrc = (unsigned long)doSrc;
-
-;; 	return ulSrc;
-;; }
-
-;; inline unsigned long LL2UL( long long llSrc )
-;; {
-;; 	unsigned long ulSrc = 0;
-;; 	if(llSrc >=0 && llSrc <= ICMS_ULONG_MAX )
-;; 		ulSrc = (unsigned long)llSrc;
-
-;; 	return ulSrc;
-;; }
-
-;; inline unsigned int L2UI( long lSrc )
-;; {
-;; 	unsigned int uiSrc  = 0;
-;; 	;;if( lSrc >= 0 && lSrc <= UINT_MAX )
-;; 	;;	uiSrc = (unsigned int)lSrc;	
-;; 	;;else if( lSrc > UINT_MAX )
-;; 	;;if( lSrc < 0 )
-;; 	;;	uiSrc = 0;
-;; 	;;else if( lSrc > LONG_MAX )
-;; 	;;	uiSrc = 0;
-;; 	;;else
-;; 	;;	uiSrc = (unsigned int)lSrc;
-;; 	;;Code Sonar : Useless Assignment
-;; 	;;조치 : false alram
-;; 	;;사유 : 개발자의 의도된 코드로 예외상황을 처리하기 위한 방어코드
-;; 	if( lSrc < 0 || lSrc > ICMS_LONG_MAX )
-;; 	{
-;; 		uiSrc = 0;
-;; 	}
-;; 	else
-;; 	{
-;; 		uiSrc = (unsigned int)lSrc;
-;; 	}
-
-;; 	return uiSrc;
-;; }
-
-;; inline long I2L( int iSrc )
-;; {
-;; 	return (long)iSrc;
-;; }
-
-;; inline unsigned short DO2US( double doSrc )
-;; {
-;; 	unsigned short usSrc = 0;
-;; 	if( doSrc >= 0 && doSrc <= ICMS_USHRT_MAX )
-;; 		usSrc = (unsigned short)doSrc;
-;; 	return usSrc;
-;; }
-
-;; inline unsigned long long L2ULL( long lSrc )
-;; {
-;; 	unsigned long long ullSrc = 0;
-;; 	if(lSrc >= 0 && lSrc <= ULL2I(ICMS_ULLONG_MAX))
-;; 		ullSrc = (unsigned long long)lSrc;
-;; 	return ullSrc;
-;; }
-
-;; inline unsigned int S2UI( short sSrc )
-;; {
-;; 	unsigned int uiSrc = 0;
-;; 	;;Code Sonar : Useless Assignment
-;; 	;;조치 : false alram
-;; 	;;사유 : 개발자의 의도된 코드로 예외상황을 처리하기 위한 방어코드
-;; 	if( sSrc < 0 )
-;; 		uiSrc = 0;
-;; 	else
-;; 		uiSrc = (unsigned int)sSrc;
-;; 	return uiSrc;
-;; }
-
-;; inline unsigned char UCCheck( unsigned char ucSrc )
-;; {
-;; 	if( ucSrc + 8 > ICMS_UCHAR_MAX )
-;; 		ucSrc = 0;
-;; 	return ucSrc;
-;; }
-
-
-
-
-;; enum _ENUM_FFX_TRUE_FALSE
-;; {
-;; 	FFX_FALSE = 0,
-;; 	FFX_TRUE
-;; };
-
-
-;; enum _ENUM_FILE_SYNC
-;; {
-;; 	FILE_SYNC_NEW = 1,        ;; 화일 신규 생성
-;; 	FILE_SYNC_UPDATE,         ;; 화일 갱신
-;; 	FILE_SYNC_DELETE,         ;; 화일 삭제
-;; 	FILE_SYNC_NOTIFY          ;; 화일 갱신 통보 - 추가 2009.10.22 김종화 
-;; };
-
-;; enum _ENUM_FILE_REQUEST_CSCI    
-;; {
-;; 	FILE_REQUEST_CSCI_IPNTAC = 1,
-;; 	FILE_REQUEST_CSCI_IPNTRN,
-;; 	FILE_REQUEST_CSCI_IPNSUP
-;; };
-
-
-;; /******************************************/
-;; /******************************************/
-;; enum _ENUM_IPNTAC_PARTICIPANT_INDEX
-;; {
-;; 	IPNTAC_PARTICIPANT_INDEX = 1,
-;; 	COMMON_PARTICIPANT_INDEX, 	
-;; 	IPNTRN_PARTICIPANT_INDEX
-;; };
-
-;; enum _ENUM_IPNTAC_RESILIENCE_TYPE
-;; {
-;; 	IPNTAC_NON_RESILIENCE = 0, 
-;; 	IPNTAC_RESILIENCE
-;; };
-
-;; enum _ENUM_IPNTAC_RESILIENCE_PRIORITY
-;; {
-;; 	IPNTAC_STANDBY = 0,
-;; 	IPNTAC_ACTIVE
-;; };
-
-;; enum _ENUM_IPNTAC_DISCOVERY_TYPE
-;; {
-;; 	IPNTAC_DYNAMIC = 1,
-;; 	IPNTAC_STATIC
-;; };
-
-;; enum _ENUM_RESIL_MODE
-;; {
-;; 	RESIL_MODE_UNDEFINED = 0,
-;; 	RESIL_MODE_ACTIVE,
-;; 	RESIL_MODE_STANDBY
-;; };
-
-;; enum _ENUM_RESIL_STATUS
-;; {
-;; 	RESIL_STATUS_UNDEFINED_TO_ACTIVE = 0,
-;; 	RESIL_STATUS_STANDBY_TO_ACTIVE,
-;; 	RESIL_STATUS_PEER_ALIVED,								;; 091006 김종화 수정..
-;; 	RESIL_STATUS_PEER_FAILED,
-;; 	RESIL_STATUS_ACTIVE_TO_STANDBY,
-;; 	RESIL_STATUS_UNDEFINED_TO_STANDBY
-;; };
-
-;; enum _ENUM_RESIL_STATUS_FOR_DSS  ;;byhj  ;;20120607 이효조 추가
-;; {
-;; 	RESIL_STATUS_STANDBY_START=2,
-;; 	RESIL_STATUS_CHANGE_TO_STANDBY_START,
-;; 	RESIL_STATUS_ACTIVE_START,
-;; 	RESIL_STATUS_CHANGE_TO_ACTIVE_START,
-;; 	RESIL_STATUS_STANDBY_ALIVED,
-;; 	RESIL_STATUS_STANDBY_FAILED
-;; };
-
-;; /******************************************/
-;; /******************************************/
-
-
-;; /******************************************/
-;; /******************************************/
-
-
-;; #define MAX_TMSINDEX_OF_TACTICAL_TRACK    6000				;; 3150 -> 2670 개로 수정 100408 김용환 전문  ;;FFX-II ticket: 168, PKX-B ticket: 199 y.san.kim 2015/04/13 [2670 -> 6000으로 변경]
-
-
-;; #define MAX_NUMBER_OF_DAUGHTER            13   
-
-
-;; #define MAX_LENGTH_OF_TRACKNAME           12    ;; 2009.0916. 표적명 한글 6자리로 변경 : 10 -> 12
-
-
-;; #define MAX_LENGTH_OF_IFF_MODE1     2       ;; 모드 1
-;; #define MAX_LENGTH_OF_IFF_MODE2     4       ;; 모드 2
-;; #define MAX_LENGTH_OF_VEHICLE_NAME  16      ;; 모드 2 코드로 검색한 vehicle name 문자열 길이
-;; #define MAX_LENGTH_OF_IFF_MODE3A    4       ;; 모드 3A
-
-
-;; #define MAX_LENGTH_OF_TRACK_NUMBER        10    ;; 표적번호(문자열)의 최대길이 . 2010.0129
-
-
-;; #define ONE_OF_SOURCEID_IS_DELETED  0x01 ;; 0x01 - 단독 표적 삭제 (nSRN 또는 nTMSIndex 필드 참조)
-;; #define ALL_OF_SOURCEID_IS_DELETED  0x02 ;; 0x02 - 해당 점 또는 방위 표적 모두 삭제 (SourceID, 또는 점방위 모두 삭제)
-;; #define ONE_OF_SOURCEID_IS_LOST     0x03 ;; 0x03 - 단독 표적 소실 (nSRN 또는 nTMSIndex 필드 참조)
-
-
-;; #define MAX_NUM_OF_WEAPON_CONTROL_SECTOR 6
-
-
-;; enum _ENUM_TRACK_SOURCE
-;; {
-;; 	TRACK_SOURCE_NO_STATEMENT = 0,
-;; 	TRACK_SOURCE_MANUAL,
-;; 	TRACK_SOURCE_LYNX_SECOND_BEARING,
-;; 	TRACK_SOURCE_LYNX_FIRST_BEARING,
-;; 	TRACK_SOURCE_LYNX_SECOND_SONAR,
-;; 	TRACK_SOURCE_LYNX_FIRST_SONAR,
-;; 	TRACK_SOURCE_IRST,						 ;; 20131211 hk.kim 추가
-;; 	TRACK_SOURCE_TACM,
-;; 	TRACK_SOURCE_ES,						;; 20131211 hk.kim 추가
-;; 	TRACK_SOURCE_EW,
-;; 	TRACK_SOURCE_HMS,
-;; 	TRACK_SOURCE_LYNX_SECOND_RADAR,
-;; 	TRACK_SOURCE_LYNX_FIRST_RADAR,
-;; 	TRACK_SOURCE_NRS,                        ;; 2009.0514, 기존 TRACK_SOURCE_NR -> TRACK_SOURCE_NRS 로 변경
-;; 	TRACK_SOURCE_IFF,
-;; 	TRACK_SOURCE_CIWS_S,
-;; 	TRACK_SOURCE_SRS,                        ;; 2009.0514, 기존 TRACK_SOURCE_SR -> TRACK_SOURCE_SRS 로 변경
-;; 	TRACK_SOURCE_TWS,
-;; 	TRACK_SOURCE_EOTS,
-;; 	TRACK_SOURCE_CIWS_T,
-;; 	TRACK_SOURCE_TRS,
-;; };
-
-
-
-;; enum _ENUM_TRACK_STATUS
-;; {
-;; 	TRACK_STATUS_NORMAL = 1,          ;; 정상상태
-;; 	TRACK_STATUS_LOST,                ;; 소실상태
-;; 	TRACK_STATUS_KEEPLOST,            ;; 소실유지상태 - 소실과 동일함. - TM 내부 상태
-;; 	TRACK_STATUS_CANCEL               ;; 삭제 상태
-;; };
-
-
-;; enum _ENUM_TRACK_TYPE
-;; {
-;; 	TRACK_TYPE_REAL_TRACK = 1,
-;; 	TRACK_TYPE_SIMULATION,
-;; 	TRACK_TYPE_TEST
-;; };
-
-;; enum _ENUM_TRACK_KIND
-;; {
-;; 	TRACK_KIND_POINT_TRACK = 1,
-;; 	TRACK_KIND_BEARING_TRACK,
-;; 	TRACK_KIND_SPECIAL_POINT 
-;; };
-
-;; enum _ENUM_TRACK_ENVIRONMENT
-;; {
-;; 	TRACK_ENVIRONMENT_AIR = 1,
-;; 	TRACK_ENVIRONMENT_SURFACE,
-;; 	TRACK_ENVIRONMENT_LAND,
-;; 	TRACK_ENVIRONMENT_SUBSURFACE,
-;; 	TRACK_ENVIRONMENT_UNASSESS,		;; 기존 0 -> 5로 변경함
-;; 	TRACK_ENVIRONMENT_SPACE			;;우주 추가(김호년 2014.03.27)
-;; };
-
-;; enum _ENUM_TRACK_MODE
-;; {
-;; 	TRACK_MODE_AUTO = 1,
-;; 	TRACK_MODE_SEMI_AUTO
-;; };
-
-;; enum _ENUM_TRACK_IDENTITY		;; [2010.0531이후 변경될 FFXDefine.h의 내용]		;; 김용환 전문 수정
-;; {
-;; 	TRACK_IDENTITY_NO_STATEMENT = -1,                        
-;; 	TRACK_IDENTITY_PENDING,         ;; 식별보류              
-;; 	TRACK_IDENTITY_UNKNOWN,         ;; 미식별                
-;; 	TRACK_IDENTITY_NEUTRAL,         ;; 중립                  
-;; 	TRACK_IDENTITY_ASSUMMED_FRIEND, ;; 아군간주              
-;; 	TRACK_IDENTITY_SUSPECT,         ;; 적군간주 : TRACK_IDENTITY_ASSUME_HOSTILE -> TRACK_IDENTITY_SUSPECT (2010.0614)
-;; 	TRACK_IDENTITY_FRIEND,          ;; 아군
-;; 	TRACK_IDENTITY_HOSTILE,         ;; 적군
-;; 	TRACK_IDENTITY_JOKER,           ;; 의심적 : TRACK_IDENTITY_SUSPECT -> TRACK_IDENTITY_JOKER (2010.0614)  
-;; 	TRACK_IDENTITY_FAKER,           ;; 가상적 : TRACK_IDENTITY_VIRTUAL -> TRACK_IDENTITY_FAKER (2010.0614)
-;; 	TRACK_IDENTITY_COUNT 
-;; };
-
-;; enum _ENUM_LINK_STATUS
-;; {
 (define 	LINK_STATUS_LINK_NOT_INVOLVED   0)
 (define 	LINK_STATUS_TX_PROHIBITED       1)     
 (define 	LINK_STATUS_TRANSMITTED         2)     
 (define 	LINK_STATUS_CORRELATED          3)     
 (define 	LINK_STATUS_LINK_RECEIVED       4)
-;; };
-
-;; enum _ENUM_LINK_SOURCE
-;; {
-;; 	LINK_SOURCE_ISDL = 0,
-;; 	LINK_SOURCE_LINK11,
-;; 	LINK_SOURCE_LINKK,
-;; 	LINK_SOURCE_NOT_CONNECTED,
-;; 	LINK_SOURCE_COUNT = LINK_SOURCE_NOT_CONNECTED
-;; };
-
-;; enum _ENUM_MANUAL_TRACK
-;; {
-;; 	MANUAL_TRACK_NONE = 0,			;; 2010.0116. by kimyh - byKindOfManual 필드에 사용될값 추가 (= 수동표적 아님)
-;; 	MANUAL_TRACK_DEFAULT,
-;; 	MANUAL_TRACK_NSFS,
-;; 	MANUAL_TRACK_RAM,
-;; 	MANUAL_TRACK_ISDL_MARKER,
-;; 	MANUAL_TRACK_LINK11_MARKER,		;;2010.04.22 by kjy 링크 마커 추가
-;; 	MANUAL_TRACK_KTSLM				;;2014.12.29 by y.san.kim  KTSLM 표적 추가
-;; };
-
-;; enum _ENUM_KNCCS_NATION							;; ticket:1024 20101101 김동일 : _ENUM_KNTDS_NATION 에서 _ENUM_KNCCS_NATION 으로 이름 변경
-;; {
-;; 	KNCCS_NATION_NOSTATEMENT           = 0, ;;세부정보없음
-;; 	KNCCS_NATION_SOVIETUNION           = 1, ;;러시아
-;; 	KNCCS_NATION_NATO                  = 2, ;;나토
-;; 	KNCCS_NATION_BELGIUM               = 3, ;;벨기에
-;; 	KNCCS_NATION_CYPRUS                = 4, ;;키프로스
-;; 	KNCCS_NATION_DENMARK               = 5, ;;덴마크
-;; 	KNCCS_NATION_FRANCE                = 6, ;;프랑스
-;; 	KNCCS_NATION_GERMANY               = 7, ;;독일
-;; 	KNCCS_NATION_FINLAND               = 8, ;;핀란드
-;; 	KNCCS_NATION_GREECE                = 9, ;;그리스
-;; 	KNCCS_NATION_ICELAND               = 10, ;;아이슬란드
-;; 	KNCCS_NATION_IRELAND               = 11, ;;아일랜드
-;; 	KNCCS_NATION_ITALY                 = 12, ;;이탈리아
-;; 	KNCCS_NATION_NETHERLANDS           = 13, ;;네덜란드
-;; 	KNCCS_NATION_NORWAY                = 14, ;;노르웨이
-;; 	KNCCS_NATION_PORTUGAL              = 15, ;;포르투갈
-;; 	KNCCS_NATION_SPAIN                 = 16, ;;스페인
-;; 	KNCCS_NATION_SWEDEN                = 17, ;;스웨덴
-;; 	KNCCS_NATION_SWITZERLAND           = 18, ;;스위스
-;; 	KNCCS_NATION_TURKEY                = 19, ;;터키
-;; 	KNCCS_NATION_UNITEDKINGDOM         = 20, ;;영국
-;; 	KNCCS_NATION_ALBANIA               = 21, ;;알바니아
-;; 	KNCCS_NATION_AUSTRIA               = 22, ;;오스트리아
-;; 	KNCCS_NATION_BULGARIA              = 23, ;;불가리아
-;; 	KNCCS_NATION_CZECHOSLOVAKIA        = 24, ;;체코
-;; 	KNCCS_NATION_HUNGARY               = 25, ;;헝가리
-;; 	KNCCS_NATION_POLAND                = 26, ;;폴란드
-;; 	KNCCS_NATION_RUMANIA               = 27, ;;루마니아
-;; 	KNCCS_NATION_YUGOSLAVIA            = 28, ;;유고
-;; 	KNCCS_NATION_CANADA                = 29, ;;캐나다
-;; 	KNCCS_NATION_UNITEDSTATESOFAMERICA = 30, ;;미국
-;; 	KNCCS_NATION_EGYPT                 = 31, ;;이집트
-;; 	KNCCS_NATION_IRAN                  = 32, ;;이란
-;; 	KNCCS_NATION_IRAQ                  = 33, ;;이라크
-;; 	KNCCS_NATION_ISRAEL                = 34, ;;이스라엘
-;; 	KNCCS_NATION_JORDAN                = 35, ;;요르단
-;; 	KNCCS_NATION_LEBANON               = 36, ;;레바논
-;; 	KNCCS_NATION_SAUDIARABIA           = 37, ;;사우디아라비아
-;; 	KNCCS_NATION_SYRIA                 = 38, ;;시리아
-;; 	KNCCS_NATION_ALGERIA               = 39, ;;알제리
-;; 	KNCCS_NATION_ETHIOPIA              = 40, ;;에티오피아
-;; 	KNCCS_NATION_LIBERIA               = 41, ;;리베리아
-;; 	KNCCS_NATION_LIBYA                 = 42, ;;리비아
-;; 	KNCCS_NATION_SOUTHAFRICA           = 43, ;;남아공
-;; 	KNCCS_NATION_INDIA                 = 44, ;;인도
-;; 	KNCCS_NATION_PAKISTAN              = 45, ;;파키스탄
-;; 	KNCCS_NATION_CAMBODIA              = 46, ;;캄보디아
-;; 	KNCCS_NATION_LAOS                  = 47, ;;라오스
-;; 	KNCCS_NATION_THAILAND              = 48, ;;태국
-;; 	KNCCS_NATION_VIETNAM               = 49, ;;베트남
-;; 	KNCCS_NATION_CHINAPEOPLESREPUBLIC  = 50, ;;중국
-;; 	KNCCS_NATION_KOREANORTH            = 51, ;;북한
-;; 	KNCCS_NATION_KOREAREPUBLIC         = 52, ;;대한민국
-;; 	KNCCS_NATION_JAPAN                 = 53, ;;일본
-;; 	KNCCS_NATION_PHILIPPINES           = 54, ;;필리핀
-;; 	KNCCS_NATION_AUSTRALIA             = 55, ;;호주
-;; 	KNCCS_NATION_NEWZEALAND            = 56, ;;뉴질랜드
-;; 	KNCCS_NATION_ARGENTINA             = 57, ;;아르헨티나
-;; 	KNCCS_NATION_BRAZIL                = 58, ;;브라질
-;; 	KNCCS_NATION_CHILE                 = 59, ;;칠레
-;; 	KNCCS_NATION_COLUMBIA              = 60, ;;콜롬비아
-;; 	KNCCS_NATION_MEXICO                = 61, ;;멕시코
-;; 	KNCCS_NATION_PANAMA                = 62, ;;파나마
-;; 	KNCCS_NATION_PERU                  = 63, ;;페루
-;; 	KNCCS_NATION_VENEZUELA             = 64, ;;베네수엘라
-;; 	KNCCS_NATION_CUBA                  = 65, ;;쿠바
-;; 	KNCCS_NATION_DOMINICANREPUBLIC     = 66, ;;도미니카
-;; 	KNCCS_NATION_UNITEDNATIONSFORCE    = 67, ;;UN
-;; 	KNCCS_NATION_KUWAIT                = 68, ;;쿠웨이트
-;; 	KNCCS_NATION_REPUBLICOFYEMEN       = 69, ;;예멘
-;; 	KNCCS_NATION_GUINEA                = 70, ;;기니
-;; 	KNCCS_NATION_MADAGASCAR            = 71, ;;마다가스카르
-;; 	KNCCS_NATION_MOROCCO               = 72, ;;모로코
-;; 	KNCCS_NATION_NIGERIA               = 73, ;;나이지리아
-;; 	KNCCS_NATION_SENEGAL               = 74, ;;세네갈
-;; 	KNCCS_NATION_ZIMBABWE              = 75, ;;짐바브웨
-;; 	KNCCS_NATION_SUDAN                 = 76, ;;수단
-;; 	KNCCS_NATION_TANZANIA              = 77, ;;탄자니아
-;; 	KNCCS_NATION_TUNISIA               = 78, ;;튀니지
-;; 	KNCCS_NATION_UGANDA                = 79, ;;우간다
-;; 	KNCCS_NATION_BURMA                 = 80, ;;버마
-;; 	KNCCS_NATION_INDONESIA             = 81, ;;인도네시아
-;; 	KNCCS_NATION_MALAYSIA              = 82, ;;말레이시아
-;; 	KNCCS_NATION_SINGAPORE             = 83, ;;싱가포르
-;; 	KNCCS_NATION_BOLIVIA               = 84, ;;볼리비아
-;; 	KNCCS_NATION_ECUADOR               = 85, ;;에콰도르
-;; 	KNCCS_NATION_GUATEMALA             = 86, ;;과테말라
-;; 	KNCCS_NATION_NICARAGUA             = 87, ;;니카라과
-;; 	KNCCS_NATION_PARAGUAY              = 88, ;;파라과이
-;; 	KNCCS_NATION_URUGUAY               = 89, ;;우루과이
-;; 	KNCCS_NATION_JAMAICA               = 90, ;;자메이카	
-;; 	KNCCS_NATION_INTERNATIONALREDCROSS = 91,  ;;국제적십자
-;; 	KNCCS_NATION_LUXEMBOURG			   = 92, ;;룩셈부르크
-
-;; 	;; KNCCS 에는 없는 코드. ISDL 을 지원하기 위해 다음 코드를 추가함
-;; 	KNCCS_NATION_ISDL_COMPATIBILITY_WARSAWPACT  = 93,  ;;바르샤바조약기구			;; ticket:1024 20101101 김동일 
-;; 	KNCCS_NATION_ISDL_COMPATIBILITY_CHINAREPUBLIC  = 94, ;;대만				;; ticket:1024 20101101 김동일
-;; 	KNCCS_NATION_UNKNOWN				= 95 ;;미확인
-;; };
-
-;; /******************************************/
-;; /******************************************/
-
-
-;; /******************************************/
-;; /******************************************/
-;; enum _ENUM_RESOURCE_KIND
-;; {
-;;     RESOURCE_KIND_UNDEFINED = 0 ,   
-;;     RESOURCE_KIND_WEAPON ,
-;;     RESOURCE_KIND_SENSOR 
-;; };
-
-;; enum _ENUM_WEAPON_KIND
-;; {
-;; 	WEAPON_KIND_NOT_DEFINED = 0,
-;; 	WEAPON_KIND_CIWS,
-;; 	WEAPON_KIND_SAAM,
-;; 	WEAPON_KIND_GUN,			;;함포가 하나인 전투체계 사용
-;; 	WEAPON_KIND_TACM,
-;; 	WEAPON_KIND_SLTS,
-;; 	WEAPON_KIND_KSSM,
-;; 	WEAPON_KIND_KSLAM,			
-;; 	WEAPON_KIND_EW,
-;; 	WEAPON_KIND_MASS,			;; 131017 dha.jung DECOY -> MASS 변경
-;; 	WEAPON_KIND_RCWS1,			;; 140127 dha.jung 12.7mm원격사격체계 추가
-;; 	WEAPON_KIND_RCWS2,			;; 140702 dha.jung 12.7mm원격사격체계 추가, RCWS1, RCWS2로 구분
-;; 	WEAPON_KIND_ROCKET,			;; 140616 bf.choi	130mm 유도로켓 추가
-;; 	WEAPON_KIND_KVLA,			;; 140825 dhjung	KVLA 추가
-;; 	WEAPON_KIND_GUN40,			;; 1501203 kt.kwon GUN40mm 추가
-;; 	WEAPON_KIND_GUN76,			;; 1501203 kt.kwon GUN76mm 추가
-;; 	WEAPON_KIND_GUN127			;; 1501203 kt.kwon GUN127mm 추가
-;; };
-
-;; enum _ENUM_SENSOR_KIND
-;; {
-;; 	SENSOR_KIND_NOT_DEFINED = 0,
-;; 	SENSOR_KIND_FC1,				;;추적레이더
-;; 	SENSOR_KIND_FC2,				;;TWS1
-;; 	SENSOR_KIND_FC3,				;;TWS2
-;; 	SENSOR_KIND_FC4,				;;전자광학추적장비
-;; 	SENSOR_KIND_HMS,				;;HMS
-;; 	SENSOR_KIND_TACM,				;;TACM
-;; 	SENSOR_KIND_CIWS_T,  ;;CIWS추적 - 교전 할당없이 CIWS 스스로 표적을 추적하는 경우에만 사용, 타 용도로 사용못함.	
-;; 	SENSOR_KIND_COUNT				
-;; };
-
-;; enum _ENUM_SENSOR_SRS_KIND          ;;!!!ticket:2468 20120104 김동일 | 탐색레이더 ICD변경(v2.5) VTWS1, VTWS2 추가
-;; {                                   ;;!!!ticket:2468 20120104 김동일 | 탐색레이더 ICD변경(v2.5) VTWS1, VTWS2 추가
-;; 	SENSOR_SRS_KIND_VTWS1 = 12,     ;;!!!ticket:2468 20120104 김동일 | 탐색레이더 ICD변경(v2.5) VTWS1, VTWS2 추가
-;; 	SENSOR_SRS_KIND_VTWS2           ;;!!!ticket:2468 20120104 김동일 | 탐색레이더 ICD변경(v2.5) VTWS1, VTWS2 추가
-;; };                                  ;;!!!ticket:2468 20120104 김동일 | 탐색레이더 ICD변경(v2.5) VTWS1, VTWS2 추가
-
-
-;; enum _ENUM_FIRE_AUTHORIZATION	;;발사승인/금지
-;; {
-;; 	FIRE_AUTHORIZATION_OFF = 0,
-;; 	FIRE_AUTHORIZATION_ON
-;; };
-
-;; enum _ENUM_KILL_ASSESSMENT		;;명중평가
-;; {
-;; 	KILL_ASSESSMENT_UNKNOWN = 0,	;;미확인
-;; 	KILL_ASSESSMENT_KILL,			;;명중
-;; 	KILL_ASSESSMENT_MISS			;;실패
-
-;; };
-
-;; enum _ENUM_RESOURCE_STATUS			;;자원 교전 가용 상태
-;; {	
-;; 	RESOURCE_STATUS_NULL = 0, ;;교전목록에서 무장만 할당된 경우 센서의 상태...또는 그 반대(각 장비로부터는 들어올수 없는 값임)
-;; 	RESOURCE_STATUS_AVAILABLE,
-;; 	RESOURCE_STATUS_WAITING,
-;; 	RESOURCE_STATUS_ASSIGNED,
-;; 	RESOURCE_STATUS_NOT_AVAILABLE,
-;; 	RESOURCE_STATUS_AVAILABLE_FOR_TRAINING,
-;; 	RESOURCE_STATUS_AVAILABLE_FOR_MULTI_CHANNEL ;;20141119 권기태 다중할당무장 교전가용성 타임아웃체크를 위해추가
-;; };
-
-;; enum _ENUM_ENGAGEMENT_STATUS   ;;교전상태   
-;; {
-;; 	ENG_STATUS_NOT_DEFINED = 0,                     ;;의미 없음.
-;; 	ENG_STATUS_ALLOC_WAITING = 10,                  ;;할당요청(교전할당명령에 대한 응답도달 전 상태)
-
-;; 	ENG_STATUS_ALLOC_REFUSE = 11,                   ;;할당거부
-
-;; 	ENG_STATUS_DEALLOC_WAITING = 20,                ;;해제요청(교전해제명령에 대한 응답도달 전 상태)
-
-;; 	ENG_STATUS_INDICATING = 30,                     ;;표적지시
-;; 	ENG_STATUS_INDICATING_PLAN_REQ = 31,            ;;계획요청
-;; 	ENG_STATUS_INDICATING_PLAN_APPROVAL = 32,       ;;계획승인
-;; 	ENG_STATUS_INDICATING_PLAN_NOT_APPROVAL = 33,   ;;계획비승인
-;; 	ENG_STATUS_INDICATING_COMPLETION = 34,          ;;할당완료
-;; 	ENG_STATUS_INDICATING_ENG = 35,                 ;;교전
-
-;; 	ENG_STATUS_ACQUISITION = 40,                    ;;획득
-;; 	ENG_STATUS_TRACKING = 50,                       ;;추적
-
-;; 	ENG_STATUS_RTF = 60,                            ;;발사준비
-;; 	ENG_STATUS_RTF_GUNSHOT_AVAILABLE = 61,          ;;사격가능
-;; 	ENG_STATUS_RTF_FIRE_AVAILABLE = 62,             ;;발사가능
-;; 	ENG_STATUS_RTF_ORDER = 63,                      ;;발사지시
-;; 	ENG_STATUS_RTF_SCHEDULED = 64,                  ;;발사예정
-;; 	ENG_STATUS_RTF_PROGRESS = 65,                   ;;발사진행
-
-;; 	ENG_STATUS_FIRING = 70,                         ;;발사중 
-;; 	ENG_STATUS_FIRING_GUNSHOT = 71,                 ;;사격중
-;; 	ENG_STATUS_FIRE = 72,                           ;;발사
-;; 	ENG_STATUS_FIRING_STOP = 73,                    ;;발사중지
-
-;; 	ENG_STATUS_FIRED = 80,                          ;;발사완료
-;; 	ENG_STATUS_SALVOAWAY = 81,                      ;;발사완료이후 살보 
-;; 	ENG_STATUS_KILL = 82,							;;명중 
-
-;; 	ENG_STATUS_FIRE_REFUSE = 90,                    ;;발사거부
-;; 	ENG_STATUS_DEPARTURE = 91,                      ;;이탈
-;; 	ENG_STATUS_ABNORMAL_FIRED = 92,                 ;;비정상발사
-;; 	ENG_STATUS_MISS_FIRE = 93,                      ;;불발
-
-;; 	ENG_STATUS_NOT_ENGAGED = 100,                   ;;해제완료 
-;; };
-
-;; enum _ENUM_REQUEST_KIND			;;교전할당플래그(ucAllocOrDealloc)
-;; {
-;; 	REQUEST_KIND_DEFAULT = 0,
-;; 	REQUEST_KIND_ALLOC,							;;할당요청
-;; 	REQUEST_KIND_DEALLOC,						;;해제요청
-;; 	REQUEST_KIND_PERIODIC,						;;필요여부 확인 후 삭제가능성 있음.
-;; 	REQUEST_KIND_MOVE_TARGET,					;;교전중인 표적 이동(표적이 고정좌표인 경우에만 적용가능함.)
-;; 	REQUEST_KIND_DELETE_BY_FORCE				;;교전정보강제삭제
-;; };
-
-;; enum _ENUM_ENGAGEABLE_STATUS		;;교전가능성 정의
-;; {
-;; 	ENGAGEABLE_STATUS_NENG = 0,
-;; 	ENGAGEABLE_STATUS_WENG,
-;; 	ENGAGEABLE_STATUS_ENG,
-;; 	ENGAGEABLE_STATUS_NENG_ENGAGING
-;; };
-
-;; enum _ENUM_NGS_MODE
-;; {
-;; 	NGS_MODE_NO_STATEMENT = 0,
-;; 	NGS_MODE_DIRECT,
-;; 	NGS_MODE_INDIRECT,
-;; 	NGS_MODE_BLIND
-;; };
-
-;; enum _ENUM_WEAPON_OPEN_HOLD_FIRE
-;; {
-;; 	WEAPON_HOLD_FIRE  = 0,     ;; 0x00: 무장사용 제한(Hold Fire)
-;; 	WEAPON_OPEN_FIRE          ;; 0x01 : 무장사용 허용(Open Fire)
-;; };
-
-;; enum _ENUM_WEAPON_CONTROL				;; 100306 김기표 선임 추가
-;; {
-;; 	WEAPON_FREE = 0,
-;; 	WEAPON_TIGHT,
-;; 	WEAPON_SAFE
-;; };
-
-
-;; enum _ENUM_WF_NENG_REASON      ;; 100429 김기표 전문 추가
-;; {
-;; 	NENG_REASON_ENG_AVAILABLE = 0,   ;; 교전가능
-;; 	NENG_REASON_ENG_WAIT,      ;; 교전대기
-;; 	NENG_REASON_SENSOR_UNAVAILABLE,   ;; 센서사용불가
-;; 	NENG_REASON_WEAPON_UNAVAILABLE,   ;; 무장사용불가
-;; 	NENG_REASON_SENSOR_WEAPON_UNAVAILABLE,  ;; 센서무장사용불가
-;; 	NENG_REASON_NOT_WEAPON_AREA,    ;; 무장대응불가
-;; 	NENG_REASON_NO_TIME_RESPONSE_WEAPON,  ;; 무장대응시간부족
-;; 	NENG_REASON_EXCEED_ENG_WAITTIME,   ;; 교전대기시간초과
-;; 	NENG_REASON_OUTSIDE_OF_ENG_AREA,   ;; 교전범위이탈
-;; 	NENG_REASON_SENSOR_BLINDARC,    ;; 센서제한각진입
-;; 	NENG_REASON_FC2_FC3_SAME_TRACK,   ;; FC2 FC3동시할당불가
-;; 	;;20100916 정의 추가
-;; 	NENG_REASON_TRACK_VETO_ON, ;; 무장사용금지(20101216 변경기존: 무장사용제한)		;;ticket:1434 101222 김기표 전문 수정
-;; 	NENG_REASON_INCONSISTENT_SAAM_MODE, ;;운용모드불일치
-;; 	NENG_REASON_MANUAL_OR_BULLET_LOAD_MODE, ;; 수동모드
-;; 	NENG_REASON_SAAM_NO_BULLET, ;;유도탄재장전
-;; 	NENG_REASON_CIWS_NO_BULLET, ;;탄약재장전
-;; 	NENG_REASON_SAFE_MODE, ;;안전모드
-;; 	NENG_REASON_GUN_NO_READY, ;; 함포준비 상태 OFF
-;; 	NENG_REASON_CIWS_EXCEED_SPD_THRESHOLD, ;; 속도임계치이탈		;;ticket:1309 101126 김기표 전문 추가
-;; 	NENG_REASON_TRACK_HOLD_FIRE, ;; 무장사용제한(20101216 추가)						;;ticket:1434 101222 김기표 전문 추가
-;; 	NENG_REASON_SAAM_EMPTY_BLK1A,									;;ticket:1845 101222 김기표 전문 추가
-;; 	NENG_REASON_SAAM_LOW_TRACK_QUALITY, ;; 표적품질저하				;;ticket:2500 120214 김기표 전문 추가
-;; 	NENG_REASON_SAME_TRACK, ;; 동일무장 교전중						;;ticket:2500 120214 김기표 전문 추가
-;; 	NENG_REASON_OUTBOUND, ;; 아웃바운드 표적							;;ticket:2500 120214 김기표 전문 추가
-;; 	NENG_REASON_NOT_SENSOR_AREA  ;;20120316	;;ticket:2546 120320 김기표 전문 추가
-;; };
-
-
-
-
-
-;; /******************************************/
-;; /******************************************/
-
-
-;; /******************************************/
-;; /******************************************/
-
-;; enum _ENUM_SUBSYSTEM_GROUP_ID			;; Subsystem Group ID			;; 100218 양명미 선임 추가
-;; {
-;; 	SUBSYSTEM_GROUP_ID_START = 200,
-;; 	SUBSYSTEM_GROUP_ID_TM,		
-;; 	SUBSYSTEM_GROUP_ID_SC,
-;; 	SUBSYSTEM_GROUP_ID_WC,
-;; 	SUBSYSTEM_GROUP_ID_ALL
-;; };
-
-;; /*	;;dhung:141007-FFX2_PKGB_SW_ID.h파일에 재정의
-;; enum _ENUM_SW_ID					;; SW ID 
-;; {
-;; 	SW_ID_MGT_START = 0,
-;; 	SW_ID_IPNTAC_MGT = 1,;;1
-;; 	SW_ID_IPNTAC_MGT2,
-;; 	SW_ID_IPNTAC_MGT3,
-;; 	SW_ID_IPNSUP_MGT,
-;; 	SW_ID_IPNSUP_MGT2,
-;; 	SW_ID_IPNTRN_MGT,
-;; 	SW_ID_IPNTRN_MGT2,
-;; 	SW_ID_IPNTRN_MGT3,
-;; 	SW_ID_KMFCMGR,
-;; 	SW_ID_MGT_END,		;;10
-
-;; 	SW_ID_ICU_START = 100,
-;; 	SW_ID_ICUIPCIWS = 101,	;;140218 dha.jung SW_ID_ICUCIWS->SW_ID_ICUIPCIWS
-;; 	SW_ID_ICUDPCIWS,		;;131017 dha.jung 추가
-;; 	SW_ID_ICUIPMASS,		;;131017 dha.jung DECOY -> MASS 변경, 140218 SW_ID_ICUMASS->SW_ID_ICUIPMASS
-;; 	SW_ID_ICUDPMASS,		;;140218 dha.jung 추가
-;; 	SW_ID_ICUEOTS,
-;; 	SW_ID_ICUIPEW,			;;140312 jylee 추가 및 변경
-;; 	SW_ID_ICUDPEW,			;;140312 jylee 추가 및 변경
-;; 	SW_ID_ICUIPHMS,	    ;; 20140630 js 변경
-;; 	SW_ID_ICUDPHMS,     ;; 20140630 js 추가 및 변경
-;; 	SW_ID_ICUIPIFF,	    ;; 20140630 js 변경
-;; 	SW_ID_ICUKNCCS,
-;; 	SW_ID_ICUKSSM,
-;; 	SW_ID_ICULYNXESM,
-;; 	SW_ID_ICUNRS,		
-;; 	SW_ID_ICUOSD,
-;; 	SW_ID_ICUSAAM,
-;; 	SW_ID_ICUIPSRS,	    ;; 20140630 js 변경
-;; 	SW_ID_ICUTRS,
-;; 	SW_ID_BCUGUN127,
-;; 	SW_ID_BCUGUN40,
-;; 	SW_ID_BCUGUN76,
-;; 	SW_ID_FCUIPSLTS,		;;140218 dha.jung SW_ID_FCUSLTS->SW_ID_FCUIPSLTS
-;; 	SW_ID_FCUTACM,
-;; 	SW_ID_DLPISDL,		
-;; 	SW_ID_DLPLINK11,
-;; 	SW_ID_RVDU,
-;; 	SW_ID_RVR,
-;; 	SW_ID_TVR,
-;; 	SW_ID_ICUIPES,	;; 20131211 hk.kim 추가
-;; 	SW_ID_ICUDPES,	;; 20131211 hk.kim 추가 
-;; 	SW_ID_ICUIPIRST,;; 20131211 hk.kim 추가
-;; 	SW_ID_ICUDPIRST,;; 20131211 hk.kim 추가
-;; 	SW_ID_ICUIPLYNXESM,	;; 20131219 hk.kim 추가
-;; 	SW_ID_ICUDPLYNXESM,	;; 20131219 hk.kim 추가 
-;; 	SW_ID_ICUIPRCWS1,	;; 20140605 dha.jung 추가, 발사대1,2에 따로 응용이 탑재되므로 1,2로 구분
-;; 	SW_ID_ICUDPRCWS1,	;; 20140605 dha.jung 추가
-;; 	SW_ID_ICUIPRCWS2,	;; 20140605 dha.jung 추가
-;; 	SW_ID_ICUDPRCWS2,	;; 20140605 dha.jung 추가
-;; 	SW_ID_ICU_END,
-
-;; 	SW_ID_IPN_START = 200,	;;200
-;; 	SW_ID_AC = 201,		;;201
-;; 	SW_ID_ASWPLAN,
-;; 	SW_ID_CABINET,
-;; 	SW_ID_FILESYNC,
-;; 	SW_ID_GENPLAN,
-;; 	SW_ID_NAV,
-;; 	SW_ID_SCHMS,
-;; 	SW_ID_SCIFF,
-;; 	SW_ID_SCLYNXESM,
-;; 	SW_ID_SCOSD,		;;210
-;; 	SW_ID_SMMODEMANGER,
-;; 	SW_ID_SMNMS,
-;; 	SW_ID_SMSYSTEMMNG,
-;; 	SW_ID_SMSYSTEMPARAMETER,
-;; 	SW_ID_SMTIMEANDDATE,
-;; 	SW_ID_SMUSERMANAGER,
-;; 	SW_ID_SSAREAWARN,
-;; 	SW_ID_SSFOCMGR,
-;; 	SW_ID_SSHINDRANCEMGR,
-;; 	SW_ID_SSICMMGR,		;;220
-;; 	SW_ID_SSMSNMGR,
-;; 	SW_ID_SSPLATFORMLIB,
-;; 	SW_ID_SSRNRMGR,
-;; 	SW_ID_SSRRAMGR,
-;; 	SW_ID_SSTAMGR,
-;; 	SW_ID_SSVIDEODISTMGR,
-;; 	SW_ID_TDL,
-;; 	SW_ID_TM,
-;; 	SW_ID_TRN,	
-;; 	SW_ID_WCCIWS,		;;230
-;; 	SW_ID_WCMASS,		;; 131017 dha.jung DECOY -> MASS 변경
-;; 	SW_ID_WCEW,
-;; 	SW_ID_WCKSSM,
-;; 	SW_ID_WCSAAM,
-;; 	SW_ID_WCSLTS,
-;; 	SW_ID_WCTACM,
-;; 	SW_ID_WF,
-;; 	SW_ID_SIMCIWS,
-;; 	SW_ID_SIMMASS,		;; 131017 dha.jung DECOY -> MASS 변경
-;; 	SW_ID_SIMEOTS,		;;240
-;; 	SW_ID_SIMEW,
-;; 	SW_ID_SIMGUN40,
-;; 	SW_ID_SIMGUN76,
-;; 	SW_ID_SIMGUN127,
-;; 	SW_ID_SIMHMS,
-;; 	SW_ID_SIMIFF,
-;; 	SW_ID_SIMKSSM,
-;; 	SW_ID_SIMNRS,
-;; 	SW_ID_SIMOSD,
-;; 	SW_ID_SIMSAAM,		;;250
-;; 	SW_ID_SIMSLTS,
-;; 	SW_ID_SIMSRS,
-;; 	SW_ID_SIMTACM,
-;; 	SW_ID_SIMTRS,
-;; 	SW_ID_IPN_END,
-
-;; 	SW_ID_HCI_START = 300,	;;300
-;; 	SW_ID_HCI_AC = 301,		;;301
-;; 	SW_ID_HCI_ASWPLAN,
-;; 	SW_ID_HCI_GENPLAN,
-;; 	SW_ID_HCI_MainDisplay,
-;; 	SW_ID_HCI_NAV,
-;; 	SW_ID_HCI_SCEOTS,
-;; 	SW_ID_HCI_SCHMS,
-;; 	SW_ID_HCI_SCIFF_TSB3522, ;;140630 js 변경
-;; 	SW_ID_HCI_SCIFF_ANUPS,   ;;140630 js 변경
-;; 	SW_ID_HCI_SCLYNXESM,
-;; 	SW_ID_HCI_SCNRS,		;;310
-;; 	SW_ID_HCI_SCOSD,
-;; 	SW_ID_HCI_SCSRS_SLK500,  ;;140630 js 변경
-;; 	SW_ID_HCI_SCSRS_XSPS550K,  ;;140630 js 추가 및 변경
-;; 	SW_ID_HCI_SCTRS,
-;; 	SW_ID_HCI_SecondaryDisplay,
-;; 	SW_ID_HCI_SIMCIWS,
-;; 	SW_ID_HCI_SIMMASS,		;; 131017 dha.jung DECOY -> MASS 변경
-;; 	SW_ID_HCI_SIMEOTS,
-;; 	SW_ID_HCI_SIMEW,
-;; 	SW_ID_HCI_SIMGUN40,
-;; 	SW_ID_HCI_SIMGUN76,		;;320
-;; 	SW_ID_HCI_SIMGUN127,
-;; 	SW_ID_HCI_SIMROCKET,	;;130mm유도로켓
-;; 	SW_ID_HCI_SIMRCWS,		;;12.7mm원격사격체계	
-;; 	SW_ID_HCI_SIMHMS,
-;; 	SW_ID_HCI_SIMKSSM,
-;; 	SW_ID_HCI_SIMSAAM,
-;; 	SW_ID_HCI_SIMSLTS,
-;; 	SW_ID_HCI_SIMSRS,
-;; 	SW_ID_HCI_SIMTACM,
-;; 	SW_ID_HCI_SIMTRS,;;330
-;; 	SW_ID_HCI_SMLOGIN,
-;; 	SW_ID_HCI_SMMODECONTROL,
-;; 	SW_ID_HCI_SMMODEMONITOR,
-;; 	SW_ID_HCI_SMNMS,
-;; 	SW_ID_HCI_SMOMDEF,
-;; 	SW_ID_HCI_SMOPERSHIFT,
-;; 	SW_ID_HCI_SMROLESERVICEREL,
-;; 	SW_ID_HCI_SMSYSTEMMNG,
-;; 	SW_ID_HCI_SMSWMONITOR,
-;; 	SW_ID_HCI_SMSYSTEMPARAMETER,;;340
-;; 	SW_ID_HCI_SMTIMEANDDATE, 
-;; 	SW_ID_HCI_SMUSERPWCHANGE,
-;; 	SW_ID_HCI_SMWARNINGMGR,
-;; 	SW_ID_HCI_SSAREAWARN,
-;; 	SW_ID_HCI_SSFOCMGR,
-;; 	SW_ID_HCI_SSHINDRANCEMGR,
-;; 	SW_ID_HCI_SSICMMGR,
-;; 	SW_ID_HCI_SSMSNMGR,
-;; 	SW_ID_HCI_SSPLATFORMLIB,
-;; 	SW_ID_HCI_SSRNRRECORD,;;350
-;; 	SW_ID_HCI_SSRNRREPLAY,
-;; 	SW_ID_HCI_SSTAMGR,		
-;; 	SW_ID_HCI_SSTVVIDEO,
-;; 	SW_ID_HCI_SSVIDEODISTMGR,
-;; 	SW_ID_HCI_DLPISDL,
-;; 	SW_ID_HCI_ICUKNCCS,
-;; 	SW_ID_HCI_DLPLINK11,
-;; 	SW_ID_HCI_LINKK,
-;; 	SW_ID_HCI_TM,
-;; 	SW_ID_HCI_TRN,;;360
-;; 	SW_ID_HCI_WCCIWS,
-;; 	SW_ID_HCI_WCMASS,		;; 131017 dha.jung DECOY -> MASS 변경
-;; 	SW_ID_HCI_WCEW,			
-;; 	SW_ID_HCI_WCGUN40,
-;; 	SW_ID_HCI_WCGUN76,
-;; 	SW_ID_HCI_WCGUN127,
-;; 	SW_ID_HCI_WCKSSM,
-;; 	SW_ID_HCI_WCSAAM,
-;; 	SW_ID_HCI_WCSLTS,
-;; 	SW_ID_HCI_WCTACM,
-;; 	SW_ID_HCI_WCRCWS,	;;12.7mm원격사격체계
-;; 	SW_ID_HCI_WCROCKET,	;;130mm유도로켓
-;; 	SW_ID_HCI_WF,
-;; 	SW_ID_HCI_SCES,			;; 20131211 hk.kim 추가
-;; 	SW_ID_HCI_SCIRST,		;; 20140218 hk.kim 추가
-;; 	SW_ID_HCI_SCTASS,		;; 20140218 hk.kim 추가
-;; 	SW_ID_HCI_SCAIS,		;; 20140218 hk.kim 추가
-;; 	SW_ID_HCI_END
-;; };
-;; */
-;; enum _ENUM_LOGIN_STATUS
-;; {
-;; 	LOGOFF = 0,
-;; 	LOGIN_SUCCESS,
-;; 	FIRST_LOGIN,
-;; 	IS_NOT_FIRST_LOGIN,
-;; 	ALREADY_LOGIN,
-;; 	LOGIN_AVAIL,
-;; 	LOGIN_GRANTED,
-;; 	ROLE_LOGIN_APPROVED,				;; mmyang ... 2010.04.16
-;; 	ID_PASSWORD_CHANGE_SUCCESS,			;; mmyang ... 2010.03.25
-;; 	ID_PASSWORD_INVALID,
-;; 	FORCED_SHUTDOWN,
-;; 	NON_FORCED_SHUTDOWN,
-;; 	SHIFT_GRANTED,
-;; 	SHIFT_REJECT
-;; };
-
-;; enum _SM_REQ_STATUS
-;; {
-;; 	CREATE_ITEM = 1,
-;; 	MODIFY_ITEM,
-;; 	DELETE_ITEM,
-;; 	LIST_REQ,
-;; 	MODIFY_ITEM_INIT_PASSWD,			;; mmyang ... 2010.01.16
-;; 	MODIFY_ITEM_INIT_PASSWD_FAIL,
-;; 	ITEM_REQ							;; mmyang ... 2010.04.15
-;; };
-
-;; /******************************************/
-;; /******************************************/
-
-;; /******************************************/
-;; /******************************************/
-;; enum _ENUM_TDL_KIND
-;; {
-;; 	TDL_KIND_NONE = 0,						;; 100401 김동일 선임 수정
-;; 	TDL_KIND_ISDL,
-;; 	TDL_KIND_LINK11,
-;; 	TDL_KIND_KNCCS,
-;; 	TDL_KIND_LINK16,
-;; 	TDL_KIND_LINK11_B,
-;; 	TDL_KIND_LK,							;;140703 이효조 선임 추가
-;; 	TDL_KIND_ALL
-;; };
-
-;; enum _ENUM_TDL_INFO_KIND
-;; {
-;; 	TDL_INFO_KIND_FILTER = 1,
-;; 	TDL_INFO_KIND_OPNOTE,
-;; 	TDL_INFO_KIND_AIRCRAFT_CTRL,
-;; 	TDL_INFO_KIND_ALL
-;; };
-
-;; enum _ENUM_TDL_TX_ALLOWED
-;; {
-;; 	TDL_TX_NOT_ALLOWED = 0,
-;; 	TDL_TX_ALLOWED
-;; };
-
-;; enum _ENUM_TDL_AUTO_NTN_ALLOC
-;; {
-;; 	TDL_AUTO_NTN_ALLOC_NOT_ALLOWED = 0,
-;; 	TDL_AUTO_NTN_ALLOC_ALLOWED
-;; };
-
-;; enum _ENUM_TDL_WEAPON_ID
-;; {
-;; 	;; 무장
-;; 	;; LINK11_ORDER 가 다음 값을 가질때
-;; 	;; LINK11_ORDER_ENGAGE_SPECIFIC,
-;; 	;; LINK11_ORDER_CEASE_ENGAGE_SPECIFIC,
-;; 	TDL_WEAPON_ID_NO_STATEMENT_WEAPON = 0,
-;; 	TDL_WEAPON_ID_SURF_TO_AIR_MISSILE,      ;;ISDL_WEAPON_ID_SAM/ISDL_WEAPON_ID_SAM_SR
-;; 	TDL_WEAPON_ID_SURF_TO_SURF_MISSILE,     ;;ISDL_WEAPON_ID_SSM
-;; 	TDL_WEAPON_ID_INTERCEPTOR,              ;;ISDL_WEAPON_ID_INTERCEPTOR
-;; 	TDL_WEAPON_ID_CONVENTIONAL,             ;;ISDL_WEAPON_ID_GUN
-;; 	TDL_WEAPON_ID_ASW_HELO,                 ;;ISDL_WEAPON_ID_ASW_HELO
-;; 	TDL_WEAPON_ID_ASW_MISSILE,              ;;ISDL_WEAPON_ID_ASW_MISSILE
-;; 	TDL_WEAPON_ID_DEPTH_CHARGE,             ;;ISDL_WEAPON_ID_DEPTH_BOMB
-;; 	TDL_WEAPON_ID_TORPEDO,                  ;;ISDL_WEAPON_ID_TORPEDO
-;; 	TDL_WEAPON_ID_FIXED_WING_ASW_AIRCRAFT,  ;;ISDL_WEAPON_ID_FIXED_WING_ASW_AIRCRAFT
-;; 	TDL_WEAPON_ID_AIR_TO_SURF_MISSILE,      ;;ISDL_WEAPON_ID_ASM	
-
-;; 	;; 무장형태
-;; 	;; LINK11_ORDER 가 다음 값을 가질때
-;; 	;; LINK11_ORDER_WEAPONS_FREE
-;; 	;; LINK11_ORDER_WEAPONS_TIGHT
-;; 	;; LINK11_ORDER_ENGAGE
-;; 	;; LINK11_ORDER_ASSIGN
-;; 	;; LINK11_ORDER_CEASE_ENGAGE
-;; 	;; LINK11_ORDER_HOLD_FIRE
-;; 	;; LINK11_ORDER_CEASE_FIRE
-;; 	;; LINK11_ORDER_COVER
-;; 	;; LINK11_ORDER_SALVO_CLEAR
-;; 	TDL_WEAPON_ID_ANY_ALL_TYPE,
-;; 	TDL_WEAPON_ID_AIRCRAFT_TYPE,
-;; 	TDL_WEAPON_ID_MISSILE_TYPE,
-;; 	TDL_WEAPON_ID_CONVENTIONAL_TYPE
-;; };
-
-;; enum _ENUM_TDL_ENGAGE_STATUS 
-;; {
-;; 	TDL_ENGAGE_STATUS_NOT_ENGAGED = 0,
-;; 	TDL_ENGAGE_STATUS_ASSIGN_INVEST,
-;; 	TDL_ENGAGE_STATUS_TRACKING_LOCKED_ON,
-;; 	TDL_ENGAGE_STATUS_FIRING_ENGAGING,
-;; 	TDL_ENGAGE_STATUS_EFFECTIVE_TARGET_DESTROYED,
-;; 	TDL_ENGAGE_STATUS_PARTIALLY_EFFECTIVE,
-;; 	TDL_ENGAGE_STATUS_NOT_EFFECTIVE,
-;; 	TDL_ENGAGE_STATUS_ENGAGEMENT_BROKEN,
-;; 	TDL_ENGAGE_STATUS_HEAD_UP,
-;; 	TDL_ENGAGE_STATUS_ENGAGEMENT_INTERRUPTED
-;; };
-
-;; enum _ENUM_TDL_WEAPON_STATUS
-;; {
-;; 	TDL_WEAPON_STATUS_NO_STATEMENT = 0,
-;; 	TDL_WEAPON_STATUS_NOT_AVAILABLE,
-;; 	TDL_WEAPON_STATUS_AVAILABLE
-;; }; 
-
-;; enum _ENUM_TDL_WEAPON_RANGE
-;; {
-;; 	TDL_WEAPON_RANGE_NO_STATEMENT = 0,
-;; 	TDL_WEAPON_RANGE_SHORT,
-;; 	TDL_WEAPON_RANGE_MEDIUM,
-;; 	TDL_WEAPON_RANGE_LONG
-;; };
-
-;; enum _ENUM_TDL_OWNSHIP_OR_OTHERSHIP
-;; {
-;; 	TDL_OTHER_SHIP = 0,
-;; 	TDL_OWN_SHIP
-;; }; 
-
-;; enum _ENUM_TDL_WE_STATUS_TYPE
-;; {
 (define 	TDL_WE_STATUS_WEAPON_STATUS     0)
 (define 	TDL_WE_STATUS_ENGAGEMENT_STATUS 1)
-;; }; 
-
-
-;; enum _ENUM_TDL_FILTER_DIRECTION {
-;; 	TDL_FILTER_DIRECTION_NO_STATEMENT,
-;; 	TDL_FILTER_DIRECTION_TX,
-;; 	TDL_FILTER_DIRECTION_RX,
-;; 	TDL_FILTER_DIRECTION_TX_RX
-	
-;; };
 (define TDL_FILTER_AREA_NONE     0)
 (define TDL_FILTER_AREA_CIRCLE   1) 
 (define TDL_FILTER_AREA_SECTOR   2) 
 (define TDL_FILTER_AREA_RING     3) 
 (define TDL_FILTER_AREA_POLYGON  4)
-
-
-;; enum _ENUM_TDL_FILTER_ENVIRONMENT
-;; { 
 (define TDL_FILTER_ENVIRONMENT_AIR          1)
 (define TDL_FILTER_ENVIRONMENT_SURFACE      2)
 (define TDL_FILTER_ENVIRONMENT_SUBSURFACE   4)
 (define TDL_FILTER_ENVIRONMENT_LAND         8)
 (define TDL_FILTER_ENVIRONMENT_UNKNOWN      16)
 (define TDL_FILTER_ENVIRONMENT_SPACE        32)
-;; };
-
-;; enum _ENUM_TDL_FILTER_IDENTITY
-;; { 
 (define   TDL_FILTER_IDENTITY_UNKNOWN        1 )						
 (define 	TDL_FILTER_IDENTITY_PENDING         2 )
 (define 	TDL_FILTER_IDENTITY_ASSUMED_FRIEND  4 )
 (define 	TDL_FILTER_IDENTITY_FRIEND          8 )
 (define 	TDL_FILTER_IDENTITY_NEUTRAL         16)
-;; };
-
-;; enum _ENUM_TDL_FILTER_KIND
-;; { 
 (define TDL_FILTER_KIND_POINT          1)
 (define TDL_FILTER_KIND_BEARING        2)
 (define TDL_FILTER_KIND_SPECIAL_POINT  4)
-;; };
-
-;; enum _ENUM_TDL_FILTER_ETC
-;; {
 (define TDL_FILTER_NON_REAL_TIME  1)	;;Ticket:1608 송영환 추가
 (define TDL_FILTER_CIVIL          2)		;;Ticket:1608 송영환 추가
-;; };
-
-;; enum _ENUM_TDL_FILTER_FORWARDING
-;; { 
-;; 	TDL_FILTER_FORWARDING_LINK11 = 1,
-;; 	TDL_FILTER_FORWARDING_ISDL   = 2,
-;; 	TDL_FILTER_FORWARDING_LINKK  = 4
-;; };
-
-;; enum _ENUM_TDL_ORDER
-;; {
-;; 	TDL_ORDER_WEAPONS_FREE = 0,
-;; 	TDL_ORDER_WEAPONS_TIGHT,
-;; 	TDL_ORDER_ENGAGE,
-;; 	TDL_ORDER_ASSIGN,
-;; 	TDL_ORDER_CEASE_ENGAGE,
-;; 	TDL_ORDER_HOLD_FIRE,
-;; 	TDL_ORDER_CEASE_FIRE,
-;; 	TDL_ORDER_COVER,
-;; 	TDL_ORDER_SALVO_CLEAR,
-;; 	TDL_ORDER_ENGAGE_SPECIFIC,
-;; 	TDL_ORDER_CEASE_ENGAGE_SPECIFIC,
-;; 	TDL_ORDER_PROCEED_TO_POINT,
-;; 	TDL_ORDER_CEASE_PROCEED_TO_POINT,
-;; 	TDL_ORDER_PAIRING,
-;; 	TDL_ORDER_ASSOCIATION,
-;; 	TDL_ORDER_CORRELATION,
-;; 	TDL_ORDER_TERMINATE_PAIRING_ASSOCIATION,
-;; 	TDL_ORDER_DLP_REPLY
-;; };
-
-;; enum _ENUM_TDL_REPLY
-;; {
-;; 	TDL_REPLY_WILL_COMPLY = 0, ;;accept
-;; 	TDL_REPLY_CANT_COMPLY,     ;;reject
-;; 	TDL_REPLY_HAVE_COMPLIED,
-;; 	TDL_REPLY_CANT_PROCESS, 
-;; 	TDL_REPLY_MACHINE_RECEIPT,
-;; 	TDL_REPLY_NO_REPLY_RECEIVED, 
-;; 	TDL_REPLY_ORIGINAL_MESSAGE 
-;; };
-
-;; enum _ENUM_TDL_FILTER_ORIGIN
-;; { 
-;; 	TDL_FILTER_ORIGIN_GEO = 0,
-;; 	TDL_FILTER_ORIGIN_OWNSHIP
-;; };
-
-;; enum _ENUM_TDL_NTN_COMMAND
-;; {
-;; 	TDL_NTN_COMMAND_ALLOCATE = 0,
-;; 	TDL_NTN_COMMAND_REMOVE,
-;; 	TDL_NTN_COMMAND_TQ_CHANGED,
-;; 	TDL_NTN_COMMAND_ALERT_OFF_REQ,
-;; 	TDL_NTN_COMMAND_LINK_STATE_CHANGED						;; 091109 김동일 선임 추가
-;; }; 
-
-;; enum _ENUM_TDL_NTN_RESULT
-;; {
-;; 	TDN_NTN_RESULT_ACCEPTED = 0,
-;; 	TDN_NTN_RESULT_REJECTED,
-;; 	TDN_NTN_RESULT_AUTOMATIC
-;; };
-
-;; enum _ENUM_TDL_NTN_REJECT_REASON
-;; {
-;; 	TDN_NTN_REJECT_REASON_ALREADY_IN_USE = 0,
-;; 	TDN_NTN_REJECT_REASON_POOL_EXCEEDED,
-;; 	TDN_NTN_REJECT_REASON_TRANS_NOT_ALLOWED
-;; };
-
-;; enum _ENUM_TDL_THREAT_LEVEL
-;; {
-;; 	TDL_TREAT_LEVEL_NO_STATEMENT = 0,
-;; 	TDL_TREAT_LEVEL_UNKNOWN,
-;; 	TDL_TREAT_LEVEL_NON_THREAT,
-;; 	TDL_TREAT_LEVEL_THREAT
-;; };
-
-;; enum _ENUM_TDL_SCAN_CATEGORY
-;; {
-;; 	TDL_SCAN_CATEGORY_NO_STATEMENT = 0,
-;; 	TDL_SCAN_CATEGORY_FIXED,
-;; 	TDL_SCAN_CATEGORY_CIRCULAR,
-;; 	TDL_SCAN_CATEGORY_LOBE_SWITCHING,
-;; 	TDL_SCAN_CATEGORY_HEIGHT_FINDER,
-;; 	TDL_SCAN_CATEGORY_SECTOR,
-;; 	TDL_SCAN_CATEGORY_CONICAL,
-;; 	TDL_SCAN_CATEGORY_COMPLEX,
-;; 	TDL_SCAN_CATEGORY_SPIRAL,
-;; 	TDL_SCAN_CATEGORY_RASTER,
-;; 	TDL_SCAN_CATEGORY_VARIABLE_RANDOM,
-;; 	TDL_SCAN_CATEGORY_STEADY,
-;; 	TDL_SCAN_CATEGORY_MANUAL
-;; }; 
-
-;; enum _ENUM_TDL_SCAN_MODE							;; 100305 김동일 선임 추가
-;; {
-;; 	TDL_SCAN_MODE_NO_MEASUREMENT_SCAN = 0, 
-;; 	TDL_SCAN_MODE_TIME_SCAN, 
-;; 	TDL_SCAN_MODE_FREQUENCY_SCAN,
-;; 	TDL_SCAN_MODE_STEADY_SCAN 
-;; };
-
-;; enum _ENUM_TDL_ASW_REFPOS_SENSOR
-;; {
-;; 	TDL_ASW_REFPOS_SENSOR_NO_STATEMENT = 0,
-;; 	TDL_ASW_REFPOS_SENSOR_SHIP_ACTIVE_SONAR,
-;; 	TDL_ASW_REFPOS_SENSOR_SHIP_PASSIVE_SONAR,
-;; 	TDL_ASW_REFPOS_SENSOR_SHIP_VARIABLE_ACTIVE_SONAR,
-;; 	TDL_ASW_REFPOS_SENSOR_SHIP_VARIABLE_PASSIVE_SONAR,
-;; 	TDL_ASW_REFPOS_SENSOR_SHIP_SONAR,
-;; 	TDL_ASW_REFPOS_SENSOR_SUBMARINE_ACTIVE_SONAR,
-;; 	TDL_ASW_REFPOS_SENSOR_SUBMARINE_PASSIVE_SONAR,
-;; 	TDL_ASW_REFPOS_SENSOR_HELO_ACTIVE_SONAR,
-;; 	TDL_ASW_REFPOS_SENSOR_HELO_PASSIVE_SONAR,
-;; 	TDL_ASW_REFPOS_SENSOR_RADAR,
-;; 	TDL_ASW_REFPOS_SENSOR_INTELLIGENCE,
-;; 	TDL_ASW_REFPOS_SENSOR_ESM,
-;; 	TDL_ASW_REFPOS_SENSOR_MAD,
-;; 	TDL_ASW_REFPOS_SENSOR_LOFAR_AREA,
-;; 	TDL_ASW_REFPOS_SENSOR_LOFAR_H_FIX,
-;; 	TDL_ASW_REFPOS_SENSOR_LOFAR_C_FIX,
-;; 	TDL_ASW_REFPOS_SENSOR_DIFAR,
-;; 	TDL_ASW_REFPOS_SENSOR_ACTIVE_SONOBUOY_RANGE_BEARING,
-;; 	TDL_ASW_REFPOS_SENSOR_ACTIVE_SONOBUOY_RANGE,
-;; 	TDL_ASW_REFPOS_SENSOR_PASSIVE_SONOBUOY,
-;; 	TDL_ASW_REFPOS_SENSOR_DIRECT_PATH,
-;; 	TDL_ASW_REFPOS_SENSOR_BOTTOM_BOUNCE,
-;; 	TDL_ASW_REFPOS_SENSOR_CONVERGENCE_ZONE_1,
-;; 	TDL_ASW_REFPOS_SENSOR_CONVERGENCE_ZONE_2,
-;; 	TDL_ASW_REFPOS_SENSOR_CONVERGENCE_ZONE_3,
-;; 	TDL_ASW_REFPOS_SENSOR_LLLTV,
-;; 	TDL_ASW_REFPOS_SENSOR_VISUAL,
-;; 	TDL_ASW_REFPOS_SENSOR_DESIGNATED_FIX,
-;; 	TDL_ASW_REFPOS_SENSOR_UNDERWATER_TELEPHONE,
-;; 	TDL_ASW_REFPOS_SENSOR_TOWED_ARRAY,
-;; 	TDL_ASW_REFPOS_SENSOR_INFRARED_SYSTEM,
-;; 	TDL_ASW_REFPOS_SENSOR_PASSIVE_DIRECTIONAL_SONOBUOY,
-;; 	TDL_ASW_REFPOS_SENSOR_UNDEFINED,
-;; 	TDL_ASW_REFPOS_SENSOR_PASSIVE_SOURCE,
-;; 	TDL_ASW_REFPOS_SENSOR_CASS,
-;; 	TDL_ASW_REFPOS_SENSOR_ITASS,
-;; 	TDL_ASW_REFPOS_SENSOR_DICASS,
-;; 	TDL_ASW_REFPOS_SENSOR_SOSUS,
-;; 	TDL_ASW_REFPOS_SENSOR_FLIR
-;; };
-
-;; enum _ENUM_TDL_ASW_BEARING_SENSOR
-;; {
-;; 	TDL_ASW_BEARING_SENSOR_NO_STATEMENT = 0,
-;; 	TDL_ASW_BEARING_SENSOR_ACTIVE_SONAR,
-;; 	TDL_ASW_BEARING_SENSOR_PASSIVE_SONAR,
-;; 	TDL_ASW_BEARING_SENSOR_PASSIVE_SONOBUOY,
-;; 	TDL_ASW_BEARING_SENSOR_ACTIVE_SONOBUOY,
-;; 	TDL_ASW_BEARING_SENSOR_MAD,
-;; 	TDL_ASW_BEARING_SENSOR_VISUAL_ELECTRO_OPTICS,
-;; 	TDL_ASW_BEARING_SENSOR_RADAR
-;; };
-
-;; enum _ENUM_TDL_ASW_REFPOS_MISSION
-;; {
-;; 	TDL_ASW_REFPOS_MISSION_NO_STATEMENT = 0,
-;; 	TDL_ASW_REFPOS_MISSION_ANTI_SHIPPING,
-;; 	TDL_ASW_REFPOS_MISSION_ANTI_SUBMARINE,
-;; 	TDL_ASW_REFPOS_MISSION_RECONNAISSANCE,
-;; 	TDL_ASW_REFPOS_MISSION_MINE_LAYING,
-;; 	TDL_ASW_REFPOS_MISSION_TRANSITING,
-;; 	TDL_ASW_REFPOS_MISSION_SAR,
-;; 	TDL_ASW_REFPOS_MISSION_ESCORT,
-;; 	TDL_ASW_REFPOS_MISSION_INTRUDER,
-;; 	TDL_ASW_REFPOS_MISSION_COMMAND_AND_CONTROL,
-;; 	TDL_ASW_REFPOS_MISSION_AUXILIARY  
-;; };
-
-;; enum _ENUM_TDL_CONFIDENCE_LEVEL
-;; {
-;; 	TDL_CONFIDENCE_LEVEL_NO_STATEMENT = 0, 
-;; 	TDL_CONFIDENCE_LEVEL_CONFIDENCE_1,
-;; 	TDL_CONFIDENCE_LEVEL_CONFIDENCE_2,
-;; 	TDL_CONFIDENCE_LEVEL_CONFIDENCE_3,
-;; 	TDL_CONFIDENCE_LEVEL_CONFIDENCE_4,
-;; 	TDL_CONFIDENCE_LEVEL_CONFIDENCE_5,
-;; 	TDL_CONFIDENCE_LEVEL_CONFIDENCE_6,
-;; 	TDL_CONFIDENCE_LEVEL_POSITIVE_EVALUATION
-;; };
-
-;; enum _ENUM_TDL_PLATFORM_EVALUATION_CONFIDENCE
-;; {
-;; 	TDL_PLATFORM_EVALUATION_CONFIDENCE_NO_STATEMENT = 0,
-;; 	TDL_PLATFORM_EVALUATION_CONFIDENCE_POSITIVE,
-;; 	TDL_PLATFORM_EVALUATION_CONFIDENCE_PROBABLE,
-;; 	TDL_PLATFORM_EVALUATION_CONFIDENCE_POSSIBLE,
-;; 	TDL_PLATFORM_EVALUATION_CONFIDENCE_LOW
-;; };
-
-;; enum _ENUM_TDL_LOCK_ON_SPY
-;; {
-;; 	TDL_LOCK_ON_SPY_NO_STATEMENT = 0,
-;; 	TDL_LOCK_ON_SPY_LOCK_ON,
-;; 	TDL_LOCK_ON_SPY_SPY
-;; };
-
-;; enum _ENUM_TDL_JITTER
-;; {
-;; 	TDL_JITTER_NO_STATEMENT = 0,
-;; 	TDL_JITTER_JITTER,
-;; 	TDL_JITTER_NO_JITTER
-;; };
-
-;; enum _ENUM_TDL_POLARISATION
-;; {
-;; 	TDL_POLARISATION_NO_STATEMENT = 0,
-;; 	TDL_POLARISATION_CIRCULAR,
-;; 	TDL_POLARISATION_HORIZONTAL,
-;; 	TDL_POLARISATION_ROTATIONAL,
-;; 	TDL_POLARISATION_VERTICAL,
-;; 	TDL_POLARISATION_SLANT
-;; };
-
-;; enum _ENUM_TDL_NOTACK_DURATION
-;; {
-;; 	TDL_NOTACK_DURATION_NO_STATEMENT = 0,
-;; 	TDL_NOTACK_DURATION_1H,
-;; 	TDL_NOTACK_DURATION_30MN,
-;; 	TDL_NOTACK_DURATION_1H30MN,
-;; 	TDL_NOTACK_DURATION_2H
-;; };
-
-;; enum _ENUM_TDL_NOTACK_RADIUS
-;; {
-;; 	TDL_NOTACK_RADIUS_NO_STATEMENT = 0,
-;; 	TDL_NOTACK_RADIUS_R_10_DM,
-;; 	TDL_NOTACK_RADIUS_R_5_DM,
-;; 	TDL_NOTACK_RADIUS_R_15_DM,
-;; 	TDL_NOTACK_RADIUS_R_20_DM
-;; };
-
-;; enum _ENUM_TDL_BEARINT_REPORT
-;; {
-;; 	TDL_BEARING_REPORT_BEARING_AND_RANGE = 0,
-;; 	TDL_BEARING_REPORT_PASSIVE_BEARING_AMBIGUOUS,
-;; 	TDL_BEARING_REPORT_PASSIVE_BEARING_RESOLVED,
-;; 	TDL_BEARING_REPORT_RANGE_ONLY
-;; };
-
-;; enum _ENUM_TDL_ABOVE_BELOW_LAYER
-;; {
-;; 	TDL_ABOVE_BELOW_LAYER_NO_STATEMENT = 0,
-;; 	TDL_ABOVE_BELOW_LAYER_ABOVE_LAYER,
-;; 	TDL_ABOVE_BELOW_LAYER_BELOW_LAYER,
-;; 	TDL_ABOVE_BELOW_LAYER_UNDEFINED
-;; };
-
-
-;; enum _ENUM_TDL_CONTACT_DEPTH
-;; {
-;; 	TDL_CONTACT_DEPTH_UNKNOWN = 0,
-;; 	TDL_CONTACT_DEPTH_ESTIMATED_SHALOW,
-;; 	TDL_CONTACT_DEPTH_ABOVE_LAYER,
-;; 	TDL_CONTACT_DEPTH_BELOW_LAYER,
-;; 	TDL_CONTACT_DEPTH_ESTIMATED_DEEP,
-;; 	TDL_CONTACT_DEPTH_BOTTOMED,
-;; 	TDL_CONTACT_DEPTH_PERSCOPE_DEPTH
-;; };
-
-;; enum _ENUM_TDL_NETWORK_TRACK_ADD_INFO_KIND
-;; {
-;; 	TDL_NETWORK_TRACK_ADD_INFO_NONE = 0,
-;; 	TDL_NETWORK_TRACK_ADD_INFO_KIND_AIR,
-;; 	TDL_NETWORK_TRACK_ADD_INFO_KIND_ESM,
-;; 	TDL_NETWORK_TRACK_ADD_INFO_KIND_ASW_FIX,
-;; 	TDL_NETWORK_TRACK_ADD_INFO_KIND_SUBSURFACE,
-;; 	TDL_NETWORK_TRACK_ADD_INFO_KIND_DATUM,
-;; 	TDL_NETWORK_TRACK_ADD_INFO_KIND_ACOUSTIC,
-;; 	TDL_NETWORK_TRACK_ADD_INFO_KIND_LAND,
-;; 	TDL_NETWORK_TRACK_ADD_INFO_KIND_SURFACE,
-;; 	TDL_NETWORK_TRACK_ADD_INFO_KIND_SPACE
-;; };
-
-;; enum _ENUM_TDL_RAID_SIZE
-;; {
-;; 	TDL_RAID_SIZE_NO_STATEMENT = 0,
-;; 	TDL_RAID_SIZE_SINGLE_TARGET,
-;; 	TDL_RAID_SIZE_FROM_2_TO_8_TARGETS,
-;; 	TDL_RAID_SIZE_MORE_THAN_8_TARGETS
-;; };
-
-;; enum _ENUM_TDL_UNIT_CAPABILITY
-;; {
-;; 	TDL_UNIT_CAPABILITY_NO_STATEMENT = 0,
-;; 	TDL_UNIT_CAPABILITY_SURFACE_TO_AIR_MISSILE,
-;; 	TDL_UNIT_CAPABILITY_SURFACE_TO_SURFACE_MISSILE,
-;; 	TDL_UNIT_CAPABILITY_SHORT_RANGE_MISSILE_OR_GUN,
-;; 	TDL_UNIT_CAPABILITY_HELICOPTER,
-;; 	TDL_UNIT_CAPABILITY_ASW_MISSILE,
-;; 	TDL_UNIT_CAPABILITY_DEPTH_CHARGE_BOMB,
-;; 	TDL_UNIT_CAPABILITY_TORPEDO,
-;; 	TDL_UNIT_CAPABILITY_STOL
-;; };
-
-;; enum _ENUM_TDL_DEPTH_HEIGHT_SOURCE
-;; {
-;; 	TDL_DEPTH_HEIGHT_SOURCE_NO_STATEMENT = 0,
-;; 	TDL_DEPTH_HEIGHT_SOURCE_MANUAL,
-;; 	TDL_DEPTH_HEIGHT_SOURCE_SENSOR,
-;; 	TDL_DEPTH_HEIGHT_SOURCE_AIRCRAFT_VOICE_REPORT,
-;; 	TDL_DEPTH_HEIGHT_SOURCE_AIRCRAFT_REPORTED,
-;; 	TDL_DEPTH_HEIGHT_SOURCE_VOICE_REPORT,
-;; 	TDL_DEPTH_HEIGHT_SOURCE_3D_RADAR,
-;; 	TDL_DEPTH_HEIGHT_SOURCE_MODE_C
-;; };
-
-;; enum _ENUM_TDL_TRACK_ALERT
-;; {
-;; 	TDL_TRACK_ALERT_NONE = 0,
-;; 	TDL_TRACK_ALERT_EMERGENCY,
-;; 	TDL_TRACK_ALERT_FORCETELL,
-;; 	TDL_TRACK_ALERT_EMERGENCY_AND_FORCETELL
-;; };
-
-;; enum _ENUM_TDL_MAIN_RATE_FREQUENCY
-;; {
-;; 	TDL_MAIN_RATE_FREQUENCY_NO_STATEMENT = 0,
-;; 	TDL_MAIN_RATE_FREQUENCY_F0_TO_100_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F100_TO_200_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F200_TO_300_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F300_TO_400_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F400_TO_500_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F500_TO_600_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F600_TO_700_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F700_TO_800_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F800_TO_900_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F900_TO_1000_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F1000_TO_1100_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F1100_TO_1200_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F1200_TO_1300_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F1300_TO_1400_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F1400_TO_1500_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F1500_TO_1600_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F1600_TO_1700_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F1700_TO_1800_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F1800_TO_1900_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F1900_TO_2000_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F2000_TO_2100_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F2100_TO_2200_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F2200_TO_2300_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F2300_TO_2400_MHZ,
-;; 	TDL_MAIN_RATE_FREQUENCY_F2400_TO_2500_MHZ
-;; };
-
-;; enum _ENUM_TDL_FREQUENCY_BAND
-;; {
-;;     TDL_FREQUENCY_BAND_NO_STATEMENT = -1 , 
-;; 	TDL_FREQUENCY_BAND_A = 0,
-;; 	TDL_FREQUENCY_BAND_B,
-;; 	TDL_FREQUENCY_BAND_C,
-;; 	TDL_FREQUENCY_BAND_D,
-;; 	TDL_FREQUENCY_BAND_E,
-;; 	TDL_FREQUENCY_BAND_F,
-;; 	TDL_FREQUENCY_BAND_G,
-;; 	TDL_FREQUENCY_BAND_H,
-;; 	TDL_FREQUENCY_BAND_I,
-;; 	TDL_FREQUENCY_BAND_J,
-;; 	TDL_FREQUENCY_BAND_K,
-;; 	TDL_FREQUENCY_BAND_L,
-;; 	TDL_FREQUENCY_BAND_M
-;; };
-
-;; enum _ENUM_TDL_AIR_MISSION
-;; {
-;; 	TDL_AIR_MISSION_NO_STATEMENT = 0,
-;; 	TDL_AIR_MISSION_AIRBORNE_EARLY_WARNING,
-;; 	TDL_AIR_MISSION_AIR_CONTROLLER,
-;; 	TDL_AIR_MISSION_ANTI_SUBMARINE_WARFARE,
-;; 	TDL_AIR_MISSION_COMBAT_AIR_SUPPORT,
-;; 	TDL_AIR_MISSION_CLOSE_AIR_SUPPORT,
-;; 	TDL_AIR_MISSION_DECK_LAUNCH_CAP_CONTROL,
-;; 	TDL_AIR_MISSION_ELECTRONIC_WARFARE,
-;; 	TDL_AIR_MISSION_EXERCISE,
-;; 	TDL_AIR_MISSION_FRIEND_SIMULATING_A_HOSTILE,
-;; 	TDL_AIR_MISSION_JAMMER,
-;; 	TDL_AIR_MISSION_RECONNAISSANCE,
-;; 	TDL_AIR_MISSION_RESCUE_CAP,
-;; 	TDL_AIR_MISSION_SEARCH_RESCUE,
-;; 	TDL_AIR_MISSION_SIGNAL_INTELLIGENCE,
-;; 	TDL_AIR_MISSION_SPECIAL_MISSION,
-;; 	TDL_AIR_MISSION_STRIKE,
-;; 	TDL_AIR_MISSION_ANTI_SURFACE_CAP
-;; };
-
-;; enum _ENUM_TDL_ASW_CLASS 
-;; {
-;; 	TDL_ASW_CLASS_NO_STATEMENT = 0,
-;; 	TDL_ASW_CLASS_POSSIBLE_SUBMARINE_ONE,
-;; 	TDL_ASW_CLASS_POSSIBLE_SUBMARINE_TWO,
-;; 	TDL_ASW_CLASS_POSSIBLE_SUBMARINE_THREE,
-;; 	TDL_ASW_CLASS_POSSIBLE_SUBMARINE_FOUR,
-;; 	TDL_ASW_CLASS_PROBABLE_SUBMARINE,
-;; 	TDL_ASW_CLASS_CERTAIN_SUBMARINE,
-;; 	TDL_ASW_CLASS_NON_SUBMARINE,
-;; 	TDL_ASW_CLASS_ACOUSTIC_POSITIVE,
-;; 	TDL_ASW_CLASS_TORPEDO
-;; };
-
-;; enum _ENUM_TDL_POINTER_KIND
-;; {
-;; 	TDL_POINTER_KIND_POINTER = 0, 
-;; 	TDL_POINTER_KIND_TRAINING_TRACK 
-;; };
-
-;; enum _ENUM_TDL_LINK11_OPERATOR_POSITION
-;; {
-;;     TDL_LINK11_OPERATOR_POSITION_WEAPON_COORDINATOR          ,
-;;     TDL_LINK11_OPERATOR_POSITION_TRACKING_OPERATOR           ,
-;;     TDL_LINK11_OPERATOR_POSITION_EW_SUPERVISOR               ,
-;;     TDL_LINK11_OPERATOR_POSITION_SPECIAL_PROCESSING_OPERATOR 
-;; };
-
-;; enum _ENUM_TDL_LINK11_ASW_CLASS_AMPLICATION{                   
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_NO_STATEMENT             ,  
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_SUB_PROPUSION_UNKNOWN    ,                 
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_SUB_PROPUSION_KNUCLEAR   ,                 
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_SUB_PROPUSION_DISEL      ,                 
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_TYPE_I_NUCLEAR           ,                
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_TYPE_II_NUCLEAR          ,                
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_TYPE_III_NUCLEAR         ,                
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_TYPE_IV_NUCLEAR          ,                
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_TYPE_V_NUCLEAR           ,                
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_TYPE_I_DIESEL            ,                
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_TYPE_II_DIESEL           ,                
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_TYPE_III_DIESEL          ,                
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_SURFACE                  ,  
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_TORPEDO                  ,  
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_MASS                     ,  ;; 131017 dha.jung DECOY -> MASS 변경
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_FISH_MARINE              ,  
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_SURFACE_MILITARY         ,  
-;; 	TDL_LINK11_ASW_CLASS_AMPLICATION_SURFACE_NON_MILITARY        
-;; } ; 
-
-;; enum _ENUM_TDL_LINK11_EW_MISSION_AIR {                                   
-;; 	TDL_LINK11_EW_MISSION_AIR_NO_STATEMENT_AIR_MISSION,
-;; 	TDL_LINK11_EW_MISSION_AIR_CAP,
-;; 	TDL_LINK11_EW_MISSION_AIR_CAS,
-;; 	TDL_LINK11_EW_MISSION_AIR_INTERDICTION,
-;; 	TDL_LINK11_EW_MISSION_AIR_RECCE,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIRLIFT,
-;; 	TDL_LINK11_EW_MISSION_AIR_OCEAN_PATROL,
-;; 	TDL_LINK11_EW_MISSION_AIR_ACP,
-;; 	TDL_LINK11_EW_MISSION_AIR_AEW_AIR_MISSION,
-;; 	TDL_LINK11_EW_MISSION_AIR_ECM,
-;; 	TDL_LINK11_EW_MISSION_AIR_ESM,
-;; 	TDL_LINK11_EW_MISSION_AIR_REFUEL,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIRBORNE,
-;; 	TDL_LINK11_EW_MISSION_AIR_ASSAULT,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_ASSAULT,
-;; 	TDL_LINK11_EW_MISSION_AIR_ASW_AIR_MISSION,
-;; 	TDL_LINK11_EW_MISSION_AIR_SAR,
-;; 	TDL_LINK11_EW_MISSION_AIR_MEDEVAC,
-;; 	TDL_LINK11_EW_MISSION_AIR_MINE_LAYING,
-;; 	TDL_LINK11_EW_MISSION_AIR_MINE_SWEEPING,
-;; 	TDL_LINK11_EW_MISSION_AIR_ANTI_SHIP,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_51                                =51,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_52,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_53,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_54,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_55,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_56,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_57,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_58,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_59,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_60,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_61,
-;; 	TDL_LINK11_EW_MISSION_AIR_AIR_TDB_62,
-;; 	TDL_LINK11_EW_MISSION_AIR_RESET_TO_NO_STATEMENT
-;; } ; 
-
-;; enum _ENUM_TDL_LINK11_EW_MISSION_SURFACE {
-;; 	TDL_LINK11_EW_MISSION_SURFACE_NO_STATEMENT,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_ANTI_AIR,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_ANTI_WARFARE,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_ANTI_SURFACE,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_ASW,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_STRIKE,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_AMPHIBIOUS,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_MINE,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_ELECTRONIC,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_NON_COMBATANT,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SPECIAL,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_51                        =51,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_52,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_53,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_54,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_55,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_56,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_57,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_58,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_59,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_60,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_61,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_SURFACE_TDB_62,
-;; 	TDL_LINK11_EW_MISSION_SURFACE_RESET_TO_NO_STATEMENT
-;; } ; 
-
-;; enum _ENUM_TDL_LINK11_EW_MISSION_SUBSURFACE {
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_NO_STATEMENT,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_STRIKE,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_ASW,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_ANTI_SURFACE,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_AMPHIBIOUS,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_MINE,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SPECIAL,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_ELECTRONIC,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_NON_COMBATANT,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_51                  =51,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_52,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_53,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_54,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_55,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_56,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_57,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_58,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_59,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_60,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_61,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_SUBSURFACE_TDB_62,
-;; 	TDL_LINK11_EW_MISSION_SUBSURFACE_RESET_TO_NO_STATEMENT                 
-;; } ;                                                               
-
-;; enum _ENUM_TDL_LINK11_EW_MISSION_LAND {
-;; 	TDL_LINK11_EW_MISSION_LAND_NO_STATEMENT,
-;; 	TDL_LINK11_EW_MISSION_LAND_RESET_TO_NO_STATEMENT                    =63
-;; } ;  
-
-
-;; enum _ENUM_TDL_LINK11_EW_MISSION_MISSILE {
-;; 	TDL_LINK11_EW_MISSION_MISSILE_NO_STATEMENT,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_ANTI_AIR,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_ANTI_SURFACE,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_ASW,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_STRIKE,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_NON_COMBATANT,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_51                        =51,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_52,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_53,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_54,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_55,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_56,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_57,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_58,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_59,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_60,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_61,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_MISSILE_TDB_62,
-;; 	TDL_LINK11_EW_MISSION_MISSILE_RESET_TO_NO_STATEMENT
-;; } ; 
-
-;; enum _ENUM_TDL_LINK11_EW_GENERAL_AIR {
-;; 	TDL_LINK11_EW_GENERAL_AIR_NO_STATEMENT,
-;; 	TDL_LINK11_EW_GENERAL_AIR_INTERCEPTOR,
-;; 	TDL_LINK11_EW_GENERAL_AIR_BOMBER_ATTACK,
-;; 	TDL_LINK11_EW_GENERAL_AIR_BOMBER,
-;; 	TDL_LINK11_EW_GENERAL_AIR_HELO,
-;; 	TDL_LINK11_EW_GENERAL_AIR_ATTACK_HELO,
-;; 	TDL_LINK11_EW_GENERAL_AIR_DRONE,
-;; 	TDL_LINK11_EW_GENERAL_AIR_SUPPORT,
-;; 	TDL_LINK11_EW_GENERAL_AIR_CIVIL,
-;; 	TDL_LINK11_EW_GENERAL_AIR_PATROL,
-;; 	TDL_LINK11_EW_GENERAL_AIR_AEW,
-;; 	TDL_LINK11_EW_GENERAL_AIR_UNDEF_11_TYPE,
-;; 	TDL_LINK11_EW_GENERAL_AIR_UNDEF_12_TYPE,
-;; 	TDL_LINK11_EW_GENERAL_AIR_UNDEF_13_TYPE,
-;; 	TDL_LINK11_EW_GENERAL_AIR_OTHER                                     =14,
-;; 	TDL_LINK11_EW_GENERAL_AIR_RESET_TO_NO_STATEMENT
-;; } ; 
-
-
-;; enum _ENUM_TDL_LINK11_EW_GENERAL_SURFACE {
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_NO_STATEMENT,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_AIRCRAFT_SEC_SURF_AMPL_CARRIER,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_SEC_SURF_AMPL_DESTROYER,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_CRUISER,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_FRIGATE,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_PATROL_SURFACE_GENERAL,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_MINE_WARFARE,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_PRI_SURF_AMPL_AMPHIBIOUS,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_SUPPORT,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_TANKER,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_SEC_SURF_AMPL_FISHING_BOAT,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_SEC_SURF_AMPL_MERCHANT,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_UNDEF_12_TYPE, 
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_UNDEF_13_TYPE, 
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_OTHER                                 =14,
-;; 	TDL_LINK11_EW_GENERAL_SURFACE_RESET_TO_NO_STATEMENT
-;; } ; 
-
-;; enum _ENUM_TDL_LINK11_EW_GENERAL_SUBSURFACE {
-;; 	TDL_LINK11_EW_GENERAL_SUBSURFACE_NO_STATEMENT,
-;; 	TDL_LINK11_EW_GENERAL_SUBSURFACE_ATTACK,
-;; 	TDL_LINK11_EW_GENERAL_SUBSURFACE_CRUISE_MISSILE_LAUNCHER,
-;; 	TDL_LINK11_EW_GENERAL_SUBSURFACE_BALLISTIC_MISSILE_LAUNCHER,   ;;  was 'undef_4'
-;; 	TDL_LINK11_EW_GENERAL_SUBSURFACE_NUCLEAR_SUB,                  ;;  was 'undef_5'
-;; 	TDL_LINK11_EW_GENERAL_SUBSURFACE_DIESEL_SUB,                   ;;  was 'undef_6'
-;; 	TDL_LINK11_EW_GENERAL_SUBSURFACE_OTHER_KOREA_SUB,
-;; 	TDL_LINK11_EW_GENERAL_SUBSURFACE_OTHER                            =14,
-;; 	TDL_LINK11_EW_GENERAL_SUBSURFACE_RESET_TO_NO_STATEMENT
-;; } ; 
-
-;; enum _ENUM_TDL_LINK11_EW_GENERAL_LAND {
-;; 	TDL_LINK11_EW_GENERAL_LAND_NO_STATEMENT,
-;; 	TDL_LINK11_EW_GENERAL_LAND_SAM_SITE,
-;; 	TDL_LINK11_EW_GENERAL_LAND_AAA_SITE,
-;; 	TDL_LINK11_EW_GENERAL_LAND_GCI_SITE,
-;; 	TDL_LINK11_EW_GENERAL_LAND_ECM_SITE,
-;; 	TDL_LINK11_EW_GENERAL_LAND_AIR_BASE,
-;; 	TDL_LINK11_EW_GENERAL_LAND_TRAP,
-;; 	TDL_LINK11_EW_GENERAL_LAND_DUMMY,
-;; 	TDL_LINK11_EW_GENERAL_LAND_COMMAND_CENTER,
-;; 	TDL_LINK11_EW_GENERAL_LAND_SSM_SITE,
-;; 	TDL_LINK11_EW_GENERAL_LAND_POINT_TARGET,
-;; 	TDL_LINK11_EW_GENERAL_LAND_FIELD_ARTILLERY_SITE,
-;; 	TDL_LINK11_EW_GENERAL_LAND_TROOP_CONCENTRATION,
-;; 	TDL_LINK11_EW_GENERAL_LAND_CONVOY,
-;; 	TDL_LINK11_EW_GENERAL_LAND_OTHER,
-;; 	TDL_LINK11_EW_GENERAL_LAND_RESET_TO_NO_STATEMENT
-;; } ; 
-
-;; enum _ENUM_TDL_LINK11_EW_GENERAL_MISSILE {
-;; 	TDL_LINK11_EW_GENERAL_MISSILE_NO_STATEMENT,
-;; 	TDL_LINK11_EW_GENERAL_MISSILE_ANTI_AIR,
-;; 	TDL_LINK11_EW_GENERAL_MISSILE_ANTI_SURF,
-;; 	TDL_LINK11_EW_GENERAL_MISSILE_ANTI_SUB,
-;; 	TDL_LINK11_EW_GENERAL_MISSILE_OTHER                                 =14,
-;; 	TDL_LINK11_EW_GENERAL_MISSILE_RESET_TO_NO_STATEMENT
-;; } ; 
-
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_INTERCEPTOR {
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_NO_STATEMENT                     = 0   ,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_1                        = 100 ,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_2,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_3,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_4,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_5,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_6,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_7,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_8,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_9,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_10,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_11,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_12,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_13,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_14,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_15,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_16,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_17,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_18,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_19,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_20,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_21,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_22,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_23,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_24,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_25,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_26,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_27,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_28,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_29,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_30,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_INT_FTR_31,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_MIG_15_17,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_MIG_19,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_MIG_21,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_MIG_23,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_MIG_25,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_SU_7,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_SU_15,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_YAK_28P,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_TU_128,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_F4,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_F5,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_F14,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_F15,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_F16,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_F104,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_MIRAGE_III,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_MIRAGE_IV,
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_OTHER                            = 62 ,                   
-;; 	TDL_LINK11_EW_SPECIFIC_INTERCEPTOR_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK {
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_NO_STATEMENT                   = 0 ,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_1                       = 200 ,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_2,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_3,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_4,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_5,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_6,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_7,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_8,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_9,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_10,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_11,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_12,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_13,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_14,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_15,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_16,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_17,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_18,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_19,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_20,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_21,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_22,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_23,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_24,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_25,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_26,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_27,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_28,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_29,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_30,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_FTR_BA_31,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_MIG_15_17,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_MIG_19,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_MBCA,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_MIG_23,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_KFIR,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_SU_7,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_SU_17,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_SU_19,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_A7,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_F4,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_F5,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_A4,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_TA_28,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_F16,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_F104,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_A1,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_A37,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_OTHER                          = 62,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_ATTACK_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_BOMBER {
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_NO_STATEMENT                          = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_1                                 = 300 , 
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_2,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_3,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_4,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_5,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_6,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_7,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_8,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_9,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_10,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_11,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_12,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_13,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_14,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_15,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_16,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_17,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_18,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_19,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_20,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_21,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_22,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_23,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_24,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_25,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_26,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_27,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_28,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_29,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_30,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BMB_31,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_TU_95,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_M_4,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_TU_16,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_TU_22,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_IL_28,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_YAK_28,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_BACK_FIRE,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_B_52,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_FB_111,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_OTHER                                 =62,
-;; 	TDL_LINK11_EW_SPECIFIC_BOMBER_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_HELO {
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_NO_STATEMENT                            = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_1                                    = 400 , 
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_2,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_3,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_4,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_5,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_6,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_7,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_8,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_9,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_10,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_11,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_12,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_13,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_14,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_15,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_16,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_17,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_18,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_19,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_20,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_21,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_22,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_23,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_24,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_25,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_26,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_27,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_28,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_29,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_30,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HL_31,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_MH_4,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_MI_6,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_MI_10,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HH_53,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_HH_3,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_UH_1,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_OH_58,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_OTHER                                   =62,
-;; 	TDL_LINK11_EW_SPECIFIC_HELO_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_ATTACK_HELO {
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_NO_STATEMENT                     = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_1                             = 500 , 
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_2,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_3,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_4,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_5,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_6,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_7,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_8,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_9,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_10,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_11,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_12,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_13,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_14,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_15,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_16,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_17,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_18,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_19,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_20,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_21,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_22,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_23,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_24,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_25,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_26,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_27,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_28,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_29,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_30,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_31,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_KA_25,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_MI_24,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_AH_1_1,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_OTHER                            =62,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_HELO_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_DRONE {
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_NO_STATEMENT                           = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_1                                  = 600 ,  
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_2,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_3,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_4,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_5,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_6,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_7,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_8,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_9,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_10,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_11,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_12,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_13,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_14,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_15,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_16,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_17,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_18,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_19,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_20,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_21,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_22,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_23,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_24,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_25,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_26,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_27,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_28,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_29,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_30,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_D_R_31,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_OTHER                                  =62,
-;; 	TDL_LINK11_EW_SPECIFIC_DRONE_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT {
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_NO_STATEMENT                     = 0 ,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_1                            = 700 , 
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_2,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_3,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_4,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_5,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_6,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_7,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_8,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_9,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_10,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_11,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_12,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_13,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_14,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_15,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_16,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_17,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_18,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_19,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_20,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_21,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_22,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_23,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_24,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_25,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_26,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_27,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_28,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_29,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_30,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_SUP_31,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_TU_95,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_AN_12,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_TU_16,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_IL_18,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_BE_12,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_B_707,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_BE_6,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_YAK_27,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_TU_28,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_MOSS,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_C_7,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_C_9,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_C_119,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_C_123,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_C_130,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_IL_38,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_TRAINER,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_OTHER                            =62,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_SUPPORT_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_CIVIL {
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_NO_STATEMENT                           = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_1                                  = 800 , 
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_2,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_3,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_4,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_5,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_6,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_7,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_8,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_9,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_10,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_11,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_12,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_13,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_14,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_15,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_16,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_17,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_18,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_19,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_20,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_21,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_22,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_23,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_24,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_25,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_26,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_27,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_28,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_29,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_30,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CIV_31,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_TU_40,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_TU_104,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_TU_144,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_H_1B,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_TRIDENT,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_B_707,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_B_727,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_B_737,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_B_747,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_DC_8,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_DC_10,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_L_1011,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_CONCORDE,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_OTHER                                  =62,
-;; 	TDL_LINK11_EW_SPECIFIC_CIVIL_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_AIR_PATROL {
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_NO_STATEMENT                      = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_1                            = 900 , 
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_2,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_3,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_4,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_5,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_6,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_7,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_8,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_9,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_10,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_11,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_12,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_13,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_14,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_15,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_16,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_17,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_18,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_19,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_20,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_21,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_22,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_23,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_24,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_25,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_26,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_27,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_28,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_29,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_30,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_PTRL_31,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_OTHER                             =62,
-;; 	TDL_LINK11_EW_SPECIFIC_AIR_PATROL_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_AEW {
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_NO_STATEMENT                             = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_1                                    = 1000 , 
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_2,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_3,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_4,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_5,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_6,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_7,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_8,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_9,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_10,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_11,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_12,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_13,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_14,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_15,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_16,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_17,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_18,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_19,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_20,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_21,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_22,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_23,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_24,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_25,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_26,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_27,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_28,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_29,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_30,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_AEW_31,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_OTHER                                    =62,
-;; 	TDL_LINK11_EW_SPECIFIC_AEW_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_OTHER {
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_NO_STATEMENT                           = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_1                                  = 1100 , 
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_2,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_3,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_4,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_5,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_6,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_7,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_8,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_9,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_10,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_11,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_12,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_13,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_14,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_15,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_16,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_17,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_18,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_19,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_20,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_21,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_22,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_23,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_24,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_25,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_26,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_27,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_28,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_29,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_30,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_31,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_OTH_OTHER                              =62,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER {
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_NO_STATEMENT  = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_1         = 1200 , 
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_CVX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_OTHER         =62,
-;; 	TDL_LINK11_EW_SPECIFIC_AIRCRAFT_SEC_SURF_AMPL_CARRIER_RESET
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER {
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_NO_STATEMENT         = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_1                = 1300 , 
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_DDX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_OTHER                =62,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_DESTROYER_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_CRUISER {
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_NO_STATEMENT                         = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_1                                = 1400 , 
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_CGX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_OTHER                                =62,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISER_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_FRIGATE {
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_NO_STATEMENT                         = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_1                                = 1500 , 
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_FFX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_OTHER                                =62,
-;; 	TDL_LINK11_EW_SPECIFIC_FRIGATE_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL {
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_NO_STATEMENT                  = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_1                         = 1600 , 
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_PPX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_OTHER                         =62,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_PATROL_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_MINE_WARFARE {
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_NO_STATEMENT                    = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_1                           = 1700 , 
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_MWX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_OTHER_OTH_MINE_                 =62,
-;; 	TDL_LINK11_EW_SPECIFIC_MINE_WARFARE_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS {
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_NO_STATEMENT        = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_1               = 1800 , 
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_AMX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_OTHER               =62,
-;; 	TDL_LINK11_EW_SPECIFIC_PRI_SURF_AMPL_AMPHIBIOUS_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT {
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_NO_STATEMENT                 = 0 ,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_1                        = 1900 , 
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_AUX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_OTHER_OTH_SURFA              =62,
-;; 	TDL_LINK11_EW_SPECIFIC_SURFACE_SUPPORT_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_TANKER {
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_NO_STATEMENT                          = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_1                                 = 2000 , 
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_AOX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_OTHER_TANKER_SPECIFIC                 =62,
-;; 	TDL_LINK11_EW_SPECIFIC_TANKER_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT {
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_NO_STATEMENT      = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_1             = 2100 , 
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_2,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_3,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_4,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_5,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_6,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_7,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_8,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_9,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_10,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_11,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_12,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_13,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_14,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_15,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_16,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_17,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_18,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_19,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_20,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_21,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_22,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_23,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_24,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_25,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_26,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_27,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_28,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_29,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_30,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_FSH_31,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_OTHER             =62,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_FISHING_BOAT_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT {
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_NO_STATEMENT          = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_1                 = 2200 , 
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_2,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_3,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_4,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_5,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_6,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_7,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_8,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_9,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_10,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_11,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_12,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_13,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_14,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_15,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_16,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_17,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_18,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_19,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_20,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_21,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_22,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_23,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_24,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_25,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_26,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_27,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_28,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_29,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_30,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_MER_31,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_OTHER                 =62,
-;; 	TDL_LINK11_EW_SPECIFIC_SEC_SURF_AMPL_MERCHANT_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_ATTACK {
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_NO_STATEMENT                          = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_1                                 = 2300 , 
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_SSX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_OTHER                                 =62,
-;; 	TDL_LINK11_EW_SPECIFIC_ATTACK_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_CRUISE_MSL {
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_NO_STATEMENT                      = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_1                            = 2400 , 
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_SSGX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_OTHER                             =62,
-;; 	TDL_LINK11_EW_SPECIFIC_CRUISE_MSL_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL {
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_NO_STATEMENT                   = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_1                         = 2500 , 
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_2,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_3,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_4,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_5,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_6,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_7,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_8,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_9,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_10,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_11,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_12,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_13,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_14,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_15,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_16,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_17,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_18,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_19,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_20,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_21,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_22,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_23,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_24,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_25,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_26,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_27,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_28,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_29,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_30,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_SSBX_31,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_OTHER                          =62,
-;; 	TDL_LINK11_EW_SPECIFIC_BALLISTIC_MSL_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB {
-;; 	TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB_NO_STATEMENT                     = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB_NUCLEAR_SUBMARINE                = 2600 , 
-;; 	TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB_NUCLEAR_SUBMARINE_1,
-;; 	TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB_NUCLEAR_SUBMARINE_2,
-;; 	TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB_NUCLEAR_SUBMARINE_3,
-;; 	TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB_NUCLEAR_SUBMARINE_4,
-;; 	TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB_NUCLEAR_SUBMARINE_5,
-;; 	TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB_NUCLEAR_SUBMARINE_6,
-;; 	TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB_NUCLEAR_SUBMARINE_7,
-;; 	TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB_OTHER                            =62,
-;; 	TDL_LINK11_EW_SPECIFIC_NUCLEAR_SUB_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_DIESEL_SUB {
-;; 	TDL_LINK11_EW_SPECIFIC_DIESEL_SUB_NO_STATEMENT                      = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_DIESEL_SUB_DIESEL_SUBMARINE                  = 2700 , 
-;; 	TDL_LINK11_EW_SPECIFIC_DIESEL_SUB_DIESEL_SUBMARINE_1,
-;; 	TDL_LINK11_EW_SPECIFIC_DIESEL_SUB_DIESEL_SUBMARINE_2,
-;; 	TDL_LINK11_EW_SPECIFIC_DIESEL_SUB_DIESEL_SUBMARINE_3,
-;; 	TDL_LINK11_EW_SPECIFIC_DIESEL_SUB_OTHER                             =62,
-;; 	TDL_LINK11_EW_SPECIFIC_DIESEL_SUB_RESET_TO_NO_STATEMENT
-;; };
-
-;; enum _ENUM_TDL_LINK11_EW_SPECIFIC_OTHER_KOREA_SUB {
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_KOREA_SUB_NO_STATEMENT                 = 0 , 
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_KOREA_SUB_PROPULSION_UNKNOWN_SUBMARINE = 2900 ,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_KOREA_SUB_SEC_SURF_AMPL_SURFACED_SUBMARINE,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_KOREA_SUB_TORPEDO,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_KOREA_SUB_MASS,						;; 131017 dha.jung DECOY -> MASS 변경
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_KOREA_SUB_MINE_OTHER_KOREA_SUB_SPECIFIC,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_KOREA_SUB_FISH_GROUP,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_KOREA_SUB_KNUCKLE,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_KOREA_SUB_WRECK,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_KOREA                                  =62,
-;; 	TDL_LINK11_EW_SPECIFIC_OTHER_KOREA_SUB_RESET_TO_NO_STATEMENT
-;; };
- 
-
-;; enum _ENUM_TDL_ISDL_OPERATOR_POSITION
-;; {
-;;     TDL_ISDL_OPERATOR_POSITION_INTEGRATED_SURVEILLANCE = 0x0001,
-;;     TDL_ISDL_OPERATOR_POSITION_AREA_SURVEILLANCE       = 0X0002,
-;;     TDL_ISDL_OPERATOR_POSITION_AIR_SURVEILLANCE        = 0X0004,
-;;     TDL_ISDL_OPERATOR_POSITION_SYSTEM_MON_LINK_CTRL    = 0X0008,
-;;     TDL_ISDL_OPERATOR_POSITION_DATA_INPUT              = 0X0010
-;; };
-
-;; enum _ENUM_TDL_ISDL_ASW_POINT {                            ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류           
-;; 	TDL_ISDL_ASW_POINT_NO_STATEMENT                        , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_SINKER                              , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_BRIEF_CONTACT                       , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_ASW_SEARCH_CENTRE                   , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_SONOBUOY_PATTERN_REFERENCE_POINT    , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_ASW_STATION                         , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_CHARTED_WRECK                       , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_ASW_SUBSURFACE_STATION              , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_SONOBUOY_REFERENCE_CENTER           , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_BOTTOMED_NON_SUBMARINE              , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_FIX                                 , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_ESTIMATED_POSITION                  , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_NOTACK_AREA                         , ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; 	TDL_ISDL_ASW_POINT_FRIENDLY_WEAPON_DANGER_AREA           ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-;; } ;                                                        ;;!!!ticket:1643 20110201 김동일 | ASW POINT 표적 종류 
-
-
-;; enum _ENUM_LINK11_INFO_KIND
-;; {
-;; 	LINK11_INFO_KIND_ALL = 1,
-;; 	LINK11_INFO_KIND_TRACK_ADD_INFO,
-;; 	LINK11_INFO_KIND_ASSOCIATION,			;;표적연관목록
-;; 	LINK11_INFO_KIND_LOOPTEST,				;;루프테스트 정보
-;; 	LINK11_INFO_KIND_OWN_WEAPON_TX_STATUS,	;;자함 무장상태 정보
-;; 	LINK11_INFO_KIND_ENG_STATUS_TX_LIST,	;;교전상태 송신목록
-;; 	LINK11_INFO_KIND_ENG_STATUS_RX_LIST,	;;교전상태 수신목록
-;; 	LINK11_INFO_KIND_ENG_STATUS_ALL_LIST,	;;교전상태 송/수신목록
-;; 	LINK11_INFO_KIND_WEAPON_STATUS_TX_LIST,	;;무장상태 송신목록
-;; 	LINK11_INFO_KIND_WEAPON_STATUS_RX_LIST,	;;무장상태 수신목록
-;; 	LINK11_INFO_KIND_WEAPON_STATUS_ALL_LIST,;;무장상태 송/수신목록
-;; 	LINK11_INFO_KIND_MISSION_STATUS_TX_LIST,    ;;임무상태 송신							;; 091028 김동일 선임 추가
-;; 	LINK11_INFO_KIND_MISSION_STATUS_RX_LIST,    ;;임무상태 수신목록						;; 091028 김동일 선임 추가
-;; 	LINK11_INFO_KIND_MISSION_STATUS_ALL_LIST,   ;;임무상태 송/수신목록					;; 091028 김동일 선임 추가
-;; 	LINK11_INFO_KIND_CMD_TX_LIST,			;;송신명령 목록
-;; 	LINK11_INFO_KIND_CMD_RX_LIST,			;;수신명령 목록
-;; 	LINK11_INFO_KIND_CMD_ALL_LIST,			;;송/수신명령 목록
-;; 	LINK11_INFO_KIND_CMD_LINE_LIST,          ;;교전라인 정보								;; 091028 김동일 선임 추가
-;; 	LINK11_INFO_KIND_MAX_RX_COUNT,             ;;동시연동시 최대 수신표적 설정			;; 100329 김동일 선임 추가
-;; 	LINK11_INFO_KIND_AIRCRAFT_CONTROL_TX_LIST,		;;항공기통제 송신 목록				;;Ticket:1599 김동일 선임 추가 110124
-;; 	LINK11_INFO_KIND_AIRCRAFT_CONTROL_RX_LIST,		;;항공기통제 수신 목록				;;Ticket:1599 김동일 선임 추가 110124
-;; 	LINK11_INFO_KIND_AIRCRAFT_CONTROL_ALL_LIST,		;;항공기통제  목록					;;Ticket:1599 김동일 선임 추가 110124
-;; };
-
-;; enum _ENUM_LINK11_DLRP_MODE
-;; {
-;; 	LINK11_DLRP_MODE_TX = 0,
-;; 	LINK11_DLRP_MODE_RX,
-;; 	LINK11_DLRP_MODE_STANDALONE
-;; };
-
-;; enum _ENUM_LINK11_GRIDLOCK_CMD
-;; {
-;; 	LINK11_GRIDLOCK_CMD_STOP = 0,
-;; 	LINK11_GRIDLOCK_CMD_START
-;; };
-
-;; enum _ENUM_LINK11_GRIDLOCK_METHOD
-;; {
-;; 	LINK11_GRIDLOCK_METHOD_TWO_TRACKS_TMSINDEX = 0,		;; 110322 김동일 선임 수정
-;; 	LINK11_GRIDLOCK_METHOD_CORRELATED_TRACK,
-;; 	LINK11_GRIDLOCK_METHOD_OWNSHIP,
-;; 	LINK11_GRIDLOCK_METHOD_TWO_TRACKS_STN,				;; 110322 김동일 선임 추가                  
-;; 	LINK11_GRIDLOCK_METHOD_TWO_TRACKS_NTN				;; 110322 김동일 선임 추가
-;; };
-
-;; enum _ENUM_LINK11_AIR_CTRL_ORDER
-;; {
-;; 	LINK11_AIR_CTRL_ORDER_ASSUME_CTRL = 0,
-;; 	LINK11_AIR_CTRL_ORDER_CONTROL_AND_ENGAGE,
-;; 	LINK11_AIR_CTRL_ORDER_TRANSFER_CTRL,
-;; 	LINK11_AIR_CTRL_ORDER_RETURN_TO_BASE,
-;; 	LINK11_AIR_CTRL_ORDER_LAUNCH_HELI,
-;; 	LINK11_AIR_CTRL_ORDER_REQUEST_CTRL,
-;; 	LINK11_AIR_CTRL_ORDER_CANCEL_HANDOVER,
-;; 	LINK11_AIR_CTRL_ORDER_START_CTRL,
-;; 	LINK11_AIR_CTRL_ORDER_STOP_CTRL
-;; };
-
-;; enum _ENUM_LINK11_AIR_MISSION_STATUS_ORDER											;; 091016 - 김동일 선임 추가
-;; {
-;; 	LINK11_AIR_MISSION_STATUS_ORDER_START_MISSION = 1, ;;LINK11 항공기 임수상태 송신 시작
-;; 	LINK11_AIR_MISSION_STATUS_ORDER_STOP_MISSION  , ;;LINK11 항공기 임수상태 송신 종료
-;; 	LINK11_AIR_MISSION_STATUS_ORDER_START_CTRL    , ;;START CU
-;; 	LINK11_AIR_MISSION_STATUS_ORDER_STOP_CTRL       ;;STOP  CU
-;; };
-
-;; enum _ENUM_LINK11_AIR_CANT_REASON
-;; {
-;; 	LINK11_AIR_CANT_REASON_SYSTEM_LIMIT = 0,
-;; 	LINK11_AIR_CANT_REASON_CTRLED_AC_UNKNOWN,
-;; 	LINK11_AIR_CANT_REASON_CTRLED_AC_UNDER_OWN_CTRL,
-;; 	LINK11_AIR_CANT_REASON_UNIT_NOT_EXERCISING_AC_CAP,
-;; 	LINK11_AIR_CANT_REASON_UNACCEPTABLE_ID,
-;; 	LINK11_AIR_CANT_REASON_ADDRESSEE_INACTIVE,
-;; 	LINK11_AIR_CANT_REASON_NO_MACH_RECEIPT_RX_BY_FORW_UNIT
-;; };
-
-;; enum _ENUM_LINK11_AIR_CTRL_ID
-;; {
-;; 	LINK11_AIR_CTRL_ID_AIR_CTRL_ORDER = 0,
-;; 	LINK11_AIR_CTRL_ID_ACKN_AIR_CTRL_ORDER,
-;; 	LINK11_AIR_CTRL_ID_CONTROLLING_UNIT_COMMAND,
-
-;; 	LINK11_AIR_CTRL_ID_DLP_REPLY
-;; };
-
-;; enum _ENUM_LINK11_AIRCRAFT_ID
-;; {
-;; 	LINK11_AIRCRAFT_ID_NONE = 0,
-;; 	LINK11_AIRCRAFT_ID_F4,
-;; 	LINK11_AIRCRAFT_ID_F8,
-;; 	LINK11_AIRCRAFT_ID_F14,
-;; 	LINK11_AIRCRAFT_ID_F15,
-;; 	LINK11_AIRCRAFT_ID_F101,
-;; 	LINK11_AIRCRAFT_ID_F102,
-;; 	LINK11_AIRCRAFT_ID_F104,
-;; 	LINK11_AIRCRAFT_ID_F106,
-;; 	LINK11_AIRCRAFT_ID_F111,
-;; 	LINK11_AIRCRAFT_ID_A3,
-;; 	LINK11_AIRCRAFT_ID_A4,
-;; 	LINK11_AIRCRAFT_ID_A5,
-;; 	LINK11_AIRCRAFT_ID_A6,
-;; 	LINK11_AIRCRAFT_ID_A7,
-;; 	LINK11_AIRCRAFT_ID_AV8,
-;; 	LINK11_AIRCRAFT_ID_A10,
-;; 	LINK11_AIRCRAFT_ID_F16,
-;; 	LINK11_AIRCRAFT_ID_F18,
-;; 	LINK11_AIRCRAFT_ID_A18,
-;; 	LINK11_AIRCRAFT_ID_F5
-;; };
-
-;; enum _ENUM_LINK11_ASW_AIRCRAFT_ID								;; 100225 김승진 선임 수정
-;; {
-;; 	LINK11_ASW_AIRCRAFT_ID_NO_STATEMENT = 0,
-;; 	LINK11_ASW_AIRCRAFT_ID_MPA,   ;;VP(FW PatrolAircraft) 
-;; 	LINK11_ASW_AIRCRAFT_ID_P_3A_B,
-;; 	LINK11_ASW_AIRCRAFT_ID_P_3C,
-;; 	LINK11_ASW_AIRCRAFT_ID_NIMROD,
-;; 	LINK11_ASW_AIRCRAFT_ID_FIXED_WING_ASW_ASW_AIRCRAFT,
-;; 	LINK11_ASW_AIRCRAFT_ID_S_2E,
-;; 	LINK11_ASW_AIRCRAFT_ID_S_3,
-;; 	LINK11_ASW_AIRCRAFT_ID_ASW_HELO_GENERAL,
-;; 	LINK11_ASW_AIRCRAFT_ID_HELO_DIPPING_SONAR,
-;; 	LINK11_ASW_AIRCRAFT_ID_ASW_HELO_WEAPON_SEC_SURF_AMPL_CARRIER,
-;; 	LINK11_ASW_AIRCRAFT_ID_BREGUET_ATLANTIQUE,
-;; 	LINK11_ASW_AIRCRAFT_ID_AURORA
-;; };
-
-;; enum _ENUM_LINK11_CONFLICT_ID
-;; {
-;; 	LINK11_CONFLICT_ID_CHANGE_DATA = 1, 
-;; 	LINK11_CONFLICT_ID_CATEGORY_DIFFERENCE,
-;; 	LINK11_CONFLICT_ID_IDENTITY_DIFFERENCE,
-;; 	LINK11_CONFLICT_ID_IFF_MODE1_DIFFERENCE,
-;; 	LINK11_CONFLICT_ID_IFF_MODE2_DIFFERENCE,
-;; 	LINK11_CONFLICT_ID_IFF_MODE3_DIFFERENCE,
-;; 	LINK11_CONFLICT_ID_IFF_MODE4_DIFFERENCE,
-
-;; 	LINK11_CONFLICT_ID_CATEGORY_CONFLICT,
-;; 	LINK11_CONFLICT_ID_IDENTITY_CONFLICT,
-;; 	LINK11_CONFLICT_ID_IFF_MODE1_CONFLICT,
-;; 	LINK11_CONFLICT_ID_IFF_MODE2_CONFLICT,
-;; 	LINK11_CONFLICT_ID_IFF_MODE3_CONFLICT,
-;; 	LINK11_CONFLICT_ID_IFF_MODE4_CONFLICT,
-
-;; 	;; NTN CONFLICT 일때 사용합니다. 
-;; 	LINK11_CONFLICT_ID_TRACK_NUMBER_CONFLICT, 
-;; 	LINK11_CONFLICT_ID_IFF_MODE4_DOWNGRADE,
-
-;; 	LINK11_CONFLICT_ID_CATEGORY_DIFFERENCE_REPLY,
-;; 	LINK11_CONFLICT_ID_IDENTITY_DIFFERENCE_REPLY,
-;; 	LINK11_CONFLICT_ID_IFF_MODE1_DIFFERENCE_REPLY,
-;; 	LINK11_CONFLICT_ID_IFF_MODE2_DIFFERENCE_REPLY,
-;; 	LINK11_CONFLICT_ID_IFF_MODE3_DIFFERENCE_REPLY,
-;; 	LINK11_CONFLICT_ID_IFF_MODE4_DIFFERENCE_REPLY,
-
-;; 	LINK11_CONFLICT_ID_CATEGORY_CONFLICT_REPLY,
-;; 	LINK11_CONFLICT_ID_IDENTITY_CONFLICT_REPLY,
-;; 	LINK11_CONFLICT_ID_IFF_MODE1_CONFLICT_REPLY,
-;; 	LINK11_CONFLICT_ID_IFF_MODE2_CONFLICT_REPLY,
-;; 	LINK11_CONFLICT_ID_IFF_MODE3_CONFLICT_REPLY,
-;; 	LINK11_CONFLICT_ID_IFF_MODE4_CONFLICT_REPLY,
-
-;; 	LINK11_CONFLICT_ID_DLP_REPLY
-;; };
-
-;; enum _ENUM_LINK11_LOOP_TEST
-;; {
-;; 	LINK11_LOOP_TEST_NO_STATEMENT = 0,
-;; 	LINK11_LOOP_TEST_TEST_MODE
-;; };
-
-;; enum _ENUM_LINK11_TEST_RUN
-;; {
-;; 	LINK11_TEST_RUN_STOP = 0,
-;; 	LINK11_TEST_RUN_START
-;; };
-
-;; enum _ENUM_LINK11_TEST_RUN_STATUS
-;; {
-;; 	LINK11_TEST_RUN_STATUS_NONE = 0,
-;; 	LINK11_TEST_RUN_STATUS_STOPPED,
-;; 	LINK11_TEST_RUN_STATUS_RUNNING,
-;; 	LINK11_TEST_RUN_STATUS_FINISHED
-;; };
-
-;; enum _ENUM_LINK11_TEST_STOP_REASON
-;; {
-;; 	LINK11_TEST_STOP_REASON_TIME_OUT_OUTPUT = 0,
-;; 	LINK11_TEST_STOP_REASON_TIME_OUT_INPUT,
-;; 	LINK11_TEST_STOP_REASON_TIME_OUT_INTERRUPT,
-;; 	LINK11_TEST_STOP_REASON_WRONG_INTERRUPT_CODE,
-;; 	LINK11_TEST_STOP_REASON_WRONG_NUMBER_OF_INPUT_WORDS,
-;; 	LINK11_TEST_STOP_REASON_DIFFERENT_TEST_WORD,
-;; 	LINK11_TEST_STOP_REASON_STOPPED_BY_OPERATOR
-;; };
-
-;; enum _ENUM_LINK11_WEAPON_PLATFORM
-;; {
-;; 	LINK11_WEAPON_PLATFORM_ANY_PLATFORM = 0,
-;; 	LINK11_WEAPON_PLATFORM_SPECIFIC_PLATFORM
-;; };
-
-;; enum _ENUM_LINK11_AIR_CTRL_WEAPON
-;; {
-;; 	LINK11_AIR_CTRL_WEAPON_NUCLEAR = 0x1,
-;; 	LINK11_AIR_CTRL_WEAPON_REAR_ASPECT = 0x2,
-;; 	LINK11_AIR_CTRL_WEAPON_ALL_ASPECT = 0x4,
-;; 	LINK11_AIR_CTRL_WEAPON_MULTIPLE_INTERCEPT = 0x8
-;; };
-
-;; enum _ENUM_LINK11_CMD
-;; {
-;; 	LINK11_CMD_ACKN_COMMAND = 0,
-;; 	LINK11_CMD_COMMAND,
-;; 	LINK11_CMD_DATA_UPDATE_REQUEST,
-;; 	LINK11_CMD_OWNSHIP_RETRANSMIT,
-;; 	LINK11_CMD_IFF_SIF_DATA_UPDATE_REQ,
-;; 	LINK11_CMD_TRACK_RELATE_COMMAND,
-;; 	LINK11_CMD_IFF_MODE_CLEAR,
-;; 	LINK11_CMD_MANAGEMENT,
-;; 	LINK11_CMD_IFF_SIF_MODE1_CLEAR             ,;;ticket:1513 20110107 김동일 |MODE 변경관련 명령 추가 
-;; 	LINK11_CMD_IFF_SIF_MODE2_CLEAR             ,;;ticket:1513 20110107 김동일 |MODE 변경관련 명령 추가 
-;; 	LINK11_CMD_IFF_SIF_MODE3_CLEAR             ,;;ticket:1513 20110107 김동일 |MODE 변경관련 명령 추가 
-;; 	LINK11_CMD_IFF_SIF_MODE4_CLEAR             ,;;ticket:1513 20110107 김동일 |MODE 변경관련 명령 추가 
-;; 	LINK11_CMD_IFF_SIF_MODE1_MODE2_MODE3_CLEAR ,;;ticket:1513 20110107 김동일 |MODE 변경관련 명령 추가 
-
-;; 	LINK11_CMD_DLP_REPLY
-;; };
-
-;; enum _ENUM_LINK11_CONFLICT_STATE
-;; {
-;; 	LINK11_CONFLICT_STATE_NO_CONFLICT = 0,
-;; 	LINK11_CONFLICT_STATE_CONFLICT,
-;; 	LINK11_CONFLICT_STATE_AUTO_ACCEPTED
-;; };
-
-
-;; enum _ENUM_ISDL_INFO_KIND
-;; {
-;; 	ISDL_INFO_KIND_ALL = 1,
-;; 	ISDL_INFO_KIND_TRACK_ADD_INFO,
-;; 	ISDL_INFO_KIND_ASSOCIATION,				;;표적연관목록
-;; 	ISDL_INFO_KIND_OWN_WEAPON_TX_STATUS,	;;자함 무장상태 정보
-;; 	ISDL_INFO_KIND_ENG_STATUS_TX_LIST,		;;교전상태 송신목록
-;; 	ISDL_INFO_KIND_ENG_STATUS_RX_LIST,		;;교전상태 수신목록
-;; 	ISDL_INFO_KIND_ENG_STATUS_ALL_LIST,		;;교전상태 송/수신목록
-;; 	ISDL_INFO_KIND_WEAPON_STATUS_TX_LIST,	;;무장상태 송신목록
-;; 	ISDL_INFO_KIND_WEAPON_STATUS_RX_LIST,	;;무장상태 수신목록
-;; 	ISDL_INFO_KIND_WEAPON_STATUS_ALL_LIST,	;;무장상태 송/수신목록
-;; 	ISDL_INFO_KIND_CMD_RX_LIST,				;;수신명령 목록
-;; 	ISDL_INFO_KIND_PU_TABLE_CONFIG,			;;PU 리스트 설정
-;; 	ISDL_INFO_KIND_MAX_RX_COUNT             ;;동시연동시 최대 수신표적 설정					;; 100329 김동일 선임 추가
-;; };
-
-;; enum _ENUM_ISDL_AIRSHIP_CTRL_ORDER
-;; {
-;; 	ISDL_AIRSHIP_CTRL_ORDER_NO_STATEMENT = 0,	;; 0
-;; 	ISDL_AIRSHIP_CTRL_ORDER_HANDOVER_SINGLE,	;; 1
-;; 	ISDL_AIRSHIP_CTRL_ORDER_HANDOVER_ENGAGED,	;; 2
-;; 	ISDL_AIRSHIP_CTRL_ORDER_TRANSFER_CTRL,		;; 3
-;; 	ISDL_AIRSHIP_CTRL_ORDER_RTB,				;; 4
-;; 	ISDL_AIRSHIP_CTRL_ORDER_LAUNCH_FIGHTER,		;; 5
-;; 	ISDL_AIRSHIP_CTRL_ORDER_LAUNCH_ASW_HELOS,	;; 6
-;; 	ISDL_AIRSHIP_CTRL_ORDER_REQUEST_FOR_CTRL,	;; 7
-;; 	ISDL_AIRSHIP_CTRL_ORDER_START_CTRL,						;; 091013 김승진 선임 수정
-;;     	ISDL_AIRSHIP_CTRL_ORDER_STOP_CTRL						;; 091013 김승진 선임 수정
-;; };
-
-;; enum _ENUM_ISDL_AIR_CTRL_WEAPON
-;; {
-;; 	ISDL_AIR_CTRL_WEAPON_NO_STATEMENT = 0,
-;; 	ISDL_AIR_CTRL_WEAPON_SAM,
-;; 	ISDL_AIR_CTRL_WEAPON_SSM,
-;; 	ISDL_AIR_CTRL_WEAPON_AIRCRAFT,
-;; 	ISDL_AIR_CTRL_WEAPON_CONVENTIONAL,
-;; 	ISDL_AIR_CTRL_WEAPON_ASW_HELO,
-;; 	ISDL_AIR_CTRL_WEAPON_ASW_MISSILE,
-;; 	ISDL_AIR_CTRL_WEAPON_DEPTH_CHARGE_BOMB,
-;; 	ISDL_AIR_CTRL_WEAPON_TORPEDO,
-;; 	ISDL_AIR_CTRL_WEAPON_ASW_FIXED_WING,
-;; 	ISDL_AIR_CTRL_WEAPON_ASM
-;; };
-
-;; enum _ENUM_ISDL_AIR_CTRL_KIND
-;; {
-;; 	ISDL_AIR_CTRL_KIND_TRANSFER_CTRL_REQ = 0,
-;; 	ISDL_AIR_CTRL_KIND_TRANSFER_CTRL_REQ_REPLY,
-;; 	ISDL_AIR_CTRL_KIND_TRANSFER_CTRL_REQ_DLP_REPLY,
-;; 	ISDL_AIR_CTRL_KIND_SEND_CTRL_INFO
-;; };
-
-;; enum _ENUM_ISDL_AIR_CANT_REASON
-;; {
-;; 	ISDL_AIR_CANT_REASON_SYSTEM_LIMITATION = 0,
-;; 	ISDL_AIR_CANT_REASON_TRACK_NUM_WEAPON_NOT_HELD,
-;; 	ISDL_AIR_CANT_REASON_TRACK_NUM_TARGET_UNDER_OWN_UNIT_CTRL,
-;; 	ISDL_AIR_CANT_REASON_UNIT_NOT_EXERCISING_AIR_CTRL_CAPABILITY,
-;; 	ISDL_AIR_CANT_REASON_UNACCEPTABLE_ID,
-;; 	ISDL_AIR_CANT_REASON_ADDRESSEE_INACTIVE,
-;; 	ISDL_AIR_CANT_REASON_FORWARDING_UNIT_NOT_RECV_MACHINE_RECEIPT,
-;; 	ISDL_AIR_CANT_REASON_TRACK_NUM_WEAPON_NOT_UNDER_CTRL,
-;; };
-
-;; enum _ENUM_ISDL_ASSOC_TYPE
-;; {
-;; 	ISDL_ASSOC_TYPE_NONE = 0,
-;; 	ISDL_ASSOC_TYPE_KNTDS_ON_KINEMATICS_CRITERIA,
-;; 	ISDL_ASSOC_TYPE_KNTDS_ON_EMERGENCY_CRITERIA,
-;; 	ISDL_ASSOC_TYPE_CMS_SSCS_MK7,
-;; 	ISDL_ASSOC_TYPE_TADIL_A,
-;; 	ISDL_ASSOC_TYPE_ISDL
-;; };
-
-;; enum _ENUM_ISDL_ALERT_CONDITION
-;; {
-;; 	ISDL_ALERT_CONDITION_NOSTATEMENT = 0,
-;; 	ISDL_ALERT_CONDITION_WHITE,
-;; 	ISDL_ALERT_CONDITION_YELLOW,
-;; 	ISDL_ALERT_CONDITION_RED
-;; }; 
-
-;; enum _ENUM_ISDL_ASSOCIATION_TYPE
-;; {
-;; 	ISDL_ASSOCIATION_TYPE_KNTDS_ON_KINETICS = 0,
-;; 	ISDL_ASSOCIATION_TYPE_KNTDS_ON_EMERGENCY,
-;; 	ISDL_ASSOCIATION_TYPE_CMS_SSCS_MK7,
-;; 	ISDL_ASSOCIATION_TYPE_TADIL_A,
-;; 	ISDL_ASSOCIATION_TYPE_ISDL
-;; };
-
-;; enum _ENUM_ISDL_CORRELATION_STATUS
-;; {
-;; 	ISDL_CORRELATION_STATUS_DECORRELATE = 0,
-;; 	ISDL_CORRELATION_STATUS_CORRELATE
-;; };
-
-;; enum _ENUM_ISDL_BEARING_ACCURACY
-;; {
-;; 	ISDL_BEARING_ACCURACY_NO_STATEMENT ,;;!!!ticket:1589 20110117 김동일 | bearing accuracy 정의 
-;; 	ISDL_BEARING_ACCURACY_LESSEQ_2     ,;;!!!ticket:1589 20110117 김동일 | bearing accuracy 정의 
-;; 	ISDL_BEARING_ACCURACY_LESSEQ_5     ,;;!!!ticket:1589 20110117 김동일 | bearing accuracy 정의 
-;; 	ISDL_BEARING_ACCURACY_LESSEQ_10    ,;;!!!ticket:1589 20110117 김동일 | bearing accuracy 정의 
-;; 	ISDL_BEARING_ACCURACY_LESSEQ_15    ,;;!!!ticket:1589 20110117 김동일 | bearing accuracy 정의 
-;; 	ISDL_BEARING_ACCURACY_LESSEQ_20    ,;;!!!ticket:1589 20110117 김동일 | bearing accuracy 정의 
-;; 	ISDL_BEARING_ACCURACY_LESSEQ_30    ,;;!!!ticket:1589 20110117 김동일 | bearing accuracy 정의 
-;; 	ISDL_BEARING_ACCURACY_MORE_30      ,;;!!!ticket:1589 20110117 김동일 | bearing accuracy 정의 
-;; };
-
-;; enum _ENUM_SEND_DIRECTION
-;; {
-;; 	SEND_DIRECTION_NO_STATEMENT = 0,
-;; 	SEND_DIRECTION_TX,
-;; 	SEND_DIRECTION_RX,
-;; 	SEND_DIRECTION_TX_RX
-;; };
-
-;; enum _ENUM_TIME_OR_FUEL
-;; {
-;; 	TIME_OR_FUEL_FUEL = 1,
-;; 	TIME_OR_FUEL_TIME
-;; };
-
-;; enum _ENUM_INFO_KIND
-;; {	
-;; 	INFO_KIND_UPDATE = 1,
-;; 	INFO_KIND_DELETE
-;; };
-
-;; enum _ENUM_OPNOTE_RECEIVE_ALL
-;; {	
-;; 	OPNOTE_RECEIVE_ALL_NO = 0,
-;; 	OPNOTE_RECEIVE_ALL_YES
-;; };
-
-;; enum _ENUM_OPNOTE_REPLY
-;; {
-;; 	OPNOTE_REPLY_NO = 0,
-;; 	OPNOTE_REPLY_YES,
-;; 	OPNOTE_REPLY_ROGER,
-;; 	OPNOTE_REPLY_REQUEST_TRANSMISSION
-;; };
-
-;; enum _ENUM_OPNOTE_ORDER
-;; {
-;; 	OPNOTE_ORDER_SEND = 1,
-;; 	OPNOTE_ORDER_DELETE
-;; };
-
-;; enum _ENUM_TEST_STATUS
-;; {
-;; 	TEST_STATUS_STOPPED = 0,
-;; 	TEST_STATUS_RUNNING,
-;; 	TEST_STATUS_FINISHED
-;; };
-
-;; enum _ENUM_TEST_STOP_REASON
-;; {
-;; 	TIME_OUT_OUTPUT = 0,
-;; 	TIME_OUT_INPUT,
-;; 	TIME_OUT_INTERRUPT,
-;; 	WRONG_INTERRUPT_CODE,
-;; 	WRONG_NUMBER_OF_INPUT_WORDS,
-;; 	STOPPED_BY_OPERATOR
-;; };
-
-;; enum _ENUM_TDL_AIR_CTRL_UNIT_STATUS						;; 091201 김승진 선임 - 수정
-;; {
-;;     TDL_AIR_CTRL_UNIT_STATUS_NO_STATEMENT = 0,
-;;     TDL_AIR_CTRL_UNIT_STATUS_OWNSHIP_CTRLED,
-;; 	TDL_AIR_CTRL_UNIT_STATUS_OTHERSHIP_CTRLED,
-;;     TDL_AIR_CTRL_UNIT_STATUS_STARTED_MISSION_STATUS,
-;;     TDL_AIR_CTRL_UNIT_STATUS_RX_CTRL_REQ,
-;;     TDL_AIR_CTRL_UNIT_STATUS_ACCEPT_CTRL_REQ,
-;;     TDL_AIR_CTRL_UNIT_STATUS_TX_CTRL_REQ,
-;;     TDL_AIR_CTRL_UNIT_STATUS_GAVE_CTRL_AUTHORITY
-;; }; 
-
-
-;; enum _ENUM_LINK11_AIRCRAFT_TYPE							;; 091014 김승진 선임 - 추가
-;; {
-;;     LINK11_AIRCRAFT_TYPE_GENERAL = 0,
-;;     LINK11_AIRCRAFT_TYPE_ASW
-;; };
-
-;; enum _ENUM_LINK11_AIR_ROCKET_INVENTORY					;; 091201 김승진 선임 - 추가
-;; {
-;;     LINK11_AIR_ROCKET_INVENTORY_NO_STATEMENT = 0,
-;;     LINK11_AIR_ROCKET_INVENTORY_0,
-;;     LINK11_AIR_ROCKET_INVENTORY_1_8,
-;;     LINK11_AIR_ROCKET_INVENTORY_9
-;; }; 
-
-;; enum _ENUM_LINK11_AIR_ACT_SONO_INVENTORY				;; 091201 김승진 선임 - 추가
-;; {
-;;     LINK11_AIR_ACT_SONO_INVENTORY_NO_STATEMENT = 0,
-;;     LINK11_AIR_ACT_SONO_INVENTORY_0,
-;;     LINK11_AIR_ACT_SONO_INVENTORY_1_4,
-;;     LINK11_AIR_ACT_SONO_INVENTORY_5
-;; }; 
-
-;; enum _ENUM_LINK11_AIR_PASS_SONO_INVENTORY				;; 091201 김승진 선임 - 추가
-;; {
-;;     LINK11_AIR_PASS_SONO_INVENTORY_NO_STATEMENT = 0,
-;;     LINK11_AIR_PASS_SONO_INVENTORY_0,
-;;     LINK11_AIR_PASS_SONO_INVENTORY_1_8,
-;;     LINK11_AIR_PASS_SONO_INVENTORY_9
-;; }; 
-
-;; enum _ENUM_LINK11_ASW_AIRCRAFT_TR ;;Link-11 대잠항공기 Time Remaining			;; 091201 김승진 선임 - 추가
-;; {
-;;     LINK11_ASW_AIRCRAFT_TR_NO_STATEMENT = 0,
-;;     LINK11_ASW_AIRCRAFT_TR_RETURN_TO_BASE,
-;;     LINK11_ASW_AIRCRAFT_TR_ROUTE_TO_STATION,
-;;     LINK11_ASW_AIRCRAFT_TR_MIN_0_15,
-;;     LINK11_ASW_AIRCRAFT_TR_MIN_16_30,
-;;     LINK11_ASW_AIRCRAFT_TR_MIN_31_45,
-;;     LINK11_ASW_AIRCRAFT_TR_MIN_46_HOUR_1,
-;;     LINK11_ASW_AIRCRAFT_TR_HOUR_1_1HALF,
-;;     LINK11_ASW_AIRCRAFT_TR_HOUR_1HALF_2,
-;;     LINK11_ASW_AIRCRAFT_TR_HOUR_2_2HALF,
-;;     LINK11_ASW_AIRCRAFT_TR_HOUR_2HALF_3,
-;;     LINK11_ASW_AIRCRAFT_TR_HOUR_3_4,
-;;     LINK11_ASW_AIRCRAFT_TR_HOUR_4_6,
-;;     LINK11_ASW_AIRCRAFT_TR_HOUR_6_8,
-;;     LINK11_ASW_AIRCRAFT_TR_HOUR_8_10,
-;;     LINK11_ASW_AIRCRAFT_TR_HOUR_LONGER_10
-;; };
-
-;; enum _ENUM_TDL_LINK11_CURRENT_MISSION	;; Link-11 수상표적의 현재임무 정보		;; 100104 김동일 선임 - 추가
-;; {
-;; 	TDL_LINK11_CURRENT_MISSION_NO_STATEMENT = 0,
-;; 	TDL_LINK11_CURRENT_MISSION_ANTI_AIR_WARFARE,
-;; 	TDL_LINK11_CURRENT_MISSION_ANTI_SUBSURFACE_WARFARE,
-;; 	TDL_LINK11_CURRENT_MISSION_NAVAL_GUNFIRE_SUPPORT,
-;; 	TDL_LINK11_CURRENT_MISSION_UNDERWAY_REPLENISHMENT,
-;; 	TDL_LINK11_CURRENT_MISSION_PLANE_GUARD_SAR,
-;; 	TDL_LINK11_CURRENT_MISSION_STRIKE,
-;; 	TDL_LINK11_CURRENT_MISSION_EW,
-;; 	TDL_LINK11_CURRENT_MISSION_AMPHIBIOUS_ASSAULT,
-;; 	TDL_LINK11_CURRENT_MISSION_SHADOWER,
-;; 	TDL_LINK11_CURRENT_MISSION_MARKER,
-;; 	TDL_LINK11_CURRENT_MISSION_INTRUDER,
-;; 	TDL_LINK11_CURRENT_MISSION_ANTI_SURFACE_WARPARE
-;; };
-
-;; enum _ENUM_ISDL_AIRSHIP_CTRL_LINKED_KIND				;; ISDL 항공기/함정 통제 관련	;; 100322 김동일 선임 추가
-;; {
-;; 	ISDL_AIRSHIP_CTRL_LINKED_KIND_NO_STATEMENT = 0, ;; 0
-;; 	ISDL_AIRSHIP_CTRL_LINKED_KIND_NOT_LINKED,  ;; 1
-;; 	ISDL_AIRSHIP_CTRL_LINKED_KIND_PAIRED,   ;; 2
-;; 	ISDL_AIRSHIP_CTRL_LINKED_KIND_ENGAGED  ;; 3
-;; }; 
-
-;; enum _ENUM_LINK11_GRIDLOCK_STATUS						;; 100402 김승진 선임 추가
-;; {
-;; 	LINK11_GRIDLOCK_STATUS_NONE = 0,
-;; 	LINK11_GRIDLOCK_STATUS_ACTIVE,
-;; 	LINK11_GRIDLOCK_STATUS_READY,
-;; 	LINK11_GRIDLOCK_STATUS_ABORT						;; 101213 송영환 수정(Ticket:1353)
-;; };
-
-;; enum _ENUM_TDL_MODECODE_BY_OPERATOR_FLAG ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
-;; {                                        ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
+(define 	TDL_ORDER_WEAPONS_FREE                   0)
+(define 	TDL_ORDER_WEAPONS_TIGHT                  1)
+(define 	TDL_ORDER_ENGAGE                         2)
+(define 	TDL_ORDER_ASSIGN                         3)
+(define 	TDL_ORDER_CEASE_ENGAGE                   4)
+(define 	TDL_ORDER_HOLD_FIRE                      5)
+(define 	TDL_ORDER_CEASE_FIRE                     6)
+(define 	TDL_ORDER_COVER                          7)
+(define 	TDL_ORDER_SALVO_CLEAR                    8)
+(define 	TDL_ORDER_ENGAGE_SPECIFIC                9)
+(define 	TDL_ORDER_CEASE_ENGAGE_SPECIFIC         10)
+(define 	TDL_ORDER_PROCEED_TO_POINT              11)
+(define 	TDL_ORDER_CEASE_PROCEED_TO_POINT        12)
+(define 	TDL_ORDER_PAIRING                       13)
+(define 	TDL_ORDER_ASSOCIATION                   14)
+(define 	TDL_ORDER_CORRELATION                   15)
+(define 	TDL_ORDER_TERMINATE_PAIRING_ASSOCIATION 16)
+(define 	TDL_ORDER_DLP_REPLY                     17)
 (define TDL_MODECODE_NONE_BY_OPERATOR #x0 ) ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
 (define TDL_MODECODE1_BY_OPERATOR     #x1 ) ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
 (define TDL_MODECODE2_BY_OPERATOR     #x2 ) ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
 (define TDL_MODECODE3_BY_OPERATOR     #x4 ) ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
 (define TDL_MODECODE4_BY_OPERATOR     #x8 ) ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
-;; };                                      ;;ticket:1513 20110107 김동일 | IFF MODE 값 사용자 변경여부
-
-
-;; enum _ENUM_TDL_LINK11_ECM_CLASS {     ;;!!!ticket:1670 20110208 김동일 | broad classification 일반분류           
-;; 	TDL_LINK11_ECM_CLASS_NO_STATEMENT , ;;!!!ticket:1670 20110208 김동일 | broad classification 일반분류 
-;; 	TDL_LINK11_ECM_CLASS_RADAR ,        ;;!!!ticket:1670 20110208 김동일 | broad classification 일반분류
-;; 	TDL_LINK11_ECM_CLASS_IFF,           ;;!!!ticket:1670 20110208 김동일 | broad classification 일반분류
-;; 	TDL_LINK11_ECM_CLASS_COMMUNICATION  ;;!!!ticket:1670 20110208 김동일 | broad classification 일반분류
-;; };
-
-;; enum _ENUM_TDL_LINK11_ECM_AMPLICATION {               ;;!!!ticket:1670 20110208 김동일 | amplyfing character 상세분류
-;; 	TDL_LINK11_ECM_AMPLICATION_NO_STATEMENT,            ;;!!!ticket:1670 20110208 김동일 | amplyfing character 상세분류
-;; 	TDL_LINK11_ECM_AMPLICATION_UNKNOWN,                 ;;!!!ticket:1670 20110208 김동일 | amplyfing character 상세분류
-;; 	TDL_LINK11_ECM_AMPLICATION_DISRUPTIVE,              ;;!!!ticket:1670 20110208 김동일 | amplyfing character 상세분류
-;; 	TDL_LINK11_ECM_AMPLICATION_DECEPTIVE,               ;;!!!ticket:1670 20110208 김동일 | amplyfing character 상세분류
-;; 	TDL_LINK11_ECM_AMPLICATION_IRCM,                    ;;!!!ticket:1670 20110208 김동일 | amplyfing character 상세분류
-;; 	TDL_LINK11_ECM_AMPLICATION_LASER_CM,                ;;!!!ticket:1670 20110208 김동일 | amplyfing character 상세분류
-;; 	TDL_LINK11_ECM_AMPLICATION_SIDE_LOBE,               ;;!!!ticket:1670 20110208 김동일 | amplyfing character 상세분류
-;; 	TDL_LINK11_ECM_AMPLICATION_CHAFF,                   ;;!!!ticket:1670 20110208 김동일 | amplyfing character 상세분류
-;; 	TDL_LINK11_ECM_AMPLICATION_MULTIPLE_JAMMER,         ;;!!!ticket:1670 20110208 김동일 | amplyfing character 상세분류
-;; 	TDL_LINK11_ECM_AMPLICATION_DECEPTIVE_INTERROGATOR   ;;!!!ticket:1670 20110208 김동일 | amplyfing character 상세분류
-;; } ;
-
-;; enum _ENUM_TDL_LINK11_FREQUENCY_RANGE{              ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_NO_STATEMENT        ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_0_to_250_MHz        ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_250_to_500_MHz      ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_500_to_1000_MHz     ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_1000_to_2000_MHz    ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_2000_to_3000_MHz    ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_3000_to_4000_MHz    ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_4000_to_6000_MHz    ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_6000_to_8000_MHz    ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_8000_to_10000_MHz   ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_10000_to_20000_MHz  ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_20000_to_40000_MHz  ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_40000_to_60000_MHz  ,  ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; 	TDL_LINK11_FREQUENCY_RANGE_60000_to_100000_MHz    ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다. 
-;; } ;                                                 ;;!!!ticket:1727 20110214 김동일 | LINK11 의 frequency 는 범위값을 사용합니다.
-
-
-;; /******************************************/
-;; /******************************************/
-
-;; /******************************************/
-;; /******************************************/
-;; enum _ENUM_ASW_PLAN_ORDER
-;; {
-;; 	ASW_PLAN_ORDER_ADD = 1,
-;; 	ASW_PLAN_ORDER_MODIFY,
-;; 	ASW_PLAN_ORDER_DELETE,
-;; 	ASW_PLAN_ORDER_INSERT
-;; };
-
-;; enum _ENUM_ASW_PLAN_ORIGIN
-;; {
-;; 	ASW_PLAN_ORIGIN_TRACK = 1,
-;; 	ASW_PLAN_ORIGIN_POSITION,
-;; };
-
-;; enum _ENUM_FOC_MIN_MAX
-;; {
-;; 	TDA_FOC_MIN = 1,
-;; 	TDA_FOC_MAX
-;; };
-
-;; enum _ENUM_NOTACK_AREA_TYPE
-;; {
-;; 	NOTACK_AREA_TYPE_CIRCLE = 1,
-;; 	NOTACK_AREA_TYPE_RECT,
-;; };
-
-;; enum _ENUM_DEPART_ENTRY_AREA_TYPE
-;; {
-;; 	DEPART_ENTRY_AREA_TYPE_SECTOR = 1,
-;; 	DEPART_ENTRY_AREA_TYPE_RECT,
-;; };
-
-;; enum _ENUM_NUM_OF_HELO
-;; {
-;; 	NUM_OF_HELO_2 = 2,
-;; 	NUM_OF_HELO_3,
-;; 	NUM_OF_HELO_4,
-;; 	NUM_OF_HELO_5
-;; };
-
-;; enum _ENUM_SONOBUOY_PATTERN
-;; {
-;; 	SONOBUOY_PATTERN_A = 1,
-;; 	SONOBUOY_PATTERN_B,
-;; 	SONOBUOY_PATTERN_C,
-;; 	SONOBUOY_PATTERN_D,
-;; 	SONOBUOY_PATTERN_BARRICADE
-;; };
-
-;; enum _ENUM_SUB_MOVE_AREA_TYPE
-;; {
-;; 	SUB_MOVE_AREA_TYPE_MOVING_HAVEN = 1,
-;; 	SUB_MOVE_AREA_TYPE_SAFETY_LANE,
-;; };
-
-;; enum _ENUM_MOVING_HAVEN_SIZE
-;; {
-;; 	MOVING_HAVEN_SIZE_WAR_STATE = 1,
-;; 	MOVING_HAVEN_SIZE_NORMAL,
-;; 	MOVING_HAVEN_SIZE_MANUAL
-;; };
-
-;; enum _ENUM_SUB_IDENTITY
-;; {
-;; 	SUB_IDENTITY_UNKNOWN = 0,
-;; 	SUB_IDENTITY_SUSPECT,
-;; 	SUB_IDENTITY_NONE_SUB,
-;; 	SUB_IDENTITY_POSSIBLE_SUB,
-;; 	SUB_IDENTITY_SUB
-;; };
-
-;; enum _ENUM_SAFETY_DISTANCE
-;; {
-;; 	SAFETY_DISTANCE_2000 = 1,
-;; 	SAFETY_DISTANCE_3000
-;; };
-
-;; enum _ENUM_COMPASS_TYPE
-;; {
-;; 	COMPASS_TYPE_N_S = 1,
-;; 	COMPASS_TYPE_W_E,
-;; 	COMPASS_TYPE_SW_NE,
-;; 	COMPASS_TYPE_NW_SE
-;; };
-
-;; enum _ENUM_SEARCH_DIRECTION
-;; {
-;; 	SEARCH_DIRECTION_LEFT = 1,
-;; 	SEARCH_DIRECTION_RIGHT
-;; };
-;; /******************************************/
-;; /******************************************/
-
-
-
-;; /******************************************/
-;; /******************************************/
-;; enum _ENUM_ICU_FCU_STATUS_ID	;; ICU/FCU 공통사용
-;; {
-;; 	ICU_FCU_STATUS_ID_UNAVAILABLE = 0,
-;; 	ICU_FCU_STATUS_ID_AVAILABLE ,
-;; 	ICU_FCU_STATUS_ID_DEGRADE
-;; };
-
-;; enum _ENUM_FFX_IF_CTRL
-;; {
-;; 	FFX_IF_CTRL_STOP = 0x00,    ;; 연동 종료
-;; 	FFX_IF_CTRL_START,			;; 연동 개시
-;; 	FFX_IF_CTRL_RESET			;; 연동 초기화
-;; };
-
-;; enum _ENUM_FFX_FAIL_SUCCESS
-;; {
-;; 	FFX_FAIL = 0x00,	;; 명령수행 결과 실패
-;; 	FFX_SUCCESS			;; 명령수행 결과 성공
-
-;; };
-
-;; enum _ENUM_MODE_STATUS
-;; {
-;; 	MODE_NOT_AVAILABLE = 0,
-;; 	MODE_AVAILABLE
-;; };
-
-
-;; enum _ENUM_ICUTM_TYPE_ID		;; ICU/FCU 공통사용
-;; {
-;; 	ICUTM_TYPE_PRIMINFO = 1,	;; 원시표적
-;; 	ICUTM_TYPE_ADDINFO,			;; 원시표적 상세정보
-;; 	ICUTM_TYPE_PRIMINFO_ALL,	;; 모든 원시표적 
-;; 	ICUTM_TYPE_ADDINFO_ALL		;; 모든 원시표적 상세정보
-;; };
-
-;; enum _ENUM_ICU_FCU_STATE_ID		;; ICU/FCU 공통사용
-;; {
-;; 	WAIT_FOR_HEARTBEAT  = 1,
-;; 	WAIT_FOR_HISTORY,
-;; 	WAIT_FOR_CONNECTION_COMMAND,
-;; 	TRY_TO_CONNECTION,	
-;; 	OPERATIONAL	
-;; };
-
-
-;; enum _ENUM_ICU_FCU_HW_STATUS								;; 100128 송정훈 선임 추가
-;; {   
-;; 	ICU_FCU_HW_STATUS_OPERATIONAL           = 0,
-;; 	ICU_FCU_HW_STATUS_INDICATOR_PANEL_ERROR = 1,
-;; 	ICU_FCU_HW_STATUS_FAN_ERROR             = 2,
-;; 	ICU_FCU_HW_STATUS_TEMPERATURE_ERROR     = 4,
-;; 	ICU_FCU_HW_STATUS_POWER1_ERROR          = 8,
-;; 	ICU_FCU_HW_STATUS_POWER2_ERROR          = 16,
-;; 	ICU_FCU_HW_STATUS_INTERFACE_CARD_ERROR  = 32
-;; };
-
-;; enum _ENUM_TEMP_WARNING_ID {
-;; 	TEMP_WARNING_ID_ICU_SRS       = 3501 , 
-;; 	TEMP_WARNING_ID_ICU_TRS,                            
-;; 	TEMP_WARNING_ID_ICU_EOTS,
-;; 	TEMP_WARNING_ID_ICU_IFF,
-;; 	TEMP_WARNING_ID_ICU_HMS,     ;; 3505
-;; 	TEMP_WARNING_ID_ICU_EW,
-;; 	TEMP_WARNING_ID_ICU_OSD1,
-;; 	TEMP_WARNING_ID_ICU_OSD2,
-;; 	TEMP_WARNING_ID_RVDU1,
-;; 	TEMP_WARNING_ID_RVDU2,       ;; 3510
-;; 	TEMP_WARNING_ID_TVR,
-;; 	TEMP_WARNING_ID_RVR,
-;; 	TEMP_WARNING_ID_IPN_TAC1,
-;; 	TEMP_WARNING_ID_IPN_TAC2,
-;; 	TEMP_WARNING_ID_IPN_SUP1,    ;; 3515
-;; 	TEMP_WARNING_ID_IPN_SUP2,
-;; 	TEMP_WARNING_ID_IPN_TRN1, 
-;; 	TEMP_WARNING_ID_IPN_TRN2,
-;; 	TEMP_WARNING_ID_ICU_SAAM,
-;; 	TEMP_WARNING_ID_ICU_CIWS,    ;; 3520
-;; 	TEMP_WARNING_ID_ICU_KSSM,	 
-;; 	TEMP_WARNING_ID_ICU_MASS,	 ;; 131017 dha.jung DCY -> MASS 변경
-;; 	TEMP_WARNING_ID_BCU,
-;; 	TEMP_WARNING_ID_FCU_SLTS,
-;; 	TEMP_WARNING_ID_FCU_TACM,    ;; 3525
-;; 	TEMP_WARNING_ID_DLP_LINK11,
-;; 	TEMP_WARNING_ID_DLP_ISDL,
-;; 	TEMP_WARNING_ID_ICU_KNCCS,
-;; 	TEMP_WARNING_ID_ICU_LYNXESM,
-;; 	TEMP_WARNING_ID_ICU_NRS,     ;; 3530
-;; 	TEMP_WARNING_ID_ICU_ES,		 ;; 20131211 hk.kim 추가
-;; 	TEMP_WARNING_ID_ICU_IRST,	 ;; 20131211 hk.kim 추가
-;; 	TEMP_WARNING_ID_ICU_RCWS1,   ;; 20140626 dha.jung 추가
-;; 	TEMP_WARNING_ID_ICU_RCWS2,	 ;; 20140626 dha.jung 추가
-;; 	TEMP_WARNING_ID_ICU_KVLA	 
-;; };
-
-;; enum _ENUM_TEMP_ALERT_ID {
-;; 	TEMP_ALERT_ID_ICU_SRS       = 3601 , 
-;; 	TEMP_ALERT_ID_ICU_TRS,                            
-;; 	TEMP_ALERT_ID_ICU_EOTS,
-;; 	TEMP_ALERT_ID_ICU_IFF,
-;; 	TEMP_ALERT_ID_ICU_HMS,     ;; 3605
-;; 	TEMP_ALERT_ID_ICU_EW,
-;; 	TEMP_ALERT_ID_ICU_OSD1,
-;; 	TEMP_ALERT_ID_ICU_OSD2,
-;; 	TEMP_ALERT_ID_RVDU1,
-;; 	TEMP_ALERT_ID_RVDU2,       ;; 3610
-;; 	TEMP_ALERT_ID_TVR,
-;; 	TEMP_ALERT_ID_RVR,
-;; 	TEMP_ALERT_ID_IPN_TAC1,
-;; 	TEMP_ALERT_ID_IPN_TAC2,
-;; 	TEMP_ALERT_ID_IPN_SUP1,    ;; 3615
-;; 	TEMP_ALERT_ID_IPN_SUP2,
-;; 	TEMP_ALERT_ID_IPN_TRN1, 
-;; 	TEMP_ALERT_ID_IPN_TRN2,
-;; 	TEMP_ALERT_ID_ICU_SAAM,
-;; 	TEMP_ALERT_ID_ICU_CIWS,    ;; 3620
-;; 	TEMP_ALERT_ID_ICU_KSSM,
-;; 	TEMP_ALERT_ID_ICU_MASS,	   ;; 131017 dha.jung DCY -> MASS 변경
-;; 	TEMP_ALERT_ID_BCU,
-;; 	TEMP_ALERT_ID_FCU_SLTS,
-;; 	TEMP_ALERT_ID_FCU_TACM,    ;; 3625
-;; 	TEMP_ALERT_ID_DLP_LINK11,
-;; 	TEMP_ALERT_ID_DLP_ISDL,
-;; 	TEMP_ALERT_ID_ICU_KNCCS,
-;; 	TEMP_ALERT_ID_ICU_LYNXESM,
-;; 	TEMP_ALERT_ID_ICU_NRS,     ;; 3630
-;; 	TEMP_ALERT_ID_ICU_ES,	   ;; 20131211 hk.kim 추가
-;; 	TEMP_ALERT_ID_ICU_IRST,	   ;; 20131211 hk.kim 추가
-;; 	TEMP_ALERT_ID_ICU_RCWS1,   ;; 20140626 dha.jung 추가
-;; 	TEMP_ALERT_ID_ICU_RCWS2,	   ;; 20140626 dha.jung 추가
-;; 	TEMP_ALERT_ID_ICU_KVLA
-;; };
-
-
-;; /******************************************/
-;; /******************************************/
-
-
-
-;; /******************************************/
-;; /******************************************/
-;; enum _ENUM_SIM_ID
-;; {
-;; 	SIM_ID_SRS = 1, 
-;; 	SIM_ID_TRS,		;;2
-;; 	SIM_ID_EOTS,	;;3
-;; 	SIM_ID_NRS,		;;4
-;; 	SIM_ID_IFF,		;;5
-;; 	SIM_ID_OSD,		;;6
-;; 	SIM_ID_HMS,		;;7
-;; 	SIM_ID_EW,		;;8
-;; 	SIM_ID_TACM,	;;9
-;; 	SIM_ID_GUN,		;;10
-;; 	SIM_ID_KSSM,	;;11
-;; 	SIM_ID_SAAM,	;;12
-;; 	SIM_ID_CIWS,	;;13
-;; 	SIM_ID_SLTS,	;;14
-;; 	SIM_ID_MASS,	;;15  ;; 131017 dha.jung DECOY -> MASS 변경
-;; 	SIM_ID_TWS1,	;;16	120109 권상민 추가
-;; 	SIM_ID_TWS2,		;;17	120109 권상민 추가
-;; 	SIM_ID_ROCKET,	;;18	;;141007 네비웍스 정혜인 추가
-;; 	SIM_ID_RCWS1, 	;;19	;;141007 네비웍스 정혜인 추가
-;; 	SIM_ID_RCWS2,	;;20	;;141007 네비웍스 정혜인 추가
-;; 	SIM_ID_KTSLM,	;;21	;;141007 네비웍스 정혜인 추가
-;; 	SIM_ID_KVLA,	;;22	;;141007 네비웍스 정혜인 추가
-;; 	SIM_ID_IRST	;;23	;;141007 네비웍스 정혜인 추가
 	
-;; };
-
-;; enum _ENUM_SIM_POWER
-;; {
-;; 	SIM_GUN_POWER = 1,
-;; 	SIM_KSSM_POWER,	;;2
-;; 	SIM_SAAM_POWER,	;;3
-;; 	SIM_SLTS_POWER	;;4
-;; };
-
-;; enum _ENUM_SIM_HIT_PROBABILITY
-;; {
-;; 	SIM_GUN_HIT_PROBABILITY = 1,
-;; 	SIM_KSSM_HIT_PROBABILITY,	;;2
-;; 	SIM_SAAM_HIT_PROBABILITY,	;;3
-;; 	SIM_SLTS_HIT_PROBABILITY	;;4
-;; };
-
-;; enum _ENUM_OBJECT_CLASS										;; 100210 진광언 연원 수정								
-;; {
-;; 	OBJECT_CLASS_FIGHTER = 1,   ;;1 (전투기)
-;;     OBJECT_CLASS_BOMBER,        ;;2 (폭격기)
-;;     OBJECT_CLASS_ATTACKHEL,     ;;3 (공격헬기)
-;;     OBJECT_CLASS_MISSILE,       ;;4 (유도탄)
-;;     OBJECT_CLASS_FIGHTSHIP,     ;;5 (공격함)
-;;     OBJECT_CLASS_CONVOY,        ;;6 (호위함)
-;; 	OBJECT_CLASS_DESTROYER,     ;;7 (구축함)
-;; 	OBJECT_CLASS_PATROL,        ;;8 (초계함)
-;; 	OBJECT_CLASS_CRUISER,       ;;9 (순양함)
-;; 	OBJECT_CLASS_SUBMARINE,     ;;10 (잠수함)
-;; 	OBJECT_CLASS_TORPEDO,       ;;11 (어뢰)
-;; 	OBJECT_CLASS_UNKNOWN_AIR,   ;;12 (미식별대공)
-;; 	OBJECT_CLASS_UNKNOWN_SUR,   ;;13 (미식별대함)
-;; 	OBJECT_CLASS_UNKNOWN_SUB,    ;;14 (미식별대잠)
-;; 	OBJECT_CLASS_MIDDLE	 ;;15 (고속정)	;;141007 네비웍스 정혜인 추가
-;; };
-
-;; enum _ENUM_OBJECT_TYPE										;; 100122 진광언 연원 추가		;; 100210 진광언 연원 수정
-;; {
-;; 	OBJECT_TYPE_AIR = 1,        ;; 대공개체
-;; 	OBJECT_TYPE_SUR = 2,        ;; 대함개체
-;; 	OBJECT_TYPE_SUB = 4         ;; 대잠개체
-;; };
-
-;; enum _ENUM_TRN_SCENARIO          
-;; {
-;; 	SCENARIO_RUN_REQ = 50,    ;;50 (시나리오 시작요청)
-;; 	SCENARIO_RUN_ACK,     ;;51 (시나리오 시작응답)
-;; 	SCENARIO_STOP_REQ,     ;;52 (시나리오 종료요청)
-;; 	SCENARIO_STOP_ACK,     ;;53 (시나리오 종료응답)
-;; 	SCENARIO_PAUSE_REQ,     ;;54 (시나리오 일시정지요청)
-;; 	SCENARIO_PAUSE_ACK,     ;;55 (시나리오 일시정지응답)
-;; 	SCENARIO_RUN_UNAVAILABLE_NTFY,  ;;56 (시나리오 시작응답(다른시나리오 실행중))
-;; 	SCENARIO_RUN_UNAVAILABLE_CSS_NTFY  ;;57 (시나리오 시작응답(실장비훈련 준비안됨))
-;; };
 
 
-;; /******************************************/
-;; /******************************************/
-
-
-;; /******************************************/
-;; /******************************************/
-
-;; /*enum _ENUM_SKP_1			
-;; {			
-;; 	SKP_MSG_PLATFORM_DETAILINFO	=	103	,
-;; 	SKP_MSG_CONSOLE_MARKER	=	104	,
-;; 	SKP_MSG_TRACKBALL_MARKER	=	105	,
-;; 	SKP_MSG_TRACKDRAW_SET	=	110	,
-;; 	SKP_MSG_CPA_CAL	=	114	,
-;; 	SKP_MSG_DIST_DRAW	=	117	,
-;; 	SKP_MSG_COMPASS_DRAW	=	118	,
-;; 	SKP_MSG_LEAD_DRAW	=	119	,
-;; 	SKP_MSG_APLANE_ADD	=	120	,
-;; 	SKP_MSG_CPA_DRAW	=	121	,
-;; 	SKP_MSG_DIST_HIDE	=	124	,
-;; 	SKP_MSG_COMPASS_HIDE	=	125	,
-;; 	SKP_MSG_LEAD_HIDE	=	126	,
-;; 	SKP_MSG_APLANE_DEL	=	127	,
-;; 	SKP_MSG_CPA_HIDE	=	128	,
-;; 	SKP_MSG_COLLISION_AVOID	=	132	,
-;; 	SKP_MSG_RPOSITION_MEASURE	=	133	,
-;; 	SKP_MSG_DETAIL_DRAW	=	139	
-;; };	*/	
-;; enum _ENUM_SKP_1   
-;; {   
-;; 	SKP_MSG_PLATFORM_DETAILINFO = 103 ,
-;; 	SKP_MSG_CONSOLE_MARKER = 104 ,
-;; 	SKP_MSG_TRACKBALL_MARKER = 105 ,
-;; 	SKP_MSG_TRACKDRAW_SET = 110 ,
-;; 	SKP_MSG_AIS_SHOW = 111,		;;dhjung140728-add
-;; 	SKP_MSG_AIS_HIDE = 112,		;;dhjung140728-add
-;; 	SKP_MSG_POPUP_WINDOW = 113,	;;dhjung140728-add
-;; 	SKP_MSG_CPA_CAL = 114 ,
-;; 	SKP_MSG_AIS_TRACK_INFO = 115 ,
-;; 	SKP_MSG_DIST_DRAW = 117 ,
-;; 	SKP_MSG_COMPASS_DRAW = 118 ,
-;; 	SKP_MSG_LEAD_DRAW = 119 ,
-;; 	SKP_MSG_APLANE_ADD = 120 ,
-;; 	SKP_MSG_CPA_DRAW = 121 ,
-;; 	SKP_MSG_DIST_HIDE = 124 ,
-;; 	SKP_MSG_COMPASS_HIDE = 125 ,
-;; 	SKP_MSG_LEAD_HIDE = 126 ,
-;; 	SKP_MSG_APLANE_DEL = 127 ,
-;; 	SKP_MSG_CPA_HIDE = 128 ,
-;; 	SKP_MSG_COLLISION_AVOID = 132 ,
-;; 	SKP_MSG_RPOSITION_MEASURE = 133 ,
-;; 	SKP_MSG_MAIN_CAPTURE = 135, 
-;; 	SKP_MSG_DETAIL_DRAW = 139,
-;; 	SKP_MSG_INFORMATION_SAVE = 140,
-;; 	SKP_MSG_SUB_CAPTURE = 142 
-;; }; 
-
-;; enum _ENUM_SKP_2			
-;; {			
-;; 	SKP_MSG_TRAIN_READY	=	210	,
-;; 	SKP_MSG_TRAIN_RUN	=	211	,
-;; 	SKP_MSG_RTRACK_CREATE	=	212	,
-;; 	SKP_MSG_INDIVIDUAL_DEL	=	213	
-;; };			
-;; enum _ENUM_SKP_3			
-;; {			
-;; 	SKP_MSG_TRACK_SUMMARY	=	303	,
-;; 	SKP_MSG_EXT_DESIG	= 304,							;;ticket:192 20101027 채병민
-;; 	SKP_MSG_EXT_DESIG_OPEN   = 305,						;;ticket:1458 101222 이흥배
-;; 	SKP_MSG_SURV_RD_MDEL	=	310	,
-;; 	SKP_MSG_SURV_RD_MTRACKING	=	311	,
-;; 	SKP_MSG_AIR_RAM	=	312	,
-;; 	SKP_MSG_AIR_POINT	=	313	,
-;; 	SKP_MSG_EWCOMPASS_TRACK	=	314	,
-;; 	SKP_MSG_TRACK_DEL	=	317	,
-;; 	SKP_MSG_RAM_UPDATE	=	318	,
-;; 	SKP_MSG_SHIP_RAM	=	319	,
-;; 	SKP_MSG_SHIP_POINT	=	320	,
-;; 	SKP_MSG_EM_CROSSING	=	321	,
-;; 	SKP_MSG_MISSING_TRACK_MAINTAIN	=	324	,
-;; 	SKP_MSG_POSITION_MOVE	=	325	,
-;; 	SKP_MSG_DATAM	=	326	,
-;; 	SKP_MSG_SUBMARINE_TRACK	=	327	,
-;; 	SKP_MSG_WAVECOMPASS_TRACK	=	328	,
-;; 	SKP_MSG_TRACK_DETAILINFO	=	332	,
-;; 	SKP_MSG_REF_POINT	=	333	,
-;; 	SKP_MSG_EARTH_POINT	=	334	,
-;; 	SKP_MSG_WAVE_CROSSING	=	335	,
-;; 	SKP_MSG_SHORTTERM_TRACE_SET	=	339	,
-;; 	SKP_MSG_LONGTERM_TRACE_SET	=	340	,	
-;; 	SKP_MSG_TRACK_SEARCH_SUPPORT	=	341	,	;;dhjung140728-탐지추적지원add
-;; 	SKP_MSG_AIR_ELEVATION_HISTORY	=	342		;;dhjung140728-대공표적 고도add
-;; };			
-;; enum _ENUM_SKP_4			
-;; {			
-;; 	SKP_MSG_TRACK_FUSION	=	403	,
-;; 	SKP_MSG_RELATION	=	404	,
-;; 	SKP_MSG_AUTO_RELATION_SET	=	410	,
-;; 	SKP_MSG_RELATION_RELEASE	=	411	,
-;; 	SKP_MSG_NEUTRAL	=	413	,
-;; 	SKP_MSG_UNKNOWN	=	414	,
-;; 	SKP_MSG_COMPASSTRACK_COMBINATION	=	417	,
-;; 	SKP_MSG_COMPASSCROSSING_MEASURE	=	418	,
-;; 	SKP_MSG_TRACK_APPOINT_QUESTION	=	419	,
-;; 	SKP_MSG_FRIEND	=	420	,
-;; 	SKP_MSG_ALMOST_FRIEND	=	421	,
-;; 	SKP_MSG_COMPASSTRACK_COMBINATION_RELEASE	=	424	,
-;; 	SKP_MSG_ENEMY	=	427	,
-;; 	SKP_MSG_ALMOST_ENEMY	=	428	,
-;; 	SKP_MSG_PARING	=	431	,
-;; 	SKP_MSG_COMPARE	=	432	,
-;; 	SKP_MSG_DOUBT_ENEMY	=	434	,
-;; 	SKP_MSG_VITUAL_ENEMY	=	435	,
-;; 	SKP_MSG_PARING_RELEASE	=	438	,
-;; 	SKP_MSG_COMPARE_RELEASE	=	439	
-;; };			
-;; enum _ENUM_SKP_5			
-;; {			
-;; 	SKP_MSG_AIRTHREAT_MSET = 503 ,  ;;위치수정				;; ticket:348 20101028 채병민 2차개발장비(GUN)
-;; 	SKP_MSG_AIRTHREAT_MDEL = 510 ,  ;;위치수정				;; ticket:348 20101028 채병민 2차개발장비(GUN)
-;; 	SKP_MSG_CIWS_MALLOC = 533 ,
-;; 	SKP_MSG_CIWS_MDISALLOC = 540,
-;; 	SKP_MSG_MAX_AIR_THREAT_SET = 541, ;; 최대위협 설정		;; ticket:2313 20110822 김기표
-;; 	SKP_MSG_MAX_AIR_THREAT_UNSET = 542 ;; 최대위협 해제		;; ticket:2313 20110822 김기표
-;; };			
-;; enum _ENUM_SKP_6			
-;; {			
-;; 	SKP_MSG_SHIPTHREAT_MSET = 603 ,     ;;위치수정					;; ticket:348 20101028 채병민 2차개발장비(GUN)
-;; 	SKP_MSG_SHIPTHREAT_MDEL = 610 ,     ;;위치수정					;; ticket:348 20101028 채병민 2차개발장비(GUN)
-;; 	SKP_MSG_FASTMOVE_POSITION_SEND  =  614,            ;;변경		;; ticket:348 20101028 채병민 2차개발장비(GUN)
-;; 	SKP_MSG_FC2_MALLOC = 618 ,
-;; 	SKP_MSG_FC3_MALLOC = 619 , 
-;; 	SKP_MSG_FC2_MDISALLOC = 625 ,
-;; 	SKP_MSG_FC3_MDISALLOC = 626 , 
-;; 	SKP_MSG_S2S_TRACK_SET = 667 ,
-;; 	SKP_MSG_S2S_COMBAT_CANCEL = 668 ,
-;; 	SKP_MSG_S2S_FIRE_STOP = 669 ,
-;; 	SKP_MSG_S2E_TRACK_SET = 681 ,
-;; 	SKP_MSG_S2E_COMBAT_CANCEL = 682 ,
-;; 	SKP_MSG_S2E_FIRE_STOP = 683,
-;; 	SKP_MSG_S2E_DBTRACK_SET = 684
-;; };			
-;; enum _ENUM_SKP_7			
-;; {			
-;; 	SKP_MSG_SUBTHREAT_MSET      =   703	,		;;ticket:1474 101222 채병민
-;; 	SKP_MSG_SUBTHREAT_MDEL      =   710	,		;;ticket:1474 101222 채병민
-;; 	SKP_MSG_FOC			=	724	,
-;; 	SKP_MSG_TACM_MALLOC	=	731	,
-;; 	SKP_MSG_SLTS_MALLOC	=	732	,
-;; 	SKP_MSG_KVLA_MALLOC	=	733	,
-;; 	SKP_MSG_TACM_MDISALLOC	=	738	,
-;; 	SKP_MSG_SLTS_MDISALLOC	=	739	,
-;; 	SKP_MSG_KVLA_MDISALLOC	=	740	
-;; };			
-;; enum _ENUM_SKP_8			
-;; {			
-;; 	;; 131017 dha.jung DECOY -> MASS 변경
-;; 	SKP_MSG_MASS_OP_TI_C	=	817	,
-;; 	SKP_MSG_MASS_OP_TI_D	=	818	,
-;; 	SKP_MSG_MASS_OP_TI_DS	=	819	,
-;; 	SKP_MSG_MASS_OP_TI_CS	=	820	,
-;; 	SKP_MSG_MASS_VETO	=	821	,
-;; 	SKP_MSG_MASS_TI_CANCEL	=	824	,
-;; 	SKP_MSG_MASS_VETO_CANCEL	=	828	,
-;; 	SKP_MSG_MASS_MAN_TI_C	=	831	,
-;; 	SKP_MSG_MASS_MAN_TI_D	=	832	,
-;; 	SKP_MSG_MASS_MAN_TI_DS	=	833	,
-;; 	SKP_MSG_MASS_MAN_TI_CS	=	834	,
-;; 	SKP_MSG_MASS_EMER_TI	=	835 ,	;;ticket:35	2013.03.30	hcparker
-;; 	SKP_MSG_MASS_MAN_TI	=	836		;;ticket:35	2013.03.30	hcparker
-;; };			
-;; enum _ENUM_SKP_9			
-;; {			
-;; 	SKP_MSG_EOTS_JOYSTICK_ALLOC	=	903	,
-;; 	SKP_MSG_EOTS_JOYSTICK_DISALLOC	=	904	,
-;; 	SKP_MSG_EOTS_TRACKING_CANCEL	=	910	,
-;; 	SKP_MSG_EOTS_FC1_DEPENDENCY	=	911	,
-;; 	SKP_MSG_EOTS_IRSENSOR	=	913	,
-;; 	SKP_MSG_EOTS_ZOOM_IN	=	914	,
-;; 	SKP_MSG_EOTS_STANDBY = 917,					
-;; 	SKP_MSG_EOTS_FC2_DEPENDENCY	=	918	,
-;; 	SKP_MSG_EOTS_CAMERA	=	920	,
-;; 	SKP_MSG_EOTS_ZOOM_OUT	=	921	,
-;; 	SKP_MSG_EOTS_FC3_DEPENDENCY	=	925	,
-;; 	SKP_MSG_EOTS_ACQUISTION_DEL	=	927	,
-;; 	SKP_MSG_EOTS_MTRACKING	=	931	,
-;; 	SKP_MSG_EOTS_ACQUISTION_CREATE	=	934	,
-;; 	SKP_MSG_EOTS_ATRACKING	=	938	,
-;; 	SKP_MSG_EOTS_TI_UPDATE	=	939	,
-;; 	SKP_MSG_EOTS_QUICK_COUNTERPLAN	=	940 ,
-;; 	SKP_MSG_EOTS_TRACK_CHANGE	=	941	,
-;; 	SKP_MSG_EOTS_GUN_DEPENDENCY =   932,				;;ticket:1270 101123 김종화
-;; 	SKP_MSG_EOTS_ACQUISTION_PLUS = 942,		;;OT-1 by MLS-II
-;; 	SKP_MSG_EOTS_ACQUISTION_MINUS = 943,	;;OT-1 by MLS-II
-;; };			
-;; enum _ENUM_SKP_10			
-;; {			
-;; 	SKP_MSG_TRS_JOYSTICK_ALLOC = 1003 ,
-;; 	SKP_MSG_TRS_JOYSTICK_DISALLOC = 1004 ,
-;; 	SKP_MSG_TRS_STANDBY = 1010 ,
-;; 	SKP_MSG_TRS_LOWA_TRACKING_SET = 1011 ,
-;; 	SKP_MSG_TRS_NOSE_TRACKING = 1012 ,
-;; 	SKP_MSG_TRS_ZOON_IN = 1014 ,       ;;ticket:1336 101130 김종화
-;; 	SKP_MSG_TRS_DIRECTOR_OPERATE = 1017 ,    ;;ticket:1336 101130 김종화
-;; 	SKP_MSG_TRS_LOWA_TRACKING_RELEASE = 1018 ,
-;; 	SKP_MSG_TRS_CENTER_TRACKING = 1019 ,
-;; 	SKP_MSG_TRS_ZOON_OUT = 1021 ,      ;;ticket:1336 101130 김종화
-;; 	SKP_MSG_TRS_DIRECTOR_LOCK = 1024 ,
-;; 	SKP_MSG_TRS_MISSLE_WARNING_SET = 1025 ,
-;; 	SKP_MSG_TRS_MISSLE_WARNING_RELEASE = 1032 ,
-;; 	SKP_MSG_TRS_RANGEGATE_PLUS = 1033 ,	;;ticket:2550 20120319 김종화
-;; 	SKP_MSG_TRS_RANGEGATE_MINUS = 1034 ,		;;ticket:2550 20120319 김종화
-;; 	SKP_MSG_TRS_2NDTRACK_SEARCH = 1038 ,
-;; 	SKP_MSG_TRS_2NDTRACK_DIST_MODIFY = 1039 ,
-;; 	SKP_MSG_TRS_1STTRACK_DIST_MODIFY = 1040 ,   ;;ticket:1201 101115 채병민
-;; 	SKP_MSG_TRS_TRACK_CHANGE = 1041,      ;;ticket:1201 101115 채병민
-;; 	SKP_MSG_TRS_SECTOR_SEARCH = 1042
-;; };			
-;; enum _ENUM_SKP_11			
-;; {			
-;; 	SKP_MSG_LINK11_TRACK_TRANSMIT_START	=	1110	,
-;; 	SKP_MSG_LINK11_PU_INFO_UPDATE_REQ	=	1111	,
-;; 	SKP_MSG_LINK11_EMERGENCY_TRACK_START	=	1112	,
-;; 	SKP_MSG_LINK11_FORCE_TELL_TRACK_START	=	1114	,
-;; 	SKP_MSG_LINK11_TRACK_TRANSMIT_PROHIBIT	=	1117	,
-;; 	SKP_MSG_LINK11_EMERGENCY_TRACK_STOP	=	1119	,
-;; 	SKP_MSG_LINK11_FORCE_TELL_TRACK_STOP	=	1121	,
-;; 	SKP_MSG_LINK11_IFF_UPDATE = 1124,  ;;Ticket:1509 110106 송영환
-;; 	SKP_MSG_LINK11_POINTER_SEND	=	1125	,
-;; 	SKP_MSG_LINK11_TRACK_ENV_CHANGE	=	1126	,
-;; 	SKP_MSG_LINK11_TRAIN_TRACK_MARKER_CONFIRM	=	1128	,
-;; 	SKP_MSG_LINK11_IFF_CLEAR = 1131,   ;;Ticket:1509 110106 송영환
-;; 	SKP_MSG_LINK11_COMBAT_ORDER	=	1132	,
-;; 	SKP_MSG_LINK11_TRACK_ID_CHANGE	=	1133	,
-;; 	SKP_MSG_LINK11_TAG_SEND	=	1134	,
-;; 	SKP_MSG_LINK11_SPECIAL_CODE = 1138 , ;;Ticket:1509 110106 송영환	
-;; 	SKP_MSG_LINK11_AIRCRAFT_CONTROL_TRANSFER_REQUEST = 1139 ;;added by hcparker
-;; };			
-;; enum _ENUM_SKP_12			
-;; {			
-;; 	SKP_MSG_ISDL_TRACK_TRANSMIT_START	=	1210	,
-;; 	SKP_MSG_ISDL_EMERGENCY_TRACK_START	=	1212	,
-;; 	SKP_MSG_ISDL_FORCE_TELL_TRACK_START	=	1214	,
-;; 	SKP_MSG_ISDL_TRACK_TRANSMIT_PROHIBIT	=	1217	,
-;; 	SKP_MSG_ISDL_EMERGENCY_TRACK_STOP	=	1219	,
-;; 	SKP_MSG_ISDL_FORCE_TELL_TRACK_STOP	=	1221	,
-;; 	SKP_MSG_ISDL_POINTER_SEND	=	1225	,
-;; 	SKP_MSG_ISDL_TRAIN_TRACK_MARKER_CONFIRM	=	1228	,
-;; 	SKP_MGS_ISDL_AIRCRAFT_TRANSFER_REQ	=	1231	,
-;; 	SKP_MSG_ISDL_TRACK_ID_CHANGE	=	1233	,
-;; 	SKP_MSG_ISDL_TAG_SEND	=	1234	
-;; };			
-
-;; enum _ENUM_SKP_13			
-;; {			
-;; 	SKP_MSG_OPEN_FIRE = 1301 ,
-;; 	SKP_MSG_HOLD_FIRE = 1302 ,
-;; 	SKP_MSG_ITRACK_SET = 1303 ,
-;; 	SKP_MSG_ITRACK_RELEASE = 1304 ,
-;; 	SKP_MSG_HIT = 1305 ,
-;; 	SKP_MSG_VETO = 1306 ,
-;; 	SKP_MSG_HIT_FAIL = 1307 ,
-;; 	SKP_MSG_VETO_CANCEL = 1308 ,
-;; 	SKP_MSG_FC1_MALLOC = 1309 ,
-;; 	SKP_MSG_FC4_MALLOC = 1310 ,					;;FC1 직접할당(PKXB)
-;; 	SKP_MSG_FC1_MDISALLOC = 1311 ,
-;; 	SKP_MSG_FC4_MDISALLOC = 1312 ,				;;FC1 할당해제(PKXB)
-;; 	SKP_MSG_GUN_MALLOC = 1313 ,
-;; 	SKP_MSG_SAAM_MALLOC = 1314 ,
-;; 	SKP_MSG_CIWS_POSITION_SEND = 1315 ,
-;; 	SKP_MSG_GUN_MDISALLOC = 1316 ,
-;; 	SKP_MSG_SAAM_MDISALLOC = 1317 ,
-;; 	SKP_MSG_CIWS_POSITION_SEND_CANCEL = 1318 ,
-;; 	SKP_MSG_TDL_SIMULTANEOUS_TRACK_COUNT_SET = 1319,
-;; 	SKP_MSG_GUN_ROUND_ADD = 1320,    
-;; 	SKP_MSG_GUN_ROUND_DEDUCT = 1321, 
-;; 	SKP_MSG_GUN_ROUND_SET =1322,
-
-;; 	SKP_MSG_SAAM_EMERGENCY_FIRE =1323,     ;;신규추가				;; ticket: 20120419 정동한 2차개발장비(SAAM)		
-
-;; 	SKP_MSG_FC1_GUN_ALLOC =1324,
-;; 	SKP_MSG_FC2_GUN_ALLOC =1325,				;;FC2-함포 직접할당
-;; 	SKP_MSG_FC3_GUN_ALLOC =1326,				;;FC3-함포 직접할당
-;; 	SKP_MSG_FC4_GUN_ALLOC =1327,				;;FC1-함포 직접할당(PKXB)
-
-;; 	SKP_MSG_WC_WEAPON_FREE =1328,
-;; 	SKP_MSG_WC_WEAPON_TIGHT =1329,
-;; 	SKP_MSG_WC_WEAPON_SAFE =1330,
-
-;; 	SKP_MSG_RCWS_P_MALLOC =1331,					;;12.7mm(P) 직접할당
-;; 	SKP_MSG_RCWS_S_MALLOC =1332,					;;12.7mm(S) 직접할당
-;; 	SKP_MSG_RCWS_P_MDISALLOC =1333,				;;12.7mm(P) 할당해제
-;; 	SKP_MSG_RCWS_S_MDISALLOC =1334,				;;12.7mm(S) 할당해제				
-
-;; 	SKP_MSG_ROCKET_MALLOC =1339,						;;130mm 직접할당
-;; 	SKP_MSG_ROCKET_MDISALLOC =1340,					;;130mm 할당해제
-;; 	SKP_MSG_ROCKET_EMERGENCY_FIRE =1341,					;;130mm 비상폭파
-;; };
-
-;; enum _ENUM_SKP_14			
-;; {
-;; 	SKP_MSG_JTDLS_INTELLIGENCE_INPUT = 1401	,		;;첩보정보입력
-;; 	SKP_MSG_JTDLS_WARNER_INPUT = 1402,				;;위협경고 입력
-;; 	SKP_MSG_JTDLS_TRACK_TRANSMIT_START = 1403, 		;; 표적송신
-;; 	SKP_MSG_JTDLS_TRACKINFO_UPDATE_REQ = 1404,		;;정보갱신요청
-;; 	SKP_MSG_JTDLS_EMERGENCY_TRACK_START	= 1405,		;; 긴급송신 설정
-;; 	SKP_MSG_JTDLS_MANUAL_CORELATION_START =	1406,	;;수동비교일치
-;; 	SKP_MSG_JTDLS_FORCE_TELL_TRACK_START =	1407,	;;강제송신 설정
-;; 	SKP_MSG_JTDLS_TRACK_TRANSMIT_PROHIBIT =	1408,	;;표적송신 금지
-;; 	SKP_MSG_JTDLS_EMERGENCY_TRACK_STOP =	1409,	;;긴급송신해제
-;; 	SKP_MSG_JTDLS_MANUAL_CORELATION_STOP =	1410,	;;수동재분리
-;; 	SKP_MSG_JTDLS_FORCE_TELL_STOP = 1411,			;; 강제송신해제	
-;; 	SKP_MSG_JTDLS_POINTER_SEND =	1412,			;;포인터 송신
-;; 	SKP_MSG_JTDLS_TRACKINFO_COMPARE =	1413,		;;표적정보비교
-;; 	SKP_MSG_JTDLS_TRACK_PAIRING_START =	1414,		;;페어링
-;; 	SKP_MSG_JTDLS_COMBAT_ORDER = 1415,				;;명령송신
-;; 	SKP_MSG_JTDLS_TAG_SEND = 1416,					;;TAG 송신
-;; 	SKP_MSG_JTDLS_ASSOCIATION_START	= 1417,			;;연관
-;; 	SKP_MSG_JTDLS_TRACK_PAIRING_STOP = 1418,		;;페어링 해제
-;; 	SKP_MSG_JTDLS_PLATFORM_SYSTEM_STATUS_START = 1419,		;;플랫폼/체계상태 송신
-;; 	SKP_MSG_JTDLS_REFERENCE_POINT =	1420,			;;참조점 생성
-;; 	SKP_MSG_JTDLS_ASSOCIATION_STOP = 1421,			;;연관해제
-;; 	SKP_MSG_JTDLS_TRACK_NUMBER_CHANGE = 1422,			;;표적번호 변경
-;; 	SKP_MSG_JTDLS_CDO = 1423,						;;CDO
-;; 	SKP_MSG_JTDLS_IFF_SIF_MNG = 1424,			;;IFF/SIF Mng
-;; };
-
-;; enum _ENUM_SKP_15			
-;; {
-;; 	SKP_MSG_SRS_TRACKING_START = SKP_MSG_SURV_RD_MTRACKING, ;;탐색레이더 추적개시
-;; 	SKP_MSG_SRS_TRACKING_STOP = SKP_MSG_SURV_RD_MDEL, ;;탐색레이더 추적해제
-;; 	SKP_MSG_SRS_EMCOM_OFF = 1501, ;; 송신승인
-;; 	SKP_MSG_SRS_EMCOM_ON = 1502, ;;송신차단
-;; 	SKP_MSG_SRS_TRANSMITER_START = 1503, ;;송신기 동작
-;; 	SKP_MSG_SRS_TRANSMITER_STOP = 1504, ;;송신기 대기
-;; 	SKP_MSG_SRS_SHORT_RANGE = 1505, ;;탐색근거리
-;; 	SKP_MSG_SRS_LONG_RANGE = 1506, ;;탐색원거리
-;; 	SKP_MSG_SRS_CLUTTER_ON = 1507, ;;클러터 동작
-;; 	SKP_MSG_SRS_CLUTTER_OFF = 1508, ;;클러터 중지
-;; 	SKP_MSG_SRS_THRESHOLD_FIXED = 1509, ;;임계치 고정
-;; 	SKP_MSG_SRS_THRESHOLD_MANUAL = 1510, ;;임계치 수동
-;; 	SKP_MSG_SRS_THRESHOLD_UP = 1511, ;;임계치 +
-;; 	SKP_MSG_SRS_THRESHOLD_DOWN = 1512, ;;임계치 -
-;; 	SKP_MSG_SRS_GAIN_FIXED = 1513, ;;이득치 고정
-;; 	SKP_MSG_SRS_GAIN_MANUAL = 1514, ;; 이득치 수동
-;; 	SKP_MSG_SRS_GAIN_UP = 1515, ;;이득치 +
-;; 	SKP_MSG_SRS_GAIN_DOWN = 1516, ;;이득치 -
-;; 	SKP_MSG_SRS_VIDEO_SETUP = 1517, ;;비디오설정
-;; 	SKP_MSG_SRS_BLANK_SECTOR = 1518,;;송신금지구역
-;; 	SKP_MSG_SRS_SUFRACE_AIA = 1519, ;;대함AIA
-;; 	SKP_MSG_SRS_AONI = 1520, ;;비관심구역
-;; 	SKP_MSG_SRS_AIR_AIIA = 1521, ;;대공 AIIA
-;; 	SKP_MSG_SRS_FOCUS_AIR = 1522, ;; 집중 대공/대함
-;; 	SKP_MSG_SRS_LONG_RANGE_AIR_SURF = 1523, ;; 장거리 대공/대함
-;; 	SKP_MSG_SRS_SHORT_RANGE_AIR_SURF= 1524, ;; 근거리 대공/대함
-;; };
-
-;; enum _ENUM_SKP_16			
-;; {
-;; 	SKP_MSG_GUN_SURBO_ON = 1601,		;;서보켬
-;; 	SKP_MSG_GUN_PRESS_ON = 1602,		;;유압켬
-;; 	SKP_MSG_GUN_FUSESTILL_ON = 1603,	;;신관마비켬
-;; 	SKP_MSG_GUN_SURBO_PRESS_OFF = 1604,	;;서보/유압끔
-;; 	SKP_MSG_GUN_FUSESTILL_OFF = 1605,	;;신관마비끔
-;; 	SKP_MSG_GUN_FIRE_ALLOW = 1606,		;; 함포발사승인
-;; 	SKP_MSG_GUN_FIRE_STOP = 1607,		;;함포발사금지
-;; 	SKP_MSG_GUN_SURFACE_SPOTTING = 1608,;; 대함탄착수정
-;; 	SKP_MSG_GUN_GENERAL_SETTING = 1609,	;;일반설정
-;; 	SKP_MSG_GUN_AIR_SPOTTING = 1610,	;;대공탄착수정
-;; 	SKP_MSG_GUN_OFFSET_LEFT = 1611,		;;전이각<-
-;; 	SKP_MSG_GUN_OFFSET_RIGHT = 1612,	;;전이각->
-;; 	SKP_MSG_GUN_INIT_POS	= 1613,		;;포제자리
-
-
-;; };
-
-;; enum _ENUM_SKP_17		
-;; {
-;; 	SKP_MSG_EMERGENCY_TRACK_INDICATE = 1701,	;;긴급 표적지시
-
-;; 	SKP_MSG_TRACK_INDICATE_CANCEL = 1703,		;;표적지시 취소
-
-;; 	SKP_MSG_MANUAL_TRACK_INDICATE = 1705,		;;수동표적지시
-
-
-;; };
-
-;; enum _ENUM_SKP_18			
-;; {
-;; 	SKP_MSG_GUN_REMOTE_REQ_ON = 1801,	;;원격요청
-;; 	SKP_MSG_GUN_REMOTE_REQ_CLEAR = 1802,	;;원격요청해제
-;; 	SKP_MSG_GUN_MOTOR_ON = 1803,		;;모터 켬
-;; 	SKP_MSG_GUN_MOTOR_OFF = 1804,		;;모터 끔
-;; 	SKP_MSG_GUN_FIRE_START_ALERT = 1805,	;;사격시작 경보
-;; 	SKP_MSG_GUN_FIRE_STOP_ALERT = 1806,	;; 사격종료 경보
-;; 	SKP_MSG_GUN_TAGET_MODE = 1807,		;;조준모드 표적점
-
-;; };
-
-;; /******************************************/
-;; /******************************************/
-
-;; #endif
-
-;; #if defined _M_IX86
-;; #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
-;; #elif defined _M_IA64
-;; #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='ia64' publicKeyToken='6595b64144ccf1df' language='*'\"")
-;; #elif defined _M_X64
-;; #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
-;; #else
-;; #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
-;; #endif
+(define  DID_AC_AIR_DIR_ACTION                        5968)
+(define  DID_AC_AIR_DIR_ACTION2                       5969)
+(define  DID_AC_AIR_DIR_ADVICE                        5970)
+(define  DID_AC_AIR_DIR_ADVICE2                       5971)
+(define  DID_AC_AIR_DIR_DATA                          5941)
+(define  DID_AC_AIR_DIR_DATA2                         5942)
+(define  DID_AC_AIR_DIR_DATA_REQ                      5943)
+(define  DID_AC_AIR_DIR_DATA_REQ2                     5944)
+(define  DID_AC_AIR_DIR_PARAMETER                     5945)
+(define  DID_AC_AIR_DIR_PARAMETER2                    5946)
+(define  DID_AC_AIR_DIR_WAYPOINT                      5947)
+(define  DID_AC_AIR_DIR_WAYPOINT2                     5948)
+(define  DID_AC_AIR_ROUTE                             6028)
+(define  DID_AC_AIR_ROUTE_ACK                         6030)
+(define  DID_AC_DISPLAY_ROUTE                         6208)
+(define  DID_AC_HELI_REC_ACTION                       5972)
+(define  DID_AC_HELI_REC_ACTION2                      5973)
+(define  DID_AC_HELI_REC_APPROACH_DATA                5974)
+(define  DID_AC_HELI_REC_APPROACH_DATA2               5975)
+(define  DID_AC_HELI_REC_COM_PARAMETER                5949)
+(define  DID_AC_HELI_REC_COM_PARAMETER2               5950)
+(define  DID_AC_HELI_REC_DATA                         5951)
+(define  DID_AC_HELI_REC_DATA2                        5952)
+(define  DID_AC_HELI_REC_DATA_REQ                     5953)
+(define  DID_AC_HELI_REC_DATA_REQ2                    5954)
+(define  DID_AC_HELI_REC_DESCENT_DATA                 5976)
+(define  DID_AC_HELI_REC_DESCENT_DATA2                5977)
+(define  DID_AC_HELI_REC_PARAMETER                    5955)
+(define  DID_AC_HELI_REC_PARAMETER2                   5956)
+(define  DID_AC_HELI_REC_WAYPOINT                     5957)
+(define  DID_AC_HELI_REC_WAYPOINT2                    5958)
+(define  DID_AC_SEPA_RULE_DATA                        5959)
+(define  DID_AC_SEPA_RULE_DATA_REQ                    5960)
+(define  DID_AC_SEPA_TRACK_INFO                       5978)
+(define  DID_AC_SEPA_TRACK_INFO_REQ                   5961)
+(define  DID_AC_SHOL_DATA                             5962)
+(define  DID_AC_SHOL_DATA_REQ                         5963)
+(define  DID_AC_VECTAC_ACTION                         5979)
+(define  DID_AC_VECTAC_ADVICE                         5980)
+(define  DID_AC_VECTAC_DATA                           5964)
+(define  DID_AC_VECTAC_DATA_REQ                       5965)
+(define  DID_AC_VECTAC_PARAMETER                      5966)
+(define  DID_AC_VECTAC_WAYPOINT                       5967)
+(define  DID_AIS_SHIP_INFO                            5656)
+(define  DID_ASWPLAN_ACORN_DISPLAY                    6010)
+(define  DID_ASWPLAN_ACORN_EDIT                       6034)
+(define  DID_ASWPLAN_ACORN_INFO                       5981)
+(define  DID_ASWPLAN_AIRPLAN44_DISPLAY                6011)
+(define  DID_ASWPLAN_AIRPLAN44_EDIT                   6035)
+(define  DID_ASWPLAN_AIRPLAN44_INFO                   5982)
+(define  DID_ASWPLAN_AIRPLAN45_DISPLAY                6012)
+(define  DID_ASWPLAN_AIRPLAN45_EDIT                   6036)
+(define  DID_ASWPLAN_AIRPLAN45_INFO                   5983)
+(define  DID_ASWPLAN_AIRPLAN46_DISPLAY                5984)
+(define  DID_ASWPLAN_AIRPLAN46_DISPLAY_EDIT           6037)
+(define  DID_ASWPLAN_AIRPLAN46_EDIT                   6038)
+(define  DID_ASWPLAN_AIRPLAN46_INFO                   5985)
+(define  DID_ASWPLAN_AIRPLAN47_DISPLAY                6013)
+(define  DID_ASWPLAN_AIRPLAN47_EDIT                   6039)
+(define  DID_ASWPLAN_AIRPLAN47_INFO                   5986)
+(define  DID_ASWPLAN_AIRPLAN48_DISPLAY                6014)
+(define  DID_ASWPLAN_AIRPLAN48_EDIT                   6040)
+(define  DID_ASWPLAN_AIRPLAN48_INFO                   5987)
+(define  DID_ASWPLAN_AIRPLAN49_DISPLAY                6015)
+(define  DID_ASWPLAN_AIRPLAN49_EDIT                   6041)
+(define  DID_ASWPLAN_AIRPLAN49_INFO                   5988)
+(define  DID_ASWPLAN_AIRPLAN50_DISPLAY                6016)
+(define  DID_ASWPLAN_AIRPLAN50_EDIT                   6042)
+(define  DID_ASWPLAN_AIRPLAN50_INFO                   5989)
+(define  DID_ASWPLAN_AIRPLAN51_DISPLAY                6017)
+(define  DID_ASWPLAN_AIRPLAN51_EDIT                   6043)
+(define  DID_ASWPLAN_AIRPLAN51_INFO                   5990)
+(define  DID_ASWPLAN_AIRPLAN_EDIT                     6044)
+(define  DID_ASWPLAN_AIRPLAN_INFO                     6018)
+(define  DID_ASWPLAN_ASW_INFO_REQ_EDIT                6045)
+(define  DID_ASWPLAN_ASW_PLAN_EDIT                    6046)
+(define  DID_ASWPLAN_ASW_PLAN_INFO                    6183)
+(define  DID_ASWPLAN_CIRCULARATTACK_EDIT              6047)
+(define  DID_ASWPLAN_CIRCULARATTACK_INFO              5991)
+(define  DID_ASWPLAN_CORDON_DISPLAY                   6019)
+(define  DID_ASWPLAN_CORDON_EDIT                      6048)
+(define  DID_ASWPLAN_CORDON_INFO                      5992)
+(define  DID_ASWPLAN_DEEPCREEP_EDIT                   6066)
+(define  DID_ASWPLAN_DEEPCREEP_INFO                   6029)
+(define  DID_ASWPLAN_DEPARTURE_ENTRY_SCREEN_EDIT      6049)
+(define  DID_ASWPLAN_DEPARTURE_ENTRY_SCREEN_INFO      5993)
+(define  DID_ASWPLAN_FENCE_EDIT                       6050)
+(define  DID_ASWPLAN_FENCE_INFO                       5994)
+(define  DID_ASWPLAN_GEOSECTOR_EDIT                   6051)
+(define  DID_ASWPLAN_GEOSECTOR_INFO                   5995)
+(define  DID_ASWPLAN_HITANDRUN_EDIT                   6067)
+(define  DID_ASWPLAN_HITANDRUN_INFO                   6031)
+(define  DID_ASWPLAN_LOCKON_EDIT                      6052)
+(define  DID_ASWPLAN_LOCKON_INFO                      5996)
+(define  DID_ASWPLAN_NEW_ACORN_DISPLAY                6032)
+(define  DID_ASWPLAN_NEW_ACORN_EDIT                   6068)
+(define  DID_ASWPLAN_NEW_ACORN_INFO                   6033)
+(define  DID_ASWPLAN_NOTACK_EDIT                      6053)
+(define  DID_ASWPLAN_NOTACK_INFO                      5997)
+(define  DID_ASWPLAN_OAKTREE_DISPLAY                  6020)
+(define  DID_ASWPLAN_OAKTREE_EDIT                     6054)
+(define  DID_ASWPLAN_OAKTREE_INFO                     5998)
+(define  DID_ASWPLAN_PINEAPPLE_EDIT                   6055)
+(define  DID_ASWPLAN_PINEAPPLE_INFO                   5999)
+(define  DID_ASWPLAN_PLANNET_DISPLAY                  6021)
+(define  DID_ASWPLAN_PLANNET_EDIT                     6056)
+(define  DID_ASWPLAN_PLANNET_INFO                     6000)
+(define  DID_ASWPLAN_REDWOOD_EDIT                     6057)
+(define  DID_ASWPLAN_REDWOOD_INFO                     6001)
+(define  DID_ASWPLAN_SECTOR_SCREEN_EDIT               6058)
+(define  DID_ASWPLAN_SECTOR_SCREEN_INFO               6002)
+(define  DID_ASWPLAN_SKELETON_SCREEN_DISPLAY          6022)
+(define  DID_ASWPLAN_SKELETON_SCREEN_EDIT             6059)
+(define  DID_ASWPLAN_SKELETON_SCREEN_INFO             6003)
+(define  DID_ASWPLAN_SONOBUOY_DISPLAY                 6023)
+(define  DID_ASWPLAN_SONOBUOY_EDIT                    6060)
+(define  DID_ASWPLAN_SONOBUOY_INFO                    6004)
+(define  DID_ASWPLAN_SQUEEZE_EDIT                     6061)
+(define  DID_ASWPLAN_SQUEEZE_INFO                     6005)
+(define  DID_ASWPLAN_SUB_MOVE_AREA_DISPLAY            6024)
+(define  DID_ASWPLAN_SUB_MOVE_AREA_EDIT               6062)
+(define  DID_ASWPLAN_SUB_MOVE_AREA_INFO               6006)
+(define  DID_ASWPLAN_SUB_PATROL_AREA_DISPLAY          6025)
+(define  DID_ASWPLAN_SUB_PATROL_AREA_EDIT             6063)
+(define  DID_ASWPLAN_SUB_PATROL_AREA_INFO             6007)
+(define  DID_ASWPLAN_TDA_DISPLAY                      6026)
+(define  DID_ASWPLAN_TDA_EDIT                         6064)
+(define  DID_ASWPLAN_TDA_INFO                         6008)
+(define  DID_ASWPLAN_TDZ_DISPLAY                      6027)
+(define  DID_ASWPLAN_TDZ_EDIT                         6065)
+(define  DID_ASWPLAN_TDZ_INFO                         6009)
+(define  DID_CIWS_CDS_TRACK_DATA                      5816)
+(define  DID_CIWS_COMMAND_ACK                         5827)
+(define  DID_CIWS_DESIG_TRACK_INFO                    5828)
+(define  DID_CIWS_EMCON                               5817)
+(define  DID_CIWS_ENG_STATUS                          5807)
+(define  DID_CIWS_MODE_SET_INFO                       5808)
+(define  DID_CIWS_NO_ENG_SECTOR_DEF                   5819)
+(define  DID_CIWS_PROCESSED_TRACK_DATA                5809)
+(define  DID_CIWS_RADAR_SECTOR_CONTROL                5820)
+(define  DID_CIWS_SECTOR_DEF_REQ                      6082)
+(define  DID_CIWS_SPEED_THRESHOLD_SET                 5811)
+(define  DID_CIWS_SURFACE_CUE                         5821)
+(define  DID_CIWS_SURFACE_CUE_ACK                     5822)
+(define  DID_CIWS_SURFACE_CUE_REQ                     5823)
+(define  DID_CIWS_THREAT_TRACK_INFO                   5829)
+(define  DID_CIWS_WEAPON_DESIG                        5825)
+(define  DID_CIWS_WEAPON_DIRECTIVE_ACK                5812)
+(define  DID_CIWS_WEAPON_SECTOR_INFO                  5813)
+(define  DID_CIWS_WEAPON_STATE_CONTROL                5826)
+(define  DID_CIWS_WEAPON_SYS_STATUS                   5815)
+(define  DID_COMM_ALERT                               1555)
+(define  DID_COMM_ALERT_RESULT_ACK                    1610)
+(define  DID_COMM_FILE_UPDATE                         2585)
+(define  DID_COMM_HCI_NETWORK_TRACK_BALANCE           6173)
+(define  DID_COMM_INF_CTRL                            2117)
+(define  DID_COMM_INIT_TRACK                          1259)
+(define  DID_COMM_JOYSTICK_ALLOC                      1467)
+(define  DID_COMM_JOYSTICK_ALLOC_STATUS               1622)
+(define  DID_COMM_KILL_ASSESSMENT                     1436)
+(define  DID_COMM_LOGOFF                              2509)
+(define  DID_COMM_MODIFY_TRACK_INFO                   1261)
+(define  DID_COMM_NETWORK_TRACK_CANCEL                2527)
+(define  DID_COMM_NETWORK_TRACK_INFO                  2526)
+(define  DID_COMM_NETWORK_TRACK_SHAPE_INFO            6163)
+(define  DID_COMM_OPER_RSC_ALLOC_DEALLOC_REQ          1433)
+(define  DID_COMM_PRIMITIVE_TRACK_ADD_INFO_REQ        2396)
+(define  DID_COMM_PRIMITIVE_TRACK_CANCEL              2347)
+(define  DID_COMM_PRIMITIVE_TRACK_INFO                1785)
+(define  DID_COMM_RSC_ALLOC_DEALLOC_RESULT            1561)
+(define  DID_COMM_RSC_DEALLOC_NOTIFY                  1799)
+(define  DID_COMM_RSC_ENGAGEABLE_STATUS               1836)
+(define  DID_COMM_RSC_ENGAGEMENT_INFO                 1801)
+(define  DID_COMM_SIM_TRACK_CTRL                      2510)
+(define  DID_COMM_SIM_TRACK_CTRL_ACK                  2511)
+(define  DID_COMM_SK_ENGAGED_TRACK_STATUS             2421)
+(define  DID_COMM_SUBSYSTEM_STATUS_INFO               2119)
+(define  DID_COMM_SW_STATUS                           2285)
+(define  DID_COMM_SYSTEM_PERFORMANCE_INFO             5357)
+(define  DID_COMM_SYS_PARAMETER_REQ                   1283)
+(define  DID_COMM_TDL_CDO                             2593)
+(define  DID_COMM_TDL_CONFLICT                        1526)
+(define  DID_COMM_TDL_FILTER_INFO                     5699)
+(define  DID_COMM_TDL_FILTER_SETTING                  2369)
+(define  DID_COMM_TDL_INFO_REQ                        5499)
+(define  DID_COMM_TDL_JTDLS_COMMMAND_ORDER            5673)
+(define  DID_COMM_TDL_LINK11_COMMAND_ORDER            1516)
+(define  DID_COMM_TDL_MAX_RX_TRACK_COUNT              5697)
+(define  DID_COMM_TDL_MAX_RX_TRACK_COUNT_SETTING      2563)
+(define  DID_COMM_TDL_NTN                             1908)
+(define  DID_COMM_TDL_POINTER                         1883)
+(define  DID_COMM_TDL_TQ_UPDATE                       2601)
+(define  DID_COMM_TDL_WEAPON_ENGAGEMENT               2425)
+(define  DID_COMM_TDL_WEAPON_ENGAGEMENT_SETTING       2299)
+(define  DID_COMM_TIME_AND_DATE_REQ                   1285)
+(define  DID_COMM_TORPEDO_ALERT                       2293)
+(define  DID_COMM_TORPEDO_ALERT_INFO                  5838)
+(define  DID_COMM_TORPEDO_BITMAP_NOTIFICATION         2623)
+(define  DID_COMM_WEAPON_RESTRICTION_STATE_REQ        2418)
+(define  DID_COMM_WF_USER_OFFSET_VALUE_SET_REQ        1437)
+(define  DID_EOTS_AIM_POINT_CTRL                      5709)
+(define  DID_EOTS_AIM_POINT_STATUS                    5708)
+(define  DID_EOTS_CALIBRATION_CTRL                    1468)
+(define  DID_EOTS_CALIBRATION_STATUS                  1767)
+(define  DID_EOTS_DIRECTOR_STATUS                     1925)
+(define  DID_EOTS_EOTS_TRACK_INFO                     2297)
+(define  DID_EOTS_EQUIP_CTRL                          1469)
+(define  DID_EOTS_EQUIP_STATUS                        1766)
+(define  DID_EOTS_FORCED_MEMORY_TRACKING_CTRL         3022)
+(define  DID_EOTS_FRONT_DIRECTION_CTRL                2427)
+(define  DID_EOTS_FRONT_DIRECTION_STATUS              2428)
+(define  DID_EOTS_JOYSTICK_DATA                       1475)
+(define  DID_EOTS_LOCK_AND_LRF_STATUS                 2521)
+(define  DID_EOTS_LOCK_ON_CTRL                        2517)
+(define  DID_EOTS_LRF_FIRE_ON                         2518)
+(define  DID_EOTS_SECONDARY_TARGET                    2305)
+(define  DID_EOTS_SECTOR_SEARCH_CTRL                  1471)
+(define  DID_EOTS_SECTOR_SEARCH_STATUS                1764)
+(define  DID_EOTS_SLAVE_TRACKING_CTRL                 1476)
+(define  DID_EOTS_SLAVE_TRACKING_CTRL_STATUS          1765)
+(define  DID_EOTS_TRACKING_CTRL                       1473)
+(define  DID_EOTS_TRACKING_CTRL_STATUS                1768)
+(define  DID_EOTS_TRACKING_MAIN_CTRL                  2522)
+(define  DID_EOTS_TRACKING_MAIN_INFO                  2519)
+(define  DID_EOTS_TRACKING_SENSOR_CTRL                1474)
+(define  DID_EOTS_TRACKING_SENSOR_STATUS              1763)
+(define  DID_ES_PRIMTRK_ADD_INFO                      2398)
+(define  DID_ES_STATUS                                1788)
+(define  DID_ES_TRK_LIST                              1566)
+(define  DID_EW_BRN_LIST                              5848)
+(define  DID_EW_BRN_RPT_REQ                           5857)
+(define  DID_EW_BRN_SEC                               5856)
+(define  DID_EW_DEL_BRN_RPT_REQ                       5858)
+(define  DID_EW_EMITTER_LIST_INFO                     5867)
+(define  DID_EW_EMITTER_LIST_SET_REQ                  5869)
+(define  DID_EW_HK_STATUS                             5850)
+(define  DID_EW_INH_JAM_SECTOR                        5868)
+(define  DID_EW_INH_JAM_SECTOR_REQ                    5870)
+(define  DID_EW_JAMMING_CMD                           5851)
+(define  DID_EW_MAN_MODE_INFO                         5852)
+(define  DID_EW_PRIMTRK_ADD_INFO                      5853)
+(define  DID_EW_STATUS                                5854)
+(define  DID_EW_TRK_ADD_INFO_REQ                      5859)
+(define  DID_EW_TRK_LIST                              5849)
+(define  DID_EW_TRK_STATUS_SET_REQ                    5855)
+(define  DID_FFX_VIEW_OPERATION                       3231)
+(define  DID_GENPLAN_AAW_PLAN_EDIT                    5710)
+(define  DID_GENPLAN_AAW_PLAN_INFO                    1699)
+(define  DID_GENPLAN_ASUW_PLAN_EDIT                   5711)
+(define  DID_GENPLAN_ASUW_PLAN_INFO                   1694)
+(define  DID_GENPLAN_CHARGE_EDIT                      5924)
+(define  DID_GENPLAN_CHARGE_INFO                      5923)
+(define  DID_GENPLAN_COMPLAN_EDIT                     5713)
+(define  DID_GENPLAN_COMPLAN_INFO                     1695)
+(define  DID_GENPLAN_EMCONF_EDIT                      6108)
+(define  DID_GENPLAN_EMCONF_INFO                      6107)
+(define  DID_GENPLAN_EMCON_EDIT                       5714)
+(define  DID_GENPLAN_EMCON_INFO                       1700)
+(define  DID_GENPLAN_GENERAL_EDIT                     5715)
+(define  DID_GENPLAN_GENERAL_INFO                     2163)
+(define  DID_GENPLAN_NBC_DISPLAY                      1702)
+(define  DID_GENPLAN_NBC_DISPLAY_EDIT                 5716)
+(define  DID_GENPLAN_NBC_EDIT                         5717)
+(define  DID_GENPLAN_NBC_INFO                         1701)
+(define  DID_GENPLAN_NGS_PLAN_EDIT                    5712)
+(define  DID_GENPLAN_NGS_PLAN_INFO                    3257)
+(define  DID_GENPLAN__EMCON_INFO_WINDOW_POPUP         2413)
+(define  DID_GUN127_AIM_MODE_SET                      5763)
+(define  DID_GUN127_AMMUNTION_SELECT_ORDER            5764)
+(define  DID_GUN127_BM_AMMUNITION_INVENTORY           5720)
+(define  DID_GUN127_BM_BARREL_INDICATE_POSITION       5721)
+(define  DID_GUN127_BM_BARREL_INFORMATION             5722)
+(define  DID_GUN127_BM_CORRECTION_DATA_ACK            5724)
+(define  DID_GUN127_BM_DEFAULT_PARAMETER              5725)
+(define  DID_GUN127_BM_ENG_TIME_INFO                  5726)
+(define  DID_GUN127_BM_EOTS_LOCK_ON_STATUS_REQ        5727)
+(define  DID_GUN127_BM_FIRE_BT_CTRL                   5728)
+(define  DID_GUN127_BM_FIRE_CMD_ACK                   5729)
+(define  DID_GUN127_BM_FIRE_INFO                      5730)
+(define  DID_GUN127_BM_GUN_STATUS_INFO                5731)
+(define  DID_GUN127_BM_HIGH_MANEUVER_TGT_INFO         5732)
+(define  DID_GUN127_BM_INFO                           5733)
+(define  DID_GUN127_BM_MVR_STATUS                     5757)
+(define  DID_GUN127_BM_OSD_WEATHER_REQ                5758)
+(define  DID_GUN127_BM_PAC_DATA_ALL                   5759)
+(define  DID_GUN127_BM_RESET_TRACKING_ACK             5760)
+(define  DID_GUN127_CORRECTION_DATA                   5774)
+(define  DID_GUN127_CTRL_ORDER                        5765)
+(define  DID_GUN127_FUZE_SET                          5766)
+(define  DID_GUN127_HIGH_MANEUVER_TGT_SOLUTION        5767)
+(define  DID_GUN127_HIGH_SOLUTION                     5776)
+(define  DID_GUN127_MVR_SET                           5768)
+(define  DID_GUN127_PAC_DATA_SET                      5769)
+(define  DID_GUN127_PARA_SET                          5770)
+(define  DID_GUN127_PHP_DISPLAY                       5771)
+(define  DID_GUN127_STAR_SHELL_SET                    5772)
+(define  DID_GUN127_THROW_OFF_SET                     5773)
+(define  DID_GUN127_TRN_STATUS                        5785)
+(define  DID_GUN76_AIM_MODE_SET                       5569)
+(define  DID_GUN76_BM_BARREL_INDICATE_POSITION        5644)
+(define  DID_GUN76_BM_BARREL_INFORMATION              5540)
+(define  DID_GUN76_BM_CORRECTION_DATA_ACK             5539)
+(define  DID_GUN76_BM_DEFAULT_PARAMETER               5542)
+(define  DID_GUN76_BM_ENG_TIME_INFO                   5551)
+(define  DID_GUN76_BM_EOTS_LOCK_ON_STATUS_REQ         5550)
+(define  DID_GUN76_BM_FIRE_BT_CTRL                    5645)
+(define  DID_GUN76_BM_FIRE_CMD_ACK                    5646)
+(define  DID_GUN76_BM_FIRE_INFO                       5647)
+(define  DID_GUN76_BM_FIRE_STATUS                     5581)
+(define  DID_GUN76_BM_FIRING_DURATION_TIME_ACK        5648)
+(define  DID_GUN76_BM_GUN_DAILY_FIRE_COUNT            5649)
+(define  DID_GUN76_BM_GUN_STATUS_INFO                 5650)
+(define  DID_GUN76_BM_INFO_FIRE_SET_INFO              5651)
+(define  DID_GUN76_BM_INFO_MAIN                       5652)
+(define  DID_GUN76_BM_OSD_WEATHER_REQ                 5548)
+(define  DID_GUN76_BM_PAC_DATA_ALL                    5653)
+(define  DID_GUN76_BM_RESET_TRACKING_ACK              5552)
+(define  DID_GUN76_CORRECTION_DATA                    5567)
+(define  DID_GUN76_CTRL_ORDER                         5565)
+(define  DID_GUN76_DAILY_FIRE_COUNT                   5571)
+(define  DID_GUN76_DEFAULT_PARA_REQ                   5572)
+(define  DID_GUN76_FIRING_DURATION_TIME               5641)
+(define  DID_GUN76_NGS_CORRECTION_DATA                5578)
+(define  DID_GUN76_PAC_DATA_SET                       5558)
+(define  DID_GUN76_PARA_SET                           5563)
+(define  DID_GUN76_PHP_DISPLAY                        5642)
+(define  DID_GUN76_THROW_OFF_SET                      5643)
+(define  DID_GUN76_TRN_STATUS                         5659)
+(define  DID_GUN76_TRN_STATUS_REQ                     5660)
+(define  DID_GUN_BM_AMMUNITION_INVENTORY              2540)
+(define  DID_GUN_BM_MVR_STATUS                        3030)
+(define  DID_HMS_BEARING_LIST                         5903)
+(define  DID_HMS_ENERGYSPECTRUM                       5894)
+(define  DID_HMS_HMSINFO                              5895)
+(define  DID_HMS_MAX_SENSE_RANGE                      5896)
+(define  DID_HMS_MAX_SENSE_RANGE_INFO                 5904)
+(define  DID_HMS_PRIMTRK_ADD_INFO                     5897)
+(define  DID_HMS_RADAR_TRACK                          5901)
+(define  DID_HMS_RANGE                                5939)
+(define  DID_HMS_SONAR_ORDER                          5902)
+(define  DID_HMS_SONAR_ORDER_ACK                      5898)
+(define  DID_HMS_TORPEDO_ALERT_LIST                   5905)
+(define  DID_HMS_TORPEDO_DETECT_DISP                  5899)
+(define  DID_HMS_TORPEDO_DISCERN_DISP                 5900)
+(define  DID_IFF_BDS_DISP_DATA                        5394)
+(define  DID_IFF_BIT_INFO                             1967)
+(define  DID_IFF_CODE_SET                             1477)
+(define  DID_IFF_CODE_STATUS                          1623)
+(define  DID_IFF_EQUIP_CTRL                           3088)
+(define  DID_IFF_EQUIP_CTRL_ACK                       3270)
+(define  DID_IFF_EQUIP_STATUS                         3089)
+(define  DID_IFF_INTERROGATE_STATUS                   1966)
+(define  DID_IFF_MODE1_STATUS                         1625)
+(define  DID_IFF_MODE2_STATUS                         1626)
+(define  DID_IFF_MODE3A_STATUS                        1627)
+(define  DID_IFF_MODE3A_TIME                          2122)
+(define  DID_IFF_MODE_DATA                            1624)
+(define  DID_IFF_MODE_INFO_REQ                        2500)
+(define  DID_IFF_PRIMTRK_ADD_INFO                     5344)
+(define  DID_IFF_RADAR_SILENCE_CTRL_ACK               2214)
+(define  DID_IISS_GFE_MESSAGE                         5916)
+(define  DID_INFRA_IPN_WC_INIT_CTRL                   5582)
+(define  DID_IPNTRN_GUN_AMMOLIST                      2608)
+(define  DID_IPNTRN_IFF_STATUS                        5657)
+(define  DID_IRST_MODE_CTRL                           6215)
+(define  DID_IRST_PANORAMIC_CTRL                      6216)
+(define  DID_IRST_PANORAMIC_REQ                       6225)
+(define  DID_IRST_PANORAMIC_STATUS                    6220)
+(define  DID_IRST_POWER_CTRL                          6229)
+(define  DID_IRST_POWER_STATUS                        6232)
+(define  DID_IRST_PRIMTRK_ADD_INFO                    6234)
+(define  DID_IRST_SEARCH_SECTOR_CTRL                  6219)
+(define  DID_IRST_SEARCH_SECTOR_STATUS                6223)
+(define  DID_IRST_SECTOR_SURVEIL_CTRL                 6217)
+(define  DID_IRST_SECTOR_SURVEIL_REQ                  6224)
+(define  DID_IRST_SECTOR_SURVEIL_STATUS               6221)
+(define  DID_IRST_SENSOR_CONFIG_CTRL                  6230)
+(define  DID_IRST_SENSOR_CONFIG_STATUS                6231)
+(define  DID_IRST_STATUS                              5740)
+(define  DID_IRST_TRK_LIST                            5937)
+(define  DID_ISDL_AIRCRAFT_SHIP_CONTROL               1874)
+(define  DID_ISDL_AIRCRAFT_SHIP_CONTROL_SETTING       2115)
+(define  DID_ISDL_ASSOCIATION                         1875)
+(define  DID_ISDL_COMMAND                             1877)
+(define  DID_ISDL_COMMAND_LIST                        2489)
+(define  DID_ISDL_COMMAND_ORDER_ACK                   2512)
+(define  DID_ISDL_CORRELATION_STATUS                  1863)
+(define  DID_ISDL_ENGAGEMENT_STATUS                   1878)
+(define  DID_ISDL_GEN_CTRL_ACK                        1880)
+(define  DID_ISDL_GEN_CTRL_SETTING                    1536)
+(define  DID_ISDL_INFORMATION_DIFFERENCE_REPORT       1867)
+(define  DID_ISDL_MAIN_WND_INFO                       2485)
+(define  DID_ISDL_NETWORK_TRACK_ADD_INFO              2582)
+(define  DID_ISDL_NTN                                 1868)
+(define  DID_ISDL_OPNOTE_INFO                         5700)
+(define  DID_ISDL_OPNOTE_SEND                         1617)
+(define  DID_ISDL_PU_TABLE_CONFIG                     2577)
+(define  DID_ISDL_PU_TABLE_CONFIG_SETTING             2584)
+(define  DID_ISDL_REMOTE_TRACK_LIST                   2492)
+(define  DID_ISDL_REMOTE_TRACK_SEARCH_SETTING         2455)
+(define  DID_ISDL_TDL_OPNOTE_INFO                     1881)
+(define  DID_ISDL_TDL_OPNOTE_SEND                     5701)
+(define  DID_ISDL_TDL_RESILIENCE                      6127)
+(define  DID_ISDL_TRACK_ALERT                         1872)
+(define  DID_ISDL_TRACK_HOOKING_REQ                   2587)
+(define  DID_ISDL_WEAPON_STATUS                       1884)
+(define  DID_JTDLS_ADMISSION_RESPONSE                 5622)
+(define  DID_JTDLS_ALERT_LIST                         5635)
+(define  DID_JTDLS_COMMAND_LINE                       5666)
+(define  DID_JTDLS_COMMAND_LIST                       5624)
+(define  DID_JTDLS_CONTROL_UNIT_CHANGE                6179)
+(define  DID_JTDLS_CORREATION                         5625)
+(define  DID_JTDLS_ENGAGEMENT_STATUS_LIST             5626)
+(define  DID_JTDLS_FILTER                             6180)
+(define  DID_JTDLS_FREETEXT                           6185)
+(define  DID_JTDLS_FREETEXT_LIST                      5639)
+(define  DID_JTDLS_HANDOVER                           6177)
+(define  DID_JTDLS_IDENTIFIER_LIST                    6184)
+(define  DID_JTDLS_MISSION_ASSIGNMENT                 6174)
+(define  DID_JTDLS_NETWORK_TRACK_ADD_INFO             5623)
+(define  DID_JTDLS_NETWORK_TRACK_ADD_INFO_FOR_MD      5667)
+(define  DID_JTDLS_NETWORK_TRACK_ASSOCIATION_LIST     5627)
+(define  DID_JTDLS_NETWORK_TRACK_PAIRING_LIST         5628)
+(define  DID_JTDLS_SHAPE_LIST                         5640)
+(define  DID_JTDLS_TARGET_SORTING_LIST                5654)
+(define  DID_JTDLS_THREAT_WARNING_LIST                5629)
+(define  DID_JTDLS_TRACK_SEND_RESULT                  5655)
+(define  DID_JTDLS_VECTOR                             6176)
+(define  DID_KEYBOARD_SHORTCUTS                       5398)
+(define  DID_KNCCS_KNCCS_TRACK_LIST                   1860)
+(define  DID_KNCCS_STATUS_INFO                        1861)
+(define  DID_KSAAM_BREAK_ENG_COMPLETED                5799)
+(define  DID_KSAAM_DESIGNATION                        5798)
+(define  DID_KSAAM_DOCTRINE_REQ                       6080)
+(define  DID_KSAAM_DOCTRINE_SETTINGS                  5800)
+(define  DID_KSAAM_DOCTRINE_SETTINGS_REQ              5824)
+(define  DID_KSAAM_EMERGENCY_DESTRUCTION              6081)
+(define  DID_KSAAM_EMERGENCY_DESTRUCTION_REQ          5814)
+(define  DID_KSAAM_FIRE_BT_CTRL                       5805)
+(define  DID_KSAAM_JET_VANES_REPORT                   5806)
+(define  DID_KSAAM_LAUNCH_STATUS                      5801)
+(define  DID_KSAAM_LOCAL_TGT_CMD                      6079)
+(define  DID_KSAAM_LOCAL_TGT_STATUS                   6077)
+(define  DID_KSAAM_MISSILE_TRAJECTORY_DATA            5810)
+(define  DID_KSAAM_REPEATBACK                         5802)
+(define  DID_KSAAM_STATUS                             5804)
+(define  DID_KSAAM_STATUS_REQ                         6078)
+(define  DID_KSSM_ENGAGEMENT_ORDER                    5743)
+(define  DID_KSSM_ENGAGEMENT_ORDER_REQ                5744)
+(define  DID_KSSM_ENGAGEMENT_PLAN                     5751)
+(define  DID_KSSM_ENGAGEMENT_STATUS                   5748)
+(define  DID_KSSM_EQUIPMENT_STATUS                    5749)
+(define  DID_KSSM_INTERFACE_CONTROL                   5753)
+(define  DID_KSSM_PLAN_APPROVAL                       5754)
+(define  DID_KSSM_PLAN_PROFILE                        5752)
+(define  DID_KSSM_STATUS_INFO_REQ                     5755)
+(define  DID_KSSM_TDA_DISPLAY                         5756)
+(define  DID_KSSM_TGT_INFO                            5745)
+(define  DID_KSSM_TGT_INFO_REQ                        5746)
+(define  DID_KSSM_TRACK_DATA_MSG                      5747)
+(define  DID_KSSM_TRACK_REQUEST                       5750)
+(define  DID_KTSLM_ENGAGEMENT_ORDER                   5761)
+(define  DID_KTSLM_ENGAGEMENT_ORDER_REQ               5777)
+(define  DID_KTSLM_ENGAGEMENT_PLAN                    5790)
+(define  DID_KTSLM_ENGAGEMENT_STATUS                  5778)
+(define  DID_KTSLM_EQUIPMENT_STATUS                   5779)
+(define  DID_KTSLM_INTERFACE_CONTROL                  5792)
+(define  DID_KTSLM_PLAN_APPROVAL                      5793)
+(define  DID_KTSLM_PLAN_PROFILE                       5791)
+(define  DID_KTSLM_STATUS_INFO_REQ                    5794)
+(define  DID_KTSLM_TDA_DISPLAY                        5795)
+(define  DID_KTSLM_TGT_INFO                           5762)
+(define  DID_KTSLM_TGT_INFO_REQ                       5780)
+(define  DID_KTSLM_TRACK_DATA_MSG                     5775)
+(define  DID_KTSLM_TRACK_REQUEST                      5781)
+(define  DID_KVLA_ENG_INFO_LIST                       5871)
+(define  DID_KVLA_ENG_PLAN_APPROVAL_CMD               5861)
+(define  DID_KVLA_ENG_PLAN_DISPLAY_INFO               6194)
+(define  DID_KVLA_ENG_PLAN_DISPLAY_ONFOFF             6195)
+(define  DID_KVLA_ENG_STATUS                          5862)
+(define  DID_KVLA_FIRE_PERMIT_CMD                     5863)
+(define  DID_KVLA_INHIBIT_REQ                         6211)
+(define  DID_KVLA_KVLS_STATUS                         6204)
+(define  DID_KVLA_SECTOR_TRACK_INFO                   6190)
+(define  DID_KVLA_STATUS_INFO                         5864)
+(define  DID_KVLA_TARGET_INDICATION                   5860)
+(define  DID_KVLA_TI_SET_REQ                          5865)
+(define  DID_KVLA_TORPEDO_SET_REQ                     5866)
+(define  DID_LINK11_ADMISSION                         6097)
+(define  DID_LINK11_ADMISSION_SETTING                 6091)
+(define  DID_LINK11_AIRCRAFT_CONTROL                  6098)
+(define  DID_LINK11_AIRCRAFT_CONTROL_ORDER_SETTING    6092)
+(define  DID_LINK11_AIRCRAFT_MISSION_STATUS           6103)
+(define  DID_LINK11_AIRCRAFT_MISSION_STATUS_SETTING   6093)
+(define  DID_LINK11_COMMAND_LINE                      6111)
+(define  DID_LINK11_COMMAND_ORDER                     6099)
+(define  DID_LINK11_COMMAND_ORDER_SETTING             6112)
+(define  DID_LINK11_CONFLICT                          6100)
+(define  DID_LINK11_DP_INPUT                          6226)
+(define  DID_LINK11_DTS_CONTROL_DATA                  6101)
+(define  DID_LINK11_DTS_CONTROL_DATA_SETTING          6094)
+(define  DID_LINK11_DTS_NDDSINTF                      6228)
+(define  DID_LINK11_IP_INPUT                          6227)
+(define  DID_LINK11_LOOPTEST_SETTING                  6095)
+(define  DID_LINK11_NETWORK_TRACK_ADD_INFO            6110)
+(define  DID_LINK11_OPNOTE_SETTING                    6096)
+(define  DID_LINK11_TDL_OPNOTE_INFO                   6104)
+(define  DID_LINK11_TEST_RESULT                       6102)
+(define  DID_LINKK_FREETEXT_LIST                      5636)
+(define  DID_LINK_COMMAND_RESPONSE                    6197)
+(define  DID_LYNXESM_HELI_INFO                        5737)
+(define  DID_LYNXESM_PRIMTRK_ADD_INFO                 5736)
+(define  DID_LYNXESM_STATUS                           5738)
+(define  DID_LYNXESM_TRK_INFO_REQ                     5739)
+(define  DID_LYNXESM_TRK_LIST                         5735)
+(define  DID_MASS_CLOUD_DATA                          5607)
+(define  DID_MASS_CRITERIA                            5614)
+(define  DID_MASS_CRITERIA_REQ                        5682)
+(define  DID_MASS_ENG_INFO_LIST                       2536)
+(define  DID_MASS_ENG_REPORT                          5608)
+(define  DID_MASS_ER_MSG                              5936)
+(define  DID_MASS_HK_STATUS                           5615)
+(define  DID_MASS_RESOURCE_STATUS                     5609)
+(define  DID_MASS_STATUS                              5610)
+(define  DID_MASS_TD_MSG                              5611)
+(define  DID_MASS_TI_LIST                             5612)
+(define  DID_MASS_TI_SET_REQ                          5618)
+(define  DID_MASS_TQ_LIST                             5613)
+(define  DID_MCS_GUN_FIRE_CMD                         1269)
+(define  DID_MCS_KSAAM_FIRE_CMD                       1271)
+(define  DID_MCS_RCWS_FIRE_CMD                        5663)
+(define  DID_MCS_ROCKET_FIRE_CMD                      5664)
+(define  DID_MCS_SIMROCKET_FIRE_CMD                   6246)
+(define  DID_MCS_SLTS_FIRE_CMD                        1270)
+(define  DID_MCS_TACM_FIRE_CMD                        1272)
+(define  DID_MD_COORD_CHANGE                          6209)
+(define  DID_MD_HIGH_MANEUVER_PHP_INFO                2607)
+(define  DID_MD_TDL_AIRCRAFT_CONTROL_INFO             2461)
+(define  DID_MD_TDL_POINTER                           1537)
+(define  DID_MD_TDL_TRAINING_TRACK_CONFIRM            2499)
+(define  DID_MD_TM_LINK_SEND_CANCEL                   1265)
+(define  DID_MD_TM_MANUAL_CANCEL                      2590)
+(define  DID_MD_TM_MANUAL_FUSION                      1262)
+(define  DID_MD_TM_SURF_TRACKING_INITIATION           2123)
+(define  DID_MD_TM_SURF_TRACKING_SELECTION            5922)
+(define  DID_MD_WF_ENG_CH_LIST_REQ                    1435)
+(define  DID_MFC_JTDLS_ADMISSION_SETTTING             5621)
+(define  DID_MFC_JTDLS_ALERT_RES                      6181)
+(define  DID_MFC_JTDLS_ASS_PAI                        6168)
+(define  DID_MFC_JTDLS_COMMAND                        6167)
+(define  DID_MFC_JTDLS_CONTROL_UNIT_CHANGE            6165)
+(define  DID_MFC_JTDLS_CORRELATION_REQ                5632)
+(define  DID_MFC_JTDLS_ENGAGEMENT                     6169)
+(define  DID_MFC_JTDLS_FILTER_SETTING                 5637)
+(define  DID_MFC_JTDLS_FREETEXT_TX                    5661)
+(define  DID_MFC_JTDLS_INFO_REQ                       5633)
+(define  DID_MFC_JTDLS_MISSION_ASSIGNMENT             6175)
+(define  DID_MFC_JTDLS_NTDB_CLEAR                     5630)
+(define  DID_MFC_JTDLS_SET_OWNSHIP_INFO               5634)
+(define  DID_MFC_JTDLS_SHAPE                          6171)
+(define  DID_MFC_JTDLS_TARGET_SORTING                 6166)
+(define  DID_MFC_JTDLS_THREAT_WARNING                 6172)
+(define  DID_MFC_JTDLS_TRACK_ADD_INFO                 6170)
+(define  DID_MFC_JTDLS_VECTOR                         6164)
+(define  DID_MFC_JTDL_HANDOVER                        6178)
+(define  DID_MFC_SIMKSAAM_FIRE_CMD                    6212)
+(define  DID_MFC_TM_MANUAL_TRACK_WIPE                 2022)
+(define  DID_MFC_TRN_IFF_STATUS_REQ                   2416)
+(define  DID_NAV_ANCH_RUN                             1258)
+(define  DID_NAV_ANCH_RUN_ACK                         1585)
+(define  DID_NAV_ARRIVE_RUN                           1254)
+(define  DID_NAV_ARRIVE_RUN_ACK                       1581)
+(define  DID_NAV_COASTSAIL_INFO                       1252)
+(define  DID_NAV_COASTSAIL_INFO_ACK                   1579)
+(define  DID_NAV_COLL_INFO                            1251)
+(define  DID_NAV_COLL_INFO_ACK                        1577)
+(define  DID_NAV_COLL_TRACK_INFO                      1578)
+(define  DID_NAV_CPA_INFO                             2550)
+(define  DID_NAV_CPA_REQ                              2551)
+(define  DID_NAV_DISPLAY_ANCH                         2653)
+(define  DID_NAV_DISPLAY_ANCH_COMPLETE                5681)
+(define  DID_NAV_DISPLAY_ARRIVE                       2654)
+(define  DID_NAV_DISPLAY_COLL                         5680)
+(define  DID_NAV_DISPLAY_CPA                          2655)
+(define  DID_NAV_DISPLAY_DIST                         2656)
+(define  DID_NAV_DISPLAY_LOWSAIL                      3240)
+(define  DID_NAV_DISPLAY_SAIL                         2657)
+(define  DID_NAV_DISPLAY_SCOUT                        2658)
+(define  DID_NAV_DISPLAY_STAT                         2659)
+(define  DID_NAV_DISPLAY_ZIG                          2660)
+(define  DID_NAV_DIST_RUN                             1255)
+(define  DID_NAV_DIST_RUN_ACK                         1582)
+(define  DID_NAV_KEEP_SAIL_RUN                        5676)
+(define  DID_NAV_KEEP_SAIL_RUN_ACK                    5679)
+(define  DID_NAV_RESCUE_RUN                           5677)
+(define  DID_NAV_RESCUE_RUN_ACK                       5678)
+(define  DID_NAV_SAIL_PLAN                            1249)
+(define  DID_NAV_SAIL_PLAN_ACK                        1575)
+(define  DID_NAV_SAIL_RUN                             1250)
+(define  DID_NAV_SAIL_RUN_ACK                         1576)
+(define  DID_NAV_SCOUT_RUN                            2120)
+(define  DID_NAV_SCOUT_RUN_ACK                        2121)
+(define  DID_NAV_STAT_RUN                             1253)
+(define  DID_NAV_STAT_RUN_ACK                         1580)
+(define  DID_NAV_ZIG_PLAN                             1256)
+(define  DID_NAV_ZIG_PLAN_ACK                         1583)
+(define  DID_NAV_ZIG_RUN                              1257)
+(define  DID_NAV_ZIG_RUN_ACK                          1584)
+(define  DID_NMM_AREA                                 5409)
+(define  DID_NMM_MGR                                  5410)
+(define  DID_NRS_TRACK_INFO                           5335)
+(define  DID_OBSERVER_POS_DISPLAY                     6109)
+(define  DID_OSD_ALTITUDE_WEATHER_INFO                1637)
+(define  DID_OSD_AUTOHISTORY_DATA_RESIL               5694)
+(define  DID_OSD_AUTOHISTORY_LIST_RESIL               5696)
+(define  DID_OSD_COMMON_DATA_RESIL                    5688)
+(define  DID_OSD_ENV_CTRL                             1485)
+(define  DID_OSD_ENV_INFO                             1636)
+(define  DID_OSD_HISTORY_CTRL                         1486)
+(define  DID_OSD_HISTORY_DATA_RESIL                   5693)
+(define  DID_OSD_HISTORY_INFO                         1633)
+(define  DID_OSD_HISTORY_LIST_INFO_RESIL              5692)
+(define  DID_OSD_HISTORY_LIST_RESIL                   5695)
+(define  DID_OSD_INFO                                 1634)
+(define  DID_OSD_NECODE_CHANGE                        5323)
+(define  DID_OSD_NECODE_CTRL                          2315)
+(define  DID_OSD_NECODE_INFO                          2316)
+(define  DID_OSD_NECODE_RESIL                         5691)
+(define  DID_OSD_OSD_CTRL                             1488)
+(define  DID_OSD_SAIL_DISPPLAY                        2588)
+(define  DID_OSD_STAB                                 2548)
+(define  DID_OSD_STAB_OSD                             2381)
+(define  DID_OSD_USE_FLAG_RESIL                       5690)
+(define  DID_OSD_WEATHER_CTRL                         1489)
+(define  DID_OSD_WEATHER_INFO_RESIL                   5689)
+(define  DID_RCWS_BREAK_ENG                           6203)
+(define  DID_RCWS_BREAK_ENG_COMPLETED                 6189)
+(define  DID_RCWS_ENG_CONTROL                         6192)
+(define  DID_RCWS_ENG_STATUS                          5671)
+(define  DID_RCWS_FIRE_BT_CTRL                        5675)
+(define  DID_RCWS_FIRING_CONTROL                      6191)
+(define  DID_RCWS_SECTOR_TRACK_INFO                   6193)
+(define  DID_RCWS_SECTOR_TRACK_REQ                    6202)
+(define  DID_RCWS_STATUS                              5670)
+(define  DID_RCWS_TD_LIST                             5672)
+(define  DID_RCWS_TD_MSG                              5669)
+(define  DID_RES_NAV_DIST                             5706)
+(define  DID_RES_NAV_PLAN                             5702)
+(define  DID_RES_NAV_SCOUT                            5704)
+(define  DID_RES_NAV_STAT                             5707)
+(define  DID_RES_NAV_ZIG_RUN                          5705)
+(define  DID_RM_ALL_TARGET_POSITION_INFO              5580)
+(define  DID_ROCKET_BREAK_ENG_COMPLETED               6129)
+(define  DID_ROCKET_DESIGNATION                       6116)
+(define  DID_ROCKET_DOCTRINE_SETTINGS                 6113)
+(define  DID_ROCKET_DOCTRINE_SETTINGS_REQ             6114)
+(define  DID_ROCKET_EMERGENCY_DESTRUCTION_REQ         6131)
+(define  DID_ROCKET_FIRE_BT_CTRL                      5674)
+(define  DID_ROCKET_REPEATBACK                        6128)
+(define  DID_ROCKET_STATUS                            6115)
+(define  DID_ROCKET_TRAJECTORY_DATA                   6130)
+(define  DID_RVDUTVD_SELECT_TV_VIDEO_ACK              2407)
+(define  DID_RVDUTVD_STATUS                           2534)
+(define  DID_RVDUTVD_TV_CONNECTION_STATUS             2025)
+(define  DID_RVP_FILE_DELETE_ACK                      2394)
+(define  DID_RVP_RNR_CMD_ACK                          2391)
+(define  DID_RVP_RVD_STATUS                           5719)
+(define  DID_RVP_RVR_STATUS                           2533)
+(define  DID_RVR_FILE_LIST_ACK                        2393)
+(define  DID_SD_HCISET_SAVE                           6118)
+(define  DID_SD_LOGOFF                                6210)
+(define  DID_SIMCIWS_STATUS                           5830)
+(define  DID_SIMCIWS_STATUS_REQ                       5831)
+(define  DID_SIMEOTS_STATUS                           2126)
+(define  DID_SIMEOTS_STATUS_REQ                       2132)
+(define  DID_SIMES_STATUS                             1791)
+(define  DID_SIMES_STATUS_REQ                         1459)
+(define  DID_SIMEW_STATUS                             6083)
+(define  DID_SIMEW_STATUS_REQ                         6084)
+(define  DID_SIMGUN127_TRN_RELOAD_AMMO                6073)
+(define  DID_SIMGUN127_TRN_STATUS                     6074)
+(define  DID_SIMGUN127_TRN_STATUS_REQ                 6106)
+(define  DID_SIMHMS_STATUS                            6085)
+(define  DID_SIMHMS_STATUS_REQ                        6087)
+(define  DID_SIMIRST_SECTOR_SURVEIL_CTRL              6241)
+(define  DID_SIMIRST_SECTOR_SURVEIL_REQ               6236)
+(define  DID_SIMIRST_SECTOR_SURVEIL_STATUS            6237)
+(define  DID_SIMIRST_STATUS                           5741)
+(define  DID_SIMIRST_STATUS_REQ                       5742)
+(define  DID_SIMIRST_TRN_SECTOR_SURVEIL_REQ           6235)
+(define  DID_SIMKSSM_STATUS                           6090)
+(define  DID_SIMKSSM_STATUS_REQ                       6089)
+(define  DID_SIMKTSLM_STATUS                          6133)
+(define  DID_SIMKTSLM_STATUS_REQ                      6134)
+(define  DID_SIMKTSLM_WAYPOINT_INFO                   6214)
+(define  DID_SIMKVLA_FIRE_PLAN_SET_INFO               6201)
+(define  DID_SIMKVLA_FIRE_PLAN_SET_INFO_ACK           6213)
+(define  DID_SIMKVLA_STATUS_INFO_REQ                  6198)
+(define  DID_SIMMASS_STATUS                           5619)
+(define  DID_SIMMASS_STATUS_REQ                       5620)
+(define  DID_SIMNRS_STATUS                            6076)
+(define  DID_SIMNRS_STATUS_REQ                        6105)
+(define  DID_SIMRCWS_FIRE_BT_INPUT                    6245)
+(define  DID_SIMRCWS_STATUS                           5687)
+(define  DID_SIMRCWS_STATUS_REQ                       5683)
+(define  DID_SIMROCKET_STATUS                         6243)
+(define  DID_SIMROCKET_STATUS_REQ                     6199)
+(define  DID_SIMROCKET_SWITCH_CMD                     6242)
+(define  DID_SIMROCKET_TD_LIST                        6244)
+(define  DID_SIMSLTS_STATUS                           1848)
+(define  DID_SIMSLTS_STATUS_REQ                       5832)
+(define  DID_SIMSRS_STATUS                            2124)
+(define  DID_SIMSRS_STATUS_REQ                        2130)
+(define  DID_SIMTASS_STATUS                           1795)
+(define  DID_SIMTASS_STATUS_REQ                       1460)
+(define  DID_SKP_COMMAND                              2591)
+(define  DID_SLTS_DOGBOX_DISPLAY_INFO                 5803)
+(define  DID_SLTS_ENG_INFO                            5796)
+(define  DID_SLTS_FIRE_BT_CTRL                        5782)
+(define  DID_SLTS_FIRE_DATA_SET_REQ                   5788)
+(define  DID_SLTS_LAUNCHER_TUBE_DATA_SET_REQ          5787)
+(define  DID_SLTS_STATUS_INFO                         5783)
+(define  DID_SLTS_STATUS_SET_REQ                      5786)
+(define  DID_SLTS_TORPEDO_INFO_SET_REQ                5789)
+(define  DID_SLTS_WF_DATA                             5784)
+(define  DID_SLTS_WF_LIST                             5797)
+(define  DID_SM_ALERT_RESULT                          1389)
+(define  DID_SM_ALLOC_STATUS_COMMAND                  6206)
+(define  DID_SM_ALLOC_STATUS_CONTROL                  6205)
+(define  DID_SM_ALLOC_STATUS_REPORT                   5684)
+(define  DID_SM_ALL_SYS_STATUS_INFO                   1591)
+(define  DID_SM_ASSIGNMENT_INFO                       2496)
+(define  DID_SM_AUTH_CHANGE_REQ                       2529)
+(define  DID_SM_DISP_ALERT                            6247)
+(define  DID_SM_HB_INFO                               5665)
+(define  DID_SM_HCISET_INFO                           6117)
+(define  DID_SM_INCORRECT_MSG                         1588)
+(define  DID_SM_INF_HISTORY_INFO                      2161)
+(define  DID_SM_INF_HISTORY_INFO_REQ                  6070)
+(define  DID_SM_LOGOUT_CMD                            2531)
+(define  DID_SM_LOG_CONTROL_CMD                       2541)
+(define  DID_SM_MODE_ALLOCATION_INFO                  5418)
+(define  DID_SM_MODE_CHANGE_CMD                       2139)
+(define  DID_SM_MODE_CHANGE_REQ                       2138)
+(define  DID_SM_MODE_CHANGE_STATUS                    5328)
+(define  DID_SM_MODE_ENV_SET_CMD                      6182)
+(define  DID_SM_MODE_FG_NODE_REL_INFO                 5419)
+(define  DID_SM_MODE_STATUS_INFO                      1586)
+(define  DID_SM_NET_POLL_TIME_AND_THRESHOLD_EDIT      1305)
+(define  DID_SM_NMS_INFO_REQ                          1287)
+(define  DID_SM_NMS_NET_PERFORM                       1710)
+(define  DID_SM_NMS_NET_POLL_TIME_AND_THRESHOLD       1714)
+(define  DID_SM_NMS_PORT_STATISTIC                    1713)
+(define  DID_SM_NMS_PORT_STATUS                       1712)
+(define  DID_SM_NMS_PORT_USAGE                        1711)
+(define  DID_SM_NMS_RESILIENCE                        5464)
+(define  DID_SM_NMS_SYSTEM_STATUS_INFO                1706)
+(define  DID_SM_NMS_SYS_INFO                          1707)
+(define  DID_SM_NMS_SYS_PERFORM                       1708)
+(define  DID_SM_NMS_SYS_POLL_TIME_AND_THRESHOLD       1715)
+(define  DID_SM_NMS_SYS_STATUS                        1709)
+(define  DID_SM_OPER_IDPW_CHANGE_REQ                  1281)
+(define  DID_SM_OPER_INFO                             2472)
+(define  DID_SM_OPER_INFO_EDIT                        5453)
+(define  DID_SM_OPER_LOGIN_INFO                       2493)
+(define  DID_SM_OPER_LOGIN_REQ                        1279)
+(define  DID_SM_OPER_ROLE_INFO                        1587)
+(define  DID_SM_PRE_CONDITION_INFO                    5698)
+(define  DID_SM_ROLE_INFO                             2467)
+(define  DID_SM_ROLE_INFO_EDIT                        5454)
+(define  DID_SM_ROLE_LOGIN_REQ                        2494)
+(define  DID_SM_ROLE_SERVICE_INFO                     1589)
+(define  DID_SM_SERVICE_GROUP_INFO                    2516)
+(define  DID_SM_SERVICE_INFO                          5451)
+(define  DID_SM_SUBSYSTEM_STATUS_INFO_REQ             2832)
+(define  DID_SM_SYSTEM_PERFORMANCE_INFO_REQ           5358)
+(define  DID_SM_SYS_DETAIL_INFO                       5322)
+(define  DID_SM_SYS_PARA_FILE_RESULT                  5685)
+(define  DID_SM_SYS_PARA_FILE_UPDATE                  5686)
+(define  DID_SM_SYS_PARA_VAL                          1592)
+(define  DID_SM_SYS_PARA_VAL_EDIT                     5461)
+(define  DID_SM_SYS_POLL_TIME_AND_THRESHOLD_EDIT      1306)
+(define  DID_SM_TIME_AND_DATE                         1593)
+(define  DID_SM_TIME_AND_DATE_EDIT                    5462)
+(define  DID_SM_UPS_TECH_STATUS_INFO                  5417)
+(define  DID_SM_USERMANAGER_INFO_EDIT_STATUS          5450)
+(define  DID_SRS_CLIMATE_STATE_REPORT                 1939)
+(define  DID_SRS_JAMMER_MAP                           3256)
+(define  DID_SRS_RADAR_STATUS                         1949)
+(define  DID_SRS_SLK500_CLIMATE_STATE_REPORT          5833)
+(define  DID_SRS_SLK500_CLUTTER_THRESHOLD_CTRL        5935)
+(define  DID_SRS_SLK500_CLUTTER_THRESHOLD_STATUS      5912)
+(define  DID_SRS_SLK500_EQUIP_CTRL                    5917)
+(define  DID_SRS_SLK500_EQUIP_STATUS                  5906)
+(define  DID_SRS_SLK500_JAMMER_MAP                    5834)
+(define  DID_SRS_SLK500_JAMMER_STROBE_REPORT          5920)
+(define  DID_SRS_SLK500_RADAR_VIDEO_STATUS            5908)
+(define  DID_SRS_SLK500_RF_CHANNEL_CTRL               5918)
+(define  DID_SRS_SLK500_RF_CHANNEL_STATUS             5909)
+(define  DID_SRS_SLK500_SECTOR_CTRL                   5919)
+(define  DID_SRS_SLK500_SECTOR_REPORT                 5910)
+(define  DID_SRS_SLK500_SRS_TRACK_INFO                5913)
+(define  DID_SRS_SLK500_TWS_B_SCOPE_REPORT            5911)
+(define  DID_SRS_SLK500_TWS_CALIBRATION               5914)
+(define  DID_SRS_SLK500_TWS_TRACK_INFO                5915)
+(define  DID_SRS_SLK500_VIDEO_CTRL                    5921)
+(define  DID_SRS_SRS_SHUTDOWN_ACK                     1942)
+(define  DID_SRS_TWS_CTRL_ACK                         1929)
+(define  DID_SRS_XSPS550K_EQUIP_CTRL                  1491)
+(define  DID_SRS_XSPS550K_EQUIP_STATUS                1738)
+(define  DID_SRS_XSPS550K_JAMMER_STROBE_REPORT        1932)
+(define  DID_SRS_XSPS550K_RADAR_VIDEO_STATUS          1950)
+(define  DID_SRS_XSPS550K_RF_CHANNEL_CTRL             1494)
+(define  DID_SRS_XSPS550K_RF_CHANNEL_STATUS           2309)
+(define  DID_SRS_XSPS550K_SECTOR_CTRL                 1495)
+(define  DID_SRS_XSPS550K_SECTOR_REPORT               1933)
+(define  DID_SRS_XSPS550K_SRS_TRACK_INFO              2574)
+(define  DID_SRS_XSPS550K_TWS_B_SCOPE_REPORT          1928)
+(define  DID_SRS_XSPS550K_TWS_CALIBRATION             1926)
+(define  DID_SRS_XSPS550K_TWS_TRACK_INFO              1927)
+(define  DID_SRS_XSPS550K_VIDEO_CTRL                  1498)
+(define  DID_SS_ALL_SELECT_TV_STATUS                  5367)
+(define  DID_SS_ALL_SELECT_TV_STATUS_INFO             5442)
+(define  DID_SS_ALL_SELECT_TV_STATUS_REQ              5368)
+(define  DID_SS_AUDIO_DISTRIBUTE_CMD                  5443)
+(define  DID_SS_AW_RESIL_INFO                         5420)
+(define  DID_SS_COA_OPERATION                         3232)
+(define  DID_SS_DISP_DISTRIBUTE_INFO                  2302)
+(define  DID_SS_DISP_UPDOWN_SELECT                    3254)
+(define  DID_SS_DRAW_SERVICE                          2819)
+(define  DID_SS_FOC_DATA_TB                           5503)
+(define  DID_SS_FOC_INFO                              1725)
+(define  DID_SS_FOC_REQ                               1388)
+(define  DID_SS_FOC_RESIL_INFO                        5528)
+(define  DID_SS_HINDRANCE_INFO                        3247)
+(define  DID_SS_HINDRANCE_REQ                         3246)
+(define  DID_SS_ICM_RECEIVE                           1724)
+(define  DID_SS_ICM_SEND                              1387)
+(define  DID_SS_MSG_RECEIVE                           1723)
+(define  DID_SS_MSG_SEND                              1386)
+(define  DID_SS_PLATFORMLIB_EQUIP_INFO                3248)
+(define  DID_SS_PLATFORMLIB_EQUIP_REQ                 3253)
+(define  DID_SS_PLATFORMLIB_LINK_INFO                 3249)
+(define  DID_SS_PLATFORMLIB_LINK_REQ                  3250)
+(define  DID_SS_PLATFORMLIB_TRACK_QUERY               2116)
+(define  DID_SS_PLATFORMLIB_UNIT_INFO                 3252)
+(define  DID_SS_PLATFORMLIB_UNIT_REQ                  3251)
+(define  DID_SS_RNR_SYNC                              2600)
+(define  DID_SS_RVP_FILE_DELETE_CMD                   2389)
+(define  DID_SS_RVP_PLAY_SPEED_CMD                    5927)
+(define  DID_SS_RVP_RNR_CMD                           2386)
+(define  DID_SS_RVP_RNR_STATUS                        3090)
+(define  DID_SS_RVR_FILE_LIST_REQ                     2388)
+(define  DID_SS_SELECT_TV_INFO                        5361)
+(define  DID_SS_STATUS_INFO                           1737)
+(define  DID_SS_SUB_PREDICTION_POS                    5413)
+(define  DID_SS_TACINFO_COMMAND                       2611)
+(define  DID_SS_TACINFO_COMMAND_ACK                   2612)
+(define  DID_SS_TAC_FILE_DELETE_ACK                   5930)
+(define  DID_SS_TAC_FILE_DELETE_CMD                   5926)
+(define  DID_SS_TAC_PLAY_SPEED_CMD                    5929)
+(define  DID_SS_TAC_RNR_CMD                           5925)
+(define  DID_SS_TAC_RNR_CMD_ACK                       5931)
+(define  DID_SS_TAC_RNR_STATUS                        6187)
+(define  DID_SS_TAC_STATUS                            5932)
+(define  DID_SS_TAC_SYNC_INFO                         5460)
+(define  DID_SS_TA_GROUP_INFO                         3241)
+(define  DID_SS_TA_GROUP_REQ                          3242)
+(define  DID_SS_TA_INITIALIZE                         3243)
+(define  DID_SS_TA_SHAPE_INFO                         3244)
+(define  DID_SS_TA_SHAPE_REQ                          3245)
+(define  DID_SS_TVD_SELECT_TV_VIDEO                   1730)
+(define  DID_SS_TVP_AUDIO_FILE_DELETE_CMD             6125)
+(define  DID_SS_TVP_AUDIO_RNR_CMD                     6126)
+(define  DID_SS_TVP_FILE_DELETE_CMD                   1729)
+(define  DID_SS_TVP_PLAY_SPEED_CMD                    5928)
+(define  DID_SS_TVP_RNR_CMD                           1726)
+(define  DID_SS_TVP_RNR_STATUS                        6186)
+(define  DID_SS_TVR_FILE_LIST_REQ                     1728)
+(define  DID_SS_TVR_STATUS_REQ                        1727)
+(define  DID_SS_TV_CONNECT_STATUS_CMD                 1731)
+(define  DID_SS_TV_CONNECT_STATUS_REQ                 5529)
+(define  DID_SS_TV_SELECT_VIDEO                       2210)
+(define  DID_SS_VIDEOFILE_DATA_LIST_INFO              5444)
+(define  DID_SS_VIDEO_DISTRIBUTE_CMD                  2303)
+(define  DID_SS_VIDEO_FILE_DELETE_ACK                 1722)
+(define  DID_SS_VIDEO_FILE_DELETE_CMD                 1385)
+(define  DID_SS_VIDEO_FILE_LIST_ACK                   1721)
+(define  DID_SS_VIDEO_FILE_LIST_CMD                   1384)
+(define  DID_SS_VIDEO_PLAY_SPEED_CMD                  5324)
+(define  DID_SS_VIDEO_RNR_CMD                         1382)
+(define  DID_SS_VIDEO_RNR_CMD_ACK                     1719)
+(define  DID_SS_VIDEO_STATUS                          1720)
+(define  DID_SS_VIDEO_STATUS_REQ                      1383)
+(define  DID_SS_VIDEO_TIME                            2663)
+(define  DID_SS_WARN_AREA_INFO                        1378)
+(define  DID_SS_WARN_AREA_INFO_ACK                    1735)
+(define  DID_SUBSYSTEM_HEARTBEAT                      6086)
+(define  DID_TACM_MAX_SENSE_RANGE                     5846)
+(define  DID_TACM_RANGE                               5940)
+(define  DID_TACTICAL_AREA                            2559)
+(define  DID_TASS_TACM_CONSOLE_INFO                   5842)
+(define  DID_TASS_TACM_DECOY_PATTERN                  5934)
+(define  DID_TASS_TACM_ENERGYSPECTRUM                 5844)
+(define  DID_TASS_TACM_FIRED_DECOY_INFO               5835)
+(define  DID_TASS_TACM_FIRE_BT_CTRL                   5836)
+(define  DID_TASS_TACM_FIRE_MODE_INFO                 5841)
+(define  DID_TASS_TACM_FIRE_PATTERN_SET_REQ           5839)
+(define  DID_TASS_TACM_LAUNCHER_INFO                  5843)
+(define  DID_TASS_TACM_LAUNCHER_INIT_VALUE            5845)
+(define  DID_TASS_TACM_PRIMTRK_ADD_INFO               6196)
+(define  DID_TASS_TACM_RESET_DCY_REQ                  6120)
+(define  DID_TASS_TACM_SURFACE_POINT_TRACK_INFO       6119)
+(define  DID_TASS_TACM_TI_ENG_CMD                     5938)
+(define  DID_TASS_TACM_TORPEDO_ALERT_LIST             5837)
+(define  DID_TASS_TACM_TORPEDO_DISCERN_DISP           5847)
+(define  DID_TASS_TACM_WF_DATA                        5840)
+(define  DID_TASS_TACM_WF_LIST                        5872)
+(define  DID_TDA_SELECT_INFO                          2558)
+(define  DID_TDL_ACIM_RESIL                           6207)
+(define  DID_TDL_AIRCRAFT_CONTROL_INFO                2462)
+(define  DID_TDL_FUEL_AND_TIME                        2637)
+(define  DID_TM_ACK_ID_CONFLICT                       3021)
+(define  DID_TM_ALERT_ID_CONFLICT                     3020)
+(define  DID_TM_BEARING_TRACK_CANCEL                  2490)
+(define  DID_TM_BEARING_TRACK_INFO                    2488)
+(define  DID_TM_BEARING_TRACK_INFO_RT_SUP             5404)
+(define  DID_TM_BEARING_TRACK_INFO_RT_TAC             5405)
+(define  DID_TM_CHANGE_TMSINDEX                       1611)
+(define  DID_TM_NOTIFY_NEW_DATUM                      2594)
+(define  DID_TM_NOTIFY_PT_DELETE                      2542)
+(define  DID_TM_NOTIFY_TRAINING_TRACK                 2535)
+(define  DID_TM_NSFS_TRACK_INFO                       1606)
+(define  DID_TM_NUMBER_OF_TRACK                       1602)
+(define  DID_TM_POINT_TRACK_CANCEL                    2487)
+(define  DID_TM_POINT_TRACK_INFO                      2486)
+(define  DID_TM_POINT_TRACK_INFO_RT_SUP               5406)
+(define  DID_TM_POINT_TRACK_INFO_RT_TAC               5403)
+(define  DID_TM_RESILIENCE_DATA                       5476)
+(define  DID_TM_SELECT_AUTO_ASSOCIATION_STATUS        2513)
+(define  DID_TM_SET_AUTO_ASSOCIATION_OPTION           1266)
+(define  DID_TM_WEAPON_CAP                            2818)
+(define  DID_TM_WEAPON_RESTRICTION_ORDER              1604)
+(define  DID_TM_WEAPON_RESTRICTION_SECTOR             1605)
+(define  DID_TRN_CSS_TRAIN_JOIN_REQ                   2348)
+(define  DID_TRN_CSS_TRAIN_STATUS                     2552)
+(define  DID_TRN_ENV_ENVIRONMENT_REQ                  5429)
+(define  DID_TRN_FILTER_CMD                           3235)
+(define  DID_TRN_LIB_AIRCLA_CONT                      5421)
+(define  DID_TRN_LIB_AIRCLA_CONT_REQ                  5430)
+(define  DID_TRN_LIB_MIS_CONT                         5422)
+(define  DID_TRN_LIB_MIS_CONT_REQ                     5431)
+(define  DID_TRN_LIB_SEN_CONT                         5423)
+(define  DID_TRN_LIB_SEN_CONT_REQ                     5432)
+(define  DID_TRN_LIB_SUBCLA_CONT                      5424)
+(define  DID_TRN_LIB_SUBCLA_CONT_REQ                  5433)
+(define  DID_TRN_LIB_SURCLA_CONT                      5425)
+(define  DID_TRN_LIB_SURCLA_CONT_REQ                  5434)
+(define  DID_TRN_PATH_DRAW                            3237)
+(define  DID_TRN_SCEXE_ENVIRONMENT                    5426)
+(define  DID_TRN_SCEXE_OBJECT_INFO                    5427)
+(define  DID_TRN_SCEXE_OP_EVENT                       2578)
+(define  DID_TRN_SCEXE_START_STOP_CONT                1646)
+(define  DID_TRN_SCEXE_START_STOP_CONT_REQ            5435)
+(define  DID_TRN_SCON_MIS_CONT                        2565)
+(define  DID_TRN_SCON_MIS_CONT_REQ                    5436)
+(define  DID_TRN_SCON_OBJECT_CONT                     2560)
+(define  DID_TRN_SCON_OBJECT_CONT_REQ                 5438)
+(define  DID_TRN_SCON_OBJ_INFO_EDT                    1644)
+(define  DID_TRN_SCON_OBJ_INFO_EDT_REQ                5437)
+(define  DID_TRN_SCON_SCN_CONT                        1639)
+(define  DID_TRN_SCON_SCN_CONT_REQ                    5439)
+(define  DID_TRN_SCON_SCN_REMOTE                      2602)
+(define  DID_TRN_SCON_SEN_CONT                        2567)
+(define  DID_TRN_SCON_SEN_CONT_REQ                    5440)
+(define  DID_TRN_SCON_SNAP_CONT                       1645)
+(define  DID_TRN_SCON_SNAP_CONT_REQ                   5441)
+(define  DID_TRN_SIMIRST_SECTOR_SURVEIL_ACK           6248)
+(define  DID_TRN_SIM_ONOFF                            1456)
+(define  DID_TRN_SLTS_STATUS_REQ                      1465)
+(define  DID_TRN_SYMBOL_DRAW                          3236)
+(define  DID_TRN_TRS_STATUS                           6069)
+(define  DID_TRN_TRS_STATUS_REQ                       2136)
+(define  DID_TRN_WAYPOINT_DRAW                        3238)
+(define  DID_TRN_WPSIM_ACK                            3273)
+(define  DID_TRN_WPSIM_REQ                            3274)
+(define  DID_TRS_ALERT_CTRL                           5886)
+(define  DID_TRS_ALERT_STATUS                         5873)
+(define  DID_TRS_EQUIP_CTRL                           5887)
+(define  DID_TRS_EQUIP_STATUS                         5874)
+(define  DID_TRS_JOYSTICK_DATA                        5888)
+(define  DID_TRS_OPERATE_CTRL                         5889)
+(define  DID_TRS_OPERATE_STATUS                       5875)
+(define  DID_TRS_RADAR_CTRL                           5890)
+(define  DID_TRS_RADAR_STATUS                         5876)
+(define  DID_TRS_RAW_DATA_ALL_OUTPUT                  5877)
+(define  DID_TRS_RAW_DATA_OUTPUT                      5878)
+(define  DID_TRS_SECONDARY_TARGET                     5879)
+(define  DID_TRS_SECTOR_SEARCH_CTRL                   5891)
+(define  DID_TRS_SECTOR_SEARCH_REPORT                 5880)
+(define  DID_TRS_STATUS                               5881)
+(define  DID_TRS_TRACKING_CTRL                        5892)
+(define  DID_TRS_TRACKING_STATUS                      5882)
+(define  DID_TRS_TRACK_INFO                           5883)
+(define  DID_TRS_TWO_TARGET_INFO                      5884)
+(define  DID_TRS_VIDEO_CTRL                           5893)
+(define  DID_TRS_VIDEO_STATUS                         5885)
+(define  DID_TVP_AUDIOD_STATUS                        6123)
+(define  DID_TVP_AUDIOR_STATUS                        6124)
+(define  DID_TVP_AUDIO_FILE_DELETE_ACK                6121)
+(define  DID_TVP_AUDIO_RNR_CMD_ACK                    6122)
+(define  DID_TVP_FILE_DELETE_ACK                      1981)
+(define  DID_TVP_RNR_CMD_ACK                          1978)
+(define  DID_TVP_TVD_STATUS                           5734)
+(define  DID_TVP_TVR_STATUS                           1980)
+(define  DID_TVR_FILE_LIST_ACK                        1979)
+(define  DID_WC_GUN_AMMUNITION_SELECT_ORDER           6071)
+(define  DID_WF_AIR_THREAT_LIST                       1542)
+(define  DID_WF_ASW_SENSOR_RANGE_REQ                  2291)
+(define  DID_WF_ENGAGED_TRACK_STATUS                  1553)
+(define  DID_WF_ENG_CH_LIST                           1547)
+(define  DID_WF_ENG_INFO_LIST                         1548)
+(define  DID_WF_EVERY_WF_RSC_STATUS                   2506)
+(define  DID_WF_FIRE_AUTHORIZE                        1549)
+(define  DID_WF_FIRE_AUTHORIZE_REQ                    1441)
+(define  DID_WF_NSFS_INFO                             1551)
+(define  DID_WF_NSFS_INFO_SET_REQ                     5658)
+(define  DID_WF_QR_THREAT_LIST                        2152)
+(define  DID_WF_RESET_TRACKING                        2156)
+(define  DID_WF_RESIL_COMM_DATA                       5448)
+(define  DID_WF_RESIL_GEN_ENG_INFO                    5526)
+(define  DID_WF_RESIL_GEN_PAC_INFO                    5524)
+(define  DID_WF_RESIL_GEN_RESERVED_EC                 5525)
+(define  DID_WF_RESIL_GEN_RSC_TIMER                   5523)
+(define  DID_WF_RESIL_RSC_ENGAGEABLE_STATUS           5527)
+(define  DID_WF_RSC_ALLOC_DEALLOC_ACK                 2507)
+(define  DID_WF_RSC_ALLOC_DEALLOC_REQ                 1554)
+(define  DID_WF_SUBSURFACE_THREAT_LIST                2151)
+(define  DID_WF_SURFACE_THREAT_LIST                   1543)
+(define  DID_WF_THREAT_SELECTION_FILTER_INFO          2150)
+(define  DID_WF_THREAT_SELECTION_FILTER_SET_REQ       2149)
+(define  DID_WF_TORP_THREAT_LIST                      1546)
+(define  DID_WF_TRACKING_INFO_LIST                    2569)
+(define  DID_WF_TRACK_MANUAL_SELECTION_INFO           2530)
+(define  DID_WF_USER_SET_INFO_REQ                     2137)
+(define  DID_WF_WASA_QR_MODE                          1550)
+(define  DID_WF_WASA_QR_MODE_SET_REQ                  1442)
+(define  DID_WF_WEAPON_CAP_SET_REQ                    2817)
+(define  DID_WF_WEAPON_RESTRICTION_ORDER_REQ          1444)
+(define  DID_WF_WEAPON_RESTRICTION_SECTOR_SET_REQ     1445)
+(define  DID__EMCON_REQ                               2400)
+(define  DID__EMCON_STATUS_REQ                        2414)
+(define  DID__GFE_BIT_INFO                            3271)
+(define  DID__GUN40_CORRECTION_DATA                   2200)
+(define  DID__INF_CTRL_ACK                            2118)
+(define  DID__RSC_FIRE_AUTHORIZE_REQ                  1802)
+(define  DID__SIM_ONOFF_ACK                           1748)
+(define  DID__TORPEDO_ALERT_INFO                      2555)
+(define  DID__TRACK_NUM_REQ                           2300)

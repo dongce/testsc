@@ -1,0 +1,22 @@
+CFLAGS=-DUSE_INTERFACE=1 -DUSE_STRLWR=1 -DUSE_STRCASECMP=0 -DUSE_DL=0 -DUSE_MATH=1 -DUSE_ASCII_NAMES=0
+
+all : libtestscl.a scheme
+
+libtestscl.a :
+	g++ -c -DSTANDALONE=0 $(CFLAGS) scheme.c
+	g++ -c -DSTANDALONE=0 $(CFLAGS) testsc.cpp
+	g++ -c -DSTANDALONE=0 $(CFLAGS) testsc_ext.cpp
+	ar crs $@ scheme.o testsc.o testsc_ext.o
+
+scheme :
+	g++ -c -DSTANDALONE=1 $(CFLAGS) scheme.c
+	g++ -c -DSTANDALONE=1 $(CFLAGS) testsc.cpp
+	g++ -c -DSTANDALONE=1 $(CFLAGS) testsc_ext.cpp
+	g++ scheme.o testsc.o testsc_ext.o -o testsc
+
+
+
+clean :
+	rm -f libtestscl.a scheme *.o
+
+
