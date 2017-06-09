@@ -12,6 +12,7 @@ char* testsc_strvalue(const char* name) ;
 
 void testsc_eval(const char *cmd) ;
 void testsc_init(int testnum, const char *cmd, const char *homepath = "/testsc/home/" ) ; 
+void testsc_deinit(void) ; 
 
 
 

@@ -215,6 +215,9 @@ void testsc_init(int testnum , const char* cmd, const char* home)
   if( NULL != cmd ){
     scheme_load_string(g_sc, cmd) ;
   }
+
+  // testsc_load(g_sc, "post.scm", homepath) ;
+
   testsc_debug("testsc initalize done") ; 
 }
 
@@ -334,7 +337,8 @@ void testsc_debug(const char*format ...)
   }
 } 
 
-void testsc_close()
+void testsc_deinit()
 {
   scheme_deinit(g_sc);
 }
+

@@ -31049,25 +31049,13 @@ namespace std __attribute__ ((__visibility__ ("default"))) {
 namespace std __attribute__ ((__visibility__ ("default"))) {
 
   template<typename _Facet>
-    
-#line 45 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 45 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-inline const _Facet&
+    inline const _Facet&
     __check_facet(const _Facet* __f)
-    
-#line 47 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 47 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-{
+    {
       if (!__f)
 	__throw_bad_cast();
       return *__f;
-    
-#line 51 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 51 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-}
+    }
 
   
   
@@ -31142,21 +31130,9 @@ inline const _Facet&
 
 
  
-      
-#line 126 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 126 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-iostate
+      iostate
       rdstate() const
-      
-#line 128 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 128 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-{ return _M_streambuf_state; 
-#line 128 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 128 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-}
+      { return _M_streambuf_state; }
 
       
 
@@ -31174,21 +31150,9 @@ iostate
 
 
  
-      
-#line 146 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 146 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-void
+      void
       setstate(iostate __state)
-      
-#line 148 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 148 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-{ this->clear(this->rdstate() | __state); 
-#line 148 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 148 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-}
+      { this->clear(this->rdstate() | __state); }
 
       
       
@@ -31478,21 +31442,9 @@ void
 
 
  
-      
-#line 438 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 438 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-char_type
+      char_type
       widen(char __c) const
-      
-#line 440 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 440 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-{ return __check_facet(_M_ctype).widen(__c); 
-#line 440 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-
-#line 440 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\bits\\basic_ios.h"
-}
+      { return __check_facet(_M_ctype).widen(__c); }
 
     protected:
       
@@ -31781,26 +31733,14 @@ namespace std __attribute__ ((__visibility__ ("default"))) {
 
 
  
-      
-#line 107 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 107 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-__ostream_type&
+      __ostream_type&
       operator<<(__ostream_type& (*__pf)(__ostream_type&))
-      
-#line 109 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 109 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-{
+      {
 	
 	
 	
 	return __pf(*this);
-      
-#line 114 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 114 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-}
+      }
 
       __ostream_type&
       operator<<(__ios_type& (*__pf)(__ios_type&))
@@ -32190,28 +32130,16 @@ __ostream_type&
 
   
   template<class _Traits>
-    
-#line 504 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 504 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-inline basic_ostream<char, _Traits>&
+    inline basic_ostream<char, _Traits>&
     operator<<(basic_ostream<char, _Traits>& __out, const char* __s)
-    
-#line 506 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 506 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-{
+    {
       if (!__s)
 	__out.setstate(ios_base::badbit);
       else
 	__ostream_insert(__out, __s,
 			 static_cast<streamsize>(_Traits::length(__s)));
       return __out;
-    
-#line 513 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 513 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-}
+    }
 
   
   template<class _Traits>
@@ -32235,21 +32163,9 @@ inline basic_ostream<char, _Traits>&
 
  
   template<typename _CharT, typename _Traits>
-    
-#line 537 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 537 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-inline basic_ostream<_CharT, _Traits>& 
+    inline basic_ostream<_CharT, _Traits>& 
     endl(basic_ostream<_CharT, _Traits>& __os)
-    
-#line 539 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 539 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-{ return flush(__os.put(__os.widen('\n'))); 
-#line 539 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 539 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-}
+    { return flush(__os.put(__os.widen('\n'))); }
 
   
 
@@ -32268,21 +32184,9 @@ inline basic_ostream<_CharT, _Traits>&
 
  
   template<typename _CharT, typename _Traits>
-    
-#line 558 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 558 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-inline basic_ostream<_CharT, _Traits>& 
+    inline basic_ostream<_CharT, _Traits>& 
     flush(basic_ostream<_CharT, _Traits>& __os)
-    
-#line 560 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 560 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-{ return __os.flush(); 
-#line 560 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-
-#line 560 "T:\\ICMS\\CodeScroll\\usr\\include\\c++\\4.4.4\\ostream"
-}
+    { return __os.flush(); }
 
 }
 
@@ -34637,6 +34541,7 @@ char* testsc_strvalue(const char* name) ;
 
 void testsc_eval(const char *cmd) ;
 void testsc_init(int testnum, const char *cmd, const char *homepath = "/testsc/home/" ) ; 
+void testsc_deinit(void) ; 
 
 
 
@@ -34667,10 +34572,11 @@ void CodeScrollTest:: example1_get_sec_surf_ampl_test0()
 	{ 
 
 
-testsc_init(codescroll_testcase_number, "(testsc-require ex/t-1)",  "/testsc/home") ; 
+testsc_init(codescroll_testcase_number, "(testsc-require ex/t-1)",  "/testsc/home/") ; 
 
-printf("printf\n") ; 
-std::cout<<"cout test"<<std::endl ; 
+ 
+
+
 
 	 
 	enum primary_surface_id_ampl_e priampl ; 
@@ -34701,7 +34607,7 @@ std::cout<<"cout test"<<std::endl ;
 	disConnect_example1_get_sec_surf_ampl_test0_stub_configuration();
 	 
 
-#line 54 "C:\\testsc\\share\\csworkexample\\example1\\unittest\\example1_get_sec_surf_ampl_test0.c"
+#line 55 "C:\\testsc\\share\\csworkexample\\example1\\unittest\\example1_get_sec_surf_ampl_test0.c"
 }
 
 #line 6 "C:\\testsc\\share\\csworkexample\\example1\\.csdata\\src\\simulation\\example1_1.cpp"

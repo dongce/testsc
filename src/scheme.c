@@ -1574,6 +1574,7 @@ INTERFACE void putstr(scheme *sc, const char *s) {
   port *pt=sc->outport->_object._port;
   if(pt->kind&port_file) {
     fputs(s,pt->rep.stdio.file);
+    fflush(pt->rep.stdio.file) ; 
   } else {
     for(;*s;s++) {
       if(pt->rep.string.curr!=pt->rep.string.past_the_end) {
@@ -1589,6 +1590,7 @@ static void putchars(scheme *sc, const char *s, int len) {
   port *pt=sc->outport->_object._port;
   if(pt->kind&port_file) {
     fwrite(s,1,len,pt->rep.stdio.file);
+    fflush(pt->rep.stdio.file) ; 
   } else {
     for(;len;len--) {
       if(pt->rep.string.curr!=pt->rep.string.past_the_end) {
@@ -1604,6 +1606,7 @@ INTERFACE void putcharacter(scheme *sc, int c) {
   port *pt=sc->outport->_object._port;
   if(pt->kind&port_file) {
     fputc(c,pt->rep.stdio.file);
+    fflush(pt->rep.stdio.file) ; 
   } else {
     if(pt->rep.string.curr!=pt->rep.string.past_the_end) {
       *pt->rep.string.curr++=c;

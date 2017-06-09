@@ -42,7 +42,6 @@
 
 (define priampl 0)
 (define secampl 0)
-(set! priampl )
 (foreach-tnum
  1
  (lambda (x)
@@ -53,5 +52,4 @@
 (case (testsc-get-testnum)              
   ((241)
    (testsc-debug "241")
-   (set! priampl -1)) 
-
+   (set! priampl -1))) 
