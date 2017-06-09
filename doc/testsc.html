@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-06-08 목 20:10 -->
+<!-- 2017-06-09 금 21:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>testsc - 동적 시험 라이브러리</title>
@@ -239,138 +239,146 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org23bb402">1. 기본 사항</a>
+<li><a href="#orgfe61227">1. 기본 사항</a>
 <ul>
-<li><a href="#org95c16da">1.1. 무엇을 하는 것인가?</a></li>
-<li><a href="#orgccf3f80">1.2. 장점</a>
+<li><a href="#orgd124115">1.1. 무엇을 하는 것인가?</a></li>
+<li><a href="#org5229f87">1.2. 장점</a>
 <ul>
-<li><a href="#org7664003">1.2.1. 테스트 데이터 조합 가능</a></li>
-<li><a href="#org32dd4d9">1.2.2. 다수의 테스트케이스 생성</a></li>
-<li><a href="#orgb37b9a4">1.2.3. 테스트 데이터 재활용</a></li>
+<li><a href="#org9f9f418">1.2.1. 테스트 데이터 조합 가능</a></li>
+<li><a href="#orgfea7a7f">1.2.2. 다수의 테스트케이스 생성</a></li>
+<li><a href="#org62687c5">1.2.3. 테스트 데이터 재활용</a></li>
 </ul>
 </li>
-<li><a href="#orgb46e3a3">1.3. 단점</a></li>
+<li><a href="#org53c1092">1.3. 단점</a></li>
 </ul>
 </li>
-<li><a href="#orgcfbf6fd">2. 사용방법</a>
+<li><a href="#org690ba2e">2. 사용방법 </a>
 <ul>
-<li><a href="#orgb2289b2">2.1. 테스트케이스 생성</a></li>
-<li><a href="#org8617427">2.2. <b>testsc</b> 초기화</a>
+<li><a href="#orgb1bcac9">2.1. 테스트케이스 생성</a></li>
+<li><a href="#org68e9ca3">2.2. <b>testsc</b> 초기화</a>
 <ul>
-<li><a href="#org2198b43">2.2.1. testsc 헤더파일 추가 </a></li>
-<li><a href="#org83e426b">2.2.2. 사용자 코드 작성 </a></li>
-<li><a href="#org8e6d814">2.2.3. 호출전 코드 및 stub 코드 작성 </a></li>
+<li><a href="#orgad53d14">2.2.1. testsc 헤더파일 추가 </a></li>
+<li><a href="#orgca91931">2.2.2. 사용자 코드 작성 </a></li>
+<li><a href="#org6cc3a91">2.2.3. 호출전 코드 및 stub 코드 작성 </a></li>
 </ul>
 </li>
-<li><a href="#org5fab099">2.3. scheme 파일 작성 </a></li>
-<li><a href="#org8e3161e">2.4. CodeScroll 테스트 케이스 빌드 및 커버리지 평가</a>
+<li><a href="#orga36db2c">2.3. scheme 파일 작성 </a></li>
+<li><a href="#org841b603">2.4. CodeScroll 테스트 케이스 빌드 및 커버리지 평가</a>
 <ul>
-<li><a href="#org669118e">2.4.1. 포함 파일 추가</a></li>
-<li><a href="#orgb34ce78">2.4.2. 링크 라이브러리 추가</a></li>
-<li><a href="#org17bd781">2.4.3. 빌드 및 테스트 케이스를 실행한다.</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org6aa373c">3. scheme 파일 작성 </a>
-<ul>
-<li><a href="#orgb3e2699">3.1. scheme 파일 작성</a>
-<ul>
-<li><a href="#org0001067">3.1.1. 함수내의 모든 분기문을 확인한다.</a></li>
-<li><a href="#org79e2490">3.1.2. 식별한 항목이 가져야 하는 값을 확인한다.</a></li>
-<li><a href="#org566291b">3.1.3. 테스트 변수를 확인한다.</a></li>
-<li><a href="#org767febd">3.1.4. scheme 파일을 작성한다.</a></li>
-</ul>
-</li>
-<li><a href="#orgfbbeb8f">3.2. scheme 파일 디버깅</a>
-<ul>
-<li><a href="#org9ad8121">3.2.1. 출력 파일 확인</a></li>
-<li><a href="#org76e766b">3.2.2. scheme 실행</a></li>
-</ul>
-</li>
-<li><a href="#orgd081cde">3.3. 예제 1 - 값을 정의하고 사용</a></li>
-<li><a href="#org73b9025">3.4. 예제 2 - enum 변수 확인</a></li>
-<li><a href="#org2f735e4">3.5. 예제 3 - filter check</a></li>
-<li><a href="#org606442c">3.6. 예제 4 - 구조체 예제</a></li>
-<li><a href="#org45e174c">3.7. 예제 5 - stub 활용</a></li>
-</ul>
-</li>
-<li><a href="#orgca6cc7e">4. testsc 구조체  </a>
-<ul>
-<li><a href="#org2c7d689">4.1. 구조체 테스트 데이터 생성</a></li>
-<li><a href="#org8ff9440">4.2. 빌드 방법</a></li>
-</ul>
-</li>
-<li><a href="#org2b0bea5">5. Best Practice</a>
-<ul>
-<li><a href="#org0bf6770">5.1. 비관리 코드 활용</a>
-<ul>
-<li><a href="#org3ad7a90">5.1.1. 일괄 비관리 코드 전환</a></li>
-<li><a href="#orgd639737">5.1.2. unittest 내부의 c 파일 편집</a></li>
-</ul>
-</li>
-<li><a href="#orgf4dcd02">5.2. CodeScroll 의 테스트데이터와 같이 사용</a></li>
-<li><a href="#orgfa8d0e4">5.3. testsc 확장 모듈</a>
-<ul>
-<li><a href="#org9f366be">5.3.1. 구조체 테스트 데이터 생성</a></li>
-<li><a href="#org0f3f2d3">5.3.2. 테스트 데이터를 파일에서 가져오게 한다.</a></li>
-<li><a href="#org4df0351">5.3.3. 테스트 데이터를 프로그래밍 할 수 있게 한다.</a></li>
-<li><a href="#orgf14a0a9">5.3.4. 라이브러리를 활용한다.</a></li>
-</ul>
-</li>
-<li><a href="#org73ee394">5.4. 정의 파일 활용</a>
-<ul>
-<li><a href="#org884e848">5.4.1. enum 타입 및 공통 상수 값 정의</a></li>
+<li><a href="#orgcc26275">2.4.1. 포함 파일 추가</a></li>
+<li><a href="#orgd2da5cf">2.4.2. 링크 라이브러리 추가</a></li>
+<li><a href="#org3ff84dc">2.4.3. 빌드 및 테스트 케이스를 실행한다.</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org4c8e549">6. Reference </a>
+<li><a href="#orgb46674d">3. scheme 파일 작성 </a>
 <ul>
-<li><a href="#orgf7580d4">6.1. C API - </a>
+<li><a href="#org98046e8">3.1. scheme 파일 작성</a>
 <ul>
-<li><a href="#orgc56fbab">6.1.1. testsc.cpp</a></li>
-<li><a href="#orgeef11eb">6.1.2. testsc_ext.cpp</a></li>
+<li><a href="#org503b60b">3.1.1. 함수내의 모든 분기문을 확인한다.</a></li>
+<li><a href="#org05c7840">3.1.2. 식별한 항목이 가져야 하는 값을 확인한다.</a></li>
+<li><a href="#orgcabbf12">3.1.3. 테스트 변수를 확인한다.</a></li>
+<li><a href="#orga71ec6c">3.1.4. scheme 파일을 작성한다.</a></li>
 </ul>
 </li>
-<li><a href="#org4707e9b">6.2. scheme API - </a>
+<li><a href="#org12ad1a2">3.2. scheme 파일 디버깅</a>
 <ul>
-<li><a href="#org7dd9bbe">6.2.1. util.scm</a></li>
+<li><a href="#orga15945a">3.2.1. 출력 파일 확인</a></li>
+<li><a href="#org4d4115e">3.2.2. scheme 실행</a></li>
 </ul>
 </li>
-<li><a href="#org62e82af">6.3. 추가 C excention 구현</a>
+<li><a href="#orgaec6a96">3.3. 예제</a>
 <ul>
-<li><a href="#org8f29516">6.3.1. 구조체 테스트 데이터 생성</a></li>
+<li><a href="#org4947508">3.3.1. example1 - 파라미터 조합</a></li>
+<li><a href="#org492bda9">3.3.2. 예제 2 - enum 변수 확인</a></li>
+<li><a href="#org0a1abe7">3.3.3. 예제 3 - filter check</a></li>
+<li><a href="#org9b088b5">3.3.4. 예제 4 - 구조체 예제</a></li>
+<li><a href="#orga0f445d">3.3.5. 예제 5 - stub 활용</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org8288cbb">7. scheme 문법 </a>
+<li><a href="#orgac5d92b">4. testsc 구조체  </a>
 <ul>
-<li><a href="#org4de58bf">7.1. scheme 파일 에디터</a></li>
-<li><a href="#org7dbd3e4">7.2. 15분 만에 scheme 배우기</a></li>
+<li><a href="#org6f342e1">4.1. 구조체 테스트 데이터 생성</a></li>
+<li><a href="#orgc86191b">4.2. 빌드 방법</a></li>
 </ul>
 </li>
-<li><a href="#org9eaaa34">8. 용어</a>
+<li><a href="#org220b332">5. Best Practice</a>
 <ul>
-<li><a href="#orgf83d456">8.1. 테스트케이스 </a></li>
-<li><a href="#org4ad3b85">8.2. scheme 파일 </a></li>
-<li><a href="#orga1f135e">8.3. testsc 홈 </a></li>
-<li><a href="#org60a3b3d">8.4. 테스트 변수 </a></li>
+<li><a href="#org203ac4a">5.1. 비관리 코드 활용</a>
+<ul>
+<li><a href="#org9b43665">5.1.1. 일괄 비관리 코드 전환</a></li>
+<li><a href="#org29079f1">5.1.2. unittest 내부의 c 파일 편집</a></li>
+</ul>
+</li>
+<li><a href="#orga03e6a7">5.2. CodeScroll 의 테스트데이터와 같이 사용</a></li>
+<li><a href="#orgbfe80d2">5.3. testsc 확장 모듈</a>
+<ul>
+<li><a href="#orge468e29">5.3.1. 구조체 테스트 데이터 생성</a></li>
+<li><a href="#org4a0f4db">5.3.2. 테스트 데이터를 파일에서 가져오게 한다.</a></li>
+<li><a href="#org14f8fe7">5.3.3. 테스트 데이터를 프로그래밍 할 수 있게 한다.</a></li>
+<li><a href="#org5ea1998">5.3.4. 라이브러리를 활용한다.</a></li>
+</ul>
+</li>
+<li><a href="#org2442ca8">5.4. 정의 파일 활용</a>
+<ul>
+<li><a href="#orge89afcd">5.4.1. enum 타입 및 공통 상수 값 정의</a></li>
+</ul>
+</li>
+<li><a href="#org4b19967">5.5. testsc 수정시</a></li>
+<li><a href="#org9be485d">5.6. 표준 출력 redirection</a></li>
+<li><a href="#org2d5bca2">5.7. 디버깅 </a></li>
+</ul>
+</li>
+<li><a href="#org25b4805">6. Reference </a>
+<ul>
+<li><a href="#orge4e2a5c">6.1. C API - </a>
+<ul>
+<li><a href="#orgcd95837">6.1.1. testsc.cpp</a></li>
+<li><a href="#org22cc7dd">6.1.2. testsc_ext.cpp</a></li>
+</ul>
+</li>
+<li><a href="#org709d257">6.2. scheme API - </a>
+<ul>
+<li><a href="#org5f03e64">6.2.1. util.scm</a></li>
+<li><a href="#org02052d9">6.2.2. testsc.c</a></li>
+</ul>
+</li>
+<li><a href="#orgd71d9e3">6.3. 추가 C excention 구현</a>
+<ul>
+<li><a href="#orgfc37d47">6.3.1. 구조체 테스트 데이터 생성</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgb133bf7">7. scheme 문법 </a>
+<ul>
+<li><a href="#org075be0d">7.1. scheme 파일 에디터</a></li>
+<li><a href="#orgaedf455">7.2. 15분 만에 scheme 배우기</a></li>
+</ul>
+</li>
+<li><a href="#org4b28dc4">8. 용어</a>
+<ul>
+<li><a href="#org2403aeb">8.1. 테스트케이스 </a></li>
+<li><a href="#org09636c5">8.2. scheme 파일 </a></li>
+<li><a href="#org11d965f">8.3. testsc 홈 </a></li>
+<li><a href="#orgebef132">8.4. 테스트 변수 </a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org23bb402" class="outline-2">
-<h2 id="org23bb402"><span class="section-number-2">1</span> 기본 사항</h2>
+<div id="outline-container-orgfe61227" class="outline-2">
+<h2 id="orgfe61227"><span class="section-number-2">1</span> 기본 사항</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-org95c16da" class="outline-3">
-<h3 id="org95c16da"><span class="section-number-3">1.1</span> 무엇을 하는 것인가?</h3>
+</div><div id="outline-container-orgd124115" class="outline-3">
+<h3 id="orgd124115"><span class="section-number-3">1.1</span> 무엇을 하는 것인가?</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-동적 시험시 필요한 <a href="#orga347f9f">테스트 변수</a>를 파일로 부터 읽어 오는 라이브러리이다. 파일의
+동적 시험시 필요한 <a href="#org905da14">테스트 변수</a>를 파일로 부터 읽어 오는 라이브러리이다. 파일의
 형식은 scheme 스트립트이다. 간단한 데이터의 정의 뿐만 아니라 프로그래밍을
 통한 데이터의 생성이 가능하다.   
 </p>
@@ -383,21 +391,21 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgccf3f80" class="outline-3">
-<h3 id="orgccf3f80"><span class="section-number-3">1.2</span> 장점</h3>
+<div id="outline-container-org5229f87" class="outline-3">
+<h3 id="org5229f87"><span class="section-number-3">1.2</span> 장점</h3>
 <div class="outline-text-3" id="text-1-2">
-</div><div id="outline-container-org7664003" class="outline-4">
-<h4 id="org7664003"><span class="section-number-4">1.2.1</span> 테스트 데이터 조합 가능</h4>
+</div><div id="outline-container-org9f9f418" class="outline-4">
+<h4 id="org9f9f418"><span class="section-number-4">1.2.1</span> 테스트 데이터 조합 가능</h4>
 <div class="outline-text-4" id="text-1-2-1">
 <p>
-<a href="#orga347f9f">테스트 변수</a>의 범위를 이용하여 데이터 조합을 생성할 수 이다. 가령 인자로
+<a href="#org905da14">테스트 변수</a>의 범위를 이용하여 데이터 조합을 생성할 수 이다. 가령 인자로
 3개의 enum 타입을 사용하는 함수의 경우 각 파라미터가 가지는 값들의 범위를
 이용하여 존재가능한 모든 파라미터 데이터 조합을 생성할 수 있다. 
 </p>
 </div>
 </div>
-<div id="outline-container-org32dd4d9" class="outline-4">
-<h4 id="org32dd4d9"><span class="section-number-4">1.2.2</span> 다수의 테스트케이스 생성</h4>
+<div id="outline-container-orgfea7a7f" class="outline-4">
+<h4 id="orgfea7a7f"><span class="section-number-4">1.2.2</span> 다수의 테스트케이스 생성</h4>
 <div class="outline-text-4" id="text-1-2-2">
 <p>
 테스트 데이터가 많을 경우 CodeScroll 이 제공하는 UI 를 통하여 데이터를
@@ -406,11 +414,11 @@ for the JavaScript code in this tag.
 </p>
 </div>
 </div>
-<div id="outline-container-orgb37b9a4" class="outline-4">
-<h4 id="orgb37b9a4"><span class="section-number-4">1.2.3</span> 테스트 데이터 재활용</h4>
+<div id="outline-container-org62687c5" class="outline-4">
+<h4 id="org62687c5"><span class="section-number-4">1.2.3</span> 테스트 데이터 재활용</h4>
 <div class="outline-text-4" id="text-1-2-3">
 <p>
-Codescroll 에서 같은 <a href="#org7063e45">scheme 파일</a>을 읽어 오도록 설정하면 테스트 데이터를
+Codescroll 에서 같은 <a href="#orgc36c849">scheme 파일</a>을 읽어 오도록 설정하면 테스트 데이터를
 재활용할 수 있다. 구조가 같은 함수가 다수 있을 때 사용하면 편리하다. 
 라이브러리 구성이 간단하여 리눅스 타겟환경 테스트를 수행할 때도
 정적라이브러리 링크를 통하여 사용할 수 있다. 
@@ -418,37 +426,37 @@ Codescroll 에서 같은 <a href="#org7063e45">scheme 파일</a>을 읽어 오�
 </div>
 </div>
 </div>
-<div id="outline-container-orgb46e3a3" class="outline-3">
-<h3 id="orgb46e3a3"><span class="section-number-3">1.3</span> 단점</h3>
+<div id="outline-container-org53c1092" class="outline-3">
+<h3 id="org53c1092"><span class="section-number-3">1.3</span> 단점</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 scheme 언어에 대하여 지식이 있어야 사용 가능하다. 
-<a href="#org3761807">scheme 문법 참조</a>
+<a href="#orgbf40595">scheme 문법 참조</a>
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgcfbf6fd" class="outline-2">
-<h2 id="orgcfbf6fd"><span class="section-number-2">2</span> 사용방법</h2>
+<div id="outline-container-org690ba2e" class="outline-2">
+<h2 id="org690ba2e"><span class="section-number-2">2</span> 사용방법 <a id="orge37954e"></a></h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgb2289b2" class="outline-3">
-<h3 id="orgb2289b2"><span class="section-number-3">2.1</span> 테스트케이스 생성</h3>
+<div id="outline-container-orgb1bcac9" class="outline-3">
+<h3 id="orgb1bcac9"><span class="section-number-3">2.1</span> 테스트케이스 생성</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 기존 방식 대로 CodeScroll 메뉴얼을 참고하여 테스트케이스를 생성한다. 
 </p>
 </div>
 </div>
-<div id="outline-container-org8617427" class="outline-3">
-<h3 id="org8617427"><span class="section-number-3">2.2</span> <b>testsc</b> 초기화</h3>
+<div id="outline-container-org68e9ca3" class="outline-3">
+<h3 id="org68e9ca3"><span class="section-number-3">2.2</span> <b>testsc</b> 초기화</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
-다음에 나오는 C/Scheme 함수의 상세 내용은 <a href="#org434d57d">6</a> 을 참조한다. 
+다음에 나오는 C/Scheme 함수의 상세 내용은 <a href="#orgaa4e4a9">6</a> 을 참조한다. 
 </p>
 </div>
-<div id="outline-container-org2198b43" class="outline-4">
-<h4 id="org2198b43"><span class="section-number-4">2.2.1</span> testsc 헤더파일 추가 <a id="orga45df7f"></a></h4>
+<div id="outline-container-orgad53d14" class="outline-4">
+<h4 id="orgad53d14"><span class="section-number-4">2.2.1</span> testsc 헤더파일 추가 <a id="orgd87d745"></a></h4>
 <div class="outline-text-4" id="text-2-2-1">
 <p>
 <b>유닛테스트</b> 더블클릭 &gt;&gt;  <b>테스트 정보</b> &gt;&gt; <b>테스트 전역 코드</b>
@@ -470,8 +478,8 @@ scheme 언어에 대하여 지식이 있어야 사용 가능하다.
 </div>
 </div>
 
-<div id="outline-container-org83e426b" class="outline-4">
-<h4 id="org83e426b"><span class="section-number-4">2.2.2</span> 사용자 코드 작성 <a id="org57a51e0"></a></h4>
+<div id="outline-container-orgca91931" class="outline-4">
+<h4 id="orgca91931"><span class="section-number-4">2.2.2</span> 사용자 코드 작성 <a id="orgb14404e"></a></h4>
 <div class="outline-text-4" id="text-2-2-2">
 <ul class="org-ul">
 <li><p>
@@ -484,18 +492,14 @@ scheme 언어에 대하여 지식이 있어야 사용 가능하다.
 <pre class="src src-cpp"><span class="n">testsc_init</span><span class="p">(</span><span class="n">CS_TESTCASENO</span><span class="p">(),</span> <span class="s">&quot;(testsc-require mb/t-9)&quot;</span><span class="p">,</span> <span class="s">&quot;/testsc/home/&quot;</span><span class="p">);</span></pre>
 </div>
 
-<ul class="org-ul">
-<li><a href="#org7b14cdc">testsc_init</a> 를 호출하여 <b>testsc</b> 를 초기화 한다.
-첫번째 파라미터는 CS_TESTCASENO() 으로써 테스트번호를 전달한다. 
-두번째 파라미터는 실행할 scheme 명령이다. <a href="#orgaeaab86">testsc-require</a> 를 호출하여
-<a href="#org7063e45">scheme 파일</a>을 읽어 올 수 있다. 
-마지막 파라미터는 <b>testsc</b> 의 HOME 경로가 된다.
-<a href="#orgaeaab86">testsc-require</a> 는 홈 경로아래에서 <a href="#org7063e45">scheme 파일</a> 을 불러온다. 경로를
-파라미터로 넘기지 아니할 경우 프로젝트가 있는 드라이브의 <code>/testsc/home</code>
-폴더가 홈이 된다. ( C 드라이브에 프로젝트 폴더가 있을 경우
-<code>c:\testsc\home</code> 폴더, 리눅스의 경우 <code>/testsc/home</code> )</li>
+<p>
+<a href="#orgd044b42">No description for this link</a> 를 호출하여 <b>testsc</b> 를 초기화 한다. 첫번째 파라미터는
+CS_TESTCASENO()으로써 <b>testsc</b> 으로 테스트번호를 전달한다. 두번째
+파라미터는 실행할 scheme 명령이다. 마지막 파라미터는 <a href="#orgcfddd3b">testsc 홈</a>경로가 된다. 
+</p>
 
-<li>참조 : <a href="#org7b14cdc">testsc_init</a> , <a href="#org76e43d2">testsc_eval</a> , <a href="#orgaeaab86">testsc-require</a></li>
+<ul class="org-ul">
+<li>참조 : <a href="#orgd044b42">No description for this link</a> , <a href="#org531382a">No description for this link</a> , <a href="#org10d12be">No description for this link</a></li>
 </ul></li>
 </ul>
 
@@ -508,17 +512,17 @@ scheme 언어에 대하여 지식이 있어야 사용 가능하다.
 </div>
 </div>
 
-<div id="outline-container-org8e6d814" class="outline-4">
-<h4 id="org8e6d814"><span class="section-number-4">2.2.3</span> 호출전 코드 및 stub 코드 작성 <a id="org93700e5"></a></h4>
+<div id="outline-container-org6cc3a91" class="outline-4">
+<h4 id="org6cc3a91"><span class="section-number-4">2.2.3</span> 호출전 코드 및 stub 코드 작성 <a id="org45a9243"></a></h4>
 <div class="outline-text-4" id="text-2-2-3">
-</div><ul class="org-ul"><li><a id="orgbe66141"></a>호출 전 코드<br /><div class="outline-text-5" id="text-orgbe66141">
+</div><ul class="org-ul"><li><a id="org597b782"></a>호출 전 코드<br /><div class="outline-text-5" id="text-org597b782">
 <ul class="org-ul">
 <li><p>
 <b>유닛테스트</b> 더블클릭 &gt;&gt;  <b>테스트 정보</b> &gt;&gt; <b>테스트 대상 함수</b> &gt;&gt; <b>호출 전 코드</b>
 </p>
 
 <p>
-테스트스크립트에서 읽은 값을 codescroll <a href="#orga347f9f">테스트 변수</a>에 설정한다. 
+테스트스크립트에서 읽은 값을 codescroll <a href="#org905da14">테스트 변수</a>에 설정한다. 
 </p>
 
 <div class="org-src-container">
@@ -531,30 +535,29 @@ scheme 언어에 대하여 지식이 있어야 사용 가능하다.
 </ul>
 </div></li>
 
-<li><a id="org473468e"></a>stub 코드 작성<br /><div class="outline-text-5" id="text-org473468e">
+<li><a id="org831b78d"></a>stub 코드 작성<br /><div class="outline-text-5" id="text-org831b78d">
 <p>
-테스트대상 함수 내부에 있는 값들은 CodeScroll 이 생성하지만 stub 의 동작을
-제어하기 위한 변수는 생성을 하지 아니한다.  
-stub 에서 사용할 변수 역시 <a href="#org7063e45">scheme 파일</a>에서 지정하고 관련 값을 stub을
-구현하는데 사용할 수 있다. 
+CodeScroll은  stub 의 동작을 제어하기 위한 변수는 생성을 하지 아니한다.
+<a href="#orgc36c849">scheme 파일</a>에서 stub을 제어할 변수를 설정하고 stub 구현부에서 <a href="#org2494854">testsc C API</a>
+관련 함수를 이용하여 <a href="#org905da14">테스트 변수</a>값을 가져와 사용할 수 있다. 
 테스트전역 코드에 <b>testsc.h</b> 파일이 포함되어 있기 때문에 별도의 선언 없이
-<a href="#org7063e45">scheme 파일</a> 에서 testsc 관련 함수를 사용할 수 있다. 
+<a href="#org2494854">testsc C API</a> 관련 함수를 사용할 수 있다.  
 </p>
 </div></li></ul>
 </div>
 </div>
 
-<div id="outline-container-org5fab099" class="outline-3">
-<h3 id="org5fab099"><span class="section-number-3">2.3</span> <a href="#org7063e45">scheme 파일</a> 작성 <a id="org9b860a3"></a></h3>
+<div id="outline-container-orga36db2c" class="outline-3">
+<h3 id="orga36db2c"><span class="section-number-3">2.3</span> <a href="#orgc36c849">scheme 파일</a> 작성 <a id="orgcc01cad"></a></h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
-앞서 지정한 testsc 홈 폴더에 <a href="#org7063e45">scheme 파일</a>을 다음과 같은 순서로 작성한다. 
+앞서 지정한 testsc 홈 폴더에 <a href="#orgc36c849">scheme 파일</a>을 다음과 같은 순서로 작성한다. 
 </p>
 
 <ol class="org-ol">
 <li><p>
-필요할 경우 <a href="#org7063e45">scheme 파일</a>에서 공통 정의파일을 포함한다. 테스트 대상에서
-정의한 enum 타입 및 define 된 값을 <a href="#org7063e45">scheme 파일</a>에서 사용할 수 있다. 
+필요할 경우 <a href="#orgc36c849">scheme 파일</a>에서 공통 정의파일을 포함한다. 테스트 대상에서
+정의한 enum 타입 및 define 된 값을 <a href="#orgc36c849">scheme 파일</a>에서 사용할 수 있다. 
 </p>
 
 <div class="org-src-container">
@@ -563,10 +566,10 @@ stub 에서 사용할 변수 역시 <a href="#org7063e45">scheme 파일</a>에�
 </div></li>
 
 <li><p>
-<a href="#orga347f9f">테스트 변수</a>를 선언 한다. <a id="org2522d26"></a>
+<a href="#org905da14">테스트 변수</a>를 선언 한다. <a id="org46a17c5"></a>
 scheme 의 define 을 이용하여 변수를 선언한다. 
 CodeScroll이 정의한 변수인 경우 편리를 위해 같은 이름으로 정의한다.
-CodeScroll이 정의하지 아니한 변수라도 <a href="#org7063e45">scheme 파일</a> 에서 정의하여 사용할 수
+CodeScroll이 정의하지 아니한 변수라도 <a href="#orgc36c849">scheme 파일</a> 에서 정의하여 사용할 수
 있으며, stub 등을 작성할 때 관련 변수를 사용할 수 있다. 
 </p>
 
@@ -578,32 +581,32 @@ CodeScroll이 정의하지 아니한 변수라도 <a href="#org7063e45">scheme �
 </div>
 
 <ul class="org-ul">
-<li><a href="#org449cc33">testsc 구조체</a>
-테스트에 사용되는 구조체의 경우 CodeScroll 에서 <a href="#orga347f9f">테스트 변수</a>를 이용하여
+<li><a href="#orgbd9d3ab">testsc 구조체</a>
+테스트에 사용되는 구조체의 경우 CodeScroll 에서 <a href="#org905da14">테스트 변수</a>를 이용하여
 구조체 필드의 값을 설정한다. 대부분의 경우 변수를 이용하여 충분히 설정을
 할 수 있으나, 특이한 경우 변수만으로는 설정이 어려울 수 있다. <b>testsc</b>
-는 <a href="#org449cc33">testsc 구조체</a> 를 이용하여 구조체 테스트 데이터를 생성할 수 있다.
-상세한 내용은 <a href="#org449cc33">testsc 구조체</a>부분 참조.</li>
+는 <a href="#orgbd9d3ab">testsc 구조체</a> 를 이용하여 구조체 테스트 데이터를 생성할 수 있다.
+상세한 내용은 <a href="#orgbd9d3ab">testsc 구조체</a>부분 참조.</li>
 </ul></li>
 
 <li><p>
-<a href="#org6ef83dd">scheme 파일 작성</a>부분을 참조하여 <b>TESTCASENO</b> 에 따라  <a href="#orga347f9f">테스트 변수</a>를
+<a href="#orgb0d3b88">scheme 파일 작성</a>부분을 참조하여 <b>TESTCASENO</b> 에 따라  <a href="#org905da14">테스트 변수</a>를
 설정한다. 
 </p>
 
 <p>
-상세한 내용은 <a href="#org6ef83dd">scheme 파일 작성</a> 및 <a href="#org449cc33">testsc 구조체</a>부분을 참조한다
+상세한 내용은 <a href="#orgb0d3b88">scheme 파일 작성</a> 및 <a href="#orgbd9d3ab">testsc 구조체</a>부분을 참조한다
 </p></li>
 
 <li><p>
-scheme.exe 를 실행하여 <a href="#org7063e45">scheme 파일</a>의 문법 오류를 확인한다. 
+scheme.exe 를 실행하여 <a href="#orgc36c849">scheme 파일</a>의 문법 오류를 확인한다. 
 </p>
 
 <p>
-<a href="#org8f4a9a0">testsc-init</a> 를 이용하여 작성한 <a href="#org7063e45">scheme 파일</a>을 실행한다. 
-다음은 TESTCASENO 를 1로 설정하고 <a href="#org5b3ef70">testsc 홈</a> 폴더 아래 track/t-1.scm 파일을
+<a href="#org01f6975">No description for this link</a> 를 이용하여 작성한 <a href="#orgc36c849">scheme 파일</a>을 실행한다. 
+다음은 TESTCASENO 를 1로 설정하고 <a href="#orgcfddd3b">testsc 홈</a> 폴더 아래 track/t-1.scm 파일을
 실행한다. 문법 오류가 있을 경우 오류가 있는 라인번호를 출력한다. 
-정상적으로 실행이 된 후 <a href="#orga347f9f">테스트 변수</a>를 입력하면 실행한 파일에 의해 설정된
+정상적으로 실행이 된 후 <a href="#org905da14">테스트 변수</a>를 입력하면 실행한 파일에 의해 설정된
 값을 확인할 수 있다. 
 </p>
 <div class="org-src-container">
@@ -614,22 +617,22 @@ scheme.exe 를 실행하여 <a href="#org7063e45">scheme 파일</a>의 문법 �
 </div>
 </div>
 
-<div id="outline-container-org8e3161e" class="outline-3">
-<h3 id="org8e3161e"><span class="section-number-3">2.4</span> CodeScroll <a href="#org8c060c5">테스트 케이스</a> 빌드 및 커버리지 평가</h3>
+<div id="outline-container-org841b603" class="outline-3">
+<h3 id="org841b603"><span class="section-number-3">2.4</span> CodeScroll <a href="#org12715a3">테스트 케이스</a> 빌드 및 커버리지 평가</h3>
 <div class="outline-text-3" id="text-2-4">
-</div><div id="outline-container-org669118e" class="outline-4">
-<h4 id="org669118e"><span class="section-number-4">2.4.1</span> 포함 파일 추가</h4>
+</div><div id="outline-container-orgcc26275" class="outline-4">
+<h4 id="orgcc26275"><span class="section-number-4">2.4.1</span> 포함 파일 추가</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <p>
-<a href="#org5b3ef70">testsc 홈</a> 을 포함 디렉토리에 추가한다. 
+<a href="#orgcfddd3b">testsc 홈</a> 을 포함 디렉토리에 추가한다. 
 </p>
 </div>
 </div>
-<div id="outline-container-orgb34ce78" class="outline-4">
-<h4 id="orgb34ce78"><span class="section-number-4">2.4.2</span> 링크 라이브러리 추가</h4>
+<div id="outline-container-orgd2da5cf" class="outline-4">
+<h4 id="orgd2da5cf"><span class="section-number-4">2.4.2</span> 링크 라이브러리 추가</h4>
 <div class="outline-text-4" id="text-2-4-2">
 <p>
-<a href="#org5b3ef70">testsc 홈</a> 을 링크 디렉토리에 추가한다. 
+<a href="#orgcfddd3b">testsc 홈</a> 을 링크 디렉토리에 추가한다. 
 링크할 라이브러리를 추가한다. 
 </p>
 <blockquote>
@@ -639,37 +642,37 @@ scheme.exe 를 실행하여 <a href="#org7063e45">scheme 파일</a>의 문법 �
 </blockquote>
 </div>
 </div>
-<div id="outline-container-org17bd781" class="outline-4">
-<h4 id="org17bd781"><span class="section-number-4">2.4.3</span> 빌드 및 <a href="#org8c060c5">테스트 케이스</a>를 실행한다.</h4>
+<div id="outline-container-org3ff84dc" class="outline-4">
+<h4 id="org3ff84dc"><span class="section-number-4">2.4.3</span> 빌드 및 <a href="#org12715a3">테스트 케이스</a>를 실행한다.</h4>
 <div class="outline-text-4" id="text-2-4-3">
 <p>
-실행결과로 생성되는 커버리지를 참조하여 추가가 필요한 <a href="#orga347f9f">테스트 변수</a>값을
-<a href="#org7063e45">scheme 파일</a>에 설정한다.  CodeScroll 의 사용자 인터페이스를 통하여 값을
+실행결과로 생성되는 커버리지를 참조하여 추가가 필요한 <a href="#org905da14">테스트 변수</a>값을
+<a href="#orgc36c849">scheme 파일</a>에 설정한다.  CodeScroll 의 사용자 인터페이스를 통하여 값을
 설정하는 것 보다 빠르게 커버리지를 올릴 수 있다.  
-다음 파일은 <a href="#org8c060c5">테스트케이스</a>가 실행하면서 출력하는 것을 저장하는 파일이다. 
+다음 파일은 <a href="#org12715a3">테스트케이스</a>가 실행하면서 출력하는 것을 저장하는 파일이다. 
 </p>
 
 <ul class="org-ul">
-<li>testsc-stderr.txt : <a href="#org5b3ef70">testsc 홈</a> 폴더 아래 위치한다. <a href="#org8c060c5">테스트케이스</a>가
+<li>testsc-stderr.txt : <a href="#orgcfddd3b">testsc 홈</a> 폴더 아래 위치한다. <a href="#org12715a3">테스트케이스</a>가
 실행하면서 출력하는 표준에러 출력을 저장한다.</li>
 
-<li>testsc-stdout.txt : <a href="#org5b3ef70">testsc 홈</a> 폴더 아래 위치한다. <a href="#org8c060c5">테스트케이스</a>가
-실행하면서 출력하는 표준출력 및 <a href="#orgc539af8">testsc_debug</a> 출력을 저장한다.</li>
+<li>testsc-stdout.txt : <a href="#orgcfddd3b">testsc 홈</a> 폴더 아래 위치한다. <a href="#org12715a3">테스트케이스</a>가
+실행하면서 출력하는 표준출력 및 <a href="#orgb5e7701">No description for this link</a> 출력을 저장한다.</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org6aa373c" class="outline-2">
-<h2 id="org6aa373c"><span class="section-number-2">3</span> <a href="#org7063e45">scheme 파일</a> 작성 <a id="org6ef83dd"></a></h2>
+<div id="outline-container-orgb46674d" class="outline-2">
+<h2 id="orgb46674d"><span class="section-number-2">3</span> <a href="#orgc36c849">scheme 파일</a> 작성 <a id="orgb0d3b88"></a></h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgb3e2699" class="outline-3">
-<h3 id="orgb3e2699"><span class="section-number-3">3.1</span> scheme 파일 작성</h3>
+<div id="outline-container-org98046e8" class="outline-3">
+<h3 id="org98046e8"><span class="section-number-3">3.1</span> scheme 파일 작성</h3>
 <div class="outline-text-3" id="text-3-1">
-</div><div id="outline-container-org0001067" class="outline-4">
-<h4 id="org0001067"><span class="section-number-4">3.1.1</span> 함수내의 모든 분기문을 확인한다.</h4>
+</div><div id="outline-container-org503b60b" class="outline-4">
+<h4 id="org503b60b"><span class="section-number-4">3.1.1</span> 함수내의 모든 분기문을 확인한다.</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <p>
 if, switch 등의 분기문에서 사용하는 변수, 구조체 필드, 함수 리턴값 등을
@@ -715,8 +718,8 @@ CodeScroll은 테스트케이스를 생성할 때 이 항목들을 테스트입�
 </div>
 </div>
 
-<div id="outline-container-org79e2490" class="outline-4">
-<h4 id="org79e2490"><span class="section-number-4">3.1.2</span> 식별한 항목이 가져야 하는 값을 확인한다.</h4>
+<div id="outline-container-org05c7840" class="outline-4">
+<h4 id="org05c7840"><span class="section-number-4">3.1.2</span> 식별한 항목이 가져야 하는 값을 확인한다.</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <p>
 항목별로 조건들을 나열한 후 이로 부터 테스트 데이터(값의 범위)를 생성한다.
@@ -758,8 +761,8 @@ track-&gt;link_state    ⇰ (link_received link_transmitted not_link_involved)
 </div>
 </div>
 
-<div id="outline-container-org566291b" class="outline-4">
-<h4 id="org566291b"><span class="section-number-4">3.1.3</span> 테스트 변수를 확인한다.</h4>
+<div id="outline-container-orgcabbf12" class="outline-4">
+<h4 id="orgcabbf12"><span class="section-number-4">3.1.3</span> 테스트 변수를 확인한다.</h4>
 <div class="outline-text-4" id="text-3-1-3">
 <p>
 앞의 두 단계에서 확인한 값들에 대하여 변수를 정의한다. scheme 파일에서
@@ -781,11 +784,11 @@ track-&gt;link_state    ⇰ (link_received link_transmitted not_link_involved)
 </div>
 </div>
 
-<div id="outline-container-org767febd" class="outline-4">
-<h4 id="org767febd"><span class="section-number-4">3.1.4</span> scheme 파일을 작성한다.</h4>
+<div id="outline-container-orga71ec6c" class="outline-4">
+<h4 id="orga71ec6c"><span class="section-number-4">3.1.4</span> scheme 파일을 작성한다.</h4>
 <div class="outline-text-4" id="text-3-1-4">
 <p>
-<a href="#org8dba87c">combi</a> 함수를 이용하여 모든 테스트 데이터 조합을 생성한다. 
+<a href="#org8608d8a">No description for this link</a> 함수를 이용하여 모든 테스트 데이터 조합을 생성한다. 
 </p>
 
 <div class="org-src-container">
@@ -825,22 +828,22 @@ track-&gt;link_state    ⇰ (link_received link_transmitted not_link_involved)
 </div>
 </div>
 
-<div id="outline-container-orgfbbeb8f" class="outline-3">
-<h3 id="orgfbbeb8f"><span class="section-number-3">3.2</span> scheme 파일 디버깅</h3>
+<div id="outline-container-org12ad1a2" class="outline-3">
+<h3 id="org12ad1a2"><span class="section-number-3">3.2</span> scheme 파일 디버깅</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 값이 예상과 다르거나 스크립트 로딩에 오류가 있는 것 같을 때 수행 
 </p>
 </div>
-<div id="outline-container-org9ad8121" class="outline-4">
-<h4 id="org9ad8121"><span class="section-number-4">3.2.1</span> 출력 파일 확인</h4>
+<div id="outline-container-orga15945a" class="outline-4">
+<h4 id="orga15945a"><span class="section-number-4">3.2.1</span> 출력 파일 확인</h4>
 </div>
-<div id="outline-container-org76e766b" class="outline-4">
-<h4 id="org76e766b"><span class="section-number-4">3.2.2</span> scheme 실행</h4>
+<div id="outline-container-org4d4115e" class="outline-4">
+<h4 id="org4d4115e"><span class="section-number-4">3.2.2</span> scheme 실행</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 <b>testsc</b> 홈 플더의 scheme.exe 를 실행한다. 
-<a href="#org320dc3a">testsc-set-testnum</a> 를 이용하여 디버깅 하고자 하는 테스트 번호를 설정한다. 
+<a href="#org7f5331c">No description for this link</a> 를 이용하여 디버깅 하고자 하는 테스트 번호를 설정한다. 
 (testsc-require ac/t-1 ) 를 이용하여 테스트 스크립트를 로딩한다. 
 </p>
 
@@ -860,27 +863,257 @@ track-&gt;link_state    ⇰ (link_received link_transmitted not_link_involved)
 </div>
 </div>
 
-<div id="outline-container-orgd081cde" class="outline-3">
-<h3 id="orgd081cde"><span class="section-number-3">3.3</span> 예제 1 - 값을 정의하고 사용</h3>
+<div id="outline-container-orgaec6a96" class="outline-3">
+<h3 id="orgaec6a96"><span class="section-number-3">3.3</span> 예제</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+아래의 예제는 배포파일에 포함되어 있는 CodeScroll 워크스페이스를 열어서
+확인할 수 있다. 
+</p>
+
+<p>
+<b>파일 &gt;&gt; 워크스페이스 바꾸기</b> 메뉴를 이용하여 예제가 있는 워크스페이스로 전환한다. 
+</p>
+
+
+<div class="figure">
+<p><a href="chworksspace.PNG"><img src="file:///c:/testsc/doc/chworksspace.PNG" alt="chworksspace.PNG" /></a>
+</p>
 </div>
-<div id="outline-container-org73b9025" class="outline-3">
-<h3 id="org73b9025"><span class="section-number-3">3.4</span> 예제 2 - enum 변수 확인</h3>
 </div>
-<div id="outline-container-org2f735e4" class="outline-3">
-<h3 id="org2f735e4"><span class="section-number-3">3.5</span> 예제 3 - filter check</h3>
+
+<div id="outline-container-org4947508" class="outline-4">
+<h4 id="org4947508"><span class="section-number-4">3.3.1</span> example1 - 파라미터 조합</h4>
+<div class="outline-text-4" id="text-3-3-1">
+</div><ul class="org-ul"><li><a id="org17ce929"></a>테스트 대상<br /><div class="outline-text-5" id="text-org17ce929">
+<p>
+<code>/testsc/share/srcexample/example1.cpp</code> 에 대상 함수가 있다. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span class="kt">int</span> <span class="n">example1</span><span class="o">::</span><span class="n">get_sec_surf_ampl</span><span class="p">(</span><span class="k">const</span> <span class="n">primary_surface_id_ampl_e</span> <span class="n">priampl</span> <span class="p">,</span> 
+				<span class="k">const</span> <span class="n">secondary_surface_id_ampl_e</span> <span class="n">secampl</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">switch</span><span class="p">(</span><span class="n">priampl</span><span class="p">){</span>
+  <span class="k">case</span> <span class="nl">pri_surf_ampl_no_statement</span>     <span class="p">:</span> <span class="k">return</span> <span class="n">SURPA_NO_STATEMENT</span> <span class="p">;</span> <span class="c1">// 세부정보 없음</span>
+  <span class="k">case</span> <span class="nl">pri_surf_ampl_line</span>             <span class="p">:</span>      <span class="c1">//해군전단</span>
+  <span class="k">case</span> <span class="nl">pri_surf_ampl_combatant</span>        <span class="p">:</span> <span class="c1">//함정</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">secampl</span><span class="p">){</span>
+    <span class="k">case</span> <span class="nl">sec_surf_ampl_no_statement</span>   <span class="p">:</span><span class="k">return</span> <span class="n">SURSA_NO_STATEMENT</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nl">sec_surf_ampl_carrier</span>        <span class="p">:</span><span class="k">return</span> <span class="n">SURSA_CARRIER</span><span class="p">;</span> <span class="c1">// 1</span>
+    <span class="k">case</span> <span class="nl">sec_surf_ampl_destroyer</span>      <span class="p">:</span><span class="k">return</span> <span class="n">SURSA_DESTROYER</span><span class="p">;</span> <span class="c1">// 4</span>
+    <span class="k">case</span> <span class="nl">sec_surf_ampl_cruiser</span>        <span class="p">:</span><span class="k">return</span> <span class="n">SURSA_CRUISER</span><span class="p">;</span> <span class="c1">// 3</span>
+    <span class="k">case</span> <span class="nl">sec_surf_ampl_frigate</span>        <span class="p">:</span><span class="k">return</span> <span class="n">SURSA_FRIGATE</span><span class="p">;</span> <span class="c1">// 5</span>
+    <span class="k">case</span> <span class="nl">sec_surf_ampl_battleship</span>     <span class="p">:</span><span class="k">return</span> <span class="n">SURSA_BATTLESHIP</span><span class="p">;</span> <span class="c1">// 2</span>
+    <span class="k">default</span> <span class="o">:</span> <span class="k">break</span> <span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 다음은 실행되지 않습니다. </span>
+    <span class="k">break</span> <span class="p">;</span> 
+
+  <span class="k">case</span> <span class="nl">pri_surf_ampl_patrol_vessel</span>    <span class="p">:</span>  <span class="c1">// 초계함</span>
+    <span class="c1">// 다음은 맵핑되지 않습니다. </span>
+    <span class="c1">//enum ESurPatrolSecondaryAmp {</span>
+    <span class="c1">//  return SURSA_FAST_PATROL          // 3</span>
+    <span class="c1">//};</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">secampl</span><span class="p">){</span>
+    <span class="k">case</span> <span class="nl">sec_surf_ampl_ASW</span>            <span class="p">:</span><span class="k">return</span> <span class="n">SURSA_ASW_PATROL</span><span class="p">;</span> <span class="c1">// 1</span>
+    <span class="k">case</span> <span class="nl">sec_surf_ampl_ASUW</span>           <span class="p">:</span><span class="k">return</span> <span class="n">SURSA_SURFACE_PATROL</span><span class="p">;</span> <span class="c1">// 2</span>
+    <span class="k">default</span> <span class="o">:</span> <span class="k">break</span> <span class="p">;</span>
+      <span class="p">......</span></pre>
 </div>
-<div id="outline-container-org606442c" class="outline-3">
-<h3 id="org606442c"><span class="section-number-3">3.6</span> 예제 4 - 구조체 예제</h3>
 </div>
-<div id="outline-container-org45e174c" class="outline-3">
-<h3 id="org45e174c"><span class="section-number-3">3.7</span> 예제 5 - stub 활용</h3>
+
+<ul class="org-ul"><li><a id="org8fa8bdd"></a>함수의 입력 파라미터<br /><div class="outline-text-6" id="text-org8fa8bdd">
+<p>
+함수 입력으로 사용하는 두 enum 타입의 모든 조합을 <a href="#org905da14">테스트 변수</a> 로 생성하면
+100% 커버리지를 달성할 수 있다. 
+</p>
+
+<p>
+관련 enum 타입은 <code>/testsc/share/srcexample/example1.h</code> 에 정의 되어 있다. 
+</p>
+
+<p>
+<b>primary_surface_id_ampl_e</b> 8개 값, <b>secondary_surface_id_ampl_e</b> 30개
+값으로 해서 240개의 조합이 존재한다. 
+</p>
+</div></li></ul></li>
+
+<li><a id="org6a14d2a"></a>사용자 코드<br /><div class="outline-text-5" id="text-org6a14d2a">
+<p>
+<b>테스트 정보</b> &gt;&gt; <b>사용자 코드</b> 에서 다음 사항을 확인한다. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span class="n">testsc_init</span><span class="p">(</span><span class="n">CS_TESTCASENO</span><span class="p">(),</span> <span class="s">&quot;(testsc-require ex/t-1)&quot;</span><span class="p">,</span>  <span class="s">&quot;/testsc/home&quot;</span><span class="p">)</span> <span class="p">;</span> 
+
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;printf</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span> <span class="p">;</span> 
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;cout test&quot;</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">endl</span> <span class="p">;</span> </pre>
+</div>
+
+<p>
+<a href="#orgcfddd3b">testsc 홈</a> 아래 ex/t-1.scm 파일을 호출 하는 부분이다. 
+</p>
+</div></li>
+
+<li><a id="orgabe4444"></a>호출 전 코드<br /><ul class="org-ul"><li><a id="org1814c68"></a>호출 전 코드 내용<br /><div class="outline-text-6" id="text-org1814c68">
+<p>
+<b>테스트 정보</b> &gt;&gt; <b>테스트 대상 함수</b> &lt;&lt; <b>호출 전 코드</b> 부분에서 CodeScroll
+이 생성한 <a href="#org905da14">테스트 변수</a>의 값을 <b>testsc</b> 에서 값을 가져 오도록 한다. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c++">priampl = (enum primary_surface_id_ampl_e)testsc_ivalue(&quot;priampl&quot;);
+secampl = (enum secondary_surface_id_ampl_e)testsc_ivalue(&quot;secampl&quot;);</pre>
+</div>
+</div></li>
+
+<li><a id="orgc5faa8b"></a>테스트 코드<br /><div class="outline-text-6" id="text-orgc5faa8b">
+<p>
+<b>테스트 코드</b> 에서 변경된 내용을 확인 하면 다음과 같다. 
+</p>
+
+<p>
+CodeScroll 의 <a href="#org12715a3">테스트케이스</a>에 추가적으로 <b>testsc</b> 를 사용하려면 호출전
+부분을 CS_TESTCASENO() 가 특정값 이상 일 때만 실행되도록 <b>if</b> 문을 사용할
+수 있다. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span class="cm">/*Input*/</span>
+<span class="n">priampl</span> <span class="o">=</span> <span class="p">(</span><span class="k">enum</span> <span class="n">primary_surface_id_ampl_e</span><span class="p">)</span><span class="n">CS_INT_INPUT</span><span class="p">(</span><span class="k">enum</span> <span class="n">primary_surface_id_ampl_e</span><span class="p">,</span><span class="s">&quot;priampl&quot;</span><span class="p">);</span>
+<span class="n">secampl</span> <span class="o">=</span> <span class="p">(</span><span class="k">enum</span> <span class="n">secondary_surface_id_ampl_e</span><span class="p">)</span><span class="n">CS_INT_INPUT</span><span class="p">(</span><span class="k">enum</span> <span class="n">secondary_surface_id_ampl_e</span><span class="p">,</span><span class="s">&quot;secampl&quot;</span><span class="p">);</span>
+
+
+<span class="cp">#line 1 &quot;cs_test%example1_get_sec_surf_ampl_test0%BEFORE_CALL_CODE_KEY_get_sec_surf_ampl28983194&quot;</span>
+<span class="n">priampl</span> <span class="o">=</span> <span class="p">(</span><span class="k">enum</span> <span class="n">primary_surface_id_ampl_e</span><span class="p">)</span><span class="n">testsc_ivalue</span><span class="p">(</span><span class="s">&quot;priampl&quot;</span><span class="p">);</span>
+<span class="n">secampl</span> <span class="o">=</span> <span class="p">(</span><span class="k">enum</span> <span class="n">secondary_surface_id_ampl_e</span><span class="p">)</span><span class="n">testsc_ivalue</span><span class="p">(</span><span class="s">&quot;secampl&quot;</span><span class="p">);</span>
+<span class="cp">#line 40 &quot;cs_test%example1_get_sec_surf_ampl_test0%cs_error&quot;</span></pre>
+</div>
+</div></li></ul></li>
+
+<li><a id="org191c54a"></a><a href="#orgc36c849">scheme 파일</a><br /><div class="outline-text-5" id="text-org191c54a">
+<p>
+/testsc/home/ex/t-1.scm 파일 의 내용
+</p>
+
+<ul class="org-ul">
+<li>C 코드에서 사용하는 enum 값이나 <code>#define</code> 된 상수값을 정의 하여 사용할 수
+있다. 식별자의 실제 값을 찾기 위해 코드를 검색할 필요 없이 <a href="#org12715a3">테스트케이스</a>를
+생성할 수 있다.</li>
+
+<li><a href="#org3225d01">No description for this link</a>은 생성한 조합의 값을 첫번째 파라미터 이후의 테스트케이스에
+대하여 순서대로 lambda 함수에 전달한다</li>
+
+<li>을 통하여 priampl,
+secampl 각각 0~7, 0~29 의 조합을 생성한다.</li>
+
+<li>추가적인 <a href="#org905da14">테스트 변수</a> 값이 필요할 경우 scheme-case 문을 사용하여 지정할 수
+있다.</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme"><span class="c1">;;; 상수 정의 - 공통파일을 만들으 테스트간에 공유할 수 있다. </span>
+<span class="p">(</span><span class="k">define </span>  <span class="nv">pri_surf_ampl_amphibious</span>                 <span class="mi">4</span> <span class="p">)</span>
+<span class="p">(</span><span class="k">define </span>  <span class="nv">sec_surf_ampl_frigate</span>                    <span class="mi">11</span> <span class="p">)</span>
+<span class="p">(</span><span class="k">define </span>  <span class="nv">sec_surf_ampl_landing_ship</span>               <span class="mi">12</span> <span class="p">)</span>
+
+
+<span class="c1">;;; 테스트변수 </span>
+<span class="p">(</span><span class="k">define </span><span class="nv">priampl</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">(</span><span class="k">define </span><span class="nv">secampl</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">foreach-tnum</span>
+ <span class="mi">1</span>                                      <span class="c1">; testcase 시작값</span>
+ <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span>                            <span class="c1">; testcase 번호에서 testcase 시작값을 뺀 번째 조합 값을 파라미터로 전달한다. </span>
+   <span class="p">(</span><span class="k">set! </span><span class="nv">priampl</span> <span class="p">(</span><span class="nf">nth</span> <span class="mi">0</span> <span class="nv">x</span><span class="p">))</span>             <span class="c1">; 조합값의 첫번째 값은 priampl</span>
+   <span class="p">(</span><span class="k">set! </span><span class="nv">secampl</span> <span class="p">(</span><span class="nf">nth</span> <span class="mi">1</span> <span class="nv">x</span><span class="p">)))</span>            <span class="c1">; 조함값의 두번째 값은 secampl</span>
+ <span class="p">(</span><span class="nf">combi</span> <span class="p">(</span><span class="nf">num-list</span> <span class="mi">0</span> <span class="mi">8</span><span class="p">)</span> <span class="p">(</span><span class="nf">num-list</span> <span class="mi">0</span> <span class="mi">30</span><span class="p">)))</span>
+
+<span class="c1">;;; combi (num-list 0 8 ) (num-list 0 30 ) </span>
+<span class="c1">;;; -&gt; ((0 0 ) (0 1 ) (0 2 )... (0 29) (1 0 ) (1 1 ) ...)</span>
+<span class="c1">;;;     ↑ testcase 시작 값과 같은 경우 lambda 함수로 전달</span>
+<span class="c1">;;;            ↑ testcase 시작 값보다 1 클 경우 lambda 함수로 전달</span>
+
+<span class="p">(</span><span class="k">case </span><span class="p">(</span><span class="nf">testsc-get-testnum</span><span class="p">)</span>              <span class="c1">; C 의 switch 문에 해당 - testcase 번호</span>
+  <span class="p">((</span><span class="mi">241</span><span class="p">)</span>                                <span class="c1">; C 의 case 문에 해당 - testcase 번호가 241 일 경우  </span>
+   <span class="p">(</span><span class="k">set! </span><span class="nv">secampl</span> <span class="mi">-1</span><span class="p">)</span>                    <span class="c1">; 테스트변수 secampl 을 -1 로 설정한다.</span>
+   <span class="p">(</span><span class="k">set! </span><span class="nv">priampl</span> <span class="mi">-1</span><span class="p">))</span>                   <span class="c1">; 테스트변수 priampl 을 -1 로 설정한다.</span>
+  <span class="p">((</span><span class="mi">242</span> <span class="mi">243</span><span class="p">)</span>                            <span class="c1">; 테스트번호 나열이 가능하다. </span>
+   <span class="p">(</span><span class="k">set! </span><span class="nv">priampl</span> <span class="nv">pri_surf_ampl_amphibious</span><span class="p">)</span>      <span class="c1">; define 으로 정의된 상수값을 사용할 수 있다. </span>
+   <span class="p">(</span><span class="k">set! </span><span class="nv">secampl</span> <span class="nv">sec_surf_ampl_landing_ship</span><span class="p">)))</span>  <span class="c1">; define 으로 정의된 상수값을 사용할 수 있다. </span></pre>
+</div>
+</div></li>
+
+<li><a id="orgc327190"></a>실행<br /><div class="outline-text-5" id="text-orgc327190">
+<p>
+<a href="#org12715a3">테스트케이스</a>실행을 하여 커버리지 100% 가 되는 것을 확인 한다. 
+</p>
+
+<p>
+<a href="#orgcfddd3b">testsc 홈</a> 아래 testsc-stdout.txt 파일을 열어 보면 다음과 같은 로그를 확인
+할 수 있다. 
+</p>
+
+<blockquote>
+<p>
+testsc-require /testsc/home/util.scm
+testsc-require /testsc/home/testsc.scm
+testsc-require /testsc/home/testsc-ext.scm
+testsc-require /testsc/home/ex/t-1.scm
+foreach-tnum next testnum is  241             → t-1.scm 에 있는 foreach-tnum  다음의 테스트번호가 241임을 알려줌 
+testsc initalize done                         → testsc_init 함수가 끝나는 시점
+printf                                        → 테스트코드(사용자코드) 표준출력 redirection 
+cout test                                     → 테스트코드(사용자코드) 표준출력 redirection 
+testsc_ivalue priampl is 7                    → 테스트코드(호출전 코드)에서 testsc_ivalue 의 값
+testsc_ivalue secampl is 1                    → 테스트코드(호출전 코드)에서 testsc_ivalue 의 값
+</p>
+</blockquote>
+
+
+<p>
+ex/t-1.scm 파일에서 ')'괄호를 하나 추가 하고 실행하면 다음과 같은 에러 로그를
+확인할 수 있다. 
+</p>
+
+<blockquote>
+<p>
+Error: (/testsc/home//ex/t-1.scm : 44) syntax error: illegal token 
+</p>
+</blockquote>
+
+<p>
+여는 괄호'(', 닫는 괄호')' 쌍을 scheme 에서는 sexp 라고 지칭한다. sexp 를
+처리하는 과정에서 에러가 발생하면 에러가 발생한다. 여는 괄호가 아직 끝나지
+아니한 경우는 에러검출이 아니될 수도 있다. 이럴 경우 <a href="#org455b8ae">디버깅</a> 을 통해서
+문제가 있는 부분을 확인 할 수 있다. 디버깅 방법은 <a href="#org455b8ae">디버깅</a> 참조 
+</p>
+</div></li></ul>
+</div>
+
+<div id="outline-container-org492bda9" class="outline-4">
+<h4 id="org492bda9"><span class="section-number-4">3.3.2</span> 예제 2 - enum 변수 확인</h4>
+</div>
+<div id="outline-container-org0a1abe7" class="outline-4">
+<h4 id="org0a1abe7"><span class="section-number-4">3.3.3</span> 예제 3 - filter check</h4>
+</div>
+<div id="outline-container-org9b088b5" class="outline-4">
+<h4 id="org9b088b5"><span class="section-number-4">3.3.4</span> 예제 4 - 구조체 예제</h4>
+</div>
+<div id="outline-container-orga0f445d" class="outline-4">
+<h4 id="orga0f445d"><span class="section-number-4">3.3.5</span> 예제 5 - stub 활용</h4>
 </div>
 </div>
-<div id="outline-container-orgca6cc7e" class="outline-2">
-<h2 id="orgca6cc7e"><span class="section-number-2">4</span> testsc 구조체  <a id="org449cc33"></a></h2>
+</div>
+<div id="outline-container-orgac5d92b" class="outline-2">
+<h2 id="orgac5d92b"><span class="section-number-2">4</span> testsc 구조체  <a id="orgbd9d3ab"></a></h2>
 <div class="outline-text-2" id="text-4">
 <p>
-<a href="#org7063e45">scheme 파일</a>을 통하여 구조체를 정의할 수 있다. <a href="#orga347f9f">테스트 변수</a>를 사용하여 구조체
+<a href="#orgc36c849">scheme 파일</a>을 통하여 구조체를 정의할 수 있다. <a href="#org905da14">테스트 변수</a>를 사용하여 구조체
 필드를 각각 설정하기 어려운 경우 사용한다. 사용되는 구조체의 필드가 다수일 경우,
 스텁함수에서 구조체에 대한 포인터를 리턴하는 경우, 사용되는 구조체가 다수인
 경우 등이 해당한다. 
@@ -908,11 +1141,11 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 </p>
 
 <p>
-<a href="#orga347f9f">테스트 변수</a>를 활용해서 구조체의 필드에 값을 설정할 수 있다. 대부분의 경우
+<a href="#org905da14">테스트 변수</a>를 활용해서 구조체의 필드에 값을 설정할 수 있다. 대부분의 경우
 </p>
 
 <p>
-<a href="#org449cc33">testsc 구조체</a>는 테스트에 사용되는 구조체 생성을 위해 <b>testsc</b> 가
+<a href="#orgbd9d3ab">testsc 구조체</a>는 테스트에 사용되는 구조체 생성을 위해 <b>testsc</b> 가
 내부적으로 사용하는 구조체를 의미한다. 
 </p>
 
@@ -922,7 +1155,7 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 </p>
 
 <p>
-<a href="#org449cc33">testsc 구조체</a>에 대한 상세한 내용은 <a href="#org449cc33">testsc 구조체</a>부분 참조 
+<a href="#orgbd9d3ab">testsc 구조체</a>에 대한 상세한 내용은 <a href="#orgbd9d3ab">testsc 구조체</a>부분 참조 
 </p>
 <div class="org-src-container">
 
@@ -932,18 +1165,18 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 </div>
 </div>
 
-<div id="outline-container-org2c7d689" class="outline-3">
-<h3 id="org2c7d689"><span class="section-number-3">4.1</span> 구조체 테스트 데이터 생성</h3>
+<div id="outline-container-org6f342e1" class="outline-3">
+<h3 id="org6f342e1"><span class="section-number-3">4.1</span> 구조체 테스트 데이터 생성</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 확장 모듈을 이용하여 구조체 테스트 데이터를 생성할 수 있다. 
-<a href="#orga320993">testsc_ext_get</a> 을 이용하여 scheme 파일에서 생성한 구조체를 가져 온다. 
+<a href="#org30d4ea7">No description for this link</a> 을 이용하여 scheme 파일에서 생성한 구조체를 가져 온다. 
 </p>
 </div>
 </div>
 
-<div id="outline-container-org8ff9440" class="outline-3">
-<h3 id="org8ff9440"><span class="section-number-3">4.2</span> 빌드 방법</h3>
+<div id="outline-container-orgc86191b" class="outline-3">
+<h3 id="orgc86191b"><span class="section-number-3">4.2</span> 빌드 방법</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 build.bat 파일을 이용하여 빌드를 수행한다. 
@@ -960,14 +1193,14 @@ libtestsc.a 파일을 생성하기 위해서는 -DSTANDALONE=0 을 컴파일러�
 </div>
 </div>
 
-<div id="outline-container-org2b0bea5" class="outline-2">
-<h2 id="org2b0bea5"><span class="section-number-2">5</span> Best Practice</h2>
+<div id="outline-container-org220b332" class="outline-2">
+<h2 id="org220b332"><span class="section-number-2">5</span> Best Practice</h2>
 <div class="outline-text-2" id="text-5">
-</div><div id="outline-container-org0bf6770" class="outline-3">
-<h3 id="org0bf6770"><span class="section-number-3">5.1</span> 비관리 코드 활용</h3>
+</div><div id="outline-container-org203ac4a" class="outline-3">
+<h3 id="org203ac4a"><span class="section-number-3">5.1</span> 비관리 코드 활용</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
-<a href="#org8c060c5">테스트케이스</a>생성후 바로 비관리로 전환하며 직접 입력할 수 도 있다. 
+<a href="#org12715a3">테스트케이스</a>생성후 바로 비관리로 전환하며 직접 입력할 수 도 있다. 
 </p>
 
 <p>
@@ -982,8 +1215,8 @@ CodeScroll 테스트케이스 생성 및 일괄 빌드 후 비관리 코드 전�
 라이센스를 절약할 수 있다.  
 </p>
 </div>
-<div id="outline-container-org3ad7a90" class="outline-4">
-<h4 id="org3ad7a90"><span class="section-number-4">5.1.1</span> 일괄 비관리 코드 전환</h4>
+<div id="outline-container-org9b43665" class="outline-4">
+<h4 id="org9b43665"><span class="section-number-4">5.1.1</span> 일괄 비관리 코드 전환</h4>
 <div class="outline-text-4" id="text-5-1-1">
 <p>
 CodeScroll 를 종료한 상태에서 프로젝트폴더내의 <b>.csp</b> 파일을 찾은 후
@@ -1011,28 +1244,28 @@ sqlite3 실행 파일을 이용하여 다음과 같이 수행한다.
 </div>
 </div>
 
-<div id="outline-container-orgd639737" class="outline-4">
-<h4 id="orgd639737"><span class="section-number-4">5.1.2</span> unittest 내부의 c 파일 편집</h4>
+<div id="outline-container-org29079f1" class="outline-4">
+<h4 id="org29079f1"><span class="section-number-4">5.1.2</span> unittest 내부의 c 파일 편집</h4>
 <div class="outline-text-4" id="text-5-1-2">
 <p>
 비관리 코드 전환이 되었을 때만 직접 편집을 하여야 한다. 안된 상태서
 편집하는 경우 관련 사항을 읽어버릴 수 있다. 
 </p>
 <ul class="org-ul">
-<li>USER_CODE_GLOBAL_KEY 부분을 찾아서 <a href="#orga45df7f">관련 헤더파일 include</a> 부분을 직접 편집한다.</li>
-<li>User code start 부분을 찾아서 <a href="#org57a51e0">사용자 코드 작성</a> 부분을 직접 편집한다.</li>
-<li>테스트 대상 함수 호출 전에 <a href="#org93700e5">호출전 코드 및 stub 코드 작성</a> 부분을 직접 편집한다.</li>
+<li>USER_CODE_GLOBAL_KEY 부분을 찾아서 <a href="#orgd87d745">관련 헤더파일 include</a> 부분을 직접 편집한다.</li>
+<li>User code start 부분을 찾아서 <a href="#orgb14404e">사용자 코드 작성</a> 부분을 직접 편집한다.</li>
+<li>테스트 대상 함수 호출 전에 <a href="#org45a9243">호출전 코드 및 stub 코드 작성</a> 부분을 직접 편집한다.</li>
 </ul>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf4dcd02" class="outline-3">
-<h3 id="orgf4dcd02"><span class="section-number-3">5.2</span> CodeScroll 의 테스트데이터와 같이 사용</h3>
+<div id="outline-container-orga03e6a7" class="outline-3">
+<h3 id="orga03e6a7"><span class="section-number-3">5.2</span> CodeScroll 의 테스트데이터와 같이 사용</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 <b>CS_TESTCASENO()</b> 를 이용하여 관련 부분이 실행이 아니되게 할 수 있다. 다음과
-같이 실행하며 10 보다 큰 테스트케이스에 대해서만 <a href="#org7063e45">scheme 파일</a>로 부터 값을 읽어
+같이 실행하며 10 보다 큰 테스트케이스에 대해서만 <a href="#orgc36c849">scheme 파일</a>로 부터 값을 읽어
 온다.  
 </p>
 
@@ -1048,8 +1281,8 @@ sqlite3 실행 파일을 이용하여 다음과 같이 수행한다.
 </div>
 </div>
 
-<div id="outline-container-orgfa8d0e4" class="outline-3">
-<h3 id="orgfa8d0e4"><span class="section-number-3">5.3</span> testsc 확장 모듈</h3>
+<div id="outline-container-orgbfe80d2" class="outline-3">
+<h3 id="orgbfe80d2"><span class="section-number-3">5.3</span> testsc 확장 모듈</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 C 를 이용하여 확장 할 수 있다. C 확장을 불필요하게 생성하는 것을 지양하고
@@ -1058,23 +1291,23 @@ C 를 이용하여 확장 할 수 있다. C 확장을 불필요하게 생성하�
 </p>
 </div>
 
-<div id="outline-container-org9f366be" class="outline-4">
-<h4 id="org9f366be"><span class="section-number-4">5.3.1</span> 구조체 테스트 데이터 생성</h4>
+<div id="outline-container-orge468e29" class="outline-4">
+<h4 id="orge468e29"><span class="section-number-4">5.3.1</span> 구조체 테스트 데이터 생성</h4>
 <div class="outline-text-4" id="text-5-3-1">
 <p>
 확장 모듈을 이용하여 구조체 테스트 데이터를 생성할 수 있다. 
-<a href="#orga320993">testsc_ext_get</a> 을 이용하여 scheme 파일에서 생성한 구조체를 가져 온다. 
+<a href="#org30d4ea7">No description for this link</a> 을 이용하여 scheme 파일에서 생성한 구조체를 가져 온다. 
 </p>
 </div>
 </div>
 
-<div id="outline-container-org0f3f2d3" class="outline-4">
-<h4 id="org0f3f2d3"><span class="section-number-4">5.3.2</span> 테스트 데이터를 파일에서 가져오게 한다.</h4>
+<div id="outline-container-org4a0f4db" class="outline-4">
+<h4 id="org4a0f4db"><span class="section-number-4">5.3.2</span> 테스트 데이터를 파일에서 가져오게 한다.</h4>
 <div class="outline-text-4" id="text-5-3-2">
-</div><ul class="org-ul"><li><a id="orga598f05"></a>컴파일 없이 테스트 수행을 할 수 있다.<br /></li></ul>
+</div><ul class="org-ul"><li><a id="org3cfc2e7"></a>컴파일 없이 테스트 수행을 할 수 있다.<br /></li></ul>
 </div>
-<div id="outline-container-org4df0351" class="outline-4">
-<h4 id="org4df0351"><span class="section-number-4">5.3.3</span> 테스트 데이터를 프로그래밍 할 수 있게 한다.</h4>
+<div id="outline-container-org14f8fe7" class="outline-4">
+<h4 id="org14f8fe7"><span class="section-number-4">5.3.3</span> 테스트 데이터를 프로그래밍 할 수 있게 한다.</h4>
 <div class="outline-text-4" id="text-5-3-3">
 <p>
 테스트 데이터에 대한 프로그래밍을 통하여 커버리지를 높일 수 있는 데이터를
@@ -1082,19 +1315,19 @@ C 를 이용하여 확장 할 수 있다. C 확장을 불필요하게 생성하�
 </p>
 </div>
 </div>
-<div id="outline-container-orgf14a0a9" class="outline-4">
-<h4 id="orgf14a0a9"><span class="section-number-4">5.3.4</span> 라이브러리를 활용한다.</h4>
+<div id="outline-container-org5ea1998" class="outline-4">
+<h4 id="org5ea1998"><span class="section-number-4">5.3.4</span> 라이브러리를 활용한다.</h4>
 <div class="outline-text-4" id="text-5-3-4">
 <p>
 STUB 을 중복적으로 생성할 필요 없이 재사용 할 수 있다. 
 </p>
 </div>
-<ul class="org-ul"><li><a id="org66cfb90"></a>embedded language 활용<br /><ul class="org-ul"><li><a id="org0bbdee3"></a>scheme<br /><div class="outline-text-6" id="text-org0bbdee3">
+<ul class="org-ul"><li><a id="org9654dac"></a>embedded language 활용<br /><ul class="org-ul"><li><a id="orgf52c29e"></a>scheme<br /><div class="outline-text-6" id="text-orgf52c29e">
 <p>
 문법이 간단하여 구현이 용이함. 
 </p>
 </div>
-<ul class="org-ul"><li><a id="org9beaa15"></a>구현 - tinyscheme<br /><div class="outline-text-7" id="text-org9beaa15">
+<ul class="org-ul"><li><a id="org09bb4bd"></a>구현 - tinyscheme<br /><div class="outline-text-7" id="text-org09bb4bd">
 <p>
 5천 라인 정도의 C 파일로 language 가 구현 되어 있음. 
 codescroll에서 사용하는 컴파일러만으로 컴파일 가능. 추가 도구 등이 필요
@@ -1103,14 +1336,14 @@ codescroll에서 사용하는 컴파일러만으로 컴파일 가능. 추가 도
 </div></li></ul></li></ul></li></ul>
 </div>
 </div>
-<div id="outline-container-org73ee394" class="outline-3">
-<h3 id="org73ee394"><span class="section-number-3">5.4</span> 정의 파일 활용</h3>
+<div id="outline-container-org2442ca8" class="outline-3">
+<h3 id="org2442ca8"><span class="section-number-3">5.4</span> 정의 파일 활용</h3>
 <div class="outline-text-3" id="text-5-4">
-</div><div id="outline-container-org884e848" class="outline-4">
-<h4 id="org884e848"><span class="section-number-4">5.4.1</span> enum 타입 및 공통 상수 값 정의</h4>
+</div><div id="outline-container-orge89afcd" class="outline-4">
+<h4 id="orge89afcd"><span class="section-number-4">5.4.1</span> enum 타입 및 공통 상수 값 정의</h4>
 <div class="outline-text-4" id="text-5-4-1">
 <p>
-<a href="#org7063e45">scheme 파일</a> 처음 실행 할 때 <b>(testsc-require icmsdefine)</b> 를 호출하여 관련 값을 가져올
+<a href="#orgc36c849">scheme 파일</a> 처음 실행 할 때 <b>(testsc-require icmsdefine)</b> 를 호출하여 관련 값을 가져올
 수 있다. 각 타입의 값을 찾을 필요 없이 그대로 사용할 수 있다. 
 </p>
 
@@ -1125,41 +1358,102 @@ icmsdefine.scm 파일이 공통으로 사용하는 부분이 정의되어 있음
 </div>
 </div>
 </div>
+
+<div id="outline-container-org4b19967" class="outline-3">
+<h3 id="org4b19967"><span class="section-number-3">5.5</span> testsc 수정시</h3>
+<div class="outline-text-3" id="text-5-5">
+<p>
+정적 라이브러리이기 때문에 <a href="#org12715a3">테스트케이스</a>재빌드 필요하다. 
+</p>
+</div>
 </div>
 
-<div id="outline-container-org4c8e549" class="outline-2">
-<h2 id="org4c8e549"><span class="section-number-2">6</span> Reference <a id="org434d57d"></a></h2>
+<div id="outline-container-org9be485d" class="outline-3">
+<h3 id="org9be485d"><span class="section-number-3">5.6</span> 표준 출력 redirection</h3>
+<div class="outline-text-3" id="text-5-6">
+<p>
+라이브러리가 표준 출력을 파일로 redirection 해준다 코드가 실행하면서
+출력하는 사항을 파일로 확인할 수 있다. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2d5bca2" class="outline-3">
+<h3 id="org2d5bca2"><span class="section-number-3">5.7</span> 디버깅 <a id="org455b8ae"></a></h3>
+<div class="outline-text-3" id="text-5-7">
+<ol class="org-ol">
+<li>커맨드 창을 열고 <a href="#orgcfddd3b">testsc 홈</a> 폴더(<code>/testsc/home/</code>) 으로 이동한다.</li>
+<li><p>
+scheme 명령을 실행한다. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">C:\testsc\home&gt;.\scheme.exe</pre>
+</div></li>
+<li><p>
+<a href="#org01f6975">No description for this link</a> 을 호출한다. 
+</p>
+
+<p>
+다음은 testscase 번호를 1로 설정하고 <a href="#orgcfddd3b">testsc 홈</a> 폴더 아래 ex/t-1.scm 을
+로딩한다. 로깅 과정에 에러가 있을 경우 화면으로 출력한다.  <a href="#orgc36c849">scheme 파일</a> 의
+오류를 검증하는데 사용할 수있다. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scheme"><span class="nv">ts&gt;</span> <span class="p">(</span><span class="nf">testsc-init</span> <span class="mi">1</span> <span class="nv">ex/t-1</span> <span class="p">)</span></pre>
+</div></li>
+<li><p>
+<a href="#org905da14">테스트 변수</a> 값을 확인한다. 
+</p>
+
+<p>
+확인하고자 하는 변수를 입력후 엔터를 넣으면 값이 출력된다. <a href="#org01f6975">No description for this link</a>
+함수의 테스트번호를 변경해가면서 <a href="#org905da14">테스트 변수</a> 의 값을 확인할 수 있다. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scheme"><span class="nv">ts&gt;priampl</span>
+<span class="mi">0</span></pre>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org25b4805" class="outline-2">
+<h2 id="org25b4805"><span class="section-number-2">6</span> Reference <a id="orgaa4e4a9"></a></h2>
 <div class="outline-text-2" id="text-6">
-</div><div id="outline-container-orgf7580d4" class="outline-3">
-<h3 id="orgf7580d4"><span class="section-number-3">6.1</span> C API - <a id="orga04e11c"></a></h3>
+</div><div id="outline-container-orge4e2a5c" class="outline-3">
+<h3 id="orge4e2a5c"><span class="section-number-3">6.1</span> C API - <a id="org2494854"></a></h3>
 <div class="outline-text-3" id="text-6-1">
 <p>
 CodeScroll 에서 스텁등을 작성할 때 사용한다. 
 </p>
 </div>
-<div id="outline-container-orgc56fbab" class="outline-4">
-<h4 id="orgc56fbab"><span class="section-number-4">6.1.1</span> testsc.cpp</h4>
+<div id="outline-container-orgcd95837" class="outline-4">
+<h4 id="orgcd95837"><span class="section-number-4">6.1.1</span> testsc.cpp</h4>
 <div class="outline-text-4" id="text-6-1-1">
 <p>
-<a href="#orga347f9f">테스트 변수</a>를 처리하는 함수
+<a href="#org905da14">테스트 변수</a>를 처리하는 함수
 </p>
 </div>
-<ul class="org-ul"><li><a id="orgef00d1e"></a>함수<br /><ul class="org-ul"><li><a id="orgcf11f69"></a>long testsc_ivalue(const char* name)  <a id="org61b4b34"></a><br /><div class="outline-text-6" id="text-orgcf11f69">
+<ul class="org-ul"><li><a id="orgaf892de"></a>함수<br /><ul class="org-ul"><li><a id="org7f9237a"></a>long testsc_ivalue(const char* name)  <a id="org30551c6"></a><br /><div class="outline-text-6" id="text-org7f9237a">
 <pre class="example">
 
 </pre>
 </div></li>
-<li><a id="org6a114eb"></a>double testsc_dvalue(const char* name)  <a id="org65cdb75"></a><br /></li>
-<li><a id="orgcabf798"></a>char* testsc_strvalue(const char* name)  <a id="org25f9227"></a><br /></li>
-<li><a id="orgdaac2a6"></a>void testsc_eval(const char *cmd)  <a id="org76e43d2"></a><br /><div class="outline-text-6" id="text-orgdaac2a6">
+<li><a id="orgf5c2f5e"></a>double testsc_dvalue(const char* name)  <a id="orgce9b439"></a><br /></li>
+<li><a id="org1e35169"></a>char* testsc_strvalue(const char* name)  <a id="org19c6faa"></a><br /></li>
+<li><a id="org98ede5e"></a>void testsc_eval(const char *cmd)  <a id="org531382a"></a><br /><div class="outline-text-6" id="text-org98ede5e">
 <p>
-<a href="#org7b14cdc">testsc_init</a> 에서 초기화 하면서 scheme 을 실행하는 것에 더하여 추가적으로
-다른 scheme 명령을 실행고 싶을 때 사용한다. <a href="#orgaeaab86">testsc-require</a> 명령을 이용하여
+<a href="#orgd044b42">No description for this link</a> 에서 초기화 하면서 scheme 을 실행하는 것에 더하여 추가적으로
+다른 scheme 명령을 실행고 싶을 때 사용한다. <a href="#org10d12be">No description for this link</a> 명령을 이용하여
 다른 파일을 불러 올 수 있다. 
 </p>
 
 <p>
-<a href="#org7063e45">scheme 파일</a>를 불어오는 것에 추가적으로 다른 파일을 불러
+<a href="#orgc36c849">scheme 파일</a>를 불어오는 것에 추가적으로 다른 파일을 불러
      오고 싶을 사용한다. 
 </p>
 <ul class="org-ul">
@@ -1172,27 +1466,41 @@ CodeScroll 에서 스텁등을 작성할 때 사용한다.
 </div>
 </div></li>
 
-<li><a id="org069f4a5"></a>void testsc_init(int testnum, const char *cmd, const char *homepath = 0 )  <a id="org7b14cdc"></a><br /></li>
-<li><a id="orgf305032"></a>void testsc_debug(const char*format &#x2026;)  <a id="orgc539af8"></a><br /></li></ul></li></ul>
+<li><a id="org50864d0"></a>void testsc_init(int testnum, const char *cmd, const char *homepath = 0 )  <a id="orgd044b42"></a><br /><div class="outline-text-6" id="text-org50864d0">
+<p>
+<a href="#orgd044b42">No description for this link</a> 를 호출하여 <b>testsc</b> 를 초기화 한다. 첫번째 파라미터는
+CS_TESTCASENO() 으로써 테스트번호를 전달한다. 두번째 파라미터는 실행할
+scheme 명령이다. <a href="#org10d12be">No description for this link</a> 를 호출하여 <a href="#orgc36c849">scheme 파일</a>을 읽어 올 수 있다.
+마지막 파라미터는 <b>testsc</b> 의 HOME 경로가 된다. <a href="#org10d12be">No description for this link</a> 는 홈
+경로아래에서 <a href="#orgc36c849">scheme 파일</a> 을 불러온다. 경로를 파라미터로 넘기지 아니할 경우
+프로젝트가 있는 드라이브의 <code>/testsc/home</code> 폴더가 홈이 된다. (C 드라이브에
+프로젝트 폴더가 있을 경우 <code>c:\testsc\home</code> 폴더, 리눅스의 경우
+<code>/testsc/home</code> )       
+</p>
+</div></li>
+
+
+
+<li><a id="org398e861"></a>void testsc_debug(const char*format &#x2026;)  <a id="orgb5e7701"></a><br /></li></ul></li></ul>
 </div>
 
-<div id="outline-container-orgeef11eb" class="outline-4">
-<h4 id="orgeef11eb"><span class="section-number-4">6.1.2</span> testsc_ext.cpp</h4>
+<div id="outline-container-org22cc7dd" class="outline-4">
+<h4 id="org22cc7dd"><span class="section-number-4">6.1.2</span> testsc_ext.cpp</h4>
 <div class="outline-text-4" id="text-6-1-2">
-</div><ul class="org-ul"><li><a id="org7e186d9"></a>함수<br /><ul class="org-ul"><li><a id="org5eb1092"></a>int testsc_ext_length( void ) <a id="org159043d"></a><br /></li>
-<li><a id="org86b8941"></a>void testsc_ext_erase(int index ) <a id="org3a5c611"></a><br /></li>
-<li><a id="orgb7cf65a"></a>char* testsc_ext_get( int i )  <a id="orga320993"></a><br /><ul class="org-ul"><li><a id="org083b8c0"></a>구현 방법<br /></li></ul></li>
-<li><a id="orgf143e9a"></a>pop_args<br /></li></ul></li></ul>
+</div><ul class="org-ul"><li><a id="org3396bc7"></a>함수<br /><ul class="org-ul"><li><a id="org09be464"></a>int testsc_ext_length( void ) <a id="org4393a80"></a><br /></li>
+<li><a id="org0d654a8"></a>void testsc_ext_erase(int index ) <a id="org999608c"></a><br /></li>
+<li><a id="org584b3c0"></a>char* testsc_ext_get( int i )  <a id="org30d4ea7"></a><br /><ul class="org-ul"><li><a id="org6b59e10"></a>구현 방법<br /></li></ul></li>
+<li><a id="orgf1f71cd"></a>pop_args<br /></li></ul></li></ul>
 </div>
 </div>
 
-<div id="outline-container-org4707e9b" class="outline-3">
-<h3 id="org4707e9b"><span class="section-number-3">6.2</span> scheme API - <a id="org30e337e"></a></h3>
+<div id="outline-container-org709d257" class="outline-3">
+<h3 id="org709d257"><span class="section-number-3">6.2</span> scheme API - <a id="org11f97db"></a></h3>
 <div class="outline-text-3" id="text-6-2">
-</div><div id="outline-container-org7dd9bbe" class="outline-4">
-<h4 id="org7dd9bbe"><span class="section-number-4">6.2.1</span> util.scm</h4>
+</div><div id="outline-container-org5f03e64" class="outline-4">
+<h4 id="org5f03e64"><span class="section-number-4">6.2.1</span> util.scm</h4>
 <div class="outline-text-4" id="text-6-2-1">
-</div><ul class="org-ul"><li><a id="orgf5656bf"></a>변수<br /><ul class="org-ul"><li><a id="org387e336"></a><b>testsc-home</b>  <a id="orgf33d0ac"></a><br /><div class="outline-text-6" id="text-org387e336">
+</div><ul class="org-ul"><li><a id="org221f7bd"></a>변수<br /><ul class="org-ul"><li><a id="org281e8c4"></a><b>testsc-home</b>  <a id="orgdf734bc"></a><br /><div class="outline-text-6" id="text-org281e8c4">
 <ul class="org-ul">
 <li>목적 : 스크립트 파일 위치</li>
 <li>방향 :</li>
@@ -1208,9 +1516,9 @@ testsc-debug 를 이용하여 경로를 확인한다.
 </ul>
 </div></li></ul></li>
 
-<li><a id="orgd998511"></a>함수<br /><ul class="org-ul"><li><a id="org8a2e29f"></a>(define-macro (testsc-require x) &#x2026;) <a id="orgaeaab86"></a><br /><div class="outline-text-6" id="text-org8a2e29f">
+<li><a id="org3229cb8"></a>함수<br /><ul class="org-ul"><li><a id="org2698017"></a>(define-macro (testsc-require x) &#x2026;) <a id="org10d12be"></a><br /><div class="outline-text-6" id="text-org2698017">
 <p>
-<a href="#orgaeaab86">testsc-require</a> 의 파라미터는 불러오고자 하는 <a href="#org7063e45">scheme 파일</a>이다. (testsc-require
+<a href="#org10d12be">No description for this link</a> 의 파라미터는 불러오고자 하는 <a href="#orgc36c849">scheme 파일</a>이다. (testsc-require
 mb/t-9) 은 홈 폴더 아래의 <b>mb/t-9.scm</b> 파일을 호출한다. 경로명에 공백이
 있어서는 아니되고 파일의 확장자인 <b>.scm</b> 은 생략해야 한다. 
 </p>
@@ -1228,13 +1536,13 @@ mb/t-9) 은 홈 폴더 아래의 <b>mb/t-9.scm</b> 파일을 호출한다. 경�
 </ul>
 </blockquote>
 </div></li>
-<li><a id="org36a5f49"></a>(define (t-offset start) &#x2026;) <a id="org9ba80d8"></a><br /><div class="outline-text-6" id="text-org36a5f49">
+<li><a id="org15405ad"></a>(define (t-offset start) &#x2026;) <a id="orgfc92ef7"></a><br /><div class="outline-text-6" id="text-org15405ad">
 <p>
 (define (t-offset start) (- (testsc-get-testnum) start))
 </p>
 </div></li>
 
-<li><a id="orgac285c8"></a>(define (for-each-index-offset offset proc  . args ) &#x2026;) <a id="org90c878f"></a><br /><div class="outline-text-6" id="text-orgac285c8">
+<li><a id="orgbc715a5"></a>(define (for-each-index-offset offset proc  . args ) &#x2026;) <a id="org0fbd950"></a><br /><div class="outline-text-6" id="text-orgbc715a5">
 <ul class="org-ul">
 <li>목적 : 테스트케이스별 값을 설정한다.</li>
 <li><p>
@@ -1269,12 +1577,12 @@ mb/t-9) 은 홈 폴더 아래의 <b>mb/t-9.scm</b> 파일을 호출한다. 경�
 </ul>
 </div></li>
 
-<li><a id="orgd0f12c8"></a>(define (feio offset proc args ) &#x2026;) <a id="org7ea8bbb"></a><br /><div class="outline-text-6" id="text-orgd0f12c8">
+<li><a id="org629f4c6"></a>(define (feio offset proc args ) &#x2026;) <a id="org9ba4135"></a><br /><div class="outline-text-6" id="text-org629f4c6">
 <ul class="org-ul">
 <li>목적 : 테스트케이스별 값을 설정한다.</li>
 <li><p>
 사용법 : 테이스케이스별로 순차적으로 값을 설정하고자 할 때 사용한다. 
-<a href="#org90c878f">for-each-index-offset</a> 와 비교하여 args 부분에 리스트가 올 수
+<a href="#org0fbd950">No description for this link</a> 와 비교하여 args 부분에 리스트가 올 수
 있다. 
 </p>
 <div class="org-src-container">
@@ -1297,7 +1605,7 @@ mb/t-9) 은 홈 폴더 아래의 <b>mb/t-9.scm</b> 파일을 호출한다. 경�
 </ul>
 </div></li>
 
-<li><a id="org6c65c38"></a>(define (combi . args)&#x2026;) <a id="org8dba87c"></a><br /><div class="outline-text-6" id="text-org6c65c38">
+<li><a id="orgbbd224b"></a>(define (combi . args)&#x2026;) <a id="org8608d8a"></a><br /><div class="outline-text-6" id="text-orgbbd224b">
 <ul class="org-ul">
 <li>목적 : 테스트 데이터 생성(combination)</li>
 <li><p>
@@ -1315,7 +1623,7 @@ mb/t-9) 은 홈 폴더 아래의 <b>mb/t-9.scm</b> 파일을 호출한다. 경�
 </p></li>
 </ul>
 </div></li>
-<li><a id="org41f6d4c"></a>(define (nth n l) &#x2026;)<br /><div class="outline-text-6" id="text-org41f6d4c">
+<li><a id="org7588288"></a>(define (nth n l) &#x2026;)<br /><div class="outline-text-6" id="text-org7588288">
 <ul class="org-ul">
 <li>목적 : 리스트에서 n 번째 항목을 리턴한다.</li>
 <li><p>
@@ -1339,7 +1647,7 @@ three
 </ul></li>
 </ul>
 </div></li>
-<li><a id="org5426e31"></a>(define (num-list start end  ) &#x2026;) <a id="orgf1daeb1"></a><br /><div class="outline-text-6" id="text-org5426e31">
+<li><a id="org78fc0a8"></a>(define (num-list start end  ) &#x2026;) <a id="org1669eab"></a><br /><div class="outline-text-6" id="text-org78fc0a8">
 <ul class="org-ul">
 <li>프로토타입 : (define (num-list start end  ) &#x2026;)</li>
 <li>목적 : 숫자 리스트를 리턴한다.</li>
@@ -1365,18 +1673,23 @@ three
 </ul>
 </div></li>
 
-<li><a id="orgae484bb"></a>(define-macro (testsc-init x  initcmd) &#x2026;) <a id="org8f4a9a0"></a><br /></li>
-<li><a id="orgf133970"></a>populate<br /><div class="outline-text-6" id="text-orgf133970">
+<li><a id="orgefaaac1"></a>(define-macro (testsc-init x  initcmd) &#x2026;) <a id="org01f6975"></a><br /></li>
+<li><a id="org0a9e814"></a>populate<br /><div class="outline-text-6" id="text-org0a9e814">
 <p>
 구현 필요. 
 </p>
 </div></li></ul></li>
-<li><a id="orgbd0203c"></a>test_sc.c<br /><ul class="org-ul"><li><a id="orgb826b50"></a>pointer foreign_testsc_set_testnum(scheme* sc, pointer args) <a id="org6a8ceba"></a> <a id="org320dc3a"></a><br /></li></ul></li></ul>
+<li><a id="org6d98428"></a>testsc.scm<br /><ul class="org-ul"><li><a id="org674e5ba"></a>(define (foreach-tnum offset proc args )&#x2026;) <a id="org3225d01"></a><br /></li></ul></li></ul>
+</div>
+<div id="outline-container-org02052d9" class="outline-4">
+<h4 id="org02052d9"><span class="section-number-4">6.2.2</span> testsc.c</h4>
+<div class="outline-text-4" id="text-6-2-2">
+</div><ul class="org-ul"><li><a id="orgbf085c7"></a>함수<br /><ul class="org-ul"><li><a id="org06a079b"></a>pointer foreign_testsc_set_testnum(scheme* sc, pointer args) <a id="org4225ae9"></a> <a id="org7f5331c"></a><br /></li></ul></li></ul>
 </div>
 </div>
 
-<div id="outline-container-org62e82af" class="outline-3">
-<h3 id="org62e82af"><span class="section-number-3">6.3</span> 추가 C excention 구현</h3>
+<div id="outline-container-orgd71d9e3" class="outline-3">
+<h3 id="orgd71d9e3"><span class="section-number-3">6.3</span> 추가 C excention 구현</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 C 를 이용하여 추가적인 기능을 구현할 수 있다.
@@ -1387,20 +1700,20 @@ C 를 이용하여 추가적인 기능을 구현할 수 있다.
 </p>
 </div>
 
-<div id="outline-container-org8f29516" class="outline-4">
-<h4 id="org8f29516"><span class="section-number-4">6.3.1</span> 구조체 테스트 데이터 생성</h4>
+<div id="outline-container-orgfc37d47" class="outline-4">
+<h4 id="orgfc37d47"><span class="section-number-4">6.3.1</span> 구조체 테스트 데이터 생성</h4>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org8288cbb" class="outline-2">
-<h2 id="org8288cbb"><span class="section-number-2">7</span> scheme 문법 <a id="org3761807"></a></h2>
+<div id="outline-container-orgb133bf7" class="outline-2">
+<h2 id="orgb133bf7"><span class="section-number-2">7</span> scheme 문법 <a id="orgbf40595"></a></h2>
 <div class="outline-text-2" id="text-7">
-</div><div id="outline-container-org4de58bf" class="outline-3">
-<h3 id="org4de58bf"><span class="section-number-3">7.1</span> scheme 파일 에디터</h3>
+</div><div id="outline-container-org075be0d" class="outline-3">
+<h3 id="org075be0d"><span class="section-number-3">7.1</span> scheme 파일 에디터</h3>
 </div>
-<div id="outline-container-org7dbd3e4" class="outline-3">
-<h3 id="org7dbd3e4"><span class="section-number-3">7.2</span> 15분 만에 scheme 배우기</h3>
+<div id="outline-container-orgaedf455" class="outline-3">
+<h3 id="orgaedf455"><span class="section-number-3">7.2</span> 15분 만에 scheme 배우기</h3>
 <div class="outline-text-3" id="text-7-2">
 <div class="org-src-container">
 
@@ -1989,41 +2302,43 @@ C 를 이용하여 추가적인 기능을 구현할 수 있다.
     <span class="nv">body</span> <span class="o">...</span>
     <span class="p">(</span><span class="nf">bad-while</span> <span class="nv">condition</span> <span class="nv">body</span> <span class="o">...</span><span class="p">)))</span>
 <span class="c1">;; this macro is broken: it generates infinite code, if you try to use</span>
-<span class="c1">;; it, the compiler will get in an infinite loop</span></pre>
+<span class="c1">;; it, the compiler will get in an infinite loop</span>
+
+<span class="p">(</span><span class="nf">quit</span><span class="p">)</span> <span class="c1">;; exit repl</span></pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org9eaaa34" class="outline-2">
-<h2 id="org9eaaa34"><span class="section-number-2">8</span> 용어</h2>
+<div id="outline-container-org4b28dc4" class="outline-2">
+<h2 id="org4b28dc4"><span class="section-number-2">8</span> 용어</h2>
 <div class="outline-text-2" id="text-8">
-</div><div id="outline-container-orgf83d456" class="outline-3">
-<h3 id="orgf83d456"><span class="section-number-3">8.1</span> 테스트케이스 <a id="org8c060c5"></a></h3>
+</div><div id="outline-container-org2403aeb" class="outline-3">
+<h3 id="org2403aeb"><span class="section-number-3">8.1</span> 테스트케이스 <a id="org12715a3"></a></h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
 CodeScroll 이 생성하는 함수별 테스트를 의미한다. 
 </p>
 </div>
 </div>
-<div id="outline-container-org4ad3b85" class="outline-3">
-<h3 id="org4ad3b85"><span class="section-number-3">8.2</span> scheme 파일 <a id="org7063e45"></a></h3>
+<div id="outline-container-org09636c5" class="outline-3">
+<h3 id="org09636c5"><span class="section-number-3">8.2</span> scheme 파일 <a id="orgc36c849"></a></h3>
 <div class="outline-text-3" id="text-8-2">
 <p>
 테스트 데이터를 생성하는 scheme 테스트 스크립트를 의미한다. 
 </p>
 </div>
 </div>
-<div id="outline-container-orga1f135e" class="outline-3">
-<h3 id="orga1f135e"><span class="section-number-3">8.3</span> testsc 홈 <a id="org5b3ef70"></a></h3>
+<div id="outline-container-org11d965f" class="outline-3">
+<h3 id="org11d965f"><span class="section-number-3">8.3</span> testsc 홈 <a id="orgcfddd3b"></a></h3>
 </div>
-<div id="outline-container-org60a3b3d" class="outline-3">
-<h3 id="org60a3b3d"><span class="section-number-3">8.4</span> 테스트 변수 <a id="orga347f9f"></a></h3>
+<div id="outline-container-orgebef132" class="outline-3">
+<h3 id="orgebef132"><span class="section-number-3">8.4</span> 테스트 변수 <a id="org905da14"></a></h3>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2017-06-08 목 20:10</p>
+<p class="date">Created: 2017-06-09 금 21:39</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -317,7 +317,7 @@
 **** 테스트 대상 
      =/testsc/share/srcexample/example1.cpp= 에 대상 함수가 있다. 
 
-     #+BEGIN_SRC c++
+     #+BEGIN_SRC cpp
        int example1::get_sec_surf_ampl(const primary_surface_id_ampl_e priampl , 
                                        const secondary_surface_id_ampl_e secampl )
        {
@@ -361,7 +361,7 @@
 **** 사용자 코드 
      *테스트 정보* >> *사용자 코드* 에서 다음 사항을 확인한다. 
      
-     #+BEGIN_SRC c++
+     #+BEGIN_SRC cpp
      testsc_init(CS_TESTCASENO(), "(testsc-require ex/t-1)",  "/testsc/home") ; 
 
      printf("printf\n") ; 
@@ -375,7 +375,7 @@
       *테스트 정보* >> *테스트 대상 함수* << *호출 전 코드* 부분에서 CodeScroll
       이 생성한 [[test_variable][테스트 변수]]의 값을 *testsc* 에서 값을 가져 오도록 한다. 
 
-      #+BEGIN_SRC c++
+      #+BEGIN_SRC cpp
         priampl = (enum primary_surface_id_ampl_e)testsc_ivalue("priampl");
         secampl = (enum secondary_surface_id_ampl_e)testsc_ivalue("secampl");
       #+END_SRC
@@ -386,7 +386,7 @@
       CodeScroll 의 [[test_case][테스트케이스]]에 추가적으로 *testsc* 를 사용하려면 호출전
       부분을 CS_TESTCASENO() 가 특정값 이상 일 때만 실행되도록 *if* 문을 사용할
       수 있다. 
-      #+BEGIN_SRC c++
+      #+BEGIN_SRC cpp
         /*Input*/
         priampl = (enum primary_surface_id_ampl_e)CS_INT_INPUT(enum primary_surface_id_ampl_e,"priampl");
         secampl = (enum secondary_surface_id_ampl_e)CS_INT_INPUT(enum secondary_surface_id_ampl_e,"secampl");
@@ -402,13 +402,27 @@
 
      /testsc/home/ex/t-1.scm 파일 의 내용
 
-     src_scheme{(combi (num-list 0 8) (num-list 0 30))} 을 통하여 priampl,
-     secampl 각각 0~7, 0~29 의 조합을 생성한다. 
+     - C 코드에서 사용하는 enum 값이나 =#define= 된 상수값을 정의 하여 사용할 수
+       있다. 식별자의 실제 값을 찾기 위해 코드를 검색할 필요 없이 [[test_case][테스트케이스]]를
+       생성할 수 있다. 
 
-     [[foreach-tnum]]은 생성한 조합의 값을 첫번째 파라미터 이후의 테스트케이스에
-     대하여 순서대로 lambda 함수에 전달한다
+     - [[foreach-tnum]]은 생성한 조합의 값을 첫번째 파라미터 이후의 테스트케이스에
+       대하여 순서대로 lambda 함수에 전달한다
+
+     - src_scheme{(combi (num-list 0 8) (num-list 0 30))} 을 통하여 priampl,
+       secampl 각각 0~7, 0~29 의 조합을 생성한다. 
+
+     - 추가적인 [[test_variable][테스트 변수]] 값이 필요할 경우 scheme-case 문을 사용하여 지정할 수
+       있다. 
 
      #+BEGIN_SRC scheme
+       ;;; 상수 정의 - 공통파일을 만들으 테스트간에 공유할 수 있다. 
+       (define   pri_surf_ampl_amphibious                 4 )
+       (define   sec_surf_ampl_frigate                    11 )
+       (define   sec_surf_ampl_landing_ship               12 )
+
+
+       ;;; 테스트변수 
        (define priampl 0)
        (define secampl 0)
 
@@ -426,7 +440,12 @@
 
        (case (testsc-get-testnum)              ; C 의 switch 문에 해당 - testcase 번호
          ((241)                                ; C 의 case 문에 해당 - testcase 번호가 241 일 경우  
-          (set! priampl -1)))                  ; priampl 을 -1 로 설정한다. 
+          (set! secampl -1)                    ; 테스트변수 secampl 을 -1 로 설정한다.
+          (set! priampl -1))                   ; 테스트변수 priampl 을 -1 로 설정한다.
+         ((242 243)                            ; 테스트번호 나열이 가능하다. 
+          (set! priampl pri_surf_ampl_amphibious)      ; define 으로 정의된 상수값을 사용할 수 있다. 
+          (set! secampl sec_surf_ampl_landing_ship)))  ; define 으로 정의된 상수값을 사용할 수 있다. 
+
      #+END_SRC
      
 **** 실행 
@@ -458,8 +477,8 @@
 
      여는 괄호'(', 닫는 괄호')' 쌍을 scheme 에서는 sexp 라고 지칭한다. sexp 를
      처리하는 과정에서 에러가 발생하면 에러가 발생한다. 여는 괄호가 아직 끝나지
-     아니한 경우는 에러검출이 아니될 수도 있다. 이럴 경우 [[scheme_debuging][디버깅]] 을 통해서
-     문제가 있는 부분을 확인 할 수 있다. 디버깅 방법은 [[scheme_debuging][디버깅]] 참조 
+     아니한 경우는 에러검출이 아니될 수도 있다. 이럴 경우 [[scheme_debugging][디버깅]] 을 통해서
+     문제가 있는 부분을 확인 할 수 있다. 디버깅 방법은 [[scheme_debugging][디버깅]] 참조 
 
 *** 예제 2 - enum 변수 확인 
 *** 예제 3 - filter check 
@@ -602,14 +621,14 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
    라이브러리가 표준 출력을 파일로 redirection 해준다 코드가 실행하면서
    출력하는 사항을 파일로 확인할 수 있다. 
 
-** debuging <<debugging>>
+** 디버깅 <<scheme_debugging>>
 
    1. 커맨드 창을 열고 [[testsc_home][testsc 홈]] 폴더(=/testsc/home/=) 으로 이동한다. 
    2. scheme 명령을 실행한다. 
       #+BEGIN_SRC shell
       C:\testsc\home>.\scheme.exe
       #+END_SRC
-   3. [[tests-init]] 을 호출한다. 
+   3. [[testsc-init]] 을 호출한다. 
       
       다음은 testscase 번호를 1로 설정하고 [[testsc_home][testsc 홈]] 폴더 아래 ex/t-1.scm 을
       로딩한다. 로깅 과정에 에러가 있을 경우 화면으로 출력한다.  [[scheme_file][scheme 파일]] 의
@@ -805,7 +824,10 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 ***** (define-macro (testsc-init x  initcmd) ...) <<testsc-init>>
 ***** populate
       구현 필요. 
-**** test_sc.c 
+**** testsc.scm
+***** (define (foreach-tnum offset proc args )...) <<foreach-tnum>>
+*** testsc.c 
+**** 함수
 *****  pointer foreign_testsc_set_testnum(scheme* sc, pointer args) <<foreign_testsc_set_testnum>> <<testsc-set-testnum>>
 
 ** 추가 C excention 구현 

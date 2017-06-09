@@ -18,5 +18,4 @@
 -ecm:timeout=60
 -ecm:keepcontext=false
 -ecm:startfromiut=false
--ecm:activetestcaseonly=true
 -ecm:runmode=1

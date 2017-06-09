@@ -17884,3 +17884,207 @@ $ Current time: Fri Jun 09 16:09:08 2017
 
 ---------------------------------------------------------------------
 
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example1\.csdata\example1.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 16:26:02 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example1\.csdata\example1.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 16:26:02 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Fri Jun 09 16:26:02 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 16:26:03 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example1\.csdata\example1.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 16:26:05 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example1\.csdata\example1.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 16:26:05 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\example1.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted example1_1.cpp : not changed
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example1\.csdata\example1.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example1\.csdata\pa.ini"
+INFO  [pa.main]: start time: Fri Jun 09 16:26:05 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 0ms used.
+INFO  [ConverterFinalizer]: 2ms used.
+INFO  [pa.main]: end time: Fri Jun 09 16:26:06 2017
+INFO  [ut.bld]: example1_1.cpp : set converted(3708739065, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example1\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: skip compile. not changed src : example1.cpp
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example1\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link end. ok
+INFO  [ut.bld]: building ok
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Fri Jun 09 16:26:10 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 16:26:11 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example1\.csdata\example1.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 16:26:13 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example1\.csdata\example1.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call ecm
+INFO  [ut.ecm]: 
+---------------------------------------------------------------------
+$ ut.ecm Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 16:26:13 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ecm]: RELEASE build engine
+INFO  [ut.ecm]: testcase timeout(60000)
+INFO  [ut.ecm]: keep context(0)
+INFO  [ut.ecm]: main:start
+INFO  [ut.ecm]: TestcasePreparer:active testcase count(241)
+INFO  [ut.ecm]: TestcasePreparer: testcaseDataInitialize
+INFO  [ut.cem]: FunctionProvider: constructor
+INFO  [ut.cem]: TruthTable::load:truth table
+INFO  [ut.cem]: CFGNode::load:cfg node
+INFO  [ut.cem]: CFGNode::load:cfg node count(55)
+INFO  [ut.cem]: CFGNode::load:load mcdc probe info
+INFO  [ut.cem]: CFGNode::load:mcdc probe info count(0), mcdc case count(0)
+INFO  [ut.cem]: CFGEdge::load:cfg edge
+INFO  [ut.cem]: CFGEdge::load:cfg edge count(86)
+INFO  [ut.ecm]: max testdata(10240)
+INFO  [ut.hio]: IODriver:coverage buffer size(86), max testdata count(10240)
+INFO  [ut.hio]: createSharedMemory:control memory size(656694)
+INFO  [ut.hio]: createSharedMemory:data memory size(239636)
+INFO  [ut.hio]: sizeof testdata(16), dbuf(001E0010), dbufUse(00208010)
+INFO  [ut.hio]: createSharedMemory::shm memory key. control=20160314, data=20160316
+INFO  [ut.hio]: createSharedMemory::shm memory size. control=656694, data=239636
+INFO  [ut.ecm]: pilot:start
+INFO  [ut.ecm]: pilot:ok
+INFO  [ut.ecm]: TestcasePreparerRunner:start
+INFO  [ut.ecm]: TestcasePreparerRunner:suite count(1), test count(1)
+INFO  [ut.ecm]: prepareTestcase:suite(), test(example1_get_sec_surf_ampl_test0,4294967296), suite index(0) test index(2)
+INFO  [ut.ecm]: prepareTestcase:start test(example1_get_sec_surf_ampl_test0,4294967296)
+INFO  [ut.ecm]: TestExecutorSm:start
+INFO  [ut.ecm]: TestResultAnalyzerRunner:start
+INFO  [ut.ecm]: prepareTestcase:end test(example1_get_sec_surf_ampl_test0,4294967296), testcase count(241)
+INFO  [ut.ecm]: TestcasePreparerRunner:end
+INFO  [ut.ecm]: TestExecutorSm:end. testcase count(241)
+INFO  [ut.ecm]: TestcasePreparer:receive stop request
+INFO  [ut.ecm]: TestResultAnalyzerRunner:end. testcase count(241)
+INFO  [ut.ecm]: main:end of engine
+INFO  [ut.ecm]: 
+---------------------------------------------------------------------
+$ ut.ecm End
+$ Current time: Fri Jun 09 16:26:41 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 16:26:41 2017
+
+
+---------------------------------------------------------------------
+

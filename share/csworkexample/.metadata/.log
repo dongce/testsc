@@ -8624,3 +8624,71 @@ Command-line arguments:  -os win32 -ws win32 -arch x86 [CI] -ISDEV N -CI_SPECIFI
 
 !ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:09:11.687
 !MESSAGE loadFunctionInfo: 9 millis
+
+!ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:25:53.635
+!MESSAGE ExportUtils.exists(): 2 millis
+
+!ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:26:02.131
+!MESSAGE ExportUtils.exists(): 1 millis
+
+!ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:26:02.233
+!MESSAGE ExportUtils.exists(): 1 millis
+
+!ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:26:02.243
+!MESSAGE checker new_check_release: 9 millis
+
+!ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:26:02.247
+!MESSAGE checkDirty: 14 millis
+
+!ENTRY com.codescroll.ut 1 0 2017-06-09 16:26:02.664
+!MESSAGE Command : ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat", &, "C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli", -p, "C:\testsc\share\csworkexample\example1\.csdata\example1.csp", -g, "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db", -i, "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in", -t, 3]
+
+!ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:26:02.665
+!MESSAGE Execution Command: "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat" & "C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli" -p "C:\testsc\share\csworkexample\example1\.csdata\example1.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+
+!ENTRY com.codescroll.ut 1 0 2017-06-09 16:26:05.685
+!MESSAGE CLI operation success!!
+
+!ENTRY com.codescroll.ut 1 0 2017-06-09 16:26:05.690
+!MESSAGE CLI operation success!!
+
+!ENTRY com.codescroll.ut 1 0 2017-06-09 16:26:05.709
+!MESSAGE Command : ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat", &, "C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli", -p, "C:\testsc\share\csworkexample\example1\.csdata\example1.csp", -g, "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db", -i, "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in", -t, 3]
+
+!ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:26:05.710
+!MESSAGE Execution Command: "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat" & "C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli" -p "C:\testsc\share\csworkexample\example1\.csdata\example1.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+
+!ENTRY com.codescroll.ut 1 0 2017-06-09 16:26:13.741
+!MESSAGE CLI operation success!!
+
+!ENTRY com.codescroll.ut 1 0 2017-06-09 16:26:13.753
+!MESSAGE CLI operation success!!
+
+!ENTRY com.codescroll.ut 1 0 2017-06-09 16:26:13.780
+!MESSAGE Command : ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat", &, "C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli", -p, "C:\testsc\share\csworkexample\example1\.csdata\example1.csp", -g, "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db", -i, "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in", -t, 3]
+
+!ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:26:13.782
+!MESSAGE Execution Command: "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat" & "C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli" -p "C:\testsc\share\csworkexample\example1\.csdata\example1.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+
+!ENTRY com.codescroll.ut 1 0 2017-06-09 16:26:43.808
+!MESSAGE CLI operation success!!
+
+!ENTRY com.codescroll.ut 1 0 2017-06-09 16:26:43.812
+!MESSAGE CLI operation success!!
+
+!ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:26:43.901
+!MESSAGE loadSourceFile&syncIFile: 81 millis
+
+!ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:26:43.905
+!MESSAGE loadTranslationUnit: 3 millis
+
+!ENTRY com.codescroll.gp.core 1 0 2017-06-09 16:26:43.914
+!MESSAGE loadFunctionInfo: 6 millis
+
+!ENTRY com.codescroll.ut 1 0 2017-06-09 16:26:53.349
+!MESSAGE 
+-     0 :     0 -- DefaultProfileLogger.init() > start time initialized
+
+Cumulative Log:
+     loadCSProject:enters=1;time=0;
+

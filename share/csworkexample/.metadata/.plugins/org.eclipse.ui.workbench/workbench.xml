@@ -45,7 +45,7 @@
 </view>
 <view id="com.codescroll.gp.pa.ui.views.CallGraphViewId" partName="함수 호출 그래프"/>
 </views>
-<perspectives activePart="com.codescroll.gp.pa.ui.views.TestResultView" activePerspective="com.codescroll.ut.ui.UnitTestPerspective">
+<perspectives activePart="com.codescroll.ut.UnitTestView" activePerspective="com.codescroll.ut.ui.UnitTestPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.codescroll.ut.ui.perspectives.TestPerspective" id="com.codescroll.ut.ui.UnitTestPerspective" label="테스트"/>
 <alwaysOnActionSet id="com.codescroll.gp.pa.search.searchActionSet"/>
@@ -119,7 +119,7 @@
 </folder>
 </info>
 <info folder="true" part="folder" ratio="0.5" ratioLeft="500" ratioRight="500" relationship="2" relative="bottom">
-<folder activePageID="com.codescroll.gp.log.view.errorLog" appearance="2" expanded="2">
+<folder activePageID="com.codescroll.ut.CoverageView" appearance="2" expanded="2">
 <page content="com.codescroll.ut.CoverageView" label="커버리지"/>
 <page content="com.codescroll.gp.log.view.errorLog" label="오류"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">

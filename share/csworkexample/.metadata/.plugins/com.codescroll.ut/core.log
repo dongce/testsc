@@ -4968,3 +4968,53 @@
 [2017-06-09 16:08:57,151] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "cs_test_function_wrapper.c" generate : End
 [2017-06-09 16:08:57,151] INFO  at module.tfg.TestFixtureGenerator.generate(            ?:?)     - [TestFixtureGenerator] : 125ms used.
 [2017-06-09 16:08:57,151] INFO  at module.tfg.TestFixtureGenerator.generate(            ?:?)     - [TestFixtureGenerator] Generate Fixture File : End
+[2017-06-09 16:26:02,438] INFO  at module.tfg.TestFixtureGenerator.initialize(            ?:?)     - [TestFixtureGenerator] Run Mode : TFG_SIMULATION
+[2017-06-09 16:26:02,453] INFO  at module.tfg.TestFixtureGenerator.checkCppProject(            ?:?)     - [TestFixtureGenerator] Cpp language project
+[2017-06-09 16:26:02,514] INFO  at module.tfg.TestFixtureGenerator.generate(            ?:?)     - [TestFixtureGenerator] Generate Fixture File : Start
+[2017-06-09 16:26:02,514] INFO  at tfg.generator.AbstractFixtureGenerator.prepare(            ?:?)     - [TestFixtureGenerator] Prepare : Start
+[2017-06-09 16:26:02,514] INFO  at tfg.prepare.DirPreparator.makeSrcBuildDir(            ?:?)     - [TestFixtureGenerator] Init Data : make src/build dir
+[2017-06-09 16:26:02,514] INFO  at tfg.prepare.DirPreparator.makeSrcSimulationDir(            ?:?)     - [TestFixtureGenerator] Init Data : make src/simulation dir
+[2017-06-09 16:26:02,514] INFO  at tfg.generator.AbstractFixtureGenerator.prepare(            ?:?)     - [TestFixtureGenerator] Prepare : End
+[2017-06-09 16:26:02,514] INFO  at tfg.generator.AbstractFixtureGenerator.copyTfx(            ?:?)     - [TestFixtureGenerator] Tfx copy : Start
+[2017-06-09 16:26:02,577] INFO  at tfg.generator.AbstractFixtureGenerator.copyTfx(            ?:?)     - [TestFixtureGenerator] Tfx copy : End
+[2017-06-09 16:26:02,577] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "cs_tfx_types.h" generate : Start
+[2017-06-09 16:26:02,578] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 1ms used.
+[2017-06-09 16:26:02,578] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "cs_tfx_types.h" generate : End
+[2017-06-09 16:26:02,578] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "cs_build_macro.h" generate : Start
+[2017-06-09 16:26:02,605] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 27ms used.
+[2017-06-09 16:26:02,605] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "cs_build_macro.h" generate : End
+[2017-06-09 16:26:02,605] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "cs_test_scenario.c" generate : Start
+[2017-06-09 16:26:02,620] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 15ms used.
+[2017-06-09 16:26:02,621] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "cs_test_scenario.c" generate : End
+[2017-06-09 16:26:02,621] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "iut include file" generate : Start
+[2017-06-09 16:26:02,632] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 11ms used.
+[2017-06-09 16:26:02,633] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "iut include file" generate : End
+[2017-06-09 16:26:02,633] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "cs_stub_list.c" generate : Start
+[2017-06-09 16:26:02,646] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 13ms used.
+[2017-06-09 16:26:02,646] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "cs_stub_list.c" generate : End
+[2017-06-09 16:26:02,646] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "Select Code" generate : Start
+[2017-06-09 16:26:02,646] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 0ms used.
+[2017-06-09 16:26:02,646] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "Select Code" generate : End
+[2017-06-09 16:26:02,646] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "empty.c" generate : Start
+[2017-06-09 16:26:02,647] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 1ms used.
+[2017-06-09 16:26:02,647] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "empty.c" generate : End
+[2017-06-09 16:26:02,647] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "cs_stub_key.h" generate : Start
+[2017-06-09 16:26:02,648] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 1ms used.
+[2017-06-09 16:26:02,648] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "cs_stub_key.h" generate : End
+[2017-06-09 16:26:02,648] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "cs_testdata.c" generate : Start
+[2017-06-09 16:26:02,648] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "cs_test_parameter.h" generate : Start
+[2017-06-09 16:26:02,648] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 0ms used.
+[2017-06-09 16:26:02,648] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "cs_testdata.c" generate : End
+[2017-06-09 16:26:02,648] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 0ms used.
+[2017-06-09 16:26:02,648] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "cs_test_parameter.h" generate : End
+[2017-06-09 16:26:02,648] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "cs_test_function.h" generate : Start
+[2017-06-09 16:26:02,650] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 2ms used.
+[2017-06-09 16:26:02,650] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "cs_test_function.h" generate : End
+[2017-06-09 16:26:02,650] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "cs_test_class.h" generate : Start
+[2017-06-09 16:26:02,651] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 1ms used.
+[2017-06-09 16:26:02,652] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "cs_test_class.h" generate : End
+[2017-06-09 16:26:02,652] INFO  at tfg.generator.AbstractFixtureGenerator.startLog(            ?:?)     - [TestFixtureGenerator] "cs_test_function_wrapper.c" generate : Start
+[2017-06-09 16:26:02,653] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] 1ms used.
+[2017-06-09 16:26:02,653] INFO  at tfg.generator.AbstractFixtureGenerator.endLog(            ?:?)     - [TestFixtureGenerator] "cs_test_function_wrapper.c" generate : End
+[2017-06-09 16:26:02,653] INFO  at module.tfg.TestFixtureGenerator.generate(            ?:?)     - [TestFixtureGenerator] : 139ms used.
+[2017-06-09 16:26:02,653] INFO  at module.tfg.TestFixtureGenerator.generate(            ?:?)     - [TestFixtureGenerator] Generate Fixture File : End

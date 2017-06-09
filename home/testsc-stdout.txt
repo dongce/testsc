@@ -15,3 +15,1932 @@ Error: (/testsc/home//ex/t-1.scm : 44) syntax error: illegal token
 testsc initalize done
 testsc_ivalue priampl is 0
 testsc_ivalue secampl is 0
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 0
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 1
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 2
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 3
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 4
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 5
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 6
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 7
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 8
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 9
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 10
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 11
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 12
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 13
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 14
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 15
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 16
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 17
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 18
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 19
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 20
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 21
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 22
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 23
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 24
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 25
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 26
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 27
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 28
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 29
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 0
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 1
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 2
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 3
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 4
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 5
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 6
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 7
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 8
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 9
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 10
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 11
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 12
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 13
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 14
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 15
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 16
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 17
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 18
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 19
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 20
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 21
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 22
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 23
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 24
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 25
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 26
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 27
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 28
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 1
+testsc_ivalue secampl is 29
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 0
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 1
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 2
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 3
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 4
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 5
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 6
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 7
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 8
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 9
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 10
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 11
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 12
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 13
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 14
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 15
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 16
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 17
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 18
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 19
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 20
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 21
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 22
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 23
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 24
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 25
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 26
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 27
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 28
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 2
+testsc_ivalue secampl is 29
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 0
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 1
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 2
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 3
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 4
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 5
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 6
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 7
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 8
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 9
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 10
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 11
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 12
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 13
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 14
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 15
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 16
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 17
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 18
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 19
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 20
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 21
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 22
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 23
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 24
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 25
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 26
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 27
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 28
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 3
+testsc_ivalue secampl is 29
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 0
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 1
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 2
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 3
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 4
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 5
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 6
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 7
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 8
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 9
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 10
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 11
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 12
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 13
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 14
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 15
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 16
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 17
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 18
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 19
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 20
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 21
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 22
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 23
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 24
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 25
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 26
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 27
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 28
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 4
+testsc_ivalue secampl is 29
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 0
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 1
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 2
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 3
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 4
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 5
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 6
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 7
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 8
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 9
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 10
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 11
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 12
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 13
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 14
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 15
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 16
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 17
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 18
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 19
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 20
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 21
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 22
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 23
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 24
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 25
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 26
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 27
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 28
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 5
+testsc_ivalue secampl is 29
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 0
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 1
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 2
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 3
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 4
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 5
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 6
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 7
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 8
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 9
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 10
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 11
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 12
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 13
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 14
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 15
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 16
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 17
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 18
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 19
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 20
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 21
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 22
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 23
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 24
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 25
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 26
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 27
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 28
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 6
+testsc_ivalue secampl is 29
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 0
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 1
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 2
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 3
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 4
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 5
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 6
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 7
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 8
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 9
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 10
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 11
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 12
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 13
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 14
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 15
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 16
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 17
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 18
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 19
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 20
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 21
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 22
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 23
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 24
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 25
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 26
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 27
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 28
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+testsc initalize done
+testsc_ivalue priampl is 7
+testsc_ivalue secampl is 29
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+241
+testsc initalize done
+testsc_ivalue priampl is -1
+testsc_ivalue secampl is 0
