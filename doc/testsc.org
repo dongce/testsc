@@ -8,9 +8,9 @@
 
 * 기본 사항 
 ** 무엇을 하는 것인가? 
-   동적 시험시 필요한 [[test_variable][테스트 변수]]를 파일로 부터 읽어 오는 라이브러리이다. 파일의
-   형식은 scheme 스트립트이다. 간단한 데이터의 정의 뿐만 아니라 프로그래밍을
-   통한 데이터의 생성이 가능하다.   
+   동적 시험 시 필요한 [[test_variable][테스트 변수]]를 파일로 부터 읽어 오는 라이브러리이다.
+   파일의 형식은 scheme 스트립트이다. 간단한 데이터의 정의 뿐만 아니라
+   프로그래밍을 통한 데이터의 생성이 가능하다.  
 
    [[file:concept.png]]
 
@@ -37,12 +37,12 @@
 *** 다수의 테스트케이스 생성
     테스트 데이터가 많을 경우 CodeScroll 이 제공하는 UI 를 통하여 데이터를
     입력하기가 불편하다. 프로그래밍을 통하여 다수의 데이터도 간편하게 생성이
-    가능한다.  
+    가능하다. 
 *** 테스트 데이터 재활용
-    Codescroll 에서 같은 [[scheme_file][scheme 파일]]을 읽어 오도록 설정하면 테스트 데이터를
+    Codescroll 에서 같은 [[scheme_file][scheme 파일]]을 읽도록 설정하면 테스트 데이터를
     재활용할 수 있다. 구조가 같은 함수가 다수 있을 때 사용하면 편리하다. 
-    라이브러리 구성이 간단하여 리눅스 타겟환경 테스트를 수행할 때도
-    정적라이브러리 링크를 통하여 사용할 수 있다. 
+    라이브러리 구성이 간단하여 타겟환경 테스트를 수행할 때도 포팅을 하여 사용할
+    수 있다. 
 ** 단점 
    scheme 언어에 대하여 지식이 있어야 사용 가능하다. 
    [[scheme_syntax][scheme 문법 참조]]
@@ -50,8 +50,6 @@
     :PROPERTIES:
     :ATTACH_DIR: u:/orgdir/testsc/
     :END:
-** 테스트케이스 생성 
-   기존 방식 대로 CodeScroll 메뉴얼을 참고하여 테스트케이스를 생성한다. 
 ** *testsc* 초기화 
    다음에 나오는 C/Scheme 함수의 상세 내용은 [[reference]] 을 참조한다. 
 *** testsc 헤더파일 추가 <<global_include>>
@@ -73,7 +71,7 @@
       #+END_SRC
 
       [[testsc_init]] 를 호출하여 *testsc* 를 초기화 한다. 첫번째 파라미터는
-      CS_TESTCASENO()으로써 *testsc* 으로 테스트번호를 전달한다. 두번째
+      CS_TESTCASENO()으로써 *testsc* 으로 [[testsc_tnum][테스트 번호]]를 전달한다. 두번째
       파라미터는 실행할 scheme 명령이다. 마지막 파라미터는 [[testsc_home][testsc 홈]]경로가 된다. 
 
       + 참조 : [[testsc_init]] , [[testsc_eval]] , [[testsc-require]]
@@ -101,52 +99,14 @@
      테스트전역 코드에 *testsc.h* 파일이 포함되어 있기 때문에 별도의 선언 없이
      [[testsc_c_api][testsc C API]] 관련 함수를 사용할 수 있다.  
 
-** [[scheme_file][scheme 파일]] 작성 <<make_scheme_file>>
+** [[scheme_file][scheme 파일]] 작성 
 
-   앞서 지정한 testsc 홈 폴더에 [[scheme_file][scheme 파일]]을 다음과 같은 순서로 작성한다. 
-
-   1. 필요할 경우 [[scheme_file][scheme 파일]]에서 공통 정의파일을 포함한다. 테스트 대상에서
-      정의한 enum 타입 및 define 된 값을 [[scheme_file][scheme 파일]]에서 사용할 수 있다. 
+   [[user_code][testsc_init 호출]]은 테스트 번호를 설정한 후 [[scheme_file][scheme 파일]]을
+   실행(evaluation)한다. [[scheme_file][scheme 파일]]이 실행될 때 [[testsc_tnum][테스트 번호]]에 따라
+   [[test_variable][테스트 변수]]에 [[tests_data][테스트 데이터]]를 설정한다.   
    
-      #+BEGIN_SRC scheme
-      (testsc-require icmsdefine)
-      #+END_SRC
-
-   2. [[test_variable][테스트 변수]]를 선언 한다. <<declare_test_variable>>
-      scheme 의 define 을 이용하여 변수를 선언한다. 
-      CodeScroll이 정의한 변수인 경우 편리를 위해 같은 이름으로 정의한다.
-      CodeScroll이 정의하지 아니한 변수라도 [[scheme_file][scheme 파일]] 에서 정의하여 사용할 수
-      있으며, stub 등을 작성할 때 관련 변수를 사용할 수 있다. 
-      
-      #+BEGIN_SRC scheme
-      (define value1 TRACK_IDENTITY_FRIEND)
-      (define value2 32.1234)
-      (define value3 "testsctring" )
-      #+END_SRC
-
-      - [[testsc_struct][testsc 구조체]]
-        테스트에 사용되는 구조체의 경우 CodeScroll 에서 [[test_variable][테스트 변수]]를 이용하여
-        구조체 필드의 값을 설정한다. 대부분의 경우 변수를 이용하여 충분히 설정을
-        할 수 있으나, 특이한 경우 변수만으로는 설정이 어려울 수 있다. *testsc*
-        는 [[testsc_struct][testsc 구조체]] 를 이용하여 구조체 테스트 데이터를 생성할 수 있다.
-        상세한 내용은 [[testsc_struct][testsc 구조체]]부분 참조.    
-
-   3. [[scheme_test_script][scheme 파일 작성]]부분을 참조하여 *TESTCASENO* 에 따라  [[test_variable][테스트 변수]]를
-      설정한다. 
-      
-      상세한 내용은 [[scheme_test_script][scheme 파일 작성]] 및 [[testsc_struct][testsc 구조체]]부분을 참조한다
-
-   4. scheme.exe 를 실행하여 [[scheme_file][scheme 파일]]의 문법 오류를 확인한다. 
-
-      [[testsc-init]] 를 이용하여 작성한 [[scheme_file][scheme 파일]]을 실행한다. 
-      다음은 TESTCASENO 를 1로 설정하고 [[testsc_home][testsc 홈]] 폴더 아래 track/t-1.scm 파일을
-      실행한다. 문법 오류가 있을 경우 오류가 있는 라인번호를 출력한다. 
-      정상적으로 실행이 된 후 [[test_variable][테스트 변수]]를 입력하면 실행한 파일에 의해 설정된
-      값을 확인할 수 있다. 
-      #+BEGIN_SRC scheme
-      (testsc-init 1 track/t-1 )
-      #+END_SRC
-
+   [[scheme_file][scheme 파일]] 작성법에 대한 상세한 내용은 [[make_scheme_file]] 부분을 참조한다. 
+   
 ** CodeScroll [[test_case][테스트 케이스]] 빌드 및 커버리지 평가 
 *** 포함 파일 추가
     [[testsc_home][testsc 홈]] 을 포함 디렉토리에 추가한다. 
@@ -168,143 +128,113 @@
     - testsc-stdout.txt : [[testsc_home][testsc 홈]] 폴더 아래 위치한다. [[test_case][테스트케이스]]가
       실행하면서 출력하는 표준출력 및 [[testsc_debug]] 출력을 저장한다. 
 
-* [[scheme_file][scheme 파일]] 작성 <<scheme_test_script>>
+*** 커버리지 평가 
+    테스트결과를 평가한 후 커버가 아니되는 분기를 확인하여 추가적으로
+    테스트데이터를 생성한다. CodeScroll에 추가적으로 입력 하는 부분 없이 [[scheme_file][scheme
+    파일]]을 수정하여 테스트데이터를 생성할 수 있다. 
+* [[scheme_file][scheme 파일]] 작성 <<scheme_test_script>> <<make_scheme_file>>
     :PROPERTIES:
     :ATTACH_DIR: u:/orgdir/testsc/
     :END:
-** scheme 파일 작성
-*** 함수내의 모든 분기문을 확인한다. 
+** [[test_variable][테스트 변수]] 식별 
 
-    if, switch 등의 분기문에서 사용하는 변수, 구조체 필드, 함수 리턴값 등을
-    식별한다. &&(and) , ||(or) 로 조건이 중첩 되어 있는 경우 로직 연산자의 좌·우
-    (operand)를 각각 따로 식별 한다. 
+   if, switch 등의 분기문에서 사용하는 변수, 구조체 필드, 함수 리턴값 등을
+   식별한다. CodeScroll은 [[test_case][테스트 케이스]]를 생성할 때 이 항목들을 대부분 식별한다.
+   함수의 리턴값등 CodeScroll이 [[test_variable][테스트 변수]]로 식별하지 아니하는 항목도 포함한다.  
 
-    CodeScroll은 테스트케이스를 생성할 때 이 항목들을 테스트입력값이나 Stub 으로
-    대부분 식별한다. 
+   &&(and) , ||(or) 로 조건이 중첩 되어 있는 경우 로직 연산자의 좌·우
+   (operand)를 각각 따로 식별 한다.  
 
 
-    #+BEGIN_SRC cpp
-      void check_track(track_data_t* track, int value)
-      {
-        if(is_online() == true ){ //→ is_online() 리턴값
+   #+BEGIN_SRC cpp
+     void check_track(track_data_t* track, int value)
+     {
+       if(is_online() == true ){ //→ is_online() 리턴값
 
-          switch(track->link_state){  //→ track->link_state
-          case link_received :
-            if( ( value > 3000 ) && (track->x_position > 10000) ){//→ value, track->x_position
-              ....
-            }
-            else if( ( value < 700 ) || (track->x_position < 5000 ) ){//→ value, track->x_position
-              ....
-            }
-            else {
-              ....
-            }
-            break ; 
+         switch(track->link_state){  //→ track->link_state
+         case link_received :
+           if( ( value > 3000 ) && (track->x_position > 10000) ){//→ value, track->x_position
+             ....
+           }
+           else if( ( value < 700 ) || (track->x_position < 5000 ) ){//→ value, track->x_position
+             ....
+           }
+           else {
+             ....
+           }
+           break ; 
       
-          case link_transmitted :
-            break ; 
-          case not_link_involved :
-            break ; 
-          default :
-            break ; 
-        }
+         case link_transmitted :
+           break ; 
+         case not_link_involved :
+           break ; 
+         default :
+           break ; 
+       }
   
-      }
-    #+END_SRC
+     }
+   #+END_SRC
 
-*** 식별한 항목이 가져야 하는 값을 확인한다. 
+** [[tests_data][테스트 데이터]] 확인
 
-    항목별로 조건들을 나열한 후 이로 부터 테스트 데이터(값의 범위)를 생성한다.
-    조건으로 평가 되는 경우 true/false 가 되는 값들이며 switch의 경우
-    case/default의 모든 항목 값 이다. 값의 범위 (>, <) 로 평가하는 경우 구간별로
-    데이터를 포함한다. 
+   [[test_variable][테스트 변수]]의 조건들을 나열한 후 이로 부터 [[tests_data][테스트 데이터]]를 확인한다. 조건으로
+   평가 되는 경우 true/false 가 되는 값들이며 switch의 경우 case/default의 모든
+   항목 값 이다. 값의 범위 (>, <) 로 평가하는 경우 구간(최대값, 최소값,
+   중간값)을 활용하여 [[tests_data][테스트 데이터]]를 생성할 수 있다. 
 
-    - 항목별 조건 나열
-    #+BEGIN_INFO 
-    is_online 리턴 값    ⇰ is_online() == true 
-    value                ⇰ value > 3000 ,  value < 700 
-    track->x_position    ⇰ track->x_position > 10000 , track->x_position < 5000 
-    track->link_state    ⇰ switch(track->link_state)
-    #+END_INFO
+   - [[test_variable][테스트 변수]]별 조건 나열
+     #+BEGIN_QUOTE
+      is_online 리턴 값    → is_online() == true 
+      value                → value > 3000 ,  value < 700 
+      track->x_position    → track->x_position > 10000 , track->x_position < 5000 
+      track->link_state    → switch(track->link_state)
+     #+END_QUOTE
 
-    - 항목별 테스트 데이터 생성
+   - [[tests_data][테스트 데이터]] 생성
  
-    #+BEGIN_INFO 
+     #+BEGIN_QUOTE
+      is_online 리턴 값    → '(1 0 )
+      value                → '(4000 3000 2000 700 100 )  
+      track->x_position    → '(11000 10000 7000 5000 3000) 
+      track->link_state    → '(link_received link_transmitted not_link_involved)
+     #+END_QUOTE
 
-    is_online 리턴 값    ⇰ (1 0 )
-    value                ⇰ (4000 2000 100 )  범위 구간 마다 데이트데이터 생성
-    track->x_position    ⇰ (11000 7000 3000) 범위 구간 마다 데이트데이터 생성
-    track->link_state    ⇰ (link_received link_transmitted not_link_involved)
-
-    #+END_INFO
-
-*** 테스트 변수를 확인한다. 
-    앞의 두 단계에서 확인한 값들에 대하여 변수를 정의한다. scheme 파일에서
-    테스트 데이터를 정의하는데 사용한다.
-
-    대부분 CodeScroll 이 생성하는 테스트 입력값과 같으나, CodeScroll 이 생성을 
-    하지 아니한 경우에도 변수를 지정해 줄 수 있다. 이렇게 지정한 변수는 Stub
-    등을 구현하는데 사용할 수 있다.
-    #+BEGIN_SRC scheme
-      (define value1 10)
-      (define value2 3.1415926378)
-      (define value3 "string 테스트 데이터")
-      (anset 0 ) 
-    #+END_SRC
-
-*** scheme 파일을 작성한다. 
-
-    [[combi]] 함수를 이용하여 모든 테스트 데이터 조합을 생성한다. 
-
-    #+BEGIN_SRC scheme
-      (combi '(1 0 ) '(4000 2000 100 ) '(11000 7000 3000) '(link_received link_transmitted not_link_involved) )
-    #+END_SRC
-
+** [[test_variable][테스트 변수]] 선언
    
-    조합한 데이터를 테스트변수에 할당한다. 
+   C 코드 상의 항목과 잘 연상이 될 수 있고 짧은 이름으로 선언한다. 
 
-    #+BEGIN_SRC scheme
-      (define is_online 0 ) ;;테스트 정의 
-      (define value     0 ) ;;테스트 정의
-      (anset  0 
-      'track.link_state 0
-      'track.x_position 0) ;;테스트 admin 값 생성( id=0 )
+   #+BEGIN_SRC scheme
+     (define is-online     1)
+     (define value         7000)
+     (define trk-xpos      300)
+     (define trk-ls        link_received)
+     (anset 0 ) 
+   #+END_SRC
+
+** [[test_variable][테스트 변수]]에 [[tests_data][테스트 데이터]]를 설정 
 
 
-      (feio
-        1
-        (lambda (x)
-          (set! is_online (nth 1 x ))
-          (set! value     (nth 2 x ))
-          (anset 0
-                 'track.x_position (nth 3 x )
-                 'track.link_state (nth 4 x )))
-         (combi '(1 0 ) '(4000 2000 100 ) '(11000 7000 3000) '(link_received link_transmitted not_link_involved) ))
-      ;;         ↑ is_online range
-      ;;                 ↑ value range
-      ;;                                    ↑ track.x_position range
-      ;;                                                      ↑ track.link_state range 
-    #+END_SRC
+   [[combi]]는 [[test_variable][테스트 변수]]별 [[tests_data][테스트 데이터]] 값의 모든 조합(combination)을 생성한다.
+   [[testsc-apply-tdata]] 는 테스트 번호에 맞는 테스트 데이터를 가져와서 lambda
+   함수를 적용한다. lambda 함수에서 [[test_variable][테스트 변수]]에 값을 설정(set!) 한다.  
+   
+   #+BEGIN_SRC scheme
+     (testsc-apply-tdata     
+       1                     ; 여기 있는 값의 테스트 번호부터 가져오기 시작한다.
+       (lambda (d0 d1 d2 d3) 
+         (set! is-online      d0)
+         (set! value          d1)
+         (set! trk-xpos       d2)
+         (set! trk-ls         d3))
+       (combi '(1 0 )              ;is-online tdata
+              '(4000 2000 100 )    ;value tdata
+              '(11000 7000 3000)   ;trk-xpos tdata
+              '(link_received link_transmitted not_link_involved) )) ;trk-ls tdata
+   #+END_SRC
+   
+   값을 설정하는 다른 방식들은 [[example][예제]]부분에서 확인한다. 
 
-** scheme 파일 디버깅 
-   값이 예상과 다르거나 스크립트 로딩에 오류가 있는 것 같을 때 수행 
-*** 출력 파일 확인
-*** scheme 실행 
-    *testsc* 홈 플더의 scheme.exe 를 실행한다. 
-    [[testsc-set-testnum]] 를 이용하여 디버깅 하고자 하는 테스트 번호를 설정한다. 
-    (testsc-require ac/t-1 ) 를 이용하여 테스트 스크립트를 로딩한다. 
-    
-    확인하고자 하는 값을 입력하면 값이 출력됨 
-    #+BEGIN_SRC scheme
-    (testsc-set-testnum 8 )
-    (testsc-require ac/t-1 )
-    ts> mas
-    100
-    ts> testsc
-    1
-    #+END_SRC
-
-** 예제 
+** 예제 <<example>>
    
    아래의 예제는 배포파일에 포함되어 있는 CodeScroll 워크스페이스를 열어서
    확인할 수 있다. 
@@ -313,7 +243,7 @@
 
    [[file:chworksspace.PNG][file:c:/testsc/doc/chworksspace.PNG]]
 
-*** example1 - 파라미터 조합 
+*** 예제 1 - 파라미터 조합 
 **** 테스트 대상 
      =/testsc/share/srcexample/example1.cpp= 에 대상 함수가 있다. 
 
@@ -371,31 +301,16 @@
      [[testsc_home][testsc 홈]] 아래 ex/t-1.scm 파일을 호출 하는 부분이다. 
 
 **** 호출 전 코드
-***** 호출 전 코드 내용 
       *테스트 정보* >> *테스트 대상 함수* << *호출 전 코드* 부분에서 CodeScroll
       이 생성한 [[test_variable][테스트 변수]]의 값을 *testsc* 에서 값을 가져 오도록 한다. 
-
-      #+BEGIN_SRC cpp
-        priampl = (enum primary_surface_id_ampl_e)testsc_ivalue("priampl");
-        secampl = (enum secondary_surface_id_ampl_e)testsc_ivalue("secampl");
-      #+END_SRC
-
-***** 테스트 코드 
-      *테스트 코드* 에서 변경된 내용을 확인 하면 다음과 같다. 
 
       CodeScroll 의 [[test_case][테스트케이스]]에 추가적으로 *testsc* 를 사용하려면 호출전
       부분을 CS_TESTCASENO() 가 특정값 이상 일 때만 실행되도록 *if* 문을 사용할
       수 있다. 
+
       #+BEGIN_SRC cpp
-        /*Input*/
-        priampl = (enum primary_surface_id_ampl_e)CS_INT_INPUT(enum primary_surface_id_ampl_e,"priampl");
-        secampl = (enum secondary_surface_id_ampl_e)CS_INT_INPUT(enum secondary_surface_id_ampl_e,"secampl");
-
-
-        #line 1 "cs_test%example1_get_sec_surf_ampl_test0%BEFORE_CALL_CODE_KEY_get_sec_surf_ampl28983194"
         priampl = (enum primary_surface_id_ampl_e)testsc_ivalue("priampl");
         secampl = (enum secondary_surface_id_ampl_e)testsc_ivalue("secampl");
-        #line 40 "cs_test%example1_get_sec_surf_ampl_test0%cs_error"
       #+END_SRC
 
 **** [[scheme_file][scheme 파일]]
@@ -406,7 +321,7 @@
        있다. 식별자의 실제 값을 찾기 위해 코드를 검색할 필요 없이 [[test_case][테스트케이스]]를
        생성할 수 있다. 
 
-     - [[foreach-tnum]]은 생성한 조합의 값을 첫번째 파라미터 이후의 테스트케이스에
+     - [[testsc-apply-tdata]]은 생성한 조합의 값을 첫번째 파라미터 이후의 테스트케이스에
        대하여 순서대로 lambda 함수에 전달한다
 
      - src_scheme{(combi (num-list 0 8) (num-list 0 30))} 을 통하여 priampl,
@@ -426,14 +341,14 @@
        (define priampl 0)
        (define secampl 0)
 
-       (foreach-tnum
+       (testsc-apply-tdata
         1                                      ; testcase 시작값
         (lambda (x)                            ; testcase 번호에서 testcase 시작값을 뺀 번째 조합 값을 파라미터로 전달한다. 
           (set! priampl (nth 0 x))             ; 조합값의 첫번째 값은 priampl
           (set! secampl (nth 1 x)))            ; 조함값의 두번째 값은 secampl
         (combi (num-list 0 8) (num-list 0 30)))
 
-       ;;; combi (num-list 0 8 ) (num-list 0 30 ) 
+       ;;; (combi (num-list 0 8 ) (num-list 0 30 ) )
        ;;; -> ((0 0 ) (0 1 ) (0 2 )... (0 29) (1 0 ) (1 1 ) ...)
        ;;;     ↑ testcase 시작 값과 같은 경우 lambda 함수로 전달
        ;;;            ↑ testcase 시작 값보다 1 클 경우 lambda 함수로 전달
@@ -459,7 +374,7 @@
       testsc-require /testsc/home/testsc.scm
       testsc-require /testsc/home/testsc-ext.scm
       testsc-require /testsc/home/ex/t-1.scm
-      foreach-tnum next testnum is  241             → t-1.scm 에 있는 foreach-tnum  다음의 테스트번호가 241임을 알려줌 
+      testsc-apply-tdata next testnum is  241             → t-1.scm 에 있는 testsc-apply-tdata  다음의 테스트번호가 241임을 알려줌 
       testsc initalize done                         → testsc_init 함수가 끝나는 시점
       printf                                        → 테스트코드(사용자코드) 표준출력 redirection 
       cout test                                     → 테스트코드(사용자코드) 표준출력 redirection 
@@ -475,59 +390,57 @@
      Error: (/testsc/home//ex/t-1.scm : 44) syntax error: illegal token 
      #+END_QUOTE
 
-     여는 괄호'(', 닫는 괄호')' 쌍을 scheme 에서는 sexp 라고 지칭한다. sexp 를
+     여는 괄호'(', 닫는 괄호')' 쌍을 scheme 에서는 s-expression 라고 지칭한다. s-exp 를
      처리하는 과정에서 에러가 발생하면 에러가 발생한다. 여는 괄호가 아직 끝나지
      아니한 경우는 에러검출이 아니될 수도 있다. 이럴 경우 [[scheme_debugging][디버깅]] 을 통해서
      문제가 있는 부분을 확인 할 수 있다. 디버깅 방법은 [[scheme_debugging][디버깅]] 참조 
 
-*** 예제 2 - enum 변수 확인 
-*** 예제 3 - filter check 
-*** 예제 4 - 구조체 예제
-*** 예제 5 - stub 활용 
-* testsc 구조체  <<testsc_struct>>
-  [[scheme_file][scheme 파일]]을 통하여 구조체를 정의할 수 있다. [[test_variable][테스트 변수]]를 사용하여 구조체
-  필드를 각각 설정하기 어려운 경우 사용한다. 사용되는 구조체의 필드가 다수일 경우,
-  스텁함수에서 구조체에 대한 포인터를 리턴하는 경우, 사용되는 구조체가 다수인
-  경우 등이 해당한다. 
+*** 예제 3 - 수치 연산
+*** 예제 2 - 리스트 활용 
+*** 예제 3 - testsc 구조체  <<testsc_struct>>
+    [[scheme_file][scheme 파일]]을 통하여 구조체를 정의할 수 있다. [[test_variable][테스트 변수]]를 사용하여 구조체
+    필드를 각각 설정하기 어려운 경우 사용한다. 사용되는 구조체의 필드가 다수일 경우,
+    스텁함수에서 구조체에 대한 포인터를 리턴하는 경우, 사용되는 구조체가 다수인
+    경우 등이 해당한다. 
 
-  추가적인 C 구현이 필요하기 때문에 
-  데이터가 필요할 경우 사용한다. 추가적으로 C 함수를 구현해야 하는데, 구조체의
-  필드별로 테스트변수를 만들어서 설정하는방식과 비교하여 한번 구현해 두면 유리할 경우 추가 구현하여 사용한다. 
+    추가적인 C 구현이 필요하기 때문에 
+    데이터가 필요할 경우 사용한다. 추가적으로 C 함수를 구현해야 하는데, 구조체의
+    필드별로 테스트변수를 만들어서 설정하는방식과 비교하여 한번 구현해 두면 유리할 경우 추가 구현하여 사용한다. 
 
-C 함수 추가
-  구현이 필요한 부분으로써 관련 구조체가 빈번히 사용될 경우 구현을 하면 
+  C 함수 추가
+    구현이 필요한 부분으로써 관련 구조체가 빈번히 사용될 경우 구현을 하면 
 
-C 구현이
-  필요하기 때문에 내부에서 자주 사용하는 구조체에 대하여 구현을 사고 
+  C 구현이
+    필요하기 때문에 내부에서 자주 사용하는 구조체에 대하여 구현을 사고 
 
 
-GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다. 
+  GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다. 
 
-      [[test_variable][테스트 변수]]를 활용해서 구조체의 필드에 값을 설정할 수 있다. 대부분의 경우
+        [[test_variable][테스트 변수]]를 활용해서 구조체의 필드에 값을 설정할 수 있다. 대부분의 경우
       
-      [[testsc_struct][testsc 구조체]]는 테스트에 사용되는 구조체 생성을 위해 *testsc* 가
-      내부적으로 사용하는 구조체를 의미한다. 
+        [[testsc_struct][testsc 구조체]]는 테스트에 사용되는 구조체 생성을 위해 *testsc* 가
+        내부적으로 사용하는 구조체를 의미한다. 
 
-      다음은 식별자 0 으로 _track.TMSIndex 필드 값이 0 _track.identity 가 FRIEND
-      구조체를 생성한다.  
+        다음은 식별자 0 으로 _track.TMSIndex 필드 값이 0 _track.identity 가 FRIEND
+        구조체를 생성한다.  
 
-      [[testsc_struct][testsc 구조체]]에 대한 상세한 내용은 [[testsc_struct][testsc 구조체]]부분 참조 
-      #+BEGIN_SRC scheme
-      (testsc-stset 0 
-                      '_track.TMSIndex 10
-                      '_track.identit  FRIEND )
-      #+END_SRC
+        [[testsc_struct][testsc 구조체]]에 대한 상세한 내용은 [[testsc_struct][testsc 구조체]]부분 참조 
+        #+BEGIN_SRC scheme
+        (testsc-ext-set 0 
+                        '_track.TMSIndex 10
+                        '_track.identit  FRIEND )
+        #+END_SRC
 
-** 구조체 테스트 데이터 생성 
-   확장 모듈을 이용하여 구조체 테스트 데이터를 생성할 수 있다. 
-   [[testsc_ext_get]] 을 이용하여 scheme 파일에서 생성한 구조체를 가져 온다. 
+**** 구조체 테스트 데이터 생성 
+     확장 모듈을 이용하여 구조체 테스트 데이터를 생성할 수 있다. 
+     [[testsc_ext_get]] 을 이용하여 scheme 파일에서 생성한 구조체를 가져 온다. 
 
-** 빌드 방법 
-   build.bat 파일을 이용하여 빌드를 수행한다. 
+**** 빌드 방법 
+     build.bat 파일을 이용하여 빌드를 수행한다. 
 
-   scheme.exe 파일을 생성하기 위해서는 -DSTANDALONE=1 을 컴파일러로 전달해야 한다. 
+     scheme.exe 파일을 생성하기 위해서는 -DSTANDALONE=1 을 컴파일러로 전달해야 한다. 
 
-   libtestsc.a 파일을 생성하기 위해서는 -DSTANDALONE=0 을 컴파일러로 전달해야 한다.  
+     libtestsc.a 파일을 생성하기 위해서는 -DSTANDALONE=0 을 컴파일러로 전달해야 한다.  
    
 * Best Practice 
 ** 비관리 코드 활용 
@@ -614,6 +527,8 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 
     두번 정의가 될 경우 뒤에 나오는 값으로 설정이 된다. 
 
+    [[tests_data][테스트 데이터]]를 작성하기 위해 식별자의 값을 찾을 필요 없이 원보 소스코드를
+    복사하여 [[scheme_file][scheme 파일]]을 작성하는데 재활용 할 수 있다. 
 ** testsc 수정시 
    정적 라이브러리이기 때문에 [[test_case][테스트케이스]]재빌드 필요하다. 
 
@@ -623,28 +538,38 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 
 ** 디버깅 <<scheme_debugging>>
 
-   1. 커맨드 창을 열고 [[testsc_home][testsc 홈]] 폴더(=/testsc/home/=) 으로 이동한다. 
-   2. scheme 명령을 실행한다. 
-      #+BEGIN_SRC shell
-      C:\testsc\home>.\scheme.exe
-      #+END_SRC
-   3. [[testsc-init]] 을 호출한다. 
+   값이 예상과 다르거나 스크립트 로딩에 오류가 있는 것 같을 때 수행한다. 
+*** [[test_case][테스트 케이스]] C 코딩 오류
+    표준출력 이나 [[testsc_debug]]를 할용한다. 출력은 [[testsc_home][testsc 홈]] 아래
+    *testsc-stdout.txt*, *testsc-stderr.txt* 파일에 저장된다. 
+*** [[scheme_file][scheme 파일]] 오류
+    1. 커맨드 창을 열고 [[testsc_home][testsc 홈]] 폴더(=/testsc/home/=) 으로 이동한다. 
+    2. scheme 명령을 실행한다. 
+       #+BEGIN_SRC shell
+       C:\testsc\home>.\scheme.exe
+       #+END_SRC
+    3. [[testsc-init]] 을 호출한다. 
       
-      다음은 testscase 번호를 1로 설정하고 [[testsc_home][testsc 홈]] 폴더 아래 ex/t-1.scm 을
-      로딩한다. 로깅 과정에 에러가 있을 경우 화면으로 출력한다.  [[scheme_file][scheme 파일]] 의
-      오류를 검증하는데 사용할 수있다. 
-      #+BEGIN_SRC scheme
-      ts> (testsc-init 1 ex/t-1 )
-      #+END_SRC
-   4. [[test_variable][테스트 변수]] 값을 확인한다. 
-
-      확인하고자 하는 변수를 입력후 엔터를 넣으면 값이 출력된다. [[testsc-init]]
-      함수의 테스트번호를 변경해가면서 [[test_variable][테스트 변수]] 의 값을 확인할 수 있다. 
-      #+BEGIN_SRC scheme
-      ts>priampl
-      0
-      #+END_SRC
+       다음은 testscase 번호를 1로 설정하고 [[testsc_home][testsc 홈]] 폴더 아래 ex/t-1.scm 을
+       로딩한다. 로깅 과정에 에러가 있을 경우 화면으로 출력한다.  [[scheme_file][scheme 파일]] 의
+       오류를 검증하는데 사용할 수있다. 
+       #+BEGIN_SRC scheme
+       ts> (testsc-init 1 ex/t-1 )
+       #+END_SRC
+    4. [[test_variable][테스트 변수]] 값을 확인한다. 
+       확인하고자 하는 변수를 입력후 엔터를 넣으면 값이 출력된다. [[testsc-init]]
+       함수의 [[testsc_tnum][테스트 번호]]를 변경해가면서 [[test_variable][테스트 변수]] 의 값을 확인할 수 있다. 
+       #+BEGIN_SRC scheme
+       ts>priampl
+       0
+       #+END_SRC
       
+** testsc 구조체
+   대부분의 경우 testsc 구조체가 없이도 동적시험 수행이 가능하다. 
+   
+   동적 구조체 생성이 빈번히 발생하는 경우에 사용한다. 구현을 하게 되는 경우
+   최대한 많는 구조체 타입을 구현하도록 한다. 그렇기 아니할 경우 testsc
+   라이브러리를 재빌드 하는 일이 자주 발생 할 수 도 있다. 
 * Reference <<reference>>
 ** C API - <<testsc_c_api>>
    CodeScroll 에서 스텁등을 작성할 때 사용한다. 
@@ -675,7 +600,7 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 
 
       [[testsc_init]] 를 호출하여 *testsc* 를 초기화 한다. 첫번째 파라미터는
-      CS_TESTCASENO() 으로써 테스트번호를 전달한다. 두번째 파라미터는 실행할
+      CS_TESTCASENO() 으로써 [[testsc_tnum][테스트 번호]]를 전달한다. 두번째 파라미터는 실행할
       scheme 명령이다. [[testsc-require]] 를 호출하여 [[scheme_file][scheme 파일]]을 읽어 올 수 있다.
       마지막 파라미터는 *testsc* 의 HOME 경로가 된다. [[testsc-require]] 는 홈
       경로아래에서 [[scheme_file][scheme 파일]] 을 불러온다. 경로를 파라미터로 넘기지 아니할 경우
@@ -825,7 +750,7 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 ***** populate
       구현 필요. 
 **** testsc.scm
-***** (define (foreach-tnum offset proc args )...) <<foreach-tnum>>
+***** (define (testsc-apply-tdata offset proc args )...) <<testsc-apply-tdata>>
 *** testsc.c 
 **** 함수
 *****  pointer foreign_testsc_set_testnum(scheme* sc, pointer args) <<foreign_testsc_set_testnum>> <<testsc-set-testnum>>
@@ -1441,8 +1366,12 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
 ** testsc 홈 <<testsc_home>>
 ** 테스트 변수 <<test_variable>>
 
+** 테스트 데이터 <<tests_data>>
+   [[test_variable][테스트 변수]]의 값을 의미한다. 
+** 테스트 번호 <<testsc_tnum>>
 * export 관련                                                     :noexport:
 ** no description 
    #+BEGIN_QUOTE
    ox-html 에서 html link 부분을 수정한다.  
    #+END_QUOTE
+   

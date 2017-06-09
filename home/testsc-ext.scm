@@ -7,7 +7,7 @@
 (define-macro (mmsg . x)
   `(apply mmsg-set (quote ,x)))
 
-(define (ext-set id . args )
+(define (testsc-ext-set id . args )
   (testsc-admin-nset id)
   (do ((sym-vals args (cddr sym-vals)))
       ((> 2 (length sym-vals)  ))
