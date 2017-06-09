@@ -24,11 +24,6 @@ pointer pop_args(pointer & args )
   return c ;
 }
 
-bool is_nil(pointer it)
-{
-  return g_sc_ext->NIL == it;
-}
-
 
 
 typedef struct cdo_check_t 
@@ -106,7 +101,7 @@ template< typename TYPE, size_t N>
 void FIELD_NSET(TYPE (&args)[N], pointer b )
 {
   int i = 0 ; 
-  for(pointer it = b ; !is_nil(it)  ; it = pair_cdr(it) ){
+  for(pointer it = b ; !testsc_is_nil(it)  ; it = pair_cdr(it) ){
     FIELD_NSET(args[i++], pair_car(it)) ;
   }
 }
@@ -285,3 +280,29 @@ void testsc_ext_init(scheme* sc)
   }
 
 }
+
+pointer testsc_pcar(pointer it)
+{
+  return pair_car(it) ; 
+}
+
+pointer testsc_pcdr(pointer it)
+{
+  return pair_cdr(it) ; 
+}
+
+bool testsc_is_nil(pointer it)
+{
+  return g_sc_ext->NIL == it;
+}
+
+
+#if !STANDALONE
+
+
+pointer testsc_pvalue(char *name)
+{
+  return scheme_eval(g_sc_ext, mk_symbol(g_sc_ext, name) );
+}
+
+#endif

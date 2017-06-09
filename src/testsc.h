@@ -1,5 +1,4 @@
 #if !defined(__TESTSC_H__)
-
 #define __TESTSC_H__
 #include "testsc_ext.h"
 

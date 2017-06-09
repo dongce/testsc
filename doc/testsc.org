@@ -305,11 +305,18 @@
     1
     #+END_SRC
 
-** 예제 1 - 값을 정의하고 사용
-** 예제 2 - enum 변수 확인 
-** 예제 3 - filter check 
-** 예제 4 - 구조체 예제
-** 예제 5 - stub 활용 
+** 예제 
+
+   CodeScroll의 *파일 >> 워크스페이스 바꾸기* 메뉴를 이용하여 예제가 있는
+   워크스페이스로 전환한다. 
+
+   [[file:chworksspace.PNG][file:c:/testsc/doc/chworksspace.PNG]]
+
+*** 예제 1 - 값을 정의하고 사용
+*** 예제 2 - enum 변수 확인 
+*** 예제 3 - filter check 
+*** 예제 4 - 구조체 예제
+*** 예제 5 - stub 활용 
 * testsc 구조체  <<testsc_struct>>
   [[scheme_file][scheme 파일]]을 통하여 구조체를 정의할 수 있다. [[test_variable][테스트 변수]]를 사용하여 구조체
   필드를 각각 설정하기 어려운 경우 사용한다. 사용되는 구조체의 필드가 다수일 경우,

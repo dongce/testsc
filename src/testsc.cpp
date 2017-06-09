@@ -11,12 +11,12 @@
 #include "testsc.h"
 #include <algorithm>
 #include <cctype>
-//#include <unistd.h>
+#include <unistd.h>
 
 
 
 
-#if defined(STANDALONE)
+#if STANDALONE
 FILE* g_debug = stdout ;
 #else
 FILE* g_debug = NULL ;
@@ -125,7 +125,7 @@ foreign_testsc_numtest(scheme*sc , pointer args )
 //deprecated//  return sc->NIL; 
 //deprecated//}
 
-#if defined(STANDALONE)
+#if STANDALONE
 scheme* g_sc  = reinterpret_cast<scheme*>(malloc(sizeof(scheme)) );
 #else
 scheme* g_sc = NULL ; 
@@ -148,7 +148,7 @@ foreign_testsc_init_ext(scheme* sc , pointer args)
   }
   
 
-#if !defined(STANDALONE)
+#if !STANDALONE
   char absfilename[1024] ;
   sprintf(absfilename,
           "%s/testsc-stderr.txt" ,
@@ -230,7 +230,7 @@ void testsc_init(int testnum , const char* cmd, const char* homepath)
 
 
 
-#if !defined(STANDALONE)
+#if !STANDALONE
 
 inline long testsc_eval_ivalue(pointer x)
 {

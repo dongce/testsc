@@ -19,9 +19,14 @@ void  testsc_ext_erase(int index ) ;
 
 void testsc_ext_init(scheme* sc) ; 
 
-// tinyscheme helper 
+// tinyscheme helper
+
+pointer testsc_pvalue(const char *name) ;
+pointer testsc_pcar(pointer it) ; 
+pointer testsc_pcdr(pointer it) ; 
+bool    testsc_is_nil(pointer it) ;
+
 pointer pop_args(pointer & args ) ;
-bool is_nil(pointer it) ;
 
 #define tinyscheme_list4(sc , a , b , c , d) cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , cons((sc) , (d) , (sc)->NIL))))
 #define tinyscheme_list3(sc , a , b , c)     cons((sc) , (a) , cons((sc) , (b) , cons((sc) , (c) , (sc)->NIL)))
