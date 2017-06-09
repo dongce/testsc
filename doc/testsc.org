@@ -450,10 +450,12 @@
 
 
      ex/t-1.scm 파일에서 괄호를 하나 추가 하고 실행하면 다음과 같은 에러 로그를
-     확인할 수 있다.   
+     확인할 수 있다. 괄호가 하나 없는 경우는 scheme 문장이 아직 덜 끝난 상태기
+     때문에 에러가 발생하지 아니할 수 있다. 이럴 경우 scheme.exe 를 이용하여
+     디버깅을 수행한다. 
 
      #+BEGIN_QUOTE
-     
+     Error: (/testsc/home//ex/t-1.scm : 44) syntax error: illegal token 
      #+END_QUOTE
 
 *** 예제 2 - enum 변수 확인 

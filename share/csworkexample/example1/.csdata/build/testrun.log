@@ -88032,3 +88032,32 @@ info:end function
 info:start function
 info:end function
 info:=========================>codescrollib_set_exitstatus(1)
+info:
+
+
+=======>Test Start
+info:=========================>codescrollib_set_exitstatus(1)
+info:
+
+
+=======>Test Start
+info:=========================>codescrollib_set_exitstatus(9)
+info:start function
+info:end function
+info:start function
+info:end function
+info:start function
+info:start function
+debug:C:\testsc\share\csworkexample\example1\.csdata\src\build\cs_tfx.c:228: codescroll_symbol_index: 1
+
+debug:C:\testsc\share\csworkexample\example1\.csdata\src\build\cs_tfx.c:228: codescroll_symbol_index: 2
+
+debug:C:\testsc\share\csworkexample\example1\.csdata\src\build\cs_tfx.c:266: codescroll_symbol_index: 3
+
+info:end function
+info:end function
+info:start function
+info:end function
+info:start function
+info:end function
+info:=========================>codescrollib_set_exitstatus(1)
