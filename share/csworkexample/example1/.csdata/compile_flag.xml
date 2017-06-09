@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+<module compile_flag="-I/testsc/src" id="1">
+<tu compile_flag="-I/testsc/src" id="1" inheritance="true"/>
+</module>
+</project>

@@ -25,3 +25,6 @@ g++ %CFLAGS% -DSTANDALONE=0 %EXTRAINCLUDE% testsc_ext.cpp
 
 
 ar crs ../lib/libtestsc.a scheme.o testsc.o testsc_ext.o
+
+
+g++ libtest.cpp -o test -L../lib -ltestsc

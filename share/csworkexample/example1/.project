@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>example1</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+		<nature>com.codescroll.gp.core.csnature</nature>
+		<nature>com.codescroll.gp.core.CNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>example1.cpp</name>
+			<type>1</type>
+			<location>C:/testsc/share/srcexample/example1.cpp</location>
+		</link>
+		<link>
+			<name>example1.h</name>
+			<type>1</type>
+			<location>C:/testsc/share/srcexample/example1.h</location>
+		</link>
+	</linkedResources>
+	<filteredResources>
+		<filter>
+			<id>1496972838386</id>
+			<name></name>
+			<type>26</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-true-false-.csdata</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
+</projectDescription>

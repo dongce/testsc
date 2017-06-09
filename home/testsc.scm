@@ -1,5 +1,3 @@
-(define-macro (testsc-require x)
-  `(load (string-append *testsc-home* (symbol->string (quote ,x)) ".scm")))
 
 (define-macro (testsc-init x  initcmd)
   (testsc-set-testnum x)
@@ -24,7 +22,7 @@
            (proc x ))
        (set! index (+ 1 index )))
      args )
-    (testsc-debug (string-append  "for-each-index-offset " (number->string (+ offset  index))))))
+    (testsc-debug (string-append  "foreach-tnum next testnum is  " (number->string (+ offset  index))))))
 
 
-(define (foreach-tnum offset proc args ) (apply for-each-index-offset offset proc args))
+(define (foreach-tnum offset proc args ) (apply foreach-tnum* offset proc args))

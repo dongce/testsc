@@ -1,0 +1,22 @@
+
+#SYNC
+-sync:run=false
+
+#CheckDB
+-ckdb:run=false
+
+#CONVERTER
+-converter:run=true
+-converter:converter=C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.gp.core_1.0.2.201202152119\bin\converter
+-converter:paini=C:\testsc\share\csworkexample\example1\.csdata\pa.ini
+
+#BUILDER
+-bld:run=false
+
+#ENGINE
+-ecm:run=true
+-ecm:timeout=60
+-ecm:keepcontext=false
+-ecm:startfromiut=false
+-ecm:activetestcaseonly=true
+-ecm:runmode=1

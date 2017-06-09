@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="SourceFileSelectWizardPage">
+		<item value="C:\testsc\share\srcexample" key="TOP_DIRECTORY"/>
+	</section>
+	<section name="ProjectGeneralInfoWizardPage">
+		<item value="C:\testsc\share\csworkexample" key="LOCATION"/>
+	</section>
+</section>

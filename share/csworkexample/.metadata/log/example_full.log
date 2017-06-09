@@ -1,0 +1,2548 @@
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Thu Jun 08 21:13:07 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [describeFunctionUnits]: SYSTEM_LIBRARIES_ALWAYS_LINKED=N
+INFO  [MainFrame]: PHASE21001|<cs#delim>|[1/1] examplesrc.cpp
+INFO  [EdgPreprocessor]: options:
+edgcfe4x preprocessor -D__DBL_MIN_EXP__=(-1021) -D__FLT_MIN__=1.17549435e-38F -D__CHAR_BIT__=8 -D__WCHAR_MAX__=2147483647 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 -D__DBL_DENORM_MIN__=4.9406564584124654e-324 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 -D__FLT_EVAL_METHOD__=0 -D__unix__=1 -D__x86_64=1 -D__DBL_MIN_10_EXP__=(-307) -D__FINITE_MATH_ONLY__=0 -D__LP64__=1 -D__DEC64_MAX_EXP__=385 -D__SHRT_MAX__=32767 -D__LDBL_MAX__=1.7976931348623157e+308 -D__UINTMAX_TYPE__=long unsigned int -D__linux=1 -D__DEC32_EPSILON__=1E-6DF -D__unix=1 -D__LDBL_MAX_EXP__=16384 -D__linux__=1 -D__SCHAR_MAX__=127 -D__DBL_DIG__=15 -D__SIZEOF_INT__=4 -D__SIZEOF_POINTER__=8 -D__USER_LABEL_PREFIX__=  -D__STDC_HOSTED__=1 -D__LDBL_HAS_INFINITY__=1 -D__FLT_EPSILON__=1.19209290e-7F -D__GXX_WEAK__=1 -D__LDBL_MIN__=3.36210314311209350626e-4932L -D__DEC32_MAX__=9.999999E96DF -D__SIZEOF_LONG__=8 -D__DECIMAL_DIG__=21 -D__gnu_linux__=1 -D__LDBL_HAS_QUIET_NAN__=1 -D__GXX_RTTI=1 -D__MMX__=1 -D__FLT_HAS_DENORM__=1 -D__SIZEOF_LONG_DOUBLE__=16 -D__BIGGEST_ALIGNMENT__=16 -D__DBL_MAX__=1.7976931348623157e+308 -D__DBL_HAS_INFINITY__=1 -D__DEC32_MIN_EXP__=(-94) -D__LDBL_HAS_DENORM__=1 -D__cplusplus=1 -D__DEC128_MAX__=9.999999999999999999999999999999999E6144DL -D__DEC32_MIN__=1E-95DF -D__DEPRECATED=1 -D__DBL_MAX_EXP__=1024 -D__DEC128_EPSILON__=1E-33DL -D__SSE2_MATH__=1 -D__amd64=1 -D__GNUG__=4 -D__LONG_LONG_MAX__=9223372036854775807LL -D__SIZEOF_SIZE_T__=8 -D__SIZEOF_WINT_T__=4 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -D__GXX_ABI_VERSION=1002 -D__FLT_MIN_EXP__=(-125) -D__DBL_MIN__=2.2250738585072014e-308 -D__FLT_MIN_10_EXP__=(-37) -D__DECIMAL_BID_FORMAT__=1 -D__DEC128_MIN__=1E-6143DL -D__REGISTER_PREFIX__=  -D__DBL_HAS_DENORM__=1 -D__NO_INLINE__=1 -D__FLT_MANT_DIG__=24 -D__VERSION__="4.4.4 20100503 (Red Hat 4.4.4-2)" -D__DEC64_EPSILON__=1E-15DD -D__DEC128_MIN_EXP__=(-6142) -Dunix=1 -D__SIZE_TYPE__=unsigned int -D__ELF__=1 -D__FLT_RADIX__=2 -D__LDBL_EPSILON__=1.08420217248550443401e-19L -D__k8=1 -D__SIZEOF_PTRDIFF_T__=8 -D__x86_64__=1 -D__DEC32_SUBNORMAL_MIN__=0.000001E-95DF -D__FLT_HAS_QUIET_NAN__=1 -D__FLT_MAX_10_EXP__=38 -D__LONG_MAX__=9223372036854775807L -D__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL -D__FLT_HAS_INFINITY__=1 -D__DEC64_MAX__=9.999999999999999E384DD -D__CHAR16_TYPE__=short unsigned int -D__DEC64_MANT_DIG__=16 -D__DEC32_MAX_EXP__=97 -Dlinux=1 -D__SSE2__=1 -D__EXCEPTIONS=1 -D__LDBL_MANT_DIG__=64 -D__DBL_HAS_QUIET_NAN__=1 -D__k8__=1 -D__WCHAR_TYPE__=int -D__SIZEOF_FLOAT__=4 -D__DEC64_MIN_EXP__=(-382) -D__FLT_DIG__=6 -D__INT_MAX__=2147483647 -D__amd64__=1 -D__FLT_MAX_EXP__=128 -D__DBL_MANT_DIG__=53 -D__DEC64_MIN__=1E-383DD -D__WINT_TYPE__=unsigned int -D__SIZEOF_SHORT__=2 -D__SSE__=1 -D__LDBL_MIN_EXP__=(-16381) -D__LDBL_MAX_10_EXP__=4932 -D__DBL_EPSILON__=2.2204460492503131e-16 -D_LP64=1 -D__SIZEOF_WCHAR_T__=4 -D__DEC_EVAL_METHOD__=2 -D__INTMAX_MAX__=9223372036854775807L -D__FLT_DENORM_MIN__=1.40129846e-45F -D__CHAR32_TYPE__=unsigned int -D__FLT_MAX__=3.40282347e+38F -D__SIZEOF_DOUBLE__=8 -D__INTMAX_TYPE__=long int -D__DEC128_MAX_EXP__=6145 -D__DEC32_MANT_DIG__=7 -D__DBL_MAX_10_EXP__=308 -D__LDBL_DENORM_MIN__=3.36210314311209350626e-4932L -D__PTRDIFF_TYPE__=long int -D__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD -D__DEC128_MANT_DIG__=34 -D__LDBL_MIN_10_EXP__=(-4931) -D__SSE_MATH__=1 -D__SIZEOF_LONG_LONG__=8 -D__LDBL_DIG__=18 -D__GNUC_GNU_INLINE__=1 -D_GNU_SOURCE=1 -I/testsc/src/ --c++ --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x --preinclude=C:\testsc\share\csworkexample\example\.csdata\recent_preinclude.h -I- --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4 --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\x86_64-redhat-linux --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\backward --sys_include=T:\ICMS\CodeScroll\usr\local\include --sys_include=T:\ICMS\CodeScroll\usr\lib\gcc\x86_64-redhat-linux\4.4.4\include --sys_include=T:\ICMS\CodeScroll\usr\include --sys_include=T:\ICMS\devenv\DSSLib\inc\boost --cs_set_tu_id=1 -E --error_output=C:\testsc\share\csworkexample\example\.csdata\log\preprocess\examplesrc_1.i.cpp.plog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata -oC:\testsc\share\csworkexample\example\.csdata\src\preprocessed\examplesrc_1.i.cpp C:\testsc\share\srcexample\examplesrc.cpp 
+INFO  [MainFrame]: PHASE21001|<cs#delim>|[1/1] examplesrc.cpp(Parsing)
+INFO  [EdgCfe4x]: options:
+edgcfe4x --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -I/testsc/src/ --c++ --cs_set_tu_id=1 --error_output=C:\testsc\share\csworkexample\example\.csdata\log\parse\examplesrc_1.i.cpp.elog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata C:\testsc\share\csworkexample\example\.csdata\src\preprocessed\examplesrc_1.i.cpp 
+ERROR [Parser]: ERROR2008|<cs#delim>|C:\testsc\share\srcexample\examplesrc.cpp
+INFO  [Database]: new build precompiled statement for InspectionFailItem::filePath,idTranslationUnit,kind,logPath -- INSERT INTO InspectionFailItem (filePath,idTranslationUnit,kind,logPath) VALUES (?,?,?,?)
+INFO  [MainFrame]:    parsing=31ms(91)
+INFO  [MainFrame]: functional=3ms(8)
+INFO  [CodeRewriter]:   Function Body Hash Probe Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   StaticVariableDeclarationStatement Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   Function Body Disable Macro Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   Function Body Disable Macro Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   Branch Coverage Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   MC/DC Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   CfgNode Begin Statement Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   EndOfVariableDeclarationInserter: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   unit total: 0ms used.
+INFO  [CodeRewriter]:   functionLineUp: 0ms used.
+INFO  [CodeRewriter]:   lineUp: 0ms used.
+INFO  [CodeRewriter]:   writing: 0ms used.
+INFO  [MainFrame]: PHASE21002
+INFO  [LinkingTime]: RUNNING - FunctionMapBuilder
+INFO  [LinkingTime]: RUNNING - GlobalVariableMapBuilder
+INFO  [LinkingTime]: RUNNING - CodeRewriter
+INFO  [LinkingTime]: RUNNING - MetricGenerator
+INFO  [CodeRewriter]: 2ms used.
+INFO  [EachAfterAnalyzingTranslationUnit]: 0ms used.
+INFO  [FunctionDeclGenerator]: 0ms used.
+INFO  [FunctionMapBuilder]: 3ms used.
+INFO  [GlobalVariable Extractor]: 0ms used.
+INFO  [GlobalVariableMapBuilder]: 1ms used.
+INFO  [IncludeRelationWriter]: 0ms used.
+INFO  [InheritanceInfoGenerator]: 0ms used.
+INFO  [MetricGenerator]: 9ms used.
+INFO  [Scope Info Generator]: 0ms used.
+INFO  [SourceFileWriter]: 0ms used.
+INFO  [TypeInfo Generator]: 0ms used.
+INFO  [VariableDeclGenerator]: 0ms used.
+INFO  [pa.main]: end time: Thu Jun 08 21:13:07 2017
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Thu Jun 08 21:13:25 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [describeFunctionUnits]: SYSTEM_LIBRARIES_ALWAYS_LINKED=N
+INFO  [MainFrame]: PHASE21001|<cs#delim>|[1/1] examplesrc.cpp
+INFO  [EdgPreprocessor]: options:
+edgcfe4x preprocessor -D__DBL_MIN_EXP__=(-1021) -D__FLT_MIN__=1.17549435e-38F -D__CHAR_BIT__=8 -D__WCHAR_MAX__=2147483647 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 -D__DBL_DENORM_MIN__=4.9406564584124654e-324 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 -D__FLT_EVAL_METHOD__=0 -D__unix__=1 -D__x86_64=1 -D__DBL_MIN_10_EXP__=(-307) -D__FINITE_MATH_ONLY__=0 -D__LP64__=1 -D__DEC64_MAX_EXP__=385 -D__SHRT_MAX__=32767 -D__LDBL_MAX__=1.7976931348623157e+308 -D__UINTMAX_TYPE__=long unsigned int -D__linux=1 -D__DEC32_EPSILON__=1E-6DF -D__unix=1 -D__LDBL_MAX_EXP__=16384 -D__linux__=1 -D__SCHAR_MAX__=127 -D__DBL_DIG__=15 -D__SIZEOF_INT__=4 -D__SIZEOF_POINTER__=8 -D__USER_LABEL_PREFIX__=  -D__STDC_HOSTED__=1 -D__LDBL_HAS_INFINITY__=1 -D__FLT_EPSILON__=1.19209290e-7F -D__GXX_WEAK__=1 -D__LDBL_MIN__=3.36210314311209350626e-4932L -D__DEC32_MAX__=9.999999E96DF -D__SIZEOF_LONG__=8 -D__DECIMAL_DIG__=21 -D__gnu_linux__=1 -D__LDBL_HAS_QUIET_NAN__=1 -D__GXX_RTTI=1 -D__MMX__=1 -D__FLT_HAS_DENORM__=1 -D__SIZEOF_LONG_DOUBLE__=16 -D__BIGGEST_ALIGNMENT__=16 -D__DBL_MAX__=1.7976931348623157e+308 -D__DBL_HAS_INFINITY__=1 -D__DEC32_MIN_EXP__=(-94) -D__LDBL_HAS_DENORM__=1 -D__cplusplus=1 -D__DEC128_MAX__=9.999999999999999999999999999999999E6144DL -D__DEC32_MIN__=1E-95DF -D__DEPRECATED=1 -D__DBL_MAX_EXP__=1024 -D__DEC128_EPSILON__=1E-33DL -D__SSE2_MATH__=1 -D__amd64=1 -D__GNUG__=4 -D__LONG_LONG_MAX__=9223372036854775807LL -D__SIZEOF_SIZE_T__=8 -D__SIZEOF_WINT_T__=4 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -D__GXX_ABI_VERSION=1002 -D__FLT_MIN_EXP__=(-125) -D__DBL_MIN__=2.2250738585072014e-308 -D__FLT_MIN_10_EXP__=(-37) -D__DECIMAL_BID_FORMAT__=1 -D__DEC128_MIN__=1E-6143DL -D__REGISTER_PREFIX__=  -D__DBL_HAS_DENORM__=1 -D__NO_INLINE__=1 -D__FLT_MANT_DIG__=24 -D__VERSION__="4.4.4 20100503 (Red Hat 4.4.4-2)" -D__DEC64_EPSILON__=1E-15DD -D__DEC128_MIN_EXP__=(-6142) -Dunix=1 -D__SIZE_TYPE__=unsigned int -D__ELF__=1 -D__FLT_RADIX__=2 -D__LDBL_EPSILON__=1.08420217248550443401e-19L -D__k8=1 -D__SIZEOF_PTRDIFF_T__=8 -D__x86_64__=1 -D__DEC32_SUBNORMAL_MIN__=0.000001E-95DF -D__FLT_HAS_QUIET_NAN__=1 -D__FLT_MAX_10_EXP__=38 -D__LONG_MAX__=9223372036854775807L -D__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL -D__FLT_HAS_INFINITY__=1 -D__DEC64_MAX__=9.999999999999999E384DD -D__CHAR16_TYPE__=short unsigned int -D__DEC64_MANT_DIG__=16 -D__DEC32_MAX_EXP__=97 -Dlinux=1 -D__SSE2__=1 -D__EXCEPTIONS=1 -D__LDBL_MANT_DIG__=64 -D__DBL_HAS_QUIET_NAN__=1 -D__k8__=1 -D__WCHAR_TYPE__=int -D__SIZEOF_FLOAT__=4 -D__DEC64_MIN_EXP__=(-382) -D__FLT_DIG__=6 -D__INT_MAX__=2147483647 -D__amd64__=1 -D__FLT_MAX_EXP__=128 -D__DBL_MANT_DIG__=53 -D__DEC64_MIN__=1E-383DD -D__WINT_TYPE__=unsigned int -D__SIZEOF_SHORT__=2 -D__SSE__=1 -D__LDBL_MIN_EXP__=(-16381) -D__LDBL_MAX_10_EXP__=4932 -D__DBL_EPSILON__=2.2204460492503131e-16 -D_LP64=1 -D__SIZEOF_WCHAR_T__=4 -D__DEC_EVAL_METHOD__=2 -D__INTMAX_MAX__=9223372036854775807L -D__FLT_DENORM_MIN__=1.40129846e-45F -D__CHAR32_TYPE__=unsigned int -D__FLT_MAX__=3.40282347e+38F -D__SIZEOF_DOUBLE__=8 -D__INTMAX_TYPE__=long int -D__DEC128_MAX_EXP__=6145 -D__DEC32_MANT_DIG__=7 -D__DBL_MAX_10_EXP__=308 -D__LDBL_DENORM_MIN__=3.36210314311209350626e-4932L -D__PTRDIFF_TYPE__=long int -D__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD -D__DEC128_MANT_DIG__=34 -D__LDBL_MIN_10_EXP__=(-4931) -D__SSE_MATH__=1 -D__SIZEOF_LONG_LONG__=8 -D__LDBL_DIG__=18 -D__GNUC_GNU_INLINE__=1 -D_GNU_SOURCE=1 -I/testsc/src/ --c++ --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x --preinclude=C:\testsc\share\csworkexample\example\.csdata\recent_preinclude.h -I- --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4 --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\x86_64-redhat-linux --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\backward --sys_include=T:\ICMS\CodeScroll\usr\local\include --sys_include=T:\ICMS\CodeScroll\usr\lib\gcc\x86_64-redhat-linux\4.4.4\include --sys_include=T:\ICMS\CodeScroll\usr\include --sys_include=T:\ICMS\devenv\DSSLib\inc\boost --cs_set_tu_id=1 -E --error_output=C:\testsc\share\csworkexample\example\.csdata\log\preprocess\examplesrc_1.i.cpp.plog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata -oC:\testsc\share\csworkexample\example\.csdata\src\preprocessed\examplesrc_1.i.cpp C:\testsc\share\srcexample\examplesrc.cpp 
+INFO  [MainFrame]: PHASE21001|<cs#delim>|[1/1] examplesrc.cpp(Parsing)
+INFO  [EdgCfe4x]: options:
+edgcfe4x --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -I/testsc/src/ --c++ --cs_set_tu_id=1 --error_output=C:\testsc\share\csworkexample\example\.csdata\log\parse\examplesrc_1.i.cpp.elog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata C:\testsc\share\csworkexample\example\.csdata\src\preprocessed\examplesrc_1.i.cpp 
+INFO  [Database]: new build precompiled statement for TypeInfo::arraySize,assocScope,beginLine,code,endLine,exceptionSpecifications,flag,floatKind,idSourceFile,idTranslationUnit,idTypeInfo,intKind,kind,leftEndpoint,modifier,name,normalizeTypeName,parent,ptrToMemClassType,qualifiedName,rawTypeName,returnType,rightEndpoint,topLevelQualifierRemovedCode,typeName,volume -- INSERT INTO TypeInfo (arraySize,assocScope,beginLine,code,endLine,exceptionSpecifications,flag,floatKind,idSourceFile,idTranslationUnit,idTypeInfo,intKind,kind,leftEndpoint,modifier,name,normalizeTypeName,parent,ptrToMemClassType,qualifiedName,rawTypeName,returnType,rightEndpoint,topLevelQualifierRemovedCode,typeName,volume) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+INFO  [Database]: new build precompiled statement for Scope::idModule,idScope,kind,name,parent,qualifiedName -- INSERT INTO Scope (idModule,idScope,kind,name,parent,qualifiedName) VALUES (?,?,?,?,?,?)
+INFO  [Database]: new build precompiled statement for SourceFile::idSourceFile,isExcluded,isSystem,path,updateTime -- INSERT INTO SourceFile (idSourceFile,isExcluded,isSystem,path,updateTime) VALUES (?,?,?,?,?)
+INFO  [Database]: new build precompiled statement for UndefinedVariableDecl::idTranslationUnit,qualifiedIdentifier,stubDefinitionCode -- INSERT INTO UndefinedVariableDecl (idTranslationUnit,qualifiedIdentifier,stubDefinitionCode) VALUES (?,?,?)
+INFO  [DFA]: DFA_ENABLE=N
+INFO  [DFA]: SCFG_OUT=N
+INFO  [DFA]: LIMIT_ITER=N
+INFO  [DFA]: RESULT_OUT=N
+INFO  [DFA]: ITER_OUT=N
+INFO  [DFA]: TRANSFER_OUT=N
+INFO  [Database]: new build precompiled statement for CoverageProbeInfo::idCFGEdge,idFunctionInfo,probeIndex -- INSERT INTO CoverageProbeInfo (idCFGEdge,idFunctionInfo,probeIndex) VALUES (?,?,?)
+INFO  [PropertyLoader]: no OP_BOOLEAN_IS_DECISION in Properties, default value is 0
+INFO  [PropertyLoader]: no OP_CONSTANT_EXPR_IS_DECISION in Properties, default value is 0
+INFO  [Database]: new build precompiled statement for FunctionInfo::beginLine,bodyHash,compatibleSignatureHash,endLine,exceptionSpecifications,flag,idFunctionInfo,idPrimaryTemplate,idSourceFile,idTranslationUnit,modifier,name,parent,qualifiedName,returnType,signature,signatureHash,templateSignature -- INSERT INTO FunctionInfo (beginLine,bodyHash,compatibleSignatureHash,endLine,exceptionSpecifications,flag,idFunctionInfo,idPrimaryTemplate,idSourceFile,idTranslationUnit,modifier,name,parent,qualifiedName,returnType,signature,signatureHash,templateSignature) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+INFO  [Database]: new build precompiled statement for UndefinedFunctionDecl::flag,idTranslationUnit,idUndefinedFunctionDecl,qualifiedIdentifier,signatureHash,signatureWithParam,stubDefinitionBody,stubDefinitionCode,stubSelectCode -- INSERT INTO UndefinedFunctionDecl (flag,idTranslationUnit,idUndefinedFunctionDecl,qualifiedIdentifier,signatureHash,signatureWithParam,stubDefinitionBody,stubDefinitionCode,stubSelectCode) VALUES (?,?,?,?,?,?,?,?,?)
+INFO  [MainFrame]:    parsing=27ms(19)
+INFO  [MainFrame]: functional=115ms(80)
+INFO  [CodeRewriter]:   Function Body Hash Probe Instrumentation: 8ms used.
+INFO  [CodeRewriter]:    - run: 8ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   StaticVariableDeclarationStatement Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   Function Body Disable Macro Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   Function Body Disable Macro Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   Branch Coverage Instrumentation: 1ms used.
+INFO  [CodeRewriter]:    - run: 1ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   MC/DC Instrumentation: 1ms used.
+INFO  [CodeRewriter]:    - run: 1ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   CfgNode Begin Statement Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   EndOfVariableDeclarationInserter: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   unit total: 10ms used.
+INFO  [CodeRewriter]:   functionLineUp: 0ms used.
+INFO  [CodeRewriter]:   lineUp: 0ms used.
+INFO  [CodeRewriter]:   writing: 7ms used.
+INFO  [MainFrame]: PHASE21002
+INFO  [LinkingTime]: RUNNING - FunctionMapBuilder
+INFO  [LinkingTime]: RUNNING - GlobalVariableMapBuilder
+INFO  [LinkingTime]: RUNNING - CodeRewriter
+INFO  [LinkingTime]: RUNNING - MetricGenerator
+INFO  [CFGWriter]: 3ms used.
+INFO  [CodeRewriter]: 74ms used.
+INFO  [ConstantExtractor]: 1ms used.
+INFO  [EachAfterAnalyzingTranslationUnit]: 1ms used.
+INFO  [ExecutedSourceLineCollector]: 0ms used.
+INFO  [FieldUseExtractor]: 0ms used.
+INFO  [FunctionDeclGenerator]: 0ms used.
+INFO  [FunctionInfoGenerator]: 1ms used.
+INFO  [FunctionMapBuilder]: 4ms used.
+INFO  [Global Variable Use/Def Extractor]: 0ms used.
+INFO  [GlobalVariable Extractor]: 0ms used.
+INFO  [GlobalVariableMapBuilder]: 1ms used.
+INFO  [IncludeRelationWriter]: 2ms used.
+INFO  [InheritanceInfoGenerator]: 0ms used.
+INFO  [MetricGenerator]: 16ms used.
+INFO  [Scope Info Generator]: 3ms used.
+INFO  [SourceFileWriter]: 2ms used.
+INFO  [TypeInfo Generator]: 6ms used.
+INFO  [VariableDeclGenerator]: 3ms used.
+INFO  [functionUsedGenerator]: 0ms used.
+INFO  [pa.main]: end time: Thu Jun 08 21:13:27 2017
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:13:30 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:13:30 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu changed
+INFO  [ut.cem]: FunctionProvider: constructor
+INFO  [ut.cem]: TruthTable::load:truth table
+INFO  [ut.cem]: CFGNode::load:cfg node
+INFO  [ut.cem]: CFGNode::load:cfg node count(55)
+INFO  [ut.cem]: CFGNode::load:load mcdc probe info
+INFO  [ut.cem]: CFGNode::load:mcdc probe info count(0), mcdc case count(0)
+INFO  [ut.cem]: CFGEdge::load:cfg edge
+INFO  [ut.cem]: CFGEdge::load:cfg edge count(86)
+INFO  [ut.ckdb]: check TranslationUnit
+INFO  [ut.ckdb]: update coverage: total
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Thu Jun 08 21:13:30 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Thu Jun 08 21:13:30 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:13:55 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:13:55 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Thu Jun 08 21:13:55 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Thu Jun 08 21:13:55 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:13:58 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:13:58 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : no converted source
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Thu Jun 08 21:13:58 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp
+INFO  [EdgPreprocessor]: options:
+edgcfe4x preprocessor -D__DBL_MIN_EXP__=(-1021) -D__FLT_MIN__=1.17549435e-38F -D__CHAR_BIT__=8 -D__WCHAR_MAX__=2147483647 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 -D__DBL_DENORM_MIN__=4.9406564584124654e-324 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 -D__FLT_EVAL_METHOD__=0 -D__unix__=1 -D__x86_64=1 -D__DBL_MIN_10_EXP__=(-307) -D__FINITE_MATH_ONLY__=0 -D__LP64__=1 -D__DEC64_MAX_EXP__=385 -D__SHRT_MAX__=32767 -D__LDBL_MAX__=1.7976931348623157e+308 -D__UINTMAX_TYPE__=long unsigned int -D__linux=1 -D__DEC32_EPSILON__=1E-6DF -D__unix=1 -D__LDBL_MAX_EXP__=16384 -D__linux__=1 -D__SCHAR_MAX__=127 -D__DBL_DIG__=15 -D__SIZEOF_INT__=4 -D__SIZEOF_POINTER__=8 -D__USER_LABEL_PREFIX__=  -D__STDC_HOSTED__=1 -D__LDBL_HAS_INFINITY__=1 -D__FLT_EPSILON__=1.19209290e-7F -D__GXX_WEAK__=1 -D__LDBL_MIN__=3.36210314311209350626e-4932L -D__DEC32_MAX__=9.999999E96DF -D__SIZEOF_LONG__=8 -D__DECIMAL_DIG__=21 -D__gnu_linux__=1 -D__LDBL_HAS_QUIET_NAN__=1 -D__GXX_RTTI=1 -D__MMX__=1 -D__FLT_HAS_DENORM__=1 -D__SIZEOF_LONG_DOUBLE__=16 -D__BIGGEST_ALIGNMENT__=16 -D__DBL_MAX__=1.7976931348623157e+308 -D__DBL_HAS_INFINITY__=1 -D__DEC32_MIN_EXP__=(-94) -D__LDBL_HAS_DENORM__=1 -D__cplusplus=1 -D__DEC128_MAX__=9.999999999999999999999999999999999E6144DL -D__DEC32_MIN__=1E-95DF -D__DEPRECATED=1 -D__DBL_MAX_EXP__=1024 -D__DEC128_EPSILON__=1E-33DL -D__SSE2_MATH__=1 -D__amd64=1 -D__GNUG__=4 -D__LONG_LONG_MAX__=9223372036854775807LL -D__SIZEOF_SIZE_T__=8 -D__SIZEOF_WINT_T__=4 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -D__GXX_ABI_VERSION=1002 -D__FLT_MIN_EXP__=(-125) -D__DBL_MIN__=2.2250738585072014e-308 -D__FLT_MIN_10_EXP__=(-37) -D__DECIMAL_BID_FORMAT__=1 -D__DEC128_MIN__=1E-6143DL -D__REGISTER_PREFIX__=  -D__DBL_HAS_DENORM__=1 -D__NO_INLINE__=1 -D__FLT_MANT_DIG__=24 -D__VERSION__="4.4.4 20100503 (Red Hat 4.4.4-2)" -D__DEC64_EPSILON__=1E-15DD -D__DEC128_MIN_EXP__=(-6142) -Dunix=1 -D__SIZE_TYPE__=unsigned int -D__ELF__=1 -D__FLT_RADIX__=2 -D__LDBL_EPSILON__=1.08420217248550443401e-19L -D__k8=1 -D__SIZEOF_PTRDIFF_T__=8 -D__x86_64__=1 -D__DEC32_SUBNORMAL_MIN__=0.000001E-95DF -D__FLT_HAS_QUIET_NAN__=1 -D__FLT_MAX_10_EXP__=38 -D__LONG_MAX__=9223372036854775807L -D__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL -D__FLT_HAS_INFINITY__=1 -D__DEC64_MAX__=9.999999999999999E384DD -D__CHAR16_TYPE__=short unsigned int -D__DEC64_MANT_DIG__=16 -D__DEC32_MAX_EXP__=97 -Dlinux=1 -D__SSE2__=1 -D__EXCEPTIONS=1 -D__LDBL_MANT_DIG__=64 -D__DBL_HAS_QUIET_NAN__=1 -D__k8__=1 -D__WCHAR_TYPE__=int -D__SIZEOF_FLOAT__=4 -D__DEC64_MIN_EXP__=(-382) -D__FLT_DIG__=6 -D__INT_MAX__=2147483647 -D__amd64__=1 -D__FLT_MAX_EXP__=128 -D__DBL_MANT_DIG__=53 -D__DEC64_MIN__=1E-383DD -D__WINT_TYPE__=unsigned int -D__SIZEOF_SHORT__=2 -D__SSE__=1 -D__LDBL_MIN_EXP__=(-16381) -D__LDBL_MAX_10_EXP__=4932 -D__DBL_EPSILON__=2.2204460492503131e-16 -D_LP64=1 -D__SIZEOF_WCHAR_T__=4 -D__DEC_EVAL_METHOD__=2 -D__INTMAX_MAX__=9223372036854775807L -D__FLT_DENORM_MIN__=1.40129846e-45F -D__CHAR32_TYPE__=unsigned int -D__FLT_MAX__=3.40282347e+38F -D__SIZEOF_DOUBLE__=8 -D__INTMAX_TYPE__=long int -D__DEC128_MAX_EXP__=6145 -D__DEC32_MANT_DIG__=7 -D__DBL_MAX_10_EXP__=308 -D__LDBL_DENORM_MIN__=3.36210314311209350626e-4932L -D__PTRDIFF_TYPE__=long int -D__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD -D__DEC128_MANT_DIG__=34 -D__LDBL_MIN_10_EXP__=(-4931) -D__SSE_MATH__=1 -D__SIZEOF_LONG_LONG__=8 -D__LDBL_DIG__=18 -D__GNUC_GNU_INLINE__=1 -D_GNU_SOURCE=1 -I/testsc/src/ --c++ --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -IC:\testsc\share\csworkexample\example\.csdata\src\simulation -IC:\testsc\share\csworkexample\example\.csdata\src\instrumented -IC:\testsc\share\csworkexample\example\unittest -I- --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4 --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\x86_64-redhat-linux --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\backward --sys_include=T:\ICMS\CodeScroll\usr\local\include --sys_include=T:\ICMS\CodeScroll\usr\lib\gcc\x86_64-redhat-linux\4.4.4\include --sys_include=T:\ICMS\CodeScroll\usr\include --sys_include=T:\ICMS\devenv\DSSLib\inc\boost --cs_set_tu_id=1 -E --error_output=C:\testsc\share\csworkexample\example\.csdata\log\preprocess\examplesrc_1.i.cpp.plog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata -oC:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp C:\testsc\share\csworkexample\example\.csdata\src\simulation\examplesrc_1.cpp 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp(Parsing)
+INFO  [EdgCfe4x]: options:
+edgcfe4x --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -I/testsc/src/ -D__CS_CONVERTED__ -IC:\testsc\share\csworkexample\example\.csdata\src\simulation --c++ --cs_set_tu_id=1 --error_output=C:\testsc\share\csworkexample\example\.csdata\log\parse\examplesrc_1_1.i.cpp.elog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata C:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp 
+INFO  [DFA]: DFA_ENABLE=N
+INFO  [DFA]: SCFG_OUT=N
+INFO  [DFA]: LIMIT_ITER=N
+INFO  [DFA]: RESULT_OUT=N
+INFO  [DFA]: ITER_OUT=N
+INFO  [DFA]: TRANSFER_OUT=N
+INFO  [MainFrame]:    parsing=136ms(82)
+INFO  [MainFrame]: functional=29ms(17)
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 13ms used.
+INFO  [ConverterFinalizer]: 1ms used.
+INFO  [pa.main]: end time: Thu Jun 08 21:13:59 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(3133807479, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: isCompiled examplesrc_1.cpp : no object file
+INFO  [ut.bld]: iut compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -fpermissive  -c "C:\testsc\share\csworkexample\example\.csdata\src\build\examplesrc_1.cpp" -o "examplesrc_1.o" -I "C:\testsc\share\csworkexample\example\.csdata\src\build" ]
+INFO  [ut.bld]: examplesrc_1.cpp : set compiled(3133807479, 0, )
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link end. ok
+INFO  [ut.bld]: building ok
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Thu Jun 08 21:14:10 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Thu Jun 08 21:14:10 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:14:13 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call ecm
+INFO  [ut.ecm]: 
+---------------------------------------------------------------------
+$ ut.ecm Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:14:13 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ecm]: RELEASE build engine
+INFO  [ut.ecm]: testcase timeout(3000)
+INFO  [ut.ecm]: keep context(0)
+INFO  [ut.ecm]: main:start
+INFO  [ut.ecm]: TestcasePreparer:active testcase count(31)
+INFO  [ut.ecm]: TestcasePreparer: testcaseDataInitialize
+INFO  [ut.cem]: FunctionProvider: constructor
+INFO  [ut.cem]: TruthTable::load:truth table
+INFO  [ut.cem]: CFGNode::load:cfg node
+INFO  [ut.cem]: CFGNode::load:cfg node count(55)
+INFO  [ut.cem]: CFGNode::load:load mcdc probe info
+INFO  [ut.cem]: CFGNode::load:mcdc probe info count(0), mcdc case count(0)
+INFO  [ut.cem]: CFGEdge::load:cfg edge
+INFO  [ut.cem]: CFGEdge::load:cfg edge count(86)
+INFO  [ut.ecm]: max testdata(10240)
+INFO  [ut.hio]: IODriver:coverage buffer size(86), max testdata count(10240)
+INFO  [ut.hio]: createSharedMemory:control memory size(656694)
+INFO  [ut.hio]: createSharedMemory:data memory size(239636)
+INFO  [ut.hio]: sizeof testdata(16), dbuf(001F0010), dbufUse(00218010)
+INFO  [ut.hio]: createSharedMemory::shm memory key. control=20160314, data=20160316
+INFO  [ut.hio]: createSharedMemory::shm memory size. control=656694, data=239636
+INFO  [ut.ecm]: pilot:start
+INFO  [ut.ecm]: pilot:ok
+INFO  [ut.ecm]: TestcasePreparerRunner:start
+INFO  [ut.ecm]: TestcasePreparerRunner:suite count(1), test count(1)
+INFO  [ut.ecm]: prepareTestcase:suite(), test(example_example1_test0,4294967296), suite index(0) test index(2)
+INFO  [ut.ecm]: prepareTestcase:start test(example_example1_test0,4294967296)
+INFO  [ut.ecm]: TestExecutorSm:start
+INFO  [ut.ecm]: TestResultAnalyzerRunner:start
+INFO  [ut.ecm]: prepareTestcase:end test(example_example1_test0,4294967296), testcase count(31)
+INFO  [ut.ecm]: TestcasePreparerRunner:end
+INFO  [ut.ecm]: TestExecutorSm:end. testcase count(31)
+INFO  [ut.ecm]: TestcasePreparer:receive stop request
+INFO  [ut.ecm]: TestResultAnalyzerRunner:end. testcase count(31)
+INFO  [ut.ecm]: main:end of engine
+INFO  [ut.ecm]: 
+---------------------------------------------------------------------
+$ ut.ecm End
+$ Current time: Thu Jun 08 21:14:16 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Thu Jun 08 21:14:17 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:18:12 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:18:12 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Thu Jun 08 21:18:12 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Thu Jun 08 21:18:12 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:18:15 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:18:15 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : test changed(3133807479, 748357570)
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Thu Jun 08 21:18:15 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp
+INFO  [EdgPreprocessor]: options:
+edgcfe4x preprocessor -D__DBL_MIN_EXP__=(-1021) -D__FLT_MIN__=1.17549435e-38F -D__CHAR_BIT__=8 -D__WCHAR_MAX__=2147483647 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 -D__DBL_DENORM_MIN__=4.9406564584124654e-324 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 -D__FLT_EVAL_METHOD__=0 -D__unix__=1 -D__x86_64=1 -D__DBL_MIN_10_EXP__=(-307) -D__FINITE_MATH_ONLY__=0 -D__LP64__=1 -D__DEC64_MAX_EXP__=385 -D__SHRT_MAX__=32767 -D__LDBL_MAX__=1.7976931348623157e+308 -D__UINTMAX_TYPE__=long unsigned int -D__linux=1 -D__DEC32_EPSILON__=1E-6DF -D__unix=1 -D__LDBL_MAX_EXP__=16384 -D__linux__=1 -D__SCHAR_MAX__=127 -D__DBL_DIG__=15 -D__SIZEOF_INT__=4 -D__SIZEOF_POINTER__=8 -D__USER_LABEL_PREFIX__=  -D__STDC_HOSTED__=1 -D__LDBL_HAS_INFINITY__=1 -D__FLT_EPSILON__=1.19209290e-7F -D__GXX_WEAK__=1 -D__LDBL_MIN__=3.36210314311209350626e-4932L -D__DEC32_MAX__=9.999999E96DF -D__SIZEOF_LONG__=8 -D__DECIMAL_DIG__=21 -D__gnu_linux__=1 -D__LDBL_HAS_QUIET_NAN__=1 -D__GXX_RTTI=1 -D__MMX__=1 -D__FLT_HAS_DENORM__=1 -D__SIZEOF_LONG_DOUBLE__=16 -D__BIGGEST_ALIGNMENT__=16 -D__DBL_MAX__=1.7976931348623157e+308 -D__DBL_HAS_INFINITY__=1 -D__DEC32_MIN_EXP__=(-94) -D__LDBL_HAS_DENORM__=1 -D__cplusplus=1 -D__DEC128_MAX__=9.999999999999999999999999999999999E6144DL -D__DEC32_MIN__=1E-95DF -D__DEPRECATED=1 -D__DBL_MAX_EXP__=1024 -D__DEC128_EPSILON__=1E-33DL -D__SSE2_MATH__=1 -D__amd64=1 -D__GNUG__=4 -D__LONG_LONG_MAX__=9223372036854775807LL -D__SIZEOF_SIZE_T__=8 -D__SIZEOF_WINT_T__=4 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -D__GXX_ABI_VERSION=1002 -D__FLT_MIN_EXP__=(-125) -D__DBL_MIN__=2.2250738585072014e-308 -D__FLT_MIN_10_EXP__=(-37) -D__DECIMAL_BID_FORMAT__=1 -D__DEC128_MIN__=1E-6143DL -D__REGISTER_PREFIX__=  -D__DBL_HAS_DENORM__=1 -D__NO_INLINE__=1 -D__FLT_MANT_DIG__=24 -D__VERSION__="4.4.4 20100503 (Red Hat 4.4.4-2)" -D__DEC64_EPSILON__=1E-15DD -D__DEC128_MIN_EXP__=(-6142) -Dunix=1 -D__SIZE_TYPE__=unsigned int -D__ELF__=1 -D__FLT_RADIX__=2 -D__LDBL_EPSILON__=1.08420217248550443401e-19L -D__k8=1 -D__SIZEOF_PTRDIFF_T__=8 -D__x86_64__=1 -D__DEC32_SUBNORMAL_MIN__=0.000001E-95DF -D__FLT_HAS_QUIET_NAN__=1 -D__FLT_MAX_10_EXP__=38 -D__LONG_MAX__=9223372036854775807L -D__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL -D__FLT_HAS_INFINITY__=1 -D__DEC64_MAX__=9.999999999999999E384DD -D__CHAR16_TYPE__=short unsigned int -D__DEC64_MANT_DIG__=16 -D__DEC32_MAX_EXP__=97 -Dlinux=1 -D__SSE2__=1 -D__EXCEPTIONS=1 -D__LDBL_MANT_DIG__=64 -D__DBL_HAS_QUIET_NAN__=1 -D__k8__=1 -D__WCHAR_TYPE__=int -D__SIZEOF_FLOAT__=4 -D__DEC64_MIN_EXP__=(-382) -D__FLT_DIG__=6 -D__INT_MAX__=2147483647 -D__amd64__=1 -D__FLT_MAX_EXP__=128 -D__DBL_MANT_DIG__=53 -D__DEC64_MIN__=1E-383DD -D__WINT_TYPE__=unsigned int -D__SIZEOF_SHORT__=2 -D__SSE__=1 -D__LDBL_MIN_EXP__=(-16381) -D__LDBL_MAX_10_EXP__=4932 -D__DBL_EPSILON__=2.2204460492503131e-16 -D_LP64=1 -D__SIZEOF_WCHAR_T__=4 -D__DEC_EVAL_METHOD__=2 -D__INTMAX_MAX__=9223372036854775807L -D__FLT_DENORM_MIN__=1.40129846e-45F -D__CHAR32_TYPE__=unsigned int -D__FLT_MAX__=3.40282347e+38F -D__SIZEOF_DOUBLE__=8 -D__INTMAX_TYPE__=long int -D__DEC128_MAX_EXP__=6145 -D__DEC32_MANT_DIG__=7 -D__DBL_MAX_10_EXP__=308 -D__LDBL_DENORM_MIN__=3.36210314311209350626e-4932L -D__PTRDIFF_TYPE__=long int -D__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD -D__DEC128_MANT_DIG__=34 -D__LDBL_MIN_10_EXP__=(-4931) -D__SSE_MATH__=1 -D__SIZEOF_LONG_LONG__=8 -D__LDBL_DIG__=18 -D__GNUC_GNU_INLINE__=1 -D_GNU_SOURCE=1 -I/testsc/src/ --c++ --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -IC:\testsc\share\csworkexample\example\.csdata\src\simulation -IC:\testsc\share\csworkexample\example\.csdata\src\instrumented -IC:\testsc\share\csworkexample\example\unittest -I- --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4 --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\x86_64-redhat-linux --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\backward --sys_include=T:\ICMS\CodeScroll\usr\local\include --sys_include=T:\ICMS\CodeScroll\usr\lib\gcc\x86_64-redhat-linux\4.4.4\include --sys_include=T:\ICMS\CodeScroll\usr\include --sys_include=T:\ICMS\devenv\DSSLib\inc\boost --cs_set_tu_id=1 -E --error_output=C:\testsc\share\csworkexample\example\.csdata\log\preprocess\examplesrc_1.i.cpp.plog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata -oC:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp C:\testsc\share\csworkexample\example\.csdata\src\simulation\examplesrc_1.cpp 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp(Parsing)
+INFO  [EdgCfe4x]: options:
+edgcfe4x --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -I/testsc/src/ -D__CS_CONVERTED__ -IC:\testsc\share\csworkexample\example\.csdata\src\simulation --c++ --cs_set_tu_id=1 --error_output=C:\testsc\share\csworkexample\example\.csdata\log\parse\examplesrc_1_1.i.cpp.elog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata C:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp 
+INFO  [DFA]: DFA_ENABLE=N
+INFO  [DFA]: SCFG_OUT=N
+INFO  [DFA]: LIMIT_ITER=N
+INFO  [DFA]: RESULT_OUT=N
+INFO  [DFA]: ITER_OUT=N
+INFO  [DFA]: TRANSFER_OUT=N
+INFO  [MainFrame]:    parsing=90ms(82)
+INFO  [MainFrame]: functional=19ms(17)
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 6ms used.
+INFO  [ConverterFinalizer]: 1ms used.
+INFO  [pa.main]: end time: Thu Jun 08 21:18:16 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(748357570, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: isCompiled examplesrc_1.cpp : test changed(3133807479, 748357570)
+INFO  [ut.bld]: iut compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -fpermissive  -c "C:\testsc\share\csworkexample\example\.csdata\src\build\examplesrc_1.cpp" -o "examplesrc_1.o" -I "C:\testsc\share\csworkexample\example\.csdata\src\build" ]
+INFO  [ut.bld]: examplesrc_1.cpp : set compiled(748357570, 0, )
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link fail. check undefined symbol & try creating stub
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcad): undefined reference to `testsc_ivalue(char const*)'
+
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcbc): undefined reference to `testsc_ivalue(char const*)'
+
+INFO  [ut.bld]: stub generate...
+INFO  [ut.bld]: analyze object...
+INFO  [ut.bld]: analyze library...1
+INFO  [ut.bld]: stub generator : undefinedSymbols count(8) in binary
+INFO  [ut.bld]: stub generator : codescroll_get_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_set_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_symbol_index is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_testcase_number is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_CoverageBuffer is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_LastProbe is not found in link log
+INFO  [ut.bld]: stub generator : testsc_init(int, char const*, char const*) is not found in link log
+INFO  [ut.bld]: stub generator : testsc_ivalue(char const*) is not found undefinedDecl
+INFO  [ut.bld]: stub generator : no stub generated
+ERROR [ut.bld]: fail to create stub
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Thu Jun 08 21:18:27 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Thu Jun 08 21:18:28 2017
+
+
+---------------------------------------------------------------------
+
+ERROR [ut.cli]: link failed
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Thu Jun 08 21:20:51 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [describeFunctionUnits]: SYSTEM_LIBRARIES_ALWAYS_LINKED=N
+INFO  [MainFrame]: PHASE21001|<cs#delim>|[1/1] examplesrc.cpp
+INFO  [EdgPreprocessor]: options:
+edgcfe4x preprocessor -D__DBL_MIN_EXP__=(-1021) -D__FLT_MIN__=1.17549435e-38F -D__CHAR_BIT__=8 -D__WCHAR_MAX__=2147483647 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 -D__DBL_DENORM_MIN__=4.9406564584124654e-324 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 -D__FLT_EVAL_METHOD__=0 -D__unix__=1 -D__x86_64=1 -D__DBL_MIN_10_EXP__=(-307) -D__FINITE_MATH_ONLY__=0 -D__LP64__=1 -D__DEC64_MAX_EXP__=385 -D__SHRT_MAX__=32767 -D__LDBL_MAX__=1.7976931348623157e+308 -D__UINTMAX_TYPE__=long unsigned int -D__linux=1 -D__DEC32_EPSILON__=1E-6DF -D__unix=1 -D__LDBL_MAX_EXP__=16384 -D__linux__=1 -D__SCHAR_MAX__=127 -D__DBL_DIG__=15 -D__SIZEOF_INT__=4 -D__SIZEOF_POINTER__=8 -D__USER_LABEL_PREFIX__=  -D__STDC_HOSTED__=1 -D__LDBL_HAS_INFINITY__=1 -D__FLT_EPSILON__=1.19209290e-7F -D__GXX_WEAK__=1 -D__LDBL_MIN__=3.36210314311209350626e-4932L -D__DEC32_MAX__=9.999999E96DF -D__SIZEOF_LONG__=8 -D__DECIMAL_DIG__=21 -D__gnu_linux__=1 -D__LDBL_HAS_QUIET_NAN__=1 -D__GXX_RTTI=1 -D__MMX__=1 -D__FLT_HAS_DENORM__=1 -D__SIZEOF_LONG_DOUBLE__=16 -D__BIGGEST_ALIGNMENT__=16 -D__DBL_MAX__=1.7976931348623157e+308 -D__DBL_HAS_INFINITY__=1 -D__DEC32_MIN_EXP__=(-94) -D__LDBL_HAS_DENORM__=1 -D__cplusplus=1 -D__DEC128_MAX__=9.999999999999999999999999999999999E6144DL -D__DEC32_MIN__=1E-95DF -D__DEPRECATED=1 -D__DBL_MAX_EXP__=1024 -D__DEC128_EPSILON__=1E-33DL -D__SSE2_MATH__=1 -D__amd64=1 -D__GNUG__=4 -D__LONG_LONG_MAX__=9223372036854775807LL -D__SIZEOF_SIZE_T__=8 -D__SIZEOF_WINT_T__=4 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -D__GXX_ABI_VERSION=1002 -D__FLT_MIN_EXP__=(-125) -D__DBL_MIN__=2.2250738585072014e-308 -D__FLT_MIN_10_EXP__=(-37) -D__DECIMAL_BID_FORMAT__=1 -D__DEC128_MIN__=1E-6143DL -D__REGISTER_PREFIX__=  -D__DBL_HAS_DENORM__=1 -D__NO_INLINE__=1 -D__FLT_MANT_DIG__=24 -D__VERSION__="4.4.4 20100503 (Red Hat 4.4.4-2)" -D__DEC64_EPSILON__=1E-15DD -D__DEC128_MIN_EXP__=(-6142) -Dunix=1 -D__SIZE_TYPE__=unsigned int -D__ELF__=1 -D__FLT_RADIX__=2 -D__LDBL_EPSILON__=1.08420217248550443401e-19L -D__k8=1 -D__SIZEOF_PTRDIFF_T__=8 -D__x86_64__=1 -D__DEC32_SUBNORMAL_MIN__=0.000001E-95DF -D__FLT_HAS_QUIET_NAN__=1 -D__FLT_MAX_10_EXP__=38 -D__LONG_MAX__=9223372036854775807L -D__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL -D__FLT_HAS_INFINITY__=1 -D__DEC64_MAX__=9.999999999999999E384DD -D__CHAR16_TYPE__=short unsigned int -D__DEC64_MANT_DIG__=16 -D__DEC32_MAX_EXP__=97 -Dlinux=1 -D__SSE2__=1 -D__EXCEPTIONS=1 -D__LDBL_MANT_DIG__=64 -D__DBL_HAS_QUIET_NAN__=1 -D__k8__=1 -D__WCHAR_TYPE__=int -D__SIZEOF_FLOAT__=4 -D__DEC64_MIN_EXP__=(-382) -D__FLT_DIG__=6 -D__INT_MAX__=2147483647 -D__amd64__=1 -D__FLT_MAX_EXP__=128 -D__DBL_MANT_DIG__=53 -D__DEC64_MIN__=1E-383DD -D__WINT_TYPE__=unsigned int -D__SIZEOF_SHORT__=2 -D__SSE__=1 -D__LDBL_MIN_EXP__=(-16381) -D__LDBL_MAX_10_EXP__=4932 -D__DBL_EPSILON__=2.2204460492503131e-16 -D_LP64=1 -D__SIZEOF_WCHAR_T__=4 -D__DEC_EVAL_METHOD__=2 -D__INTMAX_MAX__=9223372036854775807L -D__FLT_DENORM_MIN__=1.40129846e-45F -D__CHAR32_TYPE__=unsigned int -D__FLT_MAX__=3.40282347e+38F -D__SIZEOF_DOUBLE__=8 -D__INTMAX_TYPE__=long int -D__DEC128_MAX_EXP__=6145 -D__DEC32_MANT_DIG__=7 -D__DBL_MAX_10_EXP__=308 -D__LDBL_DENORM_MIN__=3.36210314311209350626e-4932L -D__PTRDIFF_TYPE__=long int -D__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD -D__DEC128_MANT_DIG__=34 -D__LDBL_MIN_10_EXP__=(-4931) -D__SSE_MATH__=1 -D__SIZEOF_LONG_LONG__=8 -D__LDBL_DIG__=18 -D__GNUC_GNU_INLINE__=1 -D_GNU_SOURCE=1 -I/testsc/src/ --c++ --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x --preinclude=C:\testsc\share\csworkexample\example\.csdata\recent_preinclude.h -I- --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4 --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\x86_64-redhat-linux --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\backward --sys_include=T:\ICMS\CodeScroll\usr\local\include --sys_include=T:\ICMS\CodeScroll\usr\lib\gcc\x86_64-redhat-linux\4.4.4\include --sys_include=T:\ICMS\CodeScroll\usr\include --sys_include=T:\ICMS\devenv\DSSLib\inc\boost --cs_set_tu_id=1 -E --error_output=C:\testsc\share\csworkexample\example\.csdata\log\preprocess\examplesrc_1.i.cpp.plog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata -oC:\testsc\share\csworkexample\example\.csdata\src\preprocessed\examplesrc_1.i.cpp C:\testsc\share\srcexample\examplesrc.cpp 
+INFO  [MainFrame]: PHASE21001|<cs#delim>|[1/1] examplesrc.cpp(Parsing)
+INFO  [EdgCfe4x]: options:
+edgcfe4x --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -I/testsc/src/ --c++ --cs_set_tu_id=1 --error_output=C:\testsc\share\csworkexample\example\.csdata\log\parse\examplesrc_1.i.cpp.elog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata C:\testsc\share\csworkexample\example\.csdata\src\preprocessed\examplesrc_1.i.cpp 
+INFO  [Database]: new build precompiled statement for TypeInfo::arraySize,assocScope,beginLine,code,endLine,exceptionSpecifications,flag,floatKind,idSourceFile,idTranslationUnit,idTypeInfo,intKind,kind,leftEndpoint,modifier,name,normalizeTypeName,parent,ptrToMemClassType,qualifiedName,rawTypeName,returnType,rightEndpoint,topLevelQualifierRemovedCode,typeName,volume -- INSERT INTO TypeInfo (arraySize,assocScope,beginLine,code,endLine,exceptionSpecifications,flag,floatKind,idSourceFile,idTranslationUnit,idTypeInfo,intKind,kind,leftEndpoint,modifier,name,normalizeTypeName,parent,ptrToMemClassType,qualifiedName,rawTypeName,returnType,rightEndpoint,topLevelQualifierRemovedCode,typeName,volume) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+INFO  [Database]: new build precompiled statement for Scope::idModule,idScope,kind,name,parent,qualifiedName -- INSERT INTO Scope (idModule,idScope,kind,name,parent,qualifiedName) VALUES (?,?,?,?,?,?)
+INFO  [Database]: new build precompiled statement for SourceFile::idSourceFile,isExcluded,isSystem,path,updateTime -- INSERT INTO SourceFile (idSourceFile,isExcluded,isSystem,path,updateTime) VALUES (?,?,?,?,?)
+INFO  [Database]: new build precompiled statement for UndefinedVariableDecl::idTranslationUnit,qualifiedIdentifier,stubDefinitionCode -- INSERT INTO UndefinedVariableDecl (idTranslationUnit,qualifiedIdentifier,stubDefinitionCode) VALUES (?,?,?)
+INFO  [DFA]: DFA_ENABLE=N
+INFO  [DFA]: SCFG_OUT=N
+INFO  [DFA]: LIMIT_ITER=N
+INFO  [DFA]: RESULT_OUT=N
+INFO  [DFA]: ITER_OUT=N
+INFO  [DFA]: TRANSFER_OUT=N
+INFO  [Database]: new build precompiled statement for CoverageProbeInfo::idCFGEdge,idFunctionInfo,probeIndex -- INSERT INTO CoverageProbeInfo (idCFGEdge,idFunctionInfo,probeIndex) VALUES (?,?,?)
+INFO  [PropertyLoader]: no OP_BOOLEAN_IS_DECISION in Properties, default value is 0
+INFO  [PropertyLoader]: no OP_CONSTANT_EXPR_IS_DECISION in Properties, default value is 0
+INFO  [Database]: new build precompiled statement for FunctionInfo::beginLine,bodyHash,compatibleSignatureHash,endLine,exceptionSpecifications,flag,idFunctionInfo,idPrimaryTemplate,idSourceFile,idTranslationUnit,modifier,name,parent,qualifiedName,returnType,signature,signatureHash,templateSignature -- INSERT INTO FunctionInfo (beginLine,bodyHash,compatibleSignatureHash,endLine,exceptionSpecifications,flag,idFunctionInfo,idPrimaryTemplate,idSourceFile,idTranslationUnit,modifier,name,parent,qualifiedName,returnType,signature,signatureHash,templateSignature) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+INFO  [Database]: new build precompiled statement for UndefinedFunctionDecl::flag,idTranslationUnit,idUndefinedFunctionDecl,qualifiedIdentifier,signatureHash,signatureWithParam,stubDefinitionBody,stubDefinitionCode,stubSelectCode -- INSERT INTO UndefinedFunctionDecl (flag,idTranslationUnit,idUndefinedFunctionDecl,qualifiedIdentifier,signatureHash,signatureWithParam,stubDefinitionBody,stubDefinitionCode,stubSelectCode) VALUES (?,?,?,?,?,?,?,?,?)
+INFO  [MainFrame]:    parsing=16ms(30)
+INFO  [MainFrame]: functional=36ms(69)
+INFO  [CodeRewriter]:   Function Body Hash Probe Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   StaticVariableDeclarationStatement Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   Function Body Disable Macro Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   Function Body Disable Macro Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   Branch Coverage Instrumentation: 1ms used.
+INFO  [CodeRewriter]:    - run: 1ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   MC/DC Instrumentation: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   CfgNode Begin Statement Instrumentation: 1ms used.
+INFO  [CodeRewriter]:    - run: 1ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   EndOfVariableDeclarationInserter: 0ms used.
+INFO  [CodeRewriter]:    - run: 0ms used.
+INFO  [CodeRewriter]:    - writeHeader: 0ms used.
+INFO  [CodeRewriter]:    - duplicateTemplateInstance: 0ms used.
+INFO  [CodeRewriter]:   unit total: 2ms used.
+INFO  [CodeRewriter]:   functionLineUp: 0ms used.
+INFO  [CodeRewriter]:   lineUp: 0ms used.
+INFO  [CodeRewriter]:   writing: 3ms used.
+INFO  [MainFrame]: PHASE21002
+INFO  [LinkingTime]: RUNNING - FunctionMapBuilder
+INFO  [LinkingTime]: RUNNING - GlobalVariableMapBuilder
+INFO  [LinkingTime]: RUNNING - CodeRewriter
+INFO  [LinkingTime]: RUNNING - MetricGenerator
+INFO  [CFGWriter]: 2ms used.
+INFO  [CodeRewriter]: 10ms used.
+INFO  [ConstantExtractor]: 0ms used.
+INFO  [EachAfterAnalyzingTranslationUnit]: 0ms used.
+INFO  [ExecutedSourceLineCollector]: 0ms used.
+INFO  [FieldUseExtractor]: 1ms used.
+INFO  [FunctionDeclGenerator]: 0ms used.
+INFO  [FunctionInfoGenerator]: 0ms used.
+INFO  [FunctionMapBuilder]: 6ms used.
+INFO  [Global Variable Use/Def Extractor]: 1ms used.
+INFO  [GlobalVariable Extractor]: 0ms used.
+INFO  [GlobalVariableMapBuilder]: 0ms used.
+INFO  [IncludeRelationWriter]: 2ms used.
+INFO  [InheritanceInfoGenerator]: 0ms used.
+INFO  [MetricGenerator]: 15ms used.
+INFO  [Scope Info Generator]: 2ms used.
+INFO  [SourceFileWriter]: 2ms used.
+INFO  [TypeInfo Generator]: 4ms used.
+INFO  [VariableDeclGenerator]: 2ms used.
+INFO  [functionUsedGenerator]: 0ms used.
+INFO  [pa.main]: end time: Thu Jun 08 21:20:53 2017
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:20:56 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:20:56 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Thu Jun 08 21:20:56 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Thu Jun 08 21:20:56 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:20:59 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Thu Jun 08 21:20:59 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : no converted source
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Thu Jun 08 21:20:59 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp
+INFO  [EdgPreprocessor]: options:
+edgcfe4x preprocessor -D__DBL_MIN_EXP__=(-1021) -D__FLT_MIN__=1.17549435e-38F -D__CHAR_BIT__=8 -D__WCHAR_MAX__=2147483647 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 -D__DBL_DENORM_MIN__=4.9406564584124654e-324 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 -D__FLT_EVAL_METHOD__=0 -D__unix__=1 -D__x86_64=1 -D__DBL_MIN_10_EXP__=(-307) -D__FINITE_MATH_ONLY__=0 -D__LP64__=1 -D__DEC64_MAX_EXP__=385 -D__SHRT_MAX__=32767 -D__LDBL_MAX__=1.7976931348623157e+308 -D__UINTMAX_TYPE__=long unsigned int -D__linux=1 -D__DEC32_EPSILON__=1E-6DF -D__unix=1 -D__LDBL_MAX_EXP__=16384 -D__linux__=1 -D__SCHAR_MAX__=127 -D__DBL_DIG__=15 -D__SIZEOF_INT__=4 -D__SIZEOF_POINTER__=8 -D__USER_LABEL_PREFIX__=  -D__STDC_HOSTED__=1 -D__LDBL_HAS_INFINITY__=1 -D__FLT_EPSILON__=1.19209290e-7F -D__GXX_WEAK__=1 -D__LDBL_MIN__=3.36210314311209350626e-4932L -D__DEC32_MAX__=9.999999E96DF -D__SIZEOF_LONG__=8 -D__DECIMAL_DIG__=21 -D__gnu_linux__=1 -D__LDBL_HAS_QUIET_NAN__=1 -D__GXX_RTTI=1 -D__MMX__=1 -D__FLT_HAS_DENORM__=1 -D__SIZEOF_LONG_DOUBLE__=16 -D__BIGGEST_ALIGNMENT__=16 -D__DBL_MAX__=1.7976931348623157e+308 -D__DBL_HAS_INFINITY__=1 -D__DEC32_MIN_EXP__=(-94) -D__LDBL_HAS_DENORM__=1 -D__cplusplus=1 -D__DEC128_MAX__=9.999999999999999999999999999999999E6144DL -D__DEC32_MIN__=1E-95DF -D__DEPRECATED=1 -D__DBL_MAX_EXP__=1024 -D__DEC128_EPSILON__=1E-33DL -D__SSE2_MATH__=1 -D__amd64=1 -D__GNUG__=4 -D__LONG_LONG_MAX__=9223372036854775807LL -D__SIZEOF_SIZE_T__=8 -D__SIZEOF_WINT_T__=4 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -D__GXX_ABI_VERSION=1002 -D__FLT_MIN_EXP__=(-125) -D__DBL_MIN__=2.2250738585072014e-308 -D__FLT_MIN_10_EXP__=(-37) -D__DECIMAL_BID_FORMAT__=1 -D__DEC128_MIN__=1E-6143DL -D__REGISTER_PREFIX__=  -D__DBL_HAS_DENORM__=1 -D__NO_INLINE__=1 -D__FLT_MANT_DIG__=24 -D__VERSION__="4.4.4 20100503 (Red Hat 4.4.4-2)" -D__DEC64_EPSILON__=1E-15DD -D__DEC128_MIN_EXP__=(-6142) -Dunix=1 -D__SIZE_TYPE__=unsigned int -D__ELF__=1 -D__FLT_RADIX__=2 -D__LDBL_EPSILON__=1.08420217248550443401e-19L -D__k8=1 -D__SIZEOF_PTRDIFF_T__=8 -D__x86_64__=1 -D__DEC32_SUBNORMAL_MIN__=0.000001E-95DF -D__FLT_HAS_QUIET_NAN__=1 -D__FLT_MAX_10_EXP__=38 -D__LONG_MAX__=9223372036854775807L -D__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL -D__FLT_HAS_INFINITY__=1 -D__DEC64_MAX__=9.999999999999999E384DD -D__CHAR16_TYPE__=short unsigned int -D__DEC64_MANT_DIG__=16 -D__DEC32_MAX_EXP__=97 -Dlinux=1 -D__SSE2__=1 -D__EXCEPTIONS=1 -D__LDBL_MANT_DIG__=64 -D__DBL_HAS_QUIET_NAN__=1 -D__k8__=1 -D__WCHAR_TYPE__=int -D__SIZEOF_FLOAT__=4 -D__DEC64_MIN_EXP__=(-382) -D__FLT_DIG__=6 -D__INT_MAX__=2147483647 -D__amd64__=1 -D__FLT_MAX_EXP__=128 -D__DBL_MANT_DIG__=53 -D__DEC64_MIN__=1E-383DD -D__WINT_TYPE__=unsigned int -D__SIZEOF_SHORT__=2 -D__SSE__=1 -D__LDBL_MIN_EXP__=(-16381) -D__LDBL_MAX_10_EXP__=4932 -D__DBL_EPSILON__=2.2204460492503131e-16 -D_LP64=1 -D__SIZEOF_WCHAR_T__=4 -D__DEC_EVAL_METHOD__=2 -D__INTMAX_MAX__=9223372036854775807L -D__FLT_DENORM_MIN__=1.40129846e-45F -D__CHAR32_TYPE__=unsigned int -D__FLT_MAX__=3.40282347e+38F -D__SIZEOF_DOUBLE__=8 -D__INTMAX_TYPE__=long int -D__DEC128_MAX_EXP__=6145 -D__DEC32_MANT_DIG__=7 -D__DBL_MAX_10_EXP__=308 -D__LDBL_DENORM_MIN__=3.36210314311209350626e-4932L -D__PTRDIFF_TYPE__=long int -D__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD -D__DEC128_MANT_DIG__=34 -D__LDBL_MIN_10_EXP__=(-4931) -D__SSE_MATH__=1 -D__SIZEOF_LONG_LONG__=8 -D__LDBL_DIG__=18 -D__GNUC_GNU_INLINE__=1 -D_GNU_SOURCE=1 -I/testsc/src/ --c++ --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -IC:\testsc\share\csworkexample\example\.csdata\src\simulation -IC:\testsc\share\csworkexample\example\.csdata\src\instrumented -IC:\testsc\share\csworkexample\example\unittest -I- --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4 --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\x86_64-redhat-linux --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\backward --sys_include=T:\ICMS\CodeScroll\usr\local\include --sys_include=T:\ICMS\CodeScroll\usr\lib\gcc\x86_64-redhat-linux\4.4.4\include --sys_include=T:\ICMS\CodeScroll\usr\include --sys_include=T:\ICMS\devenv\DSSLib\inc\boost --cs_set_tu_id=1 -E --error_output=C:\testsc\share\csworkexample\example\.csdata\log\preprocess\examplesrc_1.i.cpp.plog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata -oC:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp C:\testsc\share\csworkexample\example\.csdata\src\simulation\examplesrc_1.cpp 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp(Parsing)
+INFO  [EdgCfe4x]: options:
+edgcfe4x --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -I/testsc/src/ -D__CS_CONVERTED__ -IC:\testsc\share\csworkexample\example\.csdata\src\simulation --c++ --cs_set_tu_id=1 --error_output=C:\testsc\share\csworkexample\example\.csdata\log\parse\examplesrc_1_1.i.cpp.elog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata C:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp 
+INFO  [DFA]: DFA_ENABLE=N
+INFO  [DFA]: SCFG_OUT=N
+INFO  [DFA]: LIMIT_ITER=N
+INFO  [DFA]: RESULT_OUT=N
+INFO  [DFA]: ITER_OUT=N
+INFO  [DFA]: TRANSFER_OUT=N
+INFO  [MainFrame]:    parsing=54ms(75)
+INFO  [MainFrame]: functional=18ms(25)
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 9ms used.
+INFO  [ConverterFinalizer]: 2ms used.
+INFO  [pa.main]: end time: Thu Jun 08 21:21:00 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(748357570, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: isCompiled examplesrc_1.cpp : no object file
+INFO  [ut.bld]: iut compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -fpermissive  -c "C:\testsc\share\csworkexample\example\.csdata\src\build\examplesrc_1.cpp" -o "examplesrc_1.o" -I "C:\testsc\share\csworkexample\example\.csdata\src\build" ]
+INFO  [ut.bld]: examplesrc_1.cpp : set compiled(748357570, 0, )
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link fail. check undefined symbol & try creating stub
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcad): undefined reference to `testsc_ivalue(char const*)'
+
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcbc): undefined reference to `testsc_ivalue(char const*)'
+
+INFO  [ut.bld]: stub generate...
+INFO  [ut.bld]: analyze object...
+INFO  [ut.bld]: analyze library...1
+INFO  [ut.bld]: stub generator : undefinedSymbols count(8) in binary
+INFO  [ut.bld]: stub generator : codescroll_get_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_set_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_symbol_index is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_testcase_number is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_CoverageBuffer is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_LastProbe is not found in link log
+INFO  [ut.bld]: stub generator : testsc_init(int, char const*, char const*) is not found in link log
+INFO  [ut.bld]: stub generator : testsc_ivalue(char const*) is not found undefinedDecl
+INFO  [ut.bld]: stub generator : no stub generated
+ERROR [ut.bld]: fail to create stub
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Thu Jun 08 21:21:10 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Thu Jun 08 21:21:10 2017
+
+
+---------------------------------------------------------------------
+
+ERROR [ut.cli]: link failed
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:29:21 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:29:21 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Fri Jun 09 10:29:22 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:29:22 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:29:24 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:29:24 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : not changed
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Fri Jun 09 10:29:24 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 1ms used.
+INFO  [ConverterFinalizer]: 1ms used.
+INFO  [pa.main]: end time: Fri Jun 09 10:29:25 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(748357570, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: skip compile. not changed src : examplesrc.cpp
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link fail. check undefined symbol & try creating stub
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcad): undefined reference to `testsc_ivalue(char const*)'
+
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcbc): undefined reference to `testsc_ivalue(char const*)'
+
+INFO  [ut.bld]: stub generate...
+INFO  [ut.bld]: analyze object...
+INFO  [ut.bld]: analyze library...1
+INFO  [ut.bld]: stub generator : undefinedSymbols count(8) in binary
+INFO  [ut.bld]: stub generator : codescroll_get_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_set_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_symbol_index is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_testcase_number is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_CoverageBuffer is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_LastProbe is not found in link log
+INFO  [ut.bld]: stub generator : testsc_init(int, char const*, char const*) is not found in link log
+INFO  [ut.bld]: stub generator : testsc_ivalue(char const*) is not found undefinedDecl
+INFO  [ut.bld]: stub generator : no stub generated
+ERROR [ut.bld]: fail to create stub
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Fri Jun 09 10:29:26 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:29:26 2017
+
+
+---------------------------------------------------------------------
+
+ERROR [ut.cli]: link failed
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:30:24 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:30:24 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Fri Jun 09 10:30:24 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:30:24 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:30:26 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:30:26 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : test changed(748357570, 2783980010)
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Fri Jun 09 10:30:27 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp
+INFO  [EdgPreprocessor]: options:
+edgcfe4x preprocessor -D__DBL_MIN_EXP__=(-1021) -D__FLT_MIN__=1.17549435e-38F -D__CHAR_BIT__=8 -D__WCHAR_MAX__=2147483647 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 -D__DBL_DENORM_MIN__=4.9406564584124654e-324 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 -D__FLT_EVAL_METHOD__=0 -D__unix__=1 -D__x86_64=1 -D__DBL_MIN_10_EXP__=(-307) -D__FINITE_MATH_ONLY__=0 -D__LP64__=1 -D__DEC64_MAX_EXP__=385 -D__SHRT_MAX__=32767 -D__LDBL_MAX__=1.7976931348623157e+308 -D__UINTMAX_TYPE__=long unsigned int -D__linux=1 -D__DEC32_EPSILON__=1E-6DF -D__unix=1 -D__LDBL_MAX_EXP__=16384 -D__linux__=1 -D__SCHAR_MAX__=127 -D__DBL_DIG__=15 -D__SIZEOF_INT__=4 -D__SIZEOF_POINTER__=8 -D__USER_LABEL_PREFIX__=  -D__STDC_HOSTED__=1 -D__LDBL_HAS_INFINITY__=1 -D__FLT_EPSILON__=1.19209290e-7F -D__GXX_WEAK__=1 -D__LDBL_MIN__=3.36210314311209350626e-4932L -D__DEC32_MAX__=9.999999E96DF -D__SIZEOF_LONG__=8 -D__DECIMAL_DIG__=21 -D__gnu_linux__=1 -D__LDBL_HAS_QUIET_NAN__=1 -D__GXX_RTTI=1 -D__MMX__=1 -D__FLT_HAS_DENORM__=1 -D__SIZEOF_LONG_DOUBLE__=16 -D__BIGGEST_ALIGNMENT__=16 -D__DBL_MAX__=1.7976931348623157e+308 -D__DBL_HAS_INFINITY__=1 -D__DEC32_MIN_EXP__=(-94) -D__LDBL_HAS_DENORM__=1 -D__cplusplus=1 -D__DEC128_MAX__=9.999999999999999999999999999999999E6144DL -D__DEC32_MIN__=1E-95DF -D__DEPRECATED=1 -D__DBL_MAX_EXP__=1024 -D__DEC128_EPSILON__=1E-33DL -D__SSE2_MATH__=1 -D__amd64=1 -D__GNUG__=4 -D__LONG_LONG_MAX__=9223372036854775807LL -D__SIZEOF_SIZE_T__=8 -D__SIZEOF_WINT_T__=4 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -D__GXX_ABI_VERSION=1002 -D__FLT_MIN_EXP__=(-125) -D__DBL_MIN__=2.2250738585072014e-308 -D__FLT_MIN_10_EXP__=(-37) -D__DECIMAL_BID_FORMAT__=1 -D__DEC128_MIN__=1E-6143DL -D__REGISTER_PREFIX__=  -D__DBL_HAS_DENORM__=1 -D__NO_INLINE__=1 -D__FLT_MANT_DIG__=24 -D__VERSION__="4.4.4 20100503 (Red Hat 4.4.4-2)" -D__DEC64_EPSILON__=1E-15DD -D__DEC128_MIN_EXP__=(-6142) -Dunix=1 -D__SIZE_TYPE__=unsigned int -D__ELF__=1 -D__FLT_RADIX__=2 -D__LDBL_EPSILON__=1.08420217248550443401e-19L -D__k8=1 -D__SIZEOF_PTRDIFF_T__=8 -D__x86_64__=1 -D__DEC32_SUBNORMAL_MIN__=0.000001E-95DF -D__FLT_HAS_QUIET_NAN__=1 -D__FLT_MAX_10_EXP__=38 -D__LONG_MAX__=9223372036854775807L -D__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL -D__FLT_HAS_INFINITY__=1 -D__DEC64_MAX__=9.999999999999999E384DD -D__CHAR16_TYPE__=short unsigned int -D__DEC64_MANT_DIG__=16 -D__DEC32_MAX_EXP__=97 -Dlinux=1 -D__SSE2__=1 -D__EXCEPTIONS=1 -D__LDBL_MANT_DIG__=64 -D__DBL_HAS_QUIET_NAN__=1 -D__k8__=1 -D__WCHAR_TYPE__=int -D__SIZEOF_FLOAT__=4 -D__DEC64_MIN_EXP__=(-382) -D__FLT_DIG__=6 -D__INT_MAX__=2147483647 -D__amd64__=1 -D__FLT_MAX_EXP__=128 -D__DBL_MANT_DIG__=53 -D__DEC64_MIN__=1E-383DD -D__WINT_TYPE__=unsigned int -D__SIZEOF_SHORT__=2 -D__SSE__=1 -D__LDBL_MIN_EXP__=(-16381) -D__LDBL_MAX_10_EXP__=4932 -D__DBL_EPSILON__=2.2204460492503131e-16 -D_LP64=1 -D__SIZEOF_WCHAR_T__=4 -D__DEC_EVAL_METHOD__=2 -D__INTMAX_MAX__=9223372036854775807L -D__FLT_DENORM_MIN__=1.40129846e-45F -D__CHAR32_TYPE__=unsigned int -D__FLT_MAX__=3.40282347e+38F -D__SIZEOF_DOUBLE__=8 -D__INTMAX_TYPE__=long int -D__DEC128_MAX_EXP__=6145 -D__DEC32_MANT_DIG__=7 -D__DBL_MAX_10_EXP__=308 -D__LDBL_DENORM_MIN__=3.36210314311209350626e-4932L -D__PTRDIFF_TYPE__=long int -D__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD -D__DEC128_MANT_DIG__=34 -D__LDBL_MIN_10_EXP__=(-4931) -D__SSE_MATH__=1 -D__SIZEOF_LONG_LONG__=8 -D__LDBL_DIG__=18 -D__GNUC_GNU_INLINE__=1 -D_GNU_SOURCE=1 -I/testsc/src/ --c++ --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -IC:\testsc\share\csworkexample\example\.csdata\src\simulation -IC:\testsc\share\csworkexample\example\.csdata\src\instrumented -IC:\testsc\share\csworkexample\example\unittest -I- --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4 --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\x86_64-redhat-linux --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\backward --sys_include=T:\ICMS\CodeScroll\usr\local\include --sys_include=T:\ICMS\CodeScroll\usr\lib\gcc\x86_64-redhat-linux\4.4.4\include --sys_include=T:\ICMS\CodeScroll\usr\include --sys_include=T:\ICMS\devenv\DSSLib\inc\boost --cs_set_tu_id=1 -E --error_output=C:\testsc\share\csworkexample\example\.csdata\log\preprocess\examplesrc_1.i.cpp.plog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata -oC:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp C:\testsc\share\csworkexample\example\.csdata\src\simulation\examplesrc_1.cpp 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp(Parsing)
+INFO  [EdgCfe4x]: options:
+edgcfe4x --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -I/testsc/src/ -D__CS_CONVERTED__ -IC:\testsc\share\csworkexample\example\.csdata\src\simulation --c++ --cs_set_tu_id=1 --error_output=C:\testsc\share\csworkexample\example\.csdata\log\parse\examplesrc_1_1.i.cpp.elog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata C:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp 
+INFO  [DFA]: DFA_ENABLE=N
+INFO  [DFA]: SCFG_OUT=N
+INFO  [DFA]: LIMIT_ITER=N
+INFO  [DFA]: RESULT_OUT=N
+INFO  [DFA]: ITER_OUT=N
+INFO  [DFA]: TRANSFER_OUT=N
+INFO  [MainFrame]:    parsing=1061ms(80)
+INFO  [MainFrame]: functional=254ms(19)
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 171ms used.
+INFO  [ConverterFinalizer]: 1ms used.
+INFO  [pa.main]: end time: Fri Jun 09 10:30:28 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(2783980010, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: isCompiled examplesrc_1.cpp : test changed(748357570, 2783980010)
+INFO  [ut.bld]: iut compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -fpermissive  -c "C:\testsc\share\csworkexample\example\.csdata\src\build\examplesrc_1.cpp" -o "examplesrc_1.o" -I "C:\testsc\share\csworkexample\example\.csdata\src\build" ]
+INFO  [ut.bld]: examplesrc_1.cpp : set compiled(2783980010, 0, )
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link fail. check undefined symbol & try creating stub
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcad): undefined reference to `testsc_ivalue(char const*)'
+
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcbc): undefined reference to `testsc_ivalue(char const*)'
+
+INFO  [ut.bld]: stub generate...
+INFO  [ut.bld]: analyze object...
+INFO  [ut.bld]: analyze library...1
+INFO  [ut.bld]: stub generator : undefinedSymbols count(8) in binary
+INFO  [ut.bld]: stub generator : codescroll_get_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_set_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_symbol_index is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_testcase_number is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_CoverageBuffer is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_LastProbe is not found in link log
+INFO  [ut.bld]: stub generator : testsc_init(int, char const*, char const*) is not found in link log
+INFO  [ut.bld]: stub generator : testsc_ivalue(char const*) is not found undefinedDecl
+INFO  [ut.bld]: stub generator : no stub generated
+ERROR [ut.bld]: fail to create stub
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Fri Jun 09 10:30:31 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:30:31 2017
+
+
+---------------------------------------------------------------------
+
+ERROR [ut.cli]: link failed
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:34:34 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:34:34 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Fri Jun 09 10:34:34 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:34:34 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:34:36 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:34:36 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : test changed(2783980010, 2964917660)
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Fri Jun 09 10:34:36 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp
+INFO  [EdgPreprocessor]: options:
+edgcfe4x preprocessor -D__DBL_MIN_EXP__=(-1021) -D__FLT_MIN__=1.17549435e-38F -D__CHAR_BIT__=8 -D__WCHAR_MAX__=2147483647 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 -D__DBL_DENORM_MIN__=4.9406564584124654e-324 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 -D__FLT_EVAL_METHOD__=0 -D__unix__=1 -D__x86_64=1 -D__DBL_MIN_10_EXP__=(-307) -D__FINITE_MATH_ONLY__=0 -D__LP64__=1 -D__DEC64_MAX_EXP__=385 -D__SHRT_MAX__=32767 -D__LDBL_MAX__=1.7976931348623157e+308 -D__UINTMAX_TYPE__=long unsigned int -D__linux=1 -D__DEC32_EPSILON__=1E-6DF -D__unix=1 -D__LDBL_MAX_EXP__=16384 -D__linux__=1 -D__SCHAR_MAX__=127 -D__DBL_DIG__=15 -D__SIZEOF_INT__=4 -D__SIZEOF_POINTER__=8 -D__USER_LABEL_PREFIX__=  -D__STDC_HOSTED__=1 -D__LDBL_HAS_INFINITY__=1 -D__FLT_EPSILON__=1.19209290e-7F -D__GXX_WEAK__=1 -D__LDBL_MIN__=3.36210314311209350626e-4932L -D__DEC32_MAX__=9.999999E96DF -D__SIZEOF_LONG__=8 -D__DECIMAL_DIG__=21 -D__gnu_linux__=1 -D__LDBL_HAS_QUIET_NAN__=1 -D__GXX_RTTI=1 -D__MMX__=1 -D__FLT_HAS_DENORM__=1 -D__SIZEOF_LONG_DOUBLE__=16 -D__BIGGEST_ALIGNMENT__=16 -D__DBL_MAX__=1.7976931348623157e+308 -D__DBL_HAS_INFINITY__=1 -D__DEC32_MIN_EXP__=(-94) -D__LDBL_HAS_DENORM__=1 -D__cplusplus=1 -D__DEC128_MAX__=9.999999999999999999999999999999999E6144DL -D__DEC32_MIN__=1E-95DF -D__DEPRECATED=1 -D__DBL_MAX_EXP__=1024 -D__DEC128_EPSILON__=1E-33DL -D__SSE2_MATH__=1 -D__amd64=1 -D__GNUG__=4 -D__LONG_LONG_MAX__=9223372036854775807LL -D__SIZEOF_SIZE_T__=8 -D__SIZEOF_WINT_T__=4 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -D__GXX_ABI_VERSION=1002 -D__FLT_MIN_EXP__=(-125) -D__DBL_MIN__=2.2250738585072014e-308 -D__FLT_MIN_10_EXP__=(-37) -D__DECIMAL_BID_FORMAT__=1 -D__DEC128_MIN__=1E-6143DL -D__REGISTER_PREFIX__=  -D__DBL_HAS_DENORM__=1 -D__NO_INLINE__=1 -D__FLT_MANT_DIG__=24 -D__VERSION__="4.4.4 20100503 (Red Hat 4.4.4-2)" -D__DEC64_EPSILON__=1E-15DD -D__DEC128_MIN_EXP__=(-6142) -Dunix=1 -D__SIZE_TYPE__=unsigned int -D__ELF__=1 -D__FLT_RADIX__=2 -D__LDBL_EPSILON__=1.08420217248550443401e-19L -D__k8=1 -D__SIZEOF_PTRDIFF_T__=8 -D__x86_64__=1 -D__DEC32_SUBNORMAL_MIN__=0.000001E-95DF -D__FLT_HAS_QUIET_NAN__=1 -D__FLT_MAX_10_EXP__=38 -D__LONG_MAX__=9223372036854775807L -D__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL -D__FLT_HAS_INFINITY__=1 -D__DEC64_MAX__=9.999999999999999E384DD -D__CHAR16_TYPE__=short unsigned int -D__DEC64_MANT_DIG__=16 -D__DEC32_MAX_EXP__=97 -Dlinux=1 -D__SSE2__=1 -D__EXCEPTIONS=1 -D__LDBL_MANT_DIG__=64 -D__DBL_HAS_QUIET_NAN__=1 -D__k8__=1 -D__WCHAR_TYPE__=int -D__SIZEOF_FLOAT__=4 -D__DEC64_MIN_EXP__=(-382) -D__FLT_DIG__=6 -D__INT_MAX__=2147483647 -D__amd64__=1 -D__FLT_MAX_EXP__=128 -D__DBL_MANT_DIG__=53 -D__DEC64_MIN__=1E-383DD -D__WINT_TYPE__=unsigned int -D__SIZEOF_SHORT__=2 -D__SSE__=1 -D__LDBL_MIN_EXP__=(-16381) -D__LDBL_MAX_10_EXP__=4932 -D__DBL_EPSILON__=2.2204460492503131e-16 -D_LP64=1 -D__SIZEOF_WCHAR_T__=4 -D__DEC_EVAL_METHOD__=2 -D__INTMAX_MAX__=9223372036854775807L -D__FLT_DENORM_MIN__=1.40129846e-45F -D__CHAR32_TYPE__=unsigned int -D__FLT_MAX__=3.40282347e+38F -D__SIZEOF_DOUBLE__=8 -D__INTMAX_TYPE__=long int -D__DEC128_MAX_EXP__=6145 -D__DEC32_MANT_DIG__=7 -D__DBL_MAX_10_EXP__=308 -D__LDBL_DENORM_MIN__=3.36210314311209350626e-4932L -D__PTRDIFF_TYPE__=long int -D__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD -D__DEC128_MANT_DIG__=34 -D__LDBL_MIN_10_EXP__=(-4931) -D__SSE_MATH__=1 -D__SIZEOF_LONG_LONG__=8 -D__LDBL_DIG__=18 -D__GNUC_GNU_INLINE__=1 -D_GNU_SOURCE=1 -I/testsc/src/ --c++ --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -IC:\testsc\share\csworkexample\example\.csdata\src\simulation -IC:\testsc\share\csworkexample\example\.csdata\src\instrumented -IC:\testsc\share\csworkexample\example\unittest -I- --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4 --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\x86_64-redhat-linux --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\backward --sys_include=T:\ICMS\CodeScroll\usr\local\include --sys_include=T:\ICMS\CodeScroll\usr\lib\gcc\x86_64-redhat-linux\4.4.4\include --sys_include=T:\ICMS\CodeScroll\usr\include --sys_include=T:\ICMS\devenv\DSSLib\inc\boost --cs_set_tu_id=1 -E --error_output=C:\testsc\share\csworkexample\example\.csdata\log\preprocess\examplesrc_1.i.cpp.plog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata -oC:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp C:\testsc\share\csworkexample\example\.csdata\src\simulation\examplesrc_1.cpp 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp(Parsing)
+INFO  [EdgCfe4x]: options:
+edgcfe4x --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -I/testsc/src/ -D__CS_CONVERTED__ -IC:\testsc\share\csworkexample\example\.csdata\src\simulation --c++ --cs_set_tu_id=1 --error_output=C:\testsc\share\csworkexample\example\.csdata\log\parse\examplesrc_1_1.i.cpp.elog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata C:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp 
+INFO  [DFA]: DFA_ENABLE=N
+INFO  [DFA]: SCFG_OUT=N
+INFO  [DFA]: LIMIT_ITER=N
+INFO  [DFA]: RESULT_OUT=N
+INFO  [DFA]: ITER_OUT=N
+INFO  [DFA]: TRANSFER_OUT=N
+INFO  [MainFrame]:    parsing=54ms(78)
+INFO  [MainFrame]: functional=15ms(21)
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 6ms used.
+INFO  [ConverterFinalizer]: 1ms used.
+INFO  [pa.main]: end time: Fri Jun 09 10:34:36 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(2964917660, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: isCompiled examplesrc_1.cpp : test changed(2783980010, 2964917660)
+INFO  [ut.bld]: iut compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -fpermissive  -c "C:\testsc\share\csworkexample\example\.csdata\src\build\examplesrc_1.cpp" -o "examplesrc_1.o" -I "C:\testsc\share\csworkexample\example\.csdata\src\build" ]
+INFO  [ut.bld]: examplesrc_1.cpp : set compiled(2964917660, 0, )
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link end. ok
+INFO  [ut.bld]: building ok
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Fri Jun 09 10:34:39 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:34:40 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:34:42 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call ecm
+INFO  [ut.ecm]: 
+---------------------------------------------------------------------
+$ ut.ecm Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:34:42 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ecm]: RELEASE build engine
+INFO  [ut.ecm]: testcase timeout(3000)
+INFO  [ut.ecm]: keep context(0)
+INFO  [ut.ecm]: main:start
+INFO  [ut.ecm]: TestcasePreparer:active testcase count(31)
+INFO  [ut.ecm]: TestcasePreparer: testcaseDataInitialize
+INFO  [ut.cem]: FunctionProvider: constructor
+INFO  [ut.cem]: TruthTable::load:truth table
+INFO  [ut.cem]: CFGNode::load:cfg node
+INFO  [ut.cem]: CFGNode::load:cfg node count(55)
+INFO  [ut.cem]: CFGNode::load:load mcdc probe info
+INFO  [ut.cem]: CFGNode::load:mcdc probe info count(0), mcdc case count(0)
+INFO  [ut.cem]: CFGEdge::load:cfg edge
+INFO  [ut.cem]: CFGEdge::load:cfg edge count(86)
+INFO  [ut.ecm]: max testdata(10240)
+INFO  [ut.hio]: IODriver:coverage buffer size(86), max testdata count(10240)
+INFO  [ut.hio]: createSharedMemory:control memory size(656694)
+INFO  [ut.hio]: createSharedMemory:data memory size(239636)
+INFO  [ut.hio]: sizeof testdata(16), dbuf(00260010), dbufUse(00288010)
+INFO  [ut.hio]: createSharedMemory::shm memory key. control=20160314, data=20160316
+INFO  [ut.hio]: createSharedMemory::shm memory size. control=656694, data=239636
+INFO  [ut.ecm]: pilot:start
+INFO  [ut.ecm]: pilot:ok
+INFO  [ut.ecm]: TestcasePreparerRunner:start
+INFO  [ut.ecm]: TestcasePreparerRunner:suite count(1), test count(1)
+INFO  [ut.ecm]: prepareTestcase:suite(), test(example_example1_test0,4294967296), suite index(0) test index(2)
+INFO  [ut.ecm]: prepareTestcase:start test(example_example1_test0,4294967296)
+INFO  [ut.ecm]: TestExecutorSm:start
+INFO  [ut.ecm]: TestResultAnalyzerRunner:start
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.ecm]: prepareTestcase:end test(example_example1_test0,4294967296), testcase count(31)
+INFO  [ut.ecm]: TestcasePreparerRunner:end
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.ecm]: TestExecutorSm:end. testcase count(31)
+INFO  [ut.ecm]: TestcasePreparer:receive stop request
+INFO  [ut.ecm]: TestResultAnalyzerRunner:end. testcase count(31)
+INFO  [ut.ecm]: main:end of engine
+INFO  [ut.ecm]: 
+---------------------------------------------------------------------
+$ ut.ecm End
+$ Current time: Fri Jun 09 10:34:45 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:34:46 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:37:53 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:37:53 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Fri Jun 09 10:37:53 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:37:54 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:37:55 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:37:55 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : not changed
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Fri Jun 09 10:37:55 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 0ms used.
+INFO  [ConverterFinalizer]: 1ms used.
+INFO  [pa.main]: end time: Fri Jun 09 10:37:56 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(2964917660, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: skip compile. not changed src : examplesrc.cpp
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link end. ok
+INFO  [ut.bld]: building ok
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Fri Jun 09 10:37:57 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:37:57 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:37:58 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call ecm
+INFO  [ut.ecm]: 
+---------------------------------------------------------------------
+$ ut.ecm Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:37:58 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ecm]: RELEASE build engine
+INFO  [ut.ecm]: testcase timeout(3000)
+INFO  [ut.ecm]: keep context(0)
+INFO  [ut.ecm]: main:start
+INFO  [ut.ecm]: TestcasePreparer:active testcase count(31)
+INFO  [ut.ecm]: TestcasePreparer: testcaseDataInitialize
+INFO  [ut.cem]: FunctionProvider: constructor
+INFO  [ut.cem]: TruthTable::load:truth table
+INFO  [ut.cem]: CFGNode::load:cfg node
+INFO  [ut.cem]: CFGNode::load:cfg node count(55)
+INFO  [ut.cem]: CFGNode::load:load mcdc probe info
+INFO  [ut.cem]: CFGNode::load:mcdc probe info count(0), mcdc case count(0)
+INFO  [ut.cem]: CFGEdge::load:cfg edge
+INFO  [ut.cem]: CFGEdge::load:cfg edge count(86)
+INFO  [ut.ecm]: max testdata(10240)
+INFO  [ut.hio]: IODriver:coverage buffer size(86), max testdata count(10240)
+INFO  [ut.hio]: createSharedMemory:control memory size(656694)
+INFO  [ut.hio]: createSharedMemory:data memory size(239636)
+INFO  [ut.hio]: sizeof testdata(16), dbuf(001B0010), dbufUse(001D8010)
+INFO  [ut.hio]: createSharedMemory::shm memory key. control=20160314, data=20160316
+INFO  [ut.hio]: createSharedMemory::shm memory size. control=656694, data=239636
+INFO  [ut.ecm]: pilot:start
+INFO  [ut.ecm]: pilot:ok
+INFO  [ut.ecm]: TestcasePreparerRunner:start
+INFO  [ut.ecm]: TestcasePreparerRunner:suite count(1), test count(1)
+INFO  [ut.ecm]: prepareTestcase:suite(), test(example_example1_test0,4294967296), suite index(0) test index(2)
+INFO  [ut.ecm]: prepareTestcase:start test(example_example1_test0,4294967296)
+INFO  [ut.ecm]: TestExecutorSm:start
+INFO  [ut.ecm]: TestResultAnalyzerRunner:start
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.ecm]: prepareTestcase:end test(example_example1_test0,4294967296), testcase count(31)
+INFO  [ut.ecm]: TestcasePreparerRunner:end
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.ecm]: TestExecutorSm:end. testcase count(31)
+INFO  [ut.ecm]: TestcasePreparer:receive stop request
+INFO  [ut.ecm]: TestResultAnalyzerRunner:end. testcase count(31)
+INFO  [ut.ecm]: main:end of engine
+INFO  [ut.ecm]: 
+---------------------------------------------------------------------
+$ ut.ecm End
+$ Current time: Fri Jun 09 10:38:01 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:38:02 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:38:15 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:38:15 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Fri Jun 09 10:38:15 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:38:15 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:38:17 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:38:17 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : test changed(2964917660, 1791513064)
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Fri Jun 09 10:38:17 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp
+INFO  [EdgPreprocessor]: options:
+edgcfe4x preprocessor -D__DBL_MIN_EXP__=(-1021) -D__FLT_MIN__=1.17549435e-38F -D__CHAR_BIT__=8 -D__WCHAR_MAX__=2147483647 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 -D__DBL_DENORM_MIN__=4.9406564584124654e-324 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 -D__FLT_EVAL_METHOD__=0 -D__unix__=1 -D__x86_64=1 -D__DBL_MIN_10_EXP__=(-307) -D__FINITE_MATH_ONLY__=0 -D__LP64__=1 -D__DEC64_MAX_EXP__=385 -D__SHRT_MAX__=32767 -D__LDBL_MAX__=1.7976931348623157e+308 -D__UINTMAX_TYPE__=long unsigned int -D__linux=1 -D__DEC32_EPSILON__=1E-6DF -D__unix=1 -D__LDBL_MAX_EXP__=16384 -D__linux__=1 -D__SCHAR_MAX__=127 -D__DBL_DIG__=15 -D__SIZEOF_INT__=4 -D__SIZEOF_POINTER__=8 -D__USER_LABEL_PREFIX__=  -D__STDC_HOSTED__=1 -D__LDBL_HAS_INFINITY__=1 -D__FLT_EPSILON__=1.19209290e-7F -D__GXX_WEAK__=1 -D__LDBL_MIN__=3.36210314311209350626e-4932L -D__DEC32_MAX__=9.999999E96DF -D__SIZEOF_LONG__=8 -D__DECIMAL_DIG__=21 -D__gnu_linux__=1 -D__LDBL_HAS_QUIET_NAN__=1 -D__GXX_RTTI=1 -D__MMX__=1 -D__FLT_HAS_DENORM__=1 -D__SIZEOF_LONG_DOUBLE__=16 -D__BIGGEST_ALIGNMENT__=16 -D__DBL_MAX__=1.7976931348623157e+308 -D__DBL_HAS_INFINITY__=1 -D__DEC32_MIN_EXP__=(-94) -D__LDBL_HAS_DENORM__=1 -D__cplusplus=1 -D__DEC128_MAX__=9.999999999999999999999999999999999E6144DL -D__DEC32_MIN__=1E-95DF -D__DEPRECATED=1 -D__DBL_MAX_EXP__=1024 -D__DEC128_EPSILON__=1E-33DL -D__SSE2_MATH__=1 -D__amd64=1 -D__GNUG__=4 -D__LONG_LONG_MAX__=9223372036854775807LL -D__SIZEOF_SIZE_T__=8 -D__SIZEOF_WINT_T__=4 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -D__GXX_ABI_VERSION=1002 -D__FLT_MIN_EXP__=(-125) -D__DBL_MIN__=2.2250738585072014e-308 -D__FLT_MIN_10_EXP__=(-37) -D__DECIMAL_BID_FORMAT__=1 -D__DEC128_MIN__=1E-6143DL -D__REGISTER_PREFIX__=  -D__DBL_HAS_DENORM__=1 -D__NO_INLINE__=1 -D__FLT_MANT_DIG__=24 -D__VERSION__="4.4.4 20100503 (Red Hat 4.4.4-2)" -D__DEC64_EPSILON__=1E-15DD -D__DEC128_MIN_EXP__=(-6142) -Dunix=1 -D__SIZE_TYPE__=unsigned int -D__ELF__=1 -D__FLT_RADIX__=2 -D__LDBL_EPSILON__=1.08420217248550443401e-19L -D__k8=1 -D__SIZEOF_PTRDIFF_T__=8 -D__x86_64__=1 -D__DEC32_SUBNORMAL_MIN__=0.000001E-95DF -D__FLT_HAS_QUIET_NAN__=1 -D__FLT_MAX_10_EXP__=38 -D__LONG_MAX__=9223372036854775807L -D__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL -D__FLT_HAS_INFINITY__=1 -D__DEC64_MAX__=9.999999999999999E384DD -D__CHAR16_TYPE__=short unsigned int -D__DEC64_MANT_DIG__=16 -D__DEC32_MAX_EXP__=97 -Dlinux=1 -D__SSE2__=1 -D__EXCEPTIONS=1 -D__LDBL_MANT_DIG__=64 -D__DBL_HAS_QUIET_NAN__=1 -D__k8__=1 -D__WCHAR_TYPE__=int -D__SIZEOF_FLOAT__=4 -D__DEC64_MIN_EXP__=(-382) -D__FLT_DIG__=6 -D__INT_MAX__=2147483647 -D__amd64__=1 -D__FLT_MAX_EXP__=128 -D__DBL_MANT_DIG__=53 -D__DEC64_MIN__=1E-383DD -D__WINT_TYPE__=unsigned int -D__SIZEOF_SHORT__=2 -D__SSE__=1 -D__LDBL_MIN_EXP__=(-16381) -D__LDBL_MAX_10_EXP__=4932 -D__DBL_EPSILON__=2.2204460492503131e-16 -D_LP64=1 -D__SIZEOF_WCHAR_T__=4 -D__DEC_EVAL_METHOD__=2 -D__INTMAX_MAX__=9223372036854775807L -D__FLT_DENORM_MIN__=1.40129846e-45F -D__CHAR32_TYPE__=unsigned int -D__FLT_MAX__=3.40282347e+38F -D__SIZEOF_DOUBLE__=8 -D__INTMAX_TYPE__=long int -D__DEC128_MAX_EXP__=6145 -D__DEC32_MANT_DIG__=7 -D__DBL_MAX_10_EXP__=308 -D__LDBL_DENORM_MIN__=3.36210314311209350626e-4932L -D__PTRDIFF_TYPE__=long int -D__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD -D__DEC128_MANT_DIG__=34 -D__LDBL_MIN_10_EXP__=(-4931) -D__SSE_MATH__=1 -D__SIZEOF_LONG_LONG__=8 -D__LDBL_DIG__=18 -D__GNUC_GNU_INLINE__=1 -D_GNU_SOURCE=1 -I/testsc/src/ --c++ --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -IC:\testsc\share\csworkexample\example\.csdata\src\simulation -IC:\testsc\share\csworkexample\example\.csdata\src\instrumented -IC:\testsc\share\csworkexample\example\unittest -I- --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4 --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\x86_64-redhat-linux --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\backward --sys_include=T:\ICMS\CodeScroll\usr\local\include --sys_include=T:\ICMS\CodeScroll\usr\lib\gcc\x86_64-redhat-linux\4.4.4\include --sys_include=T:\ICMS\CodeScroll\usr\include --sys_include=T:\ICMS\devenv\DSSLib\inc\boost --cs_set_tu_id=1 -E --error_output=C:\testsc\share\csworkexample\example\.csdata\log\preprocess\examplesrc_1.i.cpp.plog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata -oC:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp C:\testsc\share\csworkexample\example\.csdata\src\simulation\examplesrc_1.cpp 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp(Parsing)
+INFO  [EdgCfe4x]: options:
+edgcfe4x --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -I/testsc/src/ -D__CS_CONVERTED__ -IC:\testsc\share\csworkexample\example\.csdata\src\simulation --c++ --cs_set_tu_id=1 --error_output=C:\testsc\share\csworkexample\example\.csdata\log\parse\examplesrc_1_1.i.cpp.elog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata C:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp 
+INFO  [DFA]: DFA_ENABLE=N
+INFO  [DFA]: SCFG_OUT=N
+INFO  [DFA]: LIMIT_ITER=N
+INFO  [DFA]: RESULT_OUT=N
+INFO  [DFA]: ITER_OUT=N
+INFO  [DFA]: TRANSFER_OUT=N
+INFO  [MainFrame]:    parsing=66ms(77)
+INFO  [MainFrame]: functional=19ms(22)
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 10ms used.
+INFO  [ConverterFinalizer]: 1ms used.
+INFO  [pa.main]: end time: Fri Jun 09 10:38:17 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(1791513064, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: isCompiled examplesrc_1.cpp : test changed(2964917660, 1791513064)
+INFO  [ut.bld]: iut compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -fpermissive  -c "C:\testsc\share\csworkexample\example\.csdata\src\build\examplesrc_1.cpp" -o "examplesrc_1.o" -I "C:\testsc\share\csworkexample\example\.csdata\src\build" ]
+INFO  [ut.bld]: examplesrc_1.cpp : set compiled(1791513064, 0, )
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link fail. check undefined symbol & try creating stub
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcad): undefined reference to `testsc_ivalue(char const*)'
+
+INFO  [ut.bld]: stub generate...
+INFO  [ut.bld]: analyze object...
+INFO  [ut.bld]: analyze library...1
+INFO  [ut.bld]: stub generator : undefinedSymbols count(8) in binary
+INFO  [ut.bld]: stub generator : codescroll_get_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_set_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_symbol_index is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_testcase_number is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_CoverageBuffer is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_LastProbe is not found in link log
+INFO  [ut.bld]: stub generator : testsc_init(int, char const*, char const*) is not found in link log
+INFO  [ut.bld]: stub generator : testsc_ivalue(char const*) is not found undefinedDecl
+INFO  [ut.bld]: stub generator : no stub generated
+ERROR [ut.bld]: fail to create stub
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Fri Jun 09 10:38:19 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:38:19 2017
+
+
+---------------------------------------------------------------------
+
+ERROR [ut.cli]: link failed
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:38:40 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:38:40 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Fri Jun 09 10:38:40 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:38:40 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:38:42 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:38:42 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : test changed(1791513064, 15933718)
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Fri Jun 09 10:38:42 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp
+INFO  [EdgPreprocessor]: options:
+edgcfe4x preprocessor -D__DBL_MIN_EXP__=(-1021) -D__FLT_MIN__=1.17549435e-38F -D__CHAR_BIT__=8 -D__WCHAR_MAX__=2147483647 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 -D__DBL_DENORM_MIN__=4.9406564584124654e-324 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 -D__FLT_EVAL_METHOD__=0 -D__unix__=1 -D__x86_64=1 -D__DBL_MIN_10_EXP__=(-307) -D__FINITE_MATH_ONLY__=0 -D__LP64__=1 -D__DEC64_MAX_EXP__=385 -D__SHRT_MAX__=32767 -D__LDBL_MAX__=1.7976931348623157e+308 -D__UINTMAX_TYPE__=long unsigned int -D__linux=1 -D__DEC32_EPSILON__=1E-6DF -D__unix=1 -D__LDBL_MAX_EXP__=16384 -D__linux__=1 -D__SCHAR_MAX__=127 -D__DBL_DIG__=15 -D__SIZEOF_INT__=4 -D__SIZEOF_POINTER__=8 -D__USER_LABEL_PREFIX__=  -D__STDC_HOSTED__=1 -D__LDBL_HAS_INFINITY__=1 -D__FLT_EPSILON__=1.19209290e-7F -D__GXX_WEAK__=1 -D__LDBL_MIN__=3.36210314311209350626e-4932L -D__DEC32_MAX__=9.999999E96DF -D__SIZEOF_LONG__=8 -D__DECIMAL_DIG__=21 -D__gnu_linux__=1 -D__LDBL_HAS_QUIET_NAN__=1 -D__GXX_RTTI=1 -D__MMX__=1 -D__FLT_HAS_DENORM__=1 -D__SIZEOF_LONG_DOUBLE__=16 -D__BIGGEST_ALIGNMENT__=16 -D__DBL_MAX__=1.7976931348623157e+308 -D__DBL_HAS_INFINITY__=1 -D__DEC32_MIN_EXP__=(-94) -D__LDBL_HAS_DENORM__=1 -D__cplusplus=1 -D__DEC128_MAX__=9.999999999999999999999999999999999E6144DL -D__DEC32_MIN__=1E-95DF -D__DEPRECATED=1 -D__DBL_MAX_EXP__=1024 -D__DEC128_EPSILON__=1E-33DL -D__SSE2_MATH__=1 -D__amd64=1 -D__GNUG__=4 -D__LONG_LONG_MAX__=9223372036854775807LL -D__SIZEOF_SIZE_T__=8 -D__SIZEOF_WINT_T__=4 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -D__GXX_ABI_VERSION=1002 -D__FLT_MIN_EXP__=(-125) -D__DBL_MIN__=2.2250738585072014e-308 -D__FLT_MIN_10_EXP__=(-37) -D__DECIMAL_BID_FORMAT__=1 -D__DEC128_MIN__=1E-6143DL -D__REGISTER_PREFIX__=  -D__DBL_HAS_DENORM__=1 -D__NO_INLINE__=1 -D__FLT_MANT_DIG__=24 -D__VERSION__="4.4.4 20100503 (Red Hat 4.4.4-2)" -D__DEC64_EPSILON__=1E-15DD -D__DEC128_MIN_EXP__=(-6142) -Dunix=1 -D__SIZE_TYPE__=unsigned int -D__ELF__=1 -D__FLT_RADIX__=2 -D__LDBL_EPSILON__=1.08420217248550443401e-19L -D__k8=1 -D__SIZEOF_PTRDIFF_T__=8 -D__x86_64__=1 -D__DEC32_SUBNORMAL_MIN__=0.000001E-95DF -D__FLT_HAS_QUIET_NAN__=1 -D__FLT_MAX_10_EXP__=38 -D__LONG_MAX__=9223372036854775807L -D__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL -D__FLT_HAS_INFINITY__=1 -D__DEC64_MAX__=9.999999999999999E384DD -D__CHAR16_TYPE__=short unsigned int -D__DEC64_MANT_DIG__=16 -D__DEC32_MAX_EXP__=97 -Dlinux=1 -D__SSE2__=1 -D__EXCEPTIONS=1 -D__LDBL_MANT_DIG__=64 -D__DBL_HAS_QUIET_NAN__=1 -D__k8__=1 -D__WCHAR_TYPE__=int -D__SIZEOF_FLOAT__=4 -D__DEC64_MIN_EXP__=(-382) -D__FLT_DIG__=6 -D__INT_MAX__=2147483647 -D__amd64__=1 -D__FLT_MAX_EXP__=128 -D__DBL_MANT_DIG__=53 -D__DEC64_MIN__=1E-383DD -D__WINT_TYPE__=unsigned int -D__SIZEOF_SHORT__=2 -D__SSE__=1 -D__LDBL_MIN_EXP__=(-16381) -D__LDBL_MAX_10_EXP__=4932 -D__DBL_EPSILON__=2.2204460492503131e-16 -D_LP64=1 -D__SIZEOF_WCHAR_T__=4 -D__DEC_EVAL_METHOD__=2 -D__INTMAX_MAX__=9223372036854775807L -D__FLT_DENORM_MIN__=1.40129846e-45F -D__CHAR32_TYPE__=unsigned int -D__FLT_MAX__=3.40282347e+38F -D__SIZEOF_DOUBLE__=8 -D__INTMAX_TYPE__=long int -D__DEC128_MAX_EXP__=6145 -D__DEC32_MANT_DIG__=7 -D__DBL_MAX_10_EXP__=308 -D__LDBL_DENORM_MIN__=3.36210314311209350626e-4932L -D__PTRDIFF_TYPE__=long int -D__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD -D__DEC128_MANT_DIG__=34 -D__LDBL_MIN_10_EXP__=(-4931) -D__SSE_MATH__=1 -D__SIZEOF_LONG_LONG__=8 -D__LDBL_DIG__=18 -D__GNUC_GNU_INLINE__=1 -D_GNU_SOURCE=1 -I/testsc/src/ --c++ --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -IC:\testsc\share\csworkexample\example\.csdata\src\simulation -IC:\testsc\share\csworkexample\example\.csdata\src\instrumented -IC:\testsc\share\csworkexample\example\unittest -I- --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4 --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\x86_64-redhat-linux --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\backward --sys_include=T:\ICMS\CodeScroll\usr\local\include --sys_include=T:\ICMS\CodeScroll\usr\lib\gcc\x86_64-redhat-linux\4.4.4\include --sys_include=T:\ICMS\CodeScroll\usr\include --sys_include=T:\ICMS\devenv\DSSLib\inc\boost --cs_set_tu_id=1 -E --error_output=C:\testsc\share\csworkexample\example\.csdata\log\preprocess\examplesrc_1.i.cpp.plog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata -oC:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp C:\testsc\share\csworkexample\example\.csdata\src\simulation\examplesrc_1.cpp 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp(Parsing)
+INFO  [EdgCfe4x]: options:
+edgcfe4x --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -I/testsc/src/ -D__CS_CONVERTED__ -IC:\testsc\share\csworkexample\example\.csdata\src\simulation --c++ --cs_set_tu_id=1 --error_output=C:\testsc\share\csworkexample\example\.csdata\log\parse\examplesrc_1_1.i.cpp.elog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata C:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp 
+INFO  [DFA]: DFA_ENABLE=N
+INFO  [DFA]: SCFG_OUT=N
+INFO  [DFA]: LIMIT_ITER=N
+INFO  [DFA]: RESULT_OUT=N
+INFO  [DFA]: ITER_OUT=N
+INFO  [DFA]: TRANSFER_OUT=N
+INFO  [MainFrame]:    parsing=52ms(76)
+INFO  [MainFrame]: functional=16ms(23)
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 6ms used.
+INFO  [ConverterFinalizer]: 1ms used.
+INFO  [pa.main]: end time: Fri Jun 09 10:38:42 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(15933718, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: isCompiled examplesrc_1.cpp : test changed(1791513064, 15933718)
+INFO  [ut.bld]: iut compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -fpermissive  -c "C:\testsc\share\csworkexample\example\.csdata\src\build\examplesrc_1.cpp" -o "examplesrc_1.o" -I "C:\testsc\share\csworkexample\example\.csdata\src\build" ]
+INFO  [ut.bld]: examplesrc_1.cpp : set compiled(15933718, 0, )
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link fail. check undefined symbol & try creating stub
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcad): undefined reference to `testsc_ivalue(char const*)'
+
+INFO  [ut.bld]: stub generate...
+INFO  [ut.bld]: analyze object...
+INFO  [ut.bld]: analyze library...1
+INFO  [ut.bld]: stub generator : undefinedSymbols count(8) in binary
+INFO  [ut.bld]: stub generator : codescroll_get_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_set_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_symbol_index is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_testcase_number is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_CoverageBuffer is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_LastProbe is not found in link log
+INFO  [ut.bld]: stub generator : testsc_init(int, char const*, char const*) is not found in link log
+INFO  [ut.bld]: stub generator : testsc_ivalue(char const*) is not found undefinedDecl
+INFO  [ut.bld]: stub generator : no stub generated
+ERROR [ut.bld]: fail to create stub
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Fri Jun 09 10:38:44 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:38:44 2017
+
+
+---------------------------------------------------------------------
+
+ERROR [ut.cli]: link failed
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:39:06 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:39:06 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Fri Jun 09 10:39:06 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:39:06 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:39:08 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:39:08 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : test changed(15933718, 1838930053)
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Fri Jun 09 10:39:08 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp
+INFO  [EdgPreprocessor]: options:
+edgcfe4x preprocessor -D__DBL_MIN_EXP__=(-1021) -D__FLT_MIN__=1.17549435e-38F -D__CHAR_BIT__=8 -D__WCHAR_MAX__=2147483647 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 -D__DBL_DENORM_MIN__=4.9406564584124654e-324 -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 -D__FLT_EVAL_METHOD__=0 -D__unix__=1 -D__x86_64=1 -D__DBL_MIN_10_EXP__=(-307) -D__FINITE_MATH_ONLY__=0 -D__LP64__=1 -D__DEC64_MAX_EXP__=385 -D__SHRT_MAX__=32767 -D__LDBL_MAX__=1.7976931348623157e+308 -D__UINTMAX_TYPE__=long unsigned int -D__linux=1 -D__DEC32_EPSILON__=1E-6DF -D__unix=1 -D__LDBL_MAX_EXP__=16384 -D__linux__=1 -D__SCHAR_MAX__=127 -D__DBL_DIG__=15 -D__SIZEOF_INT__=4 -D__SIZEOF_POINTER__=8 -D__USER_LABEL_PREFIX__=  -D__STDC_HOSTED__=1 -D__LDBL_HAS_INFINITY__=1 -D__FLT_EPSILON__=1.19209290e-7F -D__GXX_WEAK__=1 -D__LDBL_MIN__=3.36210314311209350626e-4932L -D__DEC32_MAX__=9.999999E96DF -D__SIZEOF_LONG__=8 -D__DECIMAL_DIG__=21 -D__gnu_linux__=1 -D__LDBL_HAS_QUIET_NAN__=1 -D__GXX_RTTI=1 -D__MMX__=1 -D__FLT_HAS_DENORM__=1 -D__SIZEOF_LONG_DOUBLE__=16 -D__BIGGEST_ALIGNMENT__=16 -D__DBL_MAX__=1.7976931348623157e+308 -D__DBL_HAS_INFINITY__=1 -D__DEC32_MIN_EXP__=(-94) -D__LDBL_HAS_DENORM__=1 -D__cplusplus=1 -D__DEC128_MAX__=9.999999999999999999999999999999999E6144DL -D__DEC32_MIN__=1E-95DF -D__DEPRECATED=1 -D__DBL_MAX_EXP__=1024 -D__DEC128_EPSILON__=1E-33DL -D__SSE2_MATH__=1 -D__amd64=1 -D__GNUG__=4 -D__LONG_LONG_MAX__=9223372036854775807LL -D__SIZEOF_SIZE_T__=8 -D__SIZEOF_WINT_T__=4 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -D__GXX_ABI_VERSION=1002 -D__FLT_MIN_EXP__=(-125) -D__DBL_MIN__=2.2250738585072014e-308 -D__FLT_MIN_10_EXP__=(-37) -D__DECIMAL_BID_FORMAT__=1 -D__DEC128_MIN__=1E-6143DL -D__REGISTER_PREFIX__=  -D__DBL_HAS_DENORM__=1 -D__NO_INLINE__=1 -D__FLT_MANT_DIG__=24 -D__VERSION__="4.4.4 20100503 (Red Hat 4.4.4-2)" -D__DEC64_EPSILON__=1E-15DD -D__DEC128_MIN_EXP__=(-6142) -Dunix=1 -D__SIZE_TYPE__=unsigned int -D__ELF__=1 -D__FLT_RADIX__=2 -D__LDBL_EPSILON__=1.08420217248550443401e-19L -D__k8=1 -D__SIZEOF_PTRDIFF_T__=8 -D__x86_64__=1 -D__DEC32_SUBNORMAL_MIN__=0.000001E-95DF -D__FLT_HAS_QUIET_NAN__=1 -D__FLT_MAX_10_EXP__=38 -D__LONG_MAX__=9223372036854775807L -D__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL -D__FLT_HAS_INFINITY__=1 -D__DEC64_MAX__=9.999999999999999E384DD -D__CHAR16_TYPE__=short unsigned int -D__DEC64_MANT_DIG__=16 -D__DEC32_MAX_EXP__=97 -Dlinux=1 -D__SSE2__=1 -D__EXCEPTIONS=1 -D__LDBL_MANT_DIG__=64 -D__DBL_HAS_QUIET_NAN__=1 -D__k8__=1 -D__WCHAR_TYPE__=int -D__SIZEOF_FLOAT__=4 -D__DEC64_MIN_EXP__=(-382) -D__FLT_DIG__=6 -D__INT_MAX__=2147483647 -D__amd64__=1 -D__FLT_MAX_EXP__=128 -D__DBL_MANT_DIG__=53 -D__DEC64_MIN__=1E-383DD -D__WINT_TYPE__=unsigned int -D__SIZEOF_SHORT__=2 -D__SSE__=1 -D__LDBL_MIN_EXP__=(-16381) -D__LDBL_MAX_10_EXP__=4932 -D__DBL_EPSILON__=2.2204460492503131e-16 -D_LP64=1 -D__SIZEOF_WCHAR_T__=4 -D__DEC_EVAL_METHOD__=2 -D__INTMAX_MAX__=9223372036854775807L -D__FLT_DENORM_MIN__=1.40129846e-45F -D__CHAR32_TYPE__=unsigned int -D__FLT_MAX__=3.40282347e+38F -D__SIZEOF_DOUBLE__=8 -D__INTMAX_TYPE__=long int -D__DEC128_MAX_EXP__=6145 -D__DEC32_MANT_DIG__=7 -D__DBL_MAX_10_EXP__=308 -D__LDBL_DENORM_MIN__=3.36210314311209350626e-4932L -D__PTRDIFF_TYPE__=long int -D__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD -D__DEC128_MANT_DIG__=34 -D__LDBL_MIN_10_EXP__=(-4931) -D__SSE_MATH__=1 -D__SIZEOF_LONG_LONG__=8 -D__LDBL_DIG__=18 -D__GNUC_GNU_INLINE__=1 -D_GNU_SOURCE=1 -I/testsc/src/ --c++ --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -IC:\testsc\share\csworkexample\example\.csdata\src\simulation -IC:\testsc\share\csworkexample\example\.csdata\src\instrumented -IC:\testsc\share\csworkexample\example\unittest -I- --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4 --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\x86_64-redhat-linux --sys_include=T:\ICMS\CodeScroll\usr\include\c++\4.4.4\backward --sys_include=T:\ICMS\CodeScroll\usr\local\include --sys_include=T:\ICMS\CodeScroll\usr\lib\gcc\x86_64-redhat-linux\4.4.4\include --sys_include=T:\ICMS\CodeScroll\usr\include --sys_include=T:\ICMS\devenv\DSSLib\inc\boost --cs_set_tu_id=1 -E --error_output=C:\testsc\share\csworkexample\example\.csdata\log\preprocess\examplesrc_1.i.cpp.plog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata -oC:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp C:\testsc\share\csworkexample\example\.csdata\src\simulation\examplesrc_1.cpp 
+INFO  [MainFrame]: PHASE21024|<cs#delim>|[1/1] examplesrc.cpp(Parsing)
+INFO  [EdgCfe4x]: options:
+edgcfe4x --cs_int_size=4 --cs_long_size=8 --cs_pointer_size=8 --cs_float_size=4 --cs_double_size=8 --signed_chars --unsigned_bit_fields --new_for_init --ignore_std --no_warnings --cs_size_t_kind=unsigned int --gnu_version=40401 --c++0x -I/testsc/src/ -D__CS_CONVERTED__ -IC:\testsc\share\csworkexample\example\.csdata\src\simulation --c++ --cs_set_tu_id=1 --error_output=C:\testsc\share\csworkexample\example\.csdata\log\parse\examplesrc_1_1.i.cpp.elog --cs_project_path=C:\testsc\share\csworkexample\example\.csdata C:\testsc\share\csworkexample\example\.csdata\src\simulation\cpreprocessed\examplesrc_1.cpp 
+INFO  [DFA]: DFA_ENABLE=N
+INFO  [DFA]: SCFG_OUT=N
+INFO  [DFA]: LIMIT_ITER=N
+INFO  [DFA]: RESULT_OUT=N
+INFO  [DFA]: ITER_OUT=N
+INFO  [DFA]: TRANSFER_OUT=N
+INFO  [MainFrame]:    parsing=52ms(76)
+INFO  [MainFrame]: functional=16ms(23)
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 7ms used.
+INFO  [ConverterFinalizer]: 1ms used.
+INFO  [pa.main]: end time: Fri Jun 09 10:39:08 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(1838930053, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: isCompiled examplesrc_1.cpp : test changed(15933718, 1838930053)
+INFO  [ut.bld]: iut compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -fpermissive  -c "C:\testsc\share\csworkexample\example\.csdata\src\build\examplesrc_1.cpp" -o "examplesrc_1.o" -I "C:\testsc\share\csworkexample\example\.csdata\src\build" ]
+INFO  [ut.bld]: examplesrc_1.cpp : set compiled(1838930053, 0, )
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link fail. check undefined symbol & try creating stub
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcad): undefined reference to `testsc_dvalue(char const*)'
+
+INFO  [ut.bld]: stub generate...
+INFO  [ut.bld]: analyze object...
+INFO  [ut.bld]: analyze library...1
+INFO  [ut.bld]: stub generator : undefinedSymbols count(8) in binary
+INFO  [ut.bld]: stub generator : codescroll_get_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_set_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_symbol_index is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_testcase_number is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_CoverageBuffer is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_LastProbe is not found in link log
+INFO  [ut.bld]: stub generator : testsc_dvalue(char const*) is not found undefinedDecl
+INFO  [ut.bld]: stub generator : testsc_init(int, char const*, char const*) is not found in link log
+INFO  [ut.bld]: stub generator : no stub generated
+ERROR [ut.bld]: fail to create stub
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Fri Jun 09 10:39:10 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:39:10 2017
+
+
+---------------------------------------------------------------------
+
+ERROR [ut.cli]: link failed
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:40:03 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:40:03 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Fri Jun 09 10:40:03 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:40:04 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:40:05 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:40:05 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : not changed
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Fri Jun 09 10:40:06 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 0ms used.
+INFO  [ConverterFinalizer]: 1ms used.
+INFO  [pa.main]: end time: Fri Jun 09 10:40:06 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(1838930053, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: skip compile. not changed src : examplesrc.cpp
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link fail. check undefined symbol & try creating stub
+INFO  [ut.bld]: link log : examplesrc_1.o:examplesrc_1.cpp:(.text+0xcad): undefined reference to `testsc_dvalue(char const*)'
+
+INFO  [ut.bld]: link log : /testsc/lib//libtestsc.a(testsc_ext.o):testsc_ext.cpp:(.text+0x195): undefined reference to `scheme_eval'
+
+INFO  [ut.bld]: stub generate...
+INFO  [ut.bld]: analyze object...
+INFO  [ut.bld]: analyze library...1
+INFO  [ut.bld]: stub generator : undefinedSymbols count(8) in binary
+INFO  [ut.bld]: stub generator : codescroll_get_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_set_int is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_symbol_index is not found in link log
+INFO  [ut.bld]: stub generator : codescroll_testcase_number is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_CoverageBuffer is not found in link log
+INFO  [ut.bld]: stub generator : cs_TFX_LastProbe is not found in link log
+INFO  [ut.bld]: stub generator : testsc_dvalue(char const*) is not found undefinedDecl
+INFO  [ut.bld]: stub generator : testsc_init(int, char const*, char const*) is not found in link log
+INFO  [ut.bld]: stub generator : no stub generated
+ERROR [ut.bld]: fail to create stub
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Fri Jun 09 10:40:07 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:40:07 2017
+
+
+---------------------------------------------------------------------
+
+ERROR [ut.cli]: link failed
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:44:36 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call checkdb
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:44:36 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ckdb]: tu not changed
+INFO  [ut.ckdb]: Delete garbage file begin
+INFO  [ut.ckdb]: Delete garbage file at build directory
+INFO  [ut.ckdb]: Delete garbage file at src/build directory
+INFO  [ut.ckdb]: Delete garbage file at src/simulation directory
+INFO  [ut.ckdb]: Delete garbage file end
+INFO  [ut.ckdb]: success
+INFO  [ut.ckdb]: 
+---------------------------------------------------------------------
+$ ut.ckdb End
+$ Current time: Fri Jun 09 10:44:36 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:44:36 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:44:38 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call builder
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:44:38 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.bld]: load toolchain(4)
+INFO  [ut.bld]: majorKind(gcc?,1), minorKind(1), majorVersion(4), minorVersion(702)
+INFO  [ut.bld]: load compiler
+INFO  [ut.bld]: compiler c(19) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: compiler cpp(20) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load linker
+INFO  [ut.bld]: linker c(72) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe
+INFO  [ut.bld]: linker cpp(73) T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe
+INFO  [ut.bld]: load module : name(Default Module), linkflag(-L/testsc/lib/ -ltestsc)
+INFO  [ut.bld]: source loading...
+INFO  [ut.bld]: load source: sourcePath(C:\testsc\share\srcexample\examplesrc.cpp), tuid(1), compileflag()
+INFO  [ut.bld]: load stub information
+INFO  [ut.bld]: BUILD COUNT(1) ---------------------------------
+INFO  [ut.bld]: isConverted examplesrc_1.cpp : not changed
+INFO  [ut.bld]: call converter
+INFO  [pa.main]: Build Date: Oct 28 2016 09:06:03
+INFO  [pa.main]: command line: "C:\testsc\share\csworkexample\example\.csdata\example.csp" "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" "C:\testsc\share\csworkexample\example\.csdata\pa.ini"
+INFO  [pa.main]: start time: Fri Jun 09 10:44:38 2017
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: -----------------------------------------------------
+INFO  [BUILD]: Oct 28 2016 09:06:03
+INFO  [REV  ]: 39674
+INFO  [INFO]: -----------------------------------------------------
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [INFO]: 
+INFO  [MainFrame]: PHASE21025
+INFO  [LinkingTime]: RUNNING - ConverterFinalizer
+INFO  [CodeConverterTrigger]: 0ms used.
+INFO  [ConverterFinalizer]: 1ms used.
+INFO  [pa.main]: end time: Fri Jun 09 10:44:38 2017
+INFO  [ut.bld]: examplesrc_1.cpp : set converted(1838930053, 0, )
+INFO  [ut.bld]: compile start. thread count(4)
+INFO  [ut.bld]: compile tfx
+INFO  [ut.bld]: tfx compile command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\gcc.exe"   -c "C:\testsc\share\csworkexample\example\.csdata\src\build\cs_tfx.c" -o "cs_tfx.o" -DCS_CODE_CONVERTED ]
+INFO  [ut.bld]: skip compile. not changed src : examplesrc.cpp
+INFO  [ut.bld]: compile end
+INFO  [ut.bld]: link start
+INFO  [ut.bld]: "Default Module" module original link flag
+INFO  [ut.bld]: -L/testsc/lib/ -ltestsc
+INFO  [ut.bld]: link command ["C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\parserConfig\GCC 4.702 (MinGW)-General.bat"&"T:\ICMS\CodeScroll\usr\gcc-4.7.2\bin\g++.exe" -otestrun.exe @"C:\testsc\share\csworkexample\example\.csdata\log\build\obj.list" -L/testsc/lib/ -ltestsc -Wl,--heap,200000000,--stack,8000000 -lstdc++ cstrlib.lib ]
+INFO  [ut.bld]: link end. ok
+INFO  [ut.bld]: building ok
+INFO  [ut.bld]: 
+---------------------------------------------------------------------
+$ ut.bld End
+$ Current time: Fri Jun 09 10:44:40 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:44:40 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli Start
+$ Command line: C:\Program Files (x86)\CodeScroll Controller Tester 2.7\plugins\com.codescroll.ut_2.7.2\bin\ucli -p "C:\testsc\share\csworkexample\example\.csdata\example.csp" -g "C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db" -i "C:\testsc\share\csworkexample\.metadata\.plugins\com.codescroll.ut\cli.in" -t 3
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:44:42 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: project(C:\testsc\share\csworkexample\example\.csdata\example.csp)
+INFO  [ut.cli]: global(C:\Users\dongil\AppData\Roaming\CodeScroll\1.1\global.db)
+INFO  [ut.cli]: toolchain id(3), name(WindRiver Linux GCC4.4), major kind(0), minor kind(0)
+INFO  [ut.cli]: call ecm
+INFO  [ut.ecm]: 
+---------------------------------------------------------------------
+$ ut.ecm Start
+$ Build time: Nov 18 2016 16:28:13
+$ Current time: Fri Jun 09 10:44:42 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.ecm]: RELEASE build engine
+INFO  [ut.ecm]: testcase timeout(3000)
+INFO  [ut.ecm]: keep context(0)
+INFO  [ut.ecm]: main:start
+INFO  [ut.ecm]: TestcasePreparer:active testcase count(31)
+INFO  [ut.ecm]: TestcasePreparer: testcaseDataInitialize
+INFO  [ut.cem]: FunctionProvider: constructor
+INFO  [ut.cem]: TruthTable::load:truth table
+INFO  [ut.cem]: CFGNode::load:cfg node
+INFO  [ut.cem]: CFGNode::load:cfg node count(55)
+INFO  [ut.cem]: CFGNode::load:load mcdc probe info
+INFO  [ut.cem]: CFGNode::load:mcdc probe info count(0), mcdc case count(0)
+INFO  [ut.cem]: CFGEdge::load:cfg edge
+INFO  [ut.cem]: CFGEdge::load:cfg edge count(86)
+INFO  [ut.ecm]: max testdata(10240)
+INFO  [ut.hio]: IODriver:coverage buffer size(86), max testdata count(10240)
+INFO  [ut.hio]: createSharedMemory:control memory size(656694)
+INFO  [ut.hio]: createSharedMemory:data memory size(239636)
+INFO  [ut.hio]: sizeof testdata(16), dbuf(00220010), dbufUse(00248010)
+INFO  [ut.hio]: createSharedMemory::shm memory key. control=20160314, data=20160316
+INFO  [ut.hio]: createSharedMemory::shm memory size. control=656694, data=239636
+INFO  [ut.ecm]: pilot:start
+INFO  [ut.ecm]: pilot:ok
+INFO  [ut.ecm]: TestcasePreparerRunner:start
+INFO  [ut.ecm]: TestcasePreparerRunner:suite count(1), test count(1)
+INFO  [ut.ecm]: prepareTestcase:suite(), test(example_example1_test0,4294967296), suite index(0) test index(2)
+INFO  [ut.ecm]: prepareTestcase:start test(example_example1_test0,4294967296)
+INFO  [ut.ecm]: TestExecutorSm:start
+INFO  [ut.ecm]: TestResultAnalyzerRunner:start
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.ecm]: prepareTestcase:end test(example_example1_test0,4294967296), testcase count(31)
+INFO  [ut.ecm]: TestcasePreparerRunner:end
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.hio]: runTest:testrun exit code(-1)
+INFO  [ut.ecm]: TestExecutorSm:end. testcase count(31)
+INFO  [ut.ecm]: TestcasePreparer:receive stop request
+INFO  [ut.ecm]: TestResultAnalyzerRunner:end. testcase count(31)
+INFO  [ut.ecm]: main:end of engine
+INFO  [ut.ecm]: 
+---------------------------------------------------------------------
+$ ut.ecm End
+$ Current time: Fri Jun 09 10:44:45 2017
+
+
+---------------------------------------------------------------------
+
+INFO  [ut.cli]: 
+---------------------------------------------------------------------
+$ ut.cli End
+$ Current time: Fri Jun 09 10:44:45 2017
+
+
+---------------------------------------------------------------------
+

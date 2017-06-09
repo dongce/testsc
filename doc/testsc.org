@@ -43,10 +43,13 @@
     재활용할 수 있다. 구조가 같은 함수가 다수 있을 때 사용하면 편리하다. 
     라이브러리 구성이 간단하여 리눅스 타겟환경 테스트를 수행할 때도
     정적라이브러리 링크를 통하여 사용할 수 있다. 
+*** 표준 출력 redirection 
+    라이브러리가 표준 출력을 파일로 redirection 해준다 코드가 실행하면서
+    출력하는 사항을 파일로 확인할 수 있다. 
 ** 단점 
    scheme 언어에 대하여 지식이 있어야 사용 가능하다. 
    [[scheme_syntax][scheme 문법 참조]]
-* 사용방법 
+* 사용방법 <<testsc_usage>>
     :PROPERTIES:
     :ATTACH_DIR: u:/orgdir/testsc/
     :END:
@@ -101,7 +104,6 @@
      테스트전역 코드에 *testsc.h* 파일이 포함되어 있기 때문에 별도의 선언 없이
      [[testsc_c_api][testsc C API]] 관련 함수를 사용할 수 있다.  
 
-    
 ** [[scheme_file][scheme 파일]] 작성 <<make_scheme_file>>
 
    앞서 지정한 testsc 홈 폴더에 [[scheme_file][scheme 파일]]을 다음과 같은 순서로 작성한다. 
@@ -306,13 +308,157 @@
     #+END_SRC
 
 ** 예제 
+   
+   아래의 예제는 배포파일에 포함되어 있는 CodeScroll 워크스페이스를 열어서
+   확인할 수 있다. 
 
-   CodeScroll의 *파일 >> 워크스페이스 바꾸기* 메뉴를 이용하여 예제가 있는
-   워크스페이스로 전환한다. 
+   *파일 >> 워크스페이스 바꾸기* 메뉴를 이용하여 예제가 있는 워크스페이스로 전환한다. 
 
    [[file:chworksspace.PNG][file:c:/testsc/doc/chworksspace.PNG]]
 
-*** 예제 1 - 값을 정의하고 사용
+*** example1 - 파라미터 조합 
+**** 테스트 대상 
+     =/testsc/share/srcexample/example1.cpp= 에 대상 함수가 있다. 
+
+     #+BEGIN_SRC c++
+       int example1::get_sec_surf_ampl(const primary_surface_id_ampl_e priampl , 
+                                       const secondary_surface_id_ampl_e secampl )
+       {
+         switch(priampl){
+         case pri_surf_ampl_no_statement     : return SURPA_NO_STATEMENT ; // 세부정보 없음
+         case pri_surf_ampl_line             :      //해군전단
+         case pri_surf_ampl_combatant        : //함정
+           switch(secampl){
+           case sec_surf_ampl_no_statement   :return SURSA_NO_STATEMENT;
+           case sec_surf_ampl_carrier        :return SURSA_CARRIER; // 1
+           case sec_surf_ampl_destroyer      :return SURSA_DESTROYER; // 4
+           case sec_surf_ampl_cruiser        :return SURSA_CRUISER; // 3
+           case sec_surf_ampl_frigate        :return SURSA_FRIGATE; // 5
+           case sec_surf_ampl_battleship     :return SURSA_BATTLESHIP; // 2
+           default : break ;
+           }
+           // 다음은 실행되지 않습니다. 
+           break ; 
+
+         case pri_surf_ampl_patrol_vessel    :  // 초계함
+           // 다음은 맵핑되지 않습니다. 
+           //enum ESurPatrolSecondaryAmp {
+           //  return SURSA_FAST_PATROL          // 3
+           //};
+           switch(secampl){
+           case sec_surf_ampl_ASW            :return SURSA_ASW_PATROL; // 1
+           case sec_surf_ampl_ASUW           :return SURSA_SURFACE_PATROL; // 2
+           default : break ;
+             ......
+     #+END_SRC
+
+***** 함수의 입력 파라미터 
+      함수 입력으로 사용하는 두 enum 타입의 모든 조합을 [[test_variable][테스트 변수]] 로 생성하면
+      100% 커버리지를 달성할 수 있다. 
+
+      관련 enum 타입은 =/testsc/share/srcexample/example1.h= 에 정의 되어 있다. 
+
+      *primary_surface_id_ampl_e* 8개 값, *secondary_surface_id_ampl_e* 30개
+      값으로 해서 240개의 조합이 존재한다. 
+
+**** 사용자 코드 
+     *테스트 정보* >> *사용자 코드* 에서 다음 사항을 확인한다. 
+     
+     #+BEGIN_SRC c++
+     testsc_init(CS_TESTCASENO(), "(testsc-require ex/t-1)",  "/testsc/home") ; 
+
+     printf("printf\n") ; 
+     std::cout<<"cout test"<<std::endl ; 
+     #+END_SRC
+
+     [[testsc_home][testsc 홈]] 아래 ex/t-1.scm 파일을 호출 하는 부분이다. 
+
+**** 호출 전 코드
+***** 호출 전 코드 내용 
+      *테스트 정보* >> *테스트 대상 함수* << *호출 전 코드* 부분에서 CodeScroll
+      이 생성한 [[test_variable][테스트 변수]]의 값을 *testsc* 에서 값을 가져 오도록 한다. 
+
+      #+BEGIN_SRC c++
+        priampl = (enum primary_surface_id_ampl_e)testsc_ivalue("priampl");
+        secampl = (enum secondary_surface_id_ampl_e)testsc_ivalue("secampl");
+      #+END_SRC
+
+***** 테스트 코드 
+      *테스트 코드* 에서 변경된 내용을 확인 하면 다음과 같다. 
+
+      CodeScroll 의 [[test_case][테스트케이스]]에 추가적으로 *testsc* 를 사용하려면 호출전
+      부분을 CS_TESTCASENO() 가 특정값 이상 일 때만 실행되도록 *if* 문을 사용할
+      수 있다. 
+      #+BEGIN_SRC c++
+        /*Input*/
+        priampl = (enum primary_surface_id_ampl_e)CS_INT_INPUT(enum primary_surface_id_ampl_e,"priampl");
+        secampl = (enum secondary_surface_id_ampl_e)CS_INT_INPUT(enum secondary_surface_id_ampl_e,"secampl");
+
+
+        #line 1 "cs_test%example1_get_sec_surf_ampl_test0%BEFORE_CALL_CODE_KEY_get_sec_surf_ampl28983194"
+        priampl = (enum primary_surface_id_ampl_e)testsc_ivalue("priampl");
+        secampl = (enum secondary_surface_id_ampl_e)testsc_ivalue("secampl");
+        #line 40 "cs_test%example1_get_sec_surf_ampl_test0%cs_error"
+      #+END_SRC
+
+**** [[scheme_file][scheme 파일]]
+
+     /testsc/home/ex/t-1.scm 파일 의 내용
+
+     src_scheme{(combi (num-list 0 8) (num-list 0 30))} 을 통하여 priampl,
+     secampl 각각 0~7, 0~29 의 조합을 생성한다. 
+
+     [[foreach-tnum]]은 생성한 조합의 값을 첫번째 파라미터 이후의 테스트케이스에
+     대하여 순서대로 lambda 함수에 전달한다
+
+     #+BEGIN_SRC scheme
+       (define priampl 0)
+       (define secampl 0)
+
+       (foreach-tnum
+        1                                      ; testcase 시작값
+        (lambda (x)                            ; testcase 번호에서 testcase 시작값을 뺀 번째 조합 값을 파라미터로 전달한다. 
+          (set! priampl (nth 0 x))             ; 조합값의 첫번째 값은 priampl
+          (set! secampl (nth 1 x)))            ; 조함값의 두번째 값은 secampl
+        (combi (num-list 0 8) (num-list 0 30)))
+
+       ;;; combi (num-list 0 8 ) (num-list 0 30 ) 
+       ;;; -> ((0 0 ) (0 1 ) (0 2 )... (0 29) (1 0 ) (1 1 ) ...)
+       ;;;     ↑ testcase 시작 값과 같은 경우 lambda 함수로 전달
+       ;;;            ↑ testcase 시작 값보다 1 클 경우 lambda 함수로 전달
+
+       (case (testsc-get-testnum)              ; C 의 switch 문에 해당 - testcase 번호
+         ((241)                                ; C 의 case 문에 해당 - testcase 번호가 241 일 경우  
+          (set! priampl -1)))                  ; priampl 을 -1 로 설정한다. 
+     #+END_SRC
+     
+**** 실행 
+     [[test_case][테스트케이스]]실행을 하여 커버리지 100% 가 되는 것을 확인 한다. 
+     
+     [[testsc_home][testsc 홈]] 아래 testsc-stdout.txt 파일을 열어 보면 다음과 같은 로그를 확인
+     할 수 있다. 
+
+     #+BEGIN_QUOTE
+      testsc-require /testsc/home/util.scm
+      testsc-require /testsc/home/testsc.scm
+      testsc-require /testsc/home/testsc-ext.scm
+      testsc-require /testsc/home/ex/t-1.scm
+      foreach-tnum next testnum is  241             → t-1.scm 에 있는 foreach-tnum  다음의 테스트번호가 241임을 알려줌 
+      testsc initalize done                         → testsc_init 함수가 끝나는 시점
+      printf                                        → 테스트코드(사용자코드) 표준출력 redirection 
+      cout test                                     → 테스트코드(사용자코드) 표준출력 redirection 
+      testsc_ivalue priampl is 7                    → 테스트코드(호출전 코드)에서 testsc_ivalue 의 값
+      testsc_ivalue secampl is 1                    → 테스트코드(호출전 코드)에서 testsc_ivalue 의 값
+     #+END_QUOTE
+
+
+     ex/t-1.scm 파일에서 괄호를 하나 삭제하고 실행하면 다음과 같은 에러 로그를
+     확인할 수 있다.  
+
+     #+BEGIN_QUOTE
+     
+     #+END_QUOTE
+
 *** 예제 2 - enum 변수 확인 
 *** 예제 3 - filter check 
 *** 예제 4 - 구조체 예제

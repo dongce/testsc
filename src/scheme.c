@@ -4959,7 +4959,7 @@ pointer scheme_eval(scheme *sc, pointer obj)
 
 #if STANDALONE
 pointer
-foreign_testsc_init_ext(scheme* sc , pointer args) ; 
+foreign_testsc_init(scheme* sc , pointer args) ; 
 pointer
 foreign_testsc_interactive(scheme* sc , pointer args) ; 
 
@@ -5013,14 +5013,10 @@ int main(int argc, char **argv) {
     }
   }
 
-  //depredated//scheme_define(&sc ,
-  //depredated//              sc.global_env ,
-  //depredated//              mk_symbol(&sc , "testsc-init-ext" ) ,
-  //depredated//              mk_foreign_func(&sc , foreign_testsc_init_ext)) ;
-  //deprecated//scheme_define(&sc ,
-  //deprecated//              sc.global_env ,
-  //deprecated//              mk_symbol(&sc , "testsc-interactive?" ) ,
-  //deprecated//              mk_foreign_func(&sc , foreign_testsc_interactive)) ;
+  scheme_define(&sc ,
+                sc.global_env ,
+                mk_symbol(&sc , "*testsc-home*" ) ,
+                mk_string(&sc , "./")) ;
 
   do {
     if(strcmp(file_name,"-")==0) {
@@ -5066,7 +5062,8 @@ int main(int argc, char **argv) {
     file_name=*argv++;
   } while(file_name!=0);
   if(argc==1) {
-       foreign_testsc_init_ext(&sc, cons(&sc, mk_integer(&sc, 1), cons(&sc , mk_string(&sc ,  "./") ,  sc.NIL))) ;
+
+       foreign_testsc_init(&sc, cons(&sc, mk_integer(&sc, 1), cons(&sc , mk_string(&sc ,  "./") ,  sc.NIL))) ;
        scheme_load_named_file(&sc,stdin,0);
   }
   retcode=sc.retcode;

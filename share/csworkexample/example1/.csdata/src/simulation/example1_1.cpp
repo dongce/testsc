@@ -1,0 +1,10 @@
+#include "cs_tfx.h"
+#include "cs_test_class.h"
+#include "example1_1.h"
+#include "../instrumented/example1_1.cpp"
+#include "../../../unittest/example1_get_sec_surf_ampl_test0.c"
+#include "cs_test_function_wrapper.c"
+#define CS_TUID_1
+#include "cs_test_function_wrapper.c"
+#include "../build/cs_stub_list.c"
+#undef CS_TUID_1

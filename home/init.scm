@@ -715,6 +715,12 @@
 
 (gc-verbose #f)
 
-(load "util.scm")
-(load "testsc.scm")
-(load "testsc-ext.scm")
+(define-macro (testsc-require x)
+  (let ((fname (string-append *testsc-home* (symbol->string x) ".scm")))
+    (display (string-append "testsc-require " fname "\n"))
+    `(load ,fname)))
+
+
+(testsc-require util)
+(testsc-require testsc)
+(testsc-require testsc-ext)

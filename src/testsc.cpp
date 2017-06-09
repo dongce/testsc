@@ -16,12 +16,8 @@
 
 
 
-#if STANDALONE
 FILE* g_debug = stdout ;
-#else
-FILE* g_debug = NULL ;
-#endif
-char* g_buffer = 0 ; 
+char* g_buffer = (char*)malloc(409600) ; 
 
 
 void testsc_debug(const char*format ...) ; 
@@ -40,15 +36,10 @@ foreign_testnum_set(scheme *sc , pointer args)
 
 void testsc_load(scheme*sc , const char* filename , const char *homepath = NULL)
 {
-#if defined (__linux__)
-  static const char* TINYSCHEME_HOME =(  NULL == getenv("TINYSCHEME_HOME") ? "/ts"  : getenv("TINYSCHEME_HOME")  );
-#else
-  static const char* TINYSCHEME_HOME =(  NULL == getenv("TINYSCHEME_HOME") ? "t:/ts"  : getenv("TINYSCHEME_HOME")  );
-#endif
+  static const char* TINYSCHEME_HOME =(  NULL == getenv("TINYSCHEME_HOME") ? "/testsc/home/"  : getenv("TINYSCHEME_HOME")  );
 
   char absfilename[1024] ;
   sprintf(absfilename, "%s/%s" , (NULL != homepath && strlen(homepath) > 0 ? homepath: TINYSCHEME_HOME) , filename ) ;
-  testsc_debug("tetsc-load %s", absfilename) ; 
   FILE* fin=fopen(absfilename,"r");
   if( NULL != fin ){
     scheme_load_named_file(sc,fin,filename);
@@ -88,7 +79,7 @@ foreign_testsc_set_testnum(scheme* sc, pointer args)
 
 
 pointer
-foreign_testsc_debug_string(scheme*sc , pointer args )
+foreign_testsc_debug(scheme*sc , pointer args )
 {
   testsc_debug(string_value(pop_args(args))) ;
   
@@ -125,15 +116,16 @@ foreign_testsc_numtest(scheme*sc , pointer args )
 //deprecated//  return sc->NIL; 
 //deprecated//}
 
-#if STANDALONE
+#if !STANDALONE
 scheme* g_sc  = reinterpret_cast<scheme*>(malloc(sizeof(scheme)) );
 #else
+// come from main 
 scheme* g_sc = NULL ; 
 #endif
 
 
 extern "C" pointer
-foreign_testsc_init_ext(scheme* sc , pointer args)
+foreign_testsc_init(scheme* sc , pointer args)
 {
 
   if(g_sc != sc){
@@ -141,59 +133,18 @@ foreign_testsc_init_ext(scheme* sc , pointer args)
   }
 
   g_testnum            = ivalue(pop_args(args)) ;
-  const char* TINYSCHEME_HOME = string_value(pop_args(args)) ;
 
-  if(0 == strlen(TINYSCHEME_HOME)){
-    TINYSCHEME_HOME = (  NULL == getenv("TINYSCHEME_HOME") ? "/testsc/"  : getenv("TINYSCHEME_HOME")  );
-  }
-  
-
-#if !STANDALONE
-  char absfilename[1024] ;
-  sprintf(absfilename,
-          "%s/testsc-stderr.txt" ,
-          TINYSCHEME_HOME ) ;
-  for(FILE* f = fopen(absfilename, "ab") ;
-      NULL !=f ;
-      f = NULL){
-    dup2(fileno(f) , STDERR_FILENO) ;
-  }
-
-  fflush(stderr) ;
-
-  sprintf(absfilename,
-          "%s/testsc-stdout.txt" ,
-          TINYSCHEME_HOME ) ;
-
-
-  g_debug = fopen(absfilename, "ab") ;
-
-  dup2(fileno(g_debug) , STDOUT_FILENO) ;
-
-  if(!file_interactive(sc)){
-   scheme_set_output_port_file(sc, g_debug);
-  }
-#endif
-
-  g_buffer = reinterpret_cast<char*>(malloc(10240) ); 
-
-  
-    
   foreign_symbol symbols [] = {
     //deprecated//{"mmsg-set"         , foreign_mmsg_set}, 
     // {"testsc-load"      , foreign_testsc_load},
     {"testsc-set-debug" , foreign_testsc_set_debug},
-    {"testsc-debug-string"     , foreign_testsc_debug_string}, 
+    {"testsc-debug"     , foreign_testsc_debug}, 
     {"testsc-get-testnum", foreign_testsc_get_testnum   },
     {"testsc-set-testnum", foreign_testsc_set_testnum   },
     {"testsc-numtest" , foreign_testsc_numtest  }, 
     // {"testsc-ivalue" ,      foreign_testsc_ivalue  }, 
   } ;
 
-  scheme_define(sc ,
-                sc->global_env ,
-                mk_symbol(sc , "*testsc-home*" ) ,
-                mk_string(sc , TINYSCHEME_HOME)) ;
 
 
   for(foreign_symbol *s = symbols ;
@@ -212,20 +163,59 @@ foreign_testsc_init_ext(scheme* sc , pointer args)
 }
 
 //////////////TEST CASE 에서 호출할 수 있는 함수들 ////////////////
-void testsc_init(int testnum , const char* cmd, const char* homepath)
+void testsc_init(int testnum , const char* cmd, const char* home)
 {
 
   scheme_init(g_sc) ;
-  testsc_load(g_sc, "init.scm", homepath) ;
-  foreign_testsc_init_ext(g_sc,
-                          tinyscheme_list2(g_sc,
+
+  char homepath[1024] ;
+
+  
+  if(0 == home){
+    home = (  NULL == getenv("TINYSCHEME_HOME") ? "/testsc/home/"  : getenv("TINYSCHEME_HOME")  );
+  }
+  sprintf(homepath, "%s/", home) ; 
+
+  
+  scheme_define(g_sc ,
+                g_sc->global_env ,
+                mk_symbol(g_sc , "*testsc-home*" ) ,
+                mk_string(g_sc , homepath)) ;
+
+  char absfilename[1024] ;
+  sprintf(absfilename,
+          "%s/testsc-stderr.txt" ,
+          homepath ) ;
+  for(FILE* f = fopen(absfilename, "ab") ;
+      NULL !=f ;
+      f = NULL){
+    dup2(fileno(f) , STDERR_FILENO) ;
+  }
+
+  fflush(stderr) ;
+
+  sprintf(absfilename,
+          "%s/testsc-stdout.txt" ,
+          homepath ) ;
+
+
+  g_debug = fopen(absfilename, "ab") ;
+
+  dup2(fileno(g_debug) , STDOUT_FILENO) ;
+  
+  scheme_set_output_port_file(g_sc, g_debug);
+  
+  
+  foreign_testsc_init(g_sc,
+                      tinyscheme_list2(g_sc,
                                        mk_integer(g_sc, testnum) ,
                                        mk_string(g_sc, NULL != homepath ? homepath : ""))) ;
-
+  testsc_load(g_sc, "init.scm", homepath) ;
+  
   if( NULL != cmd ){
     scheme_load_string(g_sc, cmd) ;
   }
-
+  testsc_debug("testsc initalize done") ; 
 }
 
 

@@ -16,7 +16,6 @@
 
 
 (define (nth n l)
-  (display  l)
   (do ((i 0 (+ i 1)))
       ((>= i n ))
     (set! l (cdr l)))

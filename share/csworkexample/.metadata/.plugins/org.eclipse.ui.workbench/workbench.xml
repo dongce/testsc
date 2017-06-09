@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench progressCount="12" version="2.0">
+<workbenchAdvisor/>
+<window height="910" maximized="true" width="1350" x="399" y="48">
+<fastViewData fastViewLocation="1024"/>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout locked="0">
+<coolItem id="main" itemType="typeToolBarContribution" x="99" y="22"/>
+<coolItem id="com.codescroll.ut.CoverageShowInEditor" itemType="typeToolBarContribution" x="38" y="22"/>
+<coolItem id="com.codescroll.ut.unittestActionSet" itemType="typeToolBarContribution" x="38" y="22"/>
+</coolbarLayout>
+<page focus="true" label="작업공간 - 테스트">
+<editors>
+<editorArea activeWorkbook="DefaultEditorWorkbook">
+<info part="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+</editorArea>
+</editors>
+<views>
+<view id="com.codescroll.ut.CoverageView" partName="커버리지">
+<viewState/>
+</view>
+<view id="com.codescroll.ut.ui.views.stub.StubPoolView" partName="스텁">
+<viewState/>
+</view>
+<view id="com.codescroll.ut.MCDCView" partName="MC/DC"/>
+<view id="com.codescroll.gp.pa.internal.ui.views.functionCallHierarchyId" partName="함수 호출 계층"/>
+<view id="com.codescroll.gp.log.view.errorLog" partName="오류">
+<viewState/>
+</view>
+<view id="com.codescroll.ut.UnitTestView" partName="유닛 테스트">
+<viewState/>
+</view>
+<view id="com.codescroll.gp.pa.ui.views.TestResultView" partName="테스트 네비게이터">
+<viewState CommonNavigator.LINKING_ENABLED="0"/>
+</view>
+<view id="com.codescroll.ut.IntegrationTestView" partName="통합 테스트"/>
+<view id="com.codescroll.gp.pa.ui.views.CFGViewId" partName="제어 흐름 그래프">
+<viewState/>
+</view>
+<view id="com.codescroll.gp.pa.ui.views.CallGraphViewId" partName="함수 호출 그래프"/>
+</views>
+<perspectives activePart="com.codescroll.gp.pa.ui.views.TestResultView" activePerspective="com.codescroll.ut.ui.UnitTestPerspective">
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="com.codescroll.ut.ui.perspectives.TestPerspective" id="com.codescroll.ut.ui.UnitTestPerspective" label="테스트"/>
+<alwaysOnActionSet id="com.codescroll.gp.pa.search.searchActionSet"/>
+<alwaysOnActionSet id="com.codescroll.ut.unittestActionSet"/>
+<alwaysOnActionSet id="com.codescroll.ut.CoverageShowInEditor"/>
+<show_view_action id="com.codescroll.gp.pa.ui.views.GlobalVariableRelationViewId"/>
+<show_view_action id="com.codescroll.ut.GraphView"/>
+<show_view_action id="com.codescroll.ut.ui.views.stub.StubPoolView"/>
+<show_view_action id="com.codescroll.ut.TestcaseView"/>
+<show_view_action id="com.codescroll.ut.CoverageView"/>
+<show_view_action id="com.codescroll.ut.UnitTestView"/>
+<show_view_action id="com.codescroll.gp.pa.ui.views.CFGViewId"/>
+<show_view_action id="com.codescroll.gp.pa.ui.views.CallGraphViewId"/>
+<show_view_action id="com.codescroll.gp.pa.internal.ui.views.functionCallHierarchyId"/>
+<show_view_action id="com.codescroll.ut.MCDCView"/>
+<show_view_action id="com.codescroll.gp.pa.ui.views.TestResultView"/>
+<show_view_action id="com.codescroll.gp.log.view.errorLog"/>
+<show_view_action id="com.codescroll.ut.ClassView"/>
+<show_view_action id="com.codescroll.ut.InsertCodeView"/>
+<new_wizard_action id="com.codescroll.ut.SourceSelectionConvertWizard"/>
+<new_wizard_action id="com.codescroll.ut.BuildCommandConvertProject"/>
+<new_wizard_action id="com.codescroll.gp.prj.imports.wizards.EmptyCProjectWizard"/>
+<new_wizard_action id="com.codescroll.gp.prj.imports.wizards.ImportCProjectWizard"/>
+<new_wizard_action id="com.codescroll.gp.prj.imports.wizards.ImportBuildCommandWizard"/>
+<new_wizard_action id="com.codescroll.gp.prj.imports.wizards.ImportVisualStudioProjectWizard"/>
+<new_wizard_action id="com.codescroll.gp.prj.imports.wizards.ImportCSProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="com.codescroll.gp.pa.ui.views.CFGViewId"/>
+<view id="com.codescroll.gp.pa.ui.views.CallGraphViewId"/>
+<view id="com.codescroll.gp.pa.internal.ui.views.functionCallHierarchyId"/>
+<view id="com.codescroll.ut.MCDCView"/>
+<view id="com.codescroll.ut.ui.views.stub.StubPoolView"/>
+<view id="com.codescroll.gp.pa.ui.views.TestResultView"/>
+<view id="com.codescroll.ut.UnitTestView"/>
+<view id="com.codescroll.ut.IntegrationTestView"/>
+<view id="com.codescroll.ut.CoverageView"/>
+<view id="com.codescroll.gp.log.view.errorLog"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="left">
+<folder activePageID="com.codescroll.gp.pa.ui.views.TestResultView" appearance="2" expanded="2">
+<page content="com.codescroll.gp.pa.ui.views.TestResultView" label="테스트 네비게이터"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@b98a06" ratio="0.75" ratioLeft="750" ratioRight="250" relationship="2" relative="left">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info folder="true" part="bottom" ratio="0.59969085" ratioLeft="388" ratioRight="259" relationship="4" relative="left">
+<folder activePageID="com.codescroll.gp.pa.ui.views.CFGViewId" appearance="2" expanded="2">
+<page content="com.codescroll.gp.pa.ui.views.CFGViewId" label="제어 흐름 그래프"/>
+<page content="com.codescroll.gp.pa.ui.views.CallGraphViewId" label="함수 호출 그래프"/>
+<page content="com.codescroll.gp.pa.internal.ui.views.functionCallHierarchyId" label="함수 호출 계층"/>
+<page content="com.codescroll.ut.MCDCView" label="MC/DC"/>
+<page content="com.codescroll.ut.ui.views.stub.StubPoolView" label="스텁"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="folder" ratio="0.5" ratioLeft="500" ratioRight="500" relationship="2" relative="bottom">
+<folder activePageID="com.codescroll.gp.log.view.errorLog" appearance="2" expanded="2">
+<page content="com.codescroll.ut.CoverageView" label="커버리지"/>
+<page content="com.codescroll.gp.log.view.errorLog" label="오류"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.21" ratioLeft="210" ratioRight="790" relationship="2" relative="left"/>
+<info folder="true" part="right_folder" ratio="0.8648649" ratioLeft="960" ratioRight="150" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="com.codescroll.ut.UnitTestView" appearance="2" expanded="2">
+<page content="com.codescroll.ut.UnitTestView" label="유닛 테스트"/>
+<page content="com.codescroll.ut.IntegrationTestView" label="통합 테스트"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<workingSets/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="" path="/example/unittest/example_example1_test0.c"/>
+</editors>
+<item active="true" historyLabel="example_example1_test0.c" index="0">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+</navigationHistory>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+<trimLayout>
+<trimArea IMemento.internal.id="128">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
+</trimArea>
+<trimArea IMemento.internal.id="1024">
+<trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
+<trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.HeapStatus"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+</trimArea>
+</trimLayout>
+</window>
+<mruList/>
+</workbench>
