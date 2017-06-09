@@ -449,14 +449,17 @@
      #+END_QUOTE
 
 
-     ex/t-1.scm 파일에서 괄호를 하나 추가 하고 실행하면 다음과 같은 에러 로그를
-     확인할 수 있다. 괄호가 하나 없는 경우는 scheme 문장이 아직 덜 끝난 상태기
-     때문에 에러가 발생하지 아니할 수 있다. 이럴 경우 scheme.exe 를 이용하여
-     디버깅을 수행한다. 
+     ex/t-1.scm 파일에서 ')'괄호를 하나 추가 하고 실행하면 다음과 같은 에러 로그를
+     확인할 수 있다. 
 
      #+BEGIN_QUOTE
      Error: (/testsc/home//ex/t-1.scm : 44) syntax error: illegal token 
      #+END_QUOTE
+
+     여는 괄호'(', 닫는 괄호')' 쌍을 scheme 에서는 sexp 라고 지칭한다. sexp 를
+     처리하는 과정에서 에러가 발생하면 에러가 발생한다. 여는 괄호가 아직 끝나지
+     아니한 경우는 에러검출이 아니될 수도 있다. 이럴 경우 [[scheme_debuging][디버깅]] 을 통해서
+     문제가 있는 부분을 확인 할 수 있다. 디버깅 방법은 [[scheme_debuging][디버깅]] 참조 
 
 *** 예제 2 - enum 변수 확인 
 *** 예제 3 - filter check 
@@ -599,7 +602,30 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
    라이브러리가 표준 출력을 파일로 redirection 해준다 코드가 실행하면서
    출력하는 사항을 파일로 확인할 수 있다. 
 
-   
+** debuging <<debugging>>
+
+   1. 커맨드 창을 열고 [[testsc_home][testsc 홈]] 폴더(=/testsc/home/=) 으로 이동한다. 
+   2. scheme 명령을 실행한다. 
+      #+BEGIN_SRC shell
+      C:\testsc\home>.\scheme.exe
+      #+END_SRC
+   3. [[tests-init]] 을 호출한다. 
+      
+      다음은 testscase 번호를 1로 설정하고 [[testsc_home][testsc 홈]] 폴더 아래 ex/t-1.scm 을
+      로딩한다. 로깅 과정에 에러가 있을 경우 화면으로 출력한다.  [[scheme_file][scheme 파일]] 의
+      오류를 검증하는데 사용할 수있다. 
+      #+BEGIN_SRC scheme
+      ts> (testsc-init 1 ex/t-1 )
+      #+END_SRC
+   4. [[test_variable][테스트 변수]] 값을 확인한다. 
+
+      확인하고자 하는 변수를 입력후 엔터를 넣으면 값이 출력된다. [[testsc-init]]
+      함수의 테스트번호를 변경해가면서 [[test_variable][테스트 변수]] 의 값을 확인할 수 있다. 
+      #+BEGIN_SRC scheme
+      ts>priampl
+      0
+      #+END_SRC
+      
 * Reference <<reference>>
 ** C API - <<testsc_c_api>>
    CodeScroll 에서 스텁등을 작성할 때 사용한다. 

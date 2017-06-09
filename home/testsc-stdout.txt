@@ -1,0 +1,17 @@
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+foreach-tnum next testnum is  241
+post called
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 0
+testsc-require /testsc/home//util.scm
+testsc-require /testsc/home//testsc.scm
+testsc-require /testsc/home//testsc-ext.scm
+testsc-require /testsc/home//ex/t-1.scm
+Error: (/testsc/home//ex/t-1.scm : 44) syntax error: illegal token 
+testsc initalize done
+testsc_ivalue priampl is 0
+testsc_ivalue secampl is 0

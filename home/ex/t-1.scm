@@ -41,7 +41,7 @@
 (define   sec_surf_ampl_size                       30 ) 
 
 (define priampl 0)
-(define secampl 0))
+(define secampl 0)
 (foreach-tnum
  1
  (lambda (x)
