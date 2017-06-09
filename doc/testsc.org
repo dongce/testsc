@@ -5,7 +5,7 @@
 #+EXPORT_EXCLUDE_TAGS: noexport
 
 # http://orgmode.org/manual/Table-of-contents.html
-
+# page breaking 하는 방법 확인 할 것 
 * 기본 사항 
 ** 무엇을 하는 것인가? 
    동적 시험 시 필요한 [[test_variable][테스트 변수]]를 파일로 부터 읽어 오는 라이브러리이다.
