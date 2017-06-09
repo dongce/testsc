@@ -1407,6 +1407,7 @@ GFE 로 부터 받는 메시지등을 구현하는데 사용할 수 있다.
      ;; this macro is broken: it generates infinite code, if you try to use
      ;; it, the compiler will get in an infinite loop
 
+     (quit) ;; exit repl
    #+END_SRC
 
 * 용어
