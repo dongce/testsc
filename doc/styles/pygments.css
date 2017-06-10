@@ -32,6 +32,21 @@ pre.src-sql:before   { content: 'SQL'; }
 pre.src-cpp:before   { content: 'C/C++'; }
 pre.src-scheme:before   { content: 'scheme'; }
 
+
+
+code {
+font-family: monospace;
+overflow: auto;
+font-size: 100%
+}
+code.src {
+position: relative;
+overflow: visible;
+padding-top: 0.5em;
+padding-bottom: 0.5em;
+}
+
+
 .hll { background-color: #ffffcc }
 .c { color: #888888 }
 .err { color: #FF0000; background-color: #FFAAAA }
