@@ -1,15 +1,16 @@
-#+TITLE: testsc - 동적 시험 라이브러리
+#+TITLE: 동적 시험 데이터 생성 라이브러리
+#+TITLE: - testsc
 #+SETUPFILE: setup/theme-readtheorg-local.setup
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="styles/pygments.css" />
 #+OPTIONS: toc:3 ^:{} num:3
 #+EXPORT_EXCLUDE_TAGS: noexport
-
+            
 # http://orgmode.org/manual/Table-of-contents.html
 # page breaking 하는 방법 확인 할 것 
 * 기본 사항 
 ** 무엇을 하는 것인가? 
-   동적 시험 시 필요한 [[test_variable][테스트 변수]]를 파일로 부터 읽어 오는 라이브러리이다.
-   파일의 형식은 scheme 스트립트이다. 간단한 데이터의 정의 뿐만 아니라
+   동적 시험 시 필요한 [[tests_data][테스트 데이터]]를 파일로 부터 읽어 오는 라이브러리이다.
+   파일의 형식은 scheme 스트립트로써 간단한 데이터의 정의 뿐만 아니라
    프로그래밍을 통한 데이터의 생성이 가능하다.  
 
     #+BEGIN_SRC dot :file concept.png :exports results
@@ -94,6 +95,8 @@
           pValue4    = (track_t*)testsc_ext_get(0) ; 
         #+END_SRC
 
+      + 참조 : [[testsc_ivalue]], [[testsc_dvalue]], [[testsc_strvalue]], [[testsc_ext_get]]
+
 **** stub 코드 작성 
      CodeScroll은  stub 의 동작을 제어하기 위한 변수는 생성을 하지 아니한다.
      [[scheme_file][scheme 파일]]에서 stub을 제어할 변수를 설정하고 stub 구현부에서 [[testsc_c_api][testsc C API]]
@@ -111,29 +114,35 @@
    
 ** CodeScroll [[test_case][테스트 케이스]] 빌드 및 커버리지 평가 
 *** 포함 파일 추가
-    [[testsc_home][testsc 홈]] 을 포함 디렉토리에 추가한다. 
-*** 링크 라이브러리 추가 
-    [[testsc_home][testsc 홈]] 을 링크 디렉토리에 추가한다. 
-    링크할 라이브러리를 추가한다. 
-    #+BEGIN_QUOTE
-    -L/testsc -ltestsc
-    #+END_QUOTE
-*** 빌드 및 [[test_case][테스트 케이스]]를 실행한다. 
-    실행결과로 생성되는 커버리지를 참조하여 추가가 필요한 [[test_variable][테스트 변수]]값을
-    [[scheme_file][scheme 파일]]에 설정한다.  CodeScroll 의 사용자 인터페이스를 통하여 값을
-    설정하는 것 보다 빠르게 커버리지를 올릴 수 있다.  
-    다음 파일은 [[test_case][테스트케이스]]가 실행하면서 출력하는 것을 저장하는 파일이다. 
+    =/testsc/src/= 폴더를 포함 디렉토리에 추가한다. 
 
-    - testsc-stderr.txt : [[testsc_home][testsc 홈]] 폴더 아래 위치한다. [[test_case][테스트케이스]]가
-      실행하면서 출력하는 표준에러 출력을 저장한다. 
+    #+BEGIN_EXAMPLE
+    -I/testsc/src/
+    #+END_EXAMPLE
+    
+    [[file:include.png][file:include.png]]
+
+*** 링크 라이브러리 추가 
+    =/testsc/lib/= 을 링크 디렉토리에 추가하고, libtestsc.a 파일을 링크하도록
+    한다. 
+   
+    #+BEGIN_EXAMPLE
+    -L/testsc/lib -ltestsc
+    #+END_EXAMPLE
+   
+    [[file:testsclink.png][file:testsclink.png]]
+*** 빌드 및 [[test_case][테스트 케이스]]를 실행한다. 
+    커버리지 100%가 될 때 까지 [[scheme_file][scheme 파일]]을 수정해 가며 [[tests_data][테스트 데이터]]를
+    생성한다. 
+
+    *testsc* 는 표준 출력·에러를 파일로 리다이렉션 한다.
 
     - testsc-stdout.txt : [[testsc_home][testsc 홈]] 폴더 아래 위치한다. [[test_case][테스트케이스]]가
       실행하면서 출력하는 표준출력 및 [[testsc_debug]] 출력을 저장한다. 
 
-*** 커버리지 평가 
-    테스트결과를 평가한 후 커버가 아니되는 분기를 확인하여 추가적으로
-    테스트데이터를 생성한다. CodeScroll에 추가적으로 입력 하는 부분 없이 [[scheme_file][scheme
-    파일]]을 수정하여 테스트데이터를 생성할 수 있다. 
+    - testsc-stderr.txt : [[testsc_home][testsc 홈]] 폴더 아래 위치한다. [[test_case][테스트케이스]]가
+      실행하면서 출력하는 표준에러 출력을 저장한다. 
+
 
     #+HTML: <hr>
     
@@ -180,7 +189,6 @@
      }
    #+END_SRC
 
-
 ** [[tests_data][테스트 데이터]] 확인
 
    [[test_variable][테스트 변수]]의 조건들을 나열한 후 이로 부터 [[tests_data][테스트 데이터]]를 확인한다. 조건으로
@@ -209,14 +217,13 @@
 
 ** [[test_variable][테스트 변수]] 선언
    
-   C 코드 상의 항목과 잘 연상이 될 수 있고 짧은 이름으로 선언한다. 
+   [[test_case][테스트 케이스]]의  잘 연상이 될 수 있고 짧은 이름으로 선언한다. 
 
    #+BEGIN_SRC scheme
      (define is-online     1)
      (define value         7000)
      (define trk-xpos      300)
      (define trk-ls        link_received)
-     (anset 0 ) 
    #+END_SRC
 
 ** [[test_variable][테스트 변수]]에 [[tests_data][테스트 데이터]]를 설정 
@@ -224,7 +231,7 @@
 
    [[combi]]는 [[test_variable][테스트 변수]]별 [[tests_data][테스트 데이터]] 값의 모든 조합(combination)을 생성한다.
    [[testsc-apply-tdata]] 는 테스트 번호에 맞는 테스트 데이터를 가져와서 lambda
-   함수를 적용한다. lambda 함수에서 [[test_variable][테스트 변수]]에 값을 설정(set!) 한다.  
+   함수를 적용한다. lambda 함수에서 [[test_variable][테스트 변수]]에 값을 설정([[set!]]) 한다.  
    
    #+BEGIN_SRC scheme
      (testsc-apply-tdata     
@@ -299,6 +306,9 @@
 **** 사용자 코드 
      *테스트 정보* >> *사용자 코드* 에서 다음 사항을 확인한다. 
      
+     [[testsc_init]]함수 호출 시 명령으로 [[testsc_home][testsc 홈]] 아래 ex/t-1.scm 파일을 호출 하는
+     부분이다.  
+
      #+BEGIN_SRC cpp
      testsc_init(CS_TESTCASENO(), "(testsc-require ex/t-1)",  "/testsc/home") ; 
 
@@ -306,11 +316,12 @@
      std::cout<<"cout test"<<std::endl ; 
      #+END_SRC
 
-     [[testsc_home][testsc 홈]] 아래 ex/t-1.scm 파일을 호출 하는 부분이다. 
 
 **** 호출 전 코드
-      *테스트 정보* >> *테스트 대상 함수* << *호출 전 코드* 부분에서 CodeScroll
-      이 생성한 [[test_variable][테스트 변수]]의 값을 *testsc* 에서 값을 가져 오도록 한다. 
+      *테스트 정보* >> *테스트 대상 함수* << *호출 전 코드* 에서 다음 사항을
+      확인한다. 
+
+      CodeScroll 이 생성한 [[test_variable][테스트 변수]]에 *testsc* 에서 가져온 값을 할당한다. 
 
       CodeScroll 의 [[test_case][테스트케이스]]에 추가적으로 *testsc* 를 사용하려면 호출전
       부분을 CS_TESTCASENO() 가 특정값 이상 일 때만 실행되도록 *if* 문을 사용할
@@ -335,7 +346,7 @@
      - src_scheme{(combi (num-list 0 8) (num-list 0 30))} 을 통하여 priampl,
        secampl 각각 0~7, 0~29 의 조합을 생성한다. 
 
-     - 추가적인 [[test_variable][테스트 변수]] 값이 필요할 경우 scheme-case 문을 사용하여 지정할 수
+     - 추가적인 [[test_variable][테스트 변수]] 값이 필요할 경우 scheme의 [[case]] 문을 사용하여 지정할 수
        있다. 
 
      #+BEGIN_SRC scheme
@@ -584,74 +595,143 @@
    라이브러리를 재빌드 하는 일이 자주 발생 할 수 도 있다. 
     #+HTML: <hr>
 
+** exception 활용 
+** editor
+ http://www.daansystems.com/lispide/  
 * Reference <<reference>>
 ** C API - <<testsc_c_api>>
    CodeScroll [[test_case][테스트 케이스]]를 C/C++ 로 작성할 때 사용하는 함수 이다. 
 *** testsc.h
-    [[test_variable][테스트 변수]]를 처리하는 함수 
+**** src_cpp[:exports code]{void testsc_init(int testnum, const char *cmd, const char *homepath = 0 )}  <<testsc_init>>
+     #+HTML: <br/>
+***** 설명
+      *testsc* 를 초기화 한다. *testsc* 는 파라미터로 전달받은 [[testsc_tnum][테스트 번호]] 및
+      [[testsc_home][testsc 홈]] 경로의 값을 설정한 후 cmd 명령을 실행한다. 명령에서
+      [[testsc-require]]을 이용하여 [[scheme_file][scheme 파일]]을 실행할 수 있다.  
+      
 
-**** src_cpp[:exports code]{long testsc_ivalue(const char* name) ;} <<testsc_ivalue>>
-\\
-      | 용도     | [[test_variable][테스트 변수]]의 정수 값을 가져온다.     |
-      | 파라미터 | name → 가져오고자 하는 [[test_variable][테스트 변수]]명 |
-      |          | name → 가져오고자 하는 [[test_variable][테스트 변수]]명 |
-      | 리턴 값  | [[test_variable][테스트 변수]]의 값                      |
+***** 파라미터
+       - testnum  → CS_TESTCASENO()으로써 [[testsc_tnum][테스트 번호]]
+       - cmd      → 실행할 scheme 명령어. 주로 [[testsc-require]] 를 호출하여
+         [[scheme_file][scheme 파일]]을 실행한다.  
+       - homepath → [[testsc_home][testsc 홈]] 경로. 경로를 파라미터로 넘기지 아니할 경우
+         프로젝트가 있는 드라이브의 =/testsc/home= 폴더가 홈이 된다. (C
+         드라이브에 프로젝트 폴더가 있을 경우 =c:\testsc\home= 폴더, 리눅스의
+         경우 =/testsc/home= )        
 
+***** 리턴 값
+      void
+***** 사용 예
+      #+BEGIN_SRC cpp
+      testsc_init(CS_TESTCASENO(), "(testsc-require ex/t-1)", "/testsc/home") ; 
+      #+END_SRC
+***** 참조 
+      [[TESTSC_INIT]]
+**** src_cpp[:exports code]{#define TESTSC_INIT(cmd) testsc_init(CS_TESTCASENO(), #cmd)  }  <<TESTSC_INIT>>
+     #+HTML: <br/>
+***** 설명
+      [[testsc_init]]함수 호출을 간단하게 해주는 매크로 정의. 
+***** 파라미터
+       - cmd → 실행하고자 하는 scheme 명령. 따옴표 없이 호출
+***** 리턴 값
+      없음
+***** 사용 예
+      #+BEGIN_SRC cpp
+      TESTSC_INIT((require ex/t-1)) ; 
+      #+END_SRC
+**** src_cpp[:exports code]{void testsc_eval(const char *cmd)}  <<testsc_eval>>
+     #+HTML: <br/>
+***** 설명
+      [[testsc_init]] 에서 초기화 하면서 scheme 명령을 실행하는 것에 더하여
+      추가적으로 다른 scheme 명령을 실행고 싶을 때 사용한다. 어떠한 scheme
+      명령도 실행 가능하지 만 주로 파일을 불러오는 [[testsc-require]] 명령을
+      실행한다. 
+***** 파라미터
+       - cmd → 실행하고자 하는 scheme 명령어
+***** 리턴 값
+      void 
+***** 사용 예
+      #+BEGIN_SRC cpp
+      testsc_eval("(testsc-require post)") ; 
+      #+END_SRC
+***** 참조
+      [[TESTSC_EVAL]]
+**** src_cpp[:exports code]{#define TESTSC_EVAL(cmd) testsc_eval( #cmd)}  <<TESTSC_EVAL>>
+     #+HTML: <br/>
+***** 설명
+      testsc_eval함수 호출을 간단하게 해주는 매크로 정의
+***** 파라미터
+       - cmd → 실행하고자 하는 scheme 명령. 따옴표 없이 호출
+***** 리턴 값
+      없음
+***** 사용 예
+      #+BEGIN_SRC cpp
+      TESTSC_EVAL((testsc-require post)) ; 
+      #+END_SRC
+
+**** src_cpp[:exports code]{long testsc_ivalue(const char* name)} <<testsc_ivalue>>
+     #+HTML: <br/>
+***** 설명
+      [[test_variable][테스트 변수]]의 값을 가져온다. [[scheme_file][scheme 파일]]에서 숫자타입으로 정의가 되어 있을
+      경우 그값을 리턴하고, 심볼로 정의가 되어 있을 경우 그 심볼의 이름을 가지는
+      변수의 값을 리턴한다. [[test_case][테스트 케이스]]의 [[test_variable][테스트 변수]]값을 설정하기 위해
+      사용한다.  
+***** 파라미터
+       - name → 가져오고자 하는 [[test_variable][테스트 변수]]명
+***** 리턴 값
+      long 타입의 정수 값
 ***** 사용 예
          #+BEGIN_SRC cpp
          link_state =(link_state_e)testsc_ivalue("link_state") ; 
          #+END_SRC
+**** src_cpp[:exports code]{double testsc_dvalue(const char* name)}  <<testsc_dvalue>> 
+     #+HTML: <br/>
+***** 설명
+      [[test_variable][테스트 변수]]의 값을 가져온다. [[scheme_file][scheme 파일]]에서 숫자타입으로 정의가 되어 있을
+      경우 그값을 리턴하고, 심볼로 정의가 되어 있을 경우 그 심볼의 이름을 가지는
+      변수의 값을 리턴한다. [[test_case][테스트 케이스]]의 [[test_variable][테스트 변수]]값을 설정하기 위해
+      사용한다.  
+***** 파라미터
+       - name → 가져오고자 하는 [[test_variable][테스트 변수]]명
+***** 리턴 값
+      double 타입의 부동소숫점 값
+***** 사용 예
+      #+BEGIN_SRC cpp
+      xpos = testsc_dvalue("xpos") ; 
+      #+END_SRC
+**** src_cpp[:exports code]{char* testsc_strvalue(const char* name)}  <<testsc_strvalue>>
+     #+HTML: <br/>
+***** 설명
+      [[test_variable][테스트 변수]]의 값을 가져온다. [[scheme_file][scheme 파일]]에서 문자열 타입으로 정의가 되어 있을
+      경우 그값을 리턴하고, 심볼로 정의가 되어 있을 경우 그 심볼의 이름을 가지는
+      변수의 값을 리턴한다. [[test_case][테스트 케이스]]의 [[test_variable][테스트 변수]]값을 설정하기 위해
+      사용한다.  
+***** 파라미터
+       - name → 가져오고자 하는 [[test_variable][테스트 변수]]명
+***** 리턴 값
+      *NULL* 값으로 종료하는 문자열. 
+      리턴값을 조작하는 경우 에러가 발생할 수 있다. 
+***** 사용 예
+      #+BEGIN_SRC cpp
+      char tagname[512] ; 
+      strcpy(tagname, testsc_strvalue("tag")) ; 
+      #+END_SRC
+**** src_cpp[:exports code]{void testsc_debug(const char*format ...)}  <<testsc_debug>>
+     #+HTML: <br/>
+***** 설명
+      [[testsc_home][testsc 홈]] 폴더 아래의 *testsc-stdout.txt* 파일로 문자열을 출력한다.
+      [[test_case][테스트 케이스]] 실행을 로깅하기 위해 사용할 수 있다. 파일로 출력을 할 때
+      개행문자('\n') 를 붙여 준다. 
+***** 파라미터
+       - format → 출력하고자 하는 문자열 포멧
+       - ...    → format 에 부합하는 값 
 
-**** double testsc_dvalue(const char* name)  <<testsc_dvalue>>
-     #+BEGIN_SRC cpp
-
-     #+END_SRC
-      - 용도 : [[test_variable][테스트 변수]]의 부동 소수값을 가져온다. 
-      - 파라미터 :
-        + name → 가져오고자 하는 [[test_variable][테스트 변수]]명
-      - 사용 예 :
-        #+BEGIN_SRC cpp
-        xpos = testsc_dvalue("xpos") ; 
-        #+END_SRC
-
-**** char* testsc_strvalue(const char* name)  <<testsc_strvalue>>
-     #+BEGIN_SRC cpp
-
-     #+END_SRC
-**** void testsc_eval(const char *cmd)  <<testsc_eval>>
-     [[testsc_init]] 에서 초기화 하면서 scheme 을 실행하는 것에 더하여 추가적으로
-     다른 scheme 명령을 실행고 싶을 때 사용한다. [[testsc-require]] 명령을 이용하여
-     다른 파일을 불러 올 수 있다. 
-
-[[scheme_file][scheme 파일]]를 불어오는 것에 추가적으로 다른 파일을 불러
-     오고 싶을 사용한다. 
-   - scheme 파일 추가 실행 
-     다음과 같이 수행하면 관련 scheme 파일을
-   #+BEGIN_SRC cpp
-     testsc_eval( "(testsc-require mb/t-9)") ;
-   #+END_SRC
-
-     #+BEGIN_SRC cpp
-
-     #+END_SRC
-**** void testsc_init(int testnum, const char *cmd, const char *homepath = 0 )  <<testsc_init>>
-
-     #+BEGIN_SRC cpp
-
-     #+END_SRC
-
-
-     [[testsc_init]] 를 호출하여 *testsc* 를 초기화 한다. 첫번째 파라미터는
-     CS_TESTCASENO() 으로써 [[testsc_tnum][테스트 번호]]를 전달한다. 두번째 파라미터는 실행할
-     scheme 명령이다. [[testsc-require]] 를 호출하여 [[scheme_file][scheme 파일]]을 읽어 올 수 있다.
-     마지막 파라미터는 *testsc* 의 HOME 경로가 된다. [[testsc-require]] 는 홈
-     경로아래에서 [[scheme_file][scheme 파일]] 을 불러온다. 경로를 파라미터로 넘기지 아니할 경우
-     프로젝트가 있는 드라이브의 =/testsc/home= 폴더가 홈이 된다. (C 드라이브에
-     프로젝트 폴더가 있을 경우 =c:\testsc\home= 폴더, 리눅스의 경우
-     =/testsc/home= )       
-
-
-**** void testsc_debug(const char*format ...)  <<testsc_debug>>
+***** 리턴 값
+      없음
+***** 사용 예
+      #+BEGIN_SRC cpp
+      testsc_debug("testvariable v1 is %d in %s:%d", variable1, __FILE__, __LINE__) ; 
+      #+END_SRC
 
 *** testsc_ext.h
 **** int testsc_ext_length( void ) <<testsc_ext_length>>
@@ -1409,11 +1489,13 @@
    #+END_SRC
 
 * 용어
-
 ** 테스트케이스 <<test_case>>
    CodeScroll 이 생성하는 함수별 테스트를 의미한다. 
 ** scheme 파일 <<scheme_file>>
-   테스트 데이터를 생성하는 scheme 테스트 스크립트를 의미한다. 
+   scheme언어로 작성되어 있는 파일이다. [[test_case][테스트 케이스]]에서 [[testsc_init]]이나
+   [[testsc_eval]]이 파일을 실행한다. [[testsc_init]] 에서 설정한 [[testsc_tnum][테스트 번호]]에 해당하는
+   [[tests_data][테스트 데이터]]를 [[test_variable][테스트 변수]]에 설정한다.  
+
 ** testsc 홈 <<testsc_home>>
 ** 테스트 변수 <<test_variable>>
 

@@ -37,7 +37,7 @@ pre.src-scheme:before   { content: 'scheme'; }
 code {
 font-family: monospace;
 overflow: auto;
-font-size: 100%
+font-size: 120%
 }
 code.src {
 position: relative;

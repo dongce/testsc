@@ -1,7 +1,5 @@
 #if !defined(__TESTSC_H__)
 #define __TESTSC_H__
-#include <stdio.h>
-#include <iostream>
 
 #include "testsc_ext.h"
 
@@ -19,7 +17,8 @@ void testsc_deinit(void) ;
 void testsc_debug(const char*format ...) ;
 
 
-#define TESTSC_INIT(x) testsc_init(CS_TESTCASENO(), #x)
+#define TESTSC_INIT(cmd) testsc_init(CS_TESTCASENO(), #cmd)
+#define TESTSC_EVAL(cmd) testsc_eval( #cmd)
 
 #define UINT32 uint32_t
 #define IFTN(x) if((x) == CS_TESTCASENO())
