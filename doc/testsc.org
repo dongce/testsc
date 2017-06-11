@@ -316,7 +316,6 @@
      std::cout<<"cout test"<<std::endl ; 
      #+END_SRC
 
-
 **** 호출 전 코드
       *테스트 정보* >> *테스트 대상 함수* << *호출 전 코드* 에서 다음 사항을
       확인한다. 
@@ -334,53 +333,59 @@
 
 **** [[scheme_file][scheme 파일]]
 
-     /testsc/home/ex/t-1.scm 파일 의 내용
+***** 에디터 실행 
+     =/testsc/share/ide/LispIDE= 파일을 더블 클릭 하여 실행한다. 
+     
+     
+     
+     
+      /testsc/home/ex/t-1.scm 파일 의 내용
 
-     - C 코드에서 사용하는 enum 값이나 =#define= 된 상수값을 정의 하여 사용할 수
-       있다. 식별자의 실제 값을 찾기 위해 코드를 검색할 필요 없이 [[test_case][테스트케이스]]를
-       생성할 수 있다. 
+      - C 코드에서 사용하는 enum 값이나 =#define= 된 상수값을 정의 하여 사용할 수
+        있다. 식별자의 실제 값을 찾기 위해 코드를 검색할 필요 없이 [[test_case][테스트케이스]]를
+        생성할 수 있다. 
 
-     - [[testsc-apply-tdata]]은 생성한 조합의 값을 첫번째 파라미터 이후의 테스트케이스에
-       대하여 순서대로 lambda 함수에 전달한다
+      - [[testsc-apply-tdata]]은 생성한 조합의 값을 첫번째 파라미터 이후의 테스트케이스에
+        대하여 순서대로 lambda 함수에 전달한다
 
-     - src_scheme{(combi (num-list 0 8) (num-list 0 30))} 을 통하여 priampl,
-       secampl 각각 0~7, 0~29 의 조합을 생성한다. 
+      - src_scheme{(combi (num-list 0 8) (num-list 0 30))} 을 통하여 priampl,
+        secampl 각각 0~7, 0~29 의 조합을 생성한다. 
 
-     - 추가적인 [[test_variable][테스트 변수]] 값이 필요할 경우 scheme의 [[case]] 문을 사용하여 지정할 수
-       있다. 
+      - 추가적인 [[test_variable][테스트 변수]] 값이 필요할 경우 scheme의 [[case]] 문을 사용하여 지정할 수
+        있다. 
 
-     #+BEGIN_SRC scheme
-       ;;; 상수 정의 - 공통파일을 만들어 테스트간에 공유할 수 있다. 
-       (define   pri_surf_ampl_amphibious                 4 )
-       (define   sec_surf_ampl_frigate                    11 )
-       (define   sec_surf_ampl_landing_ship               12 )
+      #+BEGIN_SRC scheme
+        ;;; 상수 정의 - 공통파일을 만들어 테스트간에 공유할 수 있다. 
+        (define   pri_surf_ampl_amphibious                 4 )
+        (define   sec_surf_ampl_frigate                    11 )
+        (define   sec_surf_ampl_landing_ship               12 )
 
 
-       ;;; 테스트변수 
-       (define priampl 0)
-       (define secampl 0)
+        ;;; 테스트변수 
+        (define priampl 0)
+        (define secampl 0)
 
-       (testsc-apply-tdata
-        1                                      ; testcase 시작값
-        (lambda (x)                            ; testcase 번호에서 testcase 시작값을 뺀 번째 조합 값을 파라미터로 전달한다. 
-          (set! priampl (nth 0 x))             ; 조합값의 첫번째 값은 priampl
-          (set! secampl (nth 1 x)))            ; 조함값의 두번째 값은 secampl
-        (combi (num-list 0 8) (num-list 0 30)))
+        (testsc-apply-tdata
+         1                                      ; testcase 시작값
+         (lambda (x)                            ; testcase 번호에서 testcase 시작값을 뺀 번째 조합 값을 파라미터로 전달한다. 
+           (set! priampl (nth 0 x))             ; 조합값의 첫번째 값은 priampl
+           (set! secampl (nth 1 x)))            ; 조함값의 두번째 값은 secampl
+         (combi (num-list 0 8) (num-list 0 30)))
 
-       ;;; (combi (num-list 0 8 ) (num-list 0 30 ) )
-       ;;; -> ((0 0 ) (0 1 ) (0 2 )... (0 29) (1 0 ) (1 1 ) ...)
-       ;;;     ↑ testcase 시작 값과 같은 경우 lambda 함수로 전달
-       ;;;            ↑ testcase 시작 값보다 1 클 경우 lambda 함수로 전달
+        ;;; (combi (num-list 0 8 ) (num-list 0 30 ) )
+        ;;; -> ((0 0 ) (0 1 ) (0 2 )... (0 29) (1 0 ) (1 1 ) ...)
+        ;;;     ↑ testcase 시작 값과 같은 경우 lambda 함수로 전달
+        ;;;            ↑ testcase 시작 값보다 1 클 경우 lambda 함수로 전달
 
-       (case (testsc-get-testnum)              ; C 의 switch 문에 해당 - testcase 번호
-         ((241)                                ; C 의 case 문에 해당 - testcase 번호가 241 일 경우  
-          (set! secampl -1)                    ; 테스트변수 secampl 을 -1 로 설정한다.
-          (set! priampl -1))                   ; 테스트변수 priampl 을 -1 로 설정한다.
-         ((242 243)                            ; 테스트번호 나열이 가능하다. 
-          (set! priampl pri_surf_ampl_amphibious)      ; define 으로 정의된 상수값을 사용할 수 있다. 
-          (set! secampl sec_surf_ampl_landing_ship)))  ; define 으로 정의된 상수값을 사용할 수 있다. 
+        (case (testsc-get-testnum)              ; C 의 switch 문에 해당 - testcase 번호
+          ((241)                                ; C 의 case 문에 해당 - testcase 번호가 241 일 경우  
+           (set! secampl -1)                    ; 테스트변수 secampl 을 -1 로 설정한다.
+           (set! priampl -1))                   ; 테스트변수 priampl 을 -1 로 설정한다.
+          ((242 243)                            ; 테스트번호 나열이 가능하다. 
+           (set! priampl pri_surf_ampl_amphibious)      ; define 으로 정의된 상수값을 사용할 수 있다. 
+           (set! secampl sec_surf_ampl_landing_ship)))  ; define 으로 정의된 상수값을 사용할 수 있다. 
 
-     #+END_SRC
+      #+END_SRC
      
 **** 실행 
      [[test_case][테스트케이스]]실행을 하여 커버리지 100% 가 되는 것을 확인 한다. 

@@ -720,7 +720,9 @@
     (display (string-append "testsc-require " fname "\n"))
     `(load ,fname)))
 
-
+(display "\nLoading testsc...\n")
 (testsc-require util)
 (testsc-require testsc)
 (testsc-require testsc-ext)
+
+(display "\nLoading testsc done\n")

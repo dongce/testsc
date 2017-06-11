@@ -8,11 +8,11 @@
 (define priampl 0)
 (define secampl 0)
 
-(foreach-tnum
+(testsc-apply-tdata
  1                                      ; testcase 시작값
- (lambda (x)                            ; testcase 번호에서 testcase 시작값을 뺀 번째 조합 값을 파라미터로 전달한다. 
-   (set! priampl (nth 0 x))             ; 조합값의 첫번째 값은 priampl
-   (set! secampl (nth 1 x)))            ; 조함값의 두번째 값은 secampl
+ (lambda (a b )                            ; testcase 번호에서 testcase 시작값을 뺀 번째 조합 값을 파라미터로 전달한다. 
+   (set! priampl a)             ; 조합값의 첫번째 값은 priampl
+   (set! secampl b))            ; 조함값의 두번째 값은 secampl
  (combi (num-list 0 8) (num-list 0 30)))
 
 ;;; combi (num-list 0 8 ) (num-list 0 30 ) 
