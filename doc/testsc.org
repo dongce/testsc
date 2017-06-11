@@ -11,9 +11,10 @@
 ** 무엇을 하는 것인가? 
    동적 시험 시 필요한 [[tests_data][테스트 데이터]]를 파일로 부터 읽어 오는 라이브러리이다.
    파일의 형식은 scheme 스트립트로써 간단한 데이터의 정의 뿐만 아니라
-   프로그래밍을 통한 데이터의 생성이 가능하다.  
+   프로그래밍을 통한 데이터의 생성이 가능하다. 기본 타입(long, double, char*),
+   구조체 및 자료구조(List, Tree 등) 데이터를 생성할 수 있다. 
 
-    #+BEGIN_SRC dot :file concept.png :exports results
+    #+BEGIN_SRC dot :file image/concept.png :exports results
       digraph {
       rankdir =LR ; 
          C [shape=box,  label="CodeScroll"] //style=filled, color="gray"
@@ -27,7 +28,7 @@
     #+END_SRC
 
     #+RESULTS:
-    [[file:concept.png]]
+    [[file:image/concept.png]]
     
 ** 장점 
 *** 테스트 데이터 조합 가능
@@ -63,7 +64,7 @@
     #include "testsc.h"
     #+END_SRC
 
-    [[file:u:/orgdir/testsc/testglobalcode.png]]
+    [[file:image/testglobalcode.png]]
 
 *** 사용자 코드 작성 <<user_code>>
     - *유닛테스트* 더블클릭 >>  *테스트 정보* >> *사용자 코드*
@@ -80,7 +81,7 @@
       + 참조 : [[testsc_init]] , [[testsc_eval]] , [[testsc-require]]
 
 
-    [[file:u:/orgdir/testsc/usercode.png]]
+    [[file:image/usercode.png]]
 
 *** 호출전 코드 및 stub 코드 작성 <<before_call_code>>
 **** 호출 전 코드 
@@ -120,7 +121,7 @@
     -I/testsc/src/
     #+END_EXAMPLE
     
-    [[file:include.png][file:include.png]]
+    [[file:image/include.png][file:image/include.png]]
 
 *** 링크 라이브러리 추가 
     =/testsc/lib/= 을 링크 디렉토리에 추가하고, libtestsc.a 파일을 링크하도록
@@ -130,7 +131,7 @@
     -L/testsc/lib -ltestsc
     #+END_EXAMPLE
    
-    [[file:testsclink.png][file:testsclink.png]]
+    [[file:image/testsclink.png][file:imange/testsclink.png]]
 *** 빌드 및 [[test_case][테스트 케이스]]를 실행한다. 
     커버리지 100%가 될 때 까지 [[scheme_file][scheme 파일]]을 수정해 가며 [[tests_data][테스트 데이터]]를
     생성한다. 
@@ -256,7 +257,7 @@
 
    *파일 >> 워크스페이스 바꾸기* 메뉴를 이용하여 예제가 있는 워크스페이스로 전환한다. 
 
-   [[file:chworksspace.PNG][file:c:/testsc/doc/chworksspace.PNG]]
+   [[file:image/chworksspace.PNG][file:image/chworksspace.PNG]]
 
 *** 예제 1 - 파라미터 조합 
 **** 테스트 대상 
@@ -336,10 +337,19 @@
 ***** 에디터 실행 
      =/testsc/share/ide/LispIDE= 파일을 더블 클릭 하여 실행한다. 
      
+     다음과 같이 실행파일을 선택하라는 다이얼로그가 팝업 한다. 
+
+     =/testsc/home/scheme.exe/= 파일을 선택하고 열기를 수행한다. 
+
+     [[file:image/setlisppath.png][file:image/setlisppathscheme.png]]
      
      
-     
-      /testsc/home/ex/t-1.scm 파일 의 내용
+    IDE 가 실행되면 *Settings>>Keyword Set>>Scheme* 을 선택한다. 
+
+    [[file:image/keyword.png][file:image/keyword.png]]
+
+***** 에디터에서 파일 열기 
+      파일 메뉴에서 =/testsc/home/ex/t-1.scm= 파일 열기를 수행한다. 
 
       - C 코드에서 사용하는 enum 값이나 =#define= 된 상수값을 정의 하여 사용할 수
         있다. 식별자의 실제 값을 찾기 위해 코드를 검색할 필요 없이 [[test_case][테스트케이스]]를
@@ -366,13 +376,13 @@
         (define secampl 0)
 
         (testsc-apply-tdata
-         1                                      ; testcase 시작값
-         (lambda (x)                            ; testcase 번호에서 testcase 시작값을 뺀 번째 조합 값을 파라미터로 전달한다. 
-           (set! priampl (nth 0 x))             ; 조합값의 첫번째 값은 priampl
-           (set! secampl (nth 1 x)))            ; 조함값의 두번째 값은 secampl
+         1                   ; testcase 시작 옵셋
+         (lambda (a b )      ; testcase 번호에서 시작 옵셋값을 뺀 번째 값을 파라미터로 전달한다. 
+           (set! priampl a)             ; 조합값의 첫번째 값은 priampl
+           (set! secampl b))            ; 조함값의 두번째 값은 secampl
          (combi (num-list 0 8) (num-list 0 30)))
 
-        ;;; (combi (num-list 0 8 ) (num-list 0 30 ) )
+        ;;; combi (num-list 0 8 ) (num-list 0 30 ) 
         ;;; -> ((0 0 ) (0 1 ) (0 2 )... (0 29) (1 0 ) (1 1 ) ...)
         ;;;     ↑ testcase 시작 값과 같은 경우 lambda 함수로 전달
         ;;;            ↑ testcase 시작 값보다 1 클 경우 lambda 함수로 전달
@@ -386,7 +396,29 @@
            (set! secampl sec_surf_ampl_landing_ship)))  ; define 으로 정의된 상수값을 사용할 수 있다. 
 
       #+END_SRC
-     
+
+***** 테스트데이터 확인 
+****** [[testsc-init]]실행해 보기
+       에디터의 아래쪽 [[REPL]] 에서 다음을 입력해 본다. [[testsc_tnum][테스트 번호]]을 242로
+       설정하고 [[testsc_home][testsc 홈]] 폴더 아래 =ex/t-1.scm= 파일을 실행한다. 
+      
+       #+BEGIN_SRC scheme
+       (testsc-init 242 ex/t-1)
+       #+END_SRC
+
+       [[REPL]] 에서 [[test_variable][테스트 변수]]값을 입력하면 설정된 값을 확인할 수 있다. 
+
+
+       [[file:image/testsc-init-exam.png][file:image/testsc-init-exam.png]]
+      
+       
+****** [[scheme_file][scheme 파일]] 일부분 실행해 보기 
+       [[combi]] 함수 호출 끝 부분에 마우스커서를 위치 시킨 후 위쪽 툴바의 =()= 를
+       실행한다. 이 메뉴는 [[S-exp]] 를 [[REPL]]에서 실행한다. 생성되는 [[tests_data][테스트 데이터]]를
+       확인할 수 있다. 
+
+       [[file:image/sendtolisp.png][file:image/sendtolisp.png]]
+
 **** 실행 
      [[test_case][테스트케이스]]실행을 하여 커버리지 100% 가 되는 것을 확인 한다. 
      
@@ -468,7 +500,6 @@
    
 
     #+HTML: <hr>
-
 
 * 👍 엄지의 법칙
 ** 비관리 코드 활용 
@@ -756,6 +787,9 @@
 **** pop_args 
 
 ** scheme API - <<testsc_scheme_api>>
+*** 기본
+**** set! <<set!>>
+**** case <<case>>
 *** util.scm 
 **** 변수 
 ***** *testsc-home*  <<*testsc-home*>> 
@@ -899,8 +933,9 @@
     
     #+HTML: <hr>
 * scheme 문법 <<scheme_syntax>>
-
 ** scheme 파일 에디터 
+** tutorial 
+   [[file:scheme/www.shido.info/lisp/idx_scm_e.html][file:scheme/www.shido.info/lisp/idx_scm_e.html]]
 ** 15분 만에 scheme 배우기
    #+BEGIN_SRC scheme
      ;; This gives an introduction to Scheme in 15 minutes
@@ -1508,6 +1543,8 @@
    [[test_variable][테스트 변수]]의 값을 의미한다. 
 ** 테스트 번호 <<testsc_tnum>>
 
+** REPL <<REPL>>
+** S-exp <<S-exp>>
 * export 관련                                                     :noexport:
 ** no description 
    #+BEGIN_EXAMPLE
