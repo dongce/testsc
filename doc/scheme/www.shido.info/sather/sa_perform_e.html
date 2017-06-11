@@ -1,0 +1,232 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, C++, comparison, performance">
+<meta name="description" content="The performances of Sather and C++ are compared using a simple program which enumerates the number of prime.">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 1. Sather vs C++: a performance comparison</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Try Sather</a></td>
+<td><a rel=next href="sa_install_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+2. Installing Sather</a></td>
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_perform.html&t=Sather+vs+C%2B%2B%3A+a+performance+comparison' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1>1. Sather vs C++: a performance comparison</h1>
+<hr>
+<h2>1. Is Sather really faster than C++?</h2>
+According to <a href='http://en.wikipedia.org/wiki/Sather'>Wikipedia</a>, 
+<q>Sather code often performs better than the corresponding C++ code</q>.
+To see it is true, I wrote a simple time consuming program which uses features of Sather and C++.
+The program is to enumerate the number of primes. Found primes are stored in a list.
+
+
+<h2>2. C++ version</h2>
+[code 1] shows the C++ version. Found primes are stored in <em>vector&lt;int&gt;</em>.
+(It just uses the vector class but not uses many other C++ features. I am thinking better example..... 
+It should be OK for now!)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class='comment'>// g++ -O2 nprime.cpp -o nprime_cpp</span>
+<span class="linenumber">02:</span>     #include &lt;iostream&gt;
+<span class="linenumber">03:</span>     #include &lt;vector&gt;        
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     #define W 500
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     using namespace std;
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     inline bool primep(vector&lt;int&gt;& plist, int i){             
+<span class="linenumber">11:</span>       for( vector&lt;int&gt;::iterator iter = plist.begin();iter != plist.end(); iter++){
+<span class="linenumber">12:</span>         int j = *iter;
+<span class="linenumber">13:</span>         if(j*j&gt;i) return true;
+<span class="linenumber">14:</span>         if(i%j==0) return false;
+<span class="linenumber">15:</span>       }
+<span class="linenumber">16:</span>     }
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     void nprime(int m){
+<span class="linenumber">19:</span>       vector&lt;int&gt; plist;
+<span class="linenumber">20:</span>       plist.push_back(2);
+<span class="linenumber">21:</span>       plist.push_back(3);
+<span class="linenumber">22:</span>       for(int j =5, r=3; j &lt;= m; j+=2, r++){
+<span class="linenumber">23:</span>         if(primep(plist, j)) plist.push_back(j);
+<span class="linenumber">24:</span>         if(r==W){
+<span class="linenumber">25:</span>           cout &lt;< j &lt;< " " &lt;< plist.size() &lt;< "\n";
+<span class="linenumber">26:</span>           r = 0;
+<span class="linenumber">27:</span>         }
+<span class="linenumber">28:</span>       }
+<span class="linenumber">29:</span>     }
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     int main(int ac, char** av){
+<span class="linenumber">32:</span>       if(ac ==2){
+<span class="linenumber">33:</span>         int m = atoi(av[1]);
+<span class="linenumber">34:</span>         if(m &gt; 10000){
+<span class="linenumber">35:</span>           cout &lt;< "#Limit, N of primes\n0 0\n";
+<span class="linenumber">36:</span>           nprime(m);
+<span class="linenumber">37:</span>           return 0;
+<span class="linenumber">38:</span>         }else{
+<span class="linenumber">39:</span>           cerr &lt;< "limit should be &gt; 10000\n";
+<span class="linenumber">40:</span>         }
+<span class="linenumber">41:</span>       }else{
+<span class="linenumber">42:</span>         cerr &lt;< "Usage: nprime_cpp N\n";
+<span class="linenumber">43:</span>       }
+<span class="linenumber">44:</span>     }
+</pre>
+
+<h4>Note</h4>
+<ol>
+<li> <tt>inline bool primep(vector&lt;int&gt;& plist, int i)</tt>:<br>
+ It returns true if <var>i</var> is prime. It is a inline function for speed up.
+ It checks if <var>i</var> is divisible by primes already found.
+<li> <tt>void nprime(int m)</tt>:<br>
+ It adds a new prime to <var>plist</var>. 
+ It output the number of primes every thousand to the standerd output.
+<li> <tt>int main(int ac, char** av)</tt>:<br>
+ It checks the arguments and call <tt>nprime</tt> if OK.
+</ol>
+
+The program output the number of primes from 0 to N (av[1]) every 1000.
+I compiled the program using g++ and counted the number of primes up to 10000000.
+
+<pre class='samp'>
+$ g++ -O2 nprime.cpp -o nprime_cpp
+
+$ time ./nprime_cpp 10000000 > nprime_cpp.dat
+
+real    0m8.365s
+user    0m8.245s
+sys     0m0.004s
+</pre>
+It takes only 8.365 second. Pretty fast.
+
+<h2>3. Sather version</h2>
+[code 2] shows the Sather version of the same program.
+It uses iterator for looping. I feel <tt>elt!</tt> and <tt>step!</tt> are more speedy than <tt>while!</tt>.
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- primitive counting prime numbers program</span>
+<span class="linenumber">02:</span>     <span class="comment">-- sacomp -O_fast nprime.sa -o nprime_sa</span>
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     class MAIN is
+<span class="linenumber">05:</span>        attr plist :LIST{INT}; 
+<span class="linenumber">06:</span>        const w:INT := 500;
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>        private primep(i:INT):BOOL is
+<span class="linenumber">09:</span>           j:INT;
+<span class="linenumber">10:</span>           
+<span class="linenumber">11:</span>           loop 
+<span class="linenumber">12:</span>     	 j :=self.plist.elt!;
+<span class="linenumber">13:</span>     	 if j * j &gt; i then
+<span class="linenumber">14:</span>     	    return true;
+<span class="linenumber">15:</span>     	 end;
+<span class="linenumber">16:</span>     	 if i % j = 0 then
+<span class="linenumber">17:</span>     	    return false;
+<span class="linenumber">18:</span>     	 end;
+<span class="linenumber">19:</span>           end;
+<span class="linenumber">20:</span>        end;
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>        nprime(maxi:INT) is
+<span class="linenumber">24:</span>           j,r:INT;
+<span class="linenumber">25:</span>           self.plist := #(|2,3|);
+<span class="linenumber">26:</span>           r := 3;
+<span class="linenumber">27:</span>           loop
+<span class="linenumber">28:</span>     	 j := 5.step!((maxi-3)/2, 2);
+<span class="linenumber">29:</span>     	 if self.primep(j) then
+<span class="linenumber">30:</span>     	    self.plist.append(j);
+<span class="linenumber">31:</span>     	 end;
+<span class="linenumber">32:</span>     	 if r = w then
+<span class="linenumber">33:</span>     	    #OUT + j + " " + self.plist.size + "\n";
+<span class="linenumber">34:</span>     	    r := 0;
+<span class="linenumber">35:</span>     	 end;
+<span class="linenumber">36:</span>     	 r := r+1;
+<span class="linenumber">37:</span>           end;
+<span class="linenumber">38:</span>        end;
+<span class="linenumber">39:</span>        
+<span class="linenumber">40:</span>        main(av:ARRAY{STR}) is
+<span class="linenumber">41:</span>           if av.size = 2 then
+<span class="linenumber">42:</span>     	 m:INT := av[1].cursor.get_int;
+<span class="linenumber">43:</span>     	 if m &lt;= 10000 then
+<span class="linenumber">44:</span>     	    #ERR + "limit should be &gt; 10000\n";
+<span class="linenumber">45:</span>     	 else
+<span class="linenumber">46:</span>     	    #OUT +"# limit, N of primes\n0 0\n";
+<span class="linenumber">47:</span>     	    nprime(m);
+<span class="linenumber">48:</span>     	 end;
+<span class="linenumber">49:</span>           else
+<span class="linenumber">50:</span>     	 #ERR + "Usage: nprime N\n"
+<span class="linenumber">51:</span>           end;
+<span class="linenumber">52:</span>        end;
+<span class="linenumber">53:</span>     end;
+</pre>
+
+The algorithm is completely the same as that of the C++ version.
+
+<pre class='samp'>
+$sacomp -O_fast nprime.sa -o nprime_sa
+$time nprime_sa 10000000 > nrpime_sa.dat
+
+real    0m14.262s
+user    0m11.617s
+sys     0m0.016s
+</pre>
+
+It takes 14.262 second. It is also pretty fast but slightly slower than the C++ version.
+I may be just because the program is not large enough.
+Nevertheless, it is much faster than those written in Python and Scheme, indicating
+that Sather is an attractive language with easy writing and fast speed.
+If you need more speed you can combine Sather and C or Fortran easily.
+<p>
+<center>
+<img src='nprime.png'> <br>
+Fig. 1. Number of primes.
+</center>
+<p>
+Figure 1 shows Number of primes as a function of number, 
+which shows that density of primes decreases as  number increases gradually. 
+
+
+<h2>4. Try Sather! </h2>
+The result encouraged me to learn Sather.
+Sather is suitable for large scale and speed required programs.
+Even the C++ version is faster in this case, <b>C++ is somehow tricky and 
+tiny mistakes make it slow easily</b>.
+
+I use Python or Scheme if I do not need speed.
+But I will use Sather when I need it.<p>
+
+The readability of Sather is much better than those of C and C++, which is apparent
+in large scale programs.<p>
+
+I am wondering why Sather is so minor?
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Try Sather</a></td>
+<td><a rel=next href="sa_install_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+2. Installing Sather</a></td>
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_perform.html&t=Sather+vs+C%2B%2B%3A+a+performance+comparison' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body></html>
+    
+
+
+
+

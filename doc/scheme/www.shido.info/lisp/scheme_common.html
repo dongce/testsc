@@ -1,0 +1,53 @@
+<html lang="ja"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="Scheme">
+<meta name="description" content="R5RS に定義されていない関数">
+<meta name="robots" content="all"> 
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>記事中のコードを実行する方法</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_resources.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-4. 文献</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_emacs.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-6. Emacs の使い方</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_common.html&t=Scheme+%C6%FE%CC%E7+A-5.+%B5%AD%BB%F6%C3%E6%A4%CE%A5%B3%A1%BC%A5%C9%A4%F2%BC%C2%B9%D4%A4%B9%A4%EB%CA%FD%CB%A1' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+  
+  <h1>Appendix 5. 記事中のコードを実行する方法</h1>
+  <hr>
+この解説記事では R<sup>5</sup>RS で定義されていないいくつかの関数を使っているので、実行するためには、
+本文中で明記しているもの以外に、
+以下のコードをあらかじめロードする必要があります。<br>
+（他にもあったらお知らせください。）
+
+<pre class='code'>
+
+(define call/cc call-with-current-continuation)
+
+(define (inc x)
+  (+ x 1))
+
+(define (dec x)
+  (- x 1))
+
+</pre>
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_resources.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-4. 文献</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_emacs.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-6. Emacs の使い方</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_common.html&t=Scheme+%C6%FE%CC%E7+A-5.+%B5%AD%BB%F6%C3%E6%A4%CE%A5%B3%A1%BC%A5%C9%A4%F2%BC%C2%B9%D4%A4%B9%A4%EB%CA%FD%CB%A1' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body></html>

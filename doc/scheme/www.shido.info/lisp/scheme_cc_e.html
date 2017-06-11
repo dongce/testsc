@@ -1,0 +1,584 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, continuation">
+<meta name="description" content="Continuation of the Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>16. Continuation </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_syntax_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  15. Defining Syntax</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_lazy_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>17. Lazy Evaluation</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_cc_e.html&t=%28Scheme%29+Continuation' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1>16. Continuation   </h1>
+<hr>
+<h2>1. Introduction </h2>
+This chapter is about continuation which is a characteristic data type of Scheme.
+As other programming languages does not have this data type,
+it is difficult to understand it.
+You don't need fully  understanding for now, just getting the feel of it.
+<p>
+
+I will explain continuation in general and continuation passing style (CPS in short), 
+then explain the continuation of Scheme.
+I think this way is easier to understand the continuation.
+
+<h2> 2. Continuation in General</h2>
+Continuation is the calculation what should be performed before returning to the toplevel.
+Actually, <strong>the continuation exists everywhere during computation</strong>.
+For instance, in the case of <tt>(* 3 (+ 1 2))</tt>,<br>
+the calculation that should be done is multiplying 3 
+  {  (* 3 <span class='redtext'>[]</span>)   }<br>
+after evaluating <tt>(+ 1 2)</tt>.
+As most of languages do not treat it explicitly, however, it is unfamiliar ot many programmers.
+
+<h2> 3. Continuation Passing Style (CPS)</h2>
+
+<h3> 3.1. Simple CPS</h3>
+CPS is a programming style in which the successive function(s) that uses the result of current function
+is given as an argument of the current function.
+[code 1] shows adding and multiplying written in CPS.
+In <tt>k+</tt> and <tt>k*</tt>, <var>k</var> is the successive function.
+<p>
+
+[code 1]
+<pre class='code'>
+(define (return x)
+  x)
+
+(define (k+ a b k)
+  (k (+ a b)))
+
+(define (k* a b k)
+  (k (* a b)))
+</pre>
+
+[example 1] shows how to calculate <tt>(* 3 (+ 1 2))</tt> using the CPS.<p>
+
+[example 1]
+<pre class='samp'>
+(k+ 1 2 (lambda (x) (k* x 3 return)))
+</pre>
+In the ordinary form of Scheme, values that are calculated in parentheses go outside of them.
+In the CPS, on the contrary, values go inside of other parentheses.
+In [example 1], <tt>k+</tt> passes the value of (+ 1 2) to <tt>(lambda (x) (k* x 3 return))</tt> and
+<var>k*</var> passes the result of (* (+ 1 2) 3) to <tt>return</tt>.<p>
+
+<h3> 3.2. Recursive Functions written in CPS </h3>
+Recursive functions can be written in CPS as well.
+[code 2] shows functions that calculate factorial written in the normal style (<tt>fact</tt>)
+ and  CPS (<tt>kfact</tt>).
+<p>
+
+[code 2]
+<pre class='code'>
+;;; normal factorial
+(define (fact n)
+  (if (= n 1) 
+      1
+      (* n (fact (- n 1)))))
+
+;;; CPS factorial
+(define (kfact n k)
+  (if (= n 1) 
+      (k 1)
+      (kfact (- n 1) (lambda (x) (k (* n x))))))
+</pre>
+[example 2] adds 3 to the factorial of 4.
+<p>
+[example 2]
+<pre class='samp'>
+;;; normal
+(+ 3 (fact 4))
+
+;;; CPS
+(kfact 4 (lambda (x) (k+ x 3 return)))
+</pre>
+
+[code 3] shows functions to calculate the product of list items written in the ordinaly way and
+CPS. In the CPS function, the next function is stored in a local variable <var>break</var>,
+so that it can quit immediately when 0 is multiplied.
+<p>
+
+[code 3]
+<pre class='code'>
+;;; normal
+(define (product ls)
+  (let loop ((ls ls) (acc 1))
+    (cond
+     ((null? ls) acc)
+     ((zero? (car ls)) 0)
+     (else (loop (cdr ls) (* (car ls) acc))))))
+
+;;; CPS
+(define (kproduct ls k)
+  (let ((break k))
+    (let loop ((ls ls) (k k))
+      (cond
+       ((null? ls) (k 1))
+       ((zero? (car ls)) (break 0))
+       (else (loop (cdr ls) (lambda (x) (k (* (car ls) x)))))))))
+</pre>
+[example 3] shows adding 100 to the product of '(2 4 7).
+<p>
+
+[example 3]
+<pre class='code'>
+;;; normal
+(+ 100 (product '(2 4 7)))
+
+;;; CPS
+(kproduct '(2 4 7) (lambda (x) (k+ x 100 return)))
+</pre>
+
+<p>
+Even CPS is not so profitable in such simple cases, it is useful to write complicated programs 
+such as natural language parsing and logical programming, 
+because the CPS can change the successive process more flexible than ordinary programming style.
+  <p>
+Exception handling is a simple example of such cases.
+[code 4] shows error handling version of <tt>kproduct</tt>, in that a non-number value
+is shown and the calculation is terminated when it appears in the input list.
+<p>
+
+[code 4]
+<pre class='code'>       
+(define (non-number-value-error x)
+  (display "Value error: ")
+  (display  x)
+  (display " is not number.")
+  (newline)
+  'error)
+
+
+(define (kproduct ls k k-value-error)
+  (let ((break k))
+    (let loop ((ls ls) (k k))
+      (cond
+       ((null? ls) (k 1))
+       ((not (number? (car ls))) (k-value-error (car ls)))
+       ((zero? (car ls)) (break 0))
+       (else (loop (cdr ls) (lambda (x) (k (* (car ls) x)))))))))
+</pre>
+
+[example 4]
+<pre class='samp'>
+;;; valid
+(kproduct '(2 4 7) 
+	  (lambda (x) (k+ x 100 return)) 
+	  non-number-value-error)
+<span class='response'>;Value: 156</span>
+
+;;; invalid
+(kproduct '(2 4 7 hoge) 
+	  (lambda (x) (k+ x 100 return)) 
+	  non-number-value-error)
+<span class='response'>Value error: hoge is not number.
+;Value: error</span>
+</pre>
+
+
+<h2> 4. Continuation of Scheme</h2>
+You may grasp what is continuation by the above explanation.
+Continuation
+<ol>
+  <li>exists whole computional processes, and 
+  <li>it can be treated explicitly by a functional programming language and CPS.
+</ol>
+In addition, examples above show that it is a <strong>chain of closure</strong>.<p>
+
+However, reading and writing programs using CPS is painful and it will be convenient
+to handle the continuation with conventional programming style.
+  <p>
+For this reason, the continuation is impremented as a first class object (which means ordinal data type)
+in Scheme and is invoked by a function named <span class='ttb'>call-with-current-continuation</span>
+at any timing. As the continuation is an ordinaly data type, it can be re-used as mach as you want.
+<p>
+As the
+<tt>call-with-current-continuation</tt> is a long name, an abbreviated name <tt>call/cc</tt>
+is often used.
+<pre class='code'>
+(define call/cc call-with-current-continuation)
+</pre>
+
+The <tt>call-with-current-continuation (call/cc)</tt> takes one argument.
+The argument is a function whose argument is the current continuation. <br>
+Followings show examples:
+<pre class='samp'>
+(* 3 (call/cc (lambda (k) (+ 1 2)))) &rArr; 9          <span class='comment'>; [1]</span>
+(* 3 (call/cc (lambda (k)  (+ 1 (k 2))))) &rArr; 6     <span class='comment'>; [2]</span>
+</pre>
+In the case [1], the continuation is not invoked and 
+it behaves same as an ordinal S-expression does.
+On the other hand,  the continuation is invoked in the case [2] and 
+2 is given as a parameter of the continuation. In such cases, 
+the parameter of the continuation skips the process in <tt>call/cc</tt>
+and goes outside of the <tt>call/cc</tt>.
+In this case, <tt>k</tt> is a function with one parameter and equal to 
+<br>
+<tt>(lambda (x) (* 3 x))</tt>
+<br>
+In general, current continuation stores the process to return to the toplevel from the point that
+call/cc is invoked. 
+<p>
+Current continuations can be saved like as other data type and re-used as much as you want.
+<pre class='code'>
+(define cc)
+(* 3 (call/cc (lambda (k)
+                 (set! cc k)
+                 (+ 1 2))))
+</pre>
+As the current continuation is the process to come back to the toplevel, 
+it returns to the toplevel with ignoring surrounding S-expressions.
+<pre class='samp'>
+(+ 100 (cc 3)) &rArr; 9 
+(+ 100 (cc 10)) &rArr; 30
+</pre>
+
+<h3> 4.1. Throwing values using call/cc</h3>
+The easiest way of using the current continuation is escape from a process.
+[code 5] shows a function that search trees (nested lists).
+If the function finds <var>obj</var> in a tree, it returns it otherwise #f.
+When the  <var>obj</var> is found the function throws it directly to the outermost. 
+<p>
+[code 5]
+<pre class='code'>
+(define (find-leaf obj tree)
+  (call/cc
+   (lambda (cc)
+     (letrec ((iter
+	       (lambda (tree)
+		 (cond
+		  ((null?  tree) #f)
+		  ((pair? tree)
+		   (iter (car tree))
+		   (iter (cdr tree)))
+		  (else
+		   (if (eqv? obj tree)
+		       (cc obj)))))))
+       (iter tree)))))
+</pre>
+
+[example 5]
+<pre class='samp'>
+(find-leaf 7 '(1 (2 3) 4 (5 (6 7))))
+<span class='response'>&rArr; 7</span>
+
+(find-leaf 8 '(1 (2 3) 4 (5 (6 7))))
+<span class='response'>&rArr; ()</span>
+</pre>
+
+[code 6] shows a code for <tt>block</tt> that support throw.<p>
+[code 6]
+<pre class='code'>
+(define-syntax block
+  (syntax-rules ()
+    ((_ tag e1 ...)
+     (call-with-current-continuation
+      (lambda (tag)
+	e1 ...)))))
+</pre>
+
+[expample 7] shows how to use it.<p>
+[expample 7]
+<pre class='samp'>
+(block break
+   (map (lambda (x)
+           (if (positive? x)
+	       (sqrt x)
+	       (break x)))
+	'(1 2 3)))
+<span class='response'>&rArr; (1 1.4142135623730951 1.7320508075688772)</span>
+
+(block break
+   (map (lambda (x)
+           (if (positive? x)
+	       (sqrt x)
+	       (break x)))
+	'(1 -2 3)))
+<span class='response'>&rArr; -2</span>
+</pre>
+
+<h3> 4.2. generator</h3>
+I will explain a tree matching generator which uses call/cc.
+The generator takes a tree as an argument and returns a function which returns
+ the successive leaf every time when it is invoked.
+You can find the original version of this function at 
+<a href="http://www.ccs.neu.edu/home/dorai/t-y-scheme/t-y-scheme-Z-H-15.html#node_sec_13.3">
+  Section 13.3 of Teach Yourself Scheme in Fixnum Days</a>.
+The generator is used like as follows:
+<p>
+
+<pre class="samp">
+(define tr '((1 2) (3 (4 5))))
+(define p (leaf-generator tr))
+(p) => 1
+(p) => 2
+(p) => 3
+(p) => 4
+(p) => 5
+(p) => ()  ; finally it returns '()
+</pre>
+
+The definition of the generator is shown in [code 6].
+This is basically the same as the original version but modified slightly.
+<p>
+
+[code 6]
+<pre class="code">
+<span class="linenumber">01:</span>     (define (leaf-generator tree)
+<span class="linenumber">02:</span>       (let ((return '()))                                                        <span class="comment">; 1</span>
+<span class="linenumber">03:</span>         (letrec ((continue                                                      <span class="comment">; 2</span>
+<span class="linenumber">04:</span>     	      (lambda ()
+<span class="linenumber">05:</span>     		(let loop ((tree tree))                                     <span class="comment">; 3</span>
+<span class="linenumber">06:</span>     		  (cond                                                     <span class="comment">; 4</span>
+<span class="linenumber">07:</span>     		   ((null? tree) 'skip)                                     <span class="comment">; 5</span>
+<span class="linenumber">08:</span>     		   ((pair? tree) (loop (car tree)) (loop (cdr tree)))       <span class="comment">; 6</span>
+<span class="linenumber">09:</span>     		   (else                                                    <span class="comment">; 7</span>
+<span class="linenumber">10:</span>     		    (call/cc (lambda (lap-to-go)                            <span class="comment">; 8</span>
+<span class="linenumber">11:</span>     			       (set! continue (lambda () (lap-to-go 'restart)))    <span class="comment">; 9</span>
+<span class="linenumber">12:</span>     			       (return tree))))))                      <span class="comment">;10</span>
+<span class="linenumber">13:</span>     		(return '()))))                                         <span class="comment">;11</span>
+<span class="linenumber">14:</span>             (lambda ()                                                     <span class="comment">;12</span>
+<span class="linenumber">15:</span>               (call/cc (lambda (where-to-go)                               <span class="comment">;13</span>
+<span class="linenumber">16:</span>                          (set! return where-to-go)                         <span class="comment">;14</span>
+<span class="linenumber">17:</span>                          (continue)))))))
+</pre>
+Comments:
+<table class="sep15">
+  <col width="40">
+  <thead>
+	 <tr><th>No.</th><th>Explanation</th></tr>
+	 </thead>
+  <tbody>
+   <tr><td align="right" valign="top">1.</td>
+	  <td> declaring a local variable <tt>return</tt>.</td></tr>
+   <tr><td align="right" valign="top">2.</td>
+	  <td> defining <tt>continue</tt> using <tt>letrec</tt>. 
+		 The <tt>continue</tt> returns current leaf in front, assigns the current continuation
+to the next <tt>continue</tt>, and halts. 
+	</td></tr>
+   <tr><td align="right" valign="top">3.</td>
+	  <td>defining <tt>rec</tt> using named let.
+ </td></tr>
+   <tr><td align="right" valign="top">4.</td>
+	  <td> branching using <tt>cond</tt>
+	  </td></tr>
+   <tr><td align="right" valign="top">5.</td>
+	  <td> if empty list, does nothing.</td></tr>
+   <tr><td align="right" valign="top">6.</td>
+	  <td> if pair, applies the <tt>rec</tt> recursively to its car and cdr.
+</td></tr>
+   <tr><td align="right" valign="top">7.</td>
+	  <td>if leaf,</td></tr>
+   <tr><td align="right" valign="top">8.</td>
+	  <td> invokes call/cc to get the current state (<tt>lap-to-go</tt>)</td></tr>
+	  	  <tr><td align="right" valign="top">9.</td>
+			 <td> and set it to the next <tt>continue</tt>.
+The <tt>lap-to-go</tt> includes the current state in addition to  the original <tt>continue</tt>.
+In short, it can be expressed by <span class="redtext">[ ]</span> in the following S-expression.
+<pre class="oset">
+                (lambda ()
+                  (let rec ((tree tree0))  
+                    (cond                  
+                     ((null? tree) '())     
+                     ((pair? tree) (rec (car tree)) (rec (cdr tree)))  
+                     (else                                             
+                      <span class="redtext">[ ]</span>                    
+                  (return '()))))                                       
+</pre>
+As invoking <tt>lap-to-go</tt> means that <tt>(car tree)</tt> is a leaf and 
+the process is finished, 
+<tt>(rec (cdr tree))</tt> starts at the next function is called.
+As the process starts after finishing the part of <span class="redtext">[ ]</span>,
+The argument of the continuation does not matter.
+			 </td></tr>
+			 <tr><td align="right" valign="top">10.</td>
+				<td> Then the function return the found leaf to where the function is called.
+<tt>(return tree)</tt> should be inside of  call/cc
+				to restart the process.</td></tr>
+   <tr><td align="right" valign="top">11.</td>
+	  <td> Returning an empty list after searching all leaves</td></tr>
+	<tr><td align="right" valign="top">12.</td>
+	  <td>It is a generator that leaf-generator returns.</td></tr>
+   <tr><td align="right" valign="top">13.</td>
+	  <td>First invoking  call/cc</td></tr>
+   <tr><td align="right" valign="top">14.</td>
+	  <td> and assign the plase to return values to <tt>return</tt>.</td></tr>
+   <tr><td align="right" valign="top">15.</td>
+	  <td> Then calls continue.</td></tr>
+	</tbody>
+</table>
+
+The behaviour of the function generated by the <tt>leaf-generator</tt> can be 
+estimated by the behavior of a conventional traversing function (<tt>tree-traverse</tt>).
+The process halts at '*' of the trace and remained process is stored in the <tt>continue</tt>.<br>
+A conventional traverse functionF
+<pre class="oset">
+(define tree-traverse
+  (lambda (tree)
+    (cond
+     ((null? tree) '_)
+     ((pair? tree) (tree-traverse (car tree)) (tree-traverse (cdr tree)))
+     (else
+      (write tree)))))
+</pre>
+
+Trace of the tree-traverse when tree '((1 2) 3) is given.
+<pre class="samp">
+> (tree-traverse '((1 2) 3))
+|(tree-traverse ((1 2) 3))
+| (tree-traverse (1 2))
+| |(tree-traverse 1)           
+1| |#&lt; void&gt;               ; *
+| (tree-traverse (2))
+| |(tree-traverse 2)           
+2| |&lt; void&gt;                ; *
+| (tree-traverse '())
+| _
+|(tree-traverse (3))
+| (tree-traverse 3)            
+3| #&lt; void&gt;                ; *
+|(tree-traverse '())
+|_
+_
+</pre>
+  
+<h3>4.3. Coroutine</h3>
+As continuation remember the successive process,
+<a href='http://en.wikipedia.org/wiki/Coroutines'>coroutines</a>, 
+in which several tasks are executed simultaneously, can be impremented using the continuation.
+<p>
+[code 7] shows a program that print numbers and alphabetic characters alternately.
+Lines 5 &mdash; 22 are imprementation of queue.
+<tt>(enqueue! queue obj)</tt> adds <var>obj</var> at the end of  <var>queue</var>.
+<tt>(dequeue! queue)</tt> returns the first item of the <tt>queue</tt> with removing it.
+<p>
+Lines 26 &mdash; 38 are imprementation of a coroutine.
+<dl>
+  <dt><span class='ttb'>process-queue</span></dt>
+      <dd> The queue of processes.</dd>
+  <dt><span class='ttb'>(coroutine thunk)</span></dt>
+      <dd> adding thunk at the end of the  process-queue.</dd>
+  <dt><span class='ttb'>(start)</span></dt>
+      <dd> picking up the first process of the process-queue and executing it.</dd>
+  <dt><span class='ttb'>(pause)</span></dt>
+      <dd> adding the current continuation at the end of the process-queue and execute the 
+	first process of the queue.
+         This function hand over the control to the other routine. </dd>
+</dl>
+
+Lines 42 &mdash; 61 show how to use it. The routine showing numbers and that showing 
+alphabetic characters call each other and a result shown in [example 7] is obtained.
+<p>
+[code 7]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; abbreviation</span>
+<span class="linenumber">02:</span>     (define call/cc call-with-current-continuation)
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     <span class="comment">;;; queue</span>
+<span class="linenumber">05:</span>     (define (make-queue)
+<span class="linenumber">06:</span>       (cons '() '()))
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     (define (enqueue! queue obj)
+<span class="linenumber">09:</span>       (let ((lobj (list obj)))
+<span class="linenumber">10:</span>         (if (null? (car queue))
+<span class="linenumber">11:</span>     	(begin
+<span class="linenumber">12:</span>     	  (set-car! queue lobj)
+<span class="linenumber">13:</span>     	  (set-cdr! queue lobj))
+<span class="linenumber">14:</span>     	(begin
+<span class="linenumber">15:</span>     	  (set-cdr! (cdr queue) lobj)
+<span class="linenumber">16:</span>     	  (set-cdr! queue lobj)))
+<span class="linenumber">17:</span>         (car queue)))
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     (define (dequeue! queue)
+<span class="linenumber">20:</span>       (let ((obj (car (car queue))))
+<span class="linenumber">21:</span>         (set-car! queue (cdr (car queue)))
+<span class="linenumber">22:</span>         obj))
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>     <span class="comment">;;; coroutine   </span>
+<span class="linenumber">26:</span>     (define process-queue (make-queue))
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>     (define (coroutine thunk)
+<span class="linenumber">29:</span>       (enqueue! process-queue thunk))
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     (define (start)
+<span class="linenumber">32:</span>        ((dequeue! process-queue)))
+<span class="linenumber">33:</span>        
+<span class="linenumber">34:</span>     (define (pause)
+<span class="linenumber">35:</span>       (call/cc
+<span class="linenumber">36:</span>        (lambda (k)
+<span class="linenumber">37:</span>          (coroutine (lambda () (k #f)))
+<span class="linenumber">38:</span>          (start))))
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>     
+<span class="linenumber">41:</span>     <span class="comment">;;; example</span>
+<span class="linenumber">42:</span>     (coroutine (lambda ()
+<span class="linenumber">43:</span>     	     (let loop ((i 0)) 
+<span class="linenumber">44:</span>     	       (if (&lt; i 10)
+<span class="linenumber">45:</span>     		   (begin
+<span class="linenumber">46:</span>     		     (display (1+ i)) 
+<span class="linenumber">47:</span>     		     (display " ") 
+<span class="linenumber">48:</span>     		     (pause) 
+<span class="linenumber">49:</span>     		     (loop (1+ i)))))))
+<span class="linenumber">50:</span>     		   
+<span class="linenumber">51:</span>     (coroutine (lambda ()
+<span class="linenumber">52:</span>     	     (let loop ((i 0)) 
+<span class="linenumber">53:</span>     	       (if (&lt; i 10)
+<span class="linenumber">54:</span>     		   (begin
+<span class="linenumber">55:</span>     		     (display (integer->char (+ i 97)))
+<span class="linenumber">56:</span>     		     (display " ")
+<span class="linenumber">57:</span>     		     (pause) 
+<span class="linenumber">58:</span>     		     (loop (1+ i)))))))
+<span class="linenumber">59:</span>     
+<span class="linenumber">60:</span>     (newline)
+<span class="linenumber">61:</span>     (start)
+</pre>
+
+[example 7]
+<pre class='samp'>
+(load "cor2.scm")
+;Loading "cor2.scm"
+1 a 2 b 3 c 4 d 5 e 6 f 7 g 8 h 9 i 10 j  -- done
+;Unspecified return value
+</pre>
+<h2>5. Summary</h2>
+In this chapter, I explained about continuation.<p>
+It may be difficult to understand the idea.
+But don't worry. You will get it some day.<p>
+I will explain about lazy evaluation in the next chapter.
+<p>
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_syntax_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  15. Defining Syntax</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_lazy_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>17. Lazy Evaluation</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_cc_e.html&t=%28Scheme%29+Continuation' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell, IO">
+<meta name="description" content="IO in Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> IO in Haskell </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell4.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. 型</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell6.html"><img src='../images/right_arrow.gif' class='arrow' border=0>6. Haskell で最小二乗法</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell5.html&t=IO+in+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>5. 入出力</h1> 
+<hr>
+ <!---------------------------------------------------->
+Haskell は純粋な関数型言語なので入出力のような副作用のある
+ 操作は少しめんどくさくなります。<p>
+
+しかし、このことによって、副作用のある部分を副作用の無い関数から
+ 隔離することが出来ます。
+ 
+<h2> 1. do 記法</h2>
+do ブロックの中の式は順番に実行されます。
+IO は、入力 &rarr; 計算 &rarr; 出力 の順番で実行する
+必要があるので do 記法を用いて記述します。<p>
+
+do 記法の代わりに &gt;&gt;= を使うことも出来ます。
+  この方法は<a href="haskell8.html"> Monad </a>のところで説明します。
+
+do ブロックは通常の関数と異なるのでアクションと呼ばれます。
+  do ブロックから外部に値を返すには <span class="bluetextbold">return</span> を用います。
+  <span class="mono">return a</span>
+  とすると外部には <span class="mono">IO a</span> が返ります。
+  （正確な説明は <a href="haskell8.html"> Monad </a> のところでします。）<p>
+	 
+ファイル読み込みなどの入力アクションが返す値は IO a と呼ばれ、
+  普通の a と区別されます。
+IO a を a に換えるには、do ブロックの中で
+  <span class="mono"><span class="bluetextbold">&lt;-</span></span> を使います。
+  <span class="mono"><span class="bluetextbold">&lt;-</span></span> の厳密な定義は
+  モナドのところで説明します。
+  
+ <h2> 2. 標準入出力</h2>
+<ul>
+   <li> 標準入力からの入力は <span class="mono"><span class="bluetextbold">
+	  getChar, getLine, getContents</span></span> で行います。
+   <li> 標準出力への出力は <span class="mono"><span class="bluetextbold">putChar, putStr</span></span>
+	  または <span class="mono"><span class="bluetextbold">putStrLn</span></span> で
+ 行います。
+   <li> <span class="mono"><span class="bluetextbold">show</span></span> は 値を文字列に変換する関数です。
+   <li> <span class="mono"><span class="bluetextbold">print</span></span> は
+	  <span class="mono">show</span> と <span class="mono">putStrLn</span>
+	  をあわせた関数です。
+	  <li> これらの関数は <span class="mono">Prelude</span> に定義されています。
+</ul>
+ 
+ 
+ <span class="mono">getChar, getLine, getContents</span> は <span class="mono">IO String</span>
+ を返すアクションなので
+返り値を普通の <span class="mono">String</span> にするには
+ <span class="mono"><span class="bluetextbold">&lt;-</span></span> を用います。
+<pre class="code">
+<span class="comment">-- simple echo </span>
+<span class="comment">-- wrong, an IO String is not a String</span>
+putStrLn $ getLine
+
+<span class="comment">-- ok</span>
+do str &lt;- getLine  <span class="comment">-- converting IO String into String and 'bind' it to str</span>
+   putStrLn str
+
+<span class="comment">-- also ok</span>
+getLine &gt;&gt;= putStrLn
+</pre>
+
+以下に user account と password を聞き、正しければ log in したと表示する
+アクション login を示します。
+
+<pre class="code">
+login = do putStr "Enter user name: "
+           user &lt;- getLine
+           putStr "Enter password: "
+           pass &lt;- getLine
+           if is_user user pass
+               then putStrLn $ user ++ " has logged in"
+               else putStrLn "Permission denied."
+ where is_user "Taro" "baseball" = True
+       is_user "Hanako" "swimming" = True
+       is_user _ _                 = False
+</pre>
+ 
+<h2> 3. ファイルの読み書き</h2>
+<h3>3.1. Prelude に定義されている基本的なファイル IO アクション</h3>
+基本的なファイル IO アクションを次の表に示します。
+通常はこれらのアクションで間に合います。<br>
+（そもそもこれで間に合わないことは Haskell ではなく
+ Python などの他のプログラミング言語を用いた方が良い。）
+<table border=1, class="mono">
+   <tr>
+      <th>アクション名</th>
+      <th>型</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>  writeFile  </td>
+      <td> FilePath -> String -> IO ()         </td>
+      <td> FilePath に String を書きます。</td>
+   </tr>
+   <tr>
+      <td>  appendFile </td>
+      <td> FilePath -> String -> IO ()         </td>
+      <td> FilePath に String を追加します。</td>
+   </tr>
+   <tr>
+      <td>  readFile   </td>
+      <td> FilePath           -> IO String     </td>
+      <td> FilePath から IO String を読みます。</td>
+   </tr>
+</table><p>
+例：file copy
+<pre class="code">
+copy_file from to = do contents &lt;- readFile from
+                       writeFile to contents
+</pre>
+
+
+<h3>3.2. module IO に定義されているアクション</h3>
+module IO  にあるアクションを使えばより精密に IO を扱えます。<p>
+
+  module IO で定義されているアクションは<br>
+  <blockquote class="mono">
+  <span class="bluetextbold">
+     openFile, hClose, hFileSize, hIsEOF, isEOF,
+    hSetBuffering, hGetBuffering, hFlush, 
+    hGetPosn, hSetPosn, hSeek, 
+    hWaitForInput, hReady, hGetChar, hGetLine, hLookAhead, hGetContents, 
+    hPutChar, hPutStr, hPutStrLn, hPrint,
+    hIsOpen, hIsClosed, hIsReadable, hIsWritable, hIsSeekable,
+    isAlreadyExistsError, isDoesNotExistError, isAlreadyInUseError, 
+    isFullError, isEOFError,
+    isIllegalOperation, isPermissionError, isUserError, 
+    ioeGetErrorString, ioeGetHandle, ioeGetFileName,
+    try, bracket, bracket</span><br>
+  </blockquote>
+などがあります。
+  詳しくは
+<a href="http://www.haskell.org/onlinelibrary/io.html">The Haskell 98 Report, 21  Input/Output</a>
+を見てください。<p>
+  
+例：ファイルの最初の n 行を表示する。（UNIX コマンドの head に相当）<br>
+はじめの n 行を表示させたいときは、ファイルの内容全てを読むことは
+無駄なので、n 行だけ読むようにします。
+<pre class="code">
+<span class="linenumber">01:</span>     import IO
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     fhead n filename = bracket (openFile filename ReadMode)
+<span class="linenumber">04:</span>                                hClose
+<span class="linenumber">05:</span>                                (\h -&gt; do hSetBuffering h LineBuffering
+<span class="linenumber">06:</span>                                          take_line 0 h)
+<span class="linenumber">07:</span>      where take_line i h' | i == n = return ()
+<span class="linenumber">08:</span>                           | otherwise = do str &lt;- hGetLine h'
+<span class="linenumber">09:</span>                                            putStrLn str
+<span class="linenumber">10:</span>                                            take_line (i+1) h' 
+</pre>
+<p>説明：<br>
+<table border=1, class="mono">
+   <tr>
+      <th>行</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>01</td>
+      <td> module IO を import します。</td>
+   </tr>
+   <tr>
+      <td>03</td>
+      <td> 表示する行数とファイル名を引数として取るアクション fhead を定義します。</td>
+   </tr>
+   <tr>
+      <td>03-06</td>
+      <td> bracket は 3 つの引数を取ります。
+          <ol>
+            <li> 最初に行うアクション。
+				  <li>最後に必ず行うアクション。
+					 <li>最初のアクションに続いて行うアクション。<br>
+						このアクションの引数は最初のアクションの戻り値（この場合はファイルハンドル）です。
+						</ol></td>
+   </tr>
+   <tr>
+      <td>05</td>
+      <td> IO buffer のサイズを LineBuffering にします。</td>
+   </tr>
+   <tr>
+      <td>06</td>
+      <td> take_line はファイルハンドルから n 行読むアクションです。（７行目で定義）</td>
+   </tr>
+   <tr>
+      <td>07--10</td>
+      <td> take_line の定義です。</td>
+   </tr>
+   <tr>
+      <td>07</td>
+      <td> n 行読み込んだら IO () を返します。</td>
+   </tr>
+   <tr>
+      <td>08</td>
+      <td> そうでなければ、ファイルハンドルから 1　行読み込んで、</td>
+   </tr>
+   <tr>
+      <td>09</td>
+      <td> 標準出力に吐き出して、</td>
+   </tr>
+   <tr>
+      <td>10</td>
+      <td> 次の行を読み込んで表示します。（take_line を再帰）</td>
+   </tr>
+</table>
+<h2> 4. コマンドラインの引数</h2>
+コマンドラインの引数は getArgs を使って取得します。
+
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">-- av.hs</span>
+<span class="linenumber">02:</span>     <span class="comment">-- just show command line arguments</span>
+<span class="linenumber">03:</span>     module Main where
+<span class="linenumber">04:</span>     import System
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     main = do putStrLn "The arguments are:"
+<span class="linenumber">07:</span>               av &lt;- getArgs
+<span class="linenumber">08:</span>               putStr $ unlines av
+</pre>
+<pre class="samp">
+D:\doc\05-03\haskell&gt;runhugs av.hs hi how are you ?
+The arguments are:
+hi
+how
+are
+you
+?
+</pre>
+<h2> 5. より詳しく知るには</h2>
+<ul>
+<li><a href="http://http://www.isi.edu/~hdaume/htut/">
+Yet Another Haskell Tutorial
+</a>
+よく書かれている Tutorial。IO についても詳しい。
+<li><a href="http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Haskell#Haskell.20.a4.c7.20UNIX.20.a5.b3.a5.de.a5.f3.a5.c9.a4.f2.bd.f1.a4.b3.a4.a6.a5.b7.a5.ea.a1.bc.a5.ba"> Haskell で UNIX コマンドを書こうシリーズ</a>
+echo, cat などの unix コマンドを Haskell で書くとどうなるかの例。
+  
+
+<li><a href="http://www.ice.nuie.nagoya-u.ac.jp/~h003149b/lang/haskell_io.html">
+  Haskell の入出力</a>
+  IO と参照透明性、IO 型についての説明など。
+</ul>
+
+
+ <hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell4.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. 型</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell6.html"><img src='../images/right_arrow.gif' class='arrow' border=0>6. Haskell で最小二乗法</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell5.html&t=IO+in+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>

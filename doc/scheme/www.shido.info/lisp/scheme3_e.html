@@ -1,0 +1,286 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, lists">
+<meta name="description" content="List operations on Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> 3. Making Lists </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme2_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  2. Using Scheme as a Calculator</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme4_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>4. Defining Functions</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme3_e.html&t=%28Scheme%29+Making+Lists' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 3. Making Lists </h1>
+<hr>
+<h2>1. Introduction </h2>
+As Scheme belongs to Lisp linguistic family, it is good at list operations.
+You should understand lists and list operations thoroughly to master Scheme.
+Lists play important roles in recursive functions and higher order functions,
+which I will explain in later chapters.
+<p>
+
+In this chapter, I will explain basic list operators, such as
+<span class='ttb'>cons</span>, <span class='ttb'>car</span>,
+  <span class='ttb'>cdr</span>, <span class='ttb'>list</span>
+and <span class='ttb'>quote</span>.
+
+<h2>2. Cons Cells and Lists</h2>
+<a name='cons'>
+<h3>2.1. Cons Cells</h3>
+First, let me explain about <b>cons cells</b> which are elements of lists.
+Cons cells are a memory spaces which storage two addresses.
+Cons cells can be made by function <span class='ttb'>cons</span>.<p>
+
+Give <tt>(cons 1 2)</tt> to the front end.
+<pre class='samp'>
+(cons 1 2)
+<span class='response'>;Value 11: (1 . 2)</span>
+</pre>
+It responds <tt>(1 . 2)</tt>.
+Function <span class='ttb'>cons</span> allocates a memory space for two addresses as shown in Figure 1.
+and stores the address to 1 in one part and to 2 in the other part.
+The part storing the address to 1 is called  <span class='ttb'>car</span> part and
+that storing the address to 2 is called  <span class='ttb'>cdr</span> part.
+<tt>Car</tt> and <tt>cdr</tt> are abbreviations of <u>Contents of the Address part of the Register</u>
+and <u>Contents of the Decrement part of the Register</u>. These are originated from the names of
+memory spaces of the hardware on which Lisp was first implemented.
+These names also indicate that the reality of the cons cell is a memory space.
+The name cons is an abbreviation of  a English term 'construction' for your information.
+
+<p>
+<center><img src='cons2.png'><br>Fig 1: A cons cell.</center>
+<p>
+Cons cells can be beaded.
+<pre class='samp'>
+(cons 3 (cons 1 2))
+<span class='response'>;Value 15: (3 1 . 2)</span>
+</pre>
+(3 1 . 2) is a convenient notation for  (3 . (1 . 2)).
+The memory space of this situation is shown in Figure 2.<p>
+  <center><img src='conss2.png'><br>Figure 2: Beaded cons cells.</center>
+<p>
+
+Cons cells can store different kinds of data and can be nested.
+
+<pre class='samp'>
+(cons #\a (cons 3 "hello"))
+<span class='response'>;Value 17: (#\a 3 . "hello")</span>
+
+(cons (cons 0 1) (cons 1 2))
+<span class='response'>;Value 23: ((0 . 1) 2 . 3)</span>
+</pre>
+This is due to that Scheme manipulates all the data by their addresses.
+(<span class='ttb'>#\</span><var>c</var> represents a character <var>c</var>.
+For example, <tt>#\a</tt> represents a character <tt>a</tt>.)
+
+<h3>2.2. Lists</h3>
+Lists are (beaded) cons cells with the cdr part of the last cons cell being 
+<strong>'()</strong>.
+<strong>'()</strong> is called the empty list, which is  included to lists.
+Even if the data consists of only one cons cell, it is a list if the cdr part is <tt>'()</tt>.
+Figure 3 shows the memory structure of a list <tt><u>(1 2 3)</u></tt>.
+<p>
+  <center><img src='list2.png'><br>Figure 3: Memory structure for a list <u><tt>(1 2 3)</tt></u>.</center>
+<p>
+Actuary, list can be defined recursively like as follows:
+
+<ol>
+<li> <tt>'()</tt> is a list.
+<li> If <var>ls</var> is a list and <var>obj</var> is a kind of data,
+  <span class='ttb'>(cons <var>obj</var> <var>ls</var>)</span> is a list.
+  </ol>
+As lists are data structure defined recursively,
+it is reasonable to be used in recursive functions.
+  
+<h3>2.3. atoms</h3>
+Data structures which do not use cons cells are called <b>atom</b>.
+Numbers, characters, strings, vectors, and <tt>'()</tt> are atom.
+<tt>'()</tt> is an atom and a list as well.
+<h3> Exercise 1</h3>
+Make data structures using <tt>cons</tt> that the front end responds like as follows.
+<ol>
+<li> <tt>("hi" . "everybody")</tt>
+<li> <tt>(0)</tt>
+<li> <tt>(1 10 . 100)</tt>
+<li> <tt>(1 10 100)</tt>
+<li> <tt>(#\I "saw" 3 "girls")</tt>
+<li> <tt> ("Sum of" (1 2 3 4) "is" 10)</tt>
+</ol>
+
+<h2> 3. quote</h2>
+All tokens are ready to be evaluated
+due to the Scheme's rule of the evaluation that tokens in parentheses are evaluated from inner to outer
+and that the value comes out from the outermost parentheses is the value of the S-expression.
+
+A special form named <span class='ttb'>quote</span> is used to protect tokens from evaluation.
+It is for giving symbols or lists to a program, which became something else by evaluation.<p>
+
+For instance, while <tt>(+ 2 3)</tt> is evaluated to be 5, <tt>(quote (+ 2 3))</tt> gives a list
+<tt><u>(+ 2 3)</u></tt> itself to the program.  As <tt>quote</tt> is frequently used,
+it is abbreviated as <u><tt>'</tt></u>.<br>
+For example:
+<ul>
+<li><tt>'(+ 2 3)</tt> represents a list <tt><u>(+ 2 3)</u></tt> itself.
+<li> <tt>'+</tt> represents a symbol <u><tt>+</tt></u> itself.
+  </ul>
+Actually,  <tt>'()</tt> is a quoted empty list, which means that
+you should write <tt>'()</tt> to represent an empty list while the interpreter
+responds  <tt>()</tt> for an empty list.
+
+
+
+<h3>3.1. Special forms</h3>
+Scheme has two kinds of operators:
+One is functions. Functions evaluate all the arguments to return  value.
+The other is special forms. Special forms are not evaluate all the arguments.
+Besides <tt>quote</tt>,
+<span class='ttb'>lambda</span>, <span class='ttb'>define</span>,
+<span class='ttb'>if</span>, <span class='ttb'>set!</span>, etc. are special forms.
+
+
+<h2>4. Functions car and cdr</h2>
+
+Functions that returns the car part and the cdr part of a cons cell is called
+<span class='ttb'>car</span> and
+<span class='ttb'>cdr</span>, respectively.
+If the value of <tt>cdr</tt> is a beaded cons cells, the interpreter
+prints whole values of the car parts.
+If the cdr part of the last cons cell is not  <tt>'()</tt>, the value is also shown
+after <b>.</b>.
+
+<pre class='samp'>
+(car '(1 2 3 4))
+<span class='response'>;Value: 1</span>
+
+(cdr '(1 2 3 4))
+<span class='response'>;Value 18: (2 3 4)</span>
+</pre>
+
+<h3>  Exercise 2</h3>
+Evaluated following S-expressions.
+<ol>
+<li> <tt>(car '(0))</tt>
+<li> <tt>(cdr '(0))</tt>
+<li> <tt> (car '((1 2 3) (4 5 6)))</tt>
+<li> <tt> (cdr '(1 2 3 . 4))</tt>
+<li> <tt>(cdr (cons 3 (cons 2 (cons 1 '()))))</tt>
+</ol>
+<h2>5. Function list </h2>
+Function <span class='ttb'>list</span> is available to make a list consisting of several elements.
+Function <tt>list</tt> takes arbitrary numbers of arguments and returns a list of them.
+<pre class='samp'>
+(list)
+<span class='response'>;Value: ()</span>
+
+(list 1)
+<span class='response'>;Value 24: (1)</span>
+
+(list '(1 2) '(3 4))
+<span class='response'>;Value 25: ((1 2) (3 4))</span>
+
+(list 0)
+<span class='response'>;Value 26: (0)</span>
+
+(list 1 2)
+<span class='response'>;Value 27: (1 2)</span>
+</pre>
+
+
+<h2>6. Summary</h2>
+This chapter explained about lists and basic operations for lists.
+Chapters 1 &ndash; 3 may be boring, I am afraid.
+The next chapter is interesting, I hope.
+It deals with making functions.
+I will explain
+<ul>
+<li>how to edit source codes using a editor,
+  <li>how to load the source code to the interpreter, and
+    <li> how to define functions.
+      </ul>
+
+<h3>The Answers for Exercises</h3>
+
+<h4>Answer 1</h4>
+
+<pre class='samp'>
+;1
+(cons "hi" "everybody")
+<span class='response'>;Value 32: ("hi" . "everybody")</span>
+
+;2
+(cons 0 '())
+<span class='response'>;Value 33: (0)</span>
+
+;3
+(cons 1 (cons 10 100))
+<span class='response'>;Value 34: (1 10 . 100)</span>
+
+;4
+(cons 1 (cons 10 (cons 100 '())))
+<span class='response'>;Value 35: (1 10 100)</span>
+
+;5
+(cons #\I (cons "saw" (cons 3 (cons "girls" '()))))
+<span class='response'>;Value 36: (#\I "saw" 3 "girls")</span>
+
+;6
+(cons "Sum of" (cons (cons 1 (cons 2 (cons 3 (cons 4 '())))) (cons "is" (cons 10 '()))))
+<span class='response'>;Value 37: ("Sum of" (1 2 3 4) "is" 10)</span>
+</pre>
+
+<h4>Answer 2</h4>
+<pre class='samp'>
+;1
+(car '(0))
+<span class='response'>;Value: 0</span>
+
+;2
+(cdr '(0))
+<span class='response'>;Value: ()</span>
+
+;3
+(car '((1 2 3) (4 5 6)))
+<span class='response'>;Value 28: (1 2 3)</span>
+
+;4
+(cdr '(1 2 3 . 4))
+<span class='response'>;Value 29: (2 3 . 4)</span>
+
+;5
+(cdr (cons 3 (cons 2 (cons 1 '()))))
+<span class='response'>;Value 31: (2 1)</span>
+</pre>
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme2_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  2. Using Scheme as a Calculator</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme4_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>4. Defining Functions</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme3_e.html&t=%28Scheme%29+Making+Lists' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+
+

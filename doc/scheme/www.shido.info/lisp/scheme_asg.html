@@ -1,0 +1,293 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, 代入, assignment">
+<meta name="description" content="Scheme の代入">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 10. 代入 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme9.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  9. 入出力</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_cs.html"><img src='../images/right_arrow.gif' class='arrow' border=0>11. 文字、文字列</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_asg.html&t=Scheme+%C6%FE%CC%E7+10.+%C2%E5%C6%FE' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 10. 代入   </h1>
+<hr>
+<h2>1. 初めに </h2>
+今回は代入について説明します。<p>
+
+ここまで代入について説明しなかったのは、
+  代入抜きのプログラミングに慣れていだだきたかったのと、
+  代入にはそれなりの弊害があるからです。
+代入の弊害については、<a href='http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-20.html#%_sec_3.1'>
+  SICP: 3.1  Assignment and Local State</a> や
+  <a href='http://www.sampou.org/haskell/article/whyfp.html'>
+    なぜ関数プログラミングは重要か</a>
+  を見てください。<p>
+  
+Scheme は基本的に関数型プログラミング言語なので、基本的には代入を用いないでプログラムを書くことができます。
+しかし、代入を用いたほうがかえって簡潔に書ける場合もあり、
+内部状態や継続を利用する時は代入を使う必要があります。
+<p>
+
+R<sup>5</sup>RS に定義されている代入ステートメントには
+  <span class='ttb'>set!</span>,  <span class='ttb'>set-car!</span>,
+  <span class='ttb'>set-cdr!</span>,  <span class='ttb'>string-set!</span>,  <span class='ttb'>vector-set!</span>
+  などがあります。また、そのほかに処理系依存の代入ステートメントがあります。
+ scheme では、代入などの破壊的なステートメントの名前にはプログラマーの注意を促すために <em>!</em> が付きます。
+<h2> 2. set!</h2>
+変数に値を代入するときに使います。Common Lisp の <tt>setf</tt> と異なり、式に値を代入することはできません。
+また、<tt>set!</tt> を使う前に、変数が宣言されている必要があります。<p>
+次のように使います。
+<pre class='samp'>
+(define var 1)
+(set! var (* var 10))
+var &rArr; 10
+
+(let ((i 1))
+    (set! i (+ i 3))
+    i)
+&rArr; 4
+</pre>
+
+
+<h2> 3. 代入と内部状態</h2>
+
+<h3>3.1. 静的スコープ(レキシカルクロージャ）</h3>
+Scheme の変数の有効範囲は、プログラムコードに書いてある通りです。
+これを専門用語でいうと lexical closure （書いてある通りの囲い込み）または
+静的スコープと呼びます。変数が、プログラムコードに書いてある通りの有効範囲を持つので、
+バグが入り込む余地を少なくしています。
+静的スコープに対して、関数が呼び出された環境で変数を探しに行く動的スコープもありますが、
+  こちらは、バグが生じやすいので、現在主流ではありません。
+<p>
+変数の有効範囲を限定する式には <tt>let</tt> 式、<tt>lambda</tt> 式および後で説明する <tt>letrec</tt> 式
+などがあります。<tt>lambda</tt> 式の引数は、その<tt>lambda</tt> 式内でのみ有効です。<p>
+  実は、<tt>let</tt> 式は下に示すように <tt>lambda</tt> 式で置き換えることができます。
+<pre class='def'>
+(let ((p1 v1) (p2 v2) ...) body)
+&hArr;
+((lambda (p1 p2 ...) body) v1 v2 ...)
+</pre>
+<p>
+
+<h3>3.2. レキシカルクロージャ と代入による内部状態の実装</h3>
+レキシカルクロージャ を応用すると手続きに内部状態を持たせることができます。
+  たとえば、銀行口座をシミュレートする関数を書いてみましょう。
+  口座を作るとき 1000 円預け入れるとします。預け入れるときは正、引き出すときは負の数を引数に与えるとします。
+  簡単のため、預金金額が負になるのを許すことにします。（その場合は借り入れていることになります。）
+<pre class='code'>
+(define bank-account
+  (let ((amount 1000))
+    (lambda (n)
+      (set! amount (+ amount n))
+      amount)))
+</pre>
+残高 <var>amount</var> に <tt>(+ amount n)</tt>
+を代入しています。<br>
+実行すると以下のようになります。
+<pre class='samp'>
+&gt; (bank-account 2000)     <span class='comment'>;2000 円預け入れ</span>
+<span class='response'>3000</span>
+
+&gt; (bank-account -2500)     <span class='comment'>;2500 円引き出し</span>
+<span class='response'>500</span>
+</pre>
+
+<p>
+  Scheme は手続きを返す手続きを書くことができるので、
+  銀行口座を作る関数を書くこともできます。<br>
+  この例を見ると、関数型言語を使ってオブジェクト指向にするのは簡単であることがわかると思います。
+  実際、あとほんの少し手を加えればオブジェクト指向になります。
+
+<pre class='code'>
+(define (make-bank-account amount)
+  (lambda (n)
+    (set! amount (+ amount n))
+    amount))
+</pre>
+
+<pre class='samp'>
+&gt; (define yamada-bank-account (make-bank-account 1000))   <span class='comment'>; 山田さんが 1000 円預金して銀行口座を作る。</span>
+<span class='response'>yamada-bank-account</span>
+
+&gt; (yamada-bank-account 5000)                              <span class='comment'>; 5000 円預け入れる</span>
+<span class='response'>6000</span>
+
+&gt; (yamada-bank-account -5500)                             <span class='comment'>; 5500 円引き出す</span>
+<span class='response'>500</span>
+
+
+&gt; (define saito-bank-account (make-bank-account 10000))  <span class='comment'>; 斉藤さんが 10000 円預金して銀行口座を作る。</span>
+<span class='response'>saito-bank-account</span>
+
+&gt; (saito-bank-account -7000)                             <span class='comment'>; 7000 円引き出す</span>
+<span class='response'>3000</span>
+
+&gt; (saito-bank-account 30000)                             <span class='comment'>; 30000 円預け入れる</span>
+<span class='response'>33000</span>
+</pre>
+<p>
+
+<h3> 3.3. 副作用</h3>
+Scheme の式は、括弧の外へ値を返すことを主な目的としていて、それ以外の動作を<strong>副作用</strong>と呼びます。
+副作用には代入、IO などがあります。
+<h3> 練習問題 </h3>
+上の銀行口座生成関数を改良して、預金残高以上引き出そうとするとエラーになるようにして下さい。<br>
+ヒント：２つ以上の式をまとめて１つの式にするには <span class='ttb'>begin</span> 式を使います。
+
+<h2> 4. リストの破壊的操作 (set-car!, set-cdr!)</h2>
+<span class='ttb'>set-car!</span>, <span class='ttb'>set-cdr!</span> はコンスセルの car 部、cdr 部に値を代入します。
+set! と異なり、式に値を代入することができます。
+次のように使います。
+<pre class='samp'>
+&gt; (let ((ls  (list 1 2 3)))
+    (set-car! ls 0)
+    ls)
+<span class='response'>(0 2 3)</span>
+
+&gt; (let ((ls (list 1 2 3)))
+    (set-cdr! ls '(20 30))
+    ls)
+<span class='response'>(1 20 30)</span>
+</pre>
+<a name='queue'>
+<h3> 4.1. 待ち行列 (Queue) の実装</h3>
+<tt>set-car!</tt>, <tt>set-cdr!</tt> を利用すると待ち行列を実装することができます。
+通常のリストは先入れ後出しですが、Queue は先入れ先出しのデータです。
+Queue は図１のようなデータ構造をとっており、<tt>cons-cell-top</tt> の car 部はリストに、
+<tt>cons-cell-top</tt> の cdr 部はそのリストの最後のコンスセルへのポインターを持ちます。<p>
+  <center><img src='queue1a.png'><br>図１：</center><p>
+
+Queue の最後に要素 (item 4) を追加するには、Queue の最後のコンスセル ((cdr cons-cell-top) で直接アクセスできます）
+  の cdr 部のポインターを、
+car 部が item 4, cdr 部が '() のコンスセルにします。
+  その後、cons-cell-top の cdr 部を、そのコンスセルへのポインターにします。(図 2）<p>
+      <center><img src='queue2a.png'><br>図２：</center><p>
+
+
+一方、先頭の要素を取り出して、Queue からそれを取り除くには、先頭の要素をまず、局所変数に
+    保存し、その後、 cons-cell-top の car 部を リストの２番目のコンスセルに移します(図 3）。
+      <center><img src='queue3a.png'><br>図３：</center><p>
+
+[code 1] に R<sup>5</sup>RS 版の Queue を実装したコードを示します。
+[code 1] の <span class='ttb'>enqueue!</span> は <var>queue</var> の最後の <var>obj</var> を追加した Queue を返す関数、
+<span class='ttb'>dequeue!</span> は <var>queue</var> から最初の要素を取り除き、取り除いた最初の要素を返す関数です。<p>
+
+MzScheme では、通常の pair や list は書き換えられないので、別に書き換えられる pair, list である
+<a href='http://pre.plt-scheme.org/plt/doc/reference/mpairs.html'>mutable-pair</a> が用意されています。
+通常のリストや pair が破壊的に操作できるとバグの原因になるので、両者を区別するのはいいアイデアだと思います。
+だた、R<sup>n</sup>RS の仕様とは外れるので、ほかの処理系との互換性に問題が生じます。
+[code 1a] に MzScheme での Queue の実装を示します。
+  <p>
+[code 1] (R<sup>n</sup>RS 版)
+<pre class='code'>
+(define (make-queue)
+  (cons '() '()))
+
+(define (enqueue! queue obj)
+  (let ((lobj (cons obj '())))
+    (if (null? (car queue))
+	(begin
+	  (set-car! queue lobj)
+	  (set-cdr! queue lobj))
+	(begin
+	  (set-cdr! (cdr queue) lobj)
+	  (set-cdr! queue lobj)))
+    (car queue)))
+
+(define (dequeue! queue)
+  (let ((obj (car (car queue))))
+    (set-car! queue (cdr (car queue)))
+    obj))
+</pre>
+<p>
+[code 1a] (MzScheme 版)
+<pre class='code'>
+(require scheme/mpair)
+
+(define (make-queue)
+  (mcons '() '()))
+
+(define (enqueue! queue obj)
+  (let ((lobj (mcons obj '())))
+    (if (null? (mcar queue))
+        (begin
+         (set-mcar! queue lobj)
+         (set-mcdr! queue lobj))
+        (begin
+         (set-mcdr! (mcdr queue) lobj)
+         (set-mcdr! queue lobj)))
+    (mcar queue)))
+
+(define (dequeue! queue)
+  (let ((obj (mcar (mcar queue))))
+    (set-mcar! queue (mcdr (mcar queue)))
+    obj))
+</pre>
+
+<pre class='samp'>
+&gt; (define q (make-queue))
+&gt; (enqueue! q 'a)
+<span class='response'>{a}</span>
+&gt; (enqueue! q 'b)
+<span class='response'>{a b}</span>
+&gt; (enqueue! q 'c)
+<span class='response'>{a b c}</span>
+&gt; (dequeue! q)
+<span class='response'>a</span>
+&gt;
+</pre>
+<!-- <a name='hash'> -->
+
+<h2> 5. 終わりに</h2>
+今回は代入について述べました。
+Scheme は関数型言語なので代入を使う機会は少ないのですが、
+それでも代入は時々重要な働きをします。
+むやみに代入を使うと手続き型言語のコードの様になってしまいますが、
+  必要なときは注意して使いましょう。
+<p>
+  また、今回は変数のスコープについても説明しました。
+  <p>
+    次回から数回は、Scheme で扱えるデータ型について解説します。
+
+<h4>練習問題 </h4>
+<pre class='code'>
+(define (make-bank-account amount)
+  (lambda (n)
+    (let ((m (+ amount n)))
+      (if (negative? m)
+	  'error
+	  (begin
+	    (set! amount m)
+	    amount)))))
+</pre>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme9.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  9. 入出力</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_cs.html"><img src='../images/right_arrow.gif' class='arrow' border=0>11. 文字、文字列</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_asg.html&t=Scheme+%C6%FE%CC%E7+10.+%C2%E5%C6%FE' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

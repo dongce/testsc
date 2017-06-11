@@ -1,0 +1,530 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, 高階関数">
+<meta name="description" content="Scheme の高階関数">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 8. 高階関数 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme7.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. 繰り返し</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme9.html"><img src='../images/right_arrow.gif' class='arrow' border=0>9. 入出力</a></td>
+<td><a rel=download href="scheme8.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme8.html&t=Scheme+%C6%FE%CC%E7+8.+%B9%E2%B3%AC%B4%D8%BF%F4' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 8. 高階関数   </h1>
+<hr>
+<h2>1. 初めに </h2>
+高階関数は関数を引数にとる関数です。リストの各要素に同じ処理をするマッピング、リストから
+条件を満たした要素を取り出すフィルタリング、畳み込み、条件によって要素を並べ替えるソーティングがあります。<p>
+
+高階関数はプログラムのモジュール化を促進します。
+個々のケースの再帰関数を書く代わりに、多くの場合に適応できる高階関数を書けば、
+  プログラムが短くなり、見通しが良くなります。<p>
+
+例えば、ソーティングに高階関数を使うとさまざまな条件で並び替えをすることができ、
+並び替えの条件と、並び替えの手順を完全に分離することができます。
+<a href='http://srfi.schemers.org/srfi-95/srfi-95.html'>SRFI-95</a> 
+に定義されている <tt>sort</tt> という関数は２つの引数をとり、最初の引数に並び替えるリスト、
+２番目の引数に順序付けをする手続きを引数にとります。
+例えば、整数のリストを単純に昇順に並び替えるときは次のようにします。
+<tt>&lt;</tt> が２つの数を比較する関数です。
+<pre class='samp'>
+&gt; (sort '(7883 9099 6729 2828 7754 4179 5340 2644 2958 2239) &lt;)
+<span class='response'>(2239 2644 2828 2958 4179 5340 6729 7754 7883 9099)</span>
+</pre>
+また、下２桁が小さい順に並べるには次のようにします。
+<pre class='samp'>
+&gt; (sort '(7883 9099 6729 2828 7754 4179 5340 2644 2958 2239) 
+      (lambda (x y) (&lt; (modulo x 100) (modulo y 100))))
+<span class='response'>(2828 6729 2239 5340 2644 7754 2958 4179 7883 9099)</span>
+</pre>
+
+このように、並べ替える手順 (quick sort, merge sort, etc) と２つの要素を比較する
+関数が完全に分離されているので、プログラムの再利用が促進されます。<p>
+
+この文書では、まず、処理系にあらかじめ定義されている高階関数について説明し、
+  それから自前の高階関数を作ってみます。Scheme は手続きと他のデータを全く区別しないので、
+  手続きも単に引数に渡してやるだけで、簡単に高階関数を作ることができます。<p>
+
+実は、Scheme であらかじめ定義されている関数のかなりの部分が高階関数です。
+理由は、Scheme では、ブロックを定義する構文が無いので、lambda 式（つまり無名関数）
+    がブロックの働きをするからです。
+
+
+<h2>2. マッピング</h2>
+リストの各要素に同じ操作をする関数です。
+操作を施したリストを返す <span class='ttb'>map</span> と、副作用を目的とする <span class='ttb'>for-each</span>
+の２つが R<sup>5</sup>RS で定義されています。
+
+<h3> 2.1. map </h3>
+書式は以下の通りです。
+<pre class='def'>
+(map procedure list1 list2 ...)
+</pre>
+<tt>procedure</tt> は手続きと結びついたシンボルまたは、<tt>lambda</tt> 式で定義される無名関数です。
+引数にとるリストの数は、<tt>procedure</tt> の引数によって変わります。<p>
+例
+<pre class='samp'>
+<span class='comment'>; '(1 2 3) と '(4 5 6) の各要素を足し合わせる。</span>
+(map + '(1 2 3) '(4 5 6))
+&rArr; (5 7 9)
+
+<span class='comment'>; '(1 2 3) の各要素を２乗したリストを返す。</span>
+(map (lambda (x) (* x x)) '(1 2 3))
+&rArr; (1 4 9)
+</pre>
+<h3>2.2. for-each</h3>
+書式は <tt>map</tt> と同じですが、副作用を目的にして使われます。<p>
+例：
+<pre class='samp'>
+(define sum 0)
+(for-each (lambda (x) (set! sum (+ sum x))) '(1 2 3 4))
+sum
+&rArr; 10
+</pre>
+
+<h3> 練習問題 1</h3>
+ 次の関数を <tt>map</tt> を用いて書いてください。
+ <ol>
+   <li>リストの各要素を２倍する関数。
+   <li>２つのリストの各要素の差をとる関数。
+ </ol>
+
+
+<h2>3. フィルタリング</h2>
+R<sup>6</sup>RS では規定されていませんが、<a href='http://srfi.schemers.org/srfi-1/'>SRFI-1</a>
+ には <span class='ttb'>filter</span>
+ が定義されています。
+<pre class='samp'>
+&gt; (require srfi/1)  <span class='comment'>; 呼び出し方は処理系によって異なる</span>
+&gt; (filter  positive? '(1 2 -3 -4 5))
+<span class='response'>(1 2 5)</span>
+</pre>
+<h3> 練習問題 2</h3>
+ 次の関数を書いてください。
+ <ol>
+   <li>リストの要素のうち偶数だけを選んで返す関数。
+   <li>10 以上 100 以下の数を選んで返す関数。
+ </ol>
+
+<h2>4. 畳み込み</h2>
+R<sup>6</sup>RS では規定されていませんが、<a href='http://srfi.schemers.org/srfi-1/'>SRFI-1</a> 
+には <span class='ttb'>fold</span> が
+用意されています。
+<pre class='samp'>
+&gt; (require srfi/1) 
+&gt; (fold + 0 '(1 2 3 4))
+<span class='response'>10</span>
+&gt; (fold + 0 '(1 2))
+<span class='response'>3</span>
+&gt; (fold + 0 '(1))
+<span class='response'>1</span>
+&gt; (fold + 0 '())
+<span class='response'>0</span>
+&gt; (fold list '() '(1 2 3 4))            
+<span class='response'>(4 (3 (2 (1 ()))))</span>
+</pre>
+<a name='p3'>
+<h3> 練習問題 3</h3>
+<ol>
+<li> リストの各要素を二乗し、それを足し合わせた後、平方根をとる関数を fold を使って書いてください。
+</ol>
+
+<h2>5. 並び替え</h2>
+R<sup>6</sup>RS では <tt>list-sort</tt>, <tt>vector-sort</tt> という関数が用意されています。
+また、<a href='http://srfi.schemers.org/srfi-95/srfi-95.html'>SRFI-95</a> に <tt>sort</tt> という関数があります。
+MzScheme は SRFI-95 を正式にはサポートしていませんが、<tt>sort</tt> という関数は MzScheme にもあります。
+一方、MzScheme の list-sort は mutable-pair を引数にとるので、残念ながら普通のリストには使えません。
+
+<pre class='samp'>
+&gt; (sort '(3 5 1 4 -1) &lt;)
+<span class='response'>(-1 1 3 4 5)</span>
+
+&gt; (require rnrs/sorting-6)
+&gt; (vector-sort < #(1 3 5 2))      ; vector については <a href='scheme_vec.html'>ヴェクトルと構造体</a> で説明します。
+<span class='response'>#(1 2 3 5)</span>
+</pre>
+
+
+<h3> 練習問題 4</h3>
+次の関数を書いてください。
+<ol>
+<li> 実数からなるリストをリストの要素の平均値に近い順に並び替える。
+<li> 文字列からなるリストを文字列の長さの長い順に並び替える。
+</ol>
+
+<a name='apply'>
+<h2>6. apply </h2>
+procedure をリストに適応するときに使います。最初の引数が procedure,
+最後の引数がリストになっている必要があります。たいした働きをしていないように思えますが、
+<em>以外に便利な関数</em>です。
+<pre class='samp'>
+(apply max '(1 3 2))      &rArr;   3
+(apply + 1 2 '(3 4 5))    &rArr;  15
+(apply - 100 '(5 12 17))  &rArr;  66
+</pre>
+
+<h3> 練習問題 5</h3>
+<ol>
+<li> <a href='#p3'>練習問題 3</a> と同じ関数を <tt>apply</tt> を使って書いてください。
+<li> 任意個の数の平均を求める関数 (<a href='scheme7.html#prac3'>繰り返しの練習問題 3 の 4</a>) を <tt>apply</tt> を使って書いてください。 
+</ol>
+
+<h2>7. 自前の高階関数</h2>
+自前の高階関数を書くこともきわめて簡単です。
+ここでは、<tt>member-if, member,</tt> および fractal を定義してみます。
+<h3>7.1. member-if, member</h3>
+条件とリストを引数にとり、その条件を満たす要素より後のリストを返す関数 <tt>member-if</tt> は
+次のように書けます。Scheme では手続きも他の変数と全く同様に扱えます。
+<pre class='code'>
+(define (member-if proc ls)
+  (cond
+   ((null? ls) #f)
+   ((proc (car ls)) ls)
+   (else (member-if proc (cdr ls)))))
+</pre>
+<pre class='samp'>
+(member-if (lambda(x) (&lt; 0 x)) '(0 -1 -2 3 5 -7))
+&rArr;  (3 5 -7)
+</pre>
+
+また、比較する関数を指定して、あるものがリストにあるか調べる関数 <tt>member</tt> は次のように書けます。
+<pre class='code'>
+(define (member proc obj ls)
+  (cond
+   ((null? ls) #f)
+   ((proc obj (car ls)) ls)
+   (else (member proc obj (cdr ls)))))
+</pre>	
+<pre class='samp'>
+(member string=? "hello" '("hi" "guys" "bye" "hello" "see you"))
+&rArr;  ("hello" "see you")
+</pre>
+
+<h3> 7.2. フラクタル曲線</h3>
+C curve, Dragon curve などの 2 点の間に(複数の）点を挿入して生成するフラクタル曲線は、新たな点の挿入の仕方とフラクタル曲線
+を作る一般的なルーチンに分離することができます。
+以下にコードを示して説明します。
+
+
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber">002:</span>   <span class="comment">;;;</span>
+<span class="linenumber">003:</span>   <span class="comment">;;;                frac.smc</span>
+<span class="linenumber">004:</span>   <span class="comment">;;;</span>
+<span class="linenumber">005:</span>   <span class="comment">;;;        draw fractal curves</span>
+<span class="linenumber">006:</span>   <span class="comment">;;;         by T.Shido</span>
+<span class="linenumber">007:</span>   <span class="comment">;;;       on August 20, 2005</span>
+<span class="linenumber">008:</span>   <span class="comment">;;;</span>
+<span class="linenumber">009:</span>   <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber">010:</span>   
+<span class="linenumber">011:</span>   (define _x car)
+<span class="linenumber">012:</span>   (define _y cdr)
+<span class="linenumber">013:</span>   (define point cons)
+<span class="linenumber">014:</span>   
+<span class="linenumber">015:</span>   (define (inc i) (+ 1 i))
+<span class="linenumber">016:</span>   
+<span class="linenumber">017:</span>   <span class="comment">;;; (rappend '(1 2 3) '(4 5 6)) -&gt; (3 2 1 4 5 6)</span>
+<span class="linenumber">018:</span>   (define (rappend ls0 ls1)
+<span class="linenumber">019:</span>     (let loop((ls0 ls0) (ls1 ls1))
+<span class="linenumber">020:</span>       (if (null? ls0)
+<span class="linenumber">021:</span>           ls1
+<span class="linenumber">022:</span>         (loop (cdr ls0) (cons (car ls0) ls1)))))
+<span class="linenumber">023:</span>     
+<span class="linenumber">024:</span>   <span class="comment">;;; </span>
+<span class="linenumber">025:</span>   (define (devide p1 p2 r)
+<span class="linenumber">026:</span>     (point (+ (* r (_x p1)) (* (- 1.0 r) (_x p2)))
+<span class="linenumber">027:</span>   	 (+ (* r (_y p1)) (* (- 1.0 r) (_y p2)))))
+<span class="linenumber">028:</span>   
+<span class="linenumber">029:</span>   <span class="comment">;;; print out data points to a file</span>
+<span class="linenumber">030:</span>   (define (print-curve points fout)
+<span class="linenumber">031:</span>     (with-output-to-file fout
+<span class="linenumber">032:</span>       (lambda ()
+<span class="linenumber">033:</span>         (for-each
+<span class="linenumber">034:</span>          (lambda (p)
+<span class="linenumber">035:</span>            (display (_x p))
+<span class="linenumber">036:</span>            (display " ")
+<span class="linenumber">037:</span>            (display (_y p))
+<span class="linenumber">038:</span>            (newline))
+<span class="linenumber">039:</span>          points))))
+<span class="linenumber">040:</span>            
+<span class="linenumber">041:</span>   
+<span class="linenumber">042:</span>   <span class="comment">;;; the main function to create fractal curves</span>
+<span class="linenumber">043:</span>   (define (fractal proc n points fout)
+<span class="linenumber">044:</span>     (let loop((i 0) (points points))
+<span class="linenumber">045:</span>       (if (= n i)
+<span class="linenumber">046:</span>   	(print-curve points fout)
+<span class="linenumber">047:</span>   	(loop
+<span class="linenumber">048:</span>   	 (inc i)
+<span class="linenumber">049:</span>   	 (let iter ((points points) (acc '()))
+<span class="linenumber">050:</span>   	   (if (null? (cdr points)) 
+<span class="linenumber">051:</span>   	       (reverse (cons (car points) acc))
+<span class="linenumber">052:</span>   	       (iter
+<span class="linenumber">053:</span>   		(cdr points)
+<span class="linenumber">054:</span>   		(rappend (proc (first points) (second points)) acc)))))))
+<span class="linenumber">055:</span>     'done)
+<span class="linenumber">056:</span>   
+<span class="linenumber">057:</span>   
+<span class="linenumber">058:</span>   
+<span class="linenumber">059:</span>   <span class="comment">;;; c curve</span>
+<span class="linenumber">060:</span>   (define (c-curve p1 p2) 
+<span class="linenumber">061:</span>     (let ((p3 (devide p1 p2 0.5)))
+<span class="linenumber">062:</span>       (list
+<span class="linenumber">063:</span>        p1
+<span class="linenumber">064:</span>        (point (+ (_x p3) (- (_y p3) (_y p2)))
+<span class="linenumber">065:</span>   	    (+ (_y p3) (- (_x p2) (_x p3)))))))
+<span class="linenumber">066:</span>   
+<span class="linenumber">067:</span>   <span class="comment">;;; dragon curve</span>
+<span class="linenumber">068:</span>   (define dragon-curve 
+<span class="linenumber">069:</span>     (let ((n 0))
+<span class="linenumber">070:</span>       (lambda (p1 p2)
+<span class="linenumber">071:</span>         (let ((op (if (even? n) + -))
+<span class="linenumber">072:</span>   	    (p3 (devide  p1 p2 0.5)))
+<span class="linenumber">073:</span>   	(set! n (inc n))
+<span class="linenumber">074:</span>   	(list
+<span class="linenumber">075:</span>   	 p1
+<span class="linenumber">076:</span>   	 (point (op (_x p3) (- (_y p3) (_y p2)))
+<span class="linenumber">077:</span>   		(op (_y p3) (- (_x p2) (_x p3)))))))))
+<span class="linenumber">078:</span>         
+<span class="linenumber">079:</span>   
+<span class="linenumber">080:</span>   <span class="comment">;;; koch curve</span>
+<span class="linenumber">081:</span>   (define (koch p1 p2)
+<span class="linenumber">082:</span>     (let ((p3 (devide p1 p2 2/3))
+<span class="linenumber">083:</span>   	(p4 (devide p1 p2 1/3))
+<span class="linenumber">084:</span>   	(p5 (devide p1 p2 0.5))
+<span class="linenumber">085:</span>   	(c  (/ (sqrt 3) 2)))
+<span class="linenumber">086:</span>       (list
+<span class="linenumber">087:</span>        p1
+<span class="linenumber">088:</span>        p3
+<span class="linenumber">089:</span>        (point (- (_x p5) (* c (- (_y p4) (_y p3))))
+<span class="linenumber">090:</span>   	    (+ (_y p5) (* c (- (_x p4) (_x p3)))))
+<span class="linenumber">091:</span>        p4)))
+<span class="linenumber">092:</span>       
+</pre>
+<table border=1>
+   <tr>
+      <th>行</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>11&mdash;13</td>
+      <td> xy 平面上の点はドット対で表します。点の x 座標は car で、y 座標は cdr で得ることができますが、
+可読性を上げるためにそれぞれ別名 _x, _y をつけます。また、点は cons で作ることができますが、
+これにも別名 point をつけます。</td>
+   </tr>
+   <tr>
+      <td>17&mdash;22</td>
+      <td> (rappend ls0 ls1)<br> ２つのリストを引数にとり、最初のリストを反転させて、２番目のリストにつなげます。</td>
+   </tr>
+   <tr>
+      <td>25&mdash;27</td>
+      <td> (devide p1 p2 r)<br> ２点 p1, p2 を比 r で内分する点を求めます。</td>
+   </tr>
+   <tr>
+      <td>29&mdash;39</td>
+      <td> (print-curve points fout)<br> 点のリスト points を fout に１行に１点ずつ出力します。</td>
+   </tr>
+   <tr>
+      <td>42&mdash;55</td>
+      <td> (fractal proc n points fout)<br> フラクタル曲線を描く高階関数です。<br>
+	proc は点を補間する関数、
+            n は繰り返しの回数、points は点のリスト、fout はデータを出力するファイル名です。<br>
+          この関数は loop と iter の２重のループからなっています。loop は データリストに対する補間を
+          n 回繰り返します。また、iter は補間関数を使ってデータリストに新しい点を追加していきます。
+         つまり、 iter を n 回繰り返してフラクタル曲線を描きます。<br>
+          補間関数 proc は２つの点を引数に取る関数で、１番目の引数そのものと、
+          新たに補間された点からなるリストを返します。</td>
+   </tr>
+   <tr>
+      <td>59&mdash;65</td>
+      <td> (c-curve p1 p2)<br> C curve を描くための補間関数です。</td>
+   </tr>
+   <tr>
+      <td>67&mdash;77</td>
+      <td> (dragon-curve p1 p2)<br> Dragon curve を描くための補間関数です。</td>
+   </tr>
+   <tr>
+      <td>80&mdash;91</td>
+      <td> (koch p1 p2)<br> Koch 曲線を描くための補間関数です。</td>
+   </tr>
+</table>
+C-Curve, Dragon-Curve, Koch-Curve を描くには次のようにします。
+コンパイルしてから計算させたほうが待ち時間が短くなります。
+ソースコードを<a href='scheme8.lzh'>付録</a>につけておいたので遊んでみてください。
+
+<pre class='samp'>
+&gt; (require (lib "compile.ss"))
+&gt; (compile-file "C:/doc/scheme/frac.scm")
+<span class="response">#&lt;path:.\compiled\frac_scm.zo&gt;</span>
+&gt; (load/use-compiled "C:/doc/scheme/compiled/frac_scm.zo")
+&gt; (fractal c-curve 14 '((0 . 0) (2 . 3)) "c14.dat")     <span class='comment'>(C-curve)</span>
+done
+&gt; (fractal dragon-curve 14 '((0 . 0) (1 . 0)) "d14.dat")  <span class='comment'>(Dragon-curve)</span>
+done
+&gt; (fractal koch 5 '((0 . 0) (1 . 0)) "k5.dat")   <span class='comment'>(Koch-curve)</span>
+done
+</pre>
+'*.dat' というファイルに x 座標と y 座標がテキスト形式で保存されるので、
+いつも使っているプロットソフトを使ってプロットします。<p>
+
+図 1--3 は
+  <a href='http://ayapin.film.s.dendai.ac.jp/~matuda/Gnuplot/gnuplot.html'>gnuplot</a> を使ってプロットしたものです。
+<center>
+<img src='c.png'><br>
+  図１: C-Curve<p>
+
+ <img src='d.png'><br>
+  図２:  Dragon-Curve<p>
+   
+<img src='k.png'><br>
+  図３:  Koch-Curve<p>
+</center>
+
+<h3> 練習問題 6</h3>
+<ol>
+<li> <tt>filter</tt> を自分で定義してみてください。
+<li><tt>map</tt> を自分で定義してみてください。
+     複数のリストに対応するのは少し難しいかもしれません。任意個の引数を取るには ドット（<b>.</b>) で
+  区切ります。ドット以下がリストとして関数にわたります。<p>
+例：my-list
+<pre class='code'>
+(define (my-list . x) x)
+</pre>
+また、<a href='#apply'>apply</a> を使う必要もあります。
+</ol>
+<h2>8. 終わりに</h2>
+今回は高階関数について説明しました。
+フラクタル曲線の例で示したように、高階関数はプログラムのモジュール化を促進します。
+意識して積極的に使うようにしましょう。<p>
+
+  この文章で示したように、Scheme では
+  自前の高階関数を簡単に定義することができます。<p>
+
+次回は入出力について説明します。
+
+<h3>練習問題の解答</h3>
+
+<h4>練習問題 1</h4>
+
+<pre class='code'>
+
+; 1
+(define (double ls)
+  (map (lambda (x) (* x 2)) ls))
+
+; 2
+(define (sub ls1 ls2)
+  (map - ls1 ls2))
+</pre>
+
+<h4>練習問題 2</h4>
+<pre class='code'>
+; 1
+(define (filter-even ls)
+  (filter even? ls))
+; 2
+(define (filter-10-100 ls)
+  (filter  (lambda (x) (&lt;= 10 x 100)) ls ))
+
+</pre>
+
+
+<h4>練習問題 3</h4>
+<pre class='code'>
+(define (sqrt-sum-sq ls)
+  (sqrt (foldr + 0 (map (lambda (x) (* x x)) ls))))
+</pre>
+
+<h4>練習問題 4</h4>
+<pre class='code'>
+; 1
+(define (sort-ave ls)
+  (let ((ave (/ (apply + ls) (length ls))))
+    (sort ls (lambda (x y) (&lt; (abs (- x ave)) (abs (- y ave)))))))
+
+; 2
+(define (sort-string ls)
+  (sort ls (lambda (x y) (&gt; (string-length x) (string-length y)))))
+
+;[別解]
+;MzScheme では次もつかえる
+(define (sort-string ls)
+  (sort ls #:key string-length &gt;))
+
+
+</pre>
+
+<h4>練習問題 5</h4>
+<pre class='code'>
+; 1
+(define (sqrt-sum-sq-a ls)
+  (sqrt (apply + (map (lambda (x) (* x x)) ls))))
+
+; 2
+(define (ave . ls)
+  (/ (apply + ls) (length ls)))
+</pre>
+
+
+
+<h4>練習問題 6</h4>
+<pre class='code'>
+; 1
+(define (my-filter fn ls)
+  (cond
+   ((null? ls) '())
+   ((fn (car ls))
+    (cons (car ls) (my-filter fn (cdr ls))))
+   (else
+    (my-filter fn  (cdr ls)))))
+
+; 2
+(define (my-map fun . lss)
+  (letrec ((iter (lambda (fun lss)
+		       (if (null? lss)
+			   '()
+			   (cons (fun (car lss))
+				 (iter fun (cdr lss))))))
+	   (map-rec (lambda (fun lss)
+		      (if (memq '() lss)
+			  '()
+			  (cons (apply fun (iter car lss))
+				(map-rec fun (iter cdr lss)))))))
+    (map-rec fun lss)))
+</pre>
+
+<pre class='samp'>
+(my-map + '(1 2 3) '(10 20 30) '(100 200 300))
+&rArr; (111 222 333)
+</pre>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme7.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. 繰り返し</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme9.html"><img src='../images/right_arrow.gif' class='arrow' border=0>9. 入出力</a></td>
+<td><a rel=download href="scheme8.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme8.html&t=Scheme+%C6%FE%CC%E7+8.+%B9%E2%B3%AC%B4%D8%BF%F4' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

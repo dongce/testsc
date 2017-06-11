@@ -1,0 +1,320 @@
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="xyzzy, FTP, upload">
+<meta name="description" content="xyzzy 用 ファイルアップロード スクリプトです。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(xyzzy) ファイルアップロード用スクリプト</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="xyz-upload.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/xyz-upload.html&t=%28xyzzy%29+%A5%D5%A5%A1%A5%A4%A5%EB%A5%A2%A5%C3%A5%D7%A5%ED%A1%BC%A5%C9%CD%D1%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>ファイルアップロード用スクリプト</h1>
+<hr>
+<h2>1. はじめに </h2>
+xyzzy で HTML を書いている人のためのファイルアップロード用スクリプトです。
+ファイルをサーバーにアップロードします。<p>
+
+ファイルをアップロードする部分は Python で書いて
+<a href='http://www.cubelab.com/ymasuda/python/py2exe/py2exe.html'>
+  py2exe</a> を使って実行ファイルにしました。
+xyzzy-lisp にも ftp 用の関数がありますが、ftp がハングアップすると、xyzzy 全体が
+  ハングアップして悲惨なことになります。
+そこで、リスクの高い部分は外注し、そこでトラブルが起きても xyzzy 本体は巻き込まれないようにしています。<p>
+
+  このスクリプトでできることは、
+<ol>
+  <li> 現在のバッファをアップロードする。
+  <li> ファイル選択ダイアログからファイルを選択してアップロードする（複数選択可）。
+  <li> index.html と log.html を半自動で書き換えてアップロードする。
+</ol>
+  です。
+  
+
+<h2>2.  インストール </h2>
+以下の手順でインストールして下さい。
+<ol>
+ <li><span class='mono'>xyzzy-upload.lzh</span> を解凍して生成するフォルダ '<span class='mono'>ftp-upload</span>' を丸ごと
+   <span class='mono'>xyzzy</span> をインストールしたディレクトリにコピーします。
+ <li><span class='mono'>upload.l</span>, <span class='mono'>upload.lc</span> を
+   <span class='mono'>site-lisp</span> にコピーします。
+ <li><span class='mono'>.xyzzy</span> または <span class='mono'>siteinit.l</span> に以下の行を加えます。
+<pre class='code'>
+(add-hook '*ed::html+-mode-hook* #'(lambda () (require "upload")))
+(setq ed::*html-ftp-server* "your.ftp.server")
+(setq ed::*html-ftp-user* "your_user_accout")
+(setq ed::*html-ftp-pass* "your_password")
+(setq ed::*local-home-dir* "C:/MyHomePage/")
+</pre>
+まず1行目で、<span class='mono'>html+-mode</span> が呼び出されるとき <span class='mono'>upload</span>
+もついでに呼ばれるようにします。
+それから、以下の4つの変数をあなたの環境にあわせて設定してください。
+<p style=" padding-left:30pt">
+<table>
+ <colgroup width="190">
+   <tr>
+      <td>ed::*html-ftp-server*</td>
+      <td> あなたのホームページがあるサーバーの IP address です。</td>
+   </tr>
+   <tr>
+      <td>ed::*html-ftp-user*</td>
+      <td> そのサーバーのあなたのユーザー名です。</td>
+   </tr>
+   <tr>
+      <td>ed::*html-ftp-pass*</td>
+      <td> そのユーザー名のパスワードです。</td>
+   </tr>
+   <tr>
+      <td>ed::*local-home-dir*</td>
+      <td> ホームページを自分の PC で作るときのディレクトリです。</td>
+   </tr>
+</table>
+</p>
+ </ol>
+
+
+<h2> 3. 使い方 </h2>
+<h3>3.1. html-upload-current-buffer</h3>
+現在のバッファをアップロードします。*local-home-dir* とそのファイルがあるディレクトリを比べて、
+サーバー上のしかるべきディレクトリにアップロードします。デフォルトでは <strong>S-F10</strong> に割り振られています。<br>
+<span class='warn'>注意：</span>
+ローカルでのディレクトリ構造と、サーバー上でのディレクトリ構造が一致している必要があります。
+
+<h3>3.2. html-upload-other-files</h3>
+画像ファイルや圧縮ファイルなどをアップロードします。
+ファイル名を聞くダイアログが開くのでそこから選択します。
+複数のファイルが選択できます。
+デフォルトでは <strong>F6</strong> にバインドされています。
+
+<h3>3.3. html-upload-index-log</h3>
+紫藤は、index.html と log.html に更新内容を書いているので、
+それを半自動化するための関数です。
+多分お使いになることはないと思いますが、興味のある方は自分の環境に合わせて書き直してください。
+デフォルトでは <strong>F11</strong> にバインドされています。
+
+<h3>3.4. html-show-upload-log</h3>
+アップロードがちゃんとされたか確認するための関数です。メッセージボックスに、いつどのファイルがアップロード
+されたかを示します。FTP がうまくいってなければその旨が表示されます。
+デフォルトでは <strong>S-F6</strong> にバインドされています。<p>
+  このスクリプトは call-process を使って、後の処理を upload.exe に丸投げするので、
+  エコー欄にはうまくいってもいかなくても "hand over to ftp" としか表示されません。
+  そのため、うまくいったか知りたいときは後で html-show-upload-log を呼ぶ必要があります。
+
+<h2> 4. プログラムについて</h2>
+<h3> 4.1. 方針</h3>
+xyzzy の方では、必要な情報（サーバー名、ユーザー名、パスワード、サブフォルダー名、アップロードするファイルのリスト）
+を書いたファイル upload.inp を環境変数 TEMP (または TMP、両方なければ C:) で指定されたディレクトリに作成します。
+その後アップロードするプログラム upload.exe を呼び出します。upload.exe については
+<a href='../py/python8.html'>ここを見てください。</a>
+
+upload.exe は upload.inp を読んでファイルを転送し、転送の結果を upload.log に書きます。
+転送が失敗したらどこでエラーが起きたか記録されます。
+upload.inp は読み終わった時点で消去されます。
+
+<h3>4.2. ソースコード</h3>
+ソースを以下に示します。
+
+<pre class="code">
+<span class="linenumber"> 01:</span>     <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber"> 02:</span>     <span class="comment">;;;             upload.l                    ;;;</span>
+<span class="linenumber"> 03:</span>     <span class="comment">;;;            by T.Shido                   ;;;</span>
+<span class="linenumber"> 04:</span>     <span class="comment">;;;          on July 19, 2005               ;;;</span>
+<span class="linenumber"> 05:</span>     <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber"> 06:</span>     
+<span class="linenumber"> 07:</span>     (provide "upload")
+<span class="linenumber"> 08:</span>     (in-package "editor")
+<span class="linenumber"> 09:</span>     
+<span class="linenumber"> 10:</span>     <span class="comment">;;; variables</span>
+<span class="linenumber"> 11:</span>     (defvar *html-ftp-server* "your.ftp.server")
+<span class="linenumber"> 12:</span>     (defvar *html-ftp-user* "your_user_name")
+<span class="linenumber"> 13:</span>     (defvar *html-ftp-pass* "******")
+<span class="linenumber"> 14:</span>     (defvar *local-home-dir* "C:/MyHomePage")
+<span class="linenumber"> 15:</span>     (defvar *upload-inp* (merge-pathnames "upload.inp" (or (si:getenv "TEMP") (si:getenv "TMP") "C:")))
+<span class="linenumber"> 16:</span>     (defvar *upload-log* (merge-pathnames "upload.log" (or (si:getenv "TEMP") (si:getenv "TMP") "C:")))
+<span class="linenumber"> 17:</span>     (defvar *html-ftp* (merge-pathnames "ftp-upload/upload.exe" (si:system-root)))
+<span class="linenumber"> 18:</span>     
+<span class="linenumber"> 19:</span>     <span class="comment">;;; upload current buffer</span>
+<span class="linenumber"> 20:</span>     (defun html-upload-current-buffer ()
+<span class="linenumber"> 21:</span>       (interactive)
+<span class="linenumber"> 22:</span>       (if (buffer-modified-p)
+<span class="linenumber"> 23:</span>           (save-buffer))
+<span class="linenumber"> 24:</span>       (html-upload-files (list (get-buffer-file-name))))
+<span class="linenumber"> 25:</span>     
+<span class="linenumber"> 26:</span>     
+<span class="linenumber"> 27:</span>     <span class="comment">;;; upload files</span>
+<span class="linenumber"> 28:</span>     (defun html-upload-files (fnames)
+<span class="linenumber"> 29:</span>       (with-open-file (f  *upload-inp* :direction :output
+<span class="linenumber"> 30:</span>                                        :if-exists :overwrite
+<span class="linenumber"> 31:</span>                                        :if-does-not-exist :create)
+<span class="linenumber"> 32:</span>         (format f "(~S, ~S, ~S, ~S, \\\n(\\\n"
+<span class="linenumber"> 33:</span>                 *html-ftp-server*
+<span class="linenumber"> 34:</span>                 *html-ftp-user*
+<span class="linenumber"> 35:</span>                 *html-ftp-pass*
+<span class="linenumber"> 36:</span>                 (html-get-subdir-name (directory-namestring (car fnames))))
+<span class="linenumber"> 37:</span>                                                                             
+<span class="linenumber"> 38:</span>         (dolist (fname fnames)
+<span class="linenumber"> 39:</span>           (format f "~S, \\~%" fname))
+<span class="linenumber"> 40:</span>         (format f "))\n"))
+<span class="linenumber"> 41:</span>       (message "hand over to ftp")
+<span class="linenumber"> 42:</span>       (call-process *html-ftp* :show :hide))  
+<span class="linenumber"> 43:</span>     
+<span class="linenumber"> 44:</span>     
+<span class="linenumber"> 45:</span>     (defun html-get-subdir-name (fdir)
+<span class="linenumber"> 46:</span>       (if (string= fdir *local-home-dir*)
+<span class="linenumber"> 47:</span>           "HOME"
+<span class="linenumber"> 48:</span>         (subseq fdir (length *local-home-dir*) (1- (length fdir)))))
+<span class="linenumber"> 49:</span>     
+<span class="linenumber"> 50:</span>     
+<span class="linenumber"> 51:</span>     <span class="comment">;;; insert str after tag in the fname</span>
+<span class="linenumber"> 52:</span>     (defun html-insert-new (fname tag str)
+<span class="linenumber"> 53:</span>       (copy-file fname (concat fname ".bak") :if-exists :overwrite)
+<span class="linenumber"> 54:</span>       (let ((buff (find-file-internal fname)))
+<span class="linenumber"> 55:</span>         (set-buffer buff)
+<span class="linenumber"> 56:</span>         (scan-buffer tag)
+<span class="linenumber"> 57:</span>         (goto-bol)
+<span class="linenumber"> 58:</span>         (insert str)
+<span class="linenumber"> 59:</span>         (save-buffer)
+<span class="linenumber"> 60:</span>         (delete-buffer buff)))
+<span class="linenumber"> 61:</span>     
+<span class="linenumber"> 62:</span>     <span class="comment">;;; upload index and log</span>
+<span class="linenumber"> 63:</span>     (defun html-upload-index-log ()
+<span class="linenumber"> 64:</span>       (interactive)
+<span class="linenumber"> 65:</span>       (let ((url (read-string "URL: "))
+<span class="linenumber"> 66:</span>             (name (read-string "NAME: "))
+<span class="linenumber"> 67:</span>             (findex (concat *local-home-dir* "index.html"))
+<span class="linenumber"> 68:</span>             (flog (concat *local-home-dir* "log.html"))
+<span class="linenumber"> 69:</span>             (option (if (= 1 (read-integer "1, 作成; 2, 更新: ")) "作成" "更新"))
+<span class="linenumber"> 70:</span>             (date (format-date-string "%B %d, %Y")))
+<span class="linenumber"> 71:</span>         (html-insert-new flog
+<span class="linenumber"> 72:</span>                          "&lt;dt&gt;"
+<span class="linenumber"> 73:</span>                          (format nil "&lt;dt&gt;&lt;b&gt;[~A]&lt;/b&gt;&lt;/dt&gt;~%&lt;dd&gt;&lt;ul&gt;~%&lt;li&gt;&lt;a href=\'~A\'&gt;~A&lt;/a&gt;を~A。~%&lt;/ul&gt;&lt;/dd&gt;~%~%"
+<span class="linenumber"> 74:</span>                                  date url name option))
+<span class="linenumber"> 75:</span>         (html-insert-new findex
+<span class="linenumber"> 76:</span>                          "&lt;li&gt;"
+<span class="linenumber"> 77:</span>                          (format nil "&lt;li&gt;&lt;a href=\'~A\'&gt;~A&lt;/a&gt;を~A。[~A]~%" url name option date))
+<span class="linenumber"> 78:</span>         (html-upload-files (list findex flog))))
+<span class="linenumber"> 79:</span>     
+<span class="linenumber"> 80:</span>     
+<span class="linenumber"> 81:</span>     <span class="comment">;;; upload other files</span>
+<span class="linenumber"> 82:</span>     (defun html-upload-other-files ()
+<span class="linenumber"> 83:</span>       (interactive)
+<span class="linenumber"> 84:</span>       (let ((files (file-name-dialog :title "Files to upload"
+<span class="linenumber"> 85:</span>                                      :multiple t
+<span class="linenumber"> 86:</span>                                      :filter '(("all (*.*)" . "*.*")
+<span class="linenumber"> 87:</span>                                                ("image (*.png, *.gif, *.jpg)" . "*.png;*.gif;*.jpg")
+<span class="linenumber"> 88:</span>                                                ("text (*.txt, *.html, *.htm, *.css)" . "*.txt;*.html;*.htm;*.css")
+<span class="linenumber"> 89:</span>                                                ("archive (*.lzh, *.zip. *.gzip)" . "*.lzh;*.zip;*.gzip"))
+<span class="linenumber"> 90:</span>                                      :initial-directory  *local-home-dir*)))
+<span class="linenumber"> 91:</span>         (if files
+<span class="linenumber"> 92:</span>             (html-upload-files files))))
+<span class="linenumber"> 93:</span>     
+<span class="linenumber"> 94:</span>     (defun html-show-upload-log ()
+<span class="linenumber"> 95:</span>       (interactive)
+<span class="linenumber"> 96:</span>       (message-box
+<span class="linenumber"> 97:</span>        (if (file-exist-p *upload-log*)
+<span class="linenumber"> 98:</span>            (let ((buff (create-new-buffer "*temp*")))
+<span class="linenumber"> 99:</span>              (set-buffer buff)
+<span class="linenumber">100:</span>              (insert-file-contents *upload-log*)
+<span class="linenumber">101:</span>              (prog1 (buffer-substring (point-min) (point-max))
+<span class="linenumber">102:</span>                (delete-buffer buff)))
+<span class="linenumber">103:</span>          "upload.log has not been created yet.\n try it later again.")))
+<span class="linenumber">104:</span>     
+<span class="linenumber">105:</span>     
+<span class="linenumber">106:</span>     
+<span class="linenumber">107:</span>     <span class="comment">;;; example of key bind</span>
+<span class="linenumber">108:</span>     (eval-when (:load-toplevel :execute)
+<span class="linenumber">109:</span>       (define-key *html+-mode-map* #\F11    'html-upload-index-log)
+<span class="linenumber">110:</span>       (define-key *html+-mode-map* #\F6     'html-upload-other-files)
+<span class="linenumber">111:</span>       (define-key *html+-mode-map* #\S-F6   'html-show-upload-log)
+<span class="linenumber">112:</span>       (define-key *html+-mode-map* #\S-F10  'html-upload-current-buffer))
+</pre>
+
+<h4> 簡単な説明</h4>
+<ul>
+ <li>7つの変数を定義しています。<p>
+<table>
+ <colgroup width="170">
+   <tr>
+      <td paddingright="5pt">*html-ftp-server*</td>
+      <td> ファイルをアップロードするサーバー名です。環境にあわせて変更します。</td>
+   </tr>
+   <tr>
+      <td>*html-ftp-user*</td>
+      <td> サーバーでのユーザー名です。環境にあわせて変更します。</td>
+   </tr>
+   <tr>
+      <td>*html-ftp-pass*</td>
+      <td> そのユーザー名のパスワードです。環境にあわせて変更します。</td>
+   </tr>
+   <tr>
+      <td>*local-home-dir*</td>
+      <td> ホームページを作成するための PC 上のローカルディレクトリです。</td>
+   </tr>
+   <tr>
+      <td>*upload-inp*</td>
+      <td> upload.exe に渡す入力ファイルです。この変数は変更しないでください。</td>
+   </tr>
+   <tr>
+      <td>*upload-log*</td>
+      <td> upload.exe が吐き出す出力ファイルです。この変数は変更しないでください。</td>
+   </tr>
+   <tr>
+      <td>*html-ftp*</td>
+      <td> アップロードを実行するプログラムです。</td>
+   </tr>
+</table>
+<li> <i>function</i>: <b>html-upload-current-buffer</b> ()<br>
+  現在編集しているバッファをセーブしてアップロードします。
+<li><i>function</i>: <b>html-upload-files</b> (<span class='mono'>fnames</span>)<br>
+  ファイル名のリストを (<span class='mono'>fnames</span>) を引数にとり、それに基づいて <span class='mono'>upload.inp</span> を作り、その後 <span class='mono'>upload.exe</span> を呼び出します。
+  <span class='mono'>upload.inp</span> には、サーバー名、ユーザー名、パスワード、転送先ディレクトリ（HOME からの相対パス）、
+  および転送するファイルのリストを書きます。
+  <span class='mono'>upload.inp</span> は読み終わったら消されてしまうので、情報が外に漏れる心配はありません。
+ <li><i>function</i>: <b>html-get-subdir-name</b> (<span class='mono'>fdir</span>)<br>
+   ファイルを転送するディレクトリを返します。
+ <li><i>function</i>: <b>html-insert-new</b> <span class='mono'>(fname tag str)</span><br>
+   <span class='mono'>fname</span> に新しい項目 (<span class='mono'>str</span>) を <span class='mono'>tag</span>
+   の前に追加します。
+ <li><i>function</i>: <b>html-upload-index-log</b> ()<br>
+   index.html と log.html を更新するとき使います。
+   たとえば、 index.html の場合は、 "&lt;li&gt;" というタグの前に、<br>
+   <span class='mono'>(format nil "&lt;li&gt;&lt;a href=\'~A\'&gt;~A&lt;/a&gt;を~A。[~A]~%" url name option date)</span><br>
+     を挿入します。
+     更新した index.html と log.html を <span class='mono'>html-upload-files</span> を使ってアップロードします。
+ <li><i>function</i>: <b>html-upload-other-files</b> ()<br>
+   ファイル名入力ダイアログを開いてファイル名のリストを取得し、<span class='mono'>nil</span> でなければ、
+   <span class='mono'>html-upload-files</span> に渡します。
+ <li><i>function</i>: <b>html-show-upload-log</b> ()<br>
+   転送がうまくいったかどうかを表示します。
+
+     
+
+  
+<h2>5. 終わりに</h2>
+HTML を書くとき xyzzy を使っているので、アップロードもわざわざ別のソフトを立ち上げないで
+できるようにしようということで書いてみました。<p>
+ご参考までに。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="xyz-upload.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/xyz-upload.html&t=%28xyzzy%29+%A5%D5%A5%A1%A5%A4%A5%EB%A5%A2%A5%C3%A5%D7%A5%ED%A1%BC%A5%C9%CD%D1%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

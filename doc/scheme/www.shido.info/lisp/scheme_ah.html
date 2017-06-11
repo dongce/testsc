@@ -1,0 +1,498 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, 連想リスト, ハッシュ表, association list, hash table">
+<meta name="description" content="Scheme の連想リストとハッシュ表">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 13. 連想リスト、ハッシュ表 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_sym.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  12. シンボル型</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_vec.html"><img src='../images/right_arrow.gif' class='arrow' border=0>14. ベクトルと構造体</a></td>
+<td><a rel=download href="scheme_ah.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_ah.html&t=Scheme+%C6%FE%CC%E7+13.+%CF%A2%C1%DB%A5%EA%A5%B9%A5%C8%A1%A2%A5%CF%A5%C3%A5%B7%A5%E5%C9%BD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>13. 連想リスト、ハッシュ表   </h1><a name="alist">
+
+<h2>1. 初めに</h2>
+今回は Lisp 系語族で”関連”を記述するためのデータ型である連想リストとハッシュ表について解説します。
+関連したデータというのはキーによって値が一意に決まるデータです。例えば、表１に示すような日本のプロ野球球団と
+ホームグラウンドの関係はプロ野球球団をキーとしてホームグラウンドが一意に決まります。この場合はホームグラウンドによって
+球団名も一意に決まりますが、かってはホームグラウンドを共有した例もあるので、球団名はホームグラウンドから
+一意に決まらない場合もあります。
+<center>
+  表１：日本のプロ野球球団とホームグラウンド
+<table border=1>
+   <tr>
+      <th>球団名</th>
+      <th>ホームグラウンド名</th>
+   </tr>
+   <tr>
+      <td>千葉ロッテマリーンズ</td>
+      <td>千葉マリンスタジアム</td>
+   </tr>
+   <tr>
+      <td>福岡ソフトバンクホークス</td>
+      <td>福岡Yahoo!JAPANドーム</td>
+   </tr>
+   <tr>
+      <td>西武ライオンズ</td>
+      <td>インボイスSEIBUドーム</td>
+   </tr>
+   <tr>
+      <td>オリックス・バファローズ</td>
+      <td>大阪ドーム</td>
+   </tr>
+   <tr>
+      <td>北海道日本ハムファイターズ</td>
+      <td>札幌ドーム</td>
+   </tr>
+   <tr>
+      <td>東北楽天ゴールデンイーグルス</td>
+      <td>フルキャストスタジアム宮城</td>
+   </tr>
+   <tr>
+      <td>阪神タイガース</td>
+      <td>阪神甲子園球場</td>
+   </tr>
+   <tr>
+      <td>中日ドラゴンズ</td>
+      <td>ナゴヤドーム</td>
+   </tr>
+   <tr>
+      <td>横浜ベイスターズ</td>
+      <td>横浜スタジアム</td>
+   </tr>
+   <tr>
+      <td>ヤクルトスワローズ</td>
+      <td>明治神宮野球場</td>
+   </tr>
+   <tr>
+      <td>読売ジャイアンツ</td>
+      <td>東京ドーム</td>
+   </tr>
+   <tr>
+      <td>広島東洋カープ</td>
+      <td>広島市民球場</td>
+   </tr>
+</table>
+</center>
+
+<p>
+
+連想リストを取り扱う関数は R<sup>6</sup>RS の 
+<a href='http://www.r6rs.org/final/html/r6rs-lib/r6rs-lib-Z-H-4.html#node_chap_3'>List utilities</a> で、
+また、ハッシュ表は
+<a href='http://www.r6rs.org/final/html/r6rs-lib/r6rs-lib-Z-H-14.html#node_chap_13'>Hashtables</a>
+で定義されています。
+<p>
+ハッシュ表は <a href='http://srfi.schemers.org/srfi-69/srfi-69.html'>SRFI-69</a> でも、規定されています。
+処理系によっては、R<sup>6</sup>RS ではなく SRFI に準拠しているのもあるかもしれません。
+<p>
+この文書では R<sup>6</sup>RS に沿って記述します。
+
+
+<h2>2. 連想リスト</h2>
+
+  
+連想リストはペアからなるリストで、関連を表現する基本的な方法です。
+キーにはシンボル、文字、数値などが使われます。文字列をキーに使う時は、シンボルに変換したほうが
+早く検索できます。
+
+<p>
+以下は連想リストの例です。
+  ペアになっていれば必ずしもドット対でなくても差し支えありません。
+<pre class='samp'>
+'((hi . 3) (everybody . 5) (nice . 3) (to . 10) (meet . 4) (you . 8))
+'((1 2 3) (4 5 6) (7 8 9))
+</pre>
+<p>
+  連想リストを検索する関数には、
+  <span class='ttb'>assq</span>, <span class='ttb'>assv</span>, <span class='ttb'>assoc</span> ,
+<span class='ttb'>assp</span> (R<sup>6</sup>RS のみ)
+があります。
+  これらの関数は連想リストを逐次検索し、 car 部がキーと等しいペアを返します。ペアがない場合は #f が返ります。
+  また、<span class='ttb'>assq</span>, <span class='ttb'>assv</span>, <span class='ttb'>assoc</span> 
+はキーの比較にそれぞれ <tt>eq?</tt>, <tt>eqv?</tt>, <tt>equal?</tt> を使用しています。
+また、<span class='ttb'>assp</span> は car 部を proc で処理し、#f にならないものを返します。
+  従って、<tt>assq</tt> が最も高速に検索でき、<tt>assoc</tt> が最も低速になります。
+  このことから文字列、ベクトル、リストはシンボルや数値に変換してからキーにしたほうが速度的に有利です。
+  また、多くのデータを検索するときは後述する
+  <a href='#hash'>ハッシュ表</a>を利用したほうが高速です。<p>
+    
+  以下に例を示します。
+
+<pre class='samp'>
+(require rnrs/lists-6)
+(define wc '((hi . 3) (everybody . 5) (nice . 3) (to . 10) (meet . 4) (you . 8)))
+&rArr; wc
+
+(assq 'hi wc)
+&rArr;  (hi . 3)
+
+(assq 'you wc)
+&rArr;  (you . 8)
+
+(assq 'i wc)
+&rArr;  ()
+
+
+(define n '((1 2 3) (4 5 6) (7 8 9)))
+&rArr;  n
+
+(assv 1 n)
+&rArr;  (1 2 3)
+
+(assv 8 n)
+&rArr;  ()
+</pre>
+
+<a name='hash'>
+<h2>3. ハッシュ表</h2>
+<a href='http://en.wikipedia.org/wiki/Hash-table'>ハッシュ表</a>
+はキーをハッシュ関数で整数に変換し、配列のその番地に値を保持する表です。
+表が十分すいているときは、検索、挿入、更新が O(1) オーダーでできる高速な
+データ型です。R<sup>6</sup>RS のハッシュ表に関する主な関数を以下に挙げます。
+詳しくは <a href='http://www.r6rs.org/final/html/r6rs-lib/r6rs-lib-Z-H-14.html#node_chap_13'>
+ R<sup>6</sup>RS Hashtables</a>を参照してください。
+
+<dl>
+  <dt><span class='ttb'>(make-eq-hashtable <var>size</var>)</span>,<br>
+    <span class='ttb'>(make-eqv-hashtable <var>size</var>)</span>,<br>
+      <span class='ttb'>(make-hashtable <var>hash_function</var> <var>equiv</var> <var>size</var>)</span>,<br>
+      </dt><dd>
+ハッシュ表を作成します。<var>size</var> はハッシュ表の初期サイズです。通常は指定する必要はありません。<br>
+<tt>make-eq-hashtable</tt> は キーの比較に eq? を使い、
+また、<tt>make-eqv-hashtable</tt> はキーの比較に eqv? を使います。
+<br>
+<tt>make-hashtable</tt> を使うと、任意のハッシュ関数と比較関数をもつハッシュ表を作れます。
+例えば、リストをキーにとるハッシュテーブルは
+<pre class='code'>
+(make-hashtable equal-hash equal?)   
+</pre>
+で作ります。<tt>equal-hash</tt> は リストなどからハッシュ値を求める関数です。
+R<sup>6</sup>RS では <tt>equal-hash</tt>, <tt>string-hash</tt> などのハッシュ関数が規定されています。 
+
+<tt>eq-hashtable</tt> はアドレスを比較するだけので
+もっとも高速です。
+</dd>
+
+  <dt><span class='ttb'>(hashtable-ref <var>hashtable</var> <var>key</var> <var>default</var>)</span></dt>
+      <dd><var>hashtable</var> の <var>key</var> に対応する値を返します。 <var>hashtable</var> 中に <var>key</var>
+が無ければ <var>default</var> を返します。</dd>
+
+
+  <dt><span class='ttb'>(hashtable-set! <var>hashtable</var> <var>key</var> <var>datum</var>)</span></dt>
+      <dd> <var>hashtable</var> の <var>key</var> に対応する値を <var>datum</var> にセットします。</dd>
+
+  <dt><span class='ttb'>(hashtable-size <var>hashtable</var>)</span></dt>
+      <dd><var>hashtable</var> に含まれる要素の数を返します。</dd>
+
+<dt><span class='ttb'>(hashtable? <var>hashtable</var>)</span></dt>
+<dd><var>hashtable</var> がハッシュ表なら #t を返します。</dd>
+
+<dt><span class='ttb'>(hashtable-delete! <var>hashtable</var> <var>key</var>)</span></dt>
+<dd><var>hashtable</var> から <var>key</var> のエントリーを削除します。</dd>
+
+<dt><span class='ttb'>(hashtable-contains? <var>hashtable</var> <var>key</var>)</span></dt>
+<dd> <var>key</var> が <var>hashtable</var> に含まれるときは #t を返します。</dd>
+
+<dt><span class='ttb'>(hashtable-keys <var>hashtable</var>)</span></dt>
+<dd><var>hashtable</var> のキーからなるベクトルを返します。ベクトルについては次章で説明します。</dd>
+
+<dt><span class='ttb'>(hashtable-entries <var>hashtable</var>)</span></dt>
+<dd><var>hashtable</var> のキーからなるベクトルと、それに対応する値のベクトルの２つのベクトルを返します。
+R<sup>6</sup>RS では複数の値を返すことができるようになりました。これらの値は <tt>let-values</tt> などで取り出します。
+</dd>
+
+
+
+</dl>
+<a name='pw'>
+<h2> 4. パスワード自動生成プログラム</h2>
+連想リストとハッシュ表を使ったプログラム例として、パスワード自動生成プログラムを書いてみました。<p>
+辞書に載っているようなパスワードだと破られる危険が大きいですし、一方、グラフィック文字を全くランダムに
+並べたパスワードは覚えることはおろか、入力も非常に手間取ります。
+このプログラムは、部分的にありうる綴りのパスワードを
+  10 個生成するプログラムです。
+  パスワードはなるべく頻繁に変えたほうが良いのですが、自分の頭で考えるのはかなり億劫です。
+    このプログラムを使えば気軽にパスワードを変更することができます。<p>
+
+このプログラムは２つの部分からなり、１つは英語のテキストから文字のつながりの頻度のデータを
+  生成するプログラム (stat-spell.scm)、もうひとつはそのデータに基づいてパスワードを
+  作るプログラム (make-pw.scm) です。
+
+<h3>4.1. stat-spell.scm</h3>
+このプログラムは、英語の文書を読みこんで、ある文字の次に来る文字とその頻度を関連付けます。
+途中のデータはハッシュ表で保持し、最後に連想リストに変換し、ファイル (statspell.dat) に保存します。<p>
+
+ソースは [code 1] の様になります。
+<p>
+[code 1]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">;;; make an alist of probable spelling from a given english text</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   <span class="comment">;; モジュールを読み込みます</span>
+<span class="linenumber">005:</span>   (require rnrs/base-6)         <span class="comment">; vector-for-each を使うため</span>
+<span class="linenumber">006:</span>   (require rnrs/hashtables-6)   <span class="comment">; hashtable</span>
+<span class="linenumber">007:</span>   (require rnrs/control-6)      <span class="comment">; when を使うため</span>
+<span class="linenumber">008:</span>   (require rnrs/files-6)        <span class="comment">; ファイルシステム</span>
+<span class="linenumber">009:</span>   
+<span class="linenumber">010:</span>   
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   <span class="comment">;; スキップする文字列なら #t を返します</span>
+<span class="linenumber">015:</span>   (define (skip-char? c)
+<span class="linenumber">016:</span>     (case c
+<span class="linenumber">017:</span>       ((#\: #\<span class="comment">; #\' #\" #\`) #t)</span>
+<span class="linenumber">018:</span>       (else (not (char&lt;=? #\Space c #\~)))))
+<span class="linenumber">019:</span>   
+<span class="linenumber">020:</span>   
+<span class="linenumber">021:</span>   
+<span class="linenumber">022:</span>   <span class="comment">;; filename のファイルから一文字ずつ読み込み、連続する文字のハッシュ表を作ります</span>
+<span class="linenumber">023:</span>   (define (pw-read-text filename)
+<span class="linenumber">024:</span>     (let ((char-hash (make-eqv-hashtable)))       <span class="comment">; 全体のハッシュ表です</span>
+<span class="linenumber">025:</span>       (with-input-from-file filename
+<span class="linenumber">026:</span>         (lambda ()
+<span class="linenumber">027:</span>   	(let loop ((c #\Space))
+<span class="linenumber">028:</span>   	  (let ((c1 (read-char)))                                      <span class="comment">; 一文字読み込んで、</span>
+<span class="linenumber">029:</span>                    (when (not (eof-object? c1))                          <span class="comment">; EOF でなければ、以下の処理を行う</span>
+<span class="linenumber">030:</span>                        (if (skip-char? c1)                               <span class="comment">; </span>
+<span class="linenumber">031:</span>                            (loop c)                                      <span class="comment">; スキップする文字なら、スキップして繰り返し。</span>
+<span class="linenumber">032:</span>                            (let ((c1 (char-downcase c1))                 <span class="comment">; そうでなければ、小文字に変換し、</span>
+<span class="linenumber">033:</span>   			       (h (hashtable-ref char-hash c #f)))     <span class="comment">; その文字のあとの文字の頻度のハッシュ表を char-hash から取り出す。</span>
+<span class="linenumber">034:</span>   			   (if (hashtable? h)                          <span class="comment">; 文字 c の後に続く文字のハッシュ表がすでにあれば、</span>
+<span class="linenumber">035:</span>   			       (hashtable-set! h c1 (+ 1 (hashtable-ref h c1 0)))  <span class="comment">; 次の文字 c1 の頻度に 1 を加える</span>
+<span class="linenumber">036:</span>   			       (let ((h1 (make-eqv-hashtable)))        <span class="comment">; ハッシュ表がまだなければ作成する。</span>
+<span class="linenumber">037:</span>   				 (hashtable-set! h1 c1 1)
+<span class="linenumber">038:</span>   				 (hashtable-set! char-hash c h1)))
+<span class="linenumber">039:</span>   			   (loop c1))))))))                            <span class="comment">; 繰り返し</span>
+<span class="linenumber">040:</span>       char-hash))
+<span class="linenumber">041:</span>   
+<span class="linenumber">042:</span>   
+<span class="linenumber">043:</span>   
+<span class="linenumber">044:</span>   <span class="comment">;; 個々の文字の後ろの文字の頻度を連想リストにして書き出します。</span>
+<span class="linenumber">045:</span>   (define (write-each c h)
+<span class="linenumber">046:</span>     (display "(")
+<span class="linenumber">047:</span>     (write c)
+<span class="linenumber">048:</span>     (display " ")
+<span class="linenumber">049:</span>     (let ((n (hashtable-size h)))
+<span class="linenumber">050:</span>       (let-values (((vec-c vec-count) (hashtable-entries h))) <span class="comment">; ハッシュ表 h から 文字と頻度のベクトル vec-c, vec-count を取り出します。</span>
+<span class="linenumber">051:</span>          (vector-for-each                                     <span class="comment">; vector にわたって (lambda ...  を作用させます。</span>
+<span class="linenumber">052:</span>   	(lambda (k v)                                       <span class="comment">; 文字と頻度を書き出します。</span>
+<span class="linenumber">053:</span>   	  (display " (")
+<span class="linenumber">054:</span>   	  (write k)
+<span class="linenumber">055:</span>   	  (display " . ")
+<span class="linenumber">056:</span>   	  (write v)
+<span class="linenumber">057:</span>   	  (display ") "))
+<span class="linenumber">058:</span>   	vec-c vec-count)))
+<span class="linenumber">059:</span>     (display ")")
+<span class="linenumber">060:</span>     (newline))
+<span class="linenumber">061:</span>   
+<span class="linenumber">062:</span>   
+<span class="linenumber">063:</span>   
+<span class="linenumber">064:</span>   <span class="comment">;; 頻度のハッシュ表 char-hash を連想リストにして書き出します。</span>
+<span class="linenumber">065:</span>   (define (write-alist filename char-hash)
+<span class="linenumber">066:</span>     (when (file-exists? filename)              <span class="comment">; データファイルがすでにあれば削除します</span>
+<span class="linenumber">067:</span>       (delete-file filename))
+<span class="linenumber">068:</span>     (with-output-to-file filename              <span class="comment">; filename のファイルを開いて、</span>
+<span class="linenumber">069:</span>       (lambda ()                               <span class="comment">; データを書き出していきます。</span>
+<span class="linenumber">070:</span>         (display "(define *stat-spell* \'(")
+<span class="linenumber">071:</span>         (newline)
+<span class="linenumber">072:</span>         (let-values(((keys values) (hashtable-entries char-hash)))
+<span class="linenumber">073:</span>   	 (vector-for-each
+<span class="linenumber">074:</span>   	  (lambda (k v) (write-each k v)) keys values))
+<span class="linenumber">075:</span>         (display "))")
+<span class="linenumber">076:</span>         (newline))))
+<span class="linenumber">077:</span>   
+<span class="linenumber">078:</span>   
+<span class="linenumber">079:</span>   <span class="comment">;; テキストファイルを読み込んで、連続する文字の頻度データを作ります。</span>
+<span class="linenumber">080:</span>   (define (stat-spell input-filename)
+<span class="linenumber">081:</span>     (write-alist "statspell.dat" (pw-read-text input-filename)))
+</pre> 
+<p>
+
+実行方法:
+<pre class='samp'>
+&gt; (load/cd "stat-spell.scm")
+&gt; (stat-spell "avg.txt")    <span class='comment'>; 英語のテキストファイルを読み込ませて頻度データを作る</span>
+</pre>
+
+以下のようなファイル statspell.dat が生成します。
+<pre class='code'>
+(define *stat-spell* '(
+(#\8  (#\0 . 2)  (#\4 . 1) )
+.....
+(#\k  (#\. . 1)  (#\, . 2)  (#\e . 54)  (#\t . 3)  (#\s . 10)  (#\a . 1)  (#\space . 25)  (#\n . 18)  (#\- . 1)  (#\l . 2)  (#\i . 24) ) <span class='comment'>*</span>
+.....
+))
+</pre>
+
+* の行は、文字 <tt>#\k</tt> のあとには <tt>#\.</tt>, <tt>#\e</tt>, <tt>#\t</tt>, <tt>#\s</tt>, <tt>#\a</tt>, 
+#\space, <tt>#\n</tt>, <tt>#\-</tt>, <tt>#\l</tt>, <tt>#\i</tt> がそれぞれ<br>
+1, 2, 54, 3, 10, 1, 25, 18, 1, 2, 2, 24 回あったことを示しています。
+
+
+<h3>4.2. make-pw.scm</h3>
+statspell.dat をもとにしてパスワードを 10 個生成します。
+生成規則は以下の通りです。
+<ol>
+<li> <tt>#\Space</tt> で終わる、9--13 文字のリストを statspell.dat のデータをもとにしてランダムに生成する。
+<li> それに 00--99 の数字をランダムに選んで付け足す。
+<li> <tt>#\Space</tt> をランダムに、<tt>#\-</tt> <tt>#\_</tt> <tt>#\/</tt>  <tt>#\Space</tt>  <tt>#\.</tt> <tt>#\,</tt> で置き換える。
+<li> アルファベットの 30% をランダムに大文字にする。
+</ol>
+コードは [code 2] の様になります。<br>
+<tt>random-integer</tt> 
+などの乱数に関する関数は <a href='http://srfi.schemers.org/srfi-27/srfi-27.html'>SRFI-27</a> に規定されています。<p>
+[code 2]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">;;; make password from the alist of probable spelling</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   (require srfi/27)
+<span class="linenumber">004:</span>   (require rnrs/hashtables-6)
+<span class="linenumber">005:</span>   (require rnrs/control-6)
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   (load/cd "statspell.dat") <span class="comment">; *stat-spell* (alist for following characters) is in.</span>
+<span class="linenumber">010:</span>   
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   (define (alist-&gt;hash al)
+<span class="linenumber">013:</span>     (let ((h (make-eqv-hashtable)))
+<span class="linenumber">014:</span>       (for-each (lambda (p)
+<span class="linenumber">015:</span>                   (hashtable-set! h (car p) (cdr p)))
+<span class="linenumber">016:</span>                 al)
+<span class="linenumber">017:</span>       h))
+<span class="linenumber">018:</span>   
+<span class="linenumber">019:</span>   
+<span class="linenumber">020:</span>   
+<span class="linenumber">021:</span>   (define (pw-random-select vec)
+<span class="linenumber">022:</span>     (vector-ref vec (random-integer (vector-length vec))))
+<span class="linenumber">023:</span>   
+<span class="linenumber">024:</span>   (define (random00)
+<span class="linenumber">025:</span>     (let loop ((i 0) (acc '()))
+<span class="linenumber">026:</span>       (if (= i 2)
+<span class="linenumber">027:</span>           (list-&gt;string acc)
+<span class="linenumber">028:</span>         (loop (+ 1 i) (cons (pw-random-select '#(#\0 #\1 #\2 #\3 #\4 #\5 #\6 #\7 #\8 #\9)) acc)))))
+<span class="linenumber">029:</span>   
+<span class="linenumber">030:</span>   (define (occasional-upcase c)
+<span class="linenumber">031:</span>     (if (&lt; (random-integer 10) 3)
+<span class="linenumber">032:</span>         (char-upcase c)
+<span class="linenumber">033:</span>       c))
+<span class="linenumber">034:</span>   
+<span class="linenumber">035:</span>   (define (pw-enhance ls)
+<span class="linenumber">036:</span>     (list-&gt;string
+<span class="linenumber">037:</span>      (map (lambda (c)
+<span class="linenumber">038:</span>             (cond
+<span class="linenumber">039:</span>              ((char=? c #\Space)
+<span class="linenumber">040:</span>               (pw-random-select  '#(#\- #\_ #\/  #\Space  #\. #\, #\@ #\? #\( #\))))
+<span class="linenumber">041:</span>              ((char-alphabetic? c)
+<span class="linenumber">042:</span>               (occasional-upcase c))
+<span class="linenumber">043:</span>              (else c)))
+<span class="linenumber">044:</span>           (cdr (reverse ls)))))
+<span class="linenumber">045:</span>       
+<span class="linenumber">046:</span>   
+<span class="linenumber">047:</span>   (define (random-following alist)
+<span class="linenumber">048:</span>     (let ((n (random-integer (apply + (map cdr alist)))))
+<span class="linenumber">049:</span>       (let loop ((j 0) (alist alist))
+<span class="linenumber">050:</span>         (when (pair? alist)
+<span class="linenumber">051:</span>   	  (let* ((pair (car alist))
+<span class="linenumber">052:</span>   		 (k (+ j (cdr pair))))
+<span class="linenumber">053:</span>   	    (if (&gt; k n)
+<span class="linenumber">054:</span>   		(car pair)
+<span class="linenumber">055:</span>   		(loop k (cdr alist))))))))
+<span class="linenumber">056:</span>   
+<span class="linenumber">057:</span>   (define (make-pw h n)
+<span class="linenumber">058:</span>     (let loop ((i 0) (c #\Space) (acc '()))
+<span class="linenumber">059:</span>       (if (= i n)
+<span class="linenumber">060:</span>           (string-append
+<span class="linenumber">061:</span>            (pw-enhance (cons #\Space (cons c acc)))
+<span class="linenumber">062:</span>            (random00))
+<span class="linenumber">063:</span>         (loop (+ 1 i)
+<span class="linenumber">064:</span>           (random-following (hashtable-ref h c '((#\Space . 1))))
+<span class="linenumber">065:</span>           (cons c acc)))))
+<span class="linenumber">066:</span>       
+<span class="linenumber">067:</span>   (define (pw-candidates)
+<span class="linenumber">068:</span>     (let loop ((i 0))
+<span class="linenumber">069:</span>       (when (&lt; i 10)
+<span class="linenumber">070:</span>   	  (display i)
+<span class="linenumber">071:</span>   	  (display ": ")
+<span class="linenumber">072:</span>   	  (write (make-pw (alist-&gt;hash *stat-spell*) (+ 9 (random-integer 4))))
+<span class="linenumber">073:</span>   	  (newline)
+<span class="linenumber">074:</span>   	  (loop (+ 1 i)))
+<span class="linenumber">075:</span>         'done))
+</pre>
+
+<dl>
+  <dt><span class='ttb'>(alist->hash <var>al</var> <var>mode</var>)</span></dt>
+      <dd> <var>al</var> を <var>mode</var> のハッシュ表に変換します。</dd>
+  <dt><span class='ttb'>(pw-random-select <var>vec</var>)</span></dt>
+      <dd> <var>vec</var> の要素をランダムに選びます。この関数は次回説明するベクトルを使っています。
+      ランダムにアクセスする場合はリストよりベクトルの方が高速です。</dd>
+  <dt><span class='ttb'>(random00)</span></dt>
+      <dd> 文字列 "00" -- "99" をランダムに作ります。</dd>
+  <dt><span class='ttb'>(occasional-upcase <var>c</var>)</span></dt>
+      <dd> 30% の確率で <var>c</var> をランダムに大文字にします。</dd>
+  <dt><span class='ttb'>(pw-enhance <var>ls</var>)</span></dt>
+      <dd> 文字のリスト <var>ls</var> を加工してパスワードを破られにくくします。</dd>
+  <dt><span class='ttb'>(random-following <var>alist</var>)</span></dt>
+      <dd> 連想リスト <var>alist</var> の中から、頻度に基づいて文字をランダムに選びます。</dd>
+  <dt><span class='ttb'>(make-pw <var>h</var> <var>n</var>)</span></dt>
+      <dd> ハッシュ表 <var>h</var> を使って <var>n+3</var> 文字のパスワードを作ります。
+	パスワードの最後はランダムな２桁の数字です。</dd>
+  <dt><span class='ttb'>(pw-candidates)</span></dt>
+      <dd>長さが 12--15 のパスワードを 10 個生成します。</dd>
+</dl>
+次のように使用します。それらしいパスワードの候補が 10 個表示されますので
+気に入ったのを使用します。<tt>stat-spell</tt> は一回だけ実行すればよく、２回目からは <tt>make-pw</tt> をロードして、
+<tt>(pw-candidate)</tt> を実行すればパスワードの候補が表示されます。
+<pre class='samp'>
+&gt; (load/cd "make-pw.scm")
+&gt; (pw-candidates)
+<span class='response'>0: "S.bowAtof.t_)13"
+1: "igIf@t)yO?61"
+2: "icOFEAnly?98"
+3: "prabER)Y_in(96"
+4: "He@lat,Ms@74"
+5: "SrtoRepASti)96"
+6: "y?s)pmP m,_-52"
+7: "tEmm(kIo)sT@51"
+8: "AilITheRviS/.08"
+9: "TObe-INy,,p 86"
+done</span>
+&gt;
+</pre>
+<h2>5. 終わりに</h2>
+パスワード生成プログラムは<a href="scheme_ah.lzh">付録</a>に付けておきますので遊んでみてください。
+次回はベクトルについて説明します。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_sym.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  12. シンボル型</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_vec.html"><img src='../images/right_arrow.gif' class='arrow' border=0>14. ベクトルと構造体</a></td>
+<td><a rel=download href="scheme_ah.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_ah.html&t=Scheme+%C6%FE%CC%E7+13.+%CF%A2%C1%DB%A5%EA%A5%B9%A5%C8%A1%A2%A5%CF%A5%C3%A5%B7%A5%E5%C9%BD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

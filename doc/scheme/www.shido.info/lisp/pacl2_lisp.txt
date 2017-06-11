@@ -1,0 +1,3474 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Answers for problems in ACL2.
+
+;; by T. Shido on January 10, 2005
+
+;; tested using clisp and winXP
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;;chapter 2
+
+;; 3
+
+(defun our-fourth (ls)
+
+  (car (cdr (cdr (cdr ls)))))
+
+
+
+;; 4
+
+(defun our-max (a b)
+
+  (if (> a b) a b))
+
+
+
+;; 7
+
+(defun nest-p (ls)
+
+  (if ls
+
+      (or (consp (car ls))
+
+          (nest-p (cdr ls)))))
+
+
+
+;; 8
+
+;;repetition
+
+(defun ndots-rep (n)
+
+  (do ((i 0 (+ i 1))) ((= i n))
+
+    (format t ".")))                      
+
+
+
+;;recursion
+
+(defun ndots-rec (n)    
+
+  (if (plusp n)
+
+      (progn
+
+         (format t ".")
+
+         (ndots-rec (- n 1)))))
+
+
+
+;;repetition
+
+(defun a-rep (ls)
+
+  (do ((ls1 ls (cdr ls1))
+
+       (n 0 (+ n (if (eq (car ls1) 'a) 1 0))))
+
+      ((not ls1) n)))
+
+
+
+;;recursion
+
+(defun a-rec (ls) 
+
+  (if ls
+
+      (+ (if (eq (car ls) 'a) 1 0) (a-rec (cdr ls)))
+
+    0))
+
+
+
+;; 9
+
+(defun summit-apply (lst)
+
+   (apply #'+ (remove nil lst)))
+
+
+
+(defun summit-rec (lst)
+
+   (if lst
+
+      (+ (or (car lst) 0) (summit-rec (cdr lst)))
+
+     0))
+
+
+
+
+
+;;chapter 3
+
+
+
+;; 2
+
+(defun new-union (a b)
+
+  (let ((ra (reverse a)))
+
+    (dolist (x b)
+
+      (if (not (member x ra))
+
+          (push x ra)))
+
+    (reverse ra)))
+
+
+
+;; 3
+
+(defun occurrences (ls)
+
+  (let ((acc nil))
+
+    (dolist (obj ls)
+
+      (let ((p (assoc obj acc)))
+
+        (if p
+
+            (incf (cdr p)) 
+
+          (push (cons obj 1) acc))))
+
+    (sort acc  #'> :key #'cdr)))
+
+
+
+;; 5
+
+(defun pos+rec (ls)
+
+  (pos+rec0 ls 0))
+
+
+
+(defun pos+rec0 (ls i)
+
+  (if ls
+
+      (cons (+ i (car ls)) (pos+rec0 (cdr ls) (+ i 1)))))
+
+
+
+;;alternative
+
+(defun pos+rec-alter (ls &optional (i 0))         ; we need an optional parameter 
+
+  (if ls
+
+      (cons (+ i (car ls)) (pos+rec-alter (cdr ls) (+ i 1)))))
+
+
+
+(defun pos+do (ls)
+
+  (do ((ls1 ls (cdr ls1))
+
+       (i 0 (+ i 1))
+
+       (acc nil (cons (+ i (car ls1)) acc)))
+
+      ((not ls1) (reverse acc))))
+
+
+
+(defun pos+map (ls)
+
+  (let ((i -1))
+
+    (mapcar #'(lambda (x)  (+ x (incf i))) ls)))
+
+
+
+;; 6
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; (defun cons (x y)
+
+;   (let ((ls '(nil . nil)))
+
+;     (setf (cdr ls) x
+
+; 	  (car ls) y)
+
+;     ls))
+
+; 
+
+; (defun list (&rest items)
+
+;   (list-0 items))
+
+; (defun list-0 (ls)
+
+;   (if ls
+
+;       (cons (car ls) (list-0 (cdr ls)))))
+
+; 
+
+; ;; alternative
+
+; (defun list (&rest items)
+
+;   items)
+
+; 
+
+; (defun length (ls)
+
+;   (if ls
+
+;       (+ 1 (length (car ls)))
+
+;     0))
+
+; (defun menber (obj ls)
+
+;   (if ls
+
+;       (if (eql obj (cdr ls))
+
+; 	  ls
+
+; 	(menbar obj (car ls)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;; 7
+
+(defun n-elts-3-7 (elt n)
+
+  (if (> n 1)
+
+      (cons n elt)   ;instead of (list n elt)
+
+      elt))
+
+
+
+;; 8
+
+(defun showdots (ls)
+
+  (showdots-rec ls 0))
+
+
+
+(defun showdots-rec (ls i)
+
+  (if ls
+
+      (progn
+
+        (if (atom (car ls))
+
+            (format t "(~A . " (car ls))
+
+          (progn
+
+            (format t "(")
+
+            (showdots-rec (car ls) 0)
+
+            (format t " . ")))
+
+        (showdots-rec (cdr ls) (+ 1 i)))
+
+    (progn
+
+      (format t "NIL")
+
+      (dotimes (j i)
+
+        (format t ")")))))
+
+
+
+
+
+;;alternative
+
+(defun showdots-alter (ls)
+
+  (format t "~A" (showdots-alter-rec ls)))
+
+(defun showdots-alter-rec (ls)
+
+  (if ls
+
+      (if (atom ls)
+
+	  ls
+
+	(format nil "(~A . ~A)" (showdots-alter-rec (car ls)) (showdots-alter-rec (cdr ls))))))
+
+
+
+;; 9
+
+(defvar *net* '((a b c) (b a c) (c a b d) (d c)))
+
+
+
+(defun new-paths-3-9 (path node net)
+
+  (let (acc)
+
+    (dolist (x (cdr (assoc node net)))
+
+      (or (member x path)
+
+          (push (cons x path) acc)))
+
+    acc))
+
+
+
+(defun bfs-l (end queue net sol)
+
+  (if  queue
+
+      (let ((path (car queue)))
+
+        (let ((node (car path)))
+
+          (bfs-l  end
+
+                  (append (cdr queue)(new-paths-3-9 path node net))
+
+                  net
+
+                  (if (eql node end)  path sol))))
+
+    (reverse sol)))
+
+
+
+(defun longest-path (start end net)
+
+  (bfs-l end (list (list start)) net nil))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; >(longest-path 'a 'd *net*)
+
+; (a b c d)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+;;chapter 4
+
+
+
+;; 1
+
+(defun quarter-turn (a)
+
+  (let ((d2 (array-dimensions a)))
+
+    (let ((d (car d2))
+
+          (b (make-array d2)))
+
+      (let ((c (/ (- d 1) 2)))
+
+        (do ((i 0 (+ i 1))) ((= i d))
+
+          (do ((j 0 (+ j 1))) ((= j d))
+
+            (setf (aref b (+ (* -1 (- j c)) c) i ) (aref a i j)))))
+
+      b)))
+
+
+
+;; 2
+
+(defun copy-list-4-2 (li)
+
+  (reduce #'cons  li :from-end t :initial-value nil))
+
+
+
+(defun reverse-4-2 (li)
+
+  (reduce #'(lambda (x y) (cons y x)) li :initial-value nil))
+
+
+
+;; 3
+
+(defstruct tst item left middle right)  
+
+
+
+(defun copy-tst-4-3 (tst0)
+
+  (if tst0
+
+      (make-tst :item (tst-item tst0)
+
+                :left (copy-tst-4-3 (tst-left tst0))
+
+                :middle (copy-tst-4-3 (tst-middle tst0))
+
+                :right (copy-tst-4-3 (tst-right tst0)))))
+
+
+
+(defun find-tst (obj tst0)
+
+  (if tst0
+
+      (or
+
+       (eql obj (tst-item tst0))
+
+       (find-tst obj (tst-left tst0))
+
+       (find-tst obj (tst-middle tst0))
+
+       (find-tst obj (tst-right tst0)))))
+
+
+
+
+
+;;copy-and-paseted from acl2_lisp.txt <<[up-to-here]
+
+(defstruct (node (:print-function
+
+                  (lambda (n s d)
+
+                    (declare (ignore d))
+
+                    (format s "#<~A>" (node-elt n)))))
+
+  elt (l nil) (r nil))
+
+
+
+(defun bst-insert (obj bst <)
+
+  (if (null bst)
+
+      (make-node :elt obj)
+
+      (let ((elt (node-elt bst)))
+
+        (if (eql obj elt)
+
+            bst
+
+            (if (funcall < obj elt)
+
+                (make-node
+
+                  :elt elt
+
+                  :l   (bst-insert obj (node-l bst) <)
+
+                  :r   (node-r bst))
+
+                (make-node
+
+                  :elt elt
+
+                  :r   (bst-insert obj (node-r bst) <)
+
+                  :l   (node-l bst)))))))
+
+
+
+(defun bst-find (obj bst <)
+
+  (if (null bst)
+
+      nil
+
+      (let ((elt (node-elt bst)))
+
+        (if (eql obj elt)
+
+            bst
+
+            (if (funcall < obj elt)
+
+                (bst-find obj (node-l bst) <)
+
+                (bst-find obj (node-r bst) <))))))
+
+;;;;;;;;[up-to-here]
+
+;making test bst
+
+(defvar *bst* (make-node :elt 50))
+
+(dotimes (i 10)
+
+  (setq *bst* (bst-insert (random 100) *bst* #'<)))
+
+
+
+;; 4
+
+(defun show-bst(bst0)
+
+  (when bst0
+
+    (show-bst (node-r bst0))
+
+    (format t "~A " (node-elt bst0))
+
+    (show-bst (node-l bst0))))
+
+
+
+;; alternative
+
+(defun bst->list (bst0)
+
+  (labels ((rec (bst1 acc)
+
+             (if bst1
+
+                 (rec (node-r bst1) (cons (node-elt bst1) (rec (node-l bst1) acc)))
+
+               acc)))
+
+    (rec bst0 nil)))
+
+
+
+;; 6
+
+(defun alist->hash (al &key (test #'eql))
+
+  (let ((h (make-hash-table :test test)))
+
+    (dolist (p al)
+
+      (setf (gethash (car p) h) (cdr p)))
+
+    h))
+
+
+
+(defun hash->alist (h)
+
+  (let ((acc nil))
+
+    (maphash #'(lambda (k v) (push (cons k v) acc)) h)
+
+    acc))
+
+
+
+
+
+;;chapter 5
+
+
+
+;; 1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; ((lambda (x) (cons x x)) (car y))
+
+; ((lambda (w)
+
+;    ((lambda (y) (cons w y)) (+ w z))) (car x))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;; 2
+
+(defun mystery-5-2 (x y)
+
+  (cond
+
+   ((null y) nil)
+
+   ((eql (car y) x) 0)
+
+   (t (let ((z (mystery-5-2 x (cdr y))))
+
+	(and z (+ z 1))))))
+
+
+
+;; 3
+
+(defun sq-5-3 (x)
+
+  (if (and (< 0 x 6) (integerp x))
+
+      x
+
+    (* x x)))
+
+
+
+;;; from acl2 <<[end]
+
+(defun leap? (y)
+
+  (and (zerop (mod y 4))
+
+       (or (zerop (mod y 400))
+
+           (not (zerop (mod y 100))))))
+
+;;; [end]
+
+;; 4
+
+(defun month-num-5-4 (m y)
+
+  (+ (case m
+
+       (1 0)
+
+       (2 31)
+
+       (3 59)
+
+       (4 90)
+
+       (5 120)
+
+       (6 151)
+
+       (7 181)
+
+       (8 212)
+
+       (9 243)
+
+       (10 273)
+
+       (11 304)
+
+       (12 334)
+
+       (13 365))
+
+     (if (and (> m 2) (leap? y)) 1 0)))
+
+
+
+;; 5
+
+(defun presedes (x v)
+
+  (let (acc (v1 (concatenate 'vector v)))
+
+    (dotimes (i (length v))
+
+      (if (and (eql x (svref v1 i)) (< 0 i))
+
+	  (push (svref v1 (- i 1)) acc)))
+
+    (remove-duplicates acc)))
+
+
+
+;; 6
+
+;; repetition
+
+(defun intersperse-5-6-1 (obj ls)
+
+  (do ((ls1 (reverse (cdr ls)) (cdr ls1))
+
+       (ls2 nil (cons obj (cons (car ls1) ls2))))
+
+      ((not ls1) (cons (car ls) ls2))))
+
+
+
+;; recursion
+
+(defun intersperse-5-6-2 (obj ls)
+
+  (cons (car ls) (intersperse-rec obj (reverse (cdr ls)) nil)))
+
+
+
+(defun intersperse-rec (obj ls acc)
+
+  (if ls
+
+      (intersperse-rec obj (cdr ls) (cons obj (cons (car ls) acc)))
+
+     acc))
+
+
+
+;; 7
+
+(defun suc-1 (ls)
+
+  (let ((o (car ls)))
+
+    (dolist (x (cdr ls) t)
+
+      (if (= 1 (abs (- o x)))
+
+          (setf o x)
+
+        (return-from suc-1 nil)))))
+
+
+
+(defun suc-2 (ls)
+
+  (do ((ls1 (cdr ls) (cdr ls1))
+
+       (o (car ls) (car ls1)))
+
+      ((not ls1) t)
+
+    (if (/= 1 (abs (- o (car ls1))))
+
+   (return nil))))
+
+
+
+(defun suc-3 (ls)
+
+  (block nil
+
+    (let ((o (car ls)))
+
+      (if (mapc #'(lambda (x)
+
+                    (if (= 1 (abs (- o x)))
+
+                        (setf o x)
+
+                      (return nil)))
+
+                (cdr ls))
+
+          t))))
+
+
+
+;; 8
+
+(defun extreme (v)
+
+  (extreme-rec v 1 (length v) (svref v 0) (svref v 0)))
+
+
+
+(defun extreme-rec (v i n mn mx)
+
+  (if (= i n) (values mn mx)
+
+    (let ((x (svref v i)))
+
+      (extreme-rec v (+ i 1) n (if (< x mn) x mn) (if (< mx x) x mx)))))
+
+
+
+;; 9
+
+;;; use catch and throw
+
+(defun shortest-path-5-9 (start end net)
+
+  (catch 'found                          ;change
+
+    (bfs-5-9 end (list (list start)) net)))
+
+
+
+(defun bfs-5-9 (end queue net)
+
+  (if (null queue)
+
+      nil
+
+      (let ((path (car queue)))
+
+        (let ((node (car path)))
+
+          (if (eql node end)
+
+              (throw 'found (reverse path))  ;change
+
+             (bfs-5-9 end
+
+                  (append (cdr queue)
+
+                          (new-paths path node net))
+
+                  net))))))
+
+;from acl2
+
+(defun new-paths (path node net)
+
+  (mapcar #'(lambda (n)
+
+              (cons n path))
+
+          (cdr (assoc node net))))
+
+
+
+;;chapter 6
+
+
+
+;; 1
+
+(defun tokens-6-1 (str &key (test #'constituent) (start 0))   ;;change  
+
+  (let ((p1 (position-if test str :start start)))
+
+    (if p1
+
+        (let ((p2 (position-if-not test str :start p1)))
+
+          (cons (subseq str p1 p2)
+
+                (if p2
+
+                    (tokens-6-1 str :test test :start p2)))))))
+
+
+
+;from acl2
+
+(defun constituent (c)
+
+  (and (graphic-char-p c)
+
+       (not (char= c #\  ))))
+
+
+
+;; 2
+
+(defun bin-search-6-2 (obj vec &key (key #'identity) (test #'eql) (start 0) end)  ;;change
+
+  (let ((len (or end (length vec))))                     
+
+    (and (not (zerop len))
+
+         (finder-6-2 obj vec start (- len 1) key test))))
+
+
+
+(defun finder-6-2 (obj vec start end key test)
+
+  (let ((range (- end start)))
+
+    (if (zerop range)
+
+        (if (funcall test obj (funcall key (aref vec start)))    ;;change
+
+            (aref vec start))                                    ;;change
+
+      (let ((mid (+ start (round (/ range 2)))))
+
+         (let ((obj2 (funcall key (aref vec mid))))              ;;change
+
+            (if (< obj obj2)
+
+                (finder-6-2 obj vec start (- mid 1) key test)  
+
+               (if (> obj obj2)
+
+                   (finder-6-2 obj vec (+ mid 1) end key test)   
+
+                   (aref vec mid))))))))                         ;;change
+
+
+
+;; 3
+
+(defun n-av (&rest av)
+
+  (length av))
+
+
+
+;; 4
+
+(defun most2 (f ls)
+
+  (cond
+
+   ((not ls) (values nil nil))
+
+   ((not (cdr ls)) (values (car ls) nil))
+
+   (t
+
+    (let* ((n1 (first ls))
+
+           (n2 (second ls))
+
+           (v1 (funcall f n1))
+
+           (v2 (funcall f n2)))
+
+           (when (< v1 v2)
+
+       (rotatef n1 n2)
+
+       (rotatef v1 v2))
+
+       (dolist (o (nthcdr 2 ls))
+
+          (let ((vo (funcall f o)))
+
+             (cond
+
+              ((< v1 vo) (setf v2 v1 v1 vo n2 n1 n1 o))
+
+              ((< v2 vo) (setf v2 vo n2 o))
+
+              (t nil))))
+
+       (values n1 n2)))))
+
+
+
+;; 5
+
+;;from acl2
+
+(defun filter (fn lst)
+
+  (let ((acc nil))
+
+    (dolist (x lst)
+
+      (let ((val (funcall fn x)))
+
+        (if val (push val acc))))
+
+    (nreverse acc)))
+
+
+
+(defun remove-if-6-5 (f ls)
+
+  (filter #'(lambda (x) (and (not (funcall f x)) x)) ls))
+
+
+
+;; 6
+
+(let (mx)
+
+  (defun max-so-far (n)
+
+    (if (or (not mx) (< mx n))
+
+        (setf mx n)
+
+       mx)))
+
+
+
+;; 7
+
+(let (prev)
+
+  (defun greater-p (n)
+
+    (prog1
+
+       (and prev (< prev n))
+
+       (setf prev n))))
+
+
+
+;; 8
+
+;test-fucntion
+
+(defun expensive (n)
+
+  (sleep 1)
+
+  n)
+
+
+
+(let ((store (make-array 101)))
+
+  (defun frugel (n)
+
+    (or (svref store n)
+
+        (setf (svref store n) (expensive n)))))
+
+
+
+;; 9
+
+(defun apply8 (&rest av)
+
+  (let ((*print-base* 8))
+
+    (apply #'apply  av)))
+
+
+
+;;chapter 7
+
+
+
+;; 1
+
+(defun lines->list (file)
+
+  (with-open-file (str file :direction :input)
+
+    (do ((line (read-line str nil nil) (read-line str nil nil))
+
+         (acc nil (cons line acc)))
+
+        ((not line) (nreverse acc)))))
+
+
+
+;; 2
+
+(defun s->list (file)
+
+  (with-open-file (str file :direction :input)
+
+    (do ((s (read str nil nil) (read str nil nil))
+
+         (acc nil (cons s acc)))
+
+        ((not s) (nreverse acc)))))
+
+
+
+;; 3
+
+(defun remove-comments (fin fout &optional (cchar #\%))
+
+  (with-open-file (s-in fin :direction :input)
+
+    (with-open-file (s-out fout :direction :output)
+
+      (do ((line (read-line s-in nil nil) (read-line s-in nil nil)))
+
+          ((not line))
+
+       (let ((cp (position cchar line)))
+
+         (format s-out "~A~%"
+
+                       (if cp (subseq line 0 cp) line)))))))
+
+
+
+;; 4
+
+(defun show-matrix (ar)
+
+  (let ((size (array-dimensions ar)))
+
+    (dotimes (i (first size))
+
+      (dotimes (j (second size))
+
+         (format t "   ~10,2F" (aref ar i j)))
+
+      (terpri))))         
+
+
+
+;; 5
+
+;;; from acl2 <<[e]
+
+(defstruct buf
+
+  vec (start -1) (used -1) (new -1) (end -1))
+
+
+
+(defun bref (buf n)
+
+  (svref (buf-vec buf)
+
+         (mod n (length (buf-vec buf)))))
+
+
+
+(defun (setf bref) (val buf n)
+
+  (setf (svref (buf-vec buf)
+
+               (mod n (length (buf-vec buf))))
+
+        val))
+
+
+
+(defun new-buf (len)
+
+  (make-buf :vec (make-array len)))
+
+
+
+(defun buf-insert (x b)
+
+  (setf (bref b (incf (buf-end b))) x))
+
+
+
+(defun buf-pop (b)
+
+  (prog1 
+
+    (bref b (incf (buf-start b)))
+
+    (setf (buf-used b) (buf-start b)
+
+          (buf-new  b) (buf-end   b))))
+
+
+
+(defun buf-next (b)
+
+  (when (< (buf-used b) (buf-new b))
+
+    (bref b (incf (buf-used b)))))
+
+
+
+(defun buf-reset (b)
+
+  (setf (buf-used b) (buf-start b)
+
+        (buf-new  b) (buf-end   b)))
+
+
+
+(defun buf-clear (b)
+
+  (setf (buf-start b) -1 (buf-used  b) -1
+
+        (buf-new   b) -1 (buf-end   b) -1))
+
+
+
+(defun buf-flush (b str)
+
+  (do ((i (1+ (buf-used b)) (1+ i)))
+
+      ((> i (buf-end b)))
+
+    (princ (bref b i) str)))
+
+;;[e]
+
+
+
+(defun file-subst-7-5 (old new file1 file2)
+
+  (with-open-file (in file1 :direction :input)
+
+     (with-open-file (out file2 :direction :output
+
+                                :if-exists :supersede)
+
+       (stream-subst-7-5 old new in out))))
+
+
+
+(defun stream-subst-7-5 (old new in out)
+
+  (let* ((pos 0)
+
+         (len (length old))
+
+         (buf (new-buf len))
+
+         (from-buf nil))
+
+    (do ((c (read-char in nil :eof)
+
+            (or (setf from-buf (buf-next buf))
+
+                (read-char in nil :eof))))
+
+        ((eql c :eof))
+
+      (cond ((or (char= #\+ (char old pos)) (char= c (char old pos))) ;change
+
+             (incf pos)
+
+             (cond ((= pos len)            ; 3
+
+                    (princ new out)
+
+                    (setf pos 0)
+
+                    (buf-clear buf))
+
+                   ((not from-buf)         ; 2
+
+                    (buf-insert c buf))))
+
+            ((zerop pos)                   ; 1
+
+             (princ c out)
+
+             (when from-buf
+
+               (buf-pop buf)
+
+               (buf-reset buf)))
+
+            (t                             ; 4
+
+             (unless from-buf
+
+               (buf-insert c buf))
+
+             (princ (buf-pop buf) out)
+
+             (buf-reset buf)
+
+             (setf pos 0))))
+
+    (buf-flush buf out)))
+
+
+
+;; 6
+
+;;; three wild cards;  %w, %d, and %a are used.
+
+;;; %a, all character
+
+;;; %w, a-zA-Z and 0-9
+
+;;; %d, 0-9
+
+;;; %%, % itself
+
+(defun file-subst-7-6 (old new file1 file2)
+
+  (with-open-file (in file1 :direction :input)
+
+     (with-open-file (out file2 :direction :output
+
+                                :if-exists :supersede)
+
+       (stream-subst-7-6 old new in out))))
+
+
+
+(defun parse-pattern (pat)
+
+  (labels ((rec (i n ctrl acc)
+
+             (if (< i n)
+
+                 (let* ((c (char pat i))
+
+                        (ctrl-next (and (not ctrl) (char= c #\%))))
+
+                   (rec (1+ i)
+
+                        n
+
+                        ctrl-next
+
+                        (if ctrl-next
+
+                            acc
+
+                          (cons
+
+                           (if ctrl
+
+                               (case c
+
+                                 (#\a 'all)
+
+                                 (#\w 'word)
+
+                                 (#\d 'digit)
+
+                                 (#\% #\%))
+
+                             c)
+
+                           acc))))
+
+                   (concatenate 'vector (nreverse acc)))))
+
+           (rec 0 (length pat) nil nil)))
+
+
+
+
+
+(defun stream-subst-7-6 (pat new in out)
+
+  (let* ((pos 0)
+
+    (old (parse-pattern pat))                  ;change, "old" is vector
+
+         (len (length old))
+
+         (buf (new-buf len))
+
+         (from-buf nil))
+
+    (do ((c (read-char in nil :eof)
+
+            (or (setf from-buf (buf-next buf))
+
+                (read-char in nil :eof))))
+
+        ((eql c :eof))
+
+      (let ((c0 (svref old pos)))
+
+   (cond ((or                                  ;change
+
+      (eq c0 'all)                             ;change
+
+      (and (eq c0 'word) (or (alpha-char-p c) (digit-char-p c)))      ;change 
+
+      (and (eq c0 'number) (digit-char-p c))   ;change
+
+      (char= c0 c))                            ;change
+
+          (incf pos)
+
+          (cond ((= pos len)            ; 3
+
+            (princ new out)
+
+            (setf pos 0)
+
+            (buf-clear buf))
+
+           ((not from-buf)         ; 2
+
+            (buf-insert c buf))))
+
+         ((zerop pos)                   ; 1
+
+          (princ c out)
+
+          (when from-buf
+
+       (buf-pop buf)
+
+       (buf-reset buf)))
+
+         (t                             ; 4
+
+          (unless from-buf
+
+       (buf-insert c buf))
+
+          (princ (buf-pop buf) out)
+
+          (buf-reset buf)
+
+          (setf pos 0)))))
+
+      (buf-flush buf out)))
+
+
+
+
+
+;;chapter 8
+
+
+
+
+
+;; 4
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; (defpackage "LING"
+
+;   (:use "COMMON-LISP")
+
+;   (:export "BUF" "BREF" "NEW-BUF" "BUF-INSERT" "BUF-POP" "BUF-NEXT" "BUF-RESET" "BUF-CLEAR" "BUF-FLUSH"))
+
+; 
+
+; (in-package ling)
+
+; (defpackage "FILE"
+
+;   (:use "COMMON-LISP" "LING"))
+
+; (in-package file)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;; 5 
+
+;;from acl2
+
+
+
+(defparameter *words* (make-hash-table :size 10000))
+
+
+
+(defconstant maxword 100)
+
+
+
+(defun read-text (pathname)
+
+  (with-open-file (s pathname :direction :input)
+
+    (let ((buffer (make-string maxword))
+
+          (pos 0))
+
+      (do ((c (read-char s nil :eof) 
+
+              (read-char s nil :eof)))
+
+          ((eql c :eof))
+
+        (if (or (alpha-char-p c) (digit-char-p c) (char= c #\+) (char= c #\-) (char= c #\'))  ;; modified
+
+            (progn
+
+              (setf (aref buffer pos) c)
+
+              (incf pos))
+
+            (progn
+
+              (unless (zerop pos)
+
+                (see (intern (string-downcase 
+
+                               (subseq buffer 0 pos))))
+
+                (setf pos 0))
+
+              (let ((p (punc c)))
+
+                (if p (see p)))))))))
+
+  
+
+(defun punc (c)
+
+  (case c
+
+    (#\. '|.|) (#\, '|,|) (#\; '|;|) 
+
+    (#\! '|!|) (#\? '|?|) ))
+
+
+
+(let ((prev `|.|))
+
+  (defun see (symb)
+
+    (let ((pair (assoc symb (gethash prev *words*))))
+
+      (if (null pair)
+
+          (push (cons symb 1) (gethash prev *words*))
+
+          (incf (cdr pair))))
+
+    (setf prev symb)))
+
+
+
+
+
+(defun generate-text (n &optional (prev '|.|))
+
+  (if (zerop n)
+
+      (terpri)
+
+      (let ((next (random-next prev)))
+
+        (format t "~A " next)
+
+        (generate-text (1- n) next))))
+
+
+
+(defun random-next (prev)
+
+  (let* ((choices (gethash prev *words*))
+
+         (i (random (reduce #'+ choices 
+
+                            :key #'cdr))))
+
+    (dolist (pair choices)
+
+      (if (minusp (decf i (cdr pair)))
+
+          (return (car pair))))))
+
+
+
+(let (source)
+
+  (defun henley (sample out nwords)
+
+    (unless (equal source sample)
+
+      (clrhash *words*)
+
+      (read-text sample)
+
+      (setf source sample))
+
+    (with-open-file (s out :direction :output :if-exists :supersede :if-does-not-exist :create)
+
+      (let ((*standard-output* s))
+
+        (generate-text nwords)))))
+
+
+
+(defun terminal (sy)
+
+  (or (eq sy '|.|) (eq sy '|!|) (eq sy '|?|) (eq sy '|:|)))
+
+
+
+;count words in a sentence
+
+
+
+(defun henleyp (fi)
+
+  (let ((buffer (make-string maxword))
+
+        (pos 0) (nwls nil) (nw 0))
+
+    (with-open-file (s fi :direction :input)
+
+      (do ((c (read-char s nil :eof)
+
+              (read-char s nil :eof)))
+
+          ((eql c :eof))
+
+        (if (or (alpha-char-p c) (char= c #\'))
+
+            (progn
+
+              (setf (aref buffer pos) c)
+
+              (incf pos))
+
+          (progn
+
+            (unless (zerop pos)
+
+              (incf nw)
+
+              (setf pos 0))
+
+            (let ((p (punc c)))
+
+              (when p
+
+                (if (terminal p)
+
+                    (progn
+
+                      (push nw nwls)
+
+                      (setf nw 0))
+
+                  (incf nw))))))))
+
+    (anal-cwlist nwls)))
+
+
+
+(defun hispos (x r mn n)
+
+  (let ((p (truncate (- x mn) r)))
+
+    (if (= p n) (- p 1) p)))
+
+     
+
+(defun nstar (n)
+
+  (make-string n :initial-element #\*))
+
+
+
+  
+
+(defun anal-cwlist (cwls)
+
+  (let ((mx (apply #'max cwls))
+
+        (mn (apply #'min cwls))
+
+        (a (make-array 5 :initial-element 0)))
+
+    (if (< 60 mx)
+
+        (progn
+
+          (format t "more than 60 words in one sentence.~%")
+
+          t)
+
+      (let ((r (/ (- mx mn) 5)))
+
+        (dolist (x cwls)
+
+          (incf (aref a (hispos x r mn 5))))
+
+        (let* ((j mn)
+
+               (hmax (max (aref a 0) (aref a 1) (aref a 2) (aref a 3) (aref a 4)))
+
+               (n* (/ hmax 20.0)))
+
+          (format t "* = ~A sentences~%" (if (< n* 1.0) 1.0 n*) )
+
+          (dotimes (i 5)
+
+            (format t "~2D-~2D:~A~%"
+
+                    (truncate j)
+
+                    (+ (truncate (incf j r)) (if (= i 4) 1 0))
+
+                    (nstar (if (< n* 1.0) (aref a i) (truncate (/  (aref a i) n*)))))))
+
+        (if (< (aref a 3) (aref a 4))
+
+            t
+
+          nil)))))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; > (henley "original.txt" "henley1000.txt" 1000) ;creating 1000 words text using original.txt
+
+; NIL
+
+; > (henley "original.txt" "henley100.txt" 100) ;creating 100 words text using original.txt
+
+; NIL
+
+; > (henleyp "original.txt")    ;Is original.txt written by HenleyH
+
+; * = 5.4500003 sentences
+
+;  1-11:******************
+
+; 11-21:*******************
+
+; 21-32:********
+
+; 32-42:***
+
+; 42-54:*
+
+; NIL                           ;No 
+
+; > (henleyp "henley100.txt")   ;Is henley100.txt written by HenleyH
+
+; * = 1.0 sentences
+
+;  5-12:**
+
+; 12-19:*
+
+; 19-27:
+
+; 27-34:
+
+; 34-43:*                       ;There is a very long sentence.
+
+; T                             ;Yes
+
+; > (henleyp "henley1000.txt")
+
+; more than 60 words in one sentence.
+
+; T                             ;Yes 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;; 6
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;
+
+;;;  makeing a senctence which contain a given word at the center
+
+;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; usage
+
+; (funny-sen [sample-text-path-name] [central-word])
+
+; like
+
+; (funny-sen "sample.txt" 'funny)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+(defvar *imin* 4) ;shortest sentence contains 9 words
+
+(defparameter *f-h* (make-hash-table :test #'eq))  ; a h-table for forward words
+
+(defparameter *b-h* (make-hash-table :test #'eq))  ; a h-table for backward words
+
+
+
+(defconstant mw 100)
+
+
+
+;;; reading a sample text
+
+(defun read-text6 (f)
+
+  (let ((p 0) (b (make-string mw)))
+
+    (with-open-file (s f :direction :input)
+
+      (do ((c (read-char s nil nil) (read-char s nil nil))) ((not c))
+
+   (if (or (alpha-char-p c) (char= c #\'))
+
+       (setf (char b p) c
+
+        p (1+ p))
+
+     (progn
+
+       (when (plusp p)
+
+         (see6 (intern (string-downcase (substring b 0 p))))
+
+         (setf p 0))
+
+       (let ((p (punc c)))
+
+         (if p (see6 p)))))))))
+
+
+
+
+
+;;; registration on hash teables
+
+(let ((prev '|.|))
+
+  (defun see6 (wsym)
+
+    (pushnew wsym (gethash prev *f-h*)) 
+
+    (pushnew prev (gethash wsym *b-h*)) 
+
+    (setf prev wsym)))
+
+
+
+
+
+; making a sentence
+
+(defun make-sen (w)
+
+  (labels ((-show (&rest lss)
+
+        (let ((i 0))
+
+          (dolist (ls lss)
+
+       (dolist (x ls)
+
+         (format t "~A " x)
+
+         (if (zerop (mod (incf i) 8)) (terpri)))))
+
+        (throw 'done nil))
+
+      (rec (b f i n)
+
+        (if (< i n)
+
+            (let ((b-next (gethash (car b) *b-h*))
+
+                  (f-next (gethash (car f) *f-h*)))
+
+              (if (and (< *imin* i)
+
+                       (member-if #'terminal b-next)
+
+                       (member-if #'terminal f-next))
+
+                  (-show b (cdr (reverse f)))
+
+                (dolist (b1 (remove-if #'terminal b-next))
+
+                  (dolist (f1 (remove-if #'terminal f-next))
+
+                    (rec (cons b1 b) (cons f1 f) (1+ i) n))))))))
+
+    (catch 'done
+
+      (let ((ls (list (intern (string-downcase (symbol-name w))))))
+
+        (do ((n 10 (1+ n)))
+
+            ((= n 30))
+
+          (rec ls ls 0 n))))))
+
+
+
+(let (txt0)
+
+   (defun funny-sen (txt word)
+
+     (unless (equal txt0 txt)
+
+        (clrhash *f-h*)
+
+        (clrhash *b-h*)
+
+        (read-text6 txt)
+
+        (setf txt0 txt))
+
+     (make-sen word)))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; > (funny-sen "original.txt" 'friend)
+
+; programmers care about my friend robert and rest
+
+; parameters
+
+; NIL
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+;;chapter 9
+
+
+
+;; 1
+
+(defun not-descending (ls)
+
+  (not (apply #'>= ls)))
+
+
+
+;; 2
+
+(defun coins(a)
+
+  (labels ((rec (am coins ncoins)
+
+        (if coins
+
+            (multiple-value-bind (n r) (floor am (car coins))
+
+                                       (rec r (cdr coins) (cons n ncoins)))
+
+          (nreverse (cons am ncoins)))))
+
+    (rec a '(25 10 5) nil)))
+
+
+
+;; 3
+
+(defun best10-10years ()
+
+  (labels ((rec (i n)
+
+             (if (= i 10)
+
+                  n
+
+               (rec (1+ i) (+ n (random 2))))))
+
+    (dotimes (i 10)
+
+      (format t "~A " (rec 0 0)))))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; > (best10-10years)
+
+; 2 4 3 3 6 7 6 5 9 4
+
+; NIL
+
+; > (best10-10years)
+
+; 4 5 8 4 4 5 4 2 4 8
+
+; NIL
+
+; > (best10-10years)
+
+; 3 5 5 5 8 5 2 7 8 4
+
+; NIL
+
+; > (best10-10years)
+
+; 4 5 7 5 4 4 8 3 7 5
+
+; NIL
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;; 4
+
+(defun isec (x1 y1 x2 y2 x3 y3 x4 y4)
+
+  (let ((dx1 (- x2 x1))
+
+        (dy1 (- y2 y1))
+
+        (dx2 (- x4 x3))
+
+        (dy2 (- y4 y3))
+
+        (dx3 (- x3 x1))
+
+        (dy3 (- y3 y1)))
+
+    (let ((d (- (* dx1 dy2) (* dx2 dy1))))
+
+      (unless (= d 0)
+
+        (let ((k1 (/ (- (* dx3 dy2) (* dx2 dy3)) d))
+
+              (k2 (/ (- (* dx3 dy1) (* dx1 dy3)) d)))
+
+          (if (and (<= 0 k1 1) (<= 0 k2 1))
+
+              (cons (+ x1 (* dx1 k1)) (+ y1 (* dy1 k1)))))))))
+
+
+
+;; 5
+
+(defun  bisec (f min max epsilon)
+
+  (let ((m (* 0.5 (+ min max))))
+
+    (if (< (- max min) epsilon)
+
+         m
+
+      (let ((fmin (funcall f min))
+
+            (fmax (funcall f max))
+
+            (fm   (funcall f m)))
+
+         (cond
+
+          ((< 0 (* fmin fmax)) (error "wrong range"))
+
+          ((= 0 fm) m)
+
+          ((< 0 (* fmin fm)) (bisec f m max epsilon))
+
+          ((< 0 (* fmax fm)) (bisec f min m epsilon))
+
+          (t nil))))))
+
+
+
+;; 6
+
+(defun horner (x &rest parms)
+
+  (labels ((rec (parms acc)
+
+        (if parms
+
+       (rec (cdr parms) (+ (* acc x) (car parms)))
+
+          acc)))
+
+    (rec parms 0)))
+
+
+
+;; 7
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; > (log (1+ most-positive-fixnum) 2)
+
+; 24
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;; 8
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; > most-positive-long-float
+
+; 8.8080652584198167656L646456992
+
+; > most-positive-double-float
+
+; 1.7976931348623157d308
+
+; > most-positive-single-float
+
+; 3.4028235E38
+
+; > most-positive-short-float
+
+; 1.7014s38
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+;;chapter 10
+
+
+
+;; 2
+
+(defmacro cif (pred then else)
+
+  `(cond
+
+    (,pred ,then)
+
+    (t     ,else)))
+
+
+
+;; 3
+
+(defmacro nth-expr (n &body body)
+
+  (if (integerp n)
+
+      (nth n body)
+
+    `(case ,n
+
+       ,@(let ((i -1))
+
+           (mapcar #'(lambda(x) `(,(incf i) ,x)) body)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;  (defmacro nth-expr (n &body body) ; not good
+
+;    `(nth ,n (list ,@body)))
+
+; 
+
+;  (defun nth-expr (n &rest av) ; "not good" can be defined using function
+
+;    (nth n av))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;; 4
+
+(defmacro ntimes-10-4 (n &body body)
+
+  (let ((gn (gensym)) (grec (gensym)))
+
+    `(let ((,gn ,n))
+
+       (labels ((,grec (i)
+
+        (when (< i ,gn)
+
+          ,@body
+
+          (,grec (1+ i)))))
+
+    (,grec 0)))))
+
+
+
+;; 5
+
+(defmacro n-of (n expr)
+
+  (let ((gn (gensym)) (gi (gensym)) (gacc (gensym)))
+
+    `(do ((,gn ,n) (,gi 0 (1+ ,gi)) (,gacc nil (cons ,expr ,gacc)))
+
+         ((= ,gi ,gn) (nreverse ,gacc)))))
+
+
+
+;; alternative
+
+(defmacro n-of-alter (n expr)
+
+  (let((grec (gensym)))
+
+    `(labels ((,grec (i j acc)
+
+                (if (= i j)
+
+                    (nreverse acc)
+
+                  (,grec (1+ i) j (cons ,expr acc)))))
+
+       (,grec 0 ,n nil))))
+
+
+
+;; 6
+
+(defmacro retain (parms &body body)
+
+  `((lambda ,parms ,@body) ,@parms))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; >(let ((a 0) (b 1) (c 2) (d 3))
+
+; >  (format t "values before retain: a=~A, b=~A, c=~A, d=~A~%" a b c d)
+
+; >  (retain (a b c)      ;retain a b c, but d
+
+; >          (setf a (* a 10)
+
+; >                b (* b 10)
+
+; >                c (* c 10)
+
+; >                d (* d 10))
+
+; >          (format t "values in retain: a=~A, b=~A, c=~A, d=~A~%" a b c d))
+
+; >  (format t "values after retain: a=~A, b=~A, c=~A, d=~A~%" a b c d))
+
+; values before retain: a=0, b=1, c=2, d=3
+
+; values in retain: a=0, b=10, c=20, d=30
+
+; values after retain: a=0, b=1, c=2, d=30   ;a b c return to original value
+
+; NIL
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;; 7
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; (defmacro push- (obj lst)
+
+;   `(setf ,lst (cons ,obj ,lst)))
+
+; 
+
+; ;; test real push
+
+; (defun test-push ()
+
+;   (let ((a (make-array 3))
+
+;         (i 0))
+
+;     (setf (aref a 0) (list 0)
+
+;           (aref a 1) (list 1)
+
+;           (aref a 2) (list 2))
+
+;     (push 4 (aref a (incf i)))
+
+;     (format t "~A ~A ~A~%" (aref a 0) (aref a 1) (aref a 2))))
+
+; 
+
+; ;; test wrong push
+
+; (defun test-push- ()
+
+;   (let ((a (make-array 3))
+
+;         (i 0))
+
+;     (setf (aref a 0) (list 0)
+
+;           (aref a 1) (list 1)
+
+;           (aref a 2) (list 2))
+
+;     (push- 4 (aref a (incf i)))
+
+;     (format t "~A ~A ~A~%" (aref a 0) (aref a 1) (aref a 2))))
+
+; > (test-push)
+
+; (0) (4 1) (2)
+
+; NIL
+
+; > (test-push-)
+
+; (0) (4 2) (2)
+
+; NIL
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+;;chapter 11
+
+(defvar *world* nil)
+
+;; 1
+
+(defclass rectangle ()
+
+  ((height :accessor rectangle-height
+
+           :initarg :height
+
+           :initform 0)
+
+   (width  :accessor rectangle-width
+
+           :initarg :width
+
+           :initform 0)))
+
+
+
+(defclass circle ()
+
+  ((radius :accessor circle-radius
+
+           :initarg :radius
+
+           :initform 0)))
+
+
+
+(defmethod area ((x rectangle))
+
+  (* (rectangle-width x) (rectangle-height x)))
+
+
+
+(defmethod area ((x circle))
+
+  (let ((*WARN-ON-FLOATING-POINT-CONTAGION* nil))
+
+    (* pi (expt (circle-radius x) 2))))
+
+
+
+;; 2
+
+(defclass point ()
+
+   ((x :accessor x
+
+       :initarg :x
+
+       :initform 0)
+
+    (y :accessor y
+
+       :initarg :y
+
+       :initform 0)
+
+    (z :accessor z
+
+       :initarg :z
+
+       :initform 0)))
+
+
+
+(defclass surface ()
+
+   ((color  :accessor surface-color
+
+            :initarg :color)))
+
+
+
+(defclass sphere (surface)
+
+   ((radius :accessor  sphere-radius
+
+           :initarg :radius
+
+           :initform 0)
+
+    (center :accessor sphere-center
+
+            :initarg :center
+
+            :initform (make-instance 'point :x 0 :y 0 :z 0))))
+
+
+
+(defun defsphere (x y z r c)
+
+  (let ((s (make-instance  'sphere
+
+                           :radius r
+
+                           :center (make-instance 'point :x x :y y :z z)
+
+                           :color c)))
+
+    (push s *world*)
+
+    s))
+
+
+
+(defmethod intersect ((s sphere) (pt point) xr yr zr)
+
+  (let* ((c (sphere-center s))
+
+         (n (minroot (+ (sq xr) (sq yr) (sq zr))
+
+                     (* 2 (+ (* (- (x pt) (x c)) xr)
+
+                             (* (- (y pt) (y c)) yr)
+
+                             (* (- (z pt) (z c)) zr)))
+
+                     (+ (sq (- (x pt) (x c)))
+
+                        (sq (- (y pt) (y c)))
+
+                        (sq (- (z pt) (z c)))
+
+                        (- (sq (sphere-radius s)))))))
+
+    (if n
+
+        (make-instance 'point
+
+                        :x  (+ (x pt) (* n xr))
+
+                        :y  (+ (y pt) (* n yr))
+
+                        :z  (+ (z pt) (* n zr))))))
+
+
+
+(defmethod normal ((s sphere) (pt point))
+
+  (let ((c (sphere-center s)))
+
+    (unit-vector (- (x c) (x pt))
+
+                 (- (y c) (y pt))
+
+                 (- (z c) (z pt)))))
+
+
+
+(defun sq (x) (* x x))
+
+
+
+(defun mag (x y z)
+
+  (sqrt (+ (sq x) (sq y) (sq z))))
+
+
+
+(defun unit-vector (x y z)
+
+  (let ((d (mag x y z)))
+
+    (values (/ x d) (/ y d) (/ z d))))
+
+
+
+(defun distance (p1 p2)
+
+  (mag (- (x p1) (x p2))
+
+       (- (y p1) (y p2))
+
+       (- (z p1) (z p2))))
+
+
+
+(defun minroot (a b c)
+
+  (if (zerop a)
+
+      (/ (- c) b)
+
+      (let ((disc (- (sq b) (* 4 a c))))
+
+        (unless (minusp disc)
+
+          (let ((discrt (sqrt disc)))
+
+            (min (/ (+ (- b) discrt) (* 2 a))
+
+                 (/ (- (- b) discrt) (* 2 a))))))))
+
+
+
+;; 4
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; (defun most-spec-app-meth (gfun av)
+
+;   (let ((classlist (mapcar #'precedence av)))
+
+;     (dolist (meth (method gfun))
+
+;       (if (do ((i 0 (1+ i)) (spec (specialization meth) (cdr spec)))
+
+;               ((not spec) t)
+
+;         (or (member (car spec) (nth i classlist) :test #'equal)
+
+;             (return)))
+
+;      (return-from most-spec-app-meth meth)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;; 5
+
+(defvar *area-counter* 0)
+
+(defmethod area :before (o)
+
+  (declare (ignore o))
+
+  (incf *area-counter*))
+
+
+
+;;chapter 12
+
+(defun make-queue () (cons nil nil))
+
+
+
+(defun enqueue (obj q)
+
+  (if (null (car q))
+
+      (setf (cdr q) (setf (car q) (list obj)))
+
+      (setf (cdr (cdr q)) (list obj)
+
+            (cdr q) (cdr (cdr q))))
+
+  (car q))
+
+
+
+(defun dequeue (q) 
+
+  (pop (car q)))
+
+
+
+;; 3
+
+(defun copy-queue (q0)
+
+  (let ((q1 (make-queue)))
+
+    (setf (car q1) (copy-list (car q0))
+
+          (cdr q1) (last (car q1)))
+
+    q1))
+
+
+
+;; 4
+
+(defun pushqueue (obj q)
+
+  (setf (car q) (cons obj (car q))))
+
+
+
+;; 5
+
+(defun move-front (obj q)
+
+  (let ((ls (car q)))
+
+    (setf (car q) (if (member obj ls)
+
+                      (cons obj (remove obj ls))
+
+                    ls)
+
+          (cdr q) (last (car q))))
+
+  (car q))
+
+
+
+;; 6
+
+(defun in-circule (obj ls)
+
+  (labels ((rec (ls1)
+
+             (if ls1
+
+                (cond
+
+                   ((eql obj (car ls1)) t)
+
+                   ((eq ls (cdr ls1)) nil)
+
+                   (t (rec (cdr ls1)))))))
+
+    (rec ls)))
+
+
+
+;; 7
+
+(defun cdr-circular-p (ls)
+
+  (labels ((rec (ls1)
+
+             (if ls1
+
+                 (or (eq (cdr ls1) ls)
+
+                     (rec (cdr ls1))))))
+
+    (rec ls)))
+
+
+
+;; 8
+
+(defun car-circular-p (ls)
+
+  (eq ls (car ls)))
+
+        
+
+
+
+
+
+;;chapter 13
+
+(defpackage "SPEED"
+
+  (:use "COMMON-LISP" "COMMON-LISP-USER"))
+
+(in-package speed)
+
+(export '(date+ ray-test shortest-path pop-node bst-insert bst-find
+
+          bst-min bst-max bst-traverse bst-remove))
+
+;; 2
+
+(defun foo-tail (x)
+
+  (labels ((rec (x sum)
+
+               (if (zerop x)
+
+                     sum
+
+                  (rec (1- x) (1+ sum)))))
+
+    (rec x 0)))
+
+
+
+;; 3
+
+
+
+(defmacro pme (mac)
+
+  `(pprint (macroexpand-1 ',mac)))
+
+
+
+(defmacro with-type (type expr)
+
+  (or
+
+   (leave-it expr)
+
+   `(the ,type ,(if (atom expr) 
+
+                     expr
+
+                   (expand-call type (binarize expr))))))
+
+
+
+(eval-when (:compile-toplevel :load-toplevel)
+
+  (defun leave-it (expr)
+
+    (if (atom expr)
+
+        (if (symbolp expr)
+
+            (if (char= #\? (char (symbol-name expr) 0)) expr)
+
+          expr)))
+
+
+
+  (defun expand-call (type expr)
+
+    `(,(car expr) ,@(mapcar #'(lambda (a)
+
+                                `(with-type ,type ,a))
+
+                            (cdr expr))))
+
+
+
+  (defun binarize (expr)
+
+    (if (and (nthcdr 3 expr)
+
+             (member (car expr) '(+ - * /)))
+
+        (destructuring-bind (op a1 a2 . rest) expr
+
+                            (binarize `(,op (,op ,a1 ,a2) ,@rest)))
+
+      expr)))
+
+;a
+
+(defconstant ?month
+
+  #(0 31 59 90 120 151 181 212 243 273 304 334 365))
+
+
+
+(defconstant yzero 2000)
+
+
+
+(defun leap? (y)
+
+  (declare (fixnum y))
+
+  (and (zerop (the fixnum (mod y 4)))
+
+       (or (zerop (the fixnum (mod y 400)))
+
+	   (not (zerop (the fixnum (mod y 100)))))))
+
+
+
+(defun date->num (d m y)
+
+  (declare (fixnum d m y))
+
+  (with-type fixnum
+
+    (+ (- d 1) (month-num m y) (year-num y))))
+
+
+
+(defun month-num (m y)
+
+  (declare (fixnum m y))
+
+  (+ (svref ?month  (- m 1))
+
+     (if (and (> m 2) (leap? y)) 1 0)))
+
+
+
+(defun year-num (y)
+
+  (let ((d 0))
+
+    (declare (fixnum y d))
+
+    (if (>= y yzero)
+
+        (dotimes (i (the fixnum (- y yzero)) (the fixnum d))
+
+          (with-type fixnum (incf d  (year-days (+ yzero i)))))
+
+      (dotimes (i (the fixnum (- yzero y)) (the fixnum (- d)))
+
+        (with-type fixnum (incf d (year-days (+ y i))))))))
+
+
+
+(defun year-days (y) (declare (fixnum y)) (if (leap? y) 366 365))
+
+
+
+
+
+(defun num->date (n)
+
+  (declare (fixnum n))
+
+  (multiple-value-bind (y left) (num-year n)
+
+    (declare (fixnum y left))
+
+    (multiple-value-bind (m d) (num-month left y)
+
+      (declare (fixnum m d))
+
+      (values d m y))))
+
+
+
+(defun num-year (n)
+
+  (declare (fixnum n))
+
+  (if (< n 0)
+
+      (do* ((y (the fixnum (- yzero 1)) (the fixnum (- y 1)))
+
+            (d (the fixnum (- (year-days y))) (the fixnum (- d (year-days y)))))
+
+          ((<= d n) (values y (the fixnum (- n d)))))
+
+    (do* ((y yzero (the fixnum (+ y 1)))
+
+          (prev 0 d)
+
+          (d (the fixnum (year-days y)) (the fixnum (+ d (year-days y)))))
+
+        ((> d n) (values y (the fixnum (- n prev)))))))
+
+
+
+(defun num-month (n y)
+
+  (declare (fixnum n y))
+
+  (if (leap? y)
+
+      (cond ((= n 59) (values 2 29))
+
+	    ((> n 59) (nmon (- n 1)))
+
+	    (t        (nmon n)))
+
+    (nmon n)))
+
+
+
+(defun nmon (n)
+
+  (declare (fixnum n))
+
+  (let ((m (position n ?month :test #'<)))
+
+    (values m (+ 1 (- n (svref ?month (- m 1)))))))
+
+
+
+(defun date+ (d m y n)
+
+  (declare (fixnum d m y n))
+
+  (num->date (+ (date->num d m y) n)))
+
+
+
+;b
+
+(declaim (inline sq mag unit-vector))
+
+
+
+(defun sq (x) (declare (single-float x)) (the single-float (* x x)))
+
+
+
+(defun mag (x y z)
+
+  (declare (single-float x y z))
+
+  (with-type single-float (sqrt (+ (sq x) (sq y) (sq z)))))
+
+
+
+(defun unit-vector (x y z)
+
+  (declare (single-float x y z))
+
+  (let ((d (the single-float (mag x y z))))
+
+    (declare (single-float d))
+
+    (with-type single-float
+
+               (values  (/ x d) (/ y d) (/ z d)))))
+
+
+
+(defstruct (point (:conc-name nil))  
+
+  (x 0.0 :type single-float)
+
+  (y 0.0 :type single-float)
+
+  (z 0.0 :type single-float))
+
+
+
+(defun distance (?p1 ?p2)
+
+  (with-type single-float
+
+             (mag (- (x ?p1) (x ?p2))
+
+                  (- (y ?p1) (y ?p2))
+
+                  (- (z ?p1) (z ?p2)))))
+
+
+
+(defun minroot (a b c)
+
+  (declare (single-float a b c))
+
+  (if (zerop a)
+
+      (with-type single-float (/ (- c) b))
+
+    (let ((disc (with-type single-float
+
+                           (- (sq b)  (* 4.0 a c)))))
+
+      (declare (single-float disc))
+
+      (unless (minusp disc)
+
+        (let ((discrt (with-type single-float (sqrt disc))))
+
+          (declare (single-float discrt))
+
+          (with-type single-float
+
+                     (min (/ (+ (- b) discrt) (* 2.0 a))
+
+                          (/ (- (- b) discrt) (* 2.0 a)))))))))
+
+
+
+(defstruct surface  color)
+
+
+
+(defparameter *world* nil)
+
+(defconstant ?eye (make-point :x 0.0 :y 0.0 :z 200.0))
+
+
+
+(defun tracer (pathname &optional (res 1))
+
+  (with-open-file (p pathname :direction :output)
+
+    (format p "P2 ~A ~A 255" (* res 100) (* res 100))
+
+    (let ((inc (float (/ res))))
+
+      (declare (single-float inc))
+
+      (do ((y -50.0 (+ y inc)))
+
+          ((< (- 50.0 y) inc))
+
+        (do ((x -50.0 (+ x inc)))
+
+            ((< (- 50.0 x) inc))
+
+          (declare (single-float x y))
+
+          (print (color-at x y) p))))))
+
+
+
+(defun color-at (x y)
+
+  (declare (single-float x y))
+
+  (multiple-value-bind (xr yr zr)
+
+    (unit-vector (with-type single-float (- x (x ?eye)))
+
+                 (with-type single-float (- y (y ?eye)))
+
+                 (with-type single-float (- 0.0e0 (z ?eye))))
+
+    (declare (single-float xr yr zr))
+
+    (round  (the single-float (* (the single-float (sendray ?eye xr yr zr)) 255.0e0)))))
+
+
+
+(defun sendray (?pt xr yr zr)
+
+  (declare (single-float xr yr zr))
+
+  (multiple-value-bind (?s ?int) (first-hit ?pt xr yr zr)
+
+    (if ?s
+
+        (with-type single-float (* (lambert ?s ?int xr yr zr) (surface-color ?s)))
+
+      0.0)))
+
+
+
+(defun first-hit (?pt xr yr zr)
+
+  (declare (single-float xr yr zr))
+
+  (let (?surface ?hit dist)
+
+    (dolist (?s *world*)
+
+      (let ((?h (intersect ?s ?pt xr yr zr)))
+
+        (when ?h
+
+          (let ((d (the single-float (distance ?h ?pt))))
+
+            (declare (single-float d))
+
+            (when (or (null dist) (< d dist))
+
+              (setf ?surface ?s ?hit ?h dist d))))))
+
+    (values ?surface ?hit)))
+
+
+
+(defun lambert (?s ?int xr yr zr)
+
+  (declare (single-float xr yr zr))
+
+  (multiple-value-bind (xn yn zn) (normal ?s ?int)
+
+    (declare (single-float xn yn zn))
+
+    (max 0.0  (with-type single-float (+ (* xr xn) (* yr yn) (* zr zn))))))
+
+
+
+
+
+(defstruct (sphere (:include surface))  
+
+  (radius 0.0 :type single-float)
+
+  center )
+
+
+
+(defun defsphere (x y z r c)
+
+  (declare (single-float x y z r))
+
+  (let ((s (make-sphere 
+
+             :radius r
+
+             :center (make-point :x x :y y :z z)
+
+             :color  c)))
+
+    (push s *world*)
+
+    s))
+
+
+
+(defun intersect (s pt xr yr zr)
+
+  (declare (single-float xr yr zr))
+
+  (funcall (typecase s (sphere #'sphere-intersect))
+
+           s pt xr yr zr))
+
+
+
+(defun sphere-intersect (?s ?pt xr yr zr)
+
+  (declare (single-float xr yr zr))
+
+  (let* ((?c (sphere-center ?s))
+
+         (n 
+
+          (minroot (with-type single-float (+ (sq xr) (sq yr) (sq zr)))
+
+                   (with-type single-float (* 2 (+ (* (- (x ?pt) (x ?c)) xr)
+
+                                                   (* (- (y ?pt) (y ?c)) yr)
+
+                                                   (* (- (z ?pt) (z ?c)) zr))))
+
+                   (with-type single-float (+ (sq (- (x ?pt) (x ?c)))
+
+                                              (sq (- (y ?pt) (y ?c)))
+
+                                              (sq (- (z ?pt) (z ?c)))
+
+                                              (- (sq (sphere-radius ?s))))))))
+
+    (if n
+
+        (make-point :x  (with-type single-float (+ (x ?pt) (* n xr)))
+
+                    :y  (with-type single-float (+ (y ?pt) (* n yr)))
+
+                    :z  (with-type single-float (+ (z ?pt) (* n zr)))))))
+
+
+
+(defun normal (s pt)
+
+  (funcall (typecase s (sphere #'sphere-normal))
+
+           s pt))
+
+
+
+(defun sphere-normal (?s ?pt)
+
+  (let ((?c (sphere-center ?s)))
+
+    (with-type single-float
+
+               (unit-vector
+
+                (- (x ?c) (x ?pt))
+
+                (- (y ?c) (y ?pt))
+
+                (- (z ?c) (z ?pt))))))
+
+
+
+
+
+(defun ray-test (&optional (res 1))
+
+  (setf *world* nil)
+
+  (defsphere 0.0e0 -300.0e0 -1200.0e0 200.0e0 .8)
+
+  (defsphere -80.0e0 -150.0e0 -1200.0e0 200.0e0 .7)
+
+  (defsphere 70.0e0 -100.0e0 -1200.0e0 200.0e0 .9)
+
+  (do ((x -2.0 (1+ x)))
+
+      ((> x 2))
+
+    (do ((z 2.0 (1+ z)))
+
+        ((> z 7.0))
+
+      (defsphere (* x 200.0e0) 300.0e0 (* z -400.0e0) 40.0e0 .75)))
+
+  (tracer (make-pathname :name "spheres.pgm") res))
+
+
+
+
+
+;; 4
+
+(defconstant qsize 100)
+
+(defvar *net* '((a b c) (b c) (c d)))
+
+
+
+
+
+(let ((qs 0) (qe 1) (qv (make-array qsize)))
+
+  
+
+  (defun shortest-path (start end net)
+
+    (setf (svref qv 0) (list start))
+
+    (bfs end net))
+
+
+
+  
+
+  (defun bfs (end net)
+
+    (if (= qs qe)
+
+        nil
+
+      (let ((path (svref qv (mod qs qsize))))
+
+         (let ((node (car path)))
+
+            (if (eql node end)
+
+                (reverse path)
+
+               (progn
+
+                 (incf qs)
+
+                 (new-paths path node net)
+
+                 (bfs end net)))))))
+
+         
+
+
+
+  (defun new-paths (path node net)
+
+    (dolist (n (cdr (assoc node net)))
+
+      (setf (svref qv (mod qe qsize)) (cons n path))
+
+      (incf qe))))
+
+
+
+
+
+;; 5
+
+(defstruct (node (:print-function
+
+                  (lambda (n s d)
+
+		    (declare (ignore d))
+
+                    (format s "#<~A>" (node-elt n)))))
+
+  elt (l nil) (r nil))
+
+
+
+(defconstant node-pool (make-array 1000 :fill-pointer t))
+
+(dotimes (i 1000)
+
+  (setf (aref node-pool i) (make-node)))
+
+
+
+(defun pop-node (elt l r)
+
+  (let ((node (if (plusp (length node-pool))
+
+		  (vector-pop node-pool)
+
+		(make-node))))
+
+    (setf (node-elt node) elt
+
+	  (node-l node)   l
+
+	  (node-r node)   r)
+
+    node))
+
+
+
+(defun push-node (node)
+
+  (vector-push node node-pool))
+
+
+
+(defun bst-insert (obj bst <)
+
+  (if (null bst)
+
+      (pop-node obj nil nil)
+
+      (let ((elt (node-elt bst)))
+
+        (if (eql obj elt)
+
+            bst
+
+	  (prog1
+
+	      (if (funcall < obj elt)
+
+		  (pop-node elt (bst-insert obj (node-l bst) <) (node-r bst))
+
+		(pop-node elt  (node-l bst) (bst-insert obj (node-r bst) <)))
+
+	    (push-node bst))))))
+
+
+
+(defun bst-find (obj bst <)
+
+  (if (null bst)
+
+      nil
+
+      (let ((elt (node-elt bst)))
+
+        (if (eql obj elt)
+
+            bst
+
+            (if (funcall < obj elt)
+
+                (bst-find obj (node-l bst) <)
+
+                (bst-find obj (node-r bst) <))))))
+
+
+
+(defun bst-min (bst)
+
+  (and bst
+
+       (or (bst-min (node-l bst)) bst)))
+
+
+
+(defun bst-max (bst)
+
+  (and bst
+
+       (or (bst-max (node-r bst)) bst)))
+
+
+
+(defun bst-traverse (fn bst)
+
+  (when bst
+
+    (bst-traverse fn (node-l bst))
+
+    (funcall fn (node-elt bst))
+
+    (bst-traverse fn (node-r bst))))
+
+
+
+; >>> Replaces bst-remove from book, which was broken.
+
+
+
+(defun bst-remove (obj bst <)
+
+  (if (null bst)
+
+      nil
+
+      (let ((elt (node-elt bst)))
+
+	(if (eql obj elt)
+
+	    (percolate bst)
+
+	  (prog1
+
+	      (if (funcall < obj elt)
+
+		  (pop-node elt (bst-remove obj (node-l bst) <) (node-r bst))
+
+		(pop-node elt  (node-l bst) (bst-remove obj (node-r bst) <)))
+
+	    (push-node bst))))))
+
+
+
+(defun percolate (bst)
+
+  (let ((l (node-l bst)) (r (node-r bst)))
+
+    (prog1
+
+	(cond ((null l) r)
+
+	      ((null r) l)
+
+	      (t (if (zerop (random 2))
+
+		     (pop-node (node-elt (bst-max l)) (bst-remove-max l) r)
+
+		   (pop-node (node-elt (bst-min r)) l (bst-remove-min r)))))
+
+      (push-node bst))))
+
+
+
+
+
+(defun bst-remove-min (bst)
+
+  (prog1
+
+      (if (null (node-l bst))
+
+	  (node-r bst)
+
+	(pop-node (node-elt bst) (bst-remove-min (node-l bst)) (node-r bst)))
+
+    (push-node bst)))
+
+
+
+(defun bst-remove-max (bst)
+
+  (prog1
+
+      (if (null (node-r bst))
+
+	  (node-l bst)
+
+	(pop-node (node-elt bst) (node-l bst) (bst-remove-max (node-r bst))))
+
+    (push-node bst)))
+
+
+
+
+
+
+
+
+
+
+

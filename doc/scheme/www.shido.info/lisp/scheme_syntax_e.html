@@ -1,0 +1,597 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, syntax, macro">
+<meta name="description" content="User defined syntax (macro) on the Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Scheme) 15. Defining Syntax </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_vec_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  14. Vectors and Structures</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_cc_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>16. Continuation</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_syntax_e.html&t=%28Scheme%29+Defining+Syntax' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+</tr></table></p>
+
+<h1>15. Defining Syntax   </h1>
+<hr>
+<h2>1. Introduction </h2>
+In this chapter, I am going to explain how to define your own syntax.
+User define syntax is called macro. The macro of the Lisp/Scheme is much more powerful than
+that of other languages such as the C.
+Macro makes your program beautiful and tight.
+<p>
+<strong>Macro is a transformation of codes.</strong>
+Codes are transformed before being evaluated or compiled,
+and the procedure continues as if the transformed codes are written from the beginning.
+<p>
+In the Scheme, simple macros can be defined easily by using <span class='ttb'>syntax-rules</span>
+which is defined in the R<sup>5</sup>RS, while macro definition of the Common Lisp is complicated.
+By using the <tt>syntax-rules</tt>, you can define macros in a direct way without worrying about
+variable captures.
+On the other hand, defining complicated macros that cannot be defined using the <tt>syntax-rules</tt>
+is more difficult than that of the Common Lisp.
+<p>
+
+<h2> 2. Examples of Simple Macros</h2>
+<p>
+ I will show simple macros as examples.
+<p>
+[code 1] shows a macro that assigns <tt>'()</tt> to a variable.
+<p>
+[code 1]
+<pre class='code'>
+(define-syntax nil!
+  (syntax-rules ()
+    ((_ x)
+     (set! x '()))))
+</pre>    
+The second argument of the <tt>syntax-rules</tt> is a list of the pair of
+the expressions before and after the transformation.
+The <tt>_</tt> represents the name of the macro.
+In short, [code 1] means that the expression <span class='ttb'>(nil! x)</span>
+is transformed into <span class='ttb'>(set! x '())</span>.
+<p>
+Such kind of procedures cannot be written by functions, because
+functions cannot affect the variable outside due to the closure.
+Let's write the function version of the  [code 1] and see what happens.
+<p>
+[code 1']
+<pre class='code'>
+(define (f-nil! x)
+   (set! x '()))
+</pre>
+
+<pre class='samp'>
+(define a 1)
+<span class='response'>;Value: a</span>
+
+(f-nil! a)
+<span class='response'>;Value: 1</span>
+
+a
+<span class='response'>;Value: 1</span>           <span class='comment'>; the value of a dose not change</span>
+
+(nil! a)
+<span class='response'>;Value: 1</span>
+
+a
+<span class='response'>;Value: ()</span>          <span class='comment'>; a becomes '()</span>
+</pre>
+
+<p>
+I will show another simple example. Let's write a macro <tt>when</tt>, in which
+several expressions are evaluated when the predicate is true.
+<p>
+[code 2]
+<pre class='code'>
+(define-syntax when
+  (syntax-rules ()
+    ((_ pred b1 ...)
+     (if pred (begin b1 ...)))))
+</pre>
+The <span class='ttb'>...</span> in the [code 2] represents arbitrary number of expressions (including 0).
+[code 2] indicates that the expression
+<pre>
+(when pred
+  b1
+  ...)
+</pre>
+is transformed to 
+<pre>
+(if pred
+  (begin
+     b1
+     ...))
+</pre>.
+
+This macro also cannot be written by a function because this is transformed into the special form <tt>if</tt>.
+Following shows how to use the <tt>when</tt>.
+
+<pre class='samp'>
+(let ((i 0))
+  (when (= i 0)
+    (display "i == 0")
+    (newline)))
+<span class='response'>i == 0
+;Unspecified return value</span>
+</pre>
+
+I will show two practical macros; <tt>while</tt> and <tt>for</tt>.
+The <tt>while</tt> evaluates the body while the predicate is true.
+The <tt>for</tt> evaluates the body if the number is in the range.
+<p>
+[code 3]
+<pre class='code'>
+(define-syntax while
+  (syntax-rules ()
+    ((_ pred b1 ...)
+     (let loop () (when pred b1 ... (loop))))))
+
+
+(define-syntax for
+  (syntax-rules ()
+    ((_ (i from to) b1 ...)
+     (let loop((i from))
+       (when (&lt; i to)
+	  b1 ...
+	  (loop (1+ i)))))))
+</pre>
+Following shows how to use them.
+<pre class='samp'>
+(let ((i 0))
+  (while (&lt; i 10)
+    (display i)
+    (display #\Space)
+    (set! i (+ i 1))))
+0 1 2 3 4 5 6 7 8 9 
+;Unspecified return value
+
+(for (i 0 10)
+  (display i)
+  (display #\Space))
+0 1 2 3 4 5 6 7 8 9 
+;Unspecified return value
+</pre>
+  
+<h3> Exercise 1</h3>
+Write a macro in that several expressions are evaluated when the predicate is false.
+(it is the opposite of the <tt>when</tt>.)
+  
+<h2>3. More about the <tt style='font-size:120%'>syntax-rules</tt> </h2>
+<h3>3.1. Defining several patterns</h3>
+The <tt>syntax-rules</tt> can define several patterns. For instance, the macro that increments the value of a variable,
+<span class='ttb'>incf</span> increments the value of the variable by one if only the variable name is given,
+and by value if variable name and the value are given.
+The macro <tt>incf</tt> can be defined by writing several transformation patterns like [code 4].
+<p>
+[code 4]
+<pre class='code'>
+(define-syntax incf
+  (syntax-rules ()
+    ((_ x) (begin (set! x (+ x 1)) x))
+    ((_ x i) (begin (set! x (+ x i)) x))))
+</pre>
+
+<pre class='samp'>
+(let ((i 0) (j 0))
+  (incf i)
+  (incf j 3)
+  (display (list 'i '= i))
+  (newline)
+  (display (list 'j '= j)))
+<span class='response'>(i = 1)
+(j = 3)
+;Unspecified return value</span>
+</pre>
+
+<h3> Exercise 2</h3>
+Write a macro <tt>decf</tt> that subtracts  a value from the variable.
+If the decrement value is omitted, it subtracts one form the variable. 
+
+<h3> Exercise 3</h3>
+Improve the <tt>for</tt> shown in the [code 3] to accept a step width.
+If the step width is omitted, it is 1.
+<h3>3.2. Recursive definition of macros</h3>
+Forms <tt>or</tt> and <tt>and</tt> are macros
+and defined recursively like as follows.
+
+
+<p>
+[code 5]
+<pre class="code">
+(define-syntax my-and
+  (syntax-rules ()
+    ((_) #t)
+    ((_ e) e)
+    ((_ e1 e2 ...)
+     (if e1
+	 (my-and e2 ...)
+	 #f))))
+
+(define-syntax my-or
+  (syntax-rules ()
+    ((_) #f)
+    ((_ e) e)
+    ((_ e1 e2 ...)
+     (let ((t e1))
+       (if t t (my-or e2 ...))))))
+</pre>
+Some of complicated macros can be defined using recursive definitions.
+
+<h3> Exercise 4</h3>
+Define <tt>let*</tt> by yourself.
+<h3>3.3. Using reserved words</h3>
+The first argument of the <tt>syntax-rules </tt>
+is a list of reserved words.
+For instance, <tt>cond</tt> is defined like [code 6], in which
+<tt>else</tt> is a reserved word.
+<p>
+[code 6]
+<pre class='code'>
+(define-syntax my-cond
+  (syntax-rules (else)
+    ((_ (else e1 ...))
+     (begin e1 ...))
+    ((_ (e1 e2 ...))
+     (when e1 e2 ...))
+    ((_ (e1 e2 ...) c1 ...)
+     (if e1 
+	 (begin e2 ...)
+	 (cond c1 ...)))))
+</pre>
+
+<h2>4. local syntax</h2>
+Local syntax can be defined using <span class='ttb'>let-syntax</span> and <span class='ttb'>letrec-syntax</span>
+in the Scheme. The usage of these forms is similar to that of the <tt>define-syntax</tt>.
+
+<h2>5. Implementation Depending Macro Definition</h2>
+The <tt>syntax-rules</tt> cannot define some kinds of macros.
+The way of defining such macros is prepared in Scheme implementations.
+You can skip this section as it is heavily depend on the implementations.<p>
+
+In the case of the MIT-Scheme, The <span class='ttb'>sc-macro-transformer</span> is
+available for such purpose, which allows to write macros in a similar way to taht of the Common Lisp.
+See <a href='http://www.lispworks.com/documentation/HyperSpec/Body/02_df.htm'>the Common Lisp HyperSpec.</a> about what 
+<span class='ttb'><u>` , ,@</u></span> are.
+See MIT-Scheme manual about <tt>sc-macro-transfomrer</tt> and <tt>make-syntactic-closure</tt>.
+[code 7] shows simple examples.  
+<p>
+      
+[code 7]
+<pre class='code'>
+(define-syntax show-vars
+  (sc-macro-transformer
+   (lambda (exp env)
+     (let ((vars (cdr exp)))
+       `(begin
+	  (display
+	   (list
+	    ,@(map (lambda(v)
+		     (let ((w (make-syntactic-closure env '() v)))
+		     `(list ',w ,w)))
+		   vars)))
+	  (newline))))))
+
+
+(define-syntax random-choice
+  (sc-macro-transformer
+   (lambda (exp env)
+     (let ((i -1))
+       `(case (random ,(length (cdr exp)))
+	  ,@(map (lambda (x)
+		   `((,(incf i)) ,(make-syntactic-closure env '() x)))
+		 (cdr exp)))))))
+		 
+
+
+(define-syntax aif
+  (sc-macro-transformer
+   (lambda (exp env)
+     (let ((test (make-syntactic-closure env '(it) (second exp)))
+	   (cthen (make-syntactic-closure env '(it) (third exp)))
+	   (celse (if (pair? (cdddr exp))
+		      (make-syntactic-closure env '(it) (fourth exp))
+		      #f)))
+       `(let ((it ,test))
+	  (if it ,cthen ,celse))))))
+</pre>
+The first macro <span class='ttb'>show-vars</span> is to show values of variables.
+
+<pre class='code'>
+(let ((i 1) (j 3) (k 7))
+  (show-vars i j k))
+<span class='response'>((i 1) (j 3) (k 7))
+;Unspecified return value</span>
+</pre>
+
+The form
+<tt>(show-vars i j k)</tt> is expanded like as follows.
+As macro can return only one expression,
+The  <tt>begin</tt> is required to return sets of expressions.
+<pre class='code'>
+(begin
+  (display
+   (list
+    (list 'i i) (list 'j j) (list 'k k)))
+  (newline))
+</pre>
+<p>
+  The second macro <span class='ttb'>random-choice</span> is to select
+a value or procedure randomly from the arguments.
+
+<pre class='samp'>
+(define (turn-right) 'right)
+(define (turn-left) 'left)
+(define (go-ahead) 'straight)
+(define (stop) 'stop)
+
+(random-choice (turn-right) (turn-left) (go-ahead) (stop))
+;Value: right
+</pre>
+The form is expanded like as follows:
+<pre class='code'>
+(case (random 4)
+  ((0) (turn-right))
+  ((1) (turn-left))
+  ((2) (go-ahead))
+  ((3) (stop)))
+</pre>
+
+The third macro <span class='ttb'>aif</span> is an anaphoric macro.
+The result of the predicate can be refereed as <var>it</var>.
+
+The variable <tt>it</tt> is captured by letting the second argument of <tt>make-syntactic-closure</tt>
+be <tt>'(it)</tt>.
+
+<pre class='samp'>
+(let ((i 4))
+  (aif (memv i '(2 4 6 8))
+       (car it)))
+<span class='response'>;Value: 4</span>
+</pre>
+
+Following shows the expansion.
+
+<pre class='code'>
+(let ((it (memv i '(2 4 6 8))))
+  (if it
+      (car it)
+      #f))
+</pre>
+
+<h2>6. A Primitive Implementation of the Structure</h2>
+The structure can be implemented by a simple macro shown in [code 8].
+The reality of the structure defined here is a vector and accessors and setters functions
+are created automatically by the macro.
+If your favorite Scheme implementation does not have structures, you should implement them by yourself.
+
+
+<p>
+[code 8]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; simple structure definition</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="comment">;;; lists of symbols -> string</span>
+<span class="linenumber">04:</span>     (define (append-symbol . ls)
+<span class="linenumber">05:</span>       (let loop ((ls (cdr ls)) (str (symbol->string (car ls))))
+<span class="linenumber">06:</span>         (if (null? ls)
+<span class="linenumber">07:</span>     	str
+<span class="linenumber">08:</span>     	(loop (cdr ls) (string-append str "-" (symbol->string (car ls)))))))
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     <span class="comment">;;; obj -> ls -> integer</span>
+<span class="linenumber">11:</span>     <span class="comment">;;; returns position of obj in ls</span>
+<span class="linenumber">12:</span>     (define (position obj ls)
+<span class="linenumber">13:</span>       (letrec ((iter (lambda (i ls)
+<span class="linenumber">14:</span>     		   (cond
+<span class="linenumber">15:</span>     		    ((null? ls) #f)
+<span class="linenumber">16:</span>     		    ((eq? obj (car ls)) i)
+<span class="linenumber">17:</span>     		    (else (iter (1+ i) (cdr ls)))))))
+<span class="linenumber">18:</span>         (iter 0 ls)))
+<span class="linenumber">19:</span>     		  	       
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>     <span class="comment">;;; list -> integer -> list</span>
+<span class="linenumber">22:</span>     <span class="comment">;;; enumerate list items</span>
+<span class="linenumber">23:</span>     (define (slot-enumerate ls i)
+<span class="linenumber">24:</span>       (if (null? ls)
+<span class="linenumber">25:</span>           '()
+<span class="linenumber">26:</span>         (cons `((,(car ls)) ,i) (slot-enumerate (cdr ls) (1+ i)))))
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>     <span class="comment">;;; define simple structure </span>
+<span class="linenumber">29:</span>     (define-syntax defstruct
+<span class="linenumber">30:</span>       (sc-macro-transformer
+<span class="linenumber">31:</span>        (lambda (exp env)
+<span class="linenumber">32:</span>          (let ((struct (second exp))
+<span class="linenumber">33:</span>                (slots  (map (lambda (x) (if (pair? x) (car x) x)) (cddr exp)))
+<span class="linenumber">34:</span>     	   (veclen (- (length exp) 1)))
+<span class="linenumber">35:</span>     	   
+<span class="linenumber">36:</span>            `(begin   
+<span class="linenumber">37:</span>     	  (define ,(string->symbol (append-symbol 'make struct))   <span class="comment">; making instance</span>
+<span class="linenumber">38:</span>     	    (lambda ls
+<span class="linenumber">39:</span>                   (let ((vec (vector ',struct ,@(map (lambda (x) (if (pair? x) (second x) #f)) (cddr exp)))))
+<span class="linenumber">40:</span>     		(let loop ((ls ls))
+<span class="linenumber">41:</span>     		  (if (null? ls)
+<span class="linenumber">42:</span>     		      vec
+<span class="linenumber">43:</span>     		      (begin
+<span class="linenumber">44:</span>                            (vector-set! vec (case (first ls) ,@(slot-enumerate slots 1)) (second ls))
+<span class="linenumber">45:</span>     			(loop (cddr ls))))))))
+<span class="linenumber">46:</span>     
+<span class="linenumber">47:</span>     	  (define ,(string->symbol (string-append (symbol->string struct) "?"))  <span class="comment">; predicate</span>
+<span class="linenumber">48:</span>     	    (lambda (obj)
+<span class="linenumber">49:</span>     	      (and
+<span class="linenumber">50:</span>     	       (vector? obj)
+<span class="linenumber">51:</span>     	       (eq? (vector-ref obj 0) ',struct))))
+<span class="linenumber">52:</span>     
+<span class="linenumber">53:</span>     	  ,@(map
+<span class="linenumber">54:</span>     	     (lambda (slot)
+<span class="linenumber">55:</span>     	       (let ((p (1+ (position slot slots))))
+<span class="linenumber">56:</span>     		 `(begin
+<span class="linenumber">57:</span>     		    (define ,(string->symbol (append-symbol struct slot))    <span class="comment">; accessors</span>
+<span class="linenumber">58:</span>     		      (lambda (vec)
+<span class="linenumber">59:</span>     			(vector-ref vec ,p)))
+<span class="linenumber">60:</span>     
+<span class="linenumber">61:</span>     		    (define-syntax ,(string->symbol                           <span class="comment">; modifier</span>
+<span class="linenumber">62:</span>     				     (string-append
+<span class="linenumber">63:</span>     				      (append-symbol 'set struct slot) "!"))
+<span class="linenumber">64:</span>     		      (syntax-rules ()
+<span class="linenumber">65:</span>     			((_ s v) (vector-set! s ,p v)))))))
+<span class="linenumber">66:</span>     	     slots)
+<span class="linenumber">67:</span>     
+<span class="linenumber">68:</span>     	  (define ,(string->symbol (append-symbol 'copy struct))      <span class="comment">; copier</span>
+<span class="linenumber">69:</span>     	    (lambda (vec)
+<span class="linenumber">70:</span>     	      (let ((vec1 (make-vector ,veclen)))
+<span class="linenumber">71:</span>     		(let loop ((i 0))
+<span class="linenumber">72:</span>     		  (if (= i ,veclen)
+<span class="linenumber">73:</span>     		      vec1
+<span class="linenumber">74:</span>     		      (begin
+<span class="linenumber">75:</span>     			(vector-set! vec1 i (vector-ref vec i))
+<span class="linenumber">76:</span>     			(loop (1+ i)))))))))))))
+</pre>
+
+Following shows the usage:<br>
+You can define a structure by giving slot names only or slot names and default values.
+<pre class='samp'>
+<span class='comment'>;;; Defining a structure point having 3 slots whose defaults are 0.0.</span>
+(defstruct point (x 0.0) (y 0.0) (z 0.0))
+<span class='response'>;Unspecified return value</span>
+
+(define p1 (make-point 'x 10 'y 20 'z 30))
+<span class='response'>;Value: p1</span>
+
+(point? p1)
+<span class='response'>;Value: #t</span>
+
+(point-x p1)
+<span class='response'>;Value: 10</span>
+
+<span class='comment'>;;; Default values are used for unspecified values when an instance is made.</span>
+(define p2 (make-point 'z 20))
+<span class='response'>;Value: p2</span>
+
+(point-x p2)
+<span class='response'>;Value: 0.</span>
+
+(point-z p2)
+<span class='response'>;Value: 20</span>
+
+<span class='comment'>;;; Changing a slot value</span>
+(set-point-y! p2 12)
+<span class='response'>;Unspecified return value</span>
+
+<span class='comment'>;;; The reality of the structure definde by [code 8] is a vector</span>
+p2
+<span class='response'>;Value 14: #(point 0. 12 20)</span>
+
+<span class='comment'>;;; Defining a structure 'book' with no default values.</span>
+(defstruct book title authors publisher year isbn)
+;Unspecified return value
+
+(define mon-month 
+  (make-book 'title  
+	     "The Mythical Man-Month: Essays on Software Engineering"
+	     'authors
+	     "F.Brooks"
+	     'publisher
+	     "Addison-Wesley"
+	     'year
+	     1995
+	     'isbn
+	     0201835959))
+<span class='response'>;Value: mon-month</span>
+
+mon-month
+<span class='response'>;Value 15: #(book 
+"The Mythical Man-Month: Essays on Software Engineering" 
+"F.Brooks" 
+"Addison-Wesley" 
+1995 
+201835959)</span>
+
+(book-title mon-month)
+<span class='response'>;Value 13: "The Mythical Man-Month: Essays on Software Engineering"</span>
+</pre>
+<h2>7. Summary</h2>
+I have explained about the macro in the Scheme briefly.
+Macros make your programs elegant.<p>
+The <span class='ttb'>syntax-rules</span> makes it easy to write macros. 
+Writing macros of the Common Lisp, on the other hand, requires certain skill.
+
+<h3>Answers for the Exercises</h3>
+
+<h4>Answer 1</h4>
+
+<pre class='code'>
+(define-syntax unless
+  (syntax-rules ()
+    ((_ pred b1 ...)
+     (if (not pred)
+	 (begin
+	   b1 ...)))))
+</pre>
+
+<h4>Answer 2</h4>
+<pre class='code'>
+(define-syntax decf
+  (syntax-rules ()
+    ((_ x) (begin (set! x (- x 1)) x))
+    ((_ x i) (begin (set! x (- x i)) x))))
+</pre>
+
+<h4>Answer 3</h4>
+<pre class='code'>
+(define-syntax for
+  (syntax-rules ()
+    ((_ (i from to) b1 ...)
+     (let loop((i from))
+       (when (&lt; i to)
+	  b1 ...
+	  (loop (1+ i)))))
+    ((_ (i from to step) b1 ...)
+     (let loop ((i from))
+       (when (&lt; i to)
+	  b1 ...
+	  (loop (+ i step)))))))
+</pre>
+<h4>Answer 4</h4>
+<pre class='code'>
+(define-syntax my-let*
+  (syntax-rules ()
+    ((_ ((p v)) b ...)
+     (let ((p v)) b ...))
+    ((_ ((p1 v1) (p2 v2) ...) b ...)
+     (let ((p1 v1))
+       (my-let* ((p2 v2) ...)
+		b ...)))))
+</pre>
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_vec_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  14. Vectors and Structures</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_cc_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>16. Continuation</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_syntax_e.html&t=%28Scheme%29+Defining+Syntax' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>

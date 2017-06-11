@@ -1,0 +1,137 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="apache, mod_security, security module">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 自宅サーバーのセキュリティ </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc14&t=%BC%AB%C2%F0%A5%B5%A1%BC%A5%D0%A1%BC%A4%CE%A5%BB%A5%AD%A5%E5%A5%EA%A5%C6%A5%A3"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>自宅サーバーのセキュリティ</h1>
+<hr>
+Feb 19, 2006
+<p>
+<h2>はじめに</h2>
+自宅サーバーを立ち上げたので、セキュリティには責任を持たなければなりません。
+<h2>web サーバー</h2>
+とりあえず Apache のモジュールの
+<a href="http://www.modsecurity.org/">mod_security</a>
+  をインストールしました。
+<p>
+インストールの方法は簡単で、ダイナミックモジュールとしてインストールする
+場合は、次の様にします。
+<ol>
+<li>ソースをダウンロードします。<br>
+<a href="http://www.modsecurity.org/download/index.html">
+http://www.modsecurity.org/download/index.html</a>
+から Stable releases のソースコード (<tt>modsecurity-apache-N.N.N.tar.gz</tt>)
+をダウンロードできます。
+<li> アーカイブを解凍します。<br>
+<tt>tar xzvf modsecurity-apache-N.N.N.tar.gz</tt>
+
+<li> Apache2 が <tt>/usr/local/apache2</tt> にある場合は、
+<pre class="samp">
+cd modsecurity-apache-N.N.N/apache2
+sudo /usr/local/apache2/bin/apxs -cia mod_security.c
+</pre>
+としてダイナミックリンクモジュールとしてコンパイルします。
+<li> <tt>httpd.conf</tt> に以下を加えます。
+これは、
+<a href="http://www.modsecurity.org/documentation/modsecurity-apache/stable/aa-recommended_configuration.html">
+ModSecurity for Apache User Guide, Appendix A: Recommended Configuration</a>
+をそのまま写しました。
+<pre class="code">
+&lt;IfModule security_module&gt;
+# Turn ModSecurity On
+SecFilterEngine On
+
+# Reject requests with status 403
+SecFilterDefaultAction "deny,log,status:403"
+
+# Some sane defaults
+SecFilterScanPOST On
+SecFilterCheckURLEncoding On
+SecFilterCheckUnicodeEncoding Off
+
+# Accept almost all byte values
+SecFilterForceByteRange 1 255
+
+# Server masking is optional
+# SecServerSignature "Microsoft-IIS/5.0"
+
+SecUploadDir /tmp
+SecUploadKeepFiles Off
+
+# Only record the interesting stuff
+SecAuditEngine RelevantOnly
+SecAuditLog logs/audit_log
+
+# You normally won't need debug logging
+SecFilterDebugLevel 0
+SecFilterDebugLog logs/modsec_debug_log
+
+# Only accept request encodings we know how to handle
+# we exclude GET requests from this because some (automated)
+# clients supply "text/html" as Content-Type
+SecFilterSelective REQUEST_METHOD "!^(GET|HEAD)$" chain
+SecFilterSelective HTTP_Content-Type 
+"!(^application/x-www-form-urlencoded$|^multipart/form-data;)"
+
+# Do not accept GET or HEAD requests with bodies
+SecFilterSelective REQUEST_METHOD "^(GET|HEAD)$" chain
+SecFilterSelective HTTP_Content-Length "!^$"
+
+# Require Content-Length to be provided with
+# every POST request
+SecFilterSelective REQUEST_METHOD "^POST$" chain
+SecFilterSelective HTTP_Content-Length "^$"
+
+# Don't accept transfer encodings we know we don't handle
+SecFilterSelective HTTP_Transfer-Encoding "!^$"
+&lt;/IfModule&gt;
+</pre>
+<li> apache2 をリスタートします。
+</ol>
+
+このほかに、
+<UL>
+<LI> データベースへのアクセスはストアドプロシージャを通して行う。
+<LI> &amp;, &lt; &gt, を &amp;amp;, &amp;lt;, &amp;gt; に置き換える。
+</UL>
+などのセキュリティ措置をとっています。<p>
+
+<h2>メールサーバー</h2>
+SMTP サーバーは Postfix を 、IMAP サーバーは Courie を 
+apt-get して使っています。
+<p>
+Postfix はセキュアな SMTP サーバーとして有名です。
+また、Courie も人気のソフトでたくさんのユーザーがいます。
+両方とも設定方法などは google で検索するとすぐに見つかります。
+
+<h2>終わりに</h2>
+万全とはいえないと思いますが、いまのところは大丈夫みたいです（たぶん）。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc14&t=%BC%AB%C2%F0%A5%B5%A1%BC%A5%D0%A1%BC%A4%CE%A5%BB%A5%AD%A5%E5%A5%EA%A5%C6%A5%A3"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

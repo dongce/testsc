@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, syntax, macro, マクロ">
+<meta name="description" content="Scheme でのマクロ定義">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 15. 構文の定義 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_vec.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  14. ヴェクトルと構造体</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_cc.html"><img src='../images/right_arrow.gif' class='arrow' border=0>16. 継続</a></td>
+<!-- <td><a rel=download href="scheme_vec.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_syntax.html&t=Scheme+%C6%FE%CC%E7+15.+%B9%BD%CA%B8%A4%CE%C4%EA%B5%C1' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+
+<h1>15. 構文の定義 (マクロ)  </h1>
+<hr>
+<h2>1. 初めに </h2>
+今回は Lisp 語族に特徴的機能である、自前の構文を定義する方法（マクロ）について
+説明します。マクロが定義できるようになると、プログラムがさらに簡潔に
+書けるようになります。<p>
+
+  <strong>マクロとは式の変換です。</strong> 式が評価される前に、または、コンパイル時に式が変換されます。
+  そして、変換後の式が初めからソースコードに書いてあったかのように処理が行われます。<p>
+
+  Common Lisp のマクロ定義はかなり複雑ですが、R<sup>6</sup>RS に準拠した Scheme では
+  <span class='ttb'>syntax-rules</span> という形式によって比較的簡単に定義できます。
+  <tt>syntax-rules</tt> を使うと変数補足などのわずらわしいことを気にしないで、
+  ”この式をこういう式に変換しろ”ということを直接的に書くことができます。<p>
+
+    ただし、<tt>syntax-rules</tt> で記述できないマクロを書くのは Common Lisp より複雑になります。
+
+<h2> 2. 簡単なマクロの例</h2>
+<p>
+  簡単な例を示して説明しましょう。
+  [code 1] は変数に '() を代入するマクロです。<p>
+[code 1]
+<pre class='code'>
+(define-syntax nil!
+  (syntax-rules ()
+    ((_ x)
+     (set! x '()))))
+</pre>    
+syntax-rules の 2 番目の引数は、もとの式 &rarr; 変換後の式 を記述した組です。
+また、<tt>_</tt> はマクロ名を表します。
+つまり、[code 1] の意味は、<span class='ttb'>(nil! x)</span> という式を
+<span class='ttb'>(set! x '())</span> に変換しろということです。<p>
+
+  これは関数で書くことはできません。関数で書くと、クロージャーの働きにより、関数の外の変数
+  と内部の変数は別の変数になり、関数が自分の外の変数を変化させることはできないからです。
+  試しに [code 1] の関数版を書いてどうなるか見てみましょう。<p>
+[code 1']
+<pre class='code'>
+(define (f-nil! x)
+   (set! x '()))
+</pre>
+
+<pre class='samp'>
+&gt; (define a 1)
+<span class='response'>a</span>
+
+&gt; (f-nil! 'a)
+<span class='response'>a</span>
+
+a
+<span class='response'>1</span>           <span class='comment'>; a の値は変わらない</span>
+
+&gt; (nil! a)
+<span class='response'>1</span>
+
+&gt; a
+<span class='response'>()</span>          <span class='comment'>; a が '() になった。</span>
+</pre>
+
+<p>
+  もうひとつ簡単な例を示しましょう。predicate が満たされるとき複数の式が実行されるマクロ
+  <tt>when</tt> を書いてみましょう。<p>
+[code 2]
+<pre class='code'>
+(define-syntax when
+  (syntax-rules ()
+    ((_ pred b1 ...)
+     (if pred (begin b1 ...)))))
+</pre>
+[code 2] で出てきた <span class='ttb'>...</span> は 0 個を含む任意個の式を表します。
+[code 2] の意味は、
+<pre>
+(when pred
+  b1
+  ...)
+</pre>
+を
+<pre>
+(if pred
+  (begin
+     b1
+     ...))
+</pre>
+に変換するということです。
+これも、特殊形式 if に変換されるマクロですから、関数で書くことはできません。使用例は以下のようになります。
+
+
+<pre class='samp'>
+(let ((i 0))
+  (when (= i 0)
+    (display "i == 0")
+    (newline)))
+<span class='response'>i == 0
+;Unspecified return value</span>
+</pre>
+
+簡単なマクロの実用的なものとして while と for を挙げておきます。while は predicate が成り立つ間
+本体を実行し、for は数を表す変数がある範囲内にある間処理を実行します。<p>
+[code 3]
+<pre class='code'>
+(define-syntax while
+  (syntax-rules ()
+    ((_ pred b1 ...)
+     (let loop () (when pred b1 ... (loop))))))
+
+
+(define-syntax for
+  (syntax-rules ()
+    ((_ (i from to) b1 ...)
+     (let loop((i from))
+       (when (&lt; i to)
+	  b1 ...
+	  (loop (1+ i)))))))
+</pre>
+実行例を以下に示します。
+<pre class='samp'>
+(let ((i 0))
+  (while (&lt; i 10)
+    (display i)
+    (display #\Space)
+    (set! i (+ i 1))))
+0 1 2 3 4 5 6 7 8 9 
+;Unspecified return value
+
+(for (i 0 10)
+  (display i)
+  (display #\Space))
+0 1 2 3 4 5 6 7 8 9 
+;Unspecified return value
+</pre>
+  
+<h3> 練習問題 1</h3>
+ある条件が満たされないとき複数の式を評価するマクロを作ってください。(when の反対です。）
+  
+<h2>3. syntax-rules の高度な使い方</h2>
+<h3>3.1. 複数のパターンを定義する。</h3>
+syntax-rules には複数の変換パターンを定義することができます。例えば、変数の値を増加させるマクロ
+<span class='ttb'>incf</span> を
+考えて見ましょう。変数名だけ与えられたときは 1 増やし、変数名と増分が与えら得れたときには増分だけ増やすようにします。
+[code 4] のように複数の変換パターンを記述することによって対応することができます。
+<p>
+[code 4]
+<pre class='code'>
+(define-syntax incf
+  (syntax-rules ()
+    ((_ x) (begin (set! x (+ x 1)) x))
+    ((_ x i) (begin (set! x (+ x i)) x))))
+</pre>
+
+<pre class='samp'>
+&gt; (let ((i 0) (j 0))
+  (incf i)
+  (incf j 3)
+  (display (list 'i '= i))
+  (newline)
+  (display (list 'j '= j)))
+<span class='response'>(i = 1)
+(j = 3)
+</span>
+</pre>
+
+<h3> 練習問題 2</h3>
+変数から減少分を引くマクロ decf を作ってください。減少分が省略されて時は 1 を引いてください。
+
+<h3> 練習問題 3</h3>
+[code 3] の for を改良して、ステップ幅を指定できるようにしてください。
+ステップ幅が省略されたときは 1 になるようにしてください。
+<h3>3.2. マクロの再帰的な定義</h3>
+or, and はマクロで、以下のように再帰的に定義されています。マクロ定義も再帰的に定義できるので、
+かなり複雑な構文を定義することができます。
+
+<p>
+[code 5]
+<pre class="code">
+(define-syntax my-and
+  (syntax-rules ()
+    ((_) #t)
+    ((_ e) e)
+    ((_ e1 e2 ...)
+     (if e1
+	 (my-and e2 ...)
+	 #f))))
+
+(define-syntax my-or
+  (syntax-rules ()
+    ((_) #f)
+    ((_ e) e)
+    ((_ e1 e2 ...)
+     (let ((t e1))
+       (if t t (my-or e2 ...))))))
+</pre>
+<h3> 練習問題 4</h3>
+let* を定義してください。
+<h3>3.3. 予約語の使用</h3>
+<tt>syntax-rules </tt>の最初の引数はマクロ内で使用する予約語のリストです。例えば、<tt>cond</tt> は [code 6]
+のように定義されます。[code 6] で <tt>else</tt> は 予約語として働きます。<p>
+[code 6]
+<pre class='code'>
+(define-syntax my-cond
+  (syntax-rules (else)
+    ((_ (else e1 ...))
+     (begin e1 ...))
+    ((_ (e1 e2 ...))
+     (when e1 e2 ...))
+    ((_ (e1 e2 ...) c1 ...)
+     (if e1 
+	 (begin e2 ...)
+	 (cond c1 ...)))))
+</pre>
+
+<h2>4. 局所マクロ</h2>
+Scheme では、<span class='ttb'>let-syntax</span>, <span class='ttb'>letrec-syntax</span> を使って
+局所的に構文を定義することができます。使い方は通常の <tt>define-syntax</tt> とほぼ同じです。
+
+
+
+<h2>5. <tt>syntax-case</tt></h2>
+<tt>syntax-rules</tt> で全てのマクロが記述できるわけではありません。そのようなマクロを記述するための方法が
+R<sup>6</sup>RS のライブラリの <a href='http://www.r6rs.org/final/html/r6rs-lib/r6rs-lib-Z-H-13.html#node_chap_12'><tt>syntax-case</tt></a>
+に定義されています。
+<br>
+<tt>syntax-case</tt> をつかうと Common Lisp の マクロと同等のものをより安全に定義することができます。
+<tt>syntax-case</tt> は難易度が高いので、はじめは飛ばしてもしてもかまいません。
+<p>
+
+以下に比較的簡単な例を挙げます。
+
+<p>
+      
+[code 7]
+<pre class='code'>
+
+ 
+(define-syntax show-vars
+  (lambda (x)
+    (syntax-case x ()
+      [(_) #''shown]
+      [(_ e1 e2 ...) 
+       #'(begin (display 'e1) (display "->") (display e1) (newline) (show-vars e2 ...))])))
+
+
+ 
+(define-syntax aif
+  (lambda (x)
+    (syntax-case x ()
+      [(k c b ...)
+       (with-syntax 
+	([it (datum->syntax #'k 'it)])
+	#'(let ((it c))
+	    (if it b ...)))])))
+
+
+</pre>
+最初のマクロ <span class='ttb'>show-vars</span> は変数の値を表示するマクロです。以下のように使います。
+
+<pre class='samp'>
+&gt; (let ((i 0) (j 1) (k 2)) (show-vars i j k))
+<span class='response'>i->0
+j->1
+k->2
+shown</span>
+</pre>
+
+
+
+  2 番目の <span class='ttb'>aif</span> は代名詞マクロです。predicate の結果を <var>it</var> として参照できます。
+<tt>datum-&gt;syntax</tt> の２番目の引数を <tt>'it</tt>
+とすることで代名詞 <var>it</var> を意図的に捕捉しています。
+  使用例は以下の通りです。
+
+<pre class='samp'>
+&gt; (let ((i 4))
+  (aif (memv i '(2 4 6 8))
+       (car it) #f))
+<span class='response'>4</span>
+</pre>
+
+
+<h2>6. 終わりに</h2>
+Scheme のマクロについて簡単に説明しました。
+マクロを使わなくてもプログラムは書けますが、マクロを使ったほうがエレガントなプログラムが書けます。<p>
+
+Common Lisp ではマクロを書くにはそれなりの熟練が必要ですが、
+  Scheme の
+<span class='ttb'>syntax-rules</span> を使うと比較的簡単にマクロを書くことができます。
+<p>
+<tt>syntax-case</tt> を使うと、Common Lisp で定義できるマクロのほとんどをより安全に定義することができます。
+ただ、<tt>syntax-case</tt> はかなり難易度が高いです。
+
+<h3>練習問題の解答</h3>
+
+<h4>練習問題 1</h4>
+
+<pre class='code'>
+(define-syntax unless
+  (syntax-rules ()
+    ((_ pred b1 ...)
+     (if (not pred)
+	 (begin
+	   b1 ...)))))
+</pre>
+
+<h4>練習問題 2</h4>
+<pre class='code'>
+(define-syntax decf
+  (syntax-rules ()
+    ((_ x) (begin (set! x (- x 1)) x))
+    ((_ x i) (begin (set! x (- x i)) x))))
+</pre>
+
+<h4>練習問題 3</h4>
+<pre class='code'>
+(define-syntax for
+  (syntax-rules ()
+    ((_ (i from to) b1 ...)
+     (let loop((i from))
+       (when (&lt; i to)
+	  b1 ...
+	  (loop (1+ i)))))
+    ((_ (i from to step) b1 ...)
+     (let loop ((i from))
+       (when (&lt; i to)
+	  b1 ...
+	  (loop (+ i step)))))))
+</pre>
+<h4>練習問題 4</h4>
+<pre class='code'>
+(define-syntax my-let*
+  (syntax-rules ()
+    ((_ ((p v)) b ...)
+     (let ((p v)) b ...))
+    ((_ ((p1 v1) (p2 v2) ...) b ...)
+     (let ((p1 v1))
+       (my-let* ((p2 v2) ...)
+		b ...)))))
+</pre>
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_vec.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  14. ヴェクトルと構造体</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_cc.html"><img src='../images/right_arrow.gif' class='arrow' border=0>16. 継続</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_syntax.html&t=Scheme+%C6%FE%CC%E7+15.+%B9%BD%CA%B8%A4%CE%C4%EA%B5%C1' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

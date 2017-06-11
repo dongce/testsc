@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="xyzzy, aspell, スペルチェッカー">
+<meta name="description" content="xyzzy から aspell （メジャーでフリーのスペルチェッカー）を使うためのスクリプトです。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> xyzzy から aspell を使う </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="aspell_l.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/aspell_l.html&t=xyzzy+%A4%AB%A4%E9+aspell+%A4%F2%BB%C8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+<h1>xyzzy から aspell を使う</h1>
+<hr>
+<h2>1. はじめに </h2>
+aspell は ispell の後継のスペルチェッカーとして現在盛んに開発が進められています。
+Win32 版もあり、単体でもそれなりに便利に利用できます。しかし、単体ではファイル全体のチェックしか出来ない、
+一度 xyzzy から抜け出す必要があるなどの不便があります。そこで xyzzy から aspell を使うための
+マクロ aspell.l を書いてみました。このマクロを使うと xyzzy から直接 aspell が利用できます。
+また選択した範囲だけをスペルチェックすることも出来ます。<p>
+
+なお、aspell.l を書く際に ispell.l を参考にさせていただきました。また、xyzzy はいつも便利に
+使わせていただいています。亀井氏に感謝します。<p>
+
+
+<h2>2. 準備 </h2>
+<h3>2.1 aspell のインストール</h3>
+aspell は、<a href="http://aspell.net/win32/">aspell.net</a>
+からダウンロード出来ます。また、インストーラーがついているので
+簡単にインストール出来ます。同ページから辞書もダウンロードできますので、それも忘れずに
+インストールしてください。英語のほかに多くの欧米言語の辞書が用意されています。<p>
+<img src="aspell_icon.jpg" title="desktop icon of aspell" style="float:right">
+インストールが完了するとディスクトップに右図のようなアイコンが現れます。 
+そこに英語（またはほかの欧米語）で書かれたテキストファイル（ *.tex, *.html を含む）
+をドロップしてみて下さい。下図のようなウインドウが開いてスペルチェック
+が行われれば aspell のインストールは成功です。<p>
+
+<center>
+<img src="aspell_window.jpg" title="window of aspell">
+</center>
+
+<h3>2.2 aspell.l のインストール</h3>
+次の手順でインストールを行います。
+<ol>
+<li> aspell.l を xyzzy/site-lisp に保存し、バイトコンパイルします。
+<li> .xyzzy を編集します。
+	<ol>
+	<li>インポートするシンボルに <tt>ed::aspell, ed::*aspell-command*, ed::*aspell-language*</tt> を加えます。<br>
+		<span class="graybg"><tt>(import '(<b>ed::aspell  ed::*aspell-command* ed::*aspell-language*</b> <i>imported1 imported1</i>))</tt></span>
+	<li>aspell が autoload されるようにします。<tt>(autoload 'aspell "aspell" t)</tt>
+	<li> キーバインディングを行います。<tt>(global-set-key #\M-a 'aspell)</tt>
+	<li> 自分のシステムに合わせて、起動する aspell を指定します。<br>
+		<span class="graybg"><tt>(setq *aspell-command* "C:\\aspell\\bin\\aspell.exe -a")</tt></span> <br>
+		ここで、引数 "-a" を必ずつけて下さい。 
+	</ol>
+<li> xyzzy のダンプファイルを削除して xyzzy を立ち上げます。（ダンプファイルが再作成される。）
+</ol>
+	下に .xyzzy の記述例を挙げます。<p>
+
+
+<pre class="oset">
+(import '(ed::aspell ed::*aspell-command* ed::*aspell-language*))
+(autoload 'aspell "aspell" t)
+(global-set-key #\M-a 'aspell)
+(setq *aspell-command* "C:\\aspell\\bin\\aspell.exe -a")
+</pre>
+
+
+
+ここでは例として、Alt-a にキーバインドしてみました。
+スクリプトのインストールについての詳細は
+<a href="http://xyzzy.s53.xrea.com/wiki/wiki.php?%BD%E9%A4%E1%A4%C6%A4%CExyzzy">
+初めてのxyzzy</a> 
+や
+<a href="http://www.jsdlab.co.jp/~kei/xyzzy/">
+赤塚氏のページ
+</a>
+を参考にしてください。
+インストールがすんだら、何か適当な英文ファイルを読み込んでテストしてみてください。
+下図のような画面が現れれば成功です。
+範囲を選択しないで実行するとバッファー全体が、範囲を指定すると
+その範囲のスペルチェックが行われます。
+aspell は ispell より若干動作が遅いので、長い文書をスペルチェックするときは
+お茶でもしながら気長に待ちましょう。<p>
+<center><img src="aspell_xyzzy.jpg" title="using aspell from xyzzy"></center>
+
+<h2> 3. aspell.l の使用法 </h2>
+前に述べたように、バッファーの範囲を指定して aspell.l を起動するとその範囲のみが
+スペルチェックされ、また、範囲を指定しないとバッファー全体がスペルチェックされます。<br>
+コマンドはミニバッファーから入力します。
+aspell.l には次のコマンドがあります。
+<div class="lmargin50">
+<dl>
+<dt><b> Number (N) </b>
+<dd> N 番目の選択肢を用いて現在の単語以降にある同じスペルの単語全てを置換します。
+<dt><b> /Number (N) </b>
+<dd> "/N" と入力すると、Ｎ 番目の選択肢を用いて、現在チェックしている単語のみを置換します。
+<dt> <b>Ignore</b>
+<dd> 現在チェックしている単語をスキップしてスペルチェックを継続します。
+<dt> <b>Ignore all</b>
+<dd> 現在チェックしている単語と同じスペルの単語を除外してスペルチェックを継続します。
+<dt> <b>Replace</b>
+<dd> 現在の単語をミニバッファから入力した単語で置き換えます。
+<dt> <b>Replace all</b> 
+<dd> 現在の単語以降にある全ての同じスペルの単語をミニバッファから入力した単語で置き換えます。
+<dt><b>Add</b>
+<dd> 辞書に登録します。
+<dt><b>Add lower</b>
+<dd> その単語と、それを小文字で書いた単語を辞書に登録します。
+<dt><b>Exit</b>
+<dd> 現在まで行われたスペルチェックの結果を保持してスペルチェックを終了します。
+<dt><b>Abort</b>
+<dd> スペルチェックを行う前の状態に戻して、スペルチェックを中断します。
+</dl></div>
+<br>
+なお、Replace と Replace all で、ミニバッファから単語を入力すると、その単語の
+スペルチェックがおこなわれ、正しければそのまま置換され、間違っていれば
+<BLOCKQUOTE><span class="graybg">
+"<i>the word</i> is not in the dictionary, use anyway? (y/n)" 
+</span></BLOCKQUOTE>
+とミニバッファに表示され、"y" を入力するとそのまま使い "n" だと単語を再入力します。
+ミニバッファから単語を入力しないと、Replace, Replace all はそれぞれ Ignore, Ignore all
+と同様の動作をします。
+
+<a name="multi">
+<h2>4. 英語以外の言語のスペルチェックの方法</h2>
+aspell.l を使って英語以外の欧文のスペルチェックを行うこともできます。
+手順は以下の通りです。
+<ol>
+<li>ファイルを <strong>ISO-8859-N</strong> 形式で保存します。言語と文字コードの対応は表１を見てください。<br>
+  ”ファイル &rarr; 名前を付けて保存” で、エンコーディングのリストボックスから選びます。<br>
+  xyzzy-lisp を使う場合は ESC を２回押してミニバファから<br>
+  <tt>(write-file <var>filename</var> nil nil <var>encoding</var>)</tt><br>
+  とします。ここで <var>encoding</var> は <b>*encoding-iso-8859-<var>N</var>*</b>
+  (<var>N</var> = 1 -- 13) です。例えば、フランス語の場合は *encoding-iso-8859-1* 、
+  ロシア語の場合は *encoding-iso-8859-5* とします。
+  
+<li>ed::*aspell-language* に ISO-639 言語コードをセットします。
+  例えばフランス語の場合は (ESC を２回押して) ミニバッファから<br>
+  <tt>(setq ed::*aspell-language* "fr")</tt><br>
+  とします。
+<li>後は、英語の場合と同様にスペルチェックをします。
+  </ol>
+  
+ <p style='margin-left:100px'> 表１：言語名、ISO-639 言語コード、ISO-8859-N 文字コードの対応</p>
+<table border=1  style='margin-left:100px'>
+<tr><th>言語名</th><th>ISO-639 言語コード</th><th>ISO-8859-N 文字コード</th></tr>
+<tr><td>英語</td><td style='padding-left:30px'>en</td><td style='padding-left:30px'>ISO-8859-1</td></tr>
+<tr><td>フランス語</td><td style='padding-left:30px'>fr</td><td style='padding-left:30px'>ISO-8859-1</td></tr>
+<tr><td>ドイツ語</td><td style='padding-left:30px'>de</td><td style='padding-left:30px'>ISO-8859-1</td></tr>
+<tr><td>スペイン語</td><td style='padding-left:30px'>es</td><td style='padding-left:30px'>ISO-8859-1</td></tr>
+<tr><td>イタリア語</td><td style='padding-left:30px'>it</td><td style='padding-left:30px'>ISO-8859-1</td></tr>
+<tr><td>オランダ語</td><td style='padding-left:30px'>nl</td><td style='padding-left:30px'>ISO-8859-1</td></tr>
+<tr><td>スウェーデン語</td><td style='padding-left:30px'>sv</td><td style='padding-left:30px'>ISO-8859-1</td></tr>
+<tr><td>ノルウェー語</td><td style='padding-left:30px'>no</td><td style='padding-left:30px'>ISO-8859-1</td></tr>
+<tr><td>デンマーク語</td><td style='padding-left:30px'>da</td><td style='padding-left:30px'>ISO-8859-1</td></tr>
+<tr><td>チェコ語</td><td style='padding-left:30px'>cs</td><td style='padding-left:30px'>ISO-8859-2</td></tr>
+<tr><td>ポーランド語</td><td style='padding-left:30px'>pl</td><td style='padding-left:30px'>ISO-8859-2</td></tr>
+<tr><td>ポルトガル語</td><td style='padding-left:30px'>pt</td><td style='padding-left:30px'>ISO-8859-2</td></tr>
+<tr><td>ルーマニア語</td><td style='padding-left:30px'>ro</td><td style='padding-left:30px'>ISO-8859-2</td></tr>
+<tr><td>スロバキア語</td><td style='padding-left:30px'>sk</td><td style='padding-left:30px'>ISO-8859-2</td></tr>
+<tr><td>ロシア語</td><td style='padding-left:30px'>ru</td><td style='padding-left:30px'>ISO-8859-5</td></tr>
+<tr><td>ギリシャ語</td><td style='padding-left:30px'>el</td><td style='padding-left:30px'>ISO-8859-7</td></tr>
+</table>
+
+<h2> 5. カスタマイズ </h2>
+下の表にユーザーが値を設定できる変数名とその初期値を示します。これらの変数は
+初期値以外の値に変更することが出来ます。たとえば、.xyzzy に以下の式を追加すると、
+<BLOCKQUOTE><span class="graybg">
+(setq ed::*aspell-max-choices* 20)
+</span></BLOCKQUOTE>
+表示される選択肢の最大値を 20 に変更することが出来ます。<p>
+<center>
+表：ユーザーが変更できる変数
+<table border=1>
+	<tr>
+		<th>変数</th>
+		<th>初期値</th>
+		<th>説明</th>
+	</tr>
+	<tr>
+		<td width="150">*aspell-command*</td>
+		<td width="320"><tt>"C:\\Aspell\\bin\\aspell.exe -a"</tt></td>
+		<td align=left>起動する aspell を指定します。<sup>注１</sup>
+		</td>	
+	</tr>
+	<tr>
+		<td width="150">*aspell-option*</td>
+		<td width="320"><tt>"fast"</tt></td>
+		<td align=left>aspell のオプションを指定します。<sup>注2</sup></td>	
+
+	</tr>
+	<tr>
+		<td width="150">*aspell-file-type-option*</td>
+		<td width="320"><tt>'(("html" . "-H") <br>("tex" . "-t"))</tt></td>
+		<td align=left>aspell のファイルタイプごとのオプションを指定します。<sup>注2</sup></td>	
+	</tr>
+	<tr>
+		<td width="150">*aspell-language*</td>
+		<td width="320"><tt>"en"</tt></td>
+		<td align=left>スペルチェックする文章の言語を ISO 639 形式で指定します。詳細は
+		<a href="#multi">英語以外の言語のスペルチェックの方法</a> を見てください。
+	        </td>	
+	</tr>
+	<tr>
+		<td width="150">*aspell-spelling-error-attributes*</td>
+		<td width="320"><tt>'(:foreground 1 :underline t)</tt></td>
+		<td align=left>スペルミスしている単語の表示方法を指定します。</td>	
+	</tr>
+	<tr>
+		<td width="150">*aspell-max-choices*</td>
+		<td width="320"><tt>30</tt></td>
+		<td align=left>表示する選択肢の最大値を指定します。</td>	
+	</tr>
+	<tr>
+		<td width="150">*aspell-assigned-characters*</td>
+		<td width="320"><tt>'((#\SPC   "Ignore"      nil)  <br>
+                                       (#\i     "Ignore all"   t )<br>
+                                       (#\r     "Replace"     nil)<br>
+                                       (#\R     "Replace all"  t )<br>
+                                       (#\a     "Add"          t )<br>
+                                       (#\u     "Add lower"    t )<br>
+                                       (#\x     "EXit"        nil)<br>
+                                       (#\!     "Abort"       nil))</tt></td>
+		<td align=left valign=top>キーバインドを指定します。<p>
+たとえば、"Ignore" にドット (<b>.</b>) を割り当てるには、<br>
+<tt>(#\.   "Ignore"      nil)</tt><br>
+とします。キーバインド（サブリストの最初の項）のみ変更可能です。<br>他を変えるとプログラムが動かなくなります。<br>
+また、キーに数字や Enter を割り当てることはできません。</td>	
+	</tr>
+</table>
+</center><br>
+<div class="comt">
+注１：引数には必ず "-a" を付けてください。<br>
+注２：aspell のオプションについての詳しい説明は
+aspell に添付されているマニュアルにあります。  <br>
+</div>
+<h2> 6. 終わりに </h2>
+Ispell の開発は終了し、辞書の入手が困難になりつつあります。それに対し、aspell は現在
+開発が進行中であり、辞書も用意に入手できます。従って、xyzzy から aspell を使うニーズは
+かなりあると思い、このスクリプトを公開します。このスクリプトが皆様のお役に立てれば幸いです。
+不具合、ご要望などは<a href="mailto:shido_takafumi@ybb.ne.jp">紫藤</a>までお送りください。<p>
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="aspell_l.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/aspell_l.html&t=xyzzy+%A4%AB%A4%E9+aspell+%A4%F2%BB%C8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

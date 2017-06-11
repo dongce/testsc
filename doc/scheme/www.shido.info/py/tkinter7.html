@@ -1,0 +1,1139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="Image Viewer using Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 7. Widget てんこ盛り画像 Viewer </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter6.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. Listbox を使ってお花を愛でましょう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter8.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  8. Menu を使ったシンプル 画像 Viewer</a></td>
+<td><a rel='download' href="tkinter7.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter7.html&t=Tkinter+%C6%FE%CC%E7%3A+7.+Widget+%A4%C6%A4%F3%A4%B3%C0%B9%A4%EA%B2%E8%C1%FC+Viewer' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>7. Widget てんこ盛り画像 Viewer</h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+ Tkinter にもだいぶ慣れてこられたと思うので、小物 widget をまとめて
+ 紹介してしまおうと思います。<p>
+
+   お題は画像ファイル Viewer (viewer.py) です。これだと前回までの話を引き継げるし、
+   無理なくいろいろな widget を使えます。生成する Window (図１) 
+ をみてお分かりになるように、いろいろな Widget が使ってあります。
+ <p>
+   前回までの解説でお分かりになったと思いますが、Tkinter の widget の使い方は
+   種類にかかわらず同じです。つまり、
+   <ol>
+      <li>作成するときは、第一引数に親 widget、それ以降に、widget の属性を定義するキーワード引数が続ける。
+      <li> pack, grid, place を用いて配置する。
+      <li> 属性を変化させたいときは <strong>.configure</strong> メソッドを使う。
+   </ol>
+   です。Widget の種類ごとに取りうる属性と、widget 特有のメソッドは以下のサイトに詳しいので、参照してください。
+   <ul>
+     <li><a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/'>Tkinter reference: a GUI for Python</a>
+     <li><a href='http://effbot.org/tkinterbook/'>An Introduction to Tkinter </a>
+     <li><a href='http://starship.python.net/crew/fredrik/tkmanual/'>Tkinter Manual Pages </a>
+     <li><a href='http://kansai.anesth.or.jp/gijutu/python/man-gui/man-gui.php'>
+          日本麻酔科学会関西地方会 Yoshifumi Tanaka</a>
+       </ul>
+
+   また、<a href='python6.html'>Tkinter demo</a> も参考にしてみてください。<p>
+
+<center>
+  <img src='viewer_main.jpg'><br>(a)<p>
+  <table cellpadding="10">
+  <tr>
+    <td align="center"><img src='viewer_original.jpg'><br>(b)</td>
+    <td align="center"><img src='viewer_bgscale.jpg'><br>(c)</td>
+  </tr>
+  <tr>
+    <td align="center"><img src='viewer_dir.jpg'><br>(d)</td>
+    <td align="center"><img src='viewer_info.jpg'><br>(e)</td>
+  </tr>
+  </table>
+</center>
+<p style='margin-left:70'>
+図１．viewer.py で生成する Window。<br>
+a) メイン window。<br>
+b) オリジナルサイズの画像に (GIF の場合）背景色をつけたもの。<br>
+c) 背景色調節用 window<br>
+d) ディレクトリ選択 window<br>
+e) 説明 window<br>
+</p>
+   
+
+<h2>2. プログラムの作成</h2>
+これだけ、たくさんの widget があると、プログラムもさぞかし長いだろうt思われるかもしれませんが、
+そんなことはなく、220 行ほどです。[code 1] にプログラムを示します。<p>
+[code 1] (viewer.py)
+<pre class='code'>
+<span class="linenumber"> 01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber"> 02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber"> 03:</span>     
+<span class="linenumber"> 04:</span>     <span class="string">"""
+<span class="linenumber"> 05:</span>     viewer.py 
+<span class="linenumber"> 06:</span>     
+<span class="linenumber"> 07:</span>     view images in a directory
+<span class="linenumber"> 08:</span>     
+<span class="linenumber"> 09:</span>     June 30, 2005
+<span class="linenumber"> 10:</span>     """</span>
+<span class="linenumber"> 11:</span>     
+<span class="linenumber"> 12:</span>     import re
+<span class="linenumber"> 13:</span>     import os
+<span class="linenumber"> 14:</span>     import os.path as P
+<span class="linenumber"> 15:</span>     import Tkinter as Tk
+<span class="linenumber"> 16:</span>     import Image as I
+<span class="linenumber"> 17:</span>     import ImageTk as Itk
+<span class="linenumber"> 18:</span>     import tkFileDialog as D
+<span class="linenumber"> 19:</span>     import tkMessageBox as M
+<span class="linenumber"> 20:</span>     
+<span class="linenumber"> 21:</span>     
+<span class="linenumber"> 22:</span>     SIZE = 100
+<span class="linenumber"> 23:</span>     IMAGR_TYPES = ['gif', 'png', 'bmp', 'jpg', 'tif', 'ppm']
+<span class="linenumber"> 24:</span>     MAM_COLN = 6
+<span class="linenumber"> 25:</span>     GEO_MAIN = '+20+20'
+<span class="linenumber"> 26:</span>     GEO_SATE = '+750+50'
+<span class="linenumber"> 27:</span>     GEO_SCAL = '+750+400'
+<span class="linenumber"> 28:</span>     BGS = [('aliceblue', '#F0F8FF'), ('azure', '#F0FFFF'), ('beige', '#F5F5DC'),              \
+<span class="linenumber"> 29:</span>            ('cornsilk', '#FFF8DC'), ('khaki', '#F0E68C'), ('lightgreen', '#90EE90'),          \
+<span class="linenumber"> 30:</span>            ('lightpink', '#FFB6C1'), ('lightskyblue', '#87CEFA'), ('palegreen', '#98FB98')]
+<span class="linenumber"> 31:</span>     
+<span class="linenumber"> 32:</span>     
+<span class="linenumber"> 33:</span>     <span class="comment">## functions ------------------------------------------------</span>
+<span class="linenumber"> 34:</span>     def get_size(tup):
+<span class="linenumber"> 35:</span>         <span class="string">""" It returns the size of images on the summary"""</span>
+<span class="linenumber"> 36:</span>         x, y = tup
+<span class="linenumber"> 37:</span>         if (x&lt;=100 and y&lt;=100):
+<span class="linenumber"> 38:</span>             return (x, y)
+<span class="linenumber"> 39:</span>         elif x &gt; y:
+<span class="linenumber"> 40:</span>             r = float(SIZE) / float(x)
+<span class="linenumber"> 41:</span>             return (100, int(y*r))
+<span class="linenumber"> 42:</span>         else:
+<span class="linenumber"> 43:</span>             r = float(SIZE) / float(y)
+<span class="linenumber"> 44:</span>             return (int(x*r), 100)
+<span class="linenumber"> 45:</span>             
+<span class="linenumber"> 46:</span>     
+<span class="linenumber"> 47:</span>     def make_regexp(types):
+<span class="linenumber"> 48:</span>         <span class="string">""" It returns the regular expression of the image file type"""</span> 
+<span class="linenumber"> 49:</span>         str = "\.("
+<span class="linenumber"> 50:</span>         for k, v in types.iteritems():
+<span class="linenumber"> 51:</span>             if v.get():
+<span class="linenumber"> 52:</span>                 str += k + '|'
+<span class="linenumber"> 53:</span>     
+<span class="linenumber"> 54:</span>         str = str[0:-1] + ')$'
+<span class="linenumber"> 55:</span>         return re.compile(str, re.I)
+<span class="linenumber"> 56:</span>     
+<span class="linenumber"> 57:</span>     
+<span class="linenumber"> 58:</span>     <span class="comment">## classes ------------------------------------------------------------------</span>
+<span class="linenumber"> 59:</span>     class ImageLabel(Tk.Frame):
+<span class="linenumber"> 60:</span>         <span class="string">""" A Label class to show an image """</span>
+<span class="linenumber"> 61:</span>     
+<span class="linenumber"> 62:</span>         id_original_size = None    <span class="comment"># ID of the Label showing an original size image</span>
+<span class="linenumber"> 63:</span>         bg_var = None              <span class="comment"># variable for background color</span>
+<span class="linenumber"> 64:</span>         
+<span class="linenumber"> 65:</span>         def __init__(self, master, image_file, img):
+<span class="linenumber"> 66:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber"> 67:</span>             self.image = img
+<span class="linenumber"> 68:</span>             self.image_file = image_file
+<span class="linenumber"> 69:</span>             img_label=Tk.Label(self, image=self.image)
+<span class="linenumber"> 70:</span>             img_label.pack()
+<span class="linenumber"> 71:</span>             txt_label=Tk.Label(self, text=P.basename(self.image_file), font=('Helvetica', '8'))
+<span class="linenumber"> 72:</span>             txt_label.pack()
+<span class="linenumber"> 73:</span>             img_label.bind('&lt;Double-Button-1&gt;', self.show)
+<span class="linenumber"> 74:</span>     
+<span class="linenumber"> 75:</span>         def show(self, event):
+<span class="linenumber"> 76:</span>             label = ImageLabel.id_original_size
+<span class="linenumber"> 77:</span>             if (label and label.winfo_exists()):
+<span class="linenumber"> 78:</span>                 top = label.winfo_toplevel()
+<span class="linenumber"> 79:</span>                 top.destroy()
+<span class="linenumber"> 80:</span>             top = Tk.Toplevel(self)
+<span class="linenumber"> 81:</span>             top.title(P.basename(self.image_file))
+<span class="linenumber"> 82:</span>             top.geometry(GEO_SATE)
+<span class="linenumber"> 83:</span>             img = I.open(self.image_file)
+<span class="linenumber"> 84:</span>             self.timg = Itk.PhotoImage(img)
+<span class="linenumber"> 85:</span>             label=Tk.Label(top, image=self.timg, bg=ImageLabel.bg_var.get())
+<span class="linenumber"> 86:</span>             label.pack()
+<span class="linenumber"> 87:</span>             ImageLabel.id_original_size = label
+<span class="linenumber"> 88:</span>     
+<span class="linenumber"> 89:</span>     
+<span class="linenumber"> 90:</span>     
+<span class="linenumber"> 91:</span>     class ImageFrame:
+<span class="linenumber"> 92:</span>         <span class="string">""" A Class to show summary of images """</span>
+<span class="linenumber"> 93:</span>         
+<span class="linenumber"> 94:</span>         def __init__(self, master, **key):
+<span class="linenumber"> 95:</span>             self.master=master
+<span class="linenumber"> 96:</span>             self.key = key
+<span class="linenumber"> 97:</span>             self.frame=Tk.Frame(master, **key)
+<span class="linenumber"> 98:</span>             self.frame.pack(padx=5, pady=5)
+<span class="linenumber"> 99:</span>             self.once = False
+<span class="linenumber">100:</span>     
+<span class="linenumber">101:</span>         def update(self, dir, types):
+<span class="linenumber">102:</span>             if self.once:
+<span class="linenumber">103:</span>                 self.frame.destroy()
+<span class="linenumber">104:</span>                 self.frame=Tk.Frame(self.master, **self.key)
+<span class="linenumber">105:</span>                 self.frame.pack(padx=5, pady=5)
+<span class="linenumber">106:</span>             self.once = True
+<span class="linenumber">107:</span>             pat = make_regexp(types)
+<span class="linenumber">108:</span>             files = [P.join(dir, file) for file in os.listdir(dir) if pat.search(file)]
+<span class="linenumber">109:</span>             for i, file in enumerate(files):
+<span class="linenumber">110:</span>                 img_temp = I.open(file)
+<span class="linenumber">111:</span>                 img = img_temp.resize(get_size(img_temp.size), I.NEAREST)  
+<span class="linenumber">112:</span>                 tkimg = Itk.PhotoImage(img)
+<span class="linenumber">113:</span>                 la = ImageLabel(self.frame, file, tkimg)
+<span class="linenumber">114:</span>                 la.grid(row = i/MAM_COLN, column=i%MAM_COLN, sticky=Tk.S+Tk.W+Tk.E)
+<span class="linenumber">115:</span>     
+<span class="linenumber">116:</span>     
+<span class="linenumber">117:</span>     
+<span class="linenumber">118:</span>     class Frame(Tk.Frame):
+<span class="linenumber">119:</span>         <span class="string">""" The main class of this program. """</span>
+<span class="linenumber">120:</span>         
+<span class="linenumber">121:</span>         def __init__(self, master=None):
+<span class="linenumber">122:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">123:</span>             self.master.title('Image Viewer')
+<span class="linenumber">124:</span>             self.master.geometry(GEO_MAIN)
+<span class="linenumber">125:</span>             self.cus_top = None
+<span class="linenumber">126:</span>     
+<span class="linenumber">127:</span>             f_dir = Tk.LabelFrame(self, text='Directory')
+<span class="linenumber">128:</span>             f_dir.pack(anchor=Tk.W, padx=10, pady=2)
+<span class="linenumber">129:</span>             self.e_dir = Tk.Entry(f_dir, width=50)
+<span class="linenumber">130:</span>             self.e_dir.pack(side=Tk.LEFT)
+<span class="linenumber">131:</span>             self.e_dir.bind('&lt;Return&gt;', self.show_sum)
+<span class="linenumber">132:</span>             self.b_dir = Tk.Button(f_dir, text='Browse', command=self.browse)
+<span class="linenumber">133:</span>             self.b_dir.pack(side=Tk.LEFT, padx=2)
+<span class="linenumber">134:</span>             f=Tk.Frame(self)
+<span class="linenumber">135:</span>             f.pack(fill=Tk.X)
+<span class="linenumber">136:</span>             b_info=Tk.Button(f, bitmap='info', width=25, command=self.show_info)
+<span class="linenumber">137:</span>             b_info.pack(side=Tk.RIGHT, padx=20, pady=10, anchor=Tk.CENTER)        
+<span class="linenumber">138:</span>             f_type = Tk.LabelFrame(f, text='File Type')
+<span class="linenumber">139:</span>             f_type.pack(side=Tk.LEFT, padx=10, pady=2)
+<span class="linenumber">140:</span>             b_custom_bg = Tk.Button(f, text='Customize Background', command=self.cus_bg)
+<span class="linenumber">141:</span>             b_custom_bg.pack(side=Tk.LEFT, anchor=Tk.S, padx=10)
+<span class="linenumber">142:</span>             
+<span class="linenumber">143:</span>             self.var_type = dict()
+<span class="linenumber">144:</span>             for image_type in IMAGR_TYPES:
+<span class="linenumber">145:</span>                 self.var_type[image_type] = Tk.IntVar()
+<span class="linenumber">146:</span>                 cb = Tk.Checkbutton(f_type, text=image_type, variable=self.var_type[image_type],
+<span class="linenumber">147:</span>                                     relief=Tk.FLAT, justify = Tk.LEFT)
+<span class="linenumber">148:</span>                 cb.select()
+<span class="linenumber">149:</span>                 cb.pack(side=Tk.LEFT, padx=5)
+<span class="linenumber">150:</span>     
+<span class="linenumber">151:</span>             ImageLabel.bg_var = Tk.StringVar()
+<span class="linenumber">152:</span>             ImageLabel.bg_var.set('#FFFFFF')
+<span class="linenumber">153:</span>     
+<span class="linenumber">154:</span>             self.f_bg = Tk.LabelFrame(self, text='Background')
+<span class="linenumber">155:</span>             self.f_bg.pack(anchor=Tk.W, padx=10, pady=2)
+<span class="linenumber">156:</span>             
+<span class="linenumber">157:</span>             for name, code in BGS:
+<span class="linenumber">158:</span>                 rb = Tk.Radiobutton(self.f_bg, text=name, variable=ImageLabel.bg_var, value=code,
+<span class="linenumber">159:</span>                                     bg=code, command=self.change_bg, bd=1, relief=Tk.GROOVE)
+<span class="linenumber">160:</span>                 rb.pack(side=Tk.LEFT, padx=5)
+<span class="linenumber">161:</span>     
+<span class="linenumber">162:</span>             self.image_frame = ImageFrame(self, relief=Tk.RIDGE, border=2)
+<span class="linenumber">163:</span>     
+<span class="linenumber">164:</span>     
+<span class="linenumber">165:</span>     
+<span class="linenumber">166:</span>     
+<span class="linenumber">167:</span>         def change_bg(self):
+<span class="linenumber">168:</span>             bg1 = ImageLabel.bg_var.get()
+<span class="linenumber">169:</span>             label = ImageLabel.id_original_size
+<span class="linenumber">170:</span>             if label and label.winfo_exists():
+<span class="linenumber">171:</span>                 label.configure(bg=bg1)
+<span class="linenumber">172:</span>                 top = label.winfo_toplevel()
+<span class="linenumber">173:</span>                 top.focus_set()
+<span class="linenumber">174:</span>             
+<span class="linenumber">175:</span>         def browse(self):
+<span class="linenumber">176:</span>             dir = D.askdirectory()
+<span class="linenumber">177:</span>             if dir:
+<span class="linenumber">178:</span>                 self.e_dir.delete(0, Tk.END)
+<span class="linenumber">179:</span>                 self.e_dir.insert(0, dir)
+<span class="linenumber">180:</span>                 self.image_frame.update(dir, self.var_type)
+<span class="linenumber">181:</span>     
+<span class="linenumber">182:</span>         def show_sum(self, event):
+<span class="linenumber">183:</span>             self.image_frame.update(self.e_dir.get(), self.var_type)
+<span class="linenumber">184:</span>             
+<span class="linenumber">185:</span>     
+<span class="linenumber">186:</span>         def show_info(self):
+<span class="linenumber">187:</span>             M.showinfo(u"使い方",  u"Entry か Browse ボタンでディレクトリを選択してください。\n"
+<span class="linenumber">188:</span>                                    u"そのディレクトリに含まれる画像ファイルの一覧が表示されます。\n"
+<span class="linenumber">189:</span>                                    u"一覧にある画像をクリックすると、別窓でオリジナルサイズの画像が表示されます。\n"
+<span class="linenumber">190:</span>                                    u"透過型 GIF の場合は背景色を変えることができます。\n"
+<span class="linenumber">191:</span>                                    u"ラジオボタンにある背景色が気に入らない場合は、\n"
+<span class="linenumber">192:</span>                                    u"Customize Background ボタンを押して現れる\n赤、緑、青用の３つのスケールで"
+<span class="linenumber">193:</span>                                    u"背景色を調節してください。")
+<span class="linenumber">194:</span>     
+<span class="linenumber">195:</span>         def cus_bg(self):
+<span class="linenumber">196:</span>             if not (self.cus_top and  self.cus_top.winfo_exists()):
+<span class="linenumber">197:</span>                 self.cus_top = Tk.Toplevel(self)
+<span class="linenumber">198:</span>                 self.cus_top.title('Create Back Ground')
+<span class="linenumber">199:</span>                 self.cus_top.geometry(GEO_SCAL)
+<span class="linenumber">200:</span>                 cusf = Tk.Frame(self.cus_top)
+<span class="linenumber">201:</span>                 cusf.pack(fill=Tk.BOTH, padx=10, pady=10)
+<span class="linenumber">202:</span>                 self.scale = dict()
+<span class="linenumber">203:</span>                 for i, color in enumerate(('red', 'green', 'blue')):
+<span class="linenumber">204:</span>                     l=Tk.Label(cusf, text=color+': ', anchor=Tk.W, fg=color, font=('Helvetica', '10', 'bold'))
+<span class="linenumber">205:</span>                     l.grid(row=i, column=0, sticky=Tk.W)
+<span class="linenumber">206:</span>                     self.scale[color] = Tk.Scale(cusf, orient=Tk.HORIZONTAL, length=300, from_=0, to=255, 
+<span class="linenumber">207:</span>                                                  command=self.customize_bg, tickinterval=50)
+<span class="linenumber">208:</span>                     self.scale[color].set(255)
+<span class="linenumber">209:</span>                     self.scale[color].grid(row=i, column=1)
+<span class="linenumber">210:</span>     
+<span class="linenumber">211:</span>                 self.cus_top.bind('&lt;FocusIn&gt;', self.customize_bg)
+<span class="linenumber">212:</span>     
+<span class="linenumber">213:</span>         def customize_bg(self, event):
+<span class="linenumber">214:</span>             ImageLabel.bg_var.set('<span class="comment">#%02X%02X%02X' %</span>
+<span class="linenumber">215:</span>                             (self.scale['red'].get(), self.scale['green'].get(), self.scale['blue'].get()))
+<span class="linenumber">216:</span>             self.change_bg()
+<span class="linenumber">217:</span>     
+<span class="linenumber">218:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">219:</span>     
+<span class="linenumber">220:</span>     if __name__ == '__main__':
+<span class="linenumber">221:</span>         f = Frame()
+<span class="linenumber">222:</span>         f.pack()
+<span class="linenumber">223:</span>         f.mainloop()
+</pre>
+<p>
+  このプログラムのミソは、<span class='mono'>ImageLabel</span> クラスです。
+  刺激に反応する Widget は Tk.Widget の派生クラスとして
+  定義するとうまく書けます。与えられた刺激にどう反応するかを method として含めてしまえばいいのです。
+  また、クラス変数 <var>id_original_size</var> と <var>bg_var</var> を定義してメインフレーム (図１a)
+  と <span class='mono'>ImageLabel</span> のインスタンスで変数を共有しています。<p>
+  
+  プログラムが若干長いので、部分ごとに説明していきたいと思います。見出しのカッコ内の数字はコードの行数です。
+<h3>2.1. import するモジュールの宣言 </h3>
+12-19 行目で<span class='mono'>re, os, os.path(P), Tkinter(Tk), Image(I), ImageTk(Itk), tkFIleDialog(D), tkMessageBox(M)</span>
+の８つのモジュールを読み込んでいます。
+このうち、<span class='mono'>tkFileDialog</span> と <span class='mono'>tkMessageBox</span> は初出なので、
+<a href='#FileDialog'>3.8.</a> と <a href='#MessageBox'>3.9.</a> で説明しています。
+
+<h3>2.2. 定数の宣言</h3>
+ 22--30 行目で定数を宣言しています。
+<table border=1>
+   <tr>
+      <th>定数</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>SIZE</td>
+      <td>一覧に表示する画像のサイズです。</td>
+   </tr>
+   <tr>
+      <td>IMAGR_TYPES</td>
+      <td>画像ファイルの種類です。</td>
+   </tr>
+   <tr>
+      <td>MAM_COLN</td>
+      <td>一覧に表示する列の数です。</td>
+   </tr>
+   <tr>
+      <td>GEO_MAIN</td>
+      <td>メイン window の位置を指定します。</td>
+   </tr>
+   <tr>
+      <td>GEO_SATE</td>
+      <td>原寸画像 window の位置を指定します。</td>
+   </tr>
+   <tr>
+      <td>GEO_SCAL</td>
+      <td>背景色調節 window の位置を指定します。</td>
+   </tr>
+   <tr>
+      <td>BGS</td>
+      <td> あらかじめ登録されている背景色のリストです。 </td>
+   </tr>
+</table>
+
+<h3>2.3. 関数の宣言</h3>
+以下の２つの関数を使います。
+<dl>
+  <dt><b>get_size(tup)</b> (34--44)</dt>
+      <dd><var>tup</var> のどちらかの値が 100 を超えている場合、<var>tup</var> の２つの値の比を保ちながら、
+両方の値が 100 以下になるように縮小した値のタプルを返します。<br>
+画像ファイルのリサイズに使います。</dd>
+  <dt><b>make_regexp(types)</b> (47--55)</dt>
+      <dd><span class='mono'>Tk.IntVar</span> のマップ <var>types</var> （キーはファイルタイプ）に基づいて、
+ファイル名を選別する正規表現を作成して返します。</dd>
+</dl>
+
+<h3>2.4. class ImageLabel(Tk.Frame)</h3>
+一覧表示する画像のクラスです。クリックされると原寸大のイメージを別窓で表示します。(59--87)
+<ul>
+<li><b>クラス変数</b> (62,63)
+  <ul>
+   <li><var>id_original_size</var>: 原寸大表示ラベルの ID です。現在表示されている原寸大画像の ID を保持します。
+   <li><var>gb_var</var>: 背景色の文字列を保持する変数です。（いきなり Tk.StringVar にすると Error になるので
+     とりあえず None にしておく。）
+  </ul>
+<li> <b>__init__(self, master, image_file, img)</b> (65--73)<br>
+  <ul>
+   <li> 引数は、<var>self</var>, <var>master</var>, <var>image_file</var>, <var>img</var> の４つです。<br>
+     <var>image_file</var> はもとのイメージファイル。<var>img</var> は一覧で表示する Tk.Image です。
+   <li> まず、<span class='mono'>Tk.Frame</span> として初期化します。(66)
+   <li> <var>img</var>, <var>image_file</var> を内部変数に保持します。(67,68)
+   <li> 画像表示用ラベル <var>img_label</var> を作って pack します。(69,70)
+   <li> ファイル名表示用ラベル <var>txt_label</var> を作ってパックします。(71,72)
+   <li> 画像ラベルをダブルクリックすると原寸大表示が現れるようにします。(73)
+  </ul>
+<li> <b>show(self, event)</b> (75--87)<br>
+  原寸大表示用メソッドです。
+  <ul>
+    <li>クラス変数 <var>ImageLabel.id_original_size </var>から値を取得して、<var>label</var> に代入します。(76)
+    <li>もし、<var>label</var> に値があって、widget として存在しているなら、(77)
+      <ul>
+        <li><var>label</var> のトップレベルを取得して <var>top</var> に代入し、(78)
+	<li>それを消す。(79)
+      </ul>
+     <li> <span class='mono'>Tk.Toplevel</span> を作って <var>top</var> に代入。(80)
+     <li> <var>top</var> のタイトルをファイル名にする。(81)
+     <li>  <var>top</var> の表示位置を指定する。(82)
+     <li> 画像ファイルを読み込んで <var>img</var> に代入 (83)
+     <li> それを Tk.Image にして <var>self.timg</var> に代入 (84)
+     <li> <var>self.timg</var> を表示する <var>label</var> を作成して pack  (85,86)
+     <li> <var>ImageLabel.id_original_size</var> の値を <var>label</var> にする。(87)
+   </ul>
+  </ul>
+
+<h3>2.5. class ImageFrame</h3>
+    イメージの一覧を表示するフレームを定義するクラスです。(91--114)
+<ul>
+  <li><b>__init__(self, master, **key)</b>  (94--99)
+    <ul>
+      <li> <var>master</var> と <var>key</var> を内部変数に保持します。  (95, 96)
+      <li> 一覧を表示するフレーム <var>self.frame</var> を定義して pack します。(97,98)
+      <li> まだ、一度も表示していないので <var>self.once</var> を False にします。(99)
+    </ul>
+  <li> <b>update(self, dir, type)</b> (101--114)
+    <ul>
+      <li>もし、前に一度一覧を表示したなら、(102)
+	<ul>
+           <li> <var>self.frame</var> を消して (103)
+	   <li> 作り直す。(104,105)
+	</ul>
+      <li> <var>self.once</var> を True にする。(106)
+      <li> 一覧表示するファイル名を選別する正規表現 <var>pat</var> をつくる。(107)
+      <li> 一覧表示するファイルのリスト <var>files</var> をつくる。
+	      ファイル名は絶対パスにしておく。(108)
+      <li> <span class='mono'>enumerate(flies)</span> に対して以下を繰り返す。(109--114)
+	<ul>
+         <li><var>file</var> を開いて <var>img_temp</var> に代入 (110)
+	 <li><var>img_temp</var> を 100x100 pixel に収まるように縮小して <var>img</var> に代入。(111)
+	 <li><var>img</var> を Tk.Image に変換して <var>tkimg</var> に代入 (112)
+	 <li><var>ImageLabel</var>(see 4.5) を作ってそれを <var>la</var> に代入。(113)
+	 <li><var>la</var> を grid する。(114)
+	 </ul>
+     </ul>
+  </ul>
+	
+
+<h3>2.6. class Frame(Tk.Frame):</h3>
+  いよいよメインのクラスの説明です。__init__ でいろいろな widget を定義しています。(118--216)
+<ul>
+<li><b>__init__(self, master=None)</b>  (121--162)
+  <ul>
+   <li>まず、 <span class='mono'>Tk.Frame</span> として初期化 (122)
+   <li>window のタイトルを 'Image Viewer' にする。(123)
+   <li>window の表示位置を指定する。(124)
+   <li>背景色調節 window をあらわす内部変数 <var>self.cur_top</var> を定義 (125)
+   <li>ディレクトリ選択用 <span class='mono'>Entry</span> と Browse ボタンが入る
+     <span class='mono'>Tk.LabalFrame</span> を定義して pack。 (127, 128) <br>
+     <span class='mono'>Tk.LabelFrame</span> について詳しくは、<a href='#LabelFrame'>3.3.</a> を参照してください。
+   <li> <span class='mono'>Tk.Entry</span>, <var>self.e_dir</var> を定義して pack する。(129, 130)<br>
+     <span class='mono'>Tk.Entry</span> について詳しいことは <a href="#Entry">3.2</a>
+ を参照してください。
+   <li> <var>self.e_dir</var> に focus があるときリターンキーが押されると <var>self.show_sum</var> が呼ばれるようにする。(131)
+   <li> <var>self.browse</var> を呼び出すボタン <var>self.b_dir</var> を定義して pack (132,133)
+   <li> ２行目の <span class='mono'>Frame</span> <var>f</var> を定義して pack (134, 135)
+   <li> <var>self.show_info</var> を表示するボタン <var>b_info</var> を <var>f</var> の右側に pack。(136, 137)<br>
+     <var>b_info</var> は組み込み bitmap <span class='mono'>'info'</span> を表示。
+   <li> イメージファイルのファイルタイプのチェックボタンを入れる <span class='mono'>Tk.LabelFrame</span>
+     <var>f_type</var> を定義して <var>f</var> の左側に pack (138,139)
+   <li><var>self.cus_bg</var> を呼び出すボタン <var>b_custom_bg</var> を <var>f</var> の左側に pack (140,141)
+   <li>イメージタイプごとの <span class='mono'>Tk.IntVar</span> を保持するマップ <var>self.var_type</var> を初期化。(143)
+   <li> <var>IMAGE_TYPES</var> 中の <var>image_type</var> について以下のことを行う。(144--149)
+     <ul>
+       <li><var>self.var_type</var> の <var>image_type</var> のキーに <span class='mono'>Tk.IntVar()</span> を割り当てる。(145)
+       <li> 変数が <var>self.var_type[image_type]</var> である<span class='mono'>Tk.Checkbutton</span>
+	 <var>cb</var> を作る。(146)
+       <li> <var>cb</var> が選択されている状態にする。(147)
+       <li> <var>cb</var> を左から pack する。(148)
+    </ul>
+     <span class='mono'>Tk.Checkbutton</span> について詳しくは <a href='#Checkbutton'>3.1</a> を参照してください。
+  <li><var>ImageLabel</var> のクラス変数 <var>ImageLabel.bg_var</var> を <span class='mono'>Tk.StringVar</span> にする。(151)
+  <li><var>ImageLabel.bg_var</var> に '#FFFFFF' （白色）をセットする。(152)
+  <li>背景色選択用 <span class='mono'>Tk.LabelFrame</span>, <var>self.f_bg</var> を定義して pack。(154,155)
+  <li>あらかじめ登録されている背景色 <var>BGS</var> 中の <var>(name, code)</var> に対して以下のことを行う。(157--162)
+    <ul>
+      <li> 変数 <var>ImageLabel.bg_var</var> を共有する <span class='mono'>Tk.Radobutton</span> <var>rb</var> を定義。(158,159)
+      <li> <var>rb</var> を左から pack する。(160)
+   </ul>
+    <span class='mono'>Tk.RadioButton</span> について詳しいことは、<a href='#RadioButton'>3.4</a> を参照してください。
+  <li> 一覧表示用のフレームのクラス <var>ImageFrame</var> のインスタンス <var>self.image_frame</var> を作る。(162)
+  </ul>
+ <li> <b>change_bg(self)</b> (167--173)
+   <ul>
+    <li> <var>ImageLabel.bg_var</var> から背景色文字列を取り出して <var>bg1</var> にセット。(168)
+    <li> <var>ImageLabel.id_original_size</var> を <var>label</var> に代入 (169)
+    <li> もし、<var>label</var> があって <var>label</var> が widget なら、(170)
+      <ul>
+        <li><var>label</var> の背景色を <var>bg1</var> にし、    (171)
+	<li> <var>label</var> の toplevel にフォーカスをあわせる。 (172, 173)
+     </ul>
+  </ul>
+ <li> <b>browse(self)</b>  (167--173)<br>
+   Browse ボタンが押されたとき呼ばれるメソッド。
+   <ul>
+    <li> ディレクトリ名を取得するダイアログを開いてディレクトリ名 <var>dir</var> を取得 (176)
+    <li> もし <var>dir</var> が取得されていれば、(177--180)
+      <ul>
+       <li> <span class='mono'>Tk.Entry</span> <var>self.e_dir</var> の文字列を全て消去し、(178)
+       <li> 取得した文字列を <var>self.e_dir</var> に挿入し、(179)
+       <li> 一覧を表すフレーム <var>self.image_frame</var> を更新する。(180)
+     </ul>
+  </ul>
+ <li> <b>show_sum(self, event)</b> (182--183)<br>
+   <var>self.e_dir</var> にフォーカスがあるときにリターンキーが押されたときに呼ばれるメソッド。
+   <var>self.e_dir</var> の <span class='mono'>.get</span> メソッドを使って
+   Entry に書かれていたディレクトリ名を取得し、
+   それを使って <var>self.image_frame</var> を更新する。(183)
+ <li> <b>show_info(self)</b>  (186--193)<br>
+   使い方を説明するダイアログを表示する。
+ <li> <b>cus_bg(self)</b>  (195--211)<br>
+   'Customize Background' ボタンが押されたときに呼ばれるメソッド。
+   <ul>
+     <li> もし <var>self.cus_top</var> がないか、widget でなければ、(196--211)
+       <ul>
+         <li> <var>self.cus_top</var> に <span class='mono'>Tk.Toplevel</span> を新しく作って代入。(197)
+	 <li> そのタイトルを 'Create Back Ground' とする。(198)
+	 <li> <var>self.cus_top</var> の配置を指定する。(199)
+	 <li> <span class='mono'>Tk.Frame</span> <var>cusf</var> を定義して pack (200)
+	 <li> 辞書型変数 <var>self.scale</var> を定義。  (202)<br>
+	   ここに、赤、緑、青用の Tk.Scale の ID が入る。
+	 <li> <span class='mono'>enumerate(('red', 'green', 'blue'))</span> の
+	   <var>i</var>, <var>color</var> に対して以下を行う。(203--209)
+	   <ul>
+             <li> <span class='mono'>Tk.Label</span> を作って左側に grid  (204, 205)
+	     <li> <span class='mono'>Tk.Scale</span> を作って <var>self.scale[color]</var> に代入。(206, 207)<br>
+	       Scale の値が変わったら <var>self.customize_bg</var> が呼ばれるようにする。
+	       Scale について詳しくは <a href='#Scale'>3.5.</a> を参照してください。
+	     <li> 初期値を 255 にする。（つまり白）(208)
+	     <li> <var>self.scale[color]</var> を右側に grid する (209)
+	  </ul>
+       </ul>
+     <li> <var>self.cus_top</var> にフォーカスが来たら <var>self.customize_bg</var> が呼ばれるようにする。(211)
+  </ul>
+ <li> <b>customize_bg(self, event)</b>  (213--216)<br>
+   赤、緑、青の輝度を色を表す文字列にして <var>ImageLabel.bg_var</var> にセットする。
+   その後 <var>self.change_bg</var> を呼び出して原寸大表示の背景色を変化させる。
+
+   </ul>
+
+
+<h3>3. Widget ごとの説明</h3>
+以下に viewer.py で登場した widget について簡単に説明します。
+
+<a name='Checkbutton'>
+<h4>3.1. Tk.Checkbutton</h4>
+<span class='mono'>Tk.Checkbutton</span> はチェックリストを作るとき使います。
+<span class='mono'>Tk.IntVar</span> と組み合わせて使います。通常個の変数はチェックされたとき 1,  されていないとき 0
+をとりますが、変えることもできます。通常は１つの <span class='mono'>Tk.Checkbutton</span>
+と <span class='mono'>IntVar</span> を対にして使います。<p>
+
+以下にに使用例を示します。<p>
+  
+[code 2](jcheck.py)<br>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     jcheck.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     """</span>
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     import Tkinter as Tk
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     class Frame(Tk.Frame):
+<span class="linenumber">12:</span>         def __init__(self, master=None):
+<span class="linenumber">13:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">14:</span>             la = Tk.Label(self, text=u"普段お使いの OS は何ですか？（複数選択可）")
+<span class="linenumber">15:</span>             la.pack(padx=5, pady=5)
+<span class="linenumber">16:</span>             f1 = Tk.Frame(self)
+<span class="linenumber">17:</span>             f1.pack(padx=5, pady=5)
+<span class="linenumber">18:</span>             self.str = Tk.StringVar()
+<span class="linenumber">19:</span>             self.v=dict()
+<span class="linenumber">20:</span>             for your_os in ['Unix', 'Windows', 'Mac', 'VMS', 'OS/2']:
+<span class="linenumber">21:</span>                 self.v[your_os] = Tk.IntVar()
+<span class="linenumber">22:</span>                 cb = Tk.Checkbutton(f1, text=your_os, variable=self.v[your_os], command=self.echo)
+<span class="linenumber">23:</span>                 cb.pack(side=Tk.LEFT)
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>             lb = Tk.Label(self, textvariable = self.str, justify=Tk.LEFT, anchor=Tk.W)
+<span class="linenumber">26:</span>             lb.pack(padx=5, pady=5, fill=Tk.X)
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>         def echo(self):
+<span class="linenumber">29:</span>             if sum ([v.get() for v in self.v.values()]) == 0:
+<span class="linenumber">30:</span>                 self.str.set(u"私はメインフレームしか使ったことがありません。")
+<span class="linenumber">31:</span>             else:
+<span class="linenumber">32:</span>                 str = u"私が使っている OS は、\n"
+<span class="linenumber">33:</span>                 for your_os, v in self.v.iteritems():
+<span class="linenumber">34:</span>                     if v.get():
+<span class="linenumber">35:</span>                         str += your_os + u"と、"
+<span class="linenumber">36:</span>                 self.str.set(str[0:-2] + u"です。")
+<span class="linenumber">37:</span>     
+<span class="linenumber">38:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>     if __name__ == '__main__':
+<span class="linenumber">41:</span>         f = Frame()
+<span class="linenumber">42:</span>         f.pack()
+<span class="linenumber">43:</span>         f.mainloop()
+</pre>
+  こんな感じの window ができます。<p>
+    <center><img src='jcheck.png'></center>
+    <p>
+Tk.Checkbutton の option とメソッドについては以下を参照してください。
+ <ul>
+       <li><a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/checkbutton.html'>
+             Tkinter reference: 7. The Checkbutton widget</a>
+       <li><a href='http://effbot.org/tkinterbook/checkbutton.htm'>The Tkinter Checkbutton Widget</a>
+ </ul>
+
+<a name='Entry'>
+<h4>3.2. Tk.Entry</h4>
+ユーザーからのキー入力を受け付けるための widget です。
+使用例は
+ <a href='tkinter_a2.html#Jentry'>
+   Appendix 2. Widget に日本語を書く: 2. Entry で取得した文字列を日本語で表示する。</a>
+を見てください。
+
+<span class='mono'>Tk.Entry</span> の option と method については以下を参照してください。
+ <ul>
+  <li><a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/entry.html'>Tkinter reference: 8. The Entry widget</a>
+  <li><a href='http://effbot.org/tkinterbook/entry.htm'>The Tkinter Entry Widget</a>
+ </ul>
+
+<a name='LabelFrame'>
+<h4>3.3. Tk.LabelFrame</h4>
+外枠にテキストが表示されるほかは <span class='mono'>Tk.Frame</span> とほぼ同じです。使用例は [code 3] を見てください。
+option, method については、
+     <a href='http://effbot.org/tkinterbook/labelframe.htm'>The Tkinter LabelFrame Widget</a>
+     を見てください。
+
+
+<a name='RadioButton'>
+<h4>3.4.  Tk.RadioButton</h4>
+複数の選択肢から１つを選ぶための widget です。
+<span class='mono'>Tk.StringVar</span>, <span class='mono'>Tk.IntVar</span>,
+または <span class='mono'>Tk.DoubleVar</span> を共有させます。
+以下に例を示します。<p>
+
+[code 3](jradio.py)<br>  
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     jradio.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     """</span>
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     import Tkinter as Tk
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     COLS = [(u'黒', 'black'), (u'白', 'white'), (u'赤', 'red'), (u'緑', 'green'), (u'黄', 'yellow'), (u'青', 'blue')]
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     def assoc(key, ls):
+<span class="linenumber">15:</span>         for k, v in ls:
+<span class="linenumber">16:</span>             if key == k:
+<span class="linenumber">17:</span>                 return v
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     class Frame(Tk.Frame):
+<span class="linenumber">20:</span>         def __init__(self, master=None):
+<span class="linenumber">21:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">22:</span>             
+<span class="linenumber">23:</span>             self.vf = Tk.StringVar()            <span class="comment"># 文字色</span>
+<span class="linenumber">24:</span>             self.vb = Tk.StringVar()            <span class="comment"># 背景色</span>
+<span class="linenumber">25:</span>             self.str = Tk.StringVar()           <span class="comment"># 表示文字列</span>
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>             
+<span class="linenumber">29:</span>             ff = Tk.LabelFrame(self, text=u'文字色')
+<span class="linenumber">30:</span>             ff.pack(padx=5, pady=5)
+<span class="linenumber">31:</span>             fb = Tk.LabelFrame(self, text=u'背景色')
+<span class="linenumber">32:</span>             fb.pack(padx=5, pady=5)
+<span class="linenumber">33:</span>             
+<span class="linenumber">34:</span>             for jp, en in COLS:
+<span class="linenumber">35:</span>                 <span class="comment"># 文字色の選択肢</span>
+<span class="linenumber">36:</span>                 rbf = Tk.Radiobutton(ff, text=jp, variable=self.vf, value=jp, command=self.echo)
+<span class="linenumber">37:</span>                 if en == 'black':
+<span class="linenumber">38:</span>                     rbf.select()
+<span class="linenumber">39:</span>                 rbf.pack(side=Tk.LEFT)
+<span class="linenumber">40:</span>                 <span class="comment"># 背景色の選択肢</span>
+<span class="linenumber">41:</span>                 rbb = Tk.Radiobutton(fb, text=jp, variable=self.vb, value=jp, command=self.echo)
+<span class="linenumber">42:</span>                 if en == 'white':
+<span class="linenumber">43:</span>                     rbb.select()
+<span class="linenumber">44:</span>                 rbb.pack(side=Tk.LEFT)
+<span class="linenumber">45:</span>                 
+<span class="linenumber">46:</span>             self.la = Tk.Label(self, textvariable=self.str, font=('Helvetica', '14', 'bold'))
+<span class="linenumber">47:</span>             self.la.pack(padx=5, pady=5, fill=Tk.X)
+<span class="linenumber">48:</span>             
+<span class="linenumber">49:</span>             self.echo()
+<span class="linenumber">50:</span>     
+<span class="linenumber">51:</span>     
+<span class="linenumber">52:</span>         def echo(self):
+<span class="linenumber">53:</span>             f = self.vf.get()
+<span class="linenumber">54:</span>             b = self.vb.get()
+<span class="linenumber">55:</span>             self.str.set (u'%s地に%s字' % (b, f))
+<span class="linenumber">56:</span>             self.la.configure(fg=assoc(f, COLS))
+<span class="linenumber">57:</span>             self.la.configure(bg=assoc(b, COLS))
+<span class="linenumber">58:</span>     
+<span class="linenumber">59:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">60:</span>     
+<span class="linenumber">61:</span>     if __name__ == '__main__':
+<span class="linenumber">62:</span>         f = Frame()
+<span class="linenumber">63:</span>         f.pack()
+<span class="linenumber">64:</span>         f.mainloop()
+</pre>
+<p>
+  こんな感じの window ができます。
+  <center><img src='jradio.png'></center>
+
+  <p>
+<span class='mono'>Tk.Radiobutton</span> の option とメソッドについては以下を参照してください。
+ <ul>
+    <li><a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/radiobutton.html'>Tkinter reference: 14. The Radiobutton widget</a>
+    <li><a href='http://effbot.org/tkinterbook/radiobutton.htm'>The Tkinter Radiobutton Widget</a>
+ </ul>
+
+
+<a name='Scale'>
+<h4>3.5. Tk.Scale</h4>
+値を微妙に変えるために用いる widget です。以下に使用例を示します。
+スケールをいじると Frame の色が変わります。<p>
+
+[code 4] (jscale.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     jscale.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     """</span>
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     import Tkinter as Tk
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     def e2j(en):
+<span class="linenumber">13:</span>         if en=='red':
+<span class="linenumber">14:</span>             return u'赤'
+<span class="linenumber">15:</span>         elif en=='green':
+<span class="linenumber">16:</span>             return u'緑'
+<span class="linenumber">17:</span>         else:
+<span class="linenumber">18:</span>             return u'青'
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>     def change_bg_rec(item, color):
+<span class="linenumber">22:</span>         item.configure(bg=color)
+<span class="linenumber">23:</span>         for child in item.winfo_children():
+<span class="linenumber">24:</span>             change_bg_rec(child, color)
+<span class="linenumber">25:</span>     
+<span class="linenumber">26:</span>         
+<span class="linenumber">27:</span>         
+<span class="linenumber">28:</span>     class Frame(Tk.Frame):
+<span class="linenumber">29:</span>         def __init__(self, master=None):
+<span class="linenumber">30:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">31:</span>             info = Tk.Label(self, text=u'スケールをいじってフレームの色を変えてください。', font=('Helvetica', '12', 'bold'))
+<span class="linenumber">32:</span>             info.pack(padx=10, pady=5)
+<span class="linenumber">33:</span>             f = Tk.Frame(self)
+<span class="linenumber">34:</span>             f.pack(padx=5, pady=5)
+<span class="linenumber">35:</span>             self.sc = dict()
+<span class="linenumber">36:</span>             for i, color in enumerate(['red', 'green', 'blue']):
+<span class="linenumber">37:</span>                 la = Tk.Label(f, text=e2j(color), fg=color, font=('Helvetica', '12', 'bold'))
+<span class="linenumber">38:</span>                 la.grid(row=0, column=i, padx=10, pady=5)
+<span class="linenumber">39:</span>                 self.sc[color] = Tk.Scale(f, from_=0, to=255, length=150, bd=0, 
+<span class="linenumber">40:</span>                                           command=self.change_bg, tickinterval=50, orient=Tk.VERTICAL)
+<span class="linenumber">41:</span>                 self.sc[color].set(255)
+<span class="linenumber">42:</span>                 self.sc[color].grid(row=1, column=i, padx=10, pady=5)
+<span class="linenumber">43:</span>                 
+<span class="linenumber">44:</span>     
+<span class="linenumber">45:</span>         def change_bg(self, event):
+<span class="linenumber">46:</span>             color = '#%02X%02X%02X' % (self.sc['red'].get(), self.sc['green'].get(), self.sc['blue'].get())
+<span class="linenumber">47:</span>             change_bg_rec(self, color)
+<span class="linenumber">48:</span>     
+<span class="linenumber">49:</span>             
+<span class="linenumber">50:</span>     
+<span class="linenumber">51:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">52:</span>     
+<span class="linenumber">53:</span>     if __name__ == '__main__':
+<span class="linenumber">54:</span>         f = Frame()
+<span class="linenumber">55:</span>         f.pack()
+<span class="linenumber">56:</span>         f.mainloop()
+</pre>
+
+<p>
+  こんな感じの window ができます。
+  <center><img src='jscale.png'></center>
+
+  <p>
+
+
+
+<span class='mono'>Tk.Scale</span> の option とメソッドについては以下を参照してください。
+ <ul>
+       <li><a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/scale.html'>
+             Tkinter reference: 15. The Scale widget</a>
+       <li><a href='http://effbot.org/tkinterbook/scale.htm'>The Tkinter Scale Widget</a>
+ </ul>
+
+<a name='Spinbox'>
+<h4>3.6. Tk.Spinbox</h4>
+<span class='mono'>Tk.Spinbox</span> は [code 1] に出てきませんでしたが、ついでに説明します。
+<span class='mono'>Tk.Listbox</span> と同じように選択肢から値を選ぶとき使います。<p>
+
+[code 5](jspinbox.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     jspinbox.py
+<span class="linenumber">05:</span>     """</span>
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     import Tkinter as Tk
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     CONSTELLATIONS = ( u'水瓶座', u'魚　座', u'牡羊座', u'牡牛座', u'双子座', u'蟹　座', u'獅子座',
+<span class="linenumber">13:</span>                        u'乙女座', u'天秤座', u'蠍　座', u'射手座', u'山羊座')
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     BLOOD = ('A', 'B', 'O', 'AB')
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     FORTUNE = [u'大吉', u'中吉', u'吉', u'凶']
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>     def position(obj, tup):
+<span class="linenumber">22:</span>         for i, o in enumerate(tup):
+<span class="linenumber">23:</span>             if o==obj:
+<span class="linenumber">24:</span>                 return i
+<span class="linenumber">25:</span>     
+<span class="linenumber">26:</span>     class Frame(Tk.Frame):
+<span class="linenumber">27:</span>         def __init__(self, master=None):
+<span class="linenumber">28:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">29:</span>             info = Tk.Label(self, text=u'Spinbox をつかったいかさま占い。')
+<span class="linenumber">30:</span>             info.pack(padx=5, pady=5)
+<span class="linenumber">31:</span>             f = Tk.Frame(self)
+<span class="linenumber">32:</span>             f.pack(padx=5, pady=5)
+<span class="linenumber">33:</span>             lb=Tk.Label(f, text=u'血液型')
+<span class="linenumber">34:</span>             lb.grid(row=0, column=0, padx=5, pady=5)
+<span class="linenumber">35:</span>             self.sb=Tk.Spinbox(f, values=BLOOD)
+<span class="linenumber">36:</span>             self.sb.grid(row=0, column=1, padx=5, pady=5)
+<span class="linenumber">37:</span>             lc=Tk.Label(f, text=u'星座')
+<span class="linenumber">38:</span>             lc.grid(row=1, column=0, padx=5, pady=5)
+<span class="linenumber">39:</span>             self.sc = Tk.Spinbox(f, values=CONSTELLATIONS)
+<span class="linenumber">40:</span>             self.sc.grid(row=1, column=1, padx=5, pady=5)
+<span class="linenumber">41:</span>             b=Tk.Button(self, text=u'占う', command=self.tell_fortune)
+<span class="linenumber">42:</span>             b.pack(padx=5, pady=5)
+<span class="linenumber">43:</span>             self.fortune=Tk.StringVar()
+<span class="linenumber">44:</span>             lf = Tk.Label(self, textvariable=self.fortune, fg='red', font=('Helvetica', '14', 'bold'))
+<span class="linenumber">45:</span>             lf.pack(padx=5, pady=5)
+<span class="linenumber">46:</span>     
+<span class="linenumber">47:</span>         def tell_fortune(self):
+<span class="linenumber">48:</span>             i = position(self.sb.get(), BLOOD) + 1
+<span class="linenumber">49:</span>             j = position(self.sc.get(), CONSTELLATIONS) + 1
+<span class="linenumber">50:</span>             self.fortune.set(FORTUNE[(i*j*j)%4])
+<span class="linenumber">51:</span>         
+<span class="linenumber">52:</span>     
+<span class="linenumber">53:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">54:</span>     
+<span class="linenumber">55:</span>     if __name__ == '__main__':
+<span class="linenumber">56:</span>         f = Frame()
+<span class="linenumber">57:</span>         f.pack()
+<span class="linenumber">58:</span>         f.mainloop()
+</pre>
+<p>
+  こんな感じの window ができます。
+  <center><img src='jspinbox.png'></center>
+
+  <p>
+
+option, method については、<a href='http://effbot.org/tkinterbook/spinbox.html'>The Tkinter Spinbox Widge</a>
+を参照してください。
+  
+<a name='Toplevel'>
+<h4>3.7. Tk.Toplevel</h4>
+別 Window を表示するための Widget です。作成するときに親 widget を指定することができ、
+親 widget があるときは親 widget が消えると親子関係にある toplevel も消えます。
+[code 5] に例を示します。<p>
+
+[code 5](jtop.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     jtop.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     """</span>
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     import Tkinter as Tk
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     class Mtop:
+<span class="linenumber">12:</span>         def __init__(self, master):
+<span class="linenumber">13:</span>             self.master = master
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>         def __call__(self, event=None):
+<span class="linenumber">16:</span>             top = Tk.Toplevel(self.master)
+<span class="linenumber">17:</span>             f = Tk.Frame(top)
+<span class="linenumber">18:</span>             f.pack()
+<span class="linenumber">19:</span>             la = Tk.Label(f, text=self.master and u'子供' or u'他人', font =('Helvetica', '12'))
+<span class="linenumber">20:</span>             la.pack()
+<span class="linenumber">21:</span>             lb = Tk.Label(f, text=self.master and u'この Toplevel は親フレームとともに消えます。' or
+<span class="linenumber">22:</span>                                                   u'この Toplevel は親フレームが消えても残ります。' )
+<span class="linenumber">23:</span>             lb.pack()
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>     class Frame(Tk.Frame):
+<span class="linenumber">26:</span>         def __init__(self, master=None):
+<span class="linenumber">27:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">28:</span>             l = Tk.Label(self, text=u'下のボタンを押して、下の \'親フレーム\' と親子関係にある TopLevel と \n'
+<span class="linenumber">29:</span>                          u'独立した Toplevel を作成してください。\n'
+<span class="linenumber">30:</span>                          u'それから、\'親フレームを消す\'ボタンを押すと、\n親フレームと、親子関係にある Toplevel が消え、\n'
+<span class="linenumber">31:</span>                          u'独立した Toplebel は残ります。', justify=Tk.LEFT)
+<span class="linenumber">32:</span>             l.pack(padx=10, pady=5)
+<span class="linenumber">33:</span>             f = Tk.LabelFrame(self, text=u'親フレーム')
+<span class="linenumber">34:</span>             f.pack(padx=10, pady=5)
+<span class="linenumber">35:</span>             bc = Tk.Button(f, text=u'親フレームの子供のトップレベルを作成', command=Mtop(f))
+<span class="linenumber">36:</span>             bc.pack(fill=Tk.X, pady=5, padx=10)
+<span class="linenumber">37:</span>             bn = Tk.Button(f, text=u'他人のトップレベルを作成', command=Mtop(None))
+<span class="linenumber">38:</span>             bn.pack(fill=Tk.X, pady=5, padx=10)
+<span class="linenumber">39:</span>             bd = Tk.Button(f, text=u'親フレームを消す', command=f.destroy)
+<span class="linenumber">40:</span>             bd.pack(fill=Tk.X, pady=5, padx=10)
+<span class="linenumber">41:</span>             
+<span class="linenumber">42:</span>             
+<span class="linenumber">43:</span>     
+<span class="linenumber">44:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">45:</span>     
+<span class="linenumber">46:</span>     if __name__ == '__main__':
+<span class="linenumber">47:</span>         f = Frame()
+<span class="linenumber">48:</span>         f.pack()
+<span class="linenumber">49:</span>         f.mainloop()
+</pre>
+
+<span class='mono'>Tk.Toplevel</span> の option とメソッドについては以下を参照してください。
+ <ul>
+       <li><a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/toplevel.html'>
+             Tkinter reference: 18. Toplevel: Top-level window methods</a>
+       <li><a href='http://effbot.org/tkinterbook/toplevel.htm'>The Tkinter Toplevel Widget</a>
+ </ul>
+<p>
+  こんな感じの window ができます。
+  <center>
+    <table cellpadding="20">
+<tr>
+  <td><img src='jtop1.png'></td>
+  <td><img src='jtop2.png'><br><br><br><img src='jtop3.png'></td>
+</tr>
+</table>
+  </center>
+
+  <p>
+
+<a name='FileDialog'>
+<h4>3.8. tkFileDialog</h4>
+ファイル（名）を取得するダイアログを生成するモジュールです。
+以下の関数があります。
+<table border=1>
+   <tr>
+      <td>askdirectory(**options)</td>
+      <td>
+    ディレクトリ名を入力するダイアログを表示し、ディレクトリ名を返します。</td>
+   </tr>
+   <tr>
+      <td>askopenfile(mode='r', **options)</td>
+      <td>
+    ファイル名を入力するダイアログを表示し、開いたファイルハンドルを返します。</td>
+   </tr>
+   <tr>
+      <td>askopenfilename(**options)</td>
+      <td>
+   ファイル名を入力するダイアログを表示し、ファイル名を返します。</td>
+   </tr>
+   <tr>
+      <td>askopenfilenames(**options)</td>
+      <td>
+   ファイル名を入力するダイアログを表示し、ファイル名のリストを返します。</td>
+   </tr>
+   <tr>
+      <td>askopenfiles(mode='r', **options)</td>
+      <td>
+   ファイル名を入力するダイアログを表示し、ファイルハンドルのリストを返します。</td>
+   </tr>
+   <tr>
+      <td>asksaveasfile(mode='w', **options)</td>
+      <td>
+    ファイル名を入力するダイアログを表示し、開いているファイルハンドルを返します。</td>
+   </tr>
+   <tr>
+      <td>asksaveasfilename(**options)</td>
+      <td>
+    ファイル名を入力するダイアログを表示し、ファイル名を返します。</td>
+   </tr>
+</table>
+<span class='mono'>**option</span> には <var>filetypes</var>, <var>initialdir</var>, <var>initialfile</var>
+の３つがあります。<p>
+[code 6] に選択したファイルを開いて、標準出力に最初の 15 行を出力するプログラムを示します。<p>
+
+[code 6](py_head.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     import tkFileDialog as FD
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     f = FD.askopenfile(mode='r', initialfile='index.html', 
+<span class="linenumber">07:</span>                        initialdir='D:/doc/05-07/sh_home',
+<span class="linenumber">08:</span>                        filetypes =[('html files', ('*.html', '*.htm')),
+<span class="linenumber">09:</span>                                    ('text files', ('*.txt', '*.css'))])
+<span class="linenumber">10:</span>                                    
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     for i, l in enumerate(f):
+<span class="linenumber">13:</span>         if i&lt;15:
+<span class="linenumber">14:</span>             print '%02d: %s' % (i+1, l.rstrip())
+<span class="linenumber">15:</span>     
+</pre>
+
+
+<a name='MessageBox'>
+<h4>3.9. tkMessageBox</h4>
+メッセージを表示するダイアログを作成するモジュールです。
+以下の関数があります。
+<table border=1>
+   <tr>
+      <td>askokcancel(title=None, message=None, **options)</td>
+      <td>
+    OK か Cancel か聞いてきます。OK なら True を返します。</td>
+   </tr>
+   <tr>
+      <td>askquestion(title=None, message=None, **options)</td>
+      <td>
+    何か質問をします。</td>
+   </tr>
+   <tr>
+      <td>askretrycancel(title=None, message=None, **options)</td>
+      <td>
+    再試行するか聞いてきます。 Yes &rarr; True</td>
+   </tr>
+   <tr>
+      <td>askyesno(title=None, message=None, **options)</td>
+      <td>
+    質問をします。 Yes &rarr; True</td>
+   </tr>
+   <tr>
+      <td>showerror(title=None, message=None, **options)</td>
+      <td>
+    エラーメッセージを表示します。</td>
+   </tr>
+   <tr>
+      <td>showinfo(title=None, message=None, **options)</td>
+      <td>
+    Info を表示します。</td>
+   </tr>
+   <tr>
+      <td>showwarning(title=None, message=None, **options)</td>
+      <td>
+    警告を表示します。</td>
+   </tr>
+</table>
+**option を指定することはまずないでしょう。使用例は [code 1] の 186--193 行目を見てください。
+
+<h4>3.10. Dialog</h4>
+MessageBox は、ある程度決まった種類の質問しかできないのに対して、、Dialog いろいろな質問ができるダイアログです。
+[code 7] に例を示します。<p>
+[code 7] (jdialog.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     import Tkinter as Tk
+<span class="linenumber">05:</span>     import Dialog as D
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     FLOWERS = [u'あさがお', u'タンポポ', u'ゆり', u'はす', u'桜']
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     class Frame (Tk.Frame):
+<span class="linenumber">10:</span>         def __init__(self, master=None, **key):
+<span class="linenumber">11:</span>             Tk.Frame.__init__(self, master, **key)
+<span class="linenumber">12:</span>             self.master.title(u'好きな花はなんですか')
+<span class="linenumber">13:</span>             svar = Tk.StringVar()
+<span class="linenumber">14:</span>             label = Tk.Label(textvariable=svar, font=('Helvetica', '12'))
+<span class="linenumber">15:</span>             label.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">16:</span>             dialog = D.Dialog(self, title=u'好きな花',
+<span class="linenumber">17:</span>                                     text=u'下のボタンから好きな花を選んでください。',
+<span class="linenumber">18:</span>                                     bitmap='question',
+<span class="linenumber">19:</span>                                     default=0,
+<span class="linenumber">20:</span>                                     strings=FLOWERS)
+<span class="linenumber">21:</span>             svar.set(u'%s がお好きなのですね。' % FLOWERS[dialog.num])
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>     if __name__=='__main__':
+<span class="linenumber">24:</span>         f = Frame()
+<span class="linenumber">25:</span>         f.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">26:</span>         f.mainloop()
+</pre>
+<p>
+  こんな感じの window ができます。
+  <center><img src='jdialog.png'></center>
+  <p>
+
+    16 行目の <span class='mono'>Dialog</span> で、回答を促すダイアログを生成します。
+    最初の引数は親 widget, 残りはキーワードパラメターです。
+    <ul>
+      <li><span class='mono'>title</span>: ダイアログボックスのタイトルです。
+      <li><span class='mono'>text</span>: ダイアログボックスに表示される文章です。
+      <li><span class='mono'>bitmap</span>: ダイアログボックスの左側に表示されるアイコンです。アイコンの種類については
+	<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/bitmaps.html'> Tkref, 4.7. Bitmaps</a>
+	を見てください。
+      <li><span class='mono'>strings</span>: 文字列のリストを与えます。それぞれの文字列を表示するボタンが作成されます。
+      <li><span class='mono'>default</span>: リターンキーを押したとき押されたとみなすボタンの番号です。
+     </ul>
+    押されたボタンの番号は内部変数 <span class='mono'>.num</span> に保存されます。(21 行目）
+
+  <h2>4. 終わりに</h2>
+今回は、少し長くてうんざりされたかもしれません。
+  興味のあるところを拾い読みしてください。
+  これで、小物 widget の使い方は一通り説明したことになります。
+  ここで示したコードは<a href='tkinter7.lzh'>付録</a>についていますので、気が向いたら遊んでください。
+  <p>
+    さて、今回作った Image Viewer は Widget が多くてうるさいので、
+    メニューバーにまとめたものを次回作ります。
+    また、一覧を表示するのがフレームだとスクロールバーがつけられないので、
+    一覧を ScrolledText に表示するようにします。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter6.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. Listbox を使ってお花を愛でましょう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter8.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  8. Menu を使ったシンプル 画像 Viewer</a></td>
+<td><a rel='download' href="tkinter7.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter7.html&t=Tkinter+%C6%FE%CC%E7%3A+7.+Widget+%A4%C6%A4%F3%A4%B3%C0%B9%A4%EA%B2%E8%C1%FC+Viewer' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

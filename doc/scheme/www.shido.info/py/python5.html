@@ -1,0 +1,844 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, wxPython、eight-queens">
+<meta name="description" content="eight queens using wxPython">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> wxPython と Tkinter で Eight Queens を作る </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="8queen_py.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python5.html&t=wxPython+%A4%C8+Tkinter+%A4%C7+Eight+Queens+%A4%F2%BA%EE%A4%EB' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>wxPython と Tkinter で Eight Queens を作る</h1> 
+<hr>
+<h2>1. 初めに</h2>
+wxPython と Tkinter で Eight Queens を作って遊んでみました。
+Eight Queens はチェス盤上に８つの Queen を互いに利き筋が重ならないように
+配置するパズルです。解は全部で９２個あり、対称操作で合同になる解を１つの解と数えると
+解の数は１２個になります。ここでは、対称操作を考慮した１２個の解を表示する
+プログラムを書きます。gui はこんな感じになります。<p>
+  <center><img src="./8_queens_tk.jpg"></center>
+	 
+<h2>2. 本体</h2>
+Eight Queens を解くコードを示します。<p>
+  Queen は縦横斜めに利いているので、各行には１つの Queen しか置けません。
+  n 行目に Queen を置くときは すでに 0--(n-1) 行に置かれている Queen と縦、斜めの利きが
+  衝突しないように置きます。利きが衝突しないかどうかは queen_ok で調べます。
+  また、queen_pos は n 行目の衝突しない列全てを返します。<p>
+	 解を求める関数は queen(row, qpos) です。
+	 この関数は、row 行までの Queen の位置を qpos に保持し、それを元に
+	 (row + 1) 行目の安全な Queen の位置を queen_pos で求め、
+	 それを qpos に足していきます。row=8 となったら解をハッシュテーブルに登録します。
+	 詳しくは <a href="http://www.geocities.jp/m_hiroi/rakup/rakup22.html">
+		Hiroi さんのページ</a>を見てください。
+<a name="code_queen">
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">#! usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>                8 queens with symmetry operations of the board
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>      this program gives 
+<span class="linenumber">07:</span>      12 distinct solutions by taking symmetry operations 
+<span class="linenumber">08:</span>      such as rotations and reflections of the board into consideration
+<span class="linenumber">09:</span>     """</span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     <span class="comment">### functions</span>
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     def set_difference(a, b):
+<span class="linenumber">14:</span>         return [x for x in a if not x in b]
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     def nreverse(ls):
+<span class="linenumber">17:</span>         ls.reverse()
+<span class="linenumber">18:</span>         return ls
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     def reverse(ls):
+<span class="linenumber">21:</span>         return nreverse(ls[:])
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>     def qmod (n):
+<span class="linenumber">24:</span>         <span class="string">"""function to determine the board color, 0 white 1, green"""</span>
+<span class="linenumber">25:</span>         return (n / 8 - n % 8) % 2
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>     def queen_decode(c):
+<span class="linenumber">28:</span>         <span class="string">"""decode integer to list"""</span>
+<span class="linenumber">29:</span>         ls1=[]
+<span class="linenumber">30:</span>         for i in range(8):
+<span class="linenumber">31:</span>             ls1.append((c & 7) | (i &lt;&lt; 3))
+<span class="linenumber">32:</span>             c = c &gt;&gt; 3
+<span class="linenumber">33:</span>         return ls1
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>     def queen_encode(ls0):
+<span class="linenumber">36:</span>         <span class="string">"""encode list into integer"""</span>
+<span class="linenumber">37:</span>         c = 0
+<span class="linenumber">38:</span>         for obj in ls0:
+<span class="linenumber">39:</span>             c = (c &lt;&lt; 3) | obj
+<span class="linenumber">40:</span>         return c
+<span class="linenumber">41:</span>     
+<span class="linenumber">42:</span>     <span class="comment">### symmetry operations</span>
+<span class="linenumber">43:</span>     def queen_usd(ls0):
+<span class="linenumber">44:</span>         <span class="string">"""up side down"""</span>
+<span class="linenumber">45:</span>         return [7 - o for o in ls0]
+<span class="linenumber">46:</span>     
+<span class="linenumber">47:</span>     def queen_90(ls0):
+<span class="linenumber">48:</span>         <span class="string">"""rotating 90 degrees"""</span>
+<span class="linenumber">49:</span>         return nreverse([ls0.index(i) for i in range(8)])
+<span class="linenumber">50:</span>           
+<span class="linenumber">51:</span>     def queen_180(ls0):
+<span class="linenumber">52:</span>         <span class="string">"""rotating 180 degrees"""</span>
+<span class="linenumber">53:</span>         return queen_90(queen_90(ls0))
+<span class="linenumber">54:</span>     
+<span class="linenumber">55:</span>     def queen_270(ls0):
+<span class="linenumber">56:</span>         <span class="string">"""rotating 270 degrees"""</span>
+<span class="linenumber">57:</span>         return queen_90(queen_180(ls0))
+<span class="linenumber">58:</span>     
+<span class="linenumber">59:</span>     def queen_dgla(ls0):
+<span class="linenumber">60:</span>         <span class="string">"""reflection on diagonal (1)"""</span>
+<span class="linenumber">61:</span>         return nreverse(queen_90(ls0))
+<span class="linenumber">62:</span>     
+<span class="linenumber">63:</span>     def queen_dglb(ls0):
+<span class="linenumber">64:</span>         <span class="string">"""reflection on diagonal (2)"""</span>
+<span class="linenumber">65:</span>         return queen_usd(queen_90(ls0))
+<span class="linenumber">66:</span>     
+<span class="linenumber">67:</span>     def queen_ok(col, qpos):
+<span class="linenumber">68:</span>         <span class="string">"""check if the queen's position is ok"""</span>
+<span class="linenumber">69:</span>         r = len(qpos)
+<span class="linenumber">70:</span>         for i in range(r):
+<span class="linenumber">71:</span>             c = qpos[i]
+<span class="linenumber">72:</span>             j = r - i
+<span class="linenumber">73:</span>             if c == col or col + j == c or col - j == c :
+<span class="linenumber">74:</span>                 return False
+<span class="linenumber">75:</span>         return True
+<span class="linenumber">76:</span>     
+<span class="linenumber">77:</span>     def queen_pos(qpos):
+<span class="linenumber">78:</span>         <span class="string">"""it retunrs possible queen positions"""</span>
+<span class="linenumber">79:</span>         return [c for c in range(8) if queen_ok(c, qpos)]
+<span class="linenumber">80:</span>     
+<span class="linenumber">81:</span>     def eight_queens():
+<span class="linenumber">82:</span>         <span class="string">"""solving 8 queens taking symmetry operations into account"""</span>
+<span class="linenumber">83:</span>         
+<span class="linenumber">84:</span>         def queen_sethash(ls0):
+<span class="linenumber">85:</span>             <span class="string">"""
+<span class="linenumber">86:</span>             setting hash table
+<span class="linenumber">87:</span>             'hash' is the hash table of the solution of the 8 queens
+<span class="linenumber">88:</span>             if the key is a distinct solution the value is True, else False
+<span class="linenumber">89:</span>             """</span>
+<span class="linenumber">90:</span>             
+<span class="linenumber">91:</span>             c0 = queen_encode(ls0)
+<span class="linenumber">92:</span>             if not (c0 in q_hash):
+<span class="linenumber">93:</span>                 for sop in (reverse, queen_usd, queen_90, queen_180, queen_270, queen_dgla, queen_dglb):
+<span class="linenumber">94:</span>                     q_hash[queen_encode(sop(ls0))] = False
+<span class="linenumber">95:</span>                 q_hash[c0] = True
+<span class="linenumber">96:</span>     
+<span class="linenumber">97:</span>         def queen(row, qpos):
+<span class="linenumber">98:</span>             if row == 8:
+<span class="linenumber">99:</span>                 queen_sethash(qpos)
+<span class="linenumber">100:</span>             else:
+<span class="linenumber">101:</span>                 for c in queen_pos(qpos):
+<span class="linenumber">102:</span>                     queen(1+row, qpos+[c])
+<span class="linenumber">103:</span>     
+<span class="linenumber">104:</span>         q_hash={}
+<span class="linenumber">105:</span>         queen(0, [])
+<span class="linenumber">106:</span>         return [queen_decode(key) for key, val in q_hash.iteritems() if val]
+<span class="linenumber">107:</span>     
+<span class="linenumber">108:</span>     if __name__=='__main__':
+<span class="linenumber">109:</span>         for i, a in enumerate(eight_queens()):
+<span class="linenumber">110:</span>             print '%2d: %s' % (i+1, a)
+<span class="linenumber">111:</span>         
+</pre>
+<table border=1>
+    <tr>
+        <th>行</th>
+        <th>説明</th>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>set_difference(a ,b): リスト a から、リスト b に含まれる要素を除いたリストを返します。</td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td>nreverse(ls): ls の要素を破壊的に反転させます。</td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>reverse(ls): ls の要素を反転させます。</td>
+    </tr>
+    <tr>
+        <td>23</td>
+        <td>qmod(n): チェス盤の升目の色を決めます。</td>
+    </tr>
+    <tr>
+        <td>27</td>
+        <td>queen_decode(c): 正の整数 c をリストに変換します。</td>
+    </tr>
+    <tr>
+        <td>35</td>
+        <td>queen_encode(ls0): queen の位置のリスト ls0 を整数に変換します。リストは辞書型のキーになれないため、整数かタプルに変換する必要がある。タプルより整数のほうが検索が早そうなのでここでは整数に変換。</td>
+    </tr>
+    <tr>
+        <td>43--65</td>
+        <td>チェス盤の対称操作です。90, 180, 270 度回転、上下、左右、対角線（２つ）の反転</td>
+    </tr>
+    <tr>
+        <td>77</td>
+        <td>queen_ok(col, qpos): 新しく col に置いた Queen がすでに盤上にある Queen (qpos) と利き筋が重ならなければ True を返す。</td>
+    </tr>
+    <tr>
+        <td>77</td>
+        <td>queen_pos(qpos): すでに盤上にある Queen と重ならない Queen の位置を返します。</td>
+    </tr>
+    <tr>
+        <td>81</td>
+        <td>eight_queens(): Eight Queens を解く関数です。二つの内部関数 queen_sethash と queen があります。まず、queen で解をもとめて、それを queen_sethash でハッシュテーブル（辞書型のデータ）に登録します。個別の解の値は True、対称操作で生成される解の値は False とします。最後に、固有の解からなるリストを返します。</td>
+    </tr>
+</table>
+<h2>3. gui</h2>
+gui の部分を wx の sizer, wx の座標配置、Tkinter を使って書いてみました。
+<h3>3.1. wx の sizer を使うと</h3>
+wx は Tk と異なり、widget が細分化されています。
+<dl>
+  <dt><b>wx.App</b></dt><dd>gui プログラム全体のクラスです。</dd>
+  <dt><b>wx.Frame</b></dt><dd>Window の"枠"のクラスです。</dd>
+  <dt><b>wx.Panel</b></dt><dd>Window の"内側" のクラスです。</dd>
+  <dt><b>wx.Boxsizer</b></dt><dd> widget を上下または左右に配置するエンジンです。</dd>
+  <dt><b>wx.lib.rcsizer.RowColSizer</b></dt><dd> widget を格子状に配置するエンジンです。ここではチェス盤を作るのに
+	 つかいます。</dd>
+  </dl>
+  Window とコードを示します。<p>
+<center><img border="0" src="./8_queens_wx.jpg"></center><p>
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">#! usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     eight queens, whose gui uses wx sizer
+<span class="linenumber">05:</span>     """</span>
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     import wx, wx.lib.rcsizer
+<span class="linenumber">08:</span>     import queen as q
+<span class="linenumber">09:</span>     <span class="comment">#global parameter</span>
+<span class="linenumber">10:</span>     Q_font = ("Times", 14)
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     <span class="comment"># gui</span>
+<span class="linenumber">13:</span>     class Board(wx.Panel):
+<span class="linenumber">14:</span>         def __init__(self, frame):
+<span class="linenumber">15:</span>             <span class="comment">#  8 queens answers</span>
+<span class="linenumber">16:</span>             self.q_answers = q.eight_queens()
+<span class="linenumber">17:</span>             answer = self.q_answers[0]
+<span class="linenumber">18:</span>             self.counter = 0
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>             <span class="comment"># images</span>
+<span class="linenumber">21:</span>             <span class="comment">#title</span>
+<span class="linenumber">22:</span>             self.i_title = wx.Image('8qsubtitle.png', wx.BITMAP_TYPE_PNG).ConvertToBitmap()
+<span class="linenumber">23:</span>             <span class="comment">#cell</span>
+<span class="linenumber">24:</span>             self.cell_images = [wx.Image(png, wx.BITMAP_TYPE_PNG).ConvertToBitmap() \
+<span class="linenumber">25:</span>                                         for png in ('bw.png', 'bg.png', 'qw.png', 'qg.png')]
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>             <span class="comment"># Panel</span>
+<span class="linenumber">28:</span>             wx.Panel.__init__(self, frame, -1)
+<span class="linenumber">29:</span>             self.box = wx.BoxSizer(wx.VERTICAL)  
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>             <span class="comment"># Title</span>
+<span class="linenumber">32:</span>             self.box.Add(wx.StaticBitmap(self, -1, self.i_title), \
+<span class="linenumber">33:</span>               0, wx.ALIGN_CENTER | wx.ALL, 10)
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>             <span class="comment">#Chess Board</span>
+<span class="linenumber">36:</span>             self.grid = wx.lib.rcsizer.RowColSizer()
+<span class="linenumber">37:</span>     
+<span class="linenumber">38:</span>             for i in range(64):
+<span class="linenumber">39:</span>                 j = q.qmod(i) + ((i in answer) and 2 or 0)
+<span class="linenumber">40:</span>                 self.grid.Add(  \
+<span class="linenumber">41:</span>                   wx.StaticBitmap(self, -1, self.cell_images[j]), \
+<span class="linenumber">42:</span>                   flag=wx.EXPAND, row=i/8, col=i%8)
+<span class="linenumber">43:</span>     
+<span class="linenumber">44:</span>             self.box.Add(self.grid, 0, wx.ALIGN_CENTER | wx.ALL, 10)
+<span class="linenumber">45:</span>             
+<span class="linenumber">46:</span>             <span class="comment"># Footer</span>
+<span class="linenumber">47:</span>             self.footer = wx.BoxSizer(wx.HORIZONTAL)
+<span class="linenumber">48:</span>             
+<span class="linenumber">49:</span>             btn1 = wx.Button(self, wx.ID_FORWARD, "")
+<span class="linenumber">50:</span>             self.Bind(wx.EVT_BUTTON, self.show_next, btn1)
+<span class="linenumber">51:</span>             self.footer.Add(btn1, 0, wx.ALIGN_CENTER_VERTICAL | wx.LEFT, 20)
+<span class="linenumber">52:</span>             
+<span class="linenumber">53:</span>             btn2 = wx.Button(self, wx.ID_BACKWARD, "")
+<span class="linenumber">54:</span>             self.Bind(wx.EVT_BUTTON, self.show_prev, btn2)
+<span class="linenumber">55:</span>             self.footer.Add(btn2, 0, wx.ALIGN_CENTER_VERTICAL | wx.LEFT, 20)
+<span class="linenumber">56:</span>             
+<span class="linenumber">57:</span>             self.label = wx.StaticText(self, -1, ("%d/12" % (self.counter+1)))
+<span class="linenumber">58:</span>             self.footer.Add(self.label, 0, wx.ALIGN_CENTER_VERTICAL | wx.LEFT, 20)
+<span class="linenumber">59:</span>     
+<span class="linenumber">60:</span>             self.box.Add(self.footer, 0,  wx.ALIGN_CENTER | wx.ALL, 10)
+<span class="linenumber">61:</span>     
+<span class="linenumber">62:</span>             <span class="comment"># Layout</span>
+<span class="linenumber">63:</span>             self.SetSizer(self.box)
+<span class="linenumber">64:</span>             self.Layout()
+<span class="linenumber">65:</span>     
+<span class="linenumber">66:</span>     <span class="comment">#refresh board and counter</span>
+<span class="linenumber">67:</span>         def refresh(self, forward):
+<span class="linenumber">68:</span>             i_now = self.counter
+<span class="linenumber">69:</span>             self.counter += forward and 1 or -1
+<span class="linenumber">70:</span>             self.label.SetLabel("%d/12" % (1 + self.counter))
+<span class="linenumber">71:</span>             a_next = self.q_answers[self.counter]
+<span class="linenumber">72:</span>             a_now  = self.q_answers[i_now]
+<span class="linenumber">73:</span>             q_or_b=0
+<span class="linenumber">74:</span>             for cells in [q.set_difference(a_now, a_next), q.set_difference(a_next, a_now)]:
+<span class="linenumber">75:</span>                 for i in cells:
+<span class="linenumber">76:</span>                     j = q.qmod(i) + q_or_b
+<span class="linenumber">77:</span>                     self.grid.Add(  \
+<span class="linenumber">78:</span>                       wx.StaticBitmap(self, -1, self.cell_images[j]), \
+<span class="linenumber">79:</span>                       flag=wx.EXPAND, row=i/8, col=i%8)
+<span class="linenumber">80:</span>                 q_or_b += 2
+<span class="linenumber">81:</span>            <span class="comment"># self.SetSizer(self.box)</span>
+<span class="linenumber">82:</span>             self.Layout()
+<span class="linenumber">83:</span>             
+<span class="linenumber">84:</span>         def show_next(self, event):
+<span class="linenumber">85:</span>             if(self.counter &lt; 11):
+<span class="linenumber">86:</span>                 self.refresh(True)
+<span class="linenumber">87:</span>                 
+<span class="linenumber">88:</span>         def show_prev(self, event):
+<span class="linenumber">89:</span>             if(self.counter &gt; 0):
+<span class="linenumber">90:</span>                 self.refresh(False)
+<span class="linenumber">91:</span>             
+<span class="linenumber">92:</span>     class Queen(wx.App):
+<span class="linenumber">93:</span>         def OnInit(self):
+<span class="linenumber">94:</span>             frame = wx.Frame(None, -1, "8 queens" , size=(450,500),  \
+<span class="linenumber">95:</span>                               style=wx.DEFAULT_FRAME_STYLE | wx.ST_NO_AUTORESIZE)
+<span class="linenumber">96:</span>             Board(frame)
+<span class="linenumber">97:</span>             self.SetTopWindow(frame)
+<span class="linenumber">98:</span>             frame.Show(True)
+<span class="linenumber">99:</span>             return True
+<span class="linenumber">100:</span>         
+<span class="linenumber">101:</span>     if __name__ == "__main__":
+<span class="linenumber">102:</span>         que = Queen(redirect=False)
+<span class="linenumber">103:</span>         que.MainLoop()
+</pre>
+<table border=1>
+    <tr>
+        <th>行</th>
+        <th>説明</th>
+    </tr>
+    <tr>
+        <td>08</td>
+        <td>Eight Queen を解くプログラム queen を import します。</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>wx.Panel の子クラス Board を定義します。</td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td>Eight Queen の解を self.q_answers に代入します。</td>
+    </tr>
+    <tr>
+        <td>22</td>
+        <td>タイトルのイメージを作ります。</td>
+    </tr>
+    <tr>
+        <td>24</td>
+        <td>チェス盤の枡のイメージを作ります。黒地、白地、黒地+Queen、白地+Queen の四種類があります。</td>
+    </tr>
+    <tr>
+        <td>28</td>
+        <td>wx.Panel の __int__ を呼び出します。引数は自分自身、結合するフレーム、ID です。</td>
+    </tr>
+    <tr>
+        <td>29</td>
+        <td>縦に並べる boxsizer self.box を作ります。。</td>
+    </tr>
+    <tr>
+        <td>32</td>
+        <td>タイトルイメージから StaticBitmat をつくり、それを self.box を使って縦に並べます。
+			 StatucBitmap は Panel, id, Image の３つの引数をとります。
+			 また、Add は、Widget, proportion, flag, border の４つの引数をとります。
+			 これらの引数の意味は<a=href"http://www.wxpython.org/docs/api/wx.Sizer-class.html#Add">wxpython.org/docs</a> を見てください。</td>
+    </tr>
+    <tr>
+        <td>36</td>
+        <td>チェス盤を定義します。</td>
+    </tr>
+    <tr>
+        <td>38--42</td>
+        <td>チェス盤に枡のイメージを貼り付けます。</td>
+    </tr>
+    <tr>
+        <td>38</td>
+        <td>64 個の枡に、</td>
+    </tr>
+    <tr>
+        <td>39</td>
+        <td>貼り付ける画像を選びます。
+			 q.qmod(i): 白か黒、
+			 ((i in answer) and 2 or 0): Queen があるかないか。
+			 j=0,1,2,3 はそれぞれ白枡、黒枡、白枡+Queen、黒枡+Queen をあらわします。</td>
+    </tr>
+    <tr>
+        <td>40</td>
+        <td>RowColSizer のメソッド Add は、
+			 item, option, flag, border, row, col, rowspan, colspan, pos, size の 10 個の引数をとります。
+			 item と row、col は指定する必要があります。
+			 row, col で貼り付ける位置を指定します。ここでは、row は i を 8 で割った商、col は 余りです。</td>
+    </tr>
+    <tr>
+        <td>44</td>
+        <td>self.box にチェス盤 (self.grid) を加えます。</td>
+    </tr>
+    <tr>
+        <td>47</td>
+        <td>横向きの BoxSizer self.footer を定義します。</td>
+    </tr>
+    <tr>
+        <td>49</td>
+        <td>次の解を表示するボタン "btn1" を作ります。wx.Button の引数は、
+			 wx.Panel, id, 表示文字の３つです。id には予約済みの値があるので一般的な Button を作るときは
+			 それを使えばよいでしょう。詳しくは、<a href="http://www.wxpython.org/docs/api/wx.Button-class.html">wxpython.org/docs</a>を見てください。</td>
+    </tr>
+    <tr>
+        <td>50</td>
+        <td>btn1 と self.show_next というメソッドを結び付けます。</td>
+    </tr>
+    <tr>
+        <td>51</td>
+        <td>btn1 を self.footer に加えます。</td>
+    </tr>
+    <tr>
+        <td>53--55</td>
+        <td>１つ前の解を表示するボタン btn2 をつくり、 btn1 と同様の処理をします。</td>
+    </tr>
+    <tr>
+        <td>57</td>
+        <td>現在、何番目の解を表示しているかのラベル (self.label) をつくります。</td>
+    </tr>
+    <tr>
+        <td>58</td>
+        <td> self.label を self.footer に加えます。</td>
+    </tr>
+    <tr>
+        <td>60</td>
+        <td> self.footer を self.box に加えます。</td>
+    </tr>
+    <tr>
+        <td>63</td>
+        <td> self(wx.Panel) の Sizer を self.box にセットします。</td>
+    </tr>
+    <tr>
+        <td>64</td>
+        <td> レイアウトします。</td>
+    </tr>
+    <tr>
+        <td>67</td>
+        <td> 次または前の解を表示するメソッド refresh を定義します。</td>
+    </tr>
+    <tr>
+        <td>68</td>
+        <td> 現在の解の番号を i_now に保持し、</td>
+    </tr>
+    <tr>
+        <td>69</td>
+        <td> 解の番号を forward==True のときは１つ増やし、forward==False のときは１つ減らします。</td>
+    </tr>
+    <tr>
+        <td>70</td>
+        <td> self.label の表示文字を変更します。</td>
+    </tr>
+    <tr>
+        <td>74--80</td>
+        <td> 今表示している解の Queen の位置で、
+			 次に表示する解では Queen がいなくなる枡の画像を Queen ありから Queen 無しに張り替えます。
+			 また、次に表示する解の Queen の位置で、今表示している解では Queen が無い枡の画像を
+			 Queen 無しから、 Queen ありに張り替えます。
+			 こうすると、画像全てを張り替える必要が無いので応答が速くなります。</td>
+    </tr>
+    <tr>
+        <td>84</td>
+        <td> 次の解を表示するメソッド show_next を定義します。
+			 イベントと結びつけるメソッドは、自分自身とイベントのきっかり２つの引数を取る必要があります。</td>
+    </tr>
+    <tr>
+        <td>88</td>
+        <td> １つ前の解を表示するメソッド show_prev を定義します。これで、パネル (Board) の定義は終わりです。</td>
+    </tr>
+    <tr>
+        <td>92</td>
+        <td> wx.App の導出クラス Queen を定義します。</td>
+    </tr>
+    <tr>
+        <td>93</td>
+        <td> wx.App クラスの __init__ に加えてインスタンス生成の際に加えたい操作を
+			 OnInit を使って定義します。</td>
+    </tr>
+    <tr>
+        <td>94</td>
+        <td> wx.Frame のインスタンス frame を定義します。
+			 parent, id, title, pos, size, style, name の ７つの引数をとります。</td>
+    </tr>
+    <tr>
+        <td>96</td>
+        <td> Board のフレームを frame にしてインスタンスを生成します。</td>
+    </tr>
+    <tr>
+        <td>97</td>
+        <td> frame を TopWindow にします。</td>
+    </tr>
+    <tr>
+        <td>98</td>
+        <td> frame を表示します。</td>
+    </tr>
+    <tr>
+        <td>99</td>
+        <td> OnInit はブーリアンを返す必要があります。これで、Queen の定義は終わりです。</td>
+    </tr>
+    <tr>
+        <td>102</td>
+        <td> Queen のインスタンス que を作って、</td>
+    </tr>
+    <tr>
+        <td>103</td>
+        <td> 実行します。</td>
+    </tr>
+</table>
+<h3>3.2. wx の 絶対配置を使う</h3>
+wx.Sizer を使うと、Window のサイズを変更したときチェス盤が乱れます。
+そこで、パネルに位置を指定して widget を直接貼り付けてみました。
+こうするとサイズを変えても表示は乱れません。
+コードを示します。基本的に 3.1. と同じなので説明は省略します。
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">#! usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     eight queens, whose gui uses wx absolute positioning
+<span class="linenumber">05:</span>     """</span>
+<span class="linenumber">06:</span>     import wx
+<span class="linenumber">07:</span>     import queen as q
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     <span class="comment">#global parameter</span>
+<span class="linenumber">10:</span>     Q_font = ("Times", 14)
+<span class="linenumber">11:</span>     X_Margin = 20
+<span class="linenumber">12:</span>     Y_Margin = 20
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     <span class="comment"># gui</span>
+<span class="linenumber">15:</span>     class Board(wx.Panel):
+<span class="linenumber">16:</span>         def init_title(self):
+<span class="linenumber">17:</span>             self.i_title = wx.Image('8qsubtitle.png', wx.BITMAP_TYPE_PNG).ConvertToBitmap()
+<span class="linenumber">18:</span>             wx.StaticBitmap(self, -1, self.i_title, \
+<span class="linenumber">19:</span>               (5, 5), (self.i_title.GetWidth(), self.i_title.GetHeight()))
+<span class="linenumber">20:</span>       
+<span class="linenumber">21:</span>         def init_board(self):
+<span class="linenumber">22:</span>             self.cell_images = [wx.Image(png, wx.BITMAP_TYPE_PNG).ConvertToBitmap() \
+<span class="linenumber">23:</span>                                         for png in ('bw.png', 'bg.png', 'qw.png', 'qg.png')]
+<span class="linenumber">24:</span>             answer = self.q_answers[0]
+<span class="linenumber">25:</span>             self.i_width = self.cell_images[0].GetWidth()
+<span class="linenumber">26:</span>             self.i_height = self.cell_images[0].GetHeight()
+<span class="linenumber">27:</span>             for i in range(64):
+<span class="linenumber">28:</span>                 j = q.qmod(i) + (((i in answer) and 2) or 0)
+<span class="linenumber">29:</span>                 wx.StaticBitmap(self, -1, self.cell_images[j], \
+<span class="linenumber">30:</span>                   (self.i_width*(i%8)+self.xmargin, self.i_height*(i/8)+self.ymargin),  \
+<span class="linenumber">31:</span>                   (self.i_width,  self.i_height))
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>         def init_footer(self):
+<span class="linenumber">34:</span>             self.counter = 0
+<span class="linenumber">35:</span>             btn1 = wx.Button(self, 10, "Forward", (20, 420))
+<span class="linenumber">36:</span>             self.Bind(wx.EVT_BUTTON, self.show_next, btn1)
+<span class="linenumber">37:</span>             btn2 = wx.Button(self, 20, "Backward", (100, 420))
+<span class="linenumber">38:</span>             self.Bind(wx.EVT_BUTTON, self.show_prev, btn2)
+<span class="linenumber">39:</span>             self.label = wx.StaticText(self, -1, ("%d/12" % (self.counter+1)), (180, 430))
+<span class="linenumber">40:</span>                 
+<span class="linenumber">41:</span>         def init_all(self):
+<span class="linenumber">42:</span>             self.q_answers = q.eight_queens()
+<span class="linenumber">43:</span>             self.init_title()
+<span class="linenumber">44:</span>             self.init_board()
+<span class="linenumber">45:</span>             self.init_footer()
+<span class="linenumber">46:</span>     
+<span class="linenumber">47:</span>         def __init__(self, frame):
+<span class="linenumber">48:</span>             wx.Panel.__init__(self, frame, style=wx.NO_FULL_REPAINT_ON_RESIZE)
+<span class="linenumber">49:</span>             self.xmargin = 40
+<span class="linenumber">50:</span>             self.ymargin = 60
+<span class="linenumber">51:</span>             self.init_all()
+<span class="linenumber">52:</span>             self.Layout()
+<span class="linenumber">53:</span>     
+<span class="linenumber">54:</span>             
+<span class="linenumber">55:</span>     <span class="comment">#refresh board and counter</span>
+<span class="linenumber">56:</span>         def refresh(self, forward):
+<span class="linenumber">57:</span>             i_now = self.counter
+<span class="linenumber">58:</span>             self.counter += forward and 1 or -1
+<span class="linenumber">59:</span>             self.label.SetLabel("%d/12" % (1 + self.counter))
+<span class="linenumber">60:</span>             a_next = self.q_answers[self.counter]
+<span class="linenumber">61:</span>             a_now  = self.q_answers[i_now]
+<span class="linenumber">62:</span>             q_or_b=0
+<span class="linenumber">63:</span>             for cells in [q.set_difference(a_now, a_next), q.set_difference(a_next, a_now)]:
+<span class="linenumber">64:</span>                 for i in cells:
+<span class="linenumber">65:</span>                     j = q.qmod(i) + q_or_b
+<span class="linenumber">66:</span>                     wx.StaticBitmap(self, -1, self.cell_images[j], \
+<span class="linenumber">67:</span>                       (self.i_width*(i%8)+self.xmargin, self.i_height*(i/8)+self.ymargin), \
+<span class="linenumber">68:</span>                       (self.i_width,  self.i_height))
+<span class="linenumber">69:</span>                 q_or_b += 2
+<span class="linenumber">70:</span>             
+<span class="linenumber">71:</span>         def show_next(self, event):
+<span class="linenumber">72:</span>             if(self.counter &lt; 11):
+<span class="linenumber">73:</span>                 self.refresh(True)
+<span class="linenumber">74:</span>                 
+<span class="linenumber">75:</span>         def show_prev(self, event):
+<span class="linenumber">76:</span>             if(self.counter &gt; 0):
+<span class="linenumber">77:</span>                 self.refresh(False)
+<span class="linenumber">78:</span>     
+<span class="linenumber">79:</span>             
+<span class="linenumber">80:</span>     class Queen(wx.App):
+<span class="linenumber">81:</span>         def OnInit(self):
+<span class="linenumber">82:</span>             frame = wx.Frame(None, -1, "8 queens", pos=(150, 150), size=(420, 500))
+<span class="linenumber">83:</span>             Board(frame)
+<span class="linenumber">84:</span>             self.SetTopWindow(frame)
+<span class="linenumber">85:</span>             frame.Show(True)
+<span class="linenumber">86:</span>             return True
+<span class="linenumber">87:</span>         
+<span class="linenumber">88:</span>     if __name__ == "__main__":
+<span class="linenumber">89:</span>         que = Queen(redirect=False)
+<span class="linenumber">90:</span>         que.MainLoop()
+</pre>
+
+<a name="Tk">
+<h3>3.3. Tkinter を使う。</h3>
+wx を使うと次の解を表示するとき少し変な動作をします。そこで Tkinter を使って書いてみました。
+Tk は Widget の種類が wx に比べて少ないので覚えやすくまたプログラムは短くなります。
+Tk では wx のように App, Frame, Panel の区別はなく全て Frame です。また、Sizer はなく、
+レイアウトは Widget のメソッドとして定義されています。
+wx.BoxSizer
+は pack メソッド、 wx.lib.rcsizer.RowColSizer は grid メソッドが対応しています。
+また、次の解を示すとき変な動作もしません。gui として完成度は高いと思います。
+豊富な widget を使いたいときは wx、画像を使うときは Tk というように使い分けると良いと思います。
+Window とコードを示します。<p>
+  <center><img src="./8_queens_tk.jpg"></center>
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">#! usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     eight queens, whose gui uses Tkinter
+<span class="linenumber">05:</span>     """</span>
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     import Tkinter as tk
+<span class="linenumber">08:</span>     import queen as q
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     <span class="comment">#global parameter</span>
+<span class="linenumber">11:</span>     Q_font = ("Times", 14)
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     <span class="comment"># gui</span>
+<span class="linenumber">14:</span>     class Queen(tk.Frame):
+<span class="linenumber">15:</span>         q_counter = 0
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>         def init_title(self):
+<span class="linenumber">18:</span>             self.master.title("8 Queens")
+<span class="linenumber">19:</span>             self.f_title = tk.Frame(self)
+<span class="linenumber">20:</span>             self.i_title = tk.PhotoImage(file="8qsubtitle.ppm")
+<span class="linenumber">21:</span>             self.l_title = tk.Label(self.f_title, image = self.i_title)
+<span class="linenumber">22:</span>             self.l_title.pack()
+<span class="linenumber">23:</span>             self.f_title.pack(side=tk.TOP, padx=10, pady=10)
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>         def init_board(self):
+<span class="linenumber">26:</span>             self.f_board = tk.Frame(self, relief=tk.GROOVE, bd=3)
+<span class="linenumber">27:</span>             self.f_board.pack(side=tk.TOP, padx=10, pady=10)
+<span class="linenumber">28:</span>             self.cell_images = [tk.PhotoImage(file=ppm) for ppm in ("bw.ppm", "bg.ppm", "qw.ppm", "qg.ppm")]
+<span class="linenumber">29:</span>             self.q_answers = q.eight_queens()
+<span class="linenumber">30:</span>             answer = self.q_answers[0]
+<span class="linenumber">31:</span>             for i in range(64):
+<span class="linenumber">32:</span>                 tk.Label(self.f_board, \
+<span class="linenumber">33:</span>                   image=self.cell_images[q.qmod(i)+((i in answer) and 2 or 0)]).grid(row=i/8, column=i%8)
+<span class="linenumber">34:</span>                 
+<span class="linenumber">35:</span>         def init_footer(self):
+<span class="linenumber">36:</span>             self.f_footer = tk.Frame(self)
+<span class="linenumber">37:</span>             self.f_footer.pack(side=tk.TOP, fill=tk.X, expand=1)
+<span class="linenumber">38:</span>             self.s_counter = tk.StringVar()
+<span class="linenumber">39:</span>             self.s_counter.set("%d/12" % (1 + self.q_counter))
+<span class="linenumber">40:</span>             self.f_label = tk.Label(self.f_footer, textvariable = self.s_counter, font=Q_font, width=8)
+<span class="linenumber">41:</span>             self.f_label.pack(side=tk.RIGHT, padx=10)
+<span class="linenumber">42:</span>             self.b_button = tk.Button(self.f_footer, text="back", font=Q_font, command = self.show_prev)
+<span class="linenumber">43:</span>             self.b_button.pack(side=tk.RIGHT, padx=1,pady=1)
+<span class="linenumber">44:</span>             self.a_button = tk.Button(self.f_footer, text="next", font=Q_font, command = self.show_next)
+<span class="linenumber">45:</span>             self.a_button.pack(side=tk.RIGHT, padx=1,pady=1)
+<span class="linenumber">46:</span>                 
+<span class="linenumber">47:</span>     
+<span class="linenumber">48:</span>         def __init__(self, master=None):
+<span class="linenumber">49:</span>             tk.Frame.__init__(self, master)
+<span class="linenumber">50:</span>             self.pack()
+<span class="linenumber">51:</span>             self.init_title()
+<span class="linenumber">52:</span>             self.init_board()
+<span class="linenumber">53:</span>             self.init_footer()
+<span class="linenumber">54:</span>             
+<span class="linenumber">55:</span>     <span class="comment">#refresh board and counter</span>
+<span class="linenumber">56:</span>         def refresh(self, forward):
+<span class="linenumber">57:</span>             i_now = self.q_counter
+<span class="linenumber">58:</span>             self.q_counter += forward and 1 or -1
+<span class="linenumber">59:</span>             self.s_counter.set("%d/12" % (1 + self.q_counter))
+<span class="linenumber">60:</span>             a_next = self.q_answers[self.q_counter]
+<span class="linenumber">61:</span>             a_now  = self.q_answers[i_now]
+<span class="linenumber">62:</span>             q_or_b=0
+<span class="linenumber">63:</span>             for cells in [q.set_difference(a_now, a_next), q.set_difference(a_next, a_now)]:
+<span class="linenumber">64:</span>                 for i in cells:
+<span class="linenumber">65:</span>                     tk.Label(self.f_board, image=self.cell_images[q.qmod(i) + q_or_b]).grid(row=i/8, column=i%8)
+<span class="linenumber">66:</span>                 q_or_b += 2
+<span class="linenumber">67:</span>             
+<span class="linenumber">68:</span>         def show_next(self):
+<span class="linenumber">69:</span>             if(self.q_counter &lt; 11):
+<span class="linenumber">70:</span>                 self.refresh(True)
+<span class="linenumber">71:</span>                 
+<span class="linenumber">72:</span>         def show_prev(self):
+<span class="linenumber">73:</span>             if(self.q_counter &gt; 0):
+<span class="linenumber">74:</span>                 self.refresh(False)
+<span class="linenumber">75:</span>     
+<span class="linenumber">76:</span>     
+<span class="linenumber">77:</span>     if __name__ == "__main__":
+<span class="linenumber">78:</span>         que = Queen()
+<span class="linenumber">79:</span>         que.mainloop()
+</pre>
+<table border=1>
+    <tr>
+        <th>行</th>
+        <th>説明</th>
+    </tr>
+    <tr>
+        <td>17</td>
+        <td>init_title: タイトルを初期化します。</td>
+    </tr>
+    <tr>
+        <td>18</td>
+        <td>window の上部のフレームに表示する文字列を指定します。</td>
+    </tr>
+    <tr>
+        <td>19</td>
+        <td>self を親フレームにしてタイトル用のFrame self.f_title を定義します。</td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>タイトル用のイメージ self.i_image を定義します。</td>
+    </tr>
+    <tr>
+        <td>21</td>
+        <td>self.f_frame を親フレームにし、self.i_title を表示するタイトル用のラベル self.l_title を定義します。</td>
+    </tr>
+    <tr>
+        <td>22</td>
+        <td>self.l_title を pack します。</td>
+    </tr>
+    <tr>
+        <td>23</td>
+        <td>self.f_title を pack します。方向は上下(side=tk.TOP)で、上下左右の余白は 10 です。(padx=10, pady=10)</td>
+    </tr>
+    <tr>
+        <td>25</td>
+        <td>init_board: チェス盤を初期化します。</td>
+    </tr>
+    <tr>
+        <td>26</td>
+        <td>チェス盤用のフレーム selff_board を定義します。ボーダーのスタイルを tk.GROOVE にし、ボーダーの幅は 3 です。</td>
+    </tr>
+    <tr>
+        <td>27</td>
+        <td>self.f_board を pack します。</td>
+    </tr>
+    <tr>
+        <td>28</td>
+        <td>枡のイメージを用意します。</td>
+    </tr>
+    <tr>
+        <td>29</td>
+        <td>Eight Queens を解きます。</td>
+    </tr>
+    <tr>
+        <td>31--33</td>
+        <td>self.f_board を親にして tk.Label を作り、8x8 に配置します。画像の選び方は wx 版と同様。</td>
+    </tr>
+    <tr>
+        <td>35</td>
+        <td> init_footer: ボタンとラベルを初期化します。</td>
+    </tr>
+    <tr>
+        <td>36</td>
+        <td> footer 用のフレーム self.f_footer を作ります。</td>
+    </tr>
+    <tr>
+        <td>37</td>
+        <td> f_footer を pack します。 左右に広がるように fill=tk.X, expand=1 を指定します。</td>
+    </tr>
+    <tr>
+        <td>38</td>
+        <td> ラベルに表示する文字列 self.s_counter を定義します。変更可能な文字列は tk.StringVar クラスです。</td>
+    </tr>
+    <tr>
+        <td>39</td>
+        <td> self.s_counter の set メソッドを使って文字列をセットします。</td>
+    </tr>
+    <tr>
+        <td>40</td>
+        <td> self.f_label を定義します。変更可能な文字列を表示する場合は textvariable を使います。</td>
+    </tr>
+    <tr>
+        <td>41</td>
+        <td> self.f_label 右詰で pack します。</td>
+    </tr>
+    <tr>
+        <td>42--43</td>
+        <td> "back" 用のボタンを定義し、右詰で pack します。command は関数へのポインターを与えます。command に記述する関数は self 以外の引数をとりません。</td>
+    </tr>
+    <tr>
+        <td>44--45</td>
+        <td> "forward" 用のボタンを定義し、右詰で pack します。</td>
+    </tr>
+    <tr>
+        <td>48--53</td>
+        <td> Queen クラスのインスタンスを作ります。</td>
+    </tr>
+    <tr>
+        <td>56--74</td>
+        <td> 次の解を表示する関数は wx 版と同様です。</td>
+    </tr>
+    <tr>
+        <td>78,79</td>
+        <td> Queen クラスのインスタンス que を作って、メソッド mainloop を呼び出します。</td>
+    </tr>
+</table>
+
+<h3>4.  Canvas を使う</h3>
+Tkinter の Canvas widget を使うともっとスマートに書けることに気がつきました。
+上の例では、画像を作っては壊していますが、Canvas を使って、Queen を動かして前後の
+解を表示するようにすれば動作が軽快になります。<p>
+  コードは <a href='tkinter9.html'>Tkinter 入門 9. ボードゲーム用 GUI を作ろう</a>
+  にあります。
+<h2>4. 終わりに</h2>
+コードと画像は<a href="8queen_py.lzh">ここ</a>からダウンロードできます。
+最後に wxPython と Tkinter のリンクを挙げておきます。
+<ul>
+  <li> wxPython
+	 <ul>
+		<li><a href="http://www.wxpython.org/docs/api/wx-module.html">wxpython.org/doc</a>
+		  <li><a href="http://wiki.wxpython.org/index.cgi/How_20to_20Learn_20wxPython"> How to learn wxPython</a>
+			 <li><a href="http://wxpython.at-ninja.jp/"> wxPython チュートリアル</a>
+				</ul>
+	 <li> Tkinter
+		<ul>
+<li><a href="http://infohost.nmt.edu/tcc/help/pubs/tkinter/">Tkinter reference: a GUI for Python</a> よくまとまったマニュアル。
+			 <li><a href="http://www.pythonware.com/library/tkinter/introduction/index.htm">
+				An Introduction to Tkinter</a>
+				<li><a href="http://hogehuga.ddo.jp/python/">Python with Tkinter</a>
+				  </ul></ul>
+<hr>
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="8queen_py.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python5.html&t=wxPython+%A4%C8+Tkinter+%A4%C7+Eight+Queens+%A4%F2%BA%EE%A4%EB' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

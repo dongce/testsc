@@ -1,0 +1,143 @@
+<html lang="ja"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="Scheme">
+<meta name="description" content="Emacs の使い方">
+<meta name="robots" content="all"> 
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>Emacs の使い方</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_common.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-5. 記事中のコードを実行する方法</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_emacs.html&t=Scheme+%C6%FE%CC%E7+A-6.+Emacs+%A4%CE%BB%C8%A4%A4%CA%FD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>Appendix 6. Emacs の使い方</h1>
+<hr>
+Emacs はプログラム作成が便利になるように設計されたエディタです。
+プログラムの作成は、コードを書く作業と、テスト、修正のサイクルから成り立っています。
+Emacs はこのサイクルがスムーズに回るように設計されています。<p>
+
+Emacs は非常にメジャーなエディタなので、書籍や web 上の情報が簡単に見つかります。
+キーバインディングがほかの Window アプリと違うので、はじめ違和感があるかもしれませんが、
+慣れればこんな便利なエディタはありません。
+最近の Emacs はメニューバーがついているのでとっつきやすくなっています。
+<p>
+興味のある人は
+<a href='http://www.amazon.co.jp/GNU-Emacs-%E7%AC%AC3%E7%89%88-Debra-Cameron/dp/487311277X/ref=sr_1_1?ie=UTF8&s=books&qid=1215032601&sr=8-1'>入門 GNU Emacs</a> を一読することをお勧めします。
+
+
+<h2>1. 起動と終了</h2>
+  runemacs をダブルクリックすると Emacs  が立ち上がります。
+runemacs のショートカットをディスクトップに作っておくと便利です。
+<a href='scheme1.html#emacs'>第１章</a>の様に設定すると、Emacs が立ち上がったすぐ後に、処理系もついでに立ち上がります。
+<p>
+Emacs の終了は <span class='ttb'>(C-x C-c)</span> を使ってもいいですし、フレーム右上の X ボタンをクリックしても終了します。
+そのとき、Scheme 処理系が走っているので、<br>
+"本当にとめてもいいか" 聞いてきますが、 "yes" と答えます。
+
+<h2>2. ファイルのオープンと保存</h2>
+<span class='ttb'>(C-x, C-f)</span>
+でファイルを開くことができます。存在しないファイル名を与えると新規にファイルを作成します。
+初期ディレクトリは <span class='ttb'>.emacs</span> に以下のように記述して設定することができます<p>
+
+<pre class='code'>
+<span class='comment'>; C:/doc/scheme を初期ディレクトリにする</span>
+(cd "C:/doc/scheme")
+</pre>
+
+<span class='ttb'>(C-x C-f)</span> と入力するとミニバッファ (フレームの下にある細長い領域) で、ファイル名を聞いてきます。
+直接ファイル名を入力してもいいですし、ファイル名を忘れたときは以下のようにすることもできます。
+末尾を "/" にして、ディレクトリを指定すると、メインのバッファにディレクトリのリストが表示されるので、
+その中から開きたいファイルを選んで リターンするとファイルが開けます。
+メニューの File &rarr; Open File でもファイルを開くことができます。
+
+ファイルを上書き保存するときは <span class='ttb'>(C-x, C-s)</span>、
+  別名で保存するときは <span class='ttb'>(C-x, C-w)</span> とします。
+これも、メニューからでもできますので、なれないうちはメニューからやってもいいでしょう。
+
+<h2>3.  インデント</h2>
+<span class='ttb'>C-i</span> または <span class='ttb'>TAB</span> でインデントします。
+また、改行とインデントを同時に行うには <span class='ttb'>C-j</span> を使います。
+
+
+<h2>4.  カット、コピー、およびペースト</h2>
+マウスで、範囲を選択する方法もありますが、以下のようにすることもできます。
+
+<ol>
+ <li> まず、矢印キーまたはマウスで、選択範囲の初めにいって <span class='ttb'>C-@</span>
+   を押します。すると、そこが選択範囲の始点になります。
+ <li>次に、
+   選択範囲の終点に行って、<span class='ttb'>C-w</span> を押すと、選択範囲がカットされます。
+   また、<span class='ttb'>Alt-w</span> を押すと
+   選択範囲がコピーされます。
+ <li> 最後に、ペーストしたい場所に行って <span class='ttb'>C-y</span> を押すとその場所にペーストされます。
+ </ol>
+
+<h2>5. 領域の分割</h2>
+Emacs は領域を自由に分割、統合できるので、編集作業の効率が向上します。
+<dl>
+  <dt><b>C-x 2</b></dt>
+      <dd>ウィンドウを上下に２つに分割します。</dd>
+  <dt><b>C-x 3</b></dt>
+      <dd>ウィンドウを左右に２つに分割します。</dd>
+  <dt><b>C-x 1</b></dt>
+      <dd>ウィンドウを１つにします。</dd>
+  <dt><b>C-x 0</b></dt>
+      <dd>カーソルのあるウィンドウを消去します。</dd>
+</dl>
+
+<a name='cxce'>
+<h2>6. Scheme モード特有の機能</h2>
+
+Emacs は編集しているファイルごとに機能が切り替わります。Scheme のソースコードを編集しているときは
+メニューバーに Scheme という項目が現れることもそのひとつです。
+Scheme モードの便利な機能として 直前の S 式の評価 <span class='ttb'>(C-x C-e)</span> があります。
+これを使うと、上下のウィンドウを行ったりきたりしないで編集とテストを行うことができます。
+まず、下のように、関数定義と、予想される結果を編集します。<br>
+
+<pre class='code'>
+<span class='comment'>;; 台形の面積を求める関数</span>
+<span class='comment'>; (trape 1 2 2) ==> 3</span>
+<span class='comment'>; (trape 1 1 1) ==> 1</span>
+(define (trape d1 d2 h)
+  (/ (* h (+ d1 d2)) 2))
+</pre>
+
+その後、関数定義の最後の括弧にあわせて <span class='ttb'>(C-x C-e)</span> を押し、
+それから、テストのところに行き、閉じ括弧にあわせて <span class='ttb'>(C-x C-e)</span> を押します。
+この例の場合は <tt>(trape 1 2 2)</tt> や <tt>(trape 1 1 1)</tt> の閉じ括弧で <span class='ttb'>(C-x C-e)</span> を押します。
+すると、図 2 のように、下の処理系のバッファに結果が表示されるので、バッファを移動しないで編集とテストを行うことができます。
+テストはコメントアウトされているので、ロードやコンパイルしたときには無視されます。また、ソースコードを読むときにテストコードも一緒にあった方が
+早く理解できます。
+
+<center>
+<img src='c_x_c_e.png'><br>図 2: C-x C-e を使って編集とテストをしているところ
+</center>
+<p>
+Emacs + scheme について詳しくは以下のサイトを見てください。
+<ul>
+<li><a href='http://karetta.jp/book-node/gauche-hacks/004640'>EmacsからGaucheを使う</a>
+<li><a href='http://www.math.s.chiba-u.ac.jp/~matsu/emacs/emacs21/scheme.html'>Scheme モード</a>
+<li><a href='http://khead.kahua.org/kahua-web/show/eg/emacs'>4. Emacs のすすめ (Kahua HEAD)</a>
+<li><a href='http://bc.tech.coop/scheme/scheme-emacs.htm'>Setting up Emacs for use with PLT Scheme on Windows or Mac OS X</a>
+</ul>
+
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_common.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-5. 記事中のコードを実行する方法</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_emacs.html&t=Scheme+%C6%FE%CC%E7+A-6.+Emacs+%A4%CE%BB%C8%A4%A4%CA%FD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body></html>

@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, wxPython">
+<meta name="description" content="using wxPython">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> wxPython でお手軽 gui </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="matrix.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python4.html&t=wxPython+%A4%C7%A4%AA%BC%EA%B7%DA+gui' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>wxPython でお手軽 gui</h1> 
+<hr>
+<h2>1. 初めに</h2>
+<a href="python1.html#photo_python">
+  この間作ったメディアからハードディスクへ画像ファイルを移動するスクリプト</a>は
+残念ながら家族に不評でした。<br>
+家族曰く：<br>
+<span class="warn">「なんでファイルを移動させるだけなのに薄気味悪い黒い窓が開くの？」</span><br>
+薄気味悪い黒い窓とは DOS プロンプトのことです。これだから素人は困ると思いつつ、gui version を
+書いてみました。<p>
+
+  Python には Tkinter, PyQt, PyGTK, wxPython などの gui toolkit があります。
+  いろいろと物色した結果次のことが分かりました。
+  <ol>
+	 <li> これらの toolkit のマニュアル、チュートリアルは極めて不備である。
+		<li> wxPython はデモスクリプトがあるだけまだましである。
+		  <li> wxPython はいろいろな widget が揃っている。
+			 <li> wxPython は最近人気があるようである。（その結果として web resources が他の toolkit より多い。）
+				</ol>
+  というわけで wxPython を使うことにしました。
+  今回使うプログレスダイアログがあるのも wxPython を選んだ理由です。
+  （付属で付いてくる Tkinter にはこれが無い。）
+
+<h2>2. gui 版画像保存スクリプト</h2>
+  画像保存スクリプトの gui 版は以下の通りです。
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">#! usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">r"""</span>
+<span class="linenumber">04:</span>     <span class="string">script to achive photos in the removal media into HD</span>
+<span class="linenumber">05:</span>     <span class="string">gui version using wxPython</span>
+<span class="linenumber">06:</span>     <span class="string">by T.Shido</span>
+<span class="linenumber">07:</span>     <span class="string">January 22, 2005</span>
+<span class="linenumber">08:</span>     <span class="string">"""</span>
+<span class="linenumber">09:</span>     import sys, os, shutil, filecmp, wx, wx.lib.dialogs
+<span class="linenumber">10:</span>     import photo as ph
+<span class="linenumber">11:</span>     from datetime import date
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     class Aphoto(wx.App):
+<span class="linenumber">14:</span>         def OnInit(self):
+<span class="linenumber">15:</span>             ph.Search_Media(ph.MEDIA)
+<span class="linenumber">16:</span>             frame = wx.Frame(None)
+<span class="linenumber">17:</span>             self.SetTopWindow(frame)
+<span class="linenumber">18:</span>             pt = ph.sum([len(val) for val in ph.PHASH.itervalues()])
+<span class="linenumber">19:</span>             
+<span class="linenumber">20:</span>             if pt:
+<span class="linenumber">21:</span>                 dlg = wx.ProgressDialog("Sending Photos",                                 \
+<span class="linenumber">22:</span>                                         ("0/%d" % pt),                                    \
+<span class="linenumber">23:</span>                                         maximum = pt,                                     \
+<span class="linenumber">24:</span>                                         parent=frame,                                     \
+<span class="linenumber">25:</span>                                         style = wx.PD_AUTO_HIDE | wx.PD_APP_MODAL)
+<span class="linenumber">26:</span>                 failed = self.Move_Photos(pt, dlg)
+<span class="linenumber">27:</span>                 if failed:                # if exist photos failed to archive 
+<span class="linenumber">28:</span>                     fdlg = wx.lib.dialogs.ScrolledMessageDialog(frame, failed,            \
+<span class="linenumber">29:</span>                                               "Copy Failed for these Photos: Try Again!")
+<span class="linenumber">30:</span>                     fdlg.ShowModal()
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>                 dlg.Destroy()
+<span class="linenumber">33:</span>                 os.execl(ph.PHOTO_VIEWER, ph.PHOTO_VIEWER, self.pd0)
+<span class="linenumber">34:</span>                 frame.Destroy()
+<span class="linenumber">35:</span>                 return True
+<span class="linenumber">36:</span>             
+<span class="linenumber">37:</span>             else:
+<span class="linenumber">38:</span>                 dlg = wx.MessageDialog(frame, 'No Photos in the media!',   \
+<span class="linenumber">39:</span>                                        'Warning',                          \
+<span class="linenumber">40:</span>                                         wx.OK | wx.ICON_INFORMATION )   
+<span class="linenumber">41:</span>                 dlg.ShowModal()
+<span class="linenumber">42:</span>                 dlg.Destroy()
+<span class="linenumber">43:</span>                 sys.exit()
+<span class="linenumber">44:</span>     
+<span class="linenumber">45:</span>         def Move_Photos(self, pt, dlg):
+<span class="linenumber">46:</span>             md = ph.HD + date.today().strftime("%y-%m/")
+<span class="linenumber">47:</span>             np = ph.nPdir(md)
+<span class="linenumber">48:</span>             sf = 0
+<span class="linenumber">49:</span>             failed_log = ''
+<span class="linenumber">50:</span>             i0 = True
+<span class="linenumber">51:</span>             
+<span class="linenumber">52:</span>             os.chdir(md)
+<span class="linenumber">53:</span>     
+<span class="linenumber">54:</span>             for d, fs in ph.PHASH.iteritems():
+<span class="linenumber">55:</span>                 np += 1
+<span class="linenumber">56:</span>                 pd = md + "photo%02d" % np
+<span class="linenumber">57:</span>                 if i0:
+<span class="linenumber">58:</span>                     self.pd0 = pd
+<span class="linenumber">59:</span>                     i0 = False
+<span class="linenumber">60:</span>                 os.mkdir(pd)
+<span class="linenumber">61:</span>                 for f in fs:
+<span class="linenumber">62:</span>                     f1 = d + f
+<span class="linenumber">63:</span>                     f2 = pd + '/' + f
+<span class="linenumber">64:</span>                     shutil.copyfile(f1, f2)
+<span class="linenumber">65:</span>                     if filecmp.cmp(f1, f2):
+<span class="linenumber">66:</span>                         os.remove(f1)
+<span class="linenumber">67:</span>                     else:
+<span class="linenumber">68:</span>                         failed_log += "copy failed: %s => %s\n" % (f1, f2)
+<span class="linenumber">69:</span>                     sf += 1
+<span class="linenumber">70:</span>                     dlg.Update(sf, ("%d/%d" % (sf, pt)))
+<span class="linenumber">71:</span>             return failed_log
+<span class="linenumber">72:</span>     <span class="comment">#----------- </span>      
+<span class="linenumber">73:</span>     
+<span class="linenumber">74:</span>     if __name__ == '__main__':
+<span class="linenumber">75:</span>         Aphoto(redirect=False)
+</pre>
+<table border=3>
+  <tr><th>行</th><th>説明</th></tr>
+  <tr><td>09</td><td>wx, wx.lib.dialog をインポートする。</td></tr>
+  <tr><td>10</td><td><a href="python1.html#photo_python">以前作ったコンソール版</a>をインポートする。
+	 python は perl に比べてスクリプトの再利用がしやすい。
+	 photo.py は同じディレクトリにあるか、
+                       PYTHONPATH の通ったディレクトリにあることが必要。</td></tr>
+  <tr><td>13</td><td>wx.App を親クラスとしてクラス Aphotoを定義する。</td></tr>
+  <tr><td>14</td><td>OnInit はwx.App クラス（のサブクラス）を初期化する時に実行される。</td></tr>
+  <tr><td>15</td><td>メディアをサーチする。</td></tr>
+  <tr><td>16</td><td>wx.Frame のインスタンス frame を作る。
+	 このスクリプトでは、ダイアログボックスを出すだけだが、
+  ダイアログボックスの親フレームとして必要。</td></tr>
+  <tr><td>17</td><td>frame を topwindow にする。</td></tr>
+  <tr><td>18</td><td>メディアにある画像ファイルの枚数を計算する。</td></tr>
+  <tr><td>20</td><td>もし、メディアに画像ファイルがあれば、</td></tr>
+  <tr><td>21</td><td>プログレスダイアログを作る。</td></tr>
+  <tr><td>21,22</td><td>最初の引数はプログレスダイアログのタイトル、２番目の引数は表示される文字。</td></tr>
+  <tr><td>23</td><td>プログレスダイアログのゲージの最大値を画像ファイルの枚数に設定。</td></tr>
+  <tr><td>24</td><td>親フレームは frame</td></tr>
+  <tr><td>25</td><td>表示スタイルの設定。終了後自動的に消えるようにする。</td></tr>
+  <tr><td>26</td><td>メディアからハードディスクに画像を移動する。
+                     返り値は移動できなかった画像ファイルのリストの文字列</td></tr>
+  <tr><td>27</td><td>もし、移動できなかった画像ファイルがあれば、スクロールメッセージダイアログを開く</td></tr>
+  <tr><td>32</td><td>プログレスダイアログを閉じる。</td></tr>
+  <tr><td>33</td><td>閲覧ソフトを起動させる。</td></tr>
+  <tr><td>34</td><td>frame を閉じる。</td></tr>
+  <tr><td>35</td><td>OnInt は真偽値を返す必要がある。</td></tr>
+  <tr><td>37</td><td>もし、メディアに画像ファイルがなければ、その旨のメッセージダイアログを表示する。</td></tr>
+  <tr><td>45</td><td>画像ファイルを移動させるメソッドの定義</td></tr>
+  <tr><td>70</td><td>画像ファイルを１枚移動させるたびにダイアログをアップデートする。</td></tr>
+  <tr><td>75</td><td>redirect=False にしておくとエラーメッセージなどはコンソール (DOS prompt)
+	 に表示される。デバッグのときに便利。</td></tr>
+	</tr></table>
+ソースを見ていただくと分かるように、
+<a href="python1.html#photo_python">
+  以前作ったコンソール版</a>が簡単に再利用できます。
+もし、最初からスクリプトの再利用を意識して書けばもっと再利用できたでしょう。
+再利用することを意識した場合コンソール版(photo.py)
+と gui 版(photo_wx.py) は次のようになります。<p>
+
+<span class="bluetextbold">photo.py</span>
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">#! usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     r<span class="string">"""</span>
+<span class="linenumber">04:</span>     <span class="string">script to achive photos in the removal media into HD</span>
+<span class="linenumber">05:</span>     <span class="string">by T.Shido</span>
+<span class="linenumber">06:</span>     <span class="string">January 12, 2005: 10/27/12</span>
+<span class="linenumber">07:</span>     <span class="string">"""</span>
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     from __future__ import nested_scopes
+<span class="linenumber">10:</span>     import glob, string, os, os.path, shutil, filecmp, re, sys
+<span class="linenumber">11:</span>     from datetime import date
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     __all__ = ['Move_Photos', 'HD', 'MEDIA', 'PHOTO_VIEWER', 'PREGEXP']
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment"># global parameters</span>
+<span class="linenumber">16:</span>     HD    = 'D:/doc/'
+<span class="linenumber">17:</span>     MEDIA = 'G:/'
+<span class="linenumber">18:</span>     PHOTO_VIEWER = 'D:/WBIN/linar160/linar.exe'
+<span class="linenumber">19:</span>     PREGEXP = re.compile(".(gif|bmp|jpe?g|tiff?)$", re.I)
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>     <span class="comment"># functions</span>
+<span class="linenumber">22:</span>     def sum(ls):
+<span class="linenumber">23:</span>         total = 0
+<span class="linenumber">24:</span>         for x in ls:
+<span class="linenumber">25:</span>             total += x
+<span class="linenumber">26:</span>         return total
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>     def nPdir(dir):
+<span class="linenumber">29:</span>         lst = [ x for x in glob.glob(dir + "photo[0-9][0-9]") if os.path.isdir(x)]
+<span class="linenumber">30:</span>         return lst and int(lst[-1][-2:]) or 0
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>     def Search_Media(dir):
+<span class="linenumber">33:</span>         <span class="string">"""search Media and returns a hash</span>
+<span class="linenumber">34:</span>         <span class="string">whose keys are directory name and the values are lists of photo files."""</span>
+<span class="linenumber">35:</span>         def search_sub(dir):
+<span class="linenumber">36:</span>             os.chdir(dir)
+<span class="linenumber">37:</span>             items = os.listdir(dir)
+<span class="linenumber">38:</span>             ls = [x for x in items if PREGEXP.search(x)]
+<span class="linenumber">39:</span>             if ls:
+<span class="linenumber">40:</span>                 hash[dir] = ls
+<span class="linenumber">41:</span>             for d in [dir + x + '/' for x in items if os.path.isdir(x)]:
+<span class="linenumber">42:</span>                 search_sub(d)
+<span class="linenumber">43:</span>         hash={}
+<span class="linenumber">44:</span>         search_sub(dir)
+<span class="linenumber">45:</span>         return hash
+<span class="linenumber">46:</span>     
+<span class="linenumber">47:</span>     def on_empty():
+<span class="linenumber">48:</span>         <span class="string">"""called by Move_Photos if media is empty."""</span>
+<span class="linenumber">49:</span>         print "No photos in the media: give return"
+<span class="linenumber">50:</span>         sys.stdin.readline()
+<span class="linenumber">51:</span>         sys.exit()
+<span class="linenumber">52:</span>             
+<span class="linenumber">53:</span>     def on_error(f1, f2):
+<span class="linenumber">54:</span>         <span class="string">"""called by Move_Photos when filecopy is failed."""</span>
+<span class="linenumber">55:</span>         print "copy failed: %s => %s\n" % (f1, f2)
+<span class="linenumber">56:</span>            
+<span class="linenumber">57:</span>     def on_progress(sf, pt):
+<span class="linenumber">58:</span>         <span class="string">"""called by Move_Photos during coping files."""</span>
+<span class="linenumber">59:</span>         print "%d/%d\r" % (sf, pt),
+<span class="linenumber">60:</span>             
+<span class="linenumber">61:</span>     def Move_Photos(on_progress, on_empty, on_error, on_start, on_end):
+<span class="linenumber">62:</span>         r<span class="string">"""</span>
+<span class="linenumber">63:</span>         <span class="string">Moveing photo files from media into HD,</span>
+<span class="linenumber">64:</span>         <span class="string">This function takes five parameters.</span>
+<span class="linenumber">65:</span>         <span class="string">1. pointer to function called during file copy</span>
+<span class="linenumber">66:</span>         <span class="string">2. pointer to function called if the media is empty</span>
+<span class="linenumber">67:</span>         <span class="string">3. pointer to function called when copyfile is failed</span>
+<span class="linenumber">68:</span>         <span class="string">4. pointer to function called before coping</span>
+<span class="linenumber">69:</span>         <span class="string">5. pointer to function called after coping</span>
+<span class="linenumber">70:</span>         <span class="string">"""</span>
+<span class="linenumber">71:</span>         md = HD + date.today().strftime("%y-%m/")
+<span class="linenumber">72:</span>         np = nPdir(md)
+<span class="linenumber">73:</span>         hash = Search_Media(MEDIA)
+<span class="linenumber">74:</span>         pt = sum([len(val) for val in hash.itervalues()])
+<span class="linenumber">75:</span>         sf = 0
+<span class="linenumber">76:</span>         i0 = True
+<span class="linenumber">77:</span>     
+<span class="linenumber">78:</span>         if not pt:
+<span class="linenumber">79:</span>             on_empty()
+<span class="linenumber">80:</span>                 
+<span class="linenumber">81:</span>         if on_start:
+<span class="linenumber">82:</span>             on_start(pt)
+<span class="linenumber">83:</span>     
+<span class="linenumber">84:</span>         if not os.path.isdir(md):
+<span class="linenumber">85:</span>             os.mkdir(md)
+<span class="linenumber">86:</span>             
+<span class="linenumber">87:</span>         os.chdir(md)
+<span class="linenumber">88:</span>     
+<span class="linenumber">89:</span>         for d, fs in hash.iteritems():
+<span class="linenumber">90:</span>             np += 1
+<span class="linenumber">91:</span>             pd = md + "photo%02d" % np
+<span class="linenumber">92:</span>             if i0:
+<span class="linenumber">93:</span>                 pd0 = pd
+<span class="linenumber">94:</span>                 i0 = False
+<span class="linenumber">95:</span>             os.mkdir(pd)
+<span class="linenumber">96:</span>             for f in fs:
+<span class="linenumber">97:</span>                 f1 = d + f
+<span class="linenumber">98:</span>                 f2 = pd + '/' + f
+<span class="linenumber">99:</span>                 shutil.copyfile(f1, f2)
+<span class="linenumber">100:</span>                 if filecmp.cmp(f1, f2):
+<span class="linenumber">101:</span>                     os.remove(f1)
+<span class="linenumber">102:</span>                 else:
+<span class="linenumber">103:</span>                     on_error(f1, f2)
+<span class="linenumber">104:</span>                 sf += 1
+<span class="linenumber">105:</span>                 on_progress(sf, pt)
+<span class="linenumber">106:</span>                 
+<span class="linenumber">107:</span>         if on_end:
+<span class="linenumber">108:</span>             on_end()
+<span class="linenumber">109:</span>             
+<span class="linenumber">110:</span>         os.execv(PHOTO_VIEWER, [' ', pd0])
+<span class="linenumber">111:</span>     
+<span class="linenumber">112:</span>     if __name__=='__main__':
+<span class="linenumber">113:</span>         Move_Photos(on_progress, on_empty, on_error, None, None)
+</pre>
+61 行目で Move_Photos を５つの関数を引数にとる関数として定義しています。また、Search_Media は
+Move_Photos が呼び出すようにしています。つまり、photo を import するスクリプトは Move_Photos
+だけを使えば良いようになっています。<br>
+引数としてとる５つの関数は以下の通りです。
+<ol>
+  <li> ファイルの移動の進行状況を表示する関数、全体のファイル数と、コピー済みファイル数の２つの引数をとる。
+	 <li> メディアが空の場合その旨を表示する関数
+		<li> ファイルのコピーに失敗したときに呼び出される関数。コピー元ファイル名とコピー先ファイル名の２つの
+		  引数をとる。
+		  <li> ファイルの移動に先立って呼ばれる関数。全体のファイル数を引数に取る。
+			 <li>ファイルの移動後に呼ばれる関数。
+				</ol>
+python は簡単に関数を引数として別の渡すことが出来るので、
+関数の抽象化が促進されます。つまり、実際に処理を行う部分と
+ gui を完全に分けることが出来、将来別の gui を使うとき変更する部分が
+少なくて済みます。<p>
+
+  <span class="bluetextbold"> photo_wx.py</span>
+  <pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">#! usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     r<span class="string">"""
+<span class="linenumber">04:</span>     script to achive photos in the removal media into HD
+<span class="linenumber">05:</span>     gui version using wxPython
+<span class="linenumber">06:</span>     by T.Shido
+<span class="linenumber">07:</span>     January 22, 2005
+<span class="linenumber">08:</span>     """</span>
+<span class="linenumber">09:</span>     import photo as ph
+<span class="linenumber">10:</span>     import sys, wx, wx.lib.dialogs
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     class Aphoto(wx.App):
+<span class="linenumber">13:</span>         def OnInit(self):
+<span class="linenumber">14:</span>             self.frame = wx.Frame(None)
+<span class="linenumber">15:</span>             self.SetTopWindow(self.frame)
+<span class="linenumber">16:</span>             ph.Move_Photos(self.on_progress, self.on_empty, self.on_error, self.on_start, self.on_end)
+<span class="linenumber">17:</span>             self.pdlg.Destroy()
+<span class="linenumber">18:</span>             frame.Destroy()
+<span class="linenumber">19:</span>             return True
+<span class="linenumber">20:</span>             
+<span class="linenumber">21:</span>         def on_start(self, total):
+<span class="linenumber">22:</span>             self.failed_log = ''
+<span class="linenumber">23:</span>             self.pdlg = wx.ProgressDialog("Sending Photos",                                 \
+<span class="linenumber">24:</span>                                          ("0/%d" % total),                                  \
+<span class="linenumber">25:</span>                                           maximum = total,                                  \
+<span class="linenumber">26:</span>                                           parent=self.frame,                                \
+<span class="linenumber">27:</span>                                           style = wx.PD_AUTO_HIDE | wx.PD_APP_MODAL)
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>         def on_progress(self, count, total):
+<span class="linenumber">30:</span>             self.pdlg.Update(count, ("%d/%d" % (count, total)))
+<span class="linenumber">31:</span>             
+<span class="linenumber">32:</span>         def on_error(self, f_from, f_to):
+<span class="linenumber">33:</span>             self.failed_log += "copy failed: %s => %s\n" % (f_from, f_to)
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>         def on_empty(self):
+<span class="linenumber">36:</span>             dlg = wx.MessageDialog(self.frame, 'No Photos in the media!',   \
+<span class="linenumber">37:</span>                                    'Warning',                               \
+<span class="linenumber">38:</span>                                     wx.OK | wx.ICON_INFORMATION )   
+<span class="linenumber">39:</span>             dlg.ShowModal()
+<span class="linenumber">40:</span>             dlg.Destroy()
+<span class="linenumber">41:</span>             sys.exit()
+<span class="linenumber">42:</span>     
+<span class="linenumber">43:</span>         def on_end(self):
+<span class="linenumber">44:</span>             if self.failed_log:                <span class="comment"># if exist photos failed to archive </span>
+<span class="linenumber">45:</span>                 fdlg = wx.lib.dialogs.ScrolledMessageDialog(self.frame, self.failed_log,            \
+<span class="linenumber">46:</span>                                                           "Copy Failed for these Photos: Try Again!")
+<span class="linenumber">47:</span>                 fdlg.ShowModal()
+<span class="linenumber">48:</span>     
+<span class="linenumber">49:</span>     if __name__ == '__main__':
+<span class="linenumber">50:</span>         Aphoto(redirect=False)
+</pre>
+Move_Photos を呼び出しているのは、16 行目です。21--47 行目で Move_Photos に与える 5 つの
+  関数を定義しています。
+  <table border=3>
+	 <tr><th>関数</th><th>説明</th></tr>
+	 <tr><td>on_start</td><td>プログレスダイアログを作成します。</td></tr>
+	 <tr><td>on_progress</td><td>プログレスダイアログを更新します。</td></tr>
+	 <tr><td>on_error</td><td>移動に失敗したファイル名を記録します。</td></tr>
+	 <tr><td>on_empty</td><td>メディアが空の場合、その旨を表示するダイアログを作成します。</td></tr>
+	 <tr><td>on_end</td><td>移動に失敗したファイルがある場合、それを表示するダイアログを作成します。</td></tr>
+	  </table>
+photo_wx.py は gui に関するコードだけになり、メンテナンスがやり易くなりました。
+
+  <h2>3. 終わりに</h2>
+  wxPython の使い方をごく簡単に説明しました。また、処理を行うコードと
+  gui コードの分け方についても述べました。<br>
+  最後に wxPython に関する web resourses を挙げておきます。
+  <ul>
+	 <li><a href="http://www.wxpython.org/index.php">wxPython Home</a>
+		<li><a href="http://wiki.wxpython.org/index.cgi/How_20to_20Learn_20wxPython">How to learn wxPython</a>
+		  <li><a href="http://www.python.jp/Zope/links/ibmdevworks">IBM developerWorks Japan</a>
+			 wxPython を含む python 関係のドキュメントがたくさんあります。
+			 <li><a href="http://wxpython.at-ninja.jp/">wxPython チュートリアル</a>
+				The wxPython tutorialはインターネットで利用できる、先進的で最も大きなwxPythonのチュートリアルです。 
+			 <li><a href="http://montpython.s13.xrea.com/boa/index.html">Started Guide for Boa Constructor</a>
+				wxPython 開発環境 BOA の紹介
+				</ul>
+  <hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="matrix.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python4.html&t=wxPython+%A4%C7%A4%AA%BC%EA%B7%DA+gui' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

@@ -1,0 +1,466 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="JavaScript 関数電卓">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 関数電卓 JavaScript 版 </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc34&t=%B4%D8%BF%F4%C5%C5%C2%EE+JavaScript+%C8%C7"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>関数電卓 JavaScript 版</h1>
+<hr>
+Apr 19, 2008
+<p>
+
+<a href='../lisp/scheme_calc.html'>Scheme 版</a>
+と
+<a href='../py/python_calc.html'>Python 版</a>
+の関数電卓に続いて今回は JavaScript 版です。
+<p>
+紫藤のページの関数電卓は、
+<ol>
+<li> 演算子のオブジェクトを用いることによって、計算の順序と個々のステップで行われる演算
+を完全に分離。
+<li> 演算子を優先度によってグループ分けすることによって、演算子や関数が追加されても
+コードを変更する必要がない。(演算子のオブジェクトを作ってそれをリストに追加するだけ)
+</ol>
+という特徴があります。
+
+このようなプログラムを書くためには、
+<ol>
+<li> 演算をデータとして扱え、
+<li> 数値と、演算子オブジェクトを同じリストに入れることができる
+</ol>
+プログラミング言語が必要です。
+このような条件を満たすプログラム言語としては Lisp と Python があります。
+Haskell は最初の特徴を満たすのですが、2 番目を実現するのが面倒です。
+<p>
+実は、JavaScript もこの条件をみたし、Python と同じように関数電卓スクリプトを書くことができます。
+JavaScript は安っぽい言語と思われがちですが、実はいけている言語です。
+詳しくは
+<ol>
+<li><a href='http://developer.mozilla.org/ja/docs/A_re-introduction_to_JavaScript'>A re-introduction to JavaScript</a>
+<li><a href='http://d.hatena.ne.jp/brazil/20050829/1125321936'>JavaScript: 世界で最も誤解されたプログラミング言語</a>
+</ol>
+を見てください。
+
+スクリプトのソースコードを下に示します。<br>
+Firefox で <tt>calc.html</tt> を読み込むと<a href='/misc/calc.html'>こういう画面</a>
+が表示され、左側のエントリーに式を入力し、'=' ボタンを押すと右側に結果が表示されます。
+興味のある人は<a href='calc_js.lzh'>ダウンロード</a>して遊んでみてください。
+
+<p>
+
+[calc.js]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">/**
+<span class="linenumber">002:</span>    * 電卓スクリプト
+<span class="linenumber">003:</span>    * JavaScript 版
+<span class="linenumber">004:</span>    * **/</span>
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   
+<span class="linenumber">008:</span>   <span class="comment">// map を定義 </span>
+<span class="linenumber">009:</span>   if (!Array.map) {
+<span class="linenumber">010:</span>     if (!Array.prototype.map) {
+<span class="linenumber">011:</span>       Array.prototype.map = function (callback, thisObject) {
+<span class="linenumber">012:</span>         var length = this.length;
+<span class="linenumber">013:</span>         var result = new Array(length);
+<span class="linenumber">014:</span>         for (var i = 0; i &lt; length; i++)
+<span class="linenumber">015:</span>           result[i] = callback.call(thisObject, this[i], i, this);
+<span class="linenumber">016:</span>         return result;
+<span class="linenumber">017:</span>       };
+<span class="linenumber">018:</span>     }
+<span class="linenumber">019:</span>     Array.map = function (array, callback, thisObject) {
+<span class="linenumber">020:</span>       return Array.prototype.map.call(array, callback, thisObject);
+<span class="linenumber">021:</span>     };
+<span class="linenumber">022:</span>   }
+<span class="linenumber">023:</span>   
+<span class="linenumber">024:</span>   
+<span class="linenumber">025:</span>   
+<span class="linenumber">026:</span>   
+<span class="linenumber">027:</span>   <span class="comment">// 演算子の優先度</span>
+<span class="linenumber">028:</span>   P_BPM=0;
+<span class="linenumber">029:</span>   P_BMD=1;
+<span class="linenumber">030:</span>   P_UPM=2;
+<span class="linenumber">031:</span>   P_POW=3;
+<span class="linenumber">032:</span>   P_FUN=4;
+<span class="linenumber">033:</span>   P_LHB=5;
+<span class="linenumber">034:</span>   P_CST=6;
+<span class="linenumber">035:</span>   
+<span class="linenumber">036:</span>   
+<span class="linenumber">037:</span>   
+<span class="linenumber">038:</span>   
+<span class="linenumber">039:</span>   function Operator(name, fun, priority)
+<span class="linenumber">040:</span>   <span class="comment">/**
+<span class="linenumber">041:</span>    * 演算子クラスのコンストラクタ
+<span class="linenumber">042:</span>    * **/</span>
+<span class="linenumber">043:</span>   {
+<span class="linenumber">044:</span>        this.name=name;
+<span class="linenumber">045:</span>        this.fun=fun;
+<span class="linenumber">046:</span>        this.priority=priority;
+<span class="linenumber">047:</span>   }
+<span class="linenumber">048:</span>   
+<span class="linenumber">049:</span>   
+<span class="linenumber">050:</span>   <span class="comment">// 文字列に変換</span>
+<span class="linenumber">051:</span>   Operator.prototype.toString=function(){return this.name};
+<span class="linenumber">052:</span>   
+<span class="linenumber">053:</span>   <span class="comment">// 関数を呼び出す</span>
+<span class="linenumber">054:</span>   Operator.prototype.call=function(){
+<span class="linenumber">055:</span>        if (this.priority==P_CST) return this.fun;
+<span class="linenumber">056:</span>        else if(this.is_unary()) return this.fun(arguments[0]);
+<span class="linenumber">057:</span>        else return this.fun(arguments[0], arguments[1]);
+<span class="linenumber">058:</span>   }
+<span class="linenumber">059:</span>   
+<span class="linenumber">060:</span>   <span class="comment">// this が other より優先度が大きいとき true を返す</span>
+<span class="linenumber">061:</span>   Operator.prototype.is_higher=function(other){
+<span class="linenumber">062:</span>        return other==null || this.priority &gt; other.priority || (this.is_reverse() && this.priority==other.priority)
+<span class="linenumber">063:</span>        };
+<span class="linenumber">064:</span>   
+<span class="linenumber">065:</span>   <span class="comment">// 定数か？</span>
+<span class="linenumber">066:</span>   Operator.prototype.is_const=function(){return this.priority == P_CST};
+<span class="linenumber">067:</span>   
+<span class="linenumber">068:</span>   <span class="comment">// 関数か?</span>
+<span class="linenumber">069:</span>   Operator.prototype.is_func=function(){return this.priority == P_FUN};
+<span class="linenumber">070:</span>   
+<span class="linenumber">071:</span>   <span class="comment">// 単項演算子か？</span>
+<span class="linenumber">072:</span>   Operator.prototype.is_unary=function(){return this.priority == P_UPM || this.priority == P_FUN};
+<span class="linenumber">073:</span>   
+<span class="linenumber">074:</span>   <span class="comment">// fact か？</span>
+<span class="linenumber">075:</span>   Operator.prototype.is_lhb=function(){return this.priority == P_LHB};
+<span class="linenumber">076:</span>   
+<span class="linenumber">077:</span>   <span class="comment">// 逆順の演算子か？</span>
+<span class="linenumber">078:</span>   Operator.prototype.is_reverse=function(){
+<span class="linenumber">079:</span>        return this.priority == P_FUN ||
+<span class="linenumber">080:</span>             this.priority == P_POW ||
+<span class="linenumber">081:</span>                  this.priority == P_UPM
+<span class="linenumber">082:</span>                  };
+<span class="linenumber">083:</span>   
+<span class="linenumber">084:</span>   
+<span class="linenumber">085:</span>   function fact(n)
+<span class="linenumber">086:</span>   {
+<span class="linenumber">087:</span>        for( var m=i=1; i&lt;n; m*=++i);
+<span class="linenumber">088:</span>        return m;
+<span class="linenumber">089:</span>   }
+<span class="linenumber">090:</span>   
+<span class="linenumber">091:</span>   
+<span class="linenumber">092:</span>   function permutation(m0, n0)
+<span class="linenumber">093:</span>   <span class="comment">/**
+<span class="linenumber">094:</span>    * 順列
+<span class="linenumber">095:</span>    * **/</span>
+<span class="linenumber">096:</span>   {
+<span class="linenumber">097:</span>        for (var a=i=m0, n=m0-n0; i&gt;n; a*=--i);
+<span class="linenumber">098:</span>        return a;
+<span class="linenumber">099:</span>   }
+<span class="linenumber">100:</span>   
+<span class="linenumber">101:</span>   
+<span class="linenumber">102:</span>   function combination(m,n)
+<span class="linenumber">103:</span>   <span class="comment">/**
+<span class="linenumber">104:</span>    * 組み合わせ
+<span class="linenumber">105:</span>    * **/</span>
+<span class="linenumber">106:</span>   {
+<span class="linenumber">107:</span>        return permutation(m,n)/fact(n);
+<span class="linenumber">108:</span>   }
+<span class="linenumber">109:</span>   
+<span class="linenumber">110:</span>   
+<span class="linenumber">111:</span>   
+<span class="linenumber">112:</span>   <span class="comment">// 演算子のリスト</span>
+<span class="linenumber">113:</span>   LS_OP = new Object();
+<span class="linenumber">114:</span>   LS_OP['+'] = new Operator('+', function (x,y){return x+y;}, P_BPM);
+<span class="linenumber">115:</span>   LS_OP['-'] = new Operator('-', function (x,y){return x-y;}, P_BPM);
+<span class="linenumber">116:</span>   LS_OP['*'] = new Operator('*', function (x,y){return x*y;}, P_BMD);
+<span class="linenumber">117:</span>   LS_OP['/'] = new Operator('/', function (x,y){return x/y;}, P_BMD);
+<span class="linenumber">118:</span>   LS_OP['%'] = new Operator('%', function (x,y){return x%y;}, P_BMD)
+<span class="linenumber">119:</span>   LS_OP['&lt;&lt;'] = new Operator('&lt;&lt;', function(x,y){return x*Math.pow(2,y);}, P_POW); 
+<span class="linenumber">120:</span>   LS_OP['&gt;&gt;'] = new Operator('&gt;&gt;', function(x,y){return x/Math.pow(2,y);}, P_POW); 
+<span class="linenumber">121:</span>   LS_OP['@+'] = new Operator('@+', function (x){return x;}, P_UPM);
+<span class="linenumber">122:</span>   LS_OP['@-'] = new Operator('@-', function (x){return -1*x;}, P_UPM);
+<span class="linenumber">123:</span>   LS_OP['**'] = new Operator('**', Math.pow, P_POW);
+<span class="linenumber">124:</span>   LS_OP['^'] = LS_OP['**'];
+<span class="linenumber">125:</span>   LS_OP['exp']= new Operator('exp', Math.exp, P_FUN);
+<span class="linenumber">126:</span>   LS_OP['log']= new Operator('log', Math.log, P_FUN);
+<span class="linenumber">127:</span>   LS_OP['log10']= new Operator('log10', function(x){return Math.log(x)/Math.log(10)}, P_FUN);
+<span class="linenumber">128:</span>   LS_OP['sin']= new Operator('sin', Math.sin, P_FUN);
+<span class="linenumber">129:</span>   LS_OP['cos']= new Operator('cos', Math.cos, P_FUN);
+<span class="linenumber">130:</span>   LS_OP['tan']= new Operator('tan', Math.tan, P_FUN);
+<span class="linenumber">131:</span>   LS_OP['asin']= new Operator('asin', Math.asin, P_FUN);
+<span class="linenumber">132:</span>   LS_OP['acos']= new Operator('acos', Math.acos, P_FUN);
+<span class="linenumber">133:</span>   LS_OP['atan']= new Operator('atan', Math.atan, P_FUN);
+<span class="linenumber">134:</span>   LS_OP['!']= new Operator('!', fact, P_LHB);
+<span class="linenumber">135:</span>   LS_OP['P']= new Operator('P', permutation, P_BMD);
+<span class="linenumber">136:</span>   LS_OP['C']= new Operator('C', combination, P_BMD);
+<span class="linenumber">137:</span>   LS_OP['pi']= new Operator('pi', Math.PI, P_CST);
+<span class="linenumber">138:</span>   LS_OP['e']= new Operator('e', Math.E, P_CST);
+<span class="linenumber">139:</span>   
+<span class="linenumber">140:</span>   
+<span class="linenumber">141:</span>   
+<span class="linenumber">142:</span>   function add_backslash(s)
+<span class="linenumber">143:</span>   <span class="comment">/**
+<span class="linenumber">144:</span>    * 必要に応じてバックスラッシュを挿入します。
+<span class="linenumber">145:</span>    * **/</span>
+<span class="linenumber">146:</span>   {
+<span class="linenumber">147:</span>        var s1='';
+<span class="linenumber">148:</span>        var ls=s.split('');
+<span class="linenumber">149:</span>        for (var i=0, n=ls.length; i&lt;n; ++i){
+<span class="linenumber">150:</span>             var c=ls[i];
+<span class="linenumber">151:</span>             s1+= (c.match(/W/)? '\' : '') + c;
+<span class="linenumber">152:</span>        }
+<span class="linenumber">153:</span>        return s1;
+<span class="linenumber">154:</span>   }
+<span class="linenumber">155:</span>   
+<span class="linenumber">156:</span>   
+<span class="linenumber">157:</span>   function make_regstr_each(s0)
+<span class="linenumber">158:</span>   <span class="comment">/**
+<span class="linenumber">159:</span>    * Operator から正規表現用の文字列を作ります
+<span class="linenumber">160:</span>    * **/</span>
+<span class="linenumber">161:</span>   {
+<span class="linenumber">162:</span>        var op=LS_OP[s0];
+<span class="linenumber">163:</span>        return add_backslash(s0) +
+<span class="linenumber">164:</span>             (op.is_const() ? '(?=\W|$)'   :
+<span class="linenumber">165:</span>              op.is_func()  ? '(?=\s|\()' : '');
+<span class="linenumber">166:</span>   }
+<span class="linenumber">167:</span>   
+<span class="linenumber">168:</span>   
+<span class="linenumber">169:</span>   
+<span class="linenumber">170:</span>   
+<span class="linenumber">171:</span>   
+<span class="linenumber">172:</span>   
+<span class="linenumber">173:</span>   <span class="comment">// 式の要素の正規表現, 演算子のリストから自動生成。無名関数を作ってすぐに呼び出す。</span>
+<span class="linenumber">174:</span>   ROBJ= function()
+<span class="linenumber">175:</span>   {
+<span class="linenumber">176:</span>        var ls= new Array();
+<span class="linenumber">177:</span>        for (var s in LS_OP)
+<span class="linenumber">178:</span>             ls.push(s);
+<span class="linenumber">179:</span>        ls.sort(function(x,y){return y.length - x.length})
+<span class="linenumber">180:</span>             
+<span class="linenumber">181:</span>             return new RegExp('(\()|(\d+(?:\.\d+)?)|(' + ls.map(make_regstr_each).join('|') + ')'   );
+<span class="linenumber">182:</span>   }();
+<span class="linenumber">183:</span>   
+<span class="linenumber">184:</span>   
+<span class="linenumber">185:</span>   
+<span class="linenumber">186:</span>   function find_corresponding(s0)
+<span class="linenumber">187:</span>   <span class="comment">/**
+<span class="linenumber">188:</span>    * 対応する閉じカッコの位置を返す
+<span class="linenumber">189:</span>    * **/</span>
+<span class="linenumber">190:</span>   {
+<span class="linenumber">191:</span>        var count=0;
+<span class="linenumber">192:</span>        for (var i=0, n=s0.length; i&lt;n; ++i){
+<span class="linenumber">193:</span>             var c=s0.charAt(i);
+<span class="linenumber">194:</span>             if(c=='(') ++count;
+<span class="linenumber">195:</span>             else if(c==')') --count;
+<span class="linenumber">196:</span>             if(count==0) return i;
+<span class="linenumber">197:</span>        }
+<span class="linenumber">198:</span>        <span class="comment">//return -1;</span>
+<span class="linenumber">199:</span>        throw Error('cannot parse input');
+<span class="linenumber">200:</span>   }
+<span class="linenumber">201:</span>   
+<span class="linenumber">202:</span>   
+<span class="linenumber">203:</span>   
+<span class="linenumber">204:</span>   function parse(s0)
+<span class="linenumber">205:</span>   <span class="comment">/**
+<span class="linenumber">206:</span>    * 数式の文字列を解析して数値と演算子からなるリストを返す
+<span class="linenumber">207:</span>    * **/</span>
+<span class="linenumber">208:</span>   {
+<span class="linenumber">209:</span>        var ls=[];
+<span class="linenumber">210:</span>   
+<span class="linenumber">211:</span>        while(1){
+<span class="linenumber">212:</span>             s0=s0.replace(/^s+|s+$/, '');
+<span class="linenumber">213:</span>             if (! s0) break;
+<span class="linenumber">214:</span>             var mobj=s0.match(ROBJ);
+<span class="linenumber">215:</span>             if (! mobj) throw Error('cannot parse input');
+<span class="linenumber">216:</span>             if(mobj[1]){
+<span class="linenumber">217:</span>                  var idx=find_corresponding(s0);
+<span class="linenumber">218:</span>                  <span class="comment">//    print (idx);</span>
+<span class="linenumber">219:</span>                  ls.push(parse(s0.slice(1, idx)));
+<span class="linenumber">220:</span>                  s0=s0.substring(idx+1);
+<span class="linenumber">221:</span>             }else{
+<span class="linenumber">222:</span>                  if(mobj[2])
+<span class="linenumber">223:</span>                       ls.push(parseFloat(mobj[2]));
+<span class="linenumber">224:</span>                  else{
+<span class="linenumber">225:</span>                       var sop=mobj[3];
+<span class="linenumber">226:</span>                       if ((sop=='+' || sop=='-') && 
+<span class="linenumber">227:</span>                           (ls.length==0 || 
+<span class="linenumber">228:</span>                            (ls[ls.length-1].constructor==Operator && 
+<span class="linenumber">229:</span>                             ! ls[ls.length-1].is_lhb())))
+<span class="linenumber">230:</span>                            sop='@'+sop;
+<span class="linenumber">231:</span>                       
+<span class="linenumber">232:</span>                       ls.push(LS_OP[sop]);
+<span class="linenumber">233:</span>                  }
+<span class="linenumber">234:</span>                  s0 = s0.substring(mobj[0].length);
+<span class="linenumber">235:</span>             }
+<span class="linenumber">236:</span>        }
+<span class="linenumber">237:</span>        return ls;
+<span class="linenumber">238:</span>   }
+<span class="linenumber">239:</span>   
+<span class="linenumber">240:</span>   
+<span class="linenumber">241:</span>   
+<span class="linenumber">242:</span>   function find_op(ls)
+<span class="linenumber">243:</span>   <span class="comment">/** 
+<span class="linenumber">244:</span>    * 次に計算する演算子の位置を返す
+<span class="linenumber">245:</span>    * **/</span>
+<span class="linenumber">246:</span>   {
+<span class="linenumber">247:</span>        var op=null;
+<span class="linenumber">248:</span>        var idx=-1;
+<span class="linenumber">249:</span>        for(var i=0, n=ls.length; i&lt;n; ++i){
+<span class="linenumber">250:</span>             var item=ls[i];
+<span class="linenumber">251:</span>             if(item.constructor == Operator && item.is_higher(op)){
+<span class="linenumber">252:</span>                  idx=i;
+<span class="linenumber">253:</span>                  op=item;
+<span class="linenumber">254:</span>             }
+<span class="linenumber">255:</span>        }
+<span class="linenumber">256:</span>        return idx;
+<span class="linenumber">257:</span>   }
+<span class="linenumber">258:</span>   
+<span class="linenumber">259:</span>   
+<span class="linenumber">260:</span>   function append_result(ls_before, result, ls_after)
+<span class="linenumber">261:</span>   {
+<span class="linenumber">262:</span>        ls_before.push(result);
+<span class="linenumber">263:</span>        return ls_before.concat(ls_after);
+<span class="linenumber">264:</span>   }
+<span class="linenumber">265:</span>   
+<span class="linenumber">266:</span>   
+<span class="linenumber">267:</span>   function calc(ls)
+<span class="linenumber">268:</span>   <span class="comment">/**
+<span class="linenumber">269:</span>    * ls を計算して結果を返す
+<span class="linenumber">270:</span>    * **/</span>
+<span class="linenumber">271:</span>   {
+<span class="linenumber">272:</span>        switch(ls.constructor){
+<span class="linenumber">273:</span>        case Number: return ls;
+<span class="linenumber">274:</span>        case Operator: return ls.call();
+<span class="linenumber">275:</span>        case Array:
+<span class="linenumber">276:</span>             if(ls.length==1)
+<span class="linenumber">277:</span>                  return calc(ls[0]);
+<span class="linenumber">278:</span>             else if(ls.length&gt;1){
+<span class="linenumber">279:</span>                  var op_idx=find_op(ls);
+<span class="linenumber">280:</span>                  var op=ls[op_idx];
+<span class="linenumber">281:</span>                  if(op.is_const())
+<span class="linenumber">282:</span>                       return calc(append_result(ls.slice(0,op_idx), op.call(), ls.slice(op_idx+1)));
+<span class="linenumber">283:</span>                  
+<span class="linenumber">284:</span>                  else if(op.is_lhb() && op_idx &gt; 0)
+<span class="linenumber">285:</span>                       return calc(append_result(ls.slice(0,op_idx-1), 
+<span class="linenumber">286:</span>                                                op.call(calc(ls[op_idx-1])), 
+<span class="linenumber">287:</span>                                                ls.slice(op_idx+1)));
+<span class="linenumber">288:</span>                  
+<span class="linenumber">289:</span>                  else if(op.is_unary() && op_idx &lt; ls.length-1)
+<span class="linenumber">290:</span>                       return calc(append_result(ls.slice(0,op_idx), 
+<span class="linenumber">291:</span>                                                 op.call(calc(ls[op_idx+1])),
+<span class="linenumber">292:</span>                                                 ls.slice(op_idx+2)));
+<span class="linenumber">293:</span>                  
+<span class="linenumber">294:</span>                  else if(op_idx&gt;0 && op_idx&lt;ls.length-1)
+<span class="linenumber">295:</span>                       return calc(append_result(ls.slice(0,op_idx-1), 
+<span class="linenumber">296:</span>                                                 op.call(calc(ls[op_idx-1]), calc(ls[op_idx+1])),
+<span class="linenumber">297:</span>                                                 ls.slice(op_idx+2)));
+<span class="linenumber">298:</span>                  else
+<span class="linenumber">299:</span>                       throw Error('cannot calculate!');
+<span class="linenumber">300:</span>             }
+<span class="linenumber">301:</span>        default:
+<span class="linenumber">302:</span>             throw Error('funny');
+<span class="linenumber">303:</span>        }
+<span class="linenumber">304:</span>   }
+<span class="linenumber">305:</span>   
+<span class="linenumber">306:</span>   
+<span class="linenumber">307:</span>   
+<span class="linenumber">308:</span>   function calculate()
+<span class="linenumber">309:</span>   <span class="comment">/**
+<span class="linenumber">310:</span>    * 文字列を電卓風に eval して返します
+<span class="linenumber">311:</span>    * **/</span>
+<span class="linenumber">312:</span>   {
+<span class="linenumber">313:</span>        var ans_el=document.getElementById('answer');
+<span class="linenumber">314:</span>        try{
+<span class="linenumber">315:</span>          var ans_val=calc(parse(document.form1.edit1.value));
+<span class="linenumber">316:</span>        }catch(e){
+<span class="linenumber">317:</span>          var ans_val="式が不正です";
+<span class="linenumber">318:</span>        }
+<span class="linenumber">319:</span>        var ans_node=document.createTextNode(ans_val.toString());
+<span class="linenumber">320:</span>        if(ans_el.firstChild)
+<span class="linenumber">321:</span>            ans_el.replaceChild(ans_node, ans_el.firstChild);
+<span class="linenumber">322:</span>        else
+<span class="linenumber">323:</span>            ans_el.appendChild(ans_node);
+<span class="linenumber">324:</span>        
+<span class="linenumber">325:</span>        <span class="comment">// submit 処理を途中で中断するため</span>
+<span class="linenumber">326:</span>        return false;  
+<span class="linenumber">327:</span>   }
+<span class="linenumber">328:</span>   
+<span class="linenumber">329:</span>   
+<span class="linenumber">330:</span>   function show_operators()
+<span class="linenumber">331:</span>   <span class="comment">/**
+<span class="linenumber">332:</span>    * 演算子や定数の一覧を出力します
+<span class="linenumber">333:</span>    * **/</span>
+<span class="linenumber">334:</span>   {
+<span class="linenumber">335:</span>        var ls= new Array();
+<span class="linenumber">336:</span>        for (var s in LS_OP) ls.push(s);
+<span class="linenumber">337:</span>        document.write( ls.join(', '));
+<span class="linenumber">338:</span>   }
+</pre>     
+
+[calc.html]
+<pre class='code'>
+<span class="linenumber">000:</span>   &lt;!DOCTYPE HTML PUBLIC "-<span class="comment">//W3C//DTD HTML 4.01 Transitional//EN"&gt;</span>
+<span class="linenumber">001:</span>   
+<span class="linenumber">002:</span>   &lt;html lang="ja"&gt;
+<span class="linenumber">003:</span>   &lt;head&gt;
+<span class="linenumber">004:</span>   &lt;meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS"&gt;
+<span class="linenumber">005:</span>   &lt;link rel="icon" href="../images/shido.png" type="image/png"&gt;
+<span class="linenumber">006:</span>   &lt;script type="text/javascript" src="calc.js"&gt;
+<span class="linenumber">007:</span>   &lt;/script&gt;
+<span class="linenumber">008:</span>   &lt;title&gt;JavaScript 電卓&lt;/title&gt;
+<span class="linenumber">009:</span>   &lt;/head&gt;
+<span class="linenumber">010:</span>   &lt;body style='margin:30pt'&gt;
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   &lt;h1 style='font-size:120%'&gt;JavaScript 電卓&lt;/h1&gt;
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   &lt;form name='form1' onsubmit='return calculate()'&gt;
+<span class="linenumber">015:</span>   &lt;table&gt;
+<span class="linenumber">016:</span>   &lt;tr&gt;
+<span class="linenumber">017:</span>     &lt;td&gt;
+<span class="linenumber">018:</span>       &lt;input type='text' size=40 name='edit1' id='edit' style='font-size:120%;font-family:monospace'&gt;
+<span class="linenumber">019:</span>     &lt;/td&gt;
+<span class="linenumber">020:</span>     &lt;td&gt;
+<span class="linenumber">021:</span>       &lt;span&gt;
+<span class="linenumber">022:</span>         &lt;input type="button" value="=" onclick='calculate()'&gt;
+<span class="linenumber">023:</span>       &lt;/span&gt;
+<span class="linenumber">024:</span>     &lt;/td&gt;
+<span class="linenumber">025:</span>     &lt;td&gt;
+<span class="linenumber">026:</span>       &lt;span style='margin-left:15pt;' id='answer' style='font-size:120%;font-family:monospace'&gt;  &lt;/span&gt;
+<span class="linenumber">027:</span>     &lt;/td&gt;
+<span class="linenumber">028:</span>   &lt;/tr&gt;
+<span class="linenumber">029:</span>   &lt;/table&gt;
+<span class="linenumber">030:</span>   &lt;/form&gt;
+<span class="linenumber">031:</span>   &lt;div style='margin-top:20pt'&gt;
+<span class="linenumber">032:</span>   &lt;pre&gt;
+<span class="linenumber">033:</span>   使える演算子: 
+<span class="linenumber">034:</span>   &lt;script type="text/javascript"&gt;
+<span class="linenumber">035:</span>   show_operators();
+<span class="linenumber">036:</span>   &lt;/script&gt;
+<span class="linenumber">037:</span>   &lt;/pre&gt;
+<span class="linenumber">038:</span>   &lt;/div&gt;
+<span class="linenumber">039:</span>   &lt;/body&gt;&lt;/html&gt;
+<span class="linenumber">040:</span>   
+<span class="linenumber">041:</span>   
+</pre>
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc34&t=%B4%D8%BF%F4%C5%C5%C2%EE+JavaScript+%C8%C7"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

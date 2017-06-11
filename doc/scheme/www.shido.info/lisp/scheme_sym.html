@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme 入門">
+<meta name="description" content="初心者向け Scheme 入門">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 12. シンボル型 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_cs.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  11. 文字、文字列</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_ah.html"><img src='../images/right_arrow.gif' class='arrow' border=0>13. 連想リスト、ハッシュ表</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_sym.html&t=Scheme+%C6%FE%CC%E7+12.+%A5%B7%A5%F3%A5%DC%A5%EB%B7%BF' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>12. シンボル型   </h1>
+<hr>
+<h2>1. 初めに </h2>
+今回は Lisp 語族に特徴的なデータ型：シンボルについて説明します。
+一言で言うとシンボルとは、文字列をアドレスで管理するデータ型です。
+従って、シンボル同士を比較するときは、eq? などのアドレスを比較する関数が使え、高速に比較できます。
+一方、文字列を素直に比較すると１文字１文字比較していかなければならないため、比較に時間がかかります。
+
+高速に比較が行えるという特徴から、シンボル型は後述する
+<a href='scheme_ah.html'>連想リストや
+ハッシュ表</a>のキーとして利用されます。
+<h2>2. シンボル型の基本的な関数</h2>
+以下にシンボル型の基本的な関数を挙げます。
+<dl>
+  <dt><span class='ttb'>(symbol? x)</span></dt>
+      <dd> x がシンボルのとき #t を返します。</dd>
+  <dt><span class='ttb'>(string->symbol str)</span></dt>
+      <dd> str をシンボルに変換します。処理系によりますが、str は小文字に変換しておかないと
+同じ綴りでも同一のアドレスにアサインされません。MzScheme では次のようになります。
+<pre class="samp">
+&gt; (eq? (string->symbol "Hello") 'Hello)
+<span class='response'>#t</span>        <span class='comment'>; 処理系によっては #f になる</span>
+&gt; (eq? (string->symbol "Hello") (string->symbol "Hello"))
+<span class='response'>#t</span>
+&gt; (symbol->string  (string->symbol "Hello"))
+<span class='response'>"Hello"</span>
+</pre></dd>
+  <dt><span class='ttb'>(symbol->string sym)</span></dt>
+      <dd> sym を文字列に変換します。</dd>
+</dl>
+
+<h2>3. テキスト中の単語のカウント</h2>
+お決まりの例としてテキスト中の現れる単語をカウントするプログラムを示します。
+このプログラムではハッシュ表や連想リストを使っていますが、それらの詳しい説明は<a href='scheme_ah.html'>次の章</a>にあります。
+
+<pre class='code'>
+(require rnrs/hashtables-6)
+
+
+(define (list->symbol ls0)
+  (string->symbol (list->string (reverse ls0))))
+
+   
+(define (char-in c . ls)
+  (let loop((ls0 ls))
+    (if (null? ls0)
+	#f
+	(or (char=? c (car ls0))
+	    (loop (cdr ls0))))))
+
+   
+(define (read-words fname)
+  (with-input-from-file fname
+    (lambda ()
+      (let loop((w '()) (wls '()))
+	(let ((c (read-char)))
+   	  (cond
+   	   ((eof-object? c)
+	    (reverse (if (pair? w)
+			 (cons (list->symbol w) wls)
+			 wls)))
+   	   ((char-in c #\Space #\Linefeed #\Tab #\, #\.  #\ #\( #\) #\= #\? #\! #\; #\:)
+	    (loop '() (if (pair? w)
+			  (cons (list->symbol w) wls)
+			  wls)))
+   	   (else
+   	    (loop (cons (char-downcase c) w) wls))))))))
+
+   
+(define (sort-by-frequency al)
+  (sort al (lambda (x y) (> (cdr x) (cdr y)))))
+
+
+
+(define (hashtable->alist h)
+  (let ((keys (hashtable-keys h)) (size (hashtable-size h)))
+    (let loop ((i 0) (ls1 '()))
+      (if (= i size)
+	  ls1
+	  (let* ((k (vector-ref keys i)) (v (hashtable-ref h k #f)))
+	    (loop (+ i 1) (cons (cons k v) ls1)))))))
+
+
+(define (wc fname)
+  (let ((wh (make-eq-hashtable)))
+    (let loop((ls (read-words fname)))
+      (if (null? ls)
+	  (sort-by-frequency (hashtable->alist wh))
+	  (let ((k (car ls)))
+            (hashtable-set! wh k (+ 1 (hashtable-ref wh k 0)))
+            (loop (cdr ls)))))))
+</pre>
+
+
+<pre class='samp'>
+&gt; (wc "opensource.txt")
+<span class='response'>((the . 208) (to . 142) (a . 104) (of . 103) (and . 83) (that . 75) (is . 73) (in . 65) (i . 64)
+(you . 55) (it . 54) (they . 48) (for . 46) (what . 38) (work . 37) (but . 35) (have . 32) (on . 32)
+(people . 32) (are . 30) (be . 29) (do . 29) (from . 27) (so . 26) (like . 25) (as . 25) (by . 24)
+(source . 24) (not . 23) (open . 23) (can . 23) (we . 22) (was . 22) (one . 22) (it's . 22) (an . 21)
+(this . 20) (about . 20) (business . 18) (working . 18) (most . 17) (there . 17) (at . 17) (with . 16)
+(don't . 16) (just . 16) (their . 16) (something . 15) (than . 15) (has . 15) (if . 15) (when . 14)
+(because . 14) (more . 14) (were . 13) (office . 13) (own . 13) (or . 12) (online . 12) (now . 12)
+(blogging . 12) (how . 12) (employees . 11) (them . 11) (think . 11) (time . 11) (company . 11)
+(lot . 11) (want . 11) (companies . 10) (could . 10) (know . 10) (get . 10) (learn . 10) (better . 10)
+(some . 10) (who . 10) (even . 9) (thing . 9) (much . 9) (no . 9) (make . 9) (up . 9) (being . 9)
+(money . 9) (relationship . 9) (that's . 9) (us . 9) (anyone . 8) (average . 8) (bad . 8) (same . 8)
+..........)
+</span>
+</pre>
+
+簡単な説明：
+
+<dl>
+  <dt><b><tt class='b'>(list-&gt;symbol ls0)</tt></b></dt>
+      <dd>
+ 文字列のリスト <tt>ls0</tt> をシンボルにする。
+単語１つをファイルから読み込むときに使う。</dd>
+  <dt><b><tt class='b'>(cahr-in c . ls)</tt></b></dt>
+      <dd> 
+文字 <tt>c</tt> が <tt>ls</tt> にあるときは #t をないときは #f を返す。</dd>
+  <dt><b><tt class='b'>(read-words fname)</tt></b></dt>
+      <dd>
+ファイル名 <tt>fname</tt> のファイルを読み、シンボルのリストを返す。
+大文字は小文字に変換し、単語の区切りにきたら、読み込んだ文字のリスト (<tt>w</tt>) をシンボルに変換して
+シンボルのリスト (<tt>wls</tt>) に加える。</dd>
+  <dt><b><tt class='b'>(sort-by-frequency al)</tt></b></dt>
+      <dd>
+単語と出現回数の連想リスト <tt>al</tt> を出現回数の降順にソートする。</dd>
+  <dt><b><tt class='b'>(hashtable->alist h)</tt></b></dt>
+      <dd>
+ハッシュテーブル <tt>h</tt> を連想リストに変換する。</dd>
+  <dt><b><tt class='b'>(wc fname)</tt></b></dt>
+      <dd>
+ファイル名 <tt>fname</tt> のファイルを読み、出現回数の多い順に並べた連想リストを返す。
+シンボルを使っているので、キーの比較に最も高速な比較関数 <tt>eq?</tt> を使う <tt>eq-hash-table</tt> が使える。
+<tt>read-words</tt> で作った単語のリストを順番に調べていき、単語別に出現回数をカウントしていく 。
+カウントし終わったらハッシュ表を連想リストに変換してソートする。</dd>
+</dl>
+<h2>4. 終わりに</h2>
+今回はシンボル型について説明しました。
+シンボルを利用すると文字列の処理を高速に行うことができます。
+文字列を処理するプログラムを書くときは使ってみることをお勧めします。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_cs.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  11. 文字、文字列</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_ah.html"><img src='../images/right_arrow.gif' class='arrow' border=0>13. 連想リスト、ハッシュ表</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_sym.html&t=Scheme+%C6%FE%CC%E7+12.+%A5%B7%A5%F3%A5%DC%A5%EB%B7%BF' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

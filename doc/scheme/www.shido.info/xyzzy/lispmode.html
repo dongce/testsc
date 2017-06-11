@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="xyzzy, lisp-mode">
+<meta name="description" content="xyzzy の lisp-mode のカスタマイズ">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<base href="http://www.shido.info/xyzzy/lispmode.html">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> lisp-mode のカスタマイズ </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="ts-lispmode.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/lispmode.html&t=lisp-mode+%A4%CE%A5%AB%A5%B9%A5%BF%A5%DE%A5%A4%A5%BA' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>lisp-mode の改造</h1> 
+
+<h2>1. はじめに </h2>
+
+xyzzy に付属している lispmode.l は大変よく出来ていますが、インデント用シンボルテーブルに
+属性リストを使っているなどの気になる点もあります。
+そこで、lisp-mode を少し改造してみました。<p>
+
+改造点は
+<ul>
+   <li>インデント用シンボルテーブルを属性リストからハッシュ表に変更
+   <li>インデント用シンボルテーブルにシンボルを追加する関数の追加
+   <li>マクロ展開用マクロ <span class="bluetext">pme</span> の追加
+   <li>その他、カレントバッファをコンパイルする関数などの追加
+</ul>
+です。<p>
+
+
+</span>
+
+
+<h2>2.  インストール </h2>
+
+ts-lispmode.lzh を解凍すると lispmode.l, lispmode.lc が生成します。
+これら二つのファイルを /site-lisp にコピーし、
+ダンプファイルを再作成します。
+これで新しい lisp-mode がもともとの lisp-mode を override します。<p>
+
+アンインストールするには、新しく作成した /site-lisp/lisp-mode.l, /site-lisp/lisp-mode.lc を
+  削除し、ダンプファイルを再作成します。
+
+<blockquote class="s">
+以前は lisp-mode を上書きするよう書いていましたが、
+  佐野さんから /site-lisp の方が /lisp より優先度が
+  高いとのご指摘を戴きました。<br>
+  謹んで訂正します。
+</blockquote>
+
+<h2> 3. テスト </h2>
+Lisp のソースコードのファイルを開いて、適当に S 式を入力してみてください。
+リターンキーを押したとき前よりレスポンスが早くなったような気がしたら大成功です。
+もし、そんな気がしなくても以前と同じように動作していれば成功です。。。。
+
+<h2> 4. 追加された機能</h2>
+紫藤には便利な追加機能を紹介します。
+
+<h3> 4.1 インデント用シンボルテーブルにシンボルを登録する</h3>
+<span class="bluetext", style="font-weight:bold">[function name：lisp-set-indent, default key: #\M-i]</span><p>
+マクロ名などの構文シンボルをインデント用テーブルに登録するとき使います。
+この関数を起動すると、ミニバッファに <br>
+<span class="bluetext">give [target-sym],[ref-sym] (RET=>end): </span> <br>
+と表示され、入力を待ちます。例えば <em>for</em> を <em>dotimes</em> と
+同じようにインデントさせたいときは、
+2つのシンボル名をカンマ (,) で区切って<br>
+<span class="bluetext">for,dotimes</span><br>
+と入力すると以降 <em>for</em> は <em>dotimes</em> と同じようにインデントされます。
+終了するときは何も入力しないでリターンして下さい。
+また、カンマの後にスペースは入れないで下さい。
+
+<h3> 4.2 マクロ展開を整形して表示する</h3>
+<span class="bluetext", style="font-weight:bold">[macro name：pme]</span>
+*scratch* で、マクロ展開形を確かめるために使います。<br>
+<pre class="oset">
+例）<code>
+(defmacro for ((var start stop) &body body)
+  (let ((gstop (gensym)))
+    `(do ((,var ,start (1+ ,var))
+          (,gstop ,stop))
+         ((> ,var ,gstop))
+       ,@body)))<span class="redtext">[ctrl-j]</span>
+for
+
+(pme (for (i 3 7)
+       (princ i)))<span class="redtext">[ctrl-j]</span></code>
+<samp>(do ((i 3 (1+ i))
+ (#:G1 7))
+ ((> i #:G1))
+ (princ i))</samp>
+nil
+</code></pre>
+
+<h3> 4.3 その他のユーティリティ</h2>
+次にその他のユーティリティを示します。</a>
+<dl>
+   <dt><b><span class="bluetext">[function name: eval-current-buffer, default key F10]</span></b></dt>
+      <dd>現在のバッファを評価します。</dd>
+   <dt><b><span class="bluetext">[function name: compile-current-buffer, default key: S-F10]</span></b></dt>
+      <dd>現在のバッファをコンパイルします。</dd>
+   <dt><b><span class="bluetext">[function name: lisp-indent+, default key: TAB]</span></b></dt>
+      <dd>範囲が選択されているときは選択範囲をインデントします。選択されていないときはカーソルのある行をインデントします。</dd>
+</dl>
+
+<h2> 5. おわりに </h2>
+lispmode.l に、ほんの少し手を加えてみました。
+ご参考までに。。。。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="ts-lispmode.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/lispmode.html&t=lisp-mode+%A4%CE%A5%AB%A5%B9%A5%BF%A5%DE%A5%A4%A5%BA' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

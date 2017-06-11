@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="demostrations of Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 3. Label だけでタイマーを作ろう </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+
+<td><a rel='prev' href="tkinter2.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  2. widget を配置しよう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter4.html"><img src='../images/right_arrow.gif' class='arrow' border=0>4. タイマーにボタンをつけよう</a></td>
+<td><a rel='download' href="tkinter3.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter3.html&t=Tkinter+%C6%FE%CC%E7%3A+3.+Label+%A4%C0%A4%B1%A4%C7%A5%BF%A5%A4%A5%DE%A1%BC%A4%F2%BA%EE%A4%ED%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>3. Label だけでタイマーを作ろう</h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+Tk のデモのラベルの項には、”ラベルは動かせないからつまらない”
+      ("Labels are pretty boring because you can't do anything with them.")
+ と書かれていますが、マウスのクリック、キープレスなどのイベントと結びつけると
+ いろいろと動かすことだできます。<p>
+
+ この章では図１に示すようなアラームクロックをラベルだけで作ってみましょう。
+このアラームはマウスの左ボタンで Start/Stop し、右ボタンで Reset します。<p>
+  <center><img src='alarm.jpg'></center><p>
+   
+まず、Label widget の作成方法、イメージの貼り付け方を説明してから、
+    イベントによるラベルの変化のさせ方を説明します。
+
+
+<h2>2. Label の作成</h2>
+Label は以下のように作成します。
+<pre class='code'>
+Tk.Label(master, **options)
+</pre>
+最初の引数で親 widget を指定し、キーワード引数を続けます。<br>
+Label の option には以下があります。
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/label.html'>
+  Tkinter reference: 10. The Label widget</a>
+や、
+<a href='http://effbot.org/tkinterbook/label.htm'>
+  The Tkinter Label Widget</a>
+も参照してください。
+<table border=1>
+   <tr>
+      <th>属性</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>anchor</td>
+      <td>テキストを配置する位置を指定します。デフォルトは Tk.CENTER</td>
+   </tr>
+   <tr>
+      <td>bg or background</td>
+      <td>背景色を指定します。</td>
+   </tr>
+   <tr>
+      <td>bitmap</td>
+      <td>表示する bitmap を指定します。</td>
+   </tr>
+   <tr>
+      <td>bd or borderwidth</td>
+      <td>縁の幅を指定します。デフォルトは 2.</td>
+   </tr>
+   <tr>
+      <td>cursor</td>
+      <td>カーソルの形を指定します。</td>
+   </tr>
+   <tr>
+      <td>font</td>
+      <td>テキストを表示する際のフォントを指定します。</td>
+   </tr>
+   <tr>
+      <td>fg or foreground</td>
+      <td>フォントの色、または bitmap の色を指定します。</td>
+   </tr>
+   <tr>
+      <td>height</td>
+      <td>ラベルの高さを行数で指定します。pixel 単位でないことに注意してください。</td>
+   </tr>
+   <tr>
+      <td>image</td>
+      <td>ラベルに貼る image を指定します。</td>
+   </tr>
+   <tr>
+      <td>justify</td>
+      <td>テキストが複数行にわたる場合、左寄せ、右寄せ、中央寄せを指定します。</td>
+   </tr>
+   <tr>
+      <td>padx</td>
+      <td>縁とテキストとの間の横の余白。</td>
+   </tr>
+   <tr>
+      <td>pady</td>
+      <td>縁とテキストとの間の縦の余白。</td>
+   </tr>
+   <tr>
+      <td>relief</td>
+      <td>ヘリの形</td>
+   </tr>
+   <tr>
+      <td>takefocus</td>
+      <td>普通は Label には foculs はない。もし、focus を持ってきたければ、takefocus を 1 にする。</td>
+   </tr>
+   <tr>
+      <td>text</td>
+      <td>表示する文字列</td>
+   </tr>
+   <tr>
+      <td>textvariable</td>
+      <td> StringVar を指定。変化する文字列を表示するとき用いる。</td>
+   </tr>
+   <tr>
+      <td>underline</td>
+      <td> (0 から数え始めて) n 番目の文字にアンダーラインをつける。デフォルトは -1.</td>
+   </tr>
+   <tr>
+      <td>width</td>
+      <td>Label の幅、文字数単位。pixel 単位ではない。</td>
+   </tr>
+   <tr>
+      <td>wraplength</td>
+      <td> 改行幅</td>
+   </tr>
+</table>
+
+
+<h2>3. 反応させる</h2>
+マウスボタンをクリックしたり、キーボードのキーを押したりしたときに
+  アプリケーションが反応するようにするためには Widget と Event を結びつけることによって
+  行います。
+  Widget と Event を結び付けるには <span class='mono'>bind</span> メソッドを使います。
+  また、全ての widget を同じ Event を結び付けるには <span class='mono'>bind_all</span> メソッドを使います。
+  詳しくは、
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/events.html'>
+  Tkinter reference: 24. Events: responding to stimuli</a>
+を見てください。例として、マウスの左ボタンを押すと、背景色がランダムに変わる Hello World は次のようになります。<p>
+  <center><img src='rhello.png'></center><p>
+[code 1](rhello.py)<br>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     import Tkinter as Tk
+<span class="linenumber">04:</span>     import random as R
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     class Label(Tk.Label):
+<span class="linenumber">08:</span>         def __init__(self, master=None):
+<span class="linenumber">09:</span>             Tk.Label.__init__(self, master, text='Hello world!', font=('Helvetica', '24', 'bold'))
+<span class="linenumber">10:</span>             self.bind_all('&lt;1&gt;', self.bg_change)
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>         def bg_change(self, event):
+<span class="linenumber">13:</span>             r = R.randint(0,255)
+<span class="linenumber">14:</span>             g = R.randint(0,255)
+<span class="linenumber">15:</span>             b = R.randint(0,255)
+<span class="linenumber">16:</span>             self.configure(bg='#%02X%02X%02X' % (r, g, b))
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     if __name__ == '__main__':
+<span class="linenumber">19:</span>         l = Label()
+<span class="linenumber">20:</span>         l.pack()
+<span class="linenumber">21:</span>         l.mainloop()
+</pre>
+    このスクリプトの重要部分は 10 行目のイベントと関数を結びつける部分と、
+    16 行目の widget の属性を変化させる部分です。<p>
+      
+10 行目が widget と Event を結びつけるメソッドです。
+マウス左ボタンクリックは '<1>' と表されます。
+イベントの記法については
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/event-sequences.html'>
+  Tkinter reference: 24.2. Event sequences</a>
+を見てください。<p>
+
+<span class='mono'>bind</span> または <span class='mono'>bind_all</span> メソッドの
+最初の引数はイベントの種類で、２番目の引数はその Event が発生したときに呼び出される関数へのポインターです。
+呼び出される関数は２引数の関数で、
+最初の引数はインスタンス変数にアクセスするための self,
+２番目の引数は event です。event は種種の属性を持っています。
+event の属性については
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/event-handlers.html'>
+  Tkinter reference: 24.6. Writing your handler</a>
+を見てください。<p>
+
+  16 行目の <span class='mono'>configure</span> メソッドで widget の属性を変化させることができます。
+  ここでは背景色をランダムに変更しています。色の指定は名前による指定のほかに '#RGB' の形式で
+  指定できます。それぞれの色は 16 進法で表した 4, 8, あるいは 12 bit の正の整数です。<p>
+
+    
+<h2>4. 動作を継続させる</h2>
+
+動作を継続させるには <span class='mono'>after</span> メソッドを使って、動作をするメソッドを
+再帰的に呼び出します。<br>
+<span class='mono'>after</span> メソッドの書式は以下の通りです。
+<pre class='code'>
+<i>w</i>.after(<var>n</var>, <var>func</var>)
+</pre>
+このメソッドは２つの引数をとり、２番目の引数は、
+ 動作を定義した関数へのポインター(func)、最初の引数はミリ秒 (n) で、n ミリ秒後に finc
+ を呼び出します。func が再帰的に func を呼び出すようにすると動作を継続させることができます。<p>
+
+   [code 2] に例を示します。これは、左ボタンクリックするとHello World の温度が上がっていき、
+   その色がだんだん変化していきます。温度は 1000 K から 8000 K まで１秒間に 500 K の割合で変化します。<p>
+  <center><img src='thello.png'></center><p>
+
+[code 2](thello.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     import Tkinter as Tk
+<span class="linenumber">04:</span>     import bbr as B
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     class Frame(Tk.Frame):
+<span class="linenumber">07:</span>         def __init__(self, master=None):
+<span class="linenumber">08:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">09:</span>             self.label=Tk.Label(self, text='click me!', width=32, height=2, \
+                                                 font=('Helvetica', '8'), fg='white', bg='black')
+<span class="linenumber">10:</span>             self.label.pack(fill=Tk.BOTH)
+<span class="linenumber">11:</span>             self.bind_all('&lt;1&gt;', self.heating_start)
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>         def heating_start(self, event):
+<span class="linenumber">14:</span>             self.temp=1000
+<span class="linenumber">15:</span>             self.label.configure(width=12, height=1, text='Hello world!', font=('Helvetica', '24'), fg='black')
+<span class="linenumber">16:</span>             self.after(100, self.heating)
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>         def heating(self):
+<span class="linenumber">19:</span>              self.label.configure(fg=B.bbrcolor_rel(self.temp))
+<span class="linenumber">20:</span>              self.temp += 50
+<span class="linenumber">21:</span>              if self.temp &lt; 8000:
+<span class="linenumber">22:</span>                  self.after(100, self.heating)
+<span class="linenumber">23:</span>              else:
+<span class="linenumber">24:</span>                  self.label.configure(fg='black', bg='white')
+<span class="linenumber">25:</span>         
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>     if __name__ == '__main__':
+<span class="linenumber">28:</span>         f = Frame()
+<span class="linenumber">29:</span>         f.pack()
+<span class="linenumber">30:</span>         f.mainloop()
+</pre>
+
+まず、4 行目で温度と色とを関係づけるモジュール bbr (black body radiation) を import します。
+（bbr は<a rel='download' href="tkinter3.lzh">付録</a>に
+つけておきますので、見てください。）次に、11 行目の<br>
+<span class='mono'>self.bind_all('&lt;1&gt;', self.heating_start)</span><br>
+で、widget と <span class='mono'>self.heating_start</span> メソッドとを結び付けます。<br>
+<span class='mono'>self.heating_start</span> はself.label を configure し、100 ミリ秒後に
+<span class='mono'>self.heating</span> を呼びます。<p>
+  <span class='mono'>self.heating</span> は self.temp から算出される色で、Hello world を表示し、その後、
+  self.temp を 50 K 上げ、self.temp が 8000 K になるまで、100 ミリ秒後に自分自身を呼び出します。
+  このように <span class='mono'>after</span> メソッドと再帰関数を使うことによって widget を変化させることが
+  できます。<span class='mono'>after</span> メソッドは全ての widget に共通したメソッドなので、変化しうる widget 全てに
+  用いることができます。
+
+
+<h2>5. タイマーを作る。</h2>
+いよいよタイマーを作ってみましょう。
+<span class='mono'>StringVer</span> と <span class='mono'>textvariable</span> についてはまだ説明していませんが、
+タイマーのコード ([code 3]) を示しながら説明します。
+Label への画像の張り込みについては
+<a href='tkinter_a1.html'>Appendix 1. Widget に画像を張り込む</a> を参照してください。
+
+
+  <p>
+
+[code 3](timer.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     timer.py
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     June 24, 2005
+<span class="linenumber">07:</span>     """</span>
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     import Tkinter as Tk
+<span class="linenumber">11:</span>     import sys
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     BLUE = '#99CCFF'
+<span class="linenumber">14:</span>     YELLOW = '#FFCC00'
+<span class="linenumber">15:</span>     RED = '#FF00FF'
+<span class="linenumber">16:</span>     CLOCK = 'meza-bl-2.gif'
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     class Frame(Tk.Frame):
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>         def __init__(self, master, min):
+<span class="linenumber">21:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">22:</span>             
+<span class="linenumber">23:</span>             self.started = False
+<span class="linenumber">24:</span>             self.echo = Tk.StringVar()
+<span class="linenumber">25:</span>             self.min = min 
+<span class="linenumber">26:</span>             self.echo.set('%02d:00' % (self.min))
+<span class="linenumber">27:</span>             self.sec = 60 * self.min
+<span class="linenumber">28:</span>             
+<span class="linenumber">29:</span>             self.master.title('Alarm')
+<span class="linenumber">30:</span>             self.label = Tk.Label(self, text='Click to start', font=('Helvetica', '8'))
+<span class="linenumber">31:</span>             self.label.pack()
+<span class="linenumber">32:</span>             f = Tk.Frame(self, relief=Tk.RIDGE, bd=4)
+<span class="linenumber">33:</span>             f.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">34:</span>             self.image= Tk.PhotoImage(file=CLOCK)
+<span class="linenumber">35:</span>             self.icon=Tk.Label(f, image=self.image, bg=BLUE)
+<span class="linenumber">36:</span>             self.icon.pack(side=Tk.LEFT)
+<span class="linenumber">37:</span>             display = Tk.Label(f, textvariable=self.echo, font=('Helvetica', '24'),
+<span class="linenumber">38:</span>                                bg='white', width=5, anchor=Tk.E)
+<span class="linenumber">39:</span>             display.pack(side=Tk.LEFT)
+<span class="linenumber">40:</span>             self.bind_all('&lt;1&gt;', self.start_stop)
+<span class="linenumber">41:</span>             self.bind_all('&lt;3&gt;', self.reset)
+<span class="linenumber">42:</span>     
+<span class="linenumber">43:</span>         def start_stop(self, event):
+<span class="linenumber">44:</span>             if not self.started:
+<span class="linenumber">45:</span>                 self.label.configure(text='Click to stop')
+<span class="linenumber">46:</span>                 if 0&lt; self.sec &lt;= 20:
+<span class="linenumber">47:</span>                    self.icon.configure(bg=YELLOW)
+<span class="linenumber">48:</span>                 if 0 &gt;= self.sec:
+<span class="linenumber">49:</span>                    self.icon.configure(bg=RED)
+<span class="linenumber">50:</span>                 self.after(1000, self.counting)
+<span class="linenumber">51:</span>                 self.started = True
+<span class="linenumber">52:</span>             else:
+<span class="linenumber">53:</span>                 self.label.configure(text='Click to start, RB to reset')
+<span class="linenumber">54:</span>                 self.icon.configure(bg=BLUE)
+<span class="linenumber">55:</span>                 self.started = False
+<span class="linenumber">56:</span>     
+<span class="linenumber">57:</span>         def counting(self):
+<span class="linenumber">58:</span>             if self.started:
+<span class="linenumber">59:</span>                 self.sec -=1
+<span class="linenumber">60:</span>                 self.echo.set('%02d:%02d' % (self.sec/60, self.sec%60))
+<span class="linenumber">61:</span>                 if self.sec == 20:
+<span class="linenumber">62:</span>                     self.icon.configure(bg=YELLOW)
+<span class="linenumber">63:</span>                     
+<span class="linenumber">64:</span>                 if self.sec &lt;= 0:
+<span class="linenumber">65:</span>                     t= -1 * self.sec
+<span class="linenumber">66:</span>                     self.icon.configure(bg=RED)
+<span class="linenumber">67:</span>                     self.bell()
+<span class="linenumber">68:</span>                     self.echo.set('-%02d:%02d' % (t/60, t%60))
+<span class="linenumber">69:</span>                     self.after(500, self.yellow)
+<span class="linenumber">70:</span>                         
+<span class="linenumber">71:</span>                 self.after(1000, self.counting)
+<span class="linenumber">72:</span>     
+<span class="linenumber">73:</span>         def yellow(self):
+<span class="linenumber">74:</span>             if self.started:
+<span class="linenumber">75:</span>                 self.icon.configure(bg=YELLOW)
+<span class="linenumber">76:</span>     
+<span class="linenumber">77:</span>     
+<span class="linenumber">78:</span>         def reset(self, event):
+<span class="linenumber">79:</span>             if not self.started:
+<span class="linenumber">80:</span>                 self.sec=60*self.min
+<span class="linenumber">81:</span>                 self.echo.set('%02d:00' % (self.min))
+<span class="linenumber">82:</span>     
+<span class="linenumber">83:</span>     
+<span class="linenumber">84:</span>     
+<span class="linenumber">85:</span>     if __name__ == '__main__':
+<span class="linenumber">86:</span>         min = len(sys.argv) &gt; 1 and  int(sys.argv[1]) or 3
+<span class="linenumber">87:</span>         f = Frame(None, min)
+<span class="linenumber">88:</span>         f.pack()
+<span class="linenumber">89:</span>         f.mainloop()
+</pre>
+
+<h3>5.1. 使い方と動作</h3>
+コマンドラインから
+<pre class='samp'>
+&gt;python timer.py <var>m</var>
+</pre>
+とします。m は計測する時間（分）です。<var>m</var> が省略されると 3 分になります。
+すると、図１で示した widget があらわれるので、それを左クリックします。すると、計測が始まります。
+時計を止めるには動いている時計を左クリックし、リセットするには止まっている時計を右クリックします。<p>
+残り 20 秒を切ると時計アイコンの背景が黄色くなります。また、設定時間を過ぎるとアイコンの背景が赤−黄の
+点滅をし、ベルを鳴らします。
+
+<h3>5.2. StringVar の使い方</h3>
+  ラベルの表示文字が頻繁に変わるときは configure でテキストを変えるよりも textvariable を使ったほうが便利です。
+  textvariable には <em>Tk.StringVar</em> オブジェクトを指定します(24, 37 行目）。<br>
+  Tk.StringVar には値をセットする <span class='mono'>set</span>
+  メソッドと値を取り出す <span class='mono'>get</span> メソッドがあります(60, 68, 81 行目)。
+値をセットすれば、ラベルにはセットされた値が自動的に表示されます。
+
+<h3>5.3. プログラムの簡単な説明</h3>
+<ul>
+<li> Tkinter(Tk) と sys をインポート (10,11)
+<li> 定数の定義 (13--16)
+<li>Tk.Frame の導出クラス <var>Frame</var> を定義する。(18--81)
+  <ul>
+    <li><b>__init__(self, master, min)</b> (20--41)<br>
+      <ul>
+        <li> 引数は self の他に、親 widget (<var>master</var>) と設定時間 (<var>min</var>) (20)
+        <li> まず <span class='mono'>Tk.Frame.__init__</span>  を呼んで Tk.Frame として初期化。(21)
+        <li>インスタンス変数 <var>self.started</var> を定義。タイマーがとまっているときは False (23)
+        <li>インスタンス変数 <var>self.echo</var> を定義。これは <span class='mono'>Tk.StringVar</span> で、
+	  残り時間の表示に使う。(24)
+	<li>インスタンス変数 <var>self.min</var> を定義。設定時間 (25)
+        <li> 表示用の変数 <var>self.echo</var> に文字列をセットする。(26)
+        <li> 残り時間 <var>self.sec</var> を定義 (27)
+        <li> Window のタイトルを 'Alarm' にする (29)
+        <li> 残り時間の表示の上の小さな文字列を表示するラベル (<var>self.label</var>) を定義 (30,31)
+        <li> 時間表示と、時計アイコン用のフレーム (<var>f</var>)を定義 (32,33)
+        <li> 時計アイコンのファイルを読み込んでイメージ (<var>self.image</var>) を作る。(34)
+        <li> 時計アイコンを表示するラベ (<var>self.icon</var>) ルを定義 (35, 36)
+        <li> 残り時間を表示するラベル (<var>display</var>)を定義。(37--39)<br>
+	  <span class='mono'>textvaliable</span> に 24 行目で定義した <var>self.echo</var> をアサイン
+        <li> マウス左クリックに <var>self.start_stop</var> をバインド (40)<br>
+	   これで、マウスを左クリックすると時計が動き出すまたは止まる。
+        <li> マウス右クリックに <var>self.reset</var> をバインド (41)<br>
+	   これで、マウス右クリックで、時計がリセットされる。
+    </ul>
+  <li><b>start_stop(self, event)</b> (43--55)
+    <ul>
+      <li>もし時計が止まっていれば、51 行目までを行う。(44)
+	<ul>
+          <li><var>self.label</var> の表示を 'Click to start' から 'Click to stop' に変更。(45)
+          <li>もし残り時間 <var>self.sec</var> が、0&lt;self.sec&lt;= 20 なら、時計アイコンの背景を黄色にする。(46,47)
+          <li>もし残り時間が 0 以下なら、時計アイコンの背景を赤色にする。(48,49)
+	  <li> 1000 ミリ秒後（１秒後）に <var>self.counting</var> を呼び出す。 (50)
+	  <li><var>self.started</var> = True として時計が動いていることを示す。(51)
+	 </ul>
+	<li> もし、時計が動いていたなら、55 行目までを行う。(52)
+	  <ul>
+            <li><var>self.label</var> の表示を、'Click to start, RB to reset' とする。(53)
+            <li>時計アイコンの背景を青色にする。(54)
+	    <li><var>self.started</var> = False にして、時計を止める。(55)
+        </ul>
+      </ul>
+  <li><b>counting(self)</b> (57--71)
+    <ul>
+    <li>もし時計が動いていれば、69 行目までを行う。(58)
+      <ul>
+        <li>残り時間 <var>self.sec</var> を 1 秒減らす。 (59)
+        <li>表示用変数 <var>self.echo</var> をセット (60)
+        <li>もし、残り 20 秒なら、時計アイコンの背景を黄色くする。(61,62)
+        <li>もし残り時間が 0 秒以下なら、69 行目までを行う。(64)
+	  <ul>
+	    <li> 表示する時間 (<var>t</var>) を <var>self.sec</var> の絶対値にする。(65)
+            <li>時計アイコンの背景を赤にする。(66)
+            <li> 音を出す。(67)
+	    <li> <var>self.echo</var> をセット (68)
+            <li>0.5 秒後に時計アイコンの背景を黄色にする。(69)
+	  </ul>
+      </ul>
+   <li> 1 秒後に <var>self.counting</var> を再び呼び出す。(71)
+  </ul>
+  <li> <b>yellow(self)</b>   (73--75)<br>
+      時計が動いていれば、時計アイコンの背景を黄色くする。
+  <li> <b>reset(self, event)</b>   (78--81)<br>
+       時計が止まっていれば、時計をリセットする。
+ </ul>
+ <li><b>if __name__ == '__main__'</b> (85--89)<br>
+   main として呼ばれたら、
+   <ul>
+    <li> 引数から設定時間を取得 (86)
+    <li> <var>Frame</var> のインスタンス <var>f</var> をつくり、 pack する。(87,88)
+    <li> mainloop を呼び出し、アプリケーションを作る。(89)
+  </ul>
+</ul>
+
+  <h2>6. 終わりに</h2>
+  ラベルに普通にテキストを貼り付ける方法は特に説明しませんでしたが、前回、前々回にもでてきたので、
+  そちらを見てください。また <a href='python6.html'>Tkinter demo</a> も見てください。
+  <p>
+    今回は主にラベルを変化させる方法について述べました。実はこの方法は全ての widget でほとんど共通です。
+    従って、ここで述べた方法は他の widget でも応用が利くと思います。
+<p>
+  次回は今回作ったアラームにボタンをつけてみます。
+    
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+
+<td><a rel='prev' href="tkinter2.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  2. widget を配置しよう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter4.html"><img src='../images/right_arrow.gif' class='arrow' border=0>4. タイマーにボタンをつけよう</a></td>
+<td><a rel='download' href="tkinter3.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter3.html&t=Tkinter+%C6%FE%CC%E7%3A+3.+Label+%A4%C0%A4%B1%A4%C7%A5%BF%A5%A4%A5%DE%A1%BC%A4%F2%BA%EE%A4%ED%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

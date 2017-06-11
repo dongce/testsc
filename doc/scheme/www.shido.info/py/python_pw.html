@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, password management">
+<meta name="description" content="a simple script for password management written in python">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>パスワード管理スクリプト (改良版)</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'><img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="pw.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python_pw.html&t=%A5%D1%A5%B9%A5%EF%A1%BC%A5%C9%B4%C9%CD%FD%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8+%28%B2%FE%CE%C9%C8%C7%29' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+<h1>パスワード管理スクリプト (改良版)</h1> 
+<hr>
+<h2>1. 初めに</h2>
+
+最近、インターネットを使って銀行、クレジットカード会社、電話会社、Amazon や楽天などのネット通販、及び SNS サイト
+にアクセスする機会がますます増えています。これらのサイトにアクセスするときは、サイトごとにパスワードを
+作成し、異なるサイト間でパスワードを決して使いまわさないことが鉄則です。
+パスワードを使いまわすと、パスワード管理に不備のあるサイトで
+漏洩したパスワードが不正使用され、銀行などの重要なサイトに不正にアクセスされる恐れがあります。
+<p>
+紫藤は、<a href='python12.html'>自作のパスワード管理スクリプト</a>でパスワードを管理していましたが、
+このスクリプトではパスワードに使う文字の種類を指定できないという難点がありました。
+そこで、今回は、パスワードに使う文字の種類を指定できるように改良しました。
+
+
+<h2> 2. 特徴</h2>
+<ul>
+<li>パスワードが生成された時刻と秘密のキーフレーズに基づいてパスワードを自動生成します。
+<li>パスワードデータ (<tt>pw.txt</tt>)には、生成時刻が記録され、パスワードそのものは記録されないのでデータが漏洩しても比較的安全です。
+   (ただし、アカウント名とサイト名はわかってしまうので、
+Dropbox などの オンラインストレージに上げておくときは暗号化することをお勧めします。)
+<li>ユーザーとサイトが特定されると、パスワードは自動でクリップボードにコピーされます。
+<li>パスワードに使う文字の種類 (数字だけ、数字とアルファベット、ASCII 文字) を指定することができます。
+<li>パスワードの長さを指定することができます。(指定された長さ以下のパスワードが生成されます。)
+<li>パスワードは、自動生成されたもののなかから選んで使います。パスワードを自分で決めることはできません。
+</ul>
+
+
+<h2>3. インストール</h2>
+
+<h3>3.1. 動作環境</h3>
+Win 32, Linux, 及び Mac で動作を確認しています。
+(Mac でのテストは上間さんにお願いしました。ありがとうございます。)
+<br>
+そのほかの OS の場合は、クリップボードにパスワードがコピーされませんが、
+他の部分は動作すると思われます。
+
+
+<h3>3.2. 必要なモジュール</h3>
+<ol>
+<li> Python3.x: <a href='http://www.python.org/download/'>www.python.org</a>からダウンロードします。
+<li> pywin32: (Windows のみ) <a href='http://sourceforge.net/projects/pywin32/files/pywin32/'>sorceforge</a>からダウンロードします。
+<li> 標準入力をクリップボードにコピーするコマンド: Linux では xclip が、 Mac では pbcopy がインストールされている必要があります。
+<li> <a href='pw.zip'>pw.py</a> をダウンロードします。
+</ol>
+
+
+<h2>4. 使い方</h2>
+
+<h3>4.1. 起動とパスワードの表示</h3>
+Python 3.x を使って、コンソールから立ち上げます。<br>
+その後、パスフレーズを2回入力します。パスフレーズが間違っていても動作はしますが、
+正しいパスワードを計算してくれません。
+
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   &gt;python pw.py
+<span class="linenumber">002:</span>   Enter keyword:
+<span class="linenumber">003:</span>   Again:
+<span class="linenumber">004:</span>   &gt;
+</pre>
+
+プロンプト <em>(&gt;)</em> が表示されたら、ユーザ名とサイト名を <em>;</em> で区切って入力します。<br>
+ユーザ名やサイト名のどちらか一方を省略することができます。また、ワイルドカードとして 
+<em>*</em> が使えます。<em>*</em> は任意の文字列にマッチします。<br>
+複数の候補があるときは、候補の一覧が表示されるので、番号を入力して選択します。<br>
+アカウントが特定されると、パスワードが表示されます。
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   &gt; foo;    <span class='comment'>ユーザ名だけを入力</span>
+<span class="linenumber">002:</span>   0: foo;gmail   <span class='comment'>2 つの候補が表示される</span>
+<span class="linenumber">003:</span>   1: foo;yahoo
+<span class="linenumber">004:</span>   select:0      <span class='comment'>1つを選択</span>
+<span class="linenumber">005:</span>   foo;gmail: ,Ary*tE815  <span class='comment'>パスワードが表示される</span>
+</pre>
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   &gt; ;y*               <span class='comment'>サイト名だけを入力</span>
+<span class="linenumber">002:</span>   foo;yahoo: Be=-/+/aL344
+</pre>
+
+<em>q</em> と入力すると終了します。
+<p>
+以下のコマンドが使えます。
+
+<dl>
+  <dt><b>'q', 'quit'</b></dt>
+      <dd>終了します。</dd>
+  <dt><b>'u', 'update'</b></dt>
+      <dd>パスワードを更新します。</dd>
+  <dt><b>'i', 'insert'</b></dt>
+      <dd>新しいアカウント、パスワードを登録します。</dd>
+  <dt><b> 'd', 'delete'</b></dt>
+      <dd>選択したアカウントを削除します。</dd>
+  <dt><b> 's', 'show'</b></dt>
+      <dd>パスワードの詳細を表示します。</dd>
+  <dt><b> 'l', 'length'</b></dt>
+      <dd>パスワードの長さや使用する文字を変更します。</dd>
+  <dt><b> 'n', 'note'</b></dt>
+      <dd>パスワードのノートを変更します。</dd>
+  <dt><b> 'h', 'help'</b></dt>
+      <dd>ヘルプを表示します。</dd>
+</dl>
+
+<h3>4.2. パスワードの更新</h3>
+
+
+アカウントとパスワードが表示されている状態で <em>u</em> と入力するとパスワードが更新されます。<br>
+気に入ったパスワードになるまで <em>u</em> を押し続けます。
+<pre class='samp'>
+<span class="linenumber">001:</span>   &gt; f%;g%
+<span class="linenumber">002:</span>   foo;gmail: TheSThe&lt;w923
+<span class="linenumber">003:</span>   &gt; u
+<span class="linenumber">004:</span>   foo;gmail: aN&gt;m*aine=b399
+<span class="linenumber">005:</span>   &gt; u
+<span class="linenumber">006:</span>   foo;gmail: .*@AnOn.p016
+<span class="linenumber">007:</span>   &gt; u
+<span class="linenumber">008:</span>   foo;gmail: fElAn?-oF178
+<span class="linenumber">009:</span>   &gt;
+</pre>
+
+<h3>4.3. パスワードの新規登録</h3>
+
+
+<em>i</em> と入力後、<em>;</em> で区切って、ユーザ名とサイト名を入力します。
+また、オプションで長さ、文字種類、ノートを指定することができます。<br>
+パスワードは自動で生成されます。好みに応じて、<em>u</em> を押下してパスワードを変更します。
+<br>
+長さと文字種類の指定方法は以下のとおりです。
+<a name='cl'>
+<ol>
+<li>英数字(DD): 文字種類が ASCII で長さ DD 以下のパスワードが生成されます。<br>例) 15 &rarr; ASCII 15 文字以下
+<li>a に続いて英数字 DD: 文字種類が ALNUM で長さ DD のパスワードが生成されます。<br>例) a18 &rarr; ALNUM 18 文字以下
+<li>d に続いて英数字 DD: 文字種類が DIGIT で長さ DD のパスワードが生成されます。 <br>例) d7 &rarr; DIGIT 7 文字以下
+</ol>
+</a>
+<pre class='samp'>
+<span class="linenumber">001:</span>   &gt; i
+<span class="linenumber">002:</span>   give user;site[;char-length[;note]]: foo;facebook;a20
+<span class="linenumber">003:</span>   foo;facebook: 3YS4JL5BTNJrmIWE
+></pre>
+
+
+<h3>4.4. パスワードの削除</h3>
+
+
+アカウントとパスワードが表示されている状態で <em>d</em> と入力すると、そのパスワードが削除されます。<br>
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   foo2;facebook: sHe,-Sou017
+<span class="linenumber">002:</span>   &gt; d
+<span class="linenumber">003:</span>   Record of foo2@facebook has been deleted.
+<span class="linenumber">004:</span>   &gt;
+</pre>
+
+<h3>4.5. 詳細表示</h3>
+
+アカウントが特定されている状態で、<em>s</em> と入力すると、パスワードの詳細が表示されます。
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   &gt; foo;fa*
+<span class="linenumber">002:</span>   foo;facebook: 3YS4JL5BTNJrmIWE
+<span class="linenumber">003:</span>   foo;facebook&gt; s
+<span class="linenumber">004:</span>   
+<span class="linenumber">005:</span>   User: foo
+<span class="linenumber">006:</span>   Site: facebook
+<span class="linenumber">007:</span>   Time: 1339377849
+<span class="linenumber">008:</span>   Length: 20
+<span class="linenumber">009:</span>   Char: ALNUM
+<span class="linenumber">010:</span>   Note:
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   foo;facebook: 3YS4JL5BTNJrmIWE
+<span class="linenumber">013:</span>   foo;facebook&gt;
+</pre>
+
+
+
+
+<h3>4.6. 文字種類、長さの変更</h3>
+
+アカウントが特定されている状態で <em>l</em> と入力すると、文字種類、長さの上限を変更することができます。
+文字種類と長さの入力方法は<a href='#cl'>ここ</a>を参照してください。
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   foo;facebook&gt; l
+<span class="linenumber">002:</span>   Current Value: a20
+<span class="linenumber">003:</span>   new value (just RET to unchange): d8 <span class='comment'>数字8文字</span>
+<span class="linenumber">004:</span>   foo;facebook: 087145
+<span class="linenumber">005:</span>   foo;facebook&gt;
+</pre>
+
+
+<h3>4.7. ノートの変更</h3>
+
+アカウントが特定されている状態で <em>n</em> と入力すると、ノートを変更することができます。
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   foo;facebook&gt; n
+<span class="linenumber">002:</span>   Current Value:
+<span class="linenumber">003:</span>   new value (just RET to unchange): foo's facebook account
+<span class="linenumber">004:</span>   foo;facebook: 087145
+</pre>
+
+
+<h2>5. 簡単な説明</h2>
+
+パスフレーズは
+<pre class='code'>
+functools.reduce(lambda a,b:(a&lt;&lt;7)+ord(b), s1, 0)
+</pre>
+で、整数 (<tt>nsec</tt>)に変換されます。
+<br>
+変換されたパスフレーズとパスワードの生成時刻 (<tt>self.time</tt>) から次の関数でパスワード文字列を生成します。
+<p>
+パスワードは使用する文字の集合からランダムに選んで作るので、タイプしづらいものになりますが、
+クリップボード経由で入力するので、さほど不便ではありません。
+
+
+<pre class='code'>
+<span class="linenumber">001:</span>       def __call__(self, nsec):
+<span class="linenumber">002:</span>           <span class='string'>'''calculate password from the created time of self (self.time) and the secret number (nsec)'''</span>
+<span class="linenumber">003:</span>           random.seed(nsec+self.time)
+<span class="linenumber">004:</span>           size = round(self.length * math.cos(random.random()))
+<span class="linenumber">005:</span>           charset = PW.CS_ALNUM if self.char==CHARSET.ALNUM else \
+<span class="linenumber">006:</span>                     PW.CS_DIGIT if self.char==CHARSET.DIGIT else \
+<span class="linenumber">007:</span>                     PW.CS_ASCII
+<span class="linenumber">008:</span>           return ''.join(random.choice(charset) for i in range(size)) 
+</pre>
+
+<h2>6. 終わりに</h2>
+コマンドラインベースの地味なスクリプトですが、紫藤はとても重宝しています。
+<br>是非試してみてください。
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'><img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="pw.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python_pw.html&t=%A5%D1%A5%B9%A5%EF%A1%BC%A5%C9%B4%C9%CD%FD%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8+%28%B2%FE%CE%C9%C8%C7%29' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p></body>
+</html>
+

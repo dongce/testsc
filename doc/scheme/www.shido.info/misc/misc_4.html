@@ -1,0 +1,63 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="install Debian GNU Linux">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> Linux (GNU Debian)  へのソフトのインストール </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc4&t=Linux+%28GNU+Debian%29++%A4%D8%A4%CE%A5%BD%A5%D5%A5%C8%A4%CE%A5%A4%A5%F3%A5%B9%A5%C8%A1%BC%A5%EB"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>Linux (GNU Debian)  へのソフトのインストール</h1>
+<hr>
+Jun 28, 2005
+<p>
+Linux (GNU Debian) にソフトをインストール方法を簡単に述べたいと思います。
+Debian のインストールの方法などは、<a href="http://www.debian.or.jp/"> Debian JP Project</a>を見てください。
+<h2>1. バイナリーをインストール</h2>
+<ol>
+<li> バイナリーがあるかどうかを <span class="mono">apt-cache search</span> で調べます。
+例えば、python で SQL 関連のモジュールを調べるには以下のようにします。
+<pre class="samp">
+&gt;apt-cache search python | grep -i SQL | w3m
+</pre>
+詳しくは <a href="http://www.fasp.tv/debian/debian_howto_use/c123.html">
+ Debian GNU/Linux 使用方法 簡易マニュアル: 5.1. 目的のパッケージを検索するには
+</a> を見てください。
+<li> モジュールが見つかったら root になって apt-get install します。
+詳しくは <a href="http://www.fasp.tv/debian/debian_howto_use/x191.html">
+  Debian GNU/Linux 使用方法 簡易マニュアル:5.2. パッケージのインストール、削除
+</a> を見てください。
+</ol>
+<h2>2. ソースからインストール</h2>
+<ol>
+<li>ソースをダウンロードしてどこかのディレクトリに展開します。
+<li> <span class="mono">configure</span> を実行します。
+<li>  <span class="mono">configure</span> にモジュールが見当たらないと云われたらそれをインストールします。
+多くの場合バイナリーを apt-get できますから、モジュール名の終わりに <span class="important">"-dev"</span>がついたものをインストールして、
+ <span class="mono">configure</span> をやり直します。
+<li> <span class="mono">configure</span> が通ったら、<span class="mono">make, make install</span> します。
+</ol>
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc4&t=Linux+%28GNU+Debian%29++%A4%D8%A4%CE%A5%BD%A5%D5%A5%C8%A4%CE%A5%A4%A5%F3%A5%B9%A5%C8%A1%BC%A5%EB"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

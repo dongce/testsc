@@ -1,0 +1,385 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="courier, imap, maildrop, bogofilter, postfix, nkf, kakasi, スパム">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> メールサーバー上でのメールの振り分け </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc18&t=%A5%E1%A1%BC%A5%EB%A5%B5%A1%BC%A5%D0%A1%BC%BE%E5%A4%C7%A4%CE%A5%E1%A1%BC%A5%EB%A4%CE%BF%B6%A4%EA%CA%AC%A4%B1"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>メールサーバー上でのメールの振り分け</h1>
+<hr>
+Jul 21, 2006
+<p>
+
+<h2>1. はじめに</h2>
+せっかく IMAP を使っているのでメールサーバー上でメールを振り分けたり、スパムメールを判定するようにしました。
+こうすることによって、クライアントごとに設定する手間が省け、IMAP を使っているありがたみが増します。
+<p>
+サーバー上で、MTA が受け取ったメールをメール振り分けソフトに渡してメールを振り分けます。また、その際に
+スパムメールを判定することができます。サーバー上でスパムメールを学習させることによって学習する場所を１つにすることができ、
+学習効率が向上します。<p>
+振り分けソフトには maildrop を、スパム判定には bogofilter を使います。
+また、日本語のスパムメール判定を補助するために nkf, kakasi を使います。
+<p>
+念のため紫藤の環境を書いておきます。<p>
+<table border=1>
+   <tr>
+      <td>ディストリビューション</td>
+      <td> Debian/GNU Linux, sarge</td>
+   </tr>
+   <tr>
+      <td>MTA</td>
+      <td>postfix</td>
+   </tr>
+   <tr>
+      <td>MDA</td>
+      <td>courier-imap</td>
+   </tr>
+   <tr>
+      <td>保存形式</td>
+      <td>Maildir</td>
+   </tr>
+</table>
+<p>
+参考にしたサイトは以下の通りです。
+<ol>
+   <li> <a href='http://bogofilter.sourceforge.net/'>Bogofilter Home Page</a>
+   <li> <a href='http://www.is.titech.ac.jp/~yanagis0/text/maildrop.html'>maildrop 利用のメモというかtips</a>
+   <li> <a href='http://www.ginganet.org/ginga/memo/200309bogofilter.txt'>http://www.ginganet.org/ginga/memo/200309bogofilter.txt</a>
+</ol>
+<h2>2. 必要なソフトにインストール</h2>
+<h3>2.1. maildrop</h3>
+振り分けソフトです。<p>
+紫藤は apt-get install しました。
+また、ソースは <a href='http://www.courier-mta.org/maildrop/'>http://www.courier-mta.org/maildrop/</a> にあります。
+Courier をソースからインストールした場合はすでにインストールされています。
+<h3>2.2. bogofilter</h3>
+Bayesian filter を使用したスパムメール判定ソフトです。使用する前にスパムメールと正常メールを学習させる必要があります。
+また、継続して学習させることによって賢くなっていきます。<p>
+ソースは <a href='http://bogofilter.sourceforge.net/'>http://bogofilter.sourceforge.net/</a>
+にあります。tar ball を展開して、<br>
+<tt>./configure &rarr; make &rarr; sudo make install</tt><br>
+でインストールできます。
+<h3>2.3. nkf</h3>
+日本語文字コード変換ソフトです。文字コードを統一することで bogofilter の学習効率を上げます。<p>
+ソースは <a href='http://sourceforge.jp/projects/nkf/'>http://sourceforge.jp/projects/nkf/</a>
+からダウンロードできます。<p>
+<tt>展開 &rarr; ./configure &rarr; make &rarr; sudo make install</tt><br>
+でインストールできます。
+
+<h3>2.4. kakasi</h3>
+日本語分かち書きソフトです。日本語を単語に分けてあげることで bogofilter が学習しやすくします。
+ソースは <a href='http://kakasi.namazu.org/'>http://kakasi.namazu.org/</a>
+にあります。これも、<br>
+<tt>展開 &rarr; ./configure &rarr; make &rarr; sudo make install</tt><br>
+でインストールできます。
+
+
+
+<h2>3. スパムの学習</h2>
+これ以降は ~/Maildir が以下の構造になっているとして話を進めます。<p>
+<table border=1>
+   <tr>
+      <th>ディレクトリ</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>.Business</td>
+      <td> 仕事関係の正常メール</td>
+   </tr>
+   <tr>
+      <td>.Private</td>
+      <td> 私用の正常メール</td>
+   </tr>
+   <tr>
+      <td>.Others</td>
+      <td> それ以外の正常メール</td>
+   </tr>
+   <tr>
+      <td>.Spam</td>
+      <td> スパムメール</td>
+   </tr>
+   <tr>
+      <td>.Business0</td>
+      <td> スパムメールと誤判定された仕事用メール</td>
+   </tr>
+   <tr>
+      <td>.Private0</td>
+      <td> スパムメールと誤判定された私用メール</td>
+   </tr>
+   <tr>
+      <td>.Others0</td>
+      <td> スパムメールと誤判定されたその他のメール</td>
+   </tr>
+   <tr>
+      <td>.Spam0</td>
+      <td> 正常メールと誤判定されたスパムメール</td>
+   </tr>
+</table>
+
+<h3>3.1. 初期学習</h3>
+bogofilter を使うためにはまず、どれがスパムでどれが正常か教え込む必要があります。<p>
+初期状態では .Spam にスパムメール、.Business, .Private, および .Others に正常メールがあるとします。
+次のコマンドで学習させることができます。
+<pre class='samp'>
+$ find ~/Maildir/.Spam/cur -name "*" -type f -exec nkf -Z -m -j {} &#92;; | kakasi -w | bogofilter -s
+$ find ~/Maildir/.Business/cur -name "*" -type f -exec nkf -Z -m -j {} &#92;; | kakasi -w | bogofilter -n
+$ find ~/Maildir/.Private/cur -name "*" -type f -exec nkf -Z -m -j {} &#92;; | kakasi -w | bogofilter -n
+$ find ~/Maildir/.Others/cur -name "*" -type f -exec nkf -Z -m -j {} &#92;; | kakasi -w | bogofilter -n
+</pre>
+<ol>
+   <li>  まず、find -name "*" -type f でメールが保存されているディレクトリの全てのファイルを取り出し、
+   <li>  それを nkf で文字コードを iso-2022-jp に変換します (-j)。ついでに、-Z で一部を ASCII 文字に変換し -m で MINE の解読もします。
+変換する文字コードはメーラーに合わせて -j (iso-2022-jp), -e (euc-jp) -s (shift_jis) から選択します。
+   <li> 次に kakasi -w で分かち書きをします。
+   <li> 最後に bogofilter で学習します -s でスパム、 -n で正常メールとして学習します。
+</ol>
+<h3>3.2. 日々の学習</h3>
+次のスクリプトを /etc/cron.daily に入れておくと毎日スパムと正常メールを学習します。
+赤文字のところは各自の環境に合わせて設定してください。
+dropmail の設定で、日本語の前処理が済んでいるので、bogofilter だけを呼び出します。<p>
+.Spam0 にあるメールをスパムとして学習し、 .Spam に移動します。
+また、.Business0, .Private0, および .Others0 にあるメールを正常メールとして学習し、
+それぞれ .Business, .Private, および .Other に移動します。<p>
+bogofiliter の -Ns オプションは正常メールであることを取り消してスパムとして登録すること、また、
+-Sn オプションはスパムであることを取り消して正常メールとして登録することを意味します。
+
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="string">"""
+<span class="linenumber">03:</span>     learing spam and nonspam mails automatically using with cron
+<span class="linenumber">04:</span>     """</span>
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     import os, os.path
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     USER="<span class='redtext'>YourUserName</span>"
+<span class="linenumber">09:</span>     MAILDIR=os.path.join("/home", USER, "Maildir")
+<span class="linenumber">10:</span>     BOGOFILTER="/usr/local/bin/bogofilter -B "
+<span class="linenumber">11:</span>     MV="/bin/mv "
+<span class="linenumber">12:</span>     CHECKDIRS=[ 
+<span class="linenumber">13:</span>       (".Spam0", ".Spam", "-Ns"), 
+<span class="linenumber">14:</span>       (".Business0", ".Business", "-Sn"), 
+<span class="linenumber">15:</span>       (".Private0", ".Private", "-Sn"), 
+<span class="linenumber">16:</span>       (".Others0", ".Others", "-Sn")
+<span class="linenumber">17:</span>     ]
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     def su_c(usr, cmd):
+<span class="linenumber">20:</span>         return "su - " + usr + " -c &#92;"" + cmd + "&#92;""
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>     def bogo(dir, flag):
+<span class="linenumber">23:</span>         return BOGOFILTER + flag + " " + dir
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>     def mv_all(dir0, dir1):
+<span class="linenumber">26:</span>         return MV + os.path.join(dir0, "*") + " " + dir1
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>     def reg_mail(dir0, dir1, flag):
+<span class="linenumber">29:</span>         dir0 = os.path.join(MAILDIR, dir0, "cur")
+<span class="linenumber">30:</span>         if os.listdir(dir0):
+<span class="linenumber">31:</span>             dir1 = os.path.join(MAILDIR, dir1, "cur")
+<span class="linenumber">32:</span>             os.system(su_c(USER, bogo(dir0, flag)))
+<span class="linenumber">33:</span>             os.system(su_c(USER, mv_all(dir0, dir1)))
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>     if __name__=='__main__':
+<span class="linenumber">36:</span>         for dir0, dir1, flag in CHECKDIRS:
+<span class="linenumber">37:</span>             reg_mail(dir0, dir1, flag)
+</pre>
+
+
+<h2>4. 設定</h2>
+<h3>4.1. MTA の設定 </h3> 
+Postfix の場合 ~/.forward を次のようにします。スパムフィルターを働かせるためには -d オプションを指定して
+自分のユーザー名を続ける必要があります。
+<pre class='code'>
+"|/usr/bin/maildrop -d <span class='redtext'>YourUserName</span>"
+</pre>
+<h3>4.2. maildrop の設定</h3>
+maildrop の設定は ~/.mailfilter で行います。~/.mailfilter のモードは 600 でないと正常に動作しません。
+以下に例を示します。
+<pre class='code'>
+<span class="linenumber">01:</span>     MAILDIR="/home/<span class='redtext'>YourUserName</span>/Maildir/"
+<span class="linenumber">02:</span>     DEFAULT=$MAILDIR
+<span class="linenumber">03:</span>     NKF="/usr/local/bin/nkf"
+<span class="linenumber">04:</span>     NKF_OPTION="-Z -m -j"
+<span class="linenumber">05:</span>     WAKATI="/usr/local/bin/kakasi -w"
+<span class="linenumber">06:</span>     BOGOFILTER="/usr/local/bin/bogofilter"
+<span class="linenumber">07:</span>     BOGOFILTER_OPTION="-u -e -p"
+<span class="linenumber">08:</span>     BOGOJP="${NKF} ${NKF_OPTION} | ${WAKATI} | ${BOGOFILTER} ${BOGOFILTER_OPTION}"
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     xfilter "${BOGOJP}"
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     if (/^X-Bogosity: Spam, tests=bogofilter/)
+<span class="linenumber">13:</span>     {
+<span class="linenumber">14:</span>     to "${MAILDIR}.Spam/"
+<span class="linenumber">15:</span>     }
+<span class="linenumber">16:</span>     if (/^From:.*@mycompany&#92;.co&#92;.jp/:h)
+<span class="linenumber">17:</span>     {
+<span class="linenumber">18:</span>     to "${MAILDIR}.Business/"
+<span class="linenumber">19:</span>     }
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>     if (/^From:.*myfriend@/:h)
+<span class="linenumber">22:</span>     {
+<span class="linenumber">23:</span>     to "${MAILDIR}.Private/"
+<span class="linenumber">24:</span>     }
+<span class="linenumber">25:</span>     
+<span class="linenumber">26:</span>     if (/^From:.*sale/:h)
+<span class="linenumber">27:</span>     {
+<span class="linenumber">28:</span>     to "${MAILDIR}.Others/"
+<span class="linenumber">29:</span>     }
+</pre>
+
+if に続けて振り分けルールを正規表現で書きます。:h はヘッダーだけ調べるという意味です。
+if(...) のあと改行して { を書かないと文法エラーになります。<p>
+bogofilter に '-u -e -p' オプションをつけるとスパムだと判定された場合<br>
+X-Bogosity: Spam, tests=bogofilter<br>
+という行が挿入されるので、それを振り分けルールに加えてスパムを振り分けます。
+-u, -e, -p オプションはそれぞれ、判定後メールを登録する、エラーが起きなければ OS に 0 を返す、
+メッセージヘッダの最後に X-Bogosity ... の行を追加する、という意味です。
+<p>
+振り分けルールに合致しないメールは DEFAULT に振り分けられます。
+
+<h3>4.3. ~/.mailfilter 生成スクリプト</h3>
+~/.mailfilter は頻繁に変更するのでいつも使っている PC 上で作成し、メールサーバにアップロードできるようにしておくと便利です。
+そのための簡単なスクリプトを python で書いてみました。mailfilter.inp を読んで、.mailfilter を作り、それをアップロードします。
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     changing .mailfilter from a cliant
+<span class="linenumber">05:</span>     The script takes mailfilter.inp as a input file
+<span class="linenumber">06:</span>     The format of the input file is:
+<span class="linenumber">07:</span>     ---
+<span class="linenumber">08:</span>     <span class="comment"># input file for mailfilter.py to make a .mailfilter at your mail server</span>
+<span class="linenumber">09:</span>     <span class="comment"># regexp(TAB)directory</span>
+<span class="linenumber">10:</span>     ^From:.*@mycompany&#92;.co&#92;.jp	.Business
+<span class="linenumber">11:</span>     ^From:.*myfriend@	.Private
+<span class="linenumber">12:</span>     ^From:.*sale	.Others
+<span class="linenumber">13:</span>     ---
+<span class="linenumber">14:</span>     """</span>
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     import os, os.path, sys, socket
+<span class="linenumber">17:</span>     from ftplib import FTP
+<span class="linenumber">18:</span>     from cStringIO import StringIO
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     DIR="C:&#92;&#92;doc&#92;&#92;misc&#92;&#92;"
+<span class="linenumber">21:</span>     INP=os.path.join(DIR, "mailfilter.inp")
+<span class="linenumber">22:</span>     OUT=os.path.join(DIR, ".mailfilter")
+<span class="linenumber">23:</span>     LOG=os.path.join(DIR, "mailfilter.log")
+<span class="linenumber">24:</span>     SERVER="<span class='redtext'>your.mail.server</span>"
+<span class="linenumber">25:</span>     USER="<span class='redtext'>YourUserName</span>"
+<span class="linenumber">26:</span>     PASSWD="<span class='redtext'>YourPassword</span>"
+<span class="linenumber">27:</span>     HEADER= &#92;
+<span class="linenumber">28:</span>     <span class="string">"""MAILDIR=&#92;"/home/takafumi/Maildir/&#92;"
+<span class="linenumber">29:</span>     DEFAULT=$MAILDIR
+<span class="linenumber">30:</span>     NKF=&#92;"/usr/local/bin/nkf&#92;"
+<span class="linenumber">31:</span>     NKF_OPTION=&#92;"-Z -m -j&#92;"
+<span class="linenumber">32:</span>     WAKATI=&#92;"/usr/local/bin/kakasi -w&#92;"
+<span class="linenumber">33:</span>     BOGOFILTER=&#92;"/usr/local/bin/bogofilter&#92;"
+<span class="linenumber">34:</span>     BOGOFILTER_OPTION=&#92;"-u -e -p&#92;"
+<span class="linenumber">35:</span>     BOGOJP=&#92;"${NKF} ${NKF_OPTION} | ${WAKATI} | ${BOGOFILTER} ${BOGOFILTER_OPTION}&#92;"
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>     xfilter &#92;"${BOGOJP}&#92;"
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>     if (/^X-Bogosity: Spam, tests=bogofilter/)
+<span class="linenumber">40:</span>     {
+<span class="linenumber">41:</span>     to &#92;"${MAILDIR}.Junk/&#92;"
+<span class="linenumber">42:</span>     }
+<span class="linenumber">43:</span>     
+<span class="linenumber">44:</span>     """</span>
+<span class="linenumber">45:</span>     
+<span class="linenumber">46:</span>     def make_rule(line):
+<span class="linenumber">47:</span>         <span class="string">"""making a rule for .mailfilter from a line of the input file"""</span>
+<span class="linenumber">48:</span>         regexp, dir = tuple(line.split('&#92;t', 2))
+<span class="linenumber">49:</span>         return "if (/" + regexp + "/:h)&#92;n{&#92;nto &#92;"${MAILDIR}" + dir + "/&#92;"&#92;n}&#92;n&#92;n"
+<span class="linenumber">50:</span>     
+<span class="linenumber">51:</span>     def create_mailfilter(nfin, nfout):
+<span class="linenumber">52:</span>         <span class="string">"""creating a .mailfilter at client"""</span>
+<span class="linenumber">53:</span>         fin=file(nfin)
+<span class="linenumber">54:</span>         fout=file(nfout, 'w')
+<span class="linenumber">55:</span>         fout.write(HEADER)
+<span class="linenumber">56:</span>         for line in fin:
+<span class="linenumber">57:</span>             line = line.rstrip('&#92;n')
+<span class="linenumber">58:</span>             len(line)==0 or &#92;
+<span class="linenumber">59:</span>               line[0]=='<span class="comment">#' or &#92;</span>
+<span class="linenumber">60:</span>               fout.write(make_rule(line))
+<span class="linenumber">61:</span>         fin.close()
+<span class="linenumber">62:</span>         fout.close()
+<span class="linenumber">63:</span>     
+<span class="linenumber">64:</span>     def upload_file(server, user, passwd, fname, log_name):
+<span class="linenumber">65:</span>         <span class="string">"""FTP upload a file to a server"""</span>
+<span class="linenumber">66:</span>         try:
+<span class="linenumber">67:</span>             ftp = FTP(server)
+<span class="linenumber">68:</span>         except:
+<span class="linenumber">69:</span>             write_log(log_name, "Cannot connect to " + server, False)
+<span class="linenumber">70:</span>     
+<span class="linenumber">71:</span>         try:
+<span class="linenumber">72:</span>             ftp.login(user, passwd)
+<span class="linenumber">73:</span>         except:
+<span class="linenumber">74:</span>             ftp.close()
+<span class="linenumber">75:</span>             write_log(log_name, "Cannot login: " + server, False)
+<span class="linenumber">76:</span>     
+<span class="linenumber">77:</span>         put(ftp, fname, log_name)
+<span class="linenumber">78:</span>         ftp.quit()
+<span class="linenumber">79:</span>         write_log(log_name, "Upload " + fname + " done.", True)
+<span class="linenumber">80:</span>     
+<span class="linenumber">81:</span>     def put(ftp, fname, log_name):
+<span class="linenumber">82:</span>         <span class="string">""" put a file through ftp"""</span>
+<span class="linenumber">83:</span>         try:
+<span class="linenumber">84:</span>             f = file(fname)
+<span class="linenumber">85:</span>         except:
+<span class="linenumber">86:</span>             ftp.close()
+<span class="linenumber">87:</span>             write_log(log_name, "Cannot open local file: " + fname, False)
+<span class="linenumber">88:</span>         try:
+<span class="linenumber">89:</span>             ftp.storlines("STOR " + os.path.basename(fname), f)
+<span class="linenumber">90:</span>         except:
+<span class="linenumber">91:</span>             ftp.close()
+<span class="linenumber">92:</span>             write_log(log_name, "Cannot Transfer local file: " + fname, False)
+<span class="linenumber">93:</span>                 
+<span class="linenumber">94:</span>         f.close()
+<span class="linenumber">95:</span>             
+<span class="linenumber">96:</span>     def write_log(logfile, str, success):
+<span class="linenumber">97:</span>         <span class="string">"""writing a log file"""</span>
+<span class="linenumber">98:</span>         log = file(logfile, 'w')
+<span class="linenumber">99:</span>         log.write( ((not success) and  'Error: ' or '') + str + "&#92;n")
+<span class="linenumber">100:</span>         log.close()
+<span class="linenumber">101:</span>         success or sys.exit(1)
+<span class="linenumber">102:</span>     
+<span class="linenumber">103:</span>     if __name__=='__main__':
+<span class="linenumber">104:</span>         create_mailfilter(INP, OUT)
+<span class="linenumber">105:</span>         upload_file(SERVER, USER, PASSWD, OUT, LOG)
+</pre>
+
+
+<h2>5. 終わりに</h2>
+これで IMAP が使いやすくなり、出先でノート PC を使って自宅サーバにアクセスするときスパムに悩まされなくてすむようになりました。<p>
+ちなみに、公衆無線 LAN は不用心なので、出先からアクセスするときは
+メールの送受信には SSL (imap-ssl, smtp-ssl) と SMTP-AUTH を使っています。
+<p>
+今はサーバー証明書も安いので個人レベルでも利用できるようになりました。
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc18&t=%A5%E1%A1%BC%A5%EB%A5%B5%A1%BC%A5%D0%A1%BC%BE%E5%A4%C7%A4%CE%A5%E1%A1%BC%A5%EB%A4%CE%BF%B6%A4%EA%CA%AC%A4%B1"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

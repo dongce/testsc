@@ -1,0 +1,519 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell, 詰碁, 探索">
+<meta name="description" content="Module of Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>詰碁を解く</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell11.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  11. Module</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=download href="tumego.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell12.html&t=%B5%CD%B8%EB%A4%F2%B2%F2%A4%AF' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>12. 詰碁を解く Haskell プログラム</h1> 
+<hr>
+ <!---------------------------------------------------->
+<h2>1. 初めに</h2>
+ この<a href ="haskell1.html"> Haskell 講座の最初の文章</a>
+ で、Haskell は詰め将棋に向くと書いた手前、詰め物のプログラムを書いてみました。
+   詰め将棋でも良かったのですが、将棋にはいろいろな種類の駒があり、プログラムが大きくなりそうなので、
+   ルールが簡単な詰碁にしました。ここで示すやり方は詰め将棋にも使えるので、
+   気が向いたら挑戦してみてください。<p>
+
+   ここに示すプログラムは、コウやセキや長生にならない（つまり、二眼の生きの）
+     黒先黒生の詰碁を解くことができます。
+     二眼の黒先黒生に限定したのはこの条件ではプログラムが簡単に書け、実行時間も短くてすむからです。
+     二眼の生きの場合は勝利条件が定義しやすいのですが、コウやセキや長生は
+     勝利条件を定義するのは少し面倒です。
+     また、黒先白死は、白石をとりきるまで読まなければならないので、手数が長くなり、
+     従って、計算時間が長くなります。
+<p>
+  このプログラムで用いた詰碁のルールを簡単に説明すると以下の様になります。
+  <ol>
+<li> 黒から打ち始め、黒は二眼の生きを目指す。
+  <li> 白は一番手数が長くなる手順を選ぶ。
+    <li> 二眼の生きとは相手が、任意の回数続けて打っても取られない石を指す。
+      </ol>
+
+  詰碁のルールについては
+  <a href="http://www.amazon.co.jp/exec/obidos/ASIN/4839911126/250-5158328-0448218">ひと目の詰碁―やさしい問題を反復練習</a> などの囲碁の本を参照にしてください。
+  Web 上には適当なリソースが見当たりませんでした。ご存知の方はお知らせください。<p>
+
+    ここで用いた問題は<a href="http://mrkigo.sakura.ne.jp/ytumegoindex.html">
+      やさしい詰碁を解きましょう</a>
+    から拝借しました。
+
+<h2> 2. 遊び方</h2>
+
+<h3> 2.1. 動作環境</h3>
+このプログラムは以下の環境で動作を確認しています。
+<ul>
+  <li>WindowXP + Python2.4 + ghc6.4 
+  <li>Debian GNU Linux + Python2.3 + ghc6.4
+</ul>
+
+
+<h3> 2.2.  コンパイル</h3>
+<a href="tumego.lzh">tumego.lzh</a> をダウンロードして解凍します。
+以下のファイルが生成します。
+<ol>
+  <li>tumego.hs: Haskell ソースコード
+  <li>tuemego.exe: Windows 用実行ファイル
+  <li> goban.py: Python/Tk で書かれた GUI
+  <li> q1_6.gbn, t2.gbn, q1_5.gbn, q2_2.gbn: 詰碁の問題
+</ol>
+Linux の場合は、
+生成する <span class="mono">tumego.hs</span> を
+<span class='important'>ghc 6.4</span> を使って次のようにコンパイルします。
+<pre class='samp'>
+&gt;ghc -O3 tumego.hs -o tumego
+</pre>
+"-O3" を使って最適化しないと遅くなります。
+一方、最適化したものは Lisp で書いて
+<a href="http://www.cons.org/cmucl/">CMUCL</a> でコンパイルしたものと同等の速度を示します。
+（CMUCL は Linux 上で動作する処理速度に定評のある Lisp 処理系です。）
+
+
+
+<h3>2.3. 入力ファイルの作成</h3>
+コマンドラインから
+<pre class='samp'>
+&gt;python goban.py   
+</pre>
+と入力します。<p>
+
+  升目を左クリックすると、空き地 &rarr; 黒石 &rarr; 白石 &rarr; 空き地 と循環します。<p>
+    
+その後メニューバーの File &rarr; Save をクリックするとダイアログが開いてセーブするファイル名を
+聞いてきますので、名前をつけてセーブします。
+
+図１に例を示します。<p>
+  <center><img src='haskell12a.jpg'><br>図１: 石を置いた場面</center>
+    
+<h3>2.4. 実行</h3>
+以下の手順で実行します。<p>
+
+まず、メニューバーの File &rarr; Open で詰碁ファイルを開き、次に
+メニューバーの Solve をクリックします。<br>
+  
+しばらく待っていると、碁盤の下の窓に答えが表示され、
+メニューの矢印がアクティブになるので、それをクリックすると
+石が置かれていきます。
+
+図２に例を示します。解が見つかるとメニューバーの矢印がアクティブになり、解を盤上に表示できます。<p>
+  <center><img src='haskell12b.jpg'><br>図２：詰碁を解いた場面</center>
+
+<h2> 3. プログラムの方針</h2>
+<h3>3.1. 碁盤の表現</h3>
+碁盤をどのように表すかは、結構悩みます。
+碁盤に求められる条件は、
+<ol>
+<li> 検索、挿入、更新のコストが小さい。
+  <li> 作成のコストが小さい。
+  <li> ある碁盤に加えた変更が他の碁盤に影響を及ぼさない。
+    </ol>
+の３つです。
+この種の探索プログラムでは次々と碁盤を作っては破棄するので、
+作成のコストが小さいことが重要です。<p>
+
+  碁盤なので <span class="mono">Array</span> データ型を使うのが自然に思えますが、
+  このデータ型は検索のコストは小さいものの
+  作成のコストが非常に大きいので不適当です。一方、連想リストは逆に検索のコストが大きく、
+  あまり適当でありません。<span class="mono">Array.IO, HashTable</span> などの
+  IO 型のデータは、碁盤を探索関数間で受け渡すのに適していません。<p>
+
+    結局、すべてにおいてそこそこの速度を示す <span class="mono">IntMap</span> 型を採用しました。
+    この型は key に Int をとる型で、通常の二分木より若干早くなっています。
+    詳しくは GHC ドキュメントの 
+    <a href="http://www.haskell.org/ghc/docs/latest/html/libraries/base/Data.IntSet.html">
+      <span class="mono">Data.IntSet</span></a>
+    および、<a href="http://www.haskell.org/ghc/docs/latest/html/libraries/base/Data.IntMap.html">
+      <span class="mono">Data.IntMap</span></a>
+    を見てください。
+    <p>
+      <span class="mono">IntMap</span> 型は key に Int しか取れないので、碁盤の座標を整数に変換したものを
+      key とし、value は碁石の色 <span class="mono">(Kuro, Shiro)</span> にしました。
+      石が無い升目はデータに加えません。
+      こうすることによって、詰碁のように広い盤面に石があまり無い場合も、効率よく表せることができます。
+
+      <h3>3.2. 探索方針</h3>
+詰碁のような詰め物のプログラムでは、黒番は、白番がどのように対応しても
+勝利条件が達成できる手を選ばなければなりません。Haskell の Maybe 型の Monad を使うと
+このようなプログラムが簡単に書けます。
+黒番の時は、条件を満たす手が１つでもあればいいので、<span class="mono">msum</span>
+      をつかって表すことができます。
+<span class="mono">msum</span> は最初に見つかった <span class="mono">Just a</span> を返す関数です。
+<p>
+一方、白番のときは白がどう打っても黒の勝利条件が達成されなければならないので、すべての値が
+<span class="mono">Just a</span> のときだけ、<span class="mono">Just [a]</span>
+を返す関数 <span class="mono">mapM</span> を使います。
+<p>
+<span class="mono">msum</span>
+と <span class="mono">mapM</span> は次のように使います。
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">--- msum and mapM</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     import Monad
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     msqrt :: Double -&gt; Maybe Double
+<span class="linenumber">06:</span>     msqrt x | x &gt;= 0 = Just (sqrt x)
+<span class="linenumber">07:</span>             | otherwise = Nothing
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     ls0 = [ 1.0, -1.0, 2.0, 3.0]
+<span class="linenumber">10:</span>     ls1 = [ 1.0, 2.0, 3.0]
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     msum0 = msum $ map msqrt ls0
+<span class="linenumber">13:</span>     mapM0 = mapM msqrt ls0
+<span class="linenumber">14:</span>     mapM1 = mapM msqrt ls1
+</pre>	
+
+<pre class="samp">
+Main&gt; msum0
+Just 1.0
+Main&gt; mapM0
+Nothing
+Main&gt; mapM1
+Just [1.0,1.4142135623731,1.73205080756888]
+</pre>
+
+つまり、黒番のときは <span class="mono">msum</span> を使って、勝利条件に達する手順をひとつ返し、
+白番の時は、<span class="mono">mapM</span> を使ってすべての応手にたいして黒番の勝利条件に達するとき、
+手順のリストを返えすようにして深さ優先探索をすればいいことになります。
+<p>
+  tumego.hs では関数 <span class="mono">searching</span> を使って深さ優先探索を行います。
+  <span class="mono">searching</span> の引数は、最大の読みの深さ (<span class="mono">nmax</span>)、
+  現在の読みの深さ (<span class="mono">nnow</span>)、
+  碁盤を表す <span class="mono">IntMap (g)</span>、守備側の石の色 (<span class="mono">cdef</span>)、
+  現在打つ石の色 (<span class="mono">cnow</span>)、
+  これまでの手順 (<span class="mono">path</span>)、
+  直前の手 (<span class="mono">pp</span>)、手の選択肢 (<span class="mono">choices</span>) です。
+  <span class="mono">searching</span> は次のような動作をします。
+  <ol>
+<li> 黒が生きているときは、この局面に至るまでの手順を返す。
+  <li> 読みの最大深さに達したときは <span class="mono">fail</span>
+    <li> 碁盤に黒石が無いときは <span class="mono">fail</span>
+      <li> 選択肢が無いときは、黒の手番なら <span class="mono">fail</span> 白の手番なら手順を返す。
+	<li> 黒番のときは <span class="mono">msum</span> を使って、最初に見つかった手順を返す。
+	  <li> 白番の時は <span class="mono">mapM</span>
+	    と <span class="mono">return_longest</span> を使って、
+	    すべての選択肢に対して手順が帰ってきたら、そのうちの最長手順を返す。
+	    </ol>
+
+
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">--- solving tumego using depth first search</span>
+<span class="linenumber">02:</span>     searching :: Int -&gt; Int -&gt; GBN -&gt; Iro -&gt; Iro -&gt; [Int] -&gt; Int -&gt; [Int] -&gt; Maybe [Int]
+<span class="linenumber">03:</span>     searching nmax nnow g cdef cnow path pp choices 
+<span class="linenumber">04:</span>         | is_iki g cdef = return (reverse path)
+<span class="linenumber">05:</span>         | nnow == nmax = fail "reached to the limit"
+<span class="linenumber">06:</span>         | not (s_exist g cdef) = fail "all stones are captured"
+<span class="linenumber">07:</span>         | choices1==[] = if (cdef == cnow) then fail "no way" else return (reverse path)
+<span class="linenumber">08:</span>         | cdef == cnow = msum $ map searching_next choices1
+<span class="linenumber">09:</span>         | otherwise = return_longest $ mapM searching_next choices1
+<span class="linenumber">10:</span>      where
+<span class="linenumber">11:</span>          captured = if (nnow &gt; 0) then cap_stones g cnow pp else []
+<span class="linenumber">12:</span>          g1 = sweep_gbn g captured
+<span class="linenumber">13:</span>          choi = choices ++ captured
+<span class="linenumber">14:</span>          choices0 = if (nnow &gt; 0)
+<span class="linenumber">15:</span>                         then
+<span class="linenumber">16:</span>                              if (cnow == cdef) then choi else union choi (surround g1 pp)
+<span class="linenumber">17:</span>                         else choices
+<span class="linenumber">18:</span>          choices1 = gordering g1 cdef cnow $ filter (\x -&gt; is_safe g1 cnow x) choices0
+<span class="linenumber">19:</span>          searching_next p0 = searching nmax (nnow+1) (g_add g1 p0 cnow)
+<span class="linenumber">20:</span>                                 cdef (opposite cnow) (p0:path) p0 (delete p0 choices0)
+<span class="linenumber">21:</span>          return_longest Nothing = fail "no chance"
+<span class="linenumber">22:</span>          return_longest (Just ls) = return (find_longest ls)
+<span class="linenumber">23:</span>     
+</pre>
+
+<p>
+  このプログラムでは最大の読みの深さ (<span class="mono">nmax</span>)を 1 からはじめ、
+  解が見つかったらそれを返して停止し、
+  見つからなければ <span class="mono">nmax</span> を２つ増やして探索を続けます。
+  この手法（<a href="http://www.geocities.jp/m_hiroi/prolog/prolog09.html">反復深化法</a>）
+  は計算時間がかかりますが、プログラミングが簡単で、メモリーの消費も少ないという利点があります。
+  また、<span class="mono">msum, mapM</span> が使えるという利点があります。
+
+<h3>3.3. 手の選択肢を求める</h3>
+碁盤は広いので、空いている点全てについて読むというのは現実的でありません。
+詰碁の場合は、着手は生きようとしている石（この場合は黒石）付近に限定されます。<p>
+
+選択肢は次の基準で選びます。
+<ol>
+<li>盤上にある黒石に隣接している点。
+<li>盤上にある黒石の斜めの点。
+<li>盤上にある黒石から１つ飛んだ点。ただし間が空いている場合に限る。
+  </ol>
+具体例を示すと、下図の緑丸の位置が選択肢です。
+また、手順が進んで、新たな黒石が盤上に置かれるとその石の周りも選択肢に加えます。  
+
+<center><img src="q1_6.png"></center>
+
+
+
+<h3>3.4. 手の選択肢の優先順位を決める</h3>
+着手にスコアをつけ、スコアの高い手から探索することで、
+無駄な手を読む手間が省け、
+探索時間を短くすることができます。<p>
+  
+碁は打った石が動けないゲームなので、黒番、白番とも急所は同じ場所になります。
+（いわゆる”敵の打ちたいところへ打て”ということです）
+選択肢にある手を次の規則でスコアをつけ、スコアの大きい手から探索します。
+<ol>
+<li> 黒が完全に生きる場所はスコア 3
+  <li> 黒に二眼ができる場所はスコア 2
+    <li> 白番で、黒のダメを詰める場所はスコア 1
+      <li> その他はスコア 0
+	</ol>
+      
+
+
+<h2> 4. コードの概説</h2>
+次の表に各関数の説明を示します。
+<table class="mono" border=1>
+   <tr>
+      <th>行</th>
+      <th>関数名</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>43</td>
+      <td>opposite c</td>
+      <td> c が Kuro なら Shiro, Shiro なら Kuro を返す。</td>
+   </tr>
+   <tr>
+      <td>50</td>
+      <td>find_longest ls</td>
+      <td> ls の要素で、最長のリストを返します。</td>
+   </tr>
+   <tr>
+      <td>64</td>
+      <td>p2int p</td>
+      <td>碁盤の座標 p を整数に変換します。</td>
+   </tr>
+   <tr>
+      <td>69</td>
+      <td>int2p i</td>
+      <td> 整数 i を碁盤の座標に変換します。</td>
+   </tr>
+   <tr>
+      <td>81</td>
+      <td>g_add g p c</td>
+      <td>碁盤 g の位置 p に色 c の石を置きます。</td>
+   </tr>
+   <tr>
+      <td>87</td>
+      <td>g_del g p</td>
+      <td>碁盤 g の位置 p から石を取り除きます。</td>
+   </tr>
+   <tr>
+      <td>93</td>
+      <td>g_empty g p</td>
+      <td>碁盤 g の位置 p に石がないか調べます。なければ True</td>
+   </tr>
+   <tr>
+      <td>99</td>
+      <td>p2c g p</td>
+      <td>碁盤 g の位置 p の石の色を調べます。</td>
+   </tr>
+   <tr>
+      <td>105</td>
+      <td>find_next p</td>
+      <td>位置 p に隣接する座標を返します。</td>
+   </tr>
+   <tr>
+      <td>115</td>
+      <td>s_exist g c</td>
+      <td> 碁盤 g に色 c の石があるか調べます。あれば True</td>
+   </tr>
+   <tr>
+      <td>122</td>
+      <td>is_safe g c p</td>
+      <td> 碁盤 g の位置 p に色 c の石が置けるか調べます。</td>
+   </tr>
+   <tr>
+      <td>128</td>
+      <td>is_safe0 g c p</td>
+      <td> 碁盤 g の位置 p に色 c の石を置いたとき呼吸点があるか調べます。</td>
+   </tr>
+   <tr>
+      <td>146</td>
+      <td>is_csr</td>
+      <td>碁盤 g の位置 p に色 c の石を置いたとき相手の石を取れるかどうか調べます。</td>
+   </tr>
+   <tr>
+      <td>168</td>
+      <td>find_ga g c p</td>
+      <td>碁盤 g の位置 p にある色 c の石と連続した石と、その呼吸点のリストのタプルを返します。</td>
+   </tr>
+   <tr>
+      <td>186</td>
+      <td>cap_stones g c p</td>
+      <td> 碁盤 g の位置 p にある色 c の石とそれに連なる石で、取られる石を返します。</td>
+   </tr>
+   <tr>
+      <td>208</td>
+      <td>up_gbn g c p</td>
+      <td> 碁盤 g の位置 p に色 c の石を置いて碁盤を更新します。</td>
+   </tr>
+   <tr>
+      <td>216</td>
+      <td>sweep_gbn g ps</td>
+      <td> 碁盤 g から ps にある石を取り除きます。</td>
+   </tr>
+   <tr>
+      <td>223</td>
+      <td>is_iki g c</td>
+      <td>  碁盤 g で色 c の石が生きているか調べます。生きていれば True</td>
+   </tr>
+   <tr>
+      <td>230</td>
+      <td>all_akidame g c</td>
+      <td> 碁盤 g で色 c の石の全ての呼吸点を返します。</td>
+   </tr>
+   <tr>
+      <td>259</td>
+      <td>is_nigan g c</td>
+      <td> 碁盤 g で色 c の石が二眼（欠け目も含む）か調べます。二眼ならば True</td>
+   </tr>
+   <tr>
+      <td>277</td>
+      <td>ini_op g ls c</td>
+      <td>問題図 g の選択肢を作成します。</td>
+   </tr>
+   <tr>
+      <td>290</td>
+      <td>surround g p</td>
+      <td> 碁盤 g の位置 p の "周り" の位置のリストを返します。</td>
+   </tr>
+   <tr>
+      <td>304</td>
+      <td>gordering g cdef cnow ps</td>
+      <td>スコアに基づいて選択肢を sort します。</td>
+   </tr>
+   <tr>
+      <td>313</td>
+      <td>gweighting g cdef cnow p</td>
+      <td>選択肢にスコアをつけます。</td>
+   </tr>
+   <tr>
+      <td>324</td>
+      <td>gsorting</td>
+      <td>スコアを Ordering に変換します。</td>
+   </tr>
+   <tr>
+      <td>333</td>
+      <td>searching</td>
+      <td> 深さ優先探索を行います。</td>
+   </tr>
+   <tr>
+      <td>359</td>
+      <td>kuroiki</td>
+      <td>反復深化法を行います</td>
+   </tr>
+   <tr>
+      <td>386</td>
+      <td>init_goban</td>
+      <td>石の位置のリストから碁盤を初期化します。</td>
+   </tr>
+   <tr>
+      <td>394</td>
+      <td>do_tsumego str </td>
+      <td> str から石の位置のリストを作り kuroiki に渡します。</td>
+   </tr>
+   <tr>
+      <td>405</td>
+      <td>rm_cmt str</td>
+      <td> str からコメントを取り除きます。</td>
+   </tr>
+   <tr>
+      <td>415</td>
+      <td>main</td>
+      <td>main 関数です。引数で指定されたファイルを読み、その内容を do_tsumego に渡します。</td>
+   </tr>
+</table>
+
+<h2> 5. 終わりに</h2>
+
+<h3> 5.1. Haskell は探索型ゲームプログラムに適しているか？</h3>
+プログラムはかなり余白を持たせて書いたので、 400 行ほどになりました。
+  かなりの部分が、打てる場所の判定と、二眼の生きの判定に関する部分に費やされました。
+  一方、探索プログラム自体は少ない行数で実現できています。
+<p>
+  これと同様のプログラムを Lisp で書いても 400 行ほどになります。
+  Haskell 版は Lisp に比べて、特に短くなるというわけではなく、
+実行速度もほとんど変わりませんが、
+以下の点で Lisp に比べて
+  若干優れていると思われます。
+  <ol>
+   <li> Common Lisp では空リストと失敗に両方 <span class="mono">nil</span> を使うが、
+     この種の探索プログラムでは
+     バグの原因になる。実際、tumego.hs の Lisp 版を書いたときこれがバグのもとになり、
+     気づくまでしばらくかかった。探索に失敗したら明示的に <span class="mono">'fail</span>
+     を返すようにして解決。
+     <li> 探索プログラムを書く上で便利な <span class="mono">msum, mapM</span>
+       などの関数が備わっている。
+       Lisp では自分で書く必要がある。
+       <li> <span class="mono">IntMap</span>
+	 などの便利なデータ型が使える。Lisp では連想リストを使わざる得なかった。
+	 <span class="mono">IntMap</span> 抜きでは碁盤を表現するのにかなり複雑なことになるだろう。
+  </ol>
+ 
+  感じとしては、Haskell はこの手のプログラムを書くために開発されたのではないかと思えるほど
+  書きやすかったです。
+  遅延評価のおかげで、評価しなくていい枝は評価されないので、プログラムの構造をすっきり書けます。
+  Lisp を含むほかの言語では同等のことを行うために (Lisp の) return, catch -- throw などの
+  ジャンプ命令を使う必要があります。<br>
+ Haskell を用いた探索的プログラミングについては
+  <a href="http://www.sampou.org/haskell/article/whyfp.html">
+    なぜ関数プログラミングは重要か</a>
+  を見てください。
+  
+<h3> 5.2. やること</h3>
+ここで示したプログラムは詰碁プログラムとしては初歩的なものですが、
+これを基に改良を加えていけば完成度が高いものになると思います。
+
+<ol>
+<li> セキに対応する：着手にパスを含めることによって可能になります。Haskell なら比較的簡単かも。
+  <li> コウに対応する：これは少し難しいかも？特に両コウにどう対処するかは問題。
+ <li>着手のスコアをもっときめ細かくつける：例えば、３方が黒に囲まれた点などにも点数をスコアがきめ細かくなります。
+   
+     <li> バグ抜き
+       <li> 高速化: 現状では遅すぎる。
+       </ol>
+  
+
+
+<h3> 5.3. バグ</h3>
+
+すでに黒が生きているのに白が無駄な手を打つことがある。
+（表示する手順では無駄手を除いている）
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell11.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  11. Module</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=download href="tumego.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell12.html&t=%B5%CD%B8%EB%A4%F2%B2%F2%A4%AF' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>

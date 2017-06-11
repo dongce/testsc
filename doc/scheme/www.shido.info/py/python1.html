@@ -1,0 +1,736 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Perl, Python Ruby">
+<meta name="description" content="This page compares Perl, Python and Ruby">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Perl, Python, Ruby の比較</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python1.html&t=Perl%2C+Python%2C+Ruby+%A4%CE%C8%E6%B3%D3' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+<!-- <td><a rel='download' href="matrix.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+</tr></table></p>
+
+ <h1>Perl, Python, Ruby の比較</h1> 
+<hr>
+<h2>1. はじめに </h2>
+この文書は<a href='python1org.html'>旧版</a>
+を少し手直ししたものです。元の文書に載せてあるスクリプトはいまいちなので書き換えました。
+それに伴い、本文のほうも替わっています。
+また、実行環境の OS が Win32 から Linux に替わりました。
+(今は家族も Linux を使っています。)
+<p>
+紫藤は長年スクリプト言語として awk と Lisp を使ってきました。
+Perl というものがあり、一時はブームになっていたのも知っていたのですが、
+どうもなじめなかったので、ほとんど使いませんでした。
+最近、Python や Ruby といった新世代のスクリプト言語が広く使われるようになったので、
+それらを試してみることにしました。
+<p>
+現在は Python を使っているので、Python よりの比較になっていることを念頭において読んでください。
+また、この文書に<a href='http://d.hatena.ne.jp/odz/20061119/1163971267'>批判的な意見</a>もあるので、
+そちらも参考にしてください。
+<p>
+
+  お題は<a href="../xyzzy/archive-photos.html">以前紹介した</a>
+	 メディアにある画像ファイルをハードディスクに保存するスクリプトです。
+  実は我が家のパソコンはほとんどアルバムと化しており、メディアからハードディスクに移すスクリプトは
+  <a href = "http://www.mozilla-japan.org/products/firefox/">FireFox</a>
+  以外では私の家族に一番利用されているプログラムです。
+
+<h2>2.  画像ファイル保存スクリプトの仕様 </h2>
+仕様は以下の通りです。
+
+<ol>
+<li>今月のディレクトリの下に写真用ディレクトリを作り、そこにメディアから写真を移動する。
+<li>今月のディレクトリの名前は年の下２桁と月をハイフンでつなげたものである。(例: 2007 年 6 月 &rarr; 07-06)
+<li>今月のディレクトリの下に複数の写真用ディレクトリがあり、それらのの名前は photoNN (N=0-9) である。<br>
+通し番号 NN は 01 からはじまり、1 づつ増加する。<br>
+新しく作る写真用ディレクトリの通し番号 NN は、現在ある写真用ディレクトリの通し番号の最大値に 1 を加えたもの
+からはじめる。
+</ol>
+
+以下のように実装します。
+
+<ol>
+<li>メディアのディレクトリを走査して、ディレクトリ名をキーとし、そのディレクトリにある画像ファイルの
+ リストを値とするハッシュ表を作る。
+<li> 今月のディレクトリがなければ作る。
+<li> 今月のディレクトをを調べ、写真用ディレクトリの通し番号を何番から始めればいいか決める。
+<li>メディアにある写真をディレクトリごとに HDD にコピーする。
+<li>HDD にコピーした画像ファイルと、メディアにあるもともとの画像ファイルを比較して、
+等しければメディアのファイルを削除する。
+ </ol>
+例えば、<br>
+メディアに imag1, imag2 という画像ファイルの入ったフォルダーがあり、
+今月のディレクトリに photo01, photo02 というディレクトリがあった場合、
+photo03, photo04 というディレクトリを作り、imag1, imag2 にある画像ファイルを
+それぞれ photo03, photo04 に保存します。
+(imag1 と imag2 の順序 (どちらが旧いかなど) は気にしません。)
+
+<h2> 3. Perl, Python, Ruby で書いてみて</h2>
+2. で述べた仕様に沿って Perl, Python, Ruby で書いてみました。
+現在、Python を使っているので、Python のやつが他のよりうまく書けていると思います。
+初心者が一夜漬けの学習で書くとどうなるかは<a href='python1org.html'>旧文書</a>を見てください。
+
+<h3> 3.1. まず、Perl で</h3>
+Perl で書くと次のようになります。これは旧文書のと変わっていません。
+<a name="perl_code">
+<pre class="oset">
+<span class="linenumber">01:</span>     <span class="comment">#! perl</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     use strict;
+<span class="linenumber">04:</span>     use File::Copy;
+<span class="linenumber">05:</span>     use File::Compare;
+<span class="linenumber">06:</span>     use File::Find;
+<span class="linenumber">07:</span>     use Cwd;
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     <span class="comment">## global parameters</span>
+<span class="linenumber">10:</span>     my $DOC_DIR = 'D:/doc';
+<span class="linenumber">11:</span>     my $MEDIA ='G:/';
+<span class="linenumber">12:</span>     my $PHOTO_VIEWER = 'D:/WBIN/linar160/linar.exe';
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     <span class="comment"># getting the string of "year(NN)-month(NN)" </span>
+<span class="linenumber">15:</span>     sub get_year_month{
+<span class="linenumber">16:</span>     my ($m, $y) = (localtime)[4,5];
+<span class="linenumber">17:</span>     sprintf ("%02d-%02d", $y-100, $m + 1);
+<span class="linenumber">18:</span>     }
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     <span class="comment"># getting the starting number of photoNN, the directory in which photos should be saved
+<span class="linenumber">21:</span>     # This function should be called when the program is in the month directory.</span>
+<span class="linenumber">22:</span>     sub get_first_photo_dir_number{
+<span class="linenumber">23:</span>       my  @pdirs = (glob "photo[0-9][0-9]");
+<span class="linenumber">24:</span>       @pdirs ? 1+ substr($pdirs[-1], -2) : 1;
+<span class="linenumber">25:</span>     }
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>     <span class="comment">#move into the directory "$DOC_DIR/y-m"</span>
+<span class="linenumber">28:</span>     sub move_into_dir_of_month{
+<span class="linenumber">29:</span>       my $dir_of_month =  &get_year_month;
+<span class="linenumber">30:</span>       unless ($DOC_DIR eq cwd){
+<span class="linenumber">31:</span>         chdir $DOC_DIR or die "Cannot move to $DOC_DIR: $!";
+<span class="linenumber">32:</span>       }
+<span class="linenumber">33:</span>       unless (-d $dir_of_month){
+<span class="linenumber">34:</span>         mkdir $dir_of_month or die "cannot create $dir_of_month: $!";
+<span class="linenumber">35:</span>       }
+<span class="linenumber">36:</span>       chdir $dir_of_month or die "Cannot move to $dir_of_month: $!";
+<span class="linenumber">37:</span>       "$DOC_DIR/$dir_of_month" ;
+<span class="linenumber">38:</span>     }
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>     <span class="comment">#archive photos in the media into the HD
+<span class="linenumber">41:</span>     # This function should be called when the program is in the month directory.</span>
+<span class="linenumber">42:</span>     sub archive_photos{
+<span class="linenumber">43:</span>       my $photo_dir_number = shift;
+<span class="linenumber">44:</span>       my %dhash;
+<span class="linenumber">45:</span>       find({
+<span class="linenumber">46:</span>         wanted      => sub{push @{$dhash{$File::Find::dir}}, $_ if -f},
+<span class="linenumber">47:</span>       }, $MEDIA);
+<span class="linenumber">48:</span>       for my $dir_from (sort keys %dhash){
+<span class="linenumber">49:</span>         my $n = @{$dhash{$dir_from}};
+<span class="linenumber">50:</span>         my $i = 0;
+<span class="linenumber">51:</span>         my $dir_to = sprintf("photo%02d", $photo_dir_number++);
+<span class="linenumber">52:</span>         mkdir $dir_to or die "cannot create $dir_to: $!";
+<span class="linenumber">53:</span>         print "\n$dir_from ==> $dir_to\n";
+<span class="linenumber">54:</span>         for my $fname (@{$dhash{$dir_from}}){
+<span class="linenumber">55:</span>           my $copy_from = "$dir_from/$fname";
+<span class="linenumber">56:</span>           my $copy_to   = "$dir_to/$fname";
+<span class="linenumber">57:</span>           copy($copy_from, $copy_to) or die "cannot make a copy for $copy_from: $!";
+<span class="linenumber">58:</span>           if(0 == compare($copy_from, $copy_to)){
+<span class="linenumber">59:</span>             unlink $copy_from;
+<span class="linenumber">60:</span>             print ++$i, "/$n\r";
+<span class="linenumber">61:</span>           }else{
+<span class="linenumber">62:</span>             die "an error occurs during coping $copy_from";
+<span class="linenumber">63:</span>           }
+<span class="linenumber">64:</span>         }
+<span class="linenumber">65:</span>       }
+<span class="linenumber">66:</span>       %dhash;
+<span class="linenumber">67:</span>     }
+<span class="linenumber">68:</span>     
+<span class="linenumber">69:</span>     <span class="comment">#main</span>
+<span class="linenumber">70:</span>     my $dir_of_month = &move_into_dir_of_month;
+<span class="linenumber">71:</span>     my $first_photo_dir_number =  &get_first_photo_dir_number;
+<span class="linenumber">72:</span>     if(&archive_photos($first_photo_dir_number)){
+<span class="linenumber">73:</span>       exec (sprintf "%s %s/photo%02d", $PHOTO_VIEWER, $dir_of_month, $first_photo_dir_number);
+<span class="linenumber">74:</span>     }else{
+<span class="linenumber">75:</span>       print "No photos in the media!\nGive Return:";
+<span class="linenumber">76:</span>       &lt STDIN&gt;
+<span class="linenumber">77:</span>     }
+</pre>
+大体 80 行くらいのコードになります。
+リストは Perl のハッシュ表の値にはなれないのでリストを値としたければ、
+リストのリファレンスを使う必要があります。
+印象としては、awk と sed を混ぜたものをその適応範囲外まで拡張しすぎたという感じです。
+崩壊寸前のダムみたいな感じで、いまいち。
+ただし、ライブラリは優秀で、実行速度は速いです。
+<p>
+今は python や ruby があるので、いまさら新たに perl を学ぶ必要は無いと思います。
+
+<a name="photo_python">
+<h3> 3.2. 次に Python </h3>
+Python で書くと次のようになります。旧版のはいけてないので書き直しました。
+<pre class="oset">
+<span class="linenumber">001:</span>   <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   r<span class="string">"""
+<span class="linenumber">004:</span>   script to achive photos in the removal media into HD
+<span class="linenumber">005:</span>   by T.Shido
+<span class="linenumber">006:</span>   June 26, 2007
+<span class="linenumber">007:</span>   """</span>
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   import os, os.path, filecmp, shutil, re, sys, operator
+<span class="linenumber">010:</span>   from datetime import date
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   <span class="comment"># global parameters</span>
+<span class="linenumber">013:</span>   HD    = '/home/pub/photos/'
+<span class="linenumber">014:</span>   MEDIA = '/media/usbdisk/'
+<span class="linenumber">015:</span>   
+<span class="linenumber">016:</span>   REG_FILE = re.compile(r"\.(gif|bmp|jpe?g|tiff?|wav|mov)$", re.I)
+<span class="linenumber">017:</span>   REG_DIR = re.compile(r'^photo[0-9][0-9]$')
+<span class="linenumber">018:</span>   
+<span class="linenumber">019:</span>   def n_photo_dir(d):
+<span class="linenumber">020:</span>       <span class="string">"""return the max NN of photoNN in directory of the month"""</span>
+<span class="linenumber">021:</span>       
+<span class="linenumber">022:</span>       return \
+<span class="linenumber">023:</span>         reduce(max, \
+<span class="linenumber">024:</span>                [ int(x[-2:]) for x in os.listdir(d) \
+<span class="linenumber">025:</span>                  if (os.path.isdir(os.path.join(d,x)) and REG_DIR.match(x))], \
+<span class="linenumber">026:</span>                0)
+<span class="linenumber">027:</span>   
+<span class="linenumber">028:</span>   def search_media(d):
+<span class="linenumber">029:</span>       <span class="string">"""search Media and returns a hash
+<span class="linenumber">030:</span>       whose keys are directory name and the values are lists of photo files."""</span>
+<span class="linenumber">031:</span>       def search_sub(d):
+<span class="linenumber">032:</span>           os.chdir(d)
+<span class="linenumber">033:</span>           ls_d = os.listdir(d)
+<span class="linenumber">034:</span>           ls_f = [x for x in ls_d if os.path.isfile(x) and REG_FILE.search(x)]
+<span class="linenumber">035:</span>           if ls_f:
+<span class="linenumber">036:</span>               h[d] = ls_f
+<span class="linenumber">037:</span>           for d1 in [os.path.join(d,x) for x in ls_d if os.path.isdir(x)]:
+<span class="linenumber">038:</span>               search_sub(d1)
+<span class="linenumber">039:</span>               
+<span class="linenumber">040:</span>       h={}
+<span class="linenumber">041:</span>       search_sub(d)
+<span class="linenumber">042:</span>       return h
+<span class="linenumber">043:</span>           
+<span class="linenumber">044:</span>   def move_photos(d0, d1):
+<span class="linenumber">045:</span>       r<span class="string">"""
+<span class="linenumber">046:</span>       Moveing photo files from media into HD,
+<span class="linenumber">047:</span>       """</span>
+<span class="linenumber">048:</span>       dir_of_month = os.path.join(d1, date.today().strftime("%y-%m"))
+<span class="linenumber">049:</span>       h = search_media(d0)
+<span class="linenumber">050:</span>       total_files = reduce(operator.__add__, [len(v) for v in h.itervalues()], 0)
+<span class="linenumber">051:</span>   
+<span class="linenumber">052:</span>       if total_files==0:
+<span class="linenumber">053:</span>           print "No photos in the media: give return"
+<span class="linenumber">054:</span>           sys.stdin.readline()
+<span class="linenumber">055:</span>           sys.exit()
+<span class="linenumber">056:</span>               
+<span class="linenumber">057:</span>       if not os.path.isdir(dir_of_month):
+<span class="linenumber">058:</span>           os.mkdir(dir_of_month)
+<span class="linenumber">059:</span>                   
+<span class="linenumber">060:</span>       i_dir = n_photo_dir(dir_of_month)
+<span class="linenumber">061:</span>       count=0
+<span class="linenumber">062:</span>   
+<span class="linenumber">063:</span>       for d, ls_files in h.iteritems():
+<span class="linenumber">064:</span>           i_dir += 1
+<span class="linenumber">065:</span>           d_to = os.path.join(dir_of_month, "photo%02d" % i_dir)
+<span class="linenumber">066:</span>           os.mkdir(d_to)
+<span class="linenumber">067:</span>           
+<span class="linenumber">068:</span>           for f in ls_files:
+<span class="linenumber">069:</span>               f_from=os.path.join(d,f)
+<span class="linenumber">070:</span>               f_to=os.path.join(d_to, f)
+<span class="linenumber">071:</span>               shutil.copyfile(f_from, f_to)
+<span class="linenumber">072:</span>               if not filecmp.cmp(f_from, f_to):
+<span class="linenumber">073:</span>                   print f_from + " and " + f_to + " are not same!"
+<span class="linenumber">074:</span>                   sys.exit()
+<span class="linenumber">075:</span>               os.remove(f_from)
+<span class="linenumber">076:</span>               count+=1
+<span class="linenumber">077:</span>               print "%d/%d\n" % (count, total_files),                
+<span class="linenumber">078:</span>   
+<span class="linenumber">079:</span>   if __name__=='__main__':
+<span class="linenumber">080:</span>       move_photos(MEDIA, HD)
+</pre>
+大体 80 行になります。長さは大体 Perl で書いたものと同じです。
+ソースの見栄えはとても良く、
+インデントでブロックを表現するというアイデアは成功していると思います。
+煉瓦のような雰囲気できっちりとしています。コーディングの自由度が少ないので、
+（１年前の自分も含む）誰が書いても同じようなコードになり、読み取るのは容易です。
+そのため、コメントの量も少なくて済み、変数名をコメント代わりに使う必要もありません。
+変数はデフォルトで局所変数となるので、 Perl のように my で宣言する必要はありません。
+また、<span class="important">リストの内包表現</span>は Lisp の
+mapcar と remove-if-not が同時に出来るので便利です。
+ライブラリは優秀で、実行速度は Perl より速い気がします。<p>
+  スクリプト言語としての欠点を挙げると、
+<ol>
+<li>関数とメソッドが入り混じっているのですっきりしない。
+  <li>多くのモジュールを import しなければならない。（80 行で 8 個もある）
+	 </ol>
+があります。
+<p>
+  それから、Python には
+  <span class="important">
+  対話モードがあり、個々の関数をテストできます。</span><a href='#footnote1'>(注1）</a>
+  この機能は大きめのプログラムを書くときに便利です。
+	 <span class="bluetext">main</span> に相当する部分を、
+	 <span class="bluetext">if __name__=='__main__':</span> のブロックに入れることによって、
+	 Python によって直接読み込まれたとき以外は動作しないようにすることが出来ます。<a href='#footnote2'>（注2）</a><br>
+	 個々の関数のテストは次のようにします。
+	 <ol>
+		<li>プロンプトから <span class="bluetext">python</span> とだけ打ち込んで対話モードに入ります。
+			 <li> <span class="bluetext">import hoge</span> としてスクリプトを読み込ませます。
+				（例えば hoge.py を読み込む場合）
+				<li> あとは <span class="bluetext">hoge.foo([1,2,3])</span>
+				  などとして、個々の関数をテストします。（hoge.py に foo という関数が
+				  定義されている場合）
+				  </ol>
+  <p>
+
+<a name='ruby'>
+<h3> 3.3. 最後に Ruby </h3>
+それでは、 Ruby ではどうなるでしょうか？
+(これも書き換えました)
+<pre class="oset">
+<span class="linenumber">001:</span>   <span class="comment">#! /usr/bin/env ruby</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   require "fileutils"
+<span class="linenumber">004:</span>   
+<span class="linenumber">005:</span>   <span class="comment"># global parameters</span>
+<span class="linenumber">006:</span>   HD    = '/home/pub/photos/'
+<span class="linenumber">007:</span>   MEDIA = '/media/usbdisk/'
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   REG_FILE = Regexp.compile("\\.(gif|bmp|jpe?g|tiff?|wav|mov)$",Regexp::IGNORECASE)
+<span class="linenumber">010:</span>   REG_DIR = Regexp.compile('^photo[0-9][0-9]$')
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   H=Hash.new    
+<span class="linenumber">013:</span>   <span class="comment"># HD 側に何個の photoNN フォルダーがあるかを返します。</span>
+<span class="linenumber">014:</span>   def n_photo_dir(d)
+<span class="linenumber">015:</span>     Dir.entries(d).select{|x| FileTest.directory?(File.join(d,x)) and REG_DIR =~ x
+<span class="linenumber">016:</span>      }.map{|x| x[5..6].to_i}.inject(0){|x,y| max(x,y)}
+<span class="linenumber">017:</span>   end
+<span class="linenumber">018:</span>   
+<span class="linenumber">019:</span>   <span class="comment"># メディアに保存されている写真ファイルの一覧をフォルダーごとにまとめて返します</span>
+<span class="linenumber">020:</span>   <span class="comment"># 再帰的にファルダーのツリーを下っていき、写真ファイルの一覧をフォルダー名をキーとしてハッシュ表に登録します</span>
+<span class="linenumber">021:</span>   def search_media(d)
+<span class="linenumber">022:</span>   
+<span class="linenumber">023:</span>     Dir.chdir(d)
+<span class="linenumber">024:</span>     ls=Dir.entries(d).reject{|x| x=='.' or x=='..' }
+<span class="linenumber">025:</span>   
+<span class="linenumber">026:</span>     ls_f=ls.select{|x| FileTest.file?(File.join(d, x)) and REG_FILE =~ x}
+<span class="linenumber">027:</span>     
+<span class="linenumber">028:</span>     H[d] = ls_f unless ls_f.empty? 
+<span class="linenumber">029:</span>     ls.map{|x| File.join(d,x)}.select{|x| FileTest.directory?(x)}.each{|x| search_media(x)}
+<span class="linenumber">030:</span>   end
+<span class="linenumber">031:</span>   
+<span class="linenumber">032:</span>   <span class="comment"># 写真ファイルをメディアから HD にコピーします</span>
+<span class="linenumber">033:</span>   def move_photos(d0, d1)
+<span class="linenumber">034:</span>       dir_of_month=File.join(d1, Time.now.strftime("%y-%m"))
+<span class="linenumber">035:</span>       search_media(d0)
+<span class="linenumber">036:</span>       total_files = H.values.map{|x| x.size}.inject(0){|result, item| result + item }
+<span class="linenumber">037:</span>       
+<span class="linenumber">038:</span>       if total_files==0
+<span class="linenumber">039:</span>       then
+<span class="linenumber">040:</span>           p "no photos, give return"
+<span class="linenumber">041:</span>           STDIN.readline
+<span class="linenumber">042:</span>           abort
+<span class="linenumber">043:</span>       end
+<span class="linenumber">044:</span>       
+<span class="linenumber">045:</span>       FileTest.directory?(dir_of_month) or Dir.mkdir(dir_of_month)
+<span class="linenumber">046:</span>       
+<span class="linenumber">047:</span>       i_dir = n_photo_dir(dir_of_month)
+<span class="linenumber">048:</span>       count=0
+<span class="linenumber">049:</span>       
+<span class="linenumber">050:</span>       H.each{|d, ls_files|
+<span class="linenumber">051:</span>           i_dir += 1
+<span class="linenumber">052:</span>           d_to = File.join(dir_of_month, sprintf("photo%02d", i_dir))
+<span class="linenumber">053:</span>           Dir.mkdir(d_to)
+<span class="linenumber">054:</span>           
+<span class="linenumber">055:</span>           ls_files.each{|f|
+<span class="linenumber">056:</span>   
+<span class="linenumber">057:</span>               f_from=File.join(d,f)
+<span class="linenumber">058:</span>               f_to=File.join(d_to, f)
+<span class="linenumber">059:</span>               FileUtils.cp(f_from, f_to)
+<span class="linenumber">060:</span>               
+<span class="linenumber">061:</span>               if not FileUtils.cmp(f_from, f_to)
+<span class="linenumber">062:</span>               then
+<span class="linenumber">063:</span>                   printf("Copy failed: %s =&gt; %s\n", f_from, f_tp)
+<span class="linenumber">064:</span>                   abort
+<span class="linenumber">065:</span>               end
+<span class="linenumber">066:</span>               File.delete(f_from)
+<span class="linenumber">067:</span>               count+=1
+<span class="linenumber">068:</span>               printf("%d/%d\n", count, total_files)
+<span class="linenumber">069:</span>           }
+<span class="linenumber">070:</span>       }
+<span class="linenumber">071:</span>   end
+<span class="linenumber">072:</span>   
+<span class="linenumber">073:</span>   <span class="comment">#main</span>
+<span class="linenumber">074:</span>   move_photos(MEDIA, HD)
+</pre>
+長さは 74 行となり、３つの中で一番短くなります。
+ソースの見栄えも悪くなく、データがピリオドの前から、後ろに
+流れていくような感じです。ちょうど、Lisp コードが括弧の中から外にデータが流れるように
+見えるのと同じ雰囲気です。
+また、全てがメソッドなのですっきりしています。<p>
+
+Win32 で試したときはすごく遅かったのですが、Linux 上ではそんなに遅く感じませんでした。
+Ruby は Linux と相性がいいのかもしれません。
+
+<h2> 4. というわけで Python</h2>
+Perl, Python, Ruby の比較をまとめるとつぎの表のようになります。
+現在は Python を使っているのでぜんぜん公平な比較ではありません。
+<table border=1>
+  <tr>
+	 <th>項目</th>
+	 <th>Perl</th>
+	 <th>Python</th>
+	 <th>Ruby</th>
+  </tr>
+  <tr>
+	 <td>書きやすさ</td>
+	 <td>○</td>
+	 <td>○</td>
+	 <td>○</td>
+  </tr>
+  <tr>
+	 <td>読みやすさ</td>
+	 <td>△</td>
+	 <td>◎</td>
+	 <td>○</td>
+  </tr>
+  <tr>
+	 <td>ライブラリー</td>
+	 <td>○</td>
+	 <td>○</td>
+	 <td>△</td>
+  </tr>
+  <tr>
+	 <td>実行速度</td>
+	 <td>○</td>
+	 <td>○</td>
+	 <td>△</td>
+  </tr>
+  <tr>
+	 <td>ドキュメント</td>
+	 <td>◎</td>
+	 <td>○</td>
+	 <td>△</td>
+  </tr>
+  <tr>
+	 <td>ユーザー数</td>
+	 <td>◎</td>
+	 <td>○</td>
+	 <td>△</td>
+  </tr>
+</table>
+コードの書きやすさは３つともそれほど違わないように思えます。ただ、読みやすさはダントツで Python が
+優れています。Ruby はまずまずで、Perl は書き手の技量による部分が大きいのですが、
+一般的には "読めない" コードになりがちです。
+<p>
+  
+現在の人気を無視して、言語そのもののよしあしを考えると、
+  Python と Ruby はほぼ互角でしょう。しかし、今のところ Python の方が、
+  実行速度が速く、ライブラリが豊富なので、とりあえず Python を使うことにします。
+  また、Python には対話モードがあるのも Lisp に慣れた人間にとってはありがたいです。
+  Ruby は今後の健闘に期待します。
+
+<h2> 5. おわりに </h2>
+以上 Perl, Python, Ruby の比較をつれづれと書きましたがご参考になりましたでしょうか？
+結論は、
+<ol>
+  <li> Python, Ruby は Perl に比べて明らかによい。（後発なので当然か）
+	 <li> Python と Ruby はほぼ互角。
+		</ol>
+
+最後に主な Web docments を挙げておきます。
+<ul>
+  <li>Perl
+	 <ul>
+		<li> <a href="http://www.perl.org/">perl.org</a>
+		  <li> <a href="http://www.cpan.jp/">cpan.jp</a>
+			 </ul>
+	 <li>Python
+		<ul>
+		  <li> <a href="http://www.python.org/">python.org</a>
+			 <li> <a href="http://www.python.jp/Zope/">日本Pythonユーザ会</a>
+				</ul>
+		<li> Ruby
+		  <ul>
+			 <li> <a href="http://www.ruby-lang.org/ja/">オブジェクト指向スクリプト言語 Ruby</a>
+				</ul>
+		  </ul>
+
+<h2> 6. 追記（もう少しまじめな比較） </h2>
+上の文章は小さなスクリプトを書いてみてその出来具合を比較しただけなので、
+ここではもう少しまじめな比較をしたいと思います。現在は Python を使っているので
+Python よりの論評になっています。<p>
+
+  Perl や Ruby は純粋なスクリプト言語で、（もちろんそれなりに大きなプログラムも書けるようにはなっているものの）
+  プログラムを短くすることに主眼が置かれています。
+  一方、Python はスクリプト言語としてもつかえる大規模プログラム作成言語で、デバックの容易さに主眼が
+  置かれています。プログラミング言語は適応範囲が広いほど学ぶ価値があるので、
+  その意味で Python を学ぶことは Perl や Ruby を学ぶより有用だと思います。
+  （このことから google が Perl や Ruby でなく、
+  <a href="http://www.python.org/Quotes.html">Python を使っている</a>
+  理由が分かるような気がします。）
+  <p>
+  ここにある内容は一部<a href="python2.html">Python 早めぐり</a>と重複しています。
+
+  Python のポリシーについては
+  <a href="http://www.netfunny.com/rhf/jokes/99/Nov/perl.html">A morality tale of Perl versus Python</a>
+  （<a href="http://www.python.jp/Zope/articles/misc/morality_tale">和訳</a>）
+  や<a href="http://www.python.org/doc/Humor.html#zen">The Zen of Python</a>
+  （<a href="http://www.python.jp/Zope/articles/misc/zen">和訳</a>）を見てください。
+
+<h3>6.1. 大規模プログラムの作成</h3>
+Python は Perl や Ruby に比べて大規模プログラムが容易に作れるという利点があります。
+また、<span class="important">小さなスクリプトを大きなプログラムに育てることがやりやすい</span>
+ということも
+ Python の特徴です。
+Python で大規模プログラムが作りやすいのは次の理由に拠ります。
+<ol>
+   <li> ソースファイルごとに名前空間が割り当てられる。
+   <li> 対話モードで関数を一つずつをテストすることが出来る。
+   <li> <span class="bluetext">if __name__=='__main__'</span> 以下にファイルごとのテストコードを書くことが出来る。
+</ol>
+Perl や Ruby では名前空間を分けるための宣言をわざわざ書かなければいけません。
+Python では<span class="important">１ファイル１名前空間</span>と割り切り、
+ファイル名を名前空間名とすることによって名前の衝突を上手に回避しています。
+また、
+  Perl でも Ruby でもはじめからモジュール専用のコードを書かなければなりませんが、
+  Python でははじめの小さなスクリプトに <span class="bluetext">__all__</span> などの
+  約束事を書き足せばモジュールとして機能します。また、そのスクリプト単体でもつかうことが
+  出来ます。例えば <a href="python5.html">wxPython と Tkinter で Eight Queens を作る</a>
+を見てください。
+
+<h3>6.2. ファイルの読み込み</h3>
+Perl では基本的に <span class="bluetext">while(&lt;&gt;)</span> を使って一行ずつファイルを読み込みますが、
+Python や Ruby では <span class="bluetext">read()</span> を使ってファイルを一気に読み込むことも出来ます。
+<a href='#footnote3'>（注3）</a>
+これは、Python や Ruby が登場した 1990 年代はメモリーが安くなったために贅沢な使い方が出来るようになったためだと
+思われます。
+
+<h3>6.3. リストの操作</h3>
+Lisp にある mapcar, remove-if-not などのリストを操作してリストを返す関数は、
+Perl, Python, Ruby では以下のようなっています。
+<ul>
+   <li> Perl は map や grep 等の関数があるが、 foreach ブロックを使うのが一般的
+   <li> Python にも map や filter 等の関数があるが、内包表現を使うのがよい。
+   <li> Ruby は map, select, grep などのブロック付きメソッドを使ってあらわす。
+</ul>
+このなかで Ruby が一番 Lisp に近い仕様になっています。Python は Lisp とは一線を画しているようです。<p>
+  例）要素が非負の実数の場合、その平方根を返す。
+  [-3,-2,-1,0,1,2,3]  &rArr; [0.0, 1.0, 1.4142135623731, 1.73205080756888]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment"># Perl 5</span>
+<span class="linenumber">02:</span>     my @ls0=(-3,-2,-1,0,1,2,3);
+<span class="linenumber">03:</span>     my @ls1=();
+<span class="linenumber">04:</span>     for  (@ls0){
+<span class="linenumber">05:</span>       push @ls1, sqrt($_) if $_ &gt;= 0;
+<span class="linenumber">06:</span>     }
+<span class="linenumber">07:</span>     print "$_\n"  for (@ls1);
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     <span class="comment"># Ruby</span>
+<span class="linenumber">10:</span>     p [-3,-2,-1,0,1,2,3].select{|x| x&gt;=0}.map{|x| Math.sqrt(x)}
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     <span class="comment"># Python</span>
+<span class="linenumber">13:</span>     import math
+<span class="linenumber">14:</span>     print [math.sqrt(x) for x in [-3,-2,-1,0,1,2,3] if x&gt;=0]
+</pre>
+<h3>6.4. 引数の渡し方</h3>
+<ul>
+   <li> Perl: 引数をフラットなリストに変換して値渡し。参照渡しをするにはプロトタイプを用いる。少し複雑。
+   <li> Python: 参照渡し。ただし、変更不能なオブジェクトは実質的に値渡し。
+つまり、配列は、呼び出した関数内で変更を加えるともともとの配列も変更されてしまうが、数、文字列、タプルなどは変更されない。
+レストパラメータ、オプショナルパラメータ、キーワードパラメータをサポート。
+	  詳しくは <a href="http://www.python.jp/pub/doc_jp/tut/node6.html#SECTION006600000000000000000">
+		 Python チュートリアル 4.6 関数を定義する</a>
+	  や
+	  <a href="python2.html#func">
+		 Python 早めぐり 5. 関数定義</a>
+	  を見てください。
+   <li> Ruby:  Python と同じ。
+</ul>
+<a name='genfun'>
+<h3>6.5. 関数の生成</h3>
+関数の生成は以下のようにします。Perl や Ruby では関数を返す関数が書けますが、
+Python では普通はそういうことをしません(<a href='py1_comment.html'>注</a>)。その代わり、関数のクラスを定義します。
+Python で書くと Perl や Ruby より長くなりますが、これは<span class="important">やり方は１つだけ</span>
+のポリシーに従ったものです。また、より複雑な関数を生成する場合はむしろこの記法のほうがすっきりするでしょう。<p>
+  例）累積機の生成。
+（数nを取り、「数iを取ってnをiだけ増加させ、その増加した値を返す関数」を返すような関数）
+
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment"># Perl 5</span>
+<span class="linenumber">02:</span>     sub foo {
+<span class="linenumber">03:</span>       my ($n) = @_;
+<span class="linenumber">04:</span>       sub {$n += shift}
+<span class="linenumber">05:</span>     }
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     <span class="comment">#  Python</span>
+<span class="linenumber">08:</span>     class foo:
+<span class="linenumber">09:</span>         def __init__(self, n):
+<span class="linenumber">10:</span>             self.n = n
+<span class="linenumber">11:</span>         def __call__(self, i):
+<span class="linenumber">12:</span>             self.n += i
+<span class="linenumber">13:</span>             return self.n
+<span class="linenumber">14:</span>                 
+<span class="linenumber">15:</span>     <span class="comment"># Ruby</span>
+<span class="linenumber">16:</span>     def foo (n)
+<span class="linenumber">17:</span>         lambda {|i| n += i }
+<span class="linenumber">18:</span>         end
+</pre>
+使用例<p>
+<pre class="samp">
+<span class="linenumber">01:</span>     &gt;&gt;&gt; a=foo(10)
+<span class="linenumber">02:</span>     &gt;&gt;&gt; a(3)
+<span class="linenumber">03:</span>     13
+<span class="linenumber">04:</span>     &gt;&gt;&gt; a(5)
+<span class="linenumber">05:</span>     18
+</pre>
+
+<h3>6.6. 高階関数</h3>
+<ul>
+   <li> Perl: 関数のリファレンスを取ることにより関数を引数として渡せる。
+(<a href="#perl_code">Perl コード</a>の 46 行目)
+   <li> Python: 関数名が関数へのアドレスをあらわす。<br>
+例えば、baz という関数を定義したとき、 baz(....) はその関数の呼び出し、
+baz は関数のアドレスになる。関数のアドレスを引数として渡したり、 for ループの中で
+用いることが可能。(<a href="python5.html#code_queen">Eight Queen 本体</a> 93 行目を参照）
+   <li> Ruby: 関数名を直接引数に与えると、引数が省略されたものとして解釈されるので、<tt>lambda</tt> でくるむ必要があります。
+       python の場合より少しタイプ量が増えます。ruby は ブロックつきメソッドを多用するので、
+       高階関数をあらわに使う機会は python ほど多くないと思われます。
+</ul>
+
+ディレクトリを再帰的にたどって、ファイルなら関数を適用する関数 walk_dir を python と ruby で書くと以下のようになります。
+
+<p>
+[walk_dir.py]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#!/usr/bin/env python</span>
+<span class="linenumber">002:</span>   <span class="comment"># coding:shift_jis</span>
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   from __future__ import with_statement
+<span class="linenumber">005:</span>   import os, os.path, sys
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   
+<span class="linenumber">008:</span>   def walk_dir(f, d, exp=''):
+<span class="linenumber">009:</span>       u'''ディレクトリを再帰的にたどって全てのファイルに関数 f を適用します'''
+<span class="linenumber">010:</span>       
+<span class="linenumber">011:</span>       for p0 in os.listdir(d):
+<span class="linenumber">012:</span>           p1 = os.path.join(d, p0)
+<span class="linenumber">013:</span>           if os.path.isfile(p1) and p1.endswith(exp):
+<span class="linenumber">014:</span>               f(p1)
+<span class="linenumber">015:</span>           elif os.path.isdir(p1):
+<span class="linenumber">016:</span>               walk_dir(f, p1, exp)
+<span class="linenumber">017:</span>   
+<span class="linenumber">018:</span>               
+<span class="linenumber">019:</span>   def head(fname):
+<span class="linenumber">020:</span>       u'''最初の 5 行を表示する'''
+<span class="linenumber">021:</span>       print '====  %s  ====' % (fname,)
+<span class="linenumber">022:</span>       with file(fname) as f:
+<span class="linenumber">023:</span>           for i, line in enumerate(f):
+<span class="linenumber">024:</span>               if i==5: break
+<span class="linenumber">025:</span>               print line
+<span class="linenumber">026:</span>   
+<span class="linenumber">027:</span>   
+<span class="linenumber">028:</span>   <span class="comment"># スクリプトが直接呼ばれたときに以下のブロックが実行されます。</span>
+<span class="linenumber">029:</span>   if __name__=='__main__':
+<span class="linenumber">030:</span>       walk_dir(head, os.getcwd(), '.py')
+</pre>
+
+<p>
+[walk_dir.rb]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#! ruby</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   <span class="comment"># walk directories recursively</span>
+<span class="linenumber">005:</span>   <span class="comment"># and apply proc if the element is a file</span>
+<span class="linenumber">006:</span>   def walk_dir(proc, d=nil, exp='')
+<span class="linenumber">007:</span>     Dir.foreach(d){|s|
+<span class="linenumber">008:</span>       if s != '.' and s != '..' then
+<span class="linenumber">009:</span>         p=File.join(d,s)
+<span class="linenumber">010:</span>         case File.ftype(p)
+<span class="linenumber">011:</span>         when "file"
+<span class="linenumber">012:</span>           if(exp.length==0 or File.extname(p) == exp) then
+<span class="linenumber">013:</span>             proc.call(p)
+<span class="linenumber">014:</span>           end
+<span class="linenumber">015:</span>         when "directory"
+<span class="linenumber">016:</span>           walk_dir(proc, p, exp)
+<span class="linenumber">017:</span>         end
+<span class="linenumber">018:</span>       end
+<span class="linenumber">019:</span>     }
+<span class="linenumber">020:</span>   end
+<span class="linenumber">021:</span>   
+<span class="linenumber">022:</span>   <span class="comment"># show first 5 lines of a file</span>
+<span class="linenumber">023:</span>   def head(fname)
+<span class="linenumber">024:</span>     print "\n\n====  " + fname + "  ===\n"
+<span class="linenumber">025:</span>     i=0
+<span class="linenumber">026:</span>     open(fname) do |f|
+<span class="linenumber">027:</span>       f.each{|line|
+<span class="linenumber">028:</span>         if i==10 then break end
+<span class="linenumber">029:</span>         print line
+<span class="linenumber">030:</span>         i+=1
+<span class="linenumber">031:</span>       }
+<span class="linenumber">032:</span>     end
+<span class="linenumber">033:</span>   end
+<span class="linenumber">034:</span>   
+<span class="linenumber">035:</span>   <span class="comment">#-----</span>
+<span class="linenumber">036:</span>   
+<span class="linenumber">037:</span>   walk_dir(lambda{|fname| head(fname)}, Dir.pwd, '.rb')    
+</pre>
+
+<h3>6.7. その他</h3>
+<ul>
+   <li> Python と Ruby はイテレーターを使って遅延評価が出来ます。
+   <li> Python の オンラインドキュメント は大変良い。Ruby のはイマイチ。
+   <li> Python と Ruby は実はほとんど同じで、むきになるほどの差はないと思います。
+	  （ただ、Python は Haskell などの最近の関数型言語の影響が強く見られ、
+	  一方、Ruby は Smalltalk や Eiffel などのオブジェクト指向言語と Lisp の影響が見られます。）
+   <li> Python はオブジェクト指向を強要しないので Ruby より初学者には学びやすいかもしれません。
+  </ul>
+
+<a name='footnote1'>
+注1：<br>
+Python は言語の機能として対話環境をサポートしています。
+perl では Term::Readline::Gnu にある perlsh を使えば Python と同じことができるそうです。
+ruby では irb で同じことができます。
+<p>
+<a name='footnote2'>
+注2：<br>
+perl や ruby でもできるそうですが、この機能は、モジュールと通常のスクリプトの書式が同じであるという
+python の特徴があって初めて威力を発揮すると思います。
+perl や ruby でこの機能を有効に使った例をご存知の方はお教えください。
+<p>
+
+<a name='footnote3'>
+注3：<br>
+perl でファイルを一気に読み込めないといっているわけではありません。
+perl で一気読みするには次のようにするそうです。
+<pre>
+my $data = do{ local $/; &lt;STDIN&gt;};
+</pre>
+<p>
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python1.html&t=Perl%2C+Python%2C+Ruby+%A4%CE%C8%E6%B3%D3' target='new' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+<!-- <td><a rel='download' href="matrix.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+</tr></table></p>
+</body>
+</html>
+

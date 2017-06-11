@@ -1,0 +1,455 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, nondeterminsm">
+<meta name="description" content="Nondeterminism on Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> (Scheme) 18. Nondeterminsm </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_lazy_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  17. Lazy Evaluation</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<!-- <td><a rel=next href="scheme_nqueen.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-1. N Queens ¥Ñ¥º¥ë</a></td> -->
+<td><a rel=download href="scheme_amb.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>Download</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_amb_e.html&t=%28Scheme%29+18.+Nondeterminsm' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 18. Nondeterminism   </h1>
+<hr>
+<h2>1. Introduction </h2>
+
+Nondeterminism is a algorithm to solve a problem by just defining it.
+The nondeterminism program selects choices automatically that match the conditions.
+This technique suits logical programing.
+<p>
+
+For instance, following code returns a pear of two numbers in that sum of them
+ is a prime number. One number is selected from <tt>'(4 6 7)</tt> and the other from <tt>'(5 8 11)</tt>,
+<pre class='samp'>
+(let ((i (amb 4 6 7))
+      (j (amb 5 8 11)))
+  (if (prime? (+ i j))
+      (list i j)
+      (amb)))
+<span class='response'>;Value 23: (6 5)</span>
+</pre>
+<tt>(amb 4 6 7)</tt> returns a proper value from 4, 6, and 7 and 
+<tt>(amb 5 8 11)</tt> returns a proper value from 5, 8, and 11.
+<tt>(amb)</tt> represents the false as there is no value to be selected.
+<p>
+Actually, <tt>amb</tt> performs a depth first search. 
+
+In practice, <tt>(amb c1 c2 c3 ...)</tt>
+makes a searching path that checks <tt>c1, c2, c3, ...</tt> in order
+and  <tt>(amb)</tt> backtracks.
+Thus, nondeterminism is a abstraction that hide searching from programmers.
+Once we get <tt>amb</tt>, we can write logical programs easily without thinking what computers do.
+
+<h2> 2. Implementation of nondeterminism</h2>
+
+The backtrack used in the nondeterminism
+is implemented as a chain of closures which is connected by current continuation.
+
+The chain is represented by a global parameter <var>fail</var> which
+is a function that rewrite itself.
+<p>
+
+<h3> 2.1. Implementation as a function</h3>
+
+As a first step, I implement the nondeterminism using a function (named <span class='ttb'>choose</span>)
+as shown in [code 1].
+
+First I define a global parameter <var>fail</var>, whose initial value is a function that return  <tt>'no-choice</tt>
+to the top level (lines 22 &ndash; 26).
+Then the chain of closure is implemented by re-defining <var>fail</var> in the function <tt>choose</tt>.
+Backtrack is represented by calling previous <var>fail</var>.
+<p>
+The function <tt>choose</tt> behaves like as follows:
+
+<ol>
+<li>if no choice, call  <tt>(fail)</tt>.
+<li>if any,
+  <ol>
+    <li> stores the <tt>fail</tt> as <tt>fail0</tt> and call the current continuation.
+    <li> re-defines the <tt>fail</tt> in the continuation. The new <tt>fail</tt> get back itself to the <tt>fail0</tt>
+         and apply <tt>choose</tt> to the rest of choices.
+    <li> returns the first choice to the out side of the continuation. 
+ </ol>
+</ol>
+<p>
+[code 1]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; abbreviation for call-with-current-continuation</span>
+<span class="linenumber">02:</span>     (define call/cc call-with-current-continuation)
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     <span class="comment">;;; This function is re-assigned in `choose' and `fail' itself.</span>
+<span class="linenumber">05:</span>     (define fail #f)
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     <span class="comment">;;; function for nondeterminism</span>
+<span class="linenumber">08:</span>     (define (choose . ls)
+<span class="linenumber">09:</span>       (if (null? ls)
+<span class="linenumber">10:</span>           (fail)
+<span class="linenumber">11:</span>         (let ((fail0 fail))
+<span class="linenumber">12:</span>           (call/cc
+<span class="linenumber">13:</span>            (lambda (cc)
+<span class="linenumber">14:</span>               (set! fail
+<span class="linenumber">15:</span>                     (lambda ()
+<span class="linenumber">16:</span>                       (set! fail fail0)
+<span class="linenumber">17:</span>                       (cc (apply choose (cdr ls)))))
+<span class="linenumber">18:</span>               (cc (car ls)))))))
+<span class="linenumber">19:</span>           
+<span class="linenumber">20:</span>     <span class="comment">;;; write following at the end of file</span>
+<span class="linenumber">21:</span>     <span class="comment">;;; initial value for fail</span>
+<span class="linenumber">22:</span>     (call/cc
+<span class="linenumber">23:</span>      (lambda (cc)
+<span class="linenumber">24:</span>        (set! fail
+<span class="linenumber">25:</span>              (lambda ()
+<span class="linenumber">26:</span>                (cc 'no-choice)))))
+</pre>
+
+Let's see if the <tt>choose</tt> can find a Pythagorean triple.
+Function <tt>pythag</tt> is to find the triple.
+It returns the list if it find, otherwise calls <tt>choose</tt> with no argument to backtrack.
+<p>
+[sample 1]
+<pre class='samp'>
+(define (sq x)
+  (* x x))
+<span class='response'>;Value: sq</span>
+
+;;; Pythagorean triples
+(define (pythag a b c)
+  (if (= (+ (sq a) (sq b)) (sq c))
+      (list a b c)
+      (choose)))
+<span class='response'>;Value: pythag</span>
+
+(pythag (choose 1 2 3) (choose 3 4 5) (choose  4 5 6))
+<span class='response'>;Value 16: (3 4 5)</span>
+</pre>
+
+<h3> 2.2. Implementation as a macro</h3>
+To give S-expressions to the nondeterminism operator, the operator should be defined as a macro.
+For instance, while a function <tt>an-integer-starting-from</tt> shown in [sample 2] should be return
+a proper integer greater than or equal to <var>n</var>, it does not work because the argument is
+evaluated immediately if <tt>choose</tt> (defined as function) is used to define the function.
+
+<p>
+[sample 2]
+<pre class='samp'>
+(define (an-integer-starting-from n)
+  (choose n (an-integer-starting-from (1+ n))))
+<span class='response'>;Value: an-integer-starting-from</span>
+
+(an-integer-starting-from 1)
+<span class='response'>;Aborting!: maximum recursion depth exceeded</span>
+</pre>
+
+To achieve this, let's define a nondeterminism macro  <span class='ttb'>amb</span> with consulting 
+the definition of <tt>choose</tt> shown in [code 1].
+The macro <tt>amb</tt> has the same structure as that of <tt>choose</tt> and calls itself recursively.
+<p>
+Lines 1 &ndash; 5 and 20 &ndash; 26 in the [code 1] are reused in the following codes.
+<p>
+When the [code 2] is compiled using the MIT-Scheme, the compiler warns like:
+<pre>
+;Warning: Possible inapplicable operator ()
+</pre>
+But it works properly.
+The code works also on the
+<a href='http://www.scheme.com/petitechezscheme.html'>
+  Petite Chez Scheme</a>.
+Even I have not tried other Scheme implementation, this definition of the <tt>amb</tt> 
+could work on them if they follow R<sup>5</sup>RS.
+You can download a  MIT-Scheme specific definition of the <tt>amb</tt> from
+<a href='scheme_amb.zip'>here</a>. The compiler of the MIT-Scheme does not warn on the specific definition.
+ 
+
+<p>
+[code 2]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; nondeterminism macro operator</span>
+<span class="linenumber">02:</span>     (define-syntax amb
+<span class="linenumber">03:</span>       (syntax-rules ()
+<span class="linenumber">04:</span>         ((_) (fail))
+<span class="linenumber">05:</span>         ((_ a) a)
+<span class="linenumber">06:</span>         ((_ a b ...)
+<span class="linenumber">07:</span>          (let ((fail0 fail))
+<span class="linenumber">08:</span>            (call/cc
+<span class="linenumber">09:</span>     	(lambda (cc)
+<span class="linenumber">10:</span>     	  (set! fail
+<span class="linenumber">11:</span>     		(lambda ()
+<span class="linenumber">12:</span>     		  (set! fail fail0)
+<span class="linenumber">13:</span>     		  (cc (amb b ...))))
+<span class="linenumber">14:</span>     	  (cc a)))))))
+</pre>
+
+The macro definition, <tt>amb</tt>, works properly for arguments of S-expressions as well as those of values.
+<p>
+[sample 3]
+<pre class='samp'>
+(define (an-integer-starting-from n)
+  (amb n (an-integer-starting-from (1+ n))))
+<span class='response'>;Value: an-integer-starting-from</span>
+
+(an-integer-starting-from 1)
+<span class='response'>;Value: 1</span>
+
+(amb)
+<span class='response'>;Value: 2</span>
+
+(amb)
+<span class='response'>;Value: 3</span>
+</pre>
+Implementations of <tt>amb</tt> in 
+<a href='http://www.ccs.neu.edu/home/dorai/t-y-scheme/t-y-scheme-Z-H-16.html#node_sec_14.2'>
+Teach Yourself Scheme in Fixnum Days</a> or
+<a href='http://www.ccs.neu.edu/home/dherman/code/amb.ss'>
+  Dave Herman Code</a>
+expand the parameter using '<tt>,@(map .... )</tt>'.
+Even they are straight forward definition, they are somehow complicated because 
+they use <tt>call/cc</tt> twice. 
+The recursive definition shown in [code 2] is simpler, even the expanded 
+S-expression becomes some how complicated.
+
+<h3> 2.3. Utilities for logical programing</h3>
+[code 3] shows utilities for logical programing, which 
+makes the programs concise.
+
+<p>
+[code 3]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; returning all possibilities</span>
+<span class="linenumber">02:</span>     (define-syntax set-of
+<span class="linenumber">03:</span>       (syntax-rules () 
+<span class="linenumber">04:</span>         ((_ s) 
+<span class="linenumber">05:</span>           (let ((acc '())) 
+<span class="linenumber">06:</span>             (amb (let ((v s)) 
+<span class="linenumber">07:</span>                    (set! acc (cons v acc)) 
+<span class="linenumber">08:</span>                    (fail)) 
+<span class="linenumber">09:</span>                  (reverse! acc))))))
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     <span class="comment">;;; if not pred backtrack</span>
+<span class="linenumber">12:</span>     (define (assert pred)
+<span class="linenumber">13:</span>       (or pred (amb)))
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment">;;; returns arbitrary number larger or equal to n</span>
+<span class="linenumber">16:</span>     (define (an-integer-starting-from n)
+<span class="linenumber">17:</span>       (amb n (an-integer-starting-from (1+ n))))
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     <span class="comment">;;; returns arbitrary number between a and b</span>
+<span class="linenumber">20:</span>     (define (number-between a b)
+<span class="linenumber">21:</span>       (let loop ((i a))
+<span class="linenumber">22:</span>         (if (&gt; i b)
+<span class="linenumber">23:</span>             (amb)
+<span class="linenumber">24:</span>           (amb i (loop (1+ i))))))
+</pre>
+<dl>
+  <dt><span class='ttb'>(set-of <var>s</var>)</span></dt>
+      <dd> It returns all the possibilities that satisfy <var>s</var>.
+	The macro behaves like as follows:
+      <ol>
+<li>(Line 5) A list (<tt>acc</tt>) is defined, which holds the result that satisfies <var>s</var>.
+<li>(Line 6) The result of <var>s</var> is assigned to <var>v</var> and is pushed to <var>acc</var>.
+  If the result is pushed directly without <var>v</var> (like  <tt>(set! acc (cons s acc))</tt>),
+  Only the last value is stored in the acc because <var>s</var> uses a continuation.
+  The <var>s</var> changes the value of <tt>fail</tt>.
+
+<li>(Lines 7,8) After that, it backtracks by calling <tt>fail</tt>. The function <tt>fail</tt> behaves as if it is
+     called at line 6 because it uses <tt>call/cc</tt>.
+<li>(Line 9) When all the possible choices are found, it calls <tt>(reverse! acc)</tt> and returns the all the
+    possibilities.
+    </ol>
+The definition assume that the <tt>amb</tt> searches from the leftmost argument.
+</dd>
+  <dt><span class='ttb'>(assert <var>pred</var>)</span></dt>
+      <dd> It backtracks if <var>pred</var> is not satisfied.</dd>
+  <dt><span class='ttb'>(an-integer-starting-from <var>n</var>)</span></dt>
+      <dd> It returns integers starting from <var>n</var> nondeterminately.</dd>
+  <dt><span class='ttb'>(number-between <var>a</var> <var>b</var>)</span></dt>
+      <dd> It returns integers between <var>a</var> and <var>b</var> nondeterminately.</dd>
+</dl>
+
+
+[example 4] shows how to to use the <tt>set-of</tt>. All the prime numbers below 20 are obtained.
+<p>
+[example 4]
+<pre class='samp'>
+(define (prime? n)
+  (let ((m (sqrt n)))
+    (let loop ((i 2))
+      (or (&lt; m i)
+          (and (not (zero? (modulo n i)))
+               (loop (+ i (if (= i 2) 1 2))))))))
+
+(define (gen-prime n)
+  (let ((i (number-between  2 n)))
+    (assert (prime? i))
+    i))
+
+(set-of (gen-prime 20))
+<span class='response'>;Value 12: (2 3 5 7 11 13 17 19)</span>
+</pre>
+
+<h2> 3. An example of logical programmings</h2>
+Let's solve <a href='http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-28.html#%_sec_4.3.2'>
+the problem 4.42. in the SIPS</a> as an example.
+The question is like as follows:
+<!-- <p style='margin:40px'> -->
+<BLOCKQUOTE>
+Five school girls took an exam. As they think that their parents are too much interested in their score,
+they promise that they write one correct and one wrong informations to their parents.
+Followings are parts of their letters concerning their result: 
+  <table style='margin-left:30px'>
+<tr><td>Betty:</td> <td> Kitty was the second and I third.</td></tr>
+<tr><td>Ethel:</td> <td> I won the top and Joan the second.</td></tr>
+<tr><td>Joan:</td> <td> I was the third and poor Ethel the last.</td></tr>
+<tr><td>Kitty:</td> <td> I was the second and Mary the fourth.</td></tr>
+<tr><td>Mary: </td> <td> I was the fourth. Betty won the top.</td></tr>
+</table>
+  Guess the real order of the five school girls.
+</BLOCKQUOTE><!-- </p> -->
+  <p>
+
+[code 4] shows the program to solve the problem.
+
+<p>
+[code 4]
+<pre class='code'>
+<span class="linenumber">01:</span>     (define (xor a b)
+<span class="linenumber">02:</span>       (if a (not b) b))
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     (define (all-different? . ls)
+<span class="linenumber">05:</span>       (let loop ((obj (car ls)) (ls (cdr ls)))
+<span class="linenumber">06:</span>         (or (null? ls)
+<span class="linenumber">07:</span>             (and (not (memv obj ls))
+<span class="linenumber">08:</span>                  (loop (car ls) (cdr ls))))))
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     <span class="comment">;;; SICP Exercise 4.42</span>
+<span class="linenumber">11:</span>     (define (girls-exam)
+<span class="linenumber">12:</span>       (let ((kitty (number-between 1 5))
+<span class="linenumber">13:</span>             (betty (number-between 1 5)))
+<span class="linenumber">14:</span>         (assert (xor (= kitty 2) (= betty 3)))
+<span class="linenumber">15:</span>         (let ((mary (number-between 1 5)))
+<span class="linenumber">16:</span>           (assert (xor (= kitty 2) (= mary 4)))
+<span class="linenumber">17:</span>           (assert (xor (= mary 4) (= betty 1)))
+<span class="linenumber">18:</span>           (let ((ethel (number-between 1 5))
+<span class="linenumber">19:</span>                 (joan (number-between 1 5)))
+<span class="linenumber">20:</span>             (assert (xor (= ethel 1) (= joan 2)))
+<span class="linenumber">21:</span>             (assert (xor (= joan 3) (= ethel 5)))
+<span class="linenumber">22:</span>             (assert (all-different? kitty betty ethel joan mary))
+<span class="linenumber">23:</span>             (map list '(kitty betty ethel joan mary) (list kitty betty ethel joan mary))))))
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>     <span class="comment">;;; Bad answer for ex 4.42</span>
+<span class="linenumber">26:</span>     (define (girls-exam-x)
+<span class="linenumber">27:</span>       (let ((kitty (number-between 1 5))
+<span class="linenumber">28:</span>             (betty (number-between 1 5))
+<span class="linenumber">29:</span>             (mary (number-between 1 5))
+<span class="linenumber">30:</span>             (ethel (number-between 1 5))
+<span class="linenumber">31:</span>             (joan (number-between 1 5)))
+<span class="linenumber">32:</span>         (assert (xor (= kitty 2) (= betty 3)))
+<span class="linenumber">33:</span>         (assert (xor (= kitty 2) (= mary 4)))
+<span class="linenumber">34:</span>         (assert (xor (= mary 4) (= betty 1)))
+<span class="linenumber">35:</span>         (assert (xor (= ethel 1) (= joan 2)))
+<span class="linenumber">36:</span>         (assert (xor (= joan 3) (= ethel 5)))
+<span class="linenumber">37:</span>         (assert (all-different? kitty betty ethel joan mary))
+<span class="linenumber">38:</span>         (map list '(kitty betty ethel joan mary) (list kitty betty ethel joan mary))))
+</pre>
+<ul>
+<li> <span class='ttb'>(xor <var>a</var> <var>b</var>)</span> returns <tt>#t</tt>
+  when 
+  <ul>
+   <li><var>a</var> is <tt>#t</tt> and <var>b</var> <tt>#f</tt> or 
+   <li><var>a</var> <tt>#f</tt> and <var>b</var> <tt>#t</tt>.
+</ul>
+  It returns <tt>#f</tt> otherwise.
+<li> <span class='ttb'>(all-different? . <var>ls</var>)</span> returns <tt>#t</tt> when all the items in <var>ls</var>
+    are different. 
+<li> <span class='ttb'>(girls-exam)</span> is the main function to solve the puzzle.
+    It returns a list of names and positions.
+    Calling <tt>assert</tt> step by step after assigning parameters prunes dead-end branches efficiently, which
+ makes run time shorter.
+  <span class='ttb'>(girls-exam-x)</span> is a bad example.
+  It calls <tt>assert</tt> after assigning all the parameters. In such a case, numerous dead-end branches
+  are searched.
+  The run time of the <tt>(girls-exam-x)</tt> is more than ten times larger than that of <tt>(girls-exam)</tt>
+  as shown in [sample 5].
+  </ul>
+<p>
+[sample 5]
+<pre class='samp'>
+(define-syntax cpu-time/sec
+  (syntax-rules ()
+    ((_ s)
+     (with-timings
+	 (lambda () s)
+       (lambda (run-time gc-time real-time)
+	 (write (internal-time/ticks->seconds run-time))
+	 (write-char #\space)
+	 (write (internal-time/ticks->seconds gc-time))
+	 (write-char #\space)
+	 (write (internal-time/ticks->seconds real-time))
+	 (newline))))))
+<span class='response'>;Value: cpu-time/sec</span>
+
+(cpu-time/sec (girls-exam))
+.03 0. .03
+<span class='response'>;Value 14: ((kitty 1) (betty 3) (ethel 5) (joan 2) (mary 4))</span>
+
+(cpu-time/sec (girls-exam-x))
+.341 .29 .631
+<span class='response'>;Value 15: ((kitty 1) (betty 3) (ethel 5) (joan 2) (mary 4))</span>
+</pre>
+
+
+
+<h2>4. Summary</h2>
+You can write programs that seems to be second-sighted when you use nondeterminism and the technique
+is applied to logical programming and parsing.
+Notice that you cannot use the code shown in this chapter if the searching path has loops.
+See
+<a href='http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-28.html#%_sec_4.3'>
+  SICP 4.3.</a>
+for detailed information on this matter.
+<p>
+I consulted
+<a href='http://www.ccs.neu.edu/home/dorai/t-y-scheme/t-y-scheme-Z-H-16.html'>
+  Teach Yourself Scheme in Fixnum Days</a>
+to write this chapter.
+<p>
+  You can download the code in this chapter from
+<a href='scheme_amb.zip'>
+      here</a>.
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_lazy_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  17. Lazy Evaluation</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<!-- <td><a rel=next href="scheme_nqueen.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-1. N Queens ¥Ñ¥º¥ë</a></td> -->
+<td><a rel=download href="scheme_amb.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>Download</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_amb_e.html&t=%28Scheme%29+18.+Nondeterminsm' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+</body>
+</html>
+
+
+

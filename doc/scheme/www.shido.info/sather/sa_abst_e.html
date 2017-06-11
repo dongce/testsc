@@ -1,0 +1,359 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, abstract class, cypher">
+<meta name="description" content="Abstruct classes of Sather">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 7. Abstract Classes</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_io_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. IO</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+ Try Sather</a></td>
+
+<td><a rel=next href="sa_para_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+8. Parameterized Classes</a></td>
+
+<td><a rel=download href="crypt.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_abst_e.html&t=%28Try+Sather%29+7%2E+Abstract+Class'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 7. Abstract Classes </h1>
+<hr>
+
+<h2>1. Introduction</h2>
+An abstract class is a block of codes that declares methods, 
+which is comparable to the interface of Java.
+
+You can build  implementation-free-relations among classes  
+using the abstract classes. You can re-use your codes using this feature.
+<p>
+
+As shown in 
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+The Online Sather Code Browser</a>,
+most of inheritances are done using abstract classes and conventional ones are used only at the end of the inheritance. 
+<p>
+
+You can make a flexible data type by combining the abstract classes and parametrized classes which
+I mention in the next chapter.
+
+<h2>2. Example: encrypted communication</h2>
+I will explain the feature using an encrypted communication.
+The encrypted communication should have at least two methods, encrypt and decrypt.
+I will make a abstract class named <tt>$CRYPT</tt> which declares the two methods.
+You can implement cypher algorithms that inherit <tt>$CRYPT</tt> by
+using some encryption algorithm such as AES, DES, RC4 and so on.<br>
+[code 1] shows a simple encrypted communication.<p>
+
+
+Encryption algorithm should have at least two methods, <tt>encrypt</tt> and <tt>decrypt</tt>.
+<br>
+An abstract class <tt>$CRYPT</tt> is defied in the [code 1] and these two methods are
+declared in it.
+For simplification, I just define two algorithms:
+one is <tt>PLAIN</tt> which does nothing.
+The other is <tt>XOR</tt> which output a XOR-ed stream from the input and the key.
+<br>
+I defined another abstract class named <tt>$MESSAGE</tt> which have two methods, 
+<tt>send</tt> and <tt>receive</tt>.
+Finally, I defined two communication methods, one is <tt>USUAL</tt> which uses plain text
+and the other is <tt>IMPORTANT</tt> which uses cypher.
+
+
+<a name='crypt_sa'>
+[code 1]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- an example of abstract class; $CRYPT and $MESSAGE</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     <span class="comment">-- algorithm for cryptogram</span>
+<span class="linenumber">05:</span>     abstract class $CRYPT is      <span class="comment">-- The abstract class for cypher algorithm. The names of the abstract classes starts with $ and consists of all capital.</span>
+<span class="linenumber">06:</span>        encrypt(s:STR):STR;        <span class="comment">-- method for encryption</span>
+<span class="linenumber">07:</span>        decrypt(s:STR):STR;        <span class="comment">-- for decryption</span>
+<span class="linenumber">08:</span>     end; <span class="comment">-- end $CRYPT</span>
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     <span class="comment">-- cipher message</span>
+<span class="linenumber">11:</span>     abstract class $MESSAGE is    <span class="comment">-- The abstract class of message</span>
+<span class="linenumber">12:</span>        send(s:STR):STR;
+<span class="linenumber">13:</span>        receive(s:STR):STR;
+<span class="linenumber">14:</span>     end; <span class="comment">-- end $MESSAGE</span>
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     <span class="comment">-- Plain text</span>
+<span class="linenumber">17:</span>     class PLAIN &lt; $CRYPT is      <span class="comment">-- do nothing algorithm.</span>
+<span class="linenumber">18:</span>        create:SAME is
+<span class="linenumber">19:</span>           return new;
+<span class="linenumber">20:</span>        end;
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>        encrypt(s:STR):STR is
+<span class="linenumber">23:</span>           return s;
+<span class="linenumber">24:</span>        end;
+<span class="linenumber">25:</span>     
+<span class="linenumber">26:</span>        decrypt(s:STR):STR is
+<span class="linenumber">27:</span>           return s;
+<span class="linenumber">28:</span>        end;
+<span class="linenumber">29:</span>     end; <span class="comment">-- end PLAIN</span>
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     <span class="comment">-- Simple XOR cryptogram</span>
+<span class="linenumber">32:</span>     class XOR &lt; $CRYPT is           <span class="comment">-- the XOR algorithm</span>
+<span class="linenumber">33:</span>     
+<span class="linenumber">34:</span>        private attr keylist:ARRAY{INT};
+<span class="linenumber">35:</span>     
+<span class="linenumber">36:</span>        create(key:STR):SAME is
+<span class="linenumber">37:</span>           return new.init(key);
+<span class="linenumber">38:</span>        end;
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>        private init(key:STR):SAME is
+<span class="linenumber">41:</span>           keylist:=#(key.size);
+<span class="linenumber">42:</span>           loop
+<span class="linenumber">43:</span>     	 keylist.set!(key.elt!.int);   <span class="comment">-- store the key as an array of integer</span>
+<span class="linenumber">44:</span>           end;
+<span class="linenumber">45:</span>           return self;
+<span class="linenumber">46:</span>        end;
+<span class="linenumber">47:</span>     
+<span class="linenumber">48:</span>        private key_rotate!:INT is         <span class="comment">-- It return the next element when called.</span>
+<span class="linenumber">49:</span>           i:INT:=0;
+<span class="linenumber">50:</span>           n:INT:=keylist.size-1;
+<span class="linenumber">51:</span>           loop
+<span class="linenumber">52:</span>     	 yield keylist[i];
+<span class="linenumber">53:</span>     	 if i=n then
+<span class="linenumber">54:</span>     	    i:=0;
+<span class="linenumber">55:</span>     	 else
+<span class="linenumber">56:</span>     	    i:=i+1;
+<span class="linenumber">57:</span>     	 end;
+<span class="linenumber">58:</span>           end;
+<span class="linenumber">59:</span>        end;
+<span class="linenumber">60:</span>     
+<span class="linenumber">61:</span>        encrypt(s:STR):STR is
+<span class="linenumber">62:</span>           fs:FSTR:=#(s.size);  <span class="comment">-- FSTR is mutable strings</span>
+<span class="linenumber">63:</span>           loop
+<span class="linenumber">64:</span>     	 fs := fs + s.elt!.int.bxor(key_rotate!).char;    <span class="comment">-- appending the XOR-ed character at the end of fs.</span>
+<span class="linenumber">65:</span>           end;
+<span class="linenumber">66:</span>           return fs.str;
+<span class="linenumber">67:</span>        end;
+<span class="linenumber">68:</span>     
+<span class="linenumber">69:</span>        decrypt(s:STR):STR is           <span class="comment">-- In the XOR algorithm, encryption and description procedures are same.</span>
+<span class="linenumber">70:</span>           return encrypt(s);
+<span class="linenumber">71:</span>        end;
+<span class="linenumber">72:</span>     end; <span class="comment">-- end of XOR</span>
+<span class="linenumber">73:</span>           
+<span class="linenumber">74:</span>     partial class MESSAGE &lt; $MESSAGE is    <span class="comment">-- defining the common part of message</span>
+<span class="linenumber">75:</span>        stub cry:$CRYPT;                    <span class="comment">-- encryption algorithm, should be defined in child classes.</span>
+<span class="linenumber">76:</span>     
+<span class="linenumber">77:</span>        send(s:STR):STR is
+<span class="linenumber">78:</span>           return cry.encrypt(s);
+<span class="linenumber">79:</span>        end;
+<span class="linenumber">80:</span>     
+<span class="linenumber">81:</span>        receive(s:STR):STR is
+<span class="linenumber">82:</span>           return cry.decrypt(s);
+<span class="linenumber">83:</span>        end;
+<span class="linenumber">84:</span>     end; <span class="comment">-- end MESSAGE</span>
+<span class="linenumber">85:</span>     
+<span class="linenumber">86:</span>     <span class="comment">-- Plain Message</span>
+<span class="linenumber">87:</span>     class USUAL &lt; $MESSAGE is
+<span class="linenumber">88:</span>        include MESSAGE;
+<span class="linenumber">89:</span>        private const cry:PLAIN:=PLAIN::create;  <span class="comment">-- cannot use #PLAIN here.</span>
+<span class="linenumber">90:</span>     
+<span class="linenumber">91:</span>        create:SAME is
+<span class="linenumber">92:</span>           return new;
+<span class="linenumber">93:</span>        end;
+<span class="linenumber">94:</span>     end; <span class="comment">-- end USUAL</span>
+<span class="linenumber">95:</span>     
+<span class="linenumber">96:</span>     <span class="comment">-- Cipher Message </span>
+<span class="linenumber">97:</span>     class IMPORTANT &lt; $MESSAGE is
+<span class="linenumber">98:</span>        include MESSAGE;
+<span class="linenumber">99:</span>        private attr cry:XOR;
+<span class="linenumber">100:</span>     
+<span class="linenumber">101:</span>        create(key:STR):SAME is
+<span class="linenumber">102:</span>           return new.init(key);
+<span class="linenumber">103:</span>        end;
+<span class="linenumber">104:</span>     
+<span class="linenumber">105:</span>        private init(key:STR):SAME is
+<span class="linenumber">106:</span>           cry:=#(key);
+<span class="linenumber">107:</span>           return self;
+<span class="linenumber">108:</span>        end;
+<span class="linenumber">109:</span>     end; <span class="comment">-- end IMPORTANT</span>
+<span class="linenumber">110:</span>     
+<span class="linenumber">111:</span>     class MAIN is
+<span class="linenumber">112:</span>     
+<span class="linenumber">113:</span>        private const key:STR:= "qwertyuiop@asdfghjkl;zxcvbnm,"; <span class="comment">-- key for XOR</span>
+<span class="linenumber">114:</span>     
+<span class="linenumber">115:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">116:</span>           if av.size=2 then
+<span class="linenumber">117:</span>     	 plain:USUAL:= #;
+<span class="linenumber">118:</span>     	 sixor:IMPORTANT:=#(key); 
+<span class="linenumber">119:</span>     	 msg:STR:=av[1];                                    <span class="comment">-- encrypt the first argument.</span>
+<span class="linenumber">120:</span>     	 plain_send:STR:=plain.send(msg); 
+<span class="linenumber">121:</span>     	 plain_receive:STR:=plain.receive(plain_send);
+<span class="linenumber">122:</span>     	 xor_send:STR:=sixor.send(msg);
+<span class="linenumber">123:</span>     	 xor_receive:STR:=sixor.receive(xor_send);
+<span class="linenumber">124:</span>     	 #OUT + "Cipher Test using \"" + msg + "\"\n\n";
+<span class="linenumber">125:</span>     	 #OUT + "Plain send: " + plain_send + "\n";
+<span class="linenumber">126:</span>     	 #OUT + "Plain receive: " + plain_receive + "\n\n";
+<span class="linenumber">127:</span>     	 #OUT + "XOR send: " + xor_send + "\n";
+<span class="linenumber">128:</span>     	 #OUT + "XOR receive: " + xor_receive + "\n\n";
+<span class="linenumber">129:</span>           else
+<span class="linenumber">130:</span>     	 #ERR + "Usage: crypt \'STRING\'\n";
+<span class="linenumber">131:</span>           end;
+<span class="linenumber">132:</span>        end;
+<span class="linenumber">133:</span>     end; <span class="comment">-- end of MAIN</span>
+</pre>
+
+Following shows the result.
+
+<pre class='samp'>
+$ sacomp crypt.sa -o crypt
+$ ./crypt 'Welcome to Sather World.'
+Cipher Test using "Welcome to Sather World."
+
+Plain send: Welcome to Sather World.
+Plain receive: Welcome to Sather World.
+
+XOR send: <span class='comment'>(non graphical string)</span>
+XOR receive: Welcome to Sather World.
+
+</pre>
+
+As the encryption algorithm is an abstract class, you can change the algorithm without changing other parts of the program.<br>
+If you wants AES, for instance, just modify line 99 like as follows.
+
+<pre class='code'>
+<span class="linenumber">99:</span>        private attr cry:AES;
+</pre>
+
+<h2>3. Equipped abstract classes</h2>
+Following table shows frequently used abstracted classes equipped in Sather.
+See
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+The Online Sather Code Browser</a>.
+ You can find a detailed explanation and a graph that shows class relations.
+
+<table border=1>
+   <tr>
+      <th>Class Name</th>
+      <th>Interface</th>
+      <th>Explanation</th>
+   </tr>
+   <tr>
+      <td><tt>$OB</tt></td>
+      <td> </td>
+      <td> All classes are children of <tt>$OB</tt>.</td>
+   </tr>
+   <tr>
+      <td><tt><tt>$IS_EQ</tt></tt></td>
+      <td><tt>is_eq(e:$OB):BOOL;</tt></td>
+      <td>It returns true if <tt>self</tt> and <tt>e</tt> are equal.</td>
+   </tr>
+   <tr>
+      <td><tt>$IS_LT</tt></td>
+      <td><tt>is_lt(e:T):BOOL;</tt></td>
+      <td>It returns true if <tt>self</tt> is smaller than <tt>e</tt>. This is a subclass of  <tt>$IS_EQ</tt>.</td>
+   </tr>
+   <tr>
+      <td><tt>$IS_NIL</tt></td>
+      <td><tt>is_nil:BOOL;</tt></td>
+      <td>It returns true if <tt>self</tt> is <tt>nil</tt>.</td>
+   </tr>
+   <tr>
+      <td><tt>$NIL</tt></td>
+      <td><tt>nil:SAME;</tt></td>
+      <td>It makes <tt>self</tt> <tt>nil</tt>.</td>
+   </tr>
+   <tr>
+      <td><tt>$STR</tt></td>
+      <td><tt>str:STR</tt></td>
+      <td>It converts <tt>self</tt> to a string. Most classes are subclass of <tt>$STR</tt>.</td>
+   </tr>
+   <tr>
+      <td><tt>$NEF</tt>{NTP}</td>
+      <td><tt>abs</tt>, <tt>plus</tt>, <tt>minus</tt>, <tt>tiems</tt>, <tt>div</tt>, ...</td>
+      <td>It is a class of algebra. Classes <tt>$NUMBER{NTP}</tt> and <tt>$CPX_NUMBER{ETP}</tt> are subclass of this.</td>
+   </tr>
+   <tr>
+      <td><tt>$ELT</tt></td>
+      <td><tt>elt!:$OB</tt></td>
+      <td>It defines iterator <tt>elt!</tt>. It is the parent of <tt>$ELT{T}</tt>.</td>
+   </tr>
+   <tr>
+      <td><tt>$ELT{T}</tt></td>
+      <td><tt>elt!:T</tt></td>
+      <td>It defines iterator <tt>elt!</tt> in practice.</td>
+   </tr>
+   <tr>
+      <td><tt>$CONTAINER{ETP}</tt></td>
+      <td><tt>copy</tt>, <tt>has</tt>, <tt>size</tt></td>
+      <td>It is a container class. Most of parameterized classes are subclass of this.</td>
+   </tr>
+   <tr>
+      <td><tt>$HASH</tt></td>
+      <td><tt>hash</tt></td>
+      <td>It calculates hash values. Only subclasses of <tt>$HASH</tt> can be keys of hash tables.</td>
+   </tr>
+</table>
+
+
+<h2>4. Summary</h2>
+I have explained about the abstract classes using a simple cypher program.
+You can find the code in this chapter 
+<a href='crypt.tar.bz2'>here</a>.
+
+See 
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/LanguageDescription/contents.html'>
+  Sather 1.1 : Language Essentials </a>
+and
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+The Online Sather Code Browser</a>
+for detailed information.
+<p>
+
+I will explain about parameterized classes in the next chapter.
+
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_io_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. IO</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+Try Sather</a></td>
+
+<td><a rel=next href="sa_para_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+8. Parameterized classes</a></td>
+
+<td><a rel=download href="crypt.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_abst_e.html&t=%28Try+Sather%29+7%2E+Abstract+Class'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body></html>
+    
+
+
+
+

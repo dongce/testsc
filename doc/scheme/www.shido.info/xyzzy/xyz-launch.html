@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="xyzzy, プログラム起動">
+<meta name="description" content="xyzzy 用ランチャーです。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> xyzzy:  簡易ランチャー </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="launch_l.txt"><img src='../images/down_arrow.gif' class='arrow' border=0>code</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/xyz-launch.html&t=xyzzy%3A++%B4%CA%B0%D7%A5%E9%A5%F3%A5%C1%A5%E3%A1%BC' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>簡易ランチャー</h1>
+<hr>
+<h2>1. はじめに </h2>
+いつも xyzzy が立ち上がっている人のための簡易ランチャーです。
+メニューバーにランチャーが加わります。
+
+<h2>2.  インストール </h2>
+<a href="launch_l.txt">付録</a>の内容を siteinit.l に加えてダンプファイルを作成しなおしてください。
+ソフトの登録は、以下のように、名称と立ち上げるプログラムを並べて書きます。
+<pre class="code">
+(launch "ftp"   "d:\\wbin\\ffftp\\ffftp.exe"
+        "mail"  "c:\\Program Files\\Mozilla Thunderbird\\thunderbird.exe"
+        "www"   "c:\\Program Files\\Mozilla Firefox\\firefox.exe"
+        "word"  "c:\\Program Files\\OpenOffice.org 1.9.79\\program\\swriter.exe"
+        "calc"  "c:\\Program Files\\OpenOffice.org 1.9.79\\program\\scalc.exe"
+        "draw"  "c:\\Program Files\\OpenOffice.org 1.9.79\\program\\sdraw.exe")
+</pre>
+
+<h2> 3. 使い方 </h2>
+メニューバーに”起動”というポップアップメニューができますので、
+そこから立ち上げたいプログラムを選んでクリックします。
+
+
+<h2> 4. ソースコード</h2>
+ソースを以下に示します。
+
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">;;;  segregation</span>
+<span class="linenumber">02:</span>     <span class="comment">;;;  (seg 3 '(1 2 3 4 5 6)) -&gt; #((1 4) (2 5) (3 6))</span>
+<span class="linenumber">03:</span>     (defun seg (m ls0)
+<span class="linenumber">04:</span>       (let ((a (make-array m)))
+<span class="linenumber">05:</span>         (labels ((rec (i ls)
+<span class="linenumber">06:</span>                    (if ls
+<span class="linenumber">07:</span>                        (progn
+<span class="linenumber">08:</span>                          (push (car ls) (aref a (mod i m)))
+<span class="linenumber">09:</span>                          (rec (1+ i) (cdr ls)))
+<span class="linenumber">10:</span>                      (dotimes (j m)
+<span class="linenumber">11:</span>                        (setf (aref a j) (nreverse (aref a j)))))))
+<span class="linenumber">12:</span>           (rec 0 ls0)
+<span class="linenumber">13:</span>           a)))
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment">;;; a simple launcher			      </span>
+<span class="linenumber">16:</span>     (defmacro launch (&rest apps)
+<span class="linenumber">17:</span>       (let* ((a (seg 2 apps))
+<span class="linenumber">18:</span>              (lsym (mapcar #'(lambda (name) (intern (concat "launch-" name))) (aref a 0))))
+<span class="linenumber">19:</span>         `(progn
+<span class="linenumber">20:</span>            ,@(mapcar #'(lambda (sym exe)
+<span class="linenumber">21:</span>                          `(defun ,sym ()
+<span class="linenumber">22:</span>                             (interactive)
+<span class="linenumber">23:</span>                             (call-process ,exe)))
+<span class="linenumber">24:</span>                      lsym (aref a 1))
+<span class="linenumber">25:</span>            (add-hook '*post-startup-hook*
+<span class="linenumber">26:</span>                      #'(lambda ()
+<span class="linenumber">27:</span>                          (add-popup-menu *app-menu*
+<span class="linenumber">28:</span>                                          (define-popup-menu
+<span class="linenumber">29:</span>                                           ,@(mapcar #'(lambda (sym name)
+<span class="linenumber">30:</span>                                                         `(:item nil ,name ',sym))
+<span class="linenumber">31:</span>                                                     lsym (aref a 0)))
+<span class="linenumber">32:</span>                                          "起動"))))))
+<span class="linenumber">33:</span>     
+<span class="linenumber">34:</span>     (launch "ftp"   "d:\\wbin\\ffftp\\ffftp.exe"
+<span class="linenumber">35:</span>             "mail"  "c:\\Program Files\\Mozilla Thunderbird\\thunderbird.exe"
+<span class="linenumber">36:</span>             "www"   "c:\\Program Files\\Mozilla Firefox\\firefox.exe"
+<span class="linenumber">37:</span>             "word"  "c:\\Program Files\\OpenOffice.org 1.9.79\\program\\swriter.exe"
+<span class="linenumber">38:</span>             "calc"  "c:\\Program Files\\OpenOffice.org 1.9.79\\program\\scalc.exe"
+<span class="linenumber">39:</span>             "draw"  "c:\\Program Files\\OpenOffice.org 1.9.79\\program\\sdraw.exe")
+</pre>
+
+<table border=1, class="mono">
+   <tr>
+      <th>行</th>
+      <th> 説明</th>
+   </tr>
+   <tr>
+      <td>03</td>
+      <td> 関数 <span class="mono">seg</span> はリストをより分けて、リストの配列を返す関数です。</td>
+   </tr>
+   <tr>
+      <td>16</td>
+      <td> マクロ <span class="mono">launch</span> は関数を定義して、その関数をメニューに登録するマクロです。</td>
+   </tr>
+</table>
+
+<h2>5. 終わりに</h2>
+せっかくいつも xyzzy が立ち上がっているので、それをランチャーにも使おう、ということで
+書いてみました。<br>
+ご参考までに。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="launch_l.txt"><img src='../images/down_arrow.gif' class='arrow' border=0>code</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/xyz-launch.html&t=xyzzy%3A++%B4%CA%B0%D7%A5%E9%A5%F3%A5%C1%A5%E3%A1%BC' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

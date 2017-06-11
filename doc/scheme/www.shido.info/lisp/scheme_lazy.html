@@ -1,0 +1,498 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, 遅延評価 lazy evaluation, 無限数列, 数値計算">
+<meta name="description" content="Scheme の遅延評価, 無限数列, 数値計算">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 17. 遅延評価 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_cc.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  16. 継続</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_amb.html"><img src='../images/right_arrow.gif' class='arrow' border=0>18. 非決定性</a></td>
+<td><a rel=download href="scheme_lazy.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_lazy.html&t=Scheme+%C6%FE%CC%E7+17.+%C3%D9%B1%E4%C9%BE%B2%C1' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>17. 遅延評価   </h1>
+<hr>
+<h2>1. 初めに </h2>
+
+遅延評価 (lazy evaluation) とは、値が必要になるまで計算しないという計算方法です。
+この方法の利点はデータに繰り返し構造を自然に組み込むことができ、
+無限を簡潔に表現できることです。これによって、プログラムのモジュール化が促進され、
+プログラムが美しくなります。遅延評価の利点については
+<a href='http://www.sampou.org/haskell/article/whyfp.html'>
+なぜ関数プログラムは重要か</a>を見てください。<p>
+
+全体的に遅延評価を取り入れた言語としては
+<a href='http://www.haskell.org/'>Haskell</a> が有名ですが、
+Scheme も部分的に遅延評価を取り入れています。
+
+<h2> 2. 遅延評価にかかわる関数</h2>
+R<sup>5</sup>RS では遅延評価にかかわる関数として次のものが用意されています。
+評価法が指示されているが実際の計算が行われていない中間状態をプロミスといい、
+  プロミスを強制 (force)することで値が計算されます。
+
+<dl>
+  <dt><span class='ttb'>(delay <var>proc</var>)</span></dt>
+      <dd> <var>proc</var> をプロミスにします。</dd>
+  <dt><span class='ttb'>(promise? <var>obj</var>)</span></dt>
+      <dd> <var>obj</var> がプロミスなら <tt>#t</tt> を返します。</dd>
+  <dt><span class='ttb'>(force <var>promise</var>)</span></dt>
+      <dd> <var>promise</var> から値を計算します。</dd>
+</dl>
+
+<h2> 3. 遅延評価の簡単な例</h2>
+遅延評価の簡単な例を [sample 1] に挙げます。このサンプルでは、<tt>(+ 1 2)</tt> を <span class='ttb'>delay</span>
+をつかって一度プロミスにしてそれに <span class='ttb'>force</span> を作用させて値を取り出しています。
+
+<br>
+[sample 1]
+<pre class='samp'>
+&gt; (define laz (delay (+ 1 2)))
+&gt; laz
+<span class='response'>#&lt;promise:laz&gt;</span>
+&gt; (promise? laz)
+<span class='response'>#t</span>
+&gt; (force laz)
+<span class='response'>3</span>
+&gt; (* 10 (force laz))
+<span class='response'>30</span>
+</pre>
+
+ここで注意したいのはプロミスは <tt>force</tt> によって消費されず、プロミスのままだということです。
+つまり、<tt>force</tt> はプロミスから値を計算しますが、プロミスに副作用は及ぼしません。
+従ってプロミスは何度でも使いまわすことができます。
+
+<h2> 4. 遅延評価を使った無限リストの表現</h2>
+それでは早速遅延評価を利用して無限リストを表現しましょう。
+  まず、無限リストを表現するための基本関数を定義し、それからそれらを使って
+  数列を表現し、また、数値計算への応用を示します。
+<p>
+無限リストは、
+<pre>
+(&lt;val&gt; <b>.</b> &lt;promise&gt;)    (1)
+</pre>
+の様に、car 部が確定した値で、cdr 部がプロミスからなっているコンスセルで表します。
+cdr 部のプロミスを force するとまた、(1) のようなコンスセルが生成するような入れ子構造を
+作ることによって無限リストを表します（図１）。コンスセルの入れ子による表現は、通常のリストと同じですが、
+cdr 部をプロミスにすることによって通常のリストとは異なり、無限リストが表現できるようになります。<p>
+  <center>
+    <img src='scheme_lazy_fig1.png'><br>
+    図１：値とプロミスからなるコンスセルによる無限リストの実装。
+    </center>
+
+
+<h3> 4.1. 無限リストを表現するための基本関数とマクロ</h3>
+[code 1] に無限リストを扱うための関数とマクロを示します。
+この中で最も重要なのが <span class='ttb'>lazy-map</span> でこれを使って無限リストの演算をします。
+また、
+<span class='ttb'>lazy-cons</span> は評価を遅らせるという特殊形式 <tt>delay</tt> を含むので、
+マクロ定義にする必要があります。関数で定義すると、評価を遅らせたい式が、引数でわたったとたんに
+評価されてしまいます。
+
+<p>
+[code 1]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;;;; basic functions and a macro</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="comment">;;; car for lazy evaluation</span>
+<span class="linenumber">04:</span>     (define lazy-car car)
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     <span class="comment">;;; cdr for lazy evaluation</span>
+<span class="linenumber">07:</span>     (define (lazy-cdr ls)
+<span class="linenumber">08:</span>       (force (cdr ls)))
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     <span class="comment">;;; lazy cons</span>
+<span class="linenumber">11:</span>     (define-syntax lazy-cons
+<span class="linenumber">12:</span>        (syntax-rules ()
+<span class="linenumber">13:</span>           ((_ a b) (cons a (delay b)))))
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment">;;; lazy map</span>
+<span class="linenumber">16:</span>     (define (lazy-map fn . lss)
+<span class="linenumber">17:</span>       (if (memq '() lss)
+<span class="linenumber">18:</span>           '()
+<span class="linenumber">19:</span>         (lazy-cons (apply fn (map lazy-car lss))
+<span class="linenumber">20:</span>                    (apply lazy-map fn (map lazy-cdr lss)))))
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>     <span class="comment">;;; lazy filter</span>
+<span class="linenumber">23:</span>     (define (lazy-filter pred ls)
+<span class="linenumber">24:</span>       (if (null? ls)
+<span class="linenumber">25:</span>           '()
+<span class="linenumber">26:</span>         (let ((obj (lazy-car ls)))
+<span class="linenumber">27:</span>           (if (pred obj)
+<span class="linenumber">28:</span>               (lazy-cons obj  (lazy-filter pred (lazy-cdr ls)))
+<span class="linenumber">29:</span>             (lazy-filter pred (lazy-cdr ls))))))
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     <span class="comment">;;; returns n-th item of the lazy list</span>
+<span class="linenumber">32:</span>     (define (lazy-ref ls n)
+<span class="linenumber">33:</span>       (if (= n 0)
+<span class="linenumber">34:</span>           (lazy-car ls)
+<span class="linenumber">35:</span>         (lazy-ref (lazy-cdr ls) (- n 1))))
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>     <span class="comment">;;; returns first n items of the ls</span>
+<span class="linenumber">38:</span>     (define (head ls n)
+<span class="linenumber">39:</span>       (if (= n 0)
+<span class="linenumber">40:</span>           '()
+<span class="linenumber">41:</span>          (cons (lazy-car ls) (head (lazy-cdr ls) (- n 1)))))
+</pre>
+<p>
+<dl>
+  <dt><span class='ttb'>(lazy-car <var>ls</var>)</span></dt>
+      <dd> car 部は確定した値なので、<tt>(car <var>ls</var>)</tt> と同じです。</dd>
+  <dt><span class='ttb'>(lazy-cdr <var>ls</var>)</span></dt>
+      <dd> <tt>(cdr <var>ls</var>)</tt> の cdr 部（プロミス）を <tt>force</tt> を使って値を取り出します。</dd>
+  <dt><span class='ttb'>(lazy-cons <var>a</var> <var>b</var>)</span></dt>
+      <dd> <tt>(cons <var>a</var> (delay <var>b</var>))</tt> に展開されるマクロです。
+      関数定義だと、<var>b</var> が先に評価されてしまうので <tt>delay</tt> の意味がなくなります。</dd>
+  <dt><span class='ttb'>(lazy-map <var>fn</var> . <var>lss</var>)</span></dt>
+      <dd> 遅延評価用の <tt>map</tt> です。ここで定義する遅延評価用関数の中で最も重要なものです。
+      確定した値と、プロミスからなるコンスセルを返すことに注目してください。</dd>
+  <dt><span class='ttb'>(lazy-filter <var>pred</var> <var>ls</var>)</span></dt>
+      <dd> 遅延評価用の <tt>filter</tt> です。無限リスト <var>ls</var> のうち <var>pred</var> が
+	<tt>#t</tt> になるものからなる
+      リストを返します。</dd>
+  <dt><span class='ttb'>(lazy-ref <var>ls</var> <var>n</var>)</span></dt>
+      <dd> 遅延評価リスト <var>ls</var> の <var>n</var> 番目の要素を返します。</dd>
+  <dt><span class='ttb'>(head <var>ls</var> <var>n</var>)</span></dt>
+      <dd> 遅延評価リスト <var>ls</var> の最初から <var>n</var> 番目までの要素の部分リストを返します。</dd>
+</dl>
+<h3> 4.2. 無限数列</h3>
+<tt>lazy-cons</tt>, <tt>lazy-map</tt> を使うと無限数列が簡潔に表現できます。
+ここでは、
+<ul>
+  <li>等差数列、等比数列などのように次の項が前の項の関数として現される数列
+  <li>Fibonacci 数列
+</ul>
+を例にとって説明します。
+
+
+<h4> 4.2.1. 次の項が前の項の関数で表される数列</h4>
+次の項が前の項の関数 (<tt>f</tt>) で表される数列:<br>
+<tt>a<sub>i+1</sub> = f(a<sub>i</sub>)</tt><br>
+は [code 2] の <span class='ttb'>(inf-seq <var>a0</var> <var>f</var>)</span>
+で表されます。ここで、<var>a0</var> は初項で、<var>f</var> は次の項を計算するための関数です。<p>
+<tt>(inf-seq <var>a0</var> <var>f</var>)</tt> は再帰的な定義になっており、
+その定義から、初項が <tt>a0</tt> 第２項が <tt>(f a0)</tt> であり、
+第 <tt>n+1</tt> 項は <tt>(f a<sub>n</sub>)</tt> で表されることが簡潔に表現されています。
+
+<tt>inf-seq</tt> を使うと等差数列と等比数列はそれぞれ
+ <span class='ttb'>(ari <var>a0</var> <var>d</var>)</span>,
+    <span class='ttb'>(geo <var>a0</var> <var>r</var>)</span> の様に
+定義できます。ここで、<var>a0</var>, <var>d</var>, <var>r</var> はそれぞれ
+    初項、公差、公比を表します。<p>
+[code 2]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;;;  sequences</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="comment">;;; infinite sequences represented by a_(n+1) = f(a_n)</span>
+<span class="linenumber">04:</span>     (define (inf-seq a0 f)
+<span class="linenumber">05:</span>       (lazy-cons a0 (inf-seq (f a0) f)))
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     <span class="comment">;;;arithmetic sequence</span>
+<span class="linenumber">08:</span>     (define (ari a0 d)
+<span class="linenumber">09:</span>       (inf-seq a0 (lambda (x) (+ x d))))
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     <span class="comment">;;; geometric sequence</span>
+<span class="linenumber">12:</span>     (define (geo a0 r)
+<span class="linenumber">13:</span>       (inf-seq a0 (lambda (x) (* x r))))
+</pre>
+
+<tt>inf-seq</tt> で無限数列ができることを確認してみましょう（sample 2）。
+<tt>geo</tt> を使って初項 1、公比 2 の等比数列 <var>g1</var> と
+初項 1、公比 1/2 の等比数列 <var>g2</var> を作り、<tt>head</tt>
+を使って最初の 10 項を表示させます。ちゃんと数列ができていることが確認されます。
+<br>
+次に、<tt>lazy-map</tt> を使って <tt>g1</tt> と <tt>g2</tt> を掛け合わせた数列を作り、
+<tt>head</tt> で最初の 10 項を取り出します。1 が 10 個並び、ちゃんと計算されていることがわかります。<p>
+
+  次に、等差数列と <tt>lazy-filter</tt> について調べてみましょう。
+  まず、<tt>(ari 1 1)</tt> で、 <tt>(1 2 3 ....)</tt> という数列 <var>ar1</var> を
+  作ります。<tt>head</tt> で、最初の 10 項を表示させると 1 から 10 までが表示されました。
+  さらに、<tt>lazy-filter</tt> を使って偶数を取り出し、最初の 10 項を表示させると 2 から 20 までが表示されます。
+<p>
+[sample 2]
+<pre class='samp'>
+&gt; (define g1 (geo 1 2))         <span class='comment'>;初項 1 公比 2 の等比数列</span>
+&gt; (define g2 (geo 1 (/ 1 2)))   <span class='comment'>;初項 1 公比 1/2 の等比数列</span>
+&gt; (head g1 10)
+<span class='response'>(1 2 4 8 16 32 64 128 256 512)</span>
+&gt; (head g2 10)
+<span class='response'>(1 1/2 1/4 1/8 1/16 1/32 1/64 1/128 1/256 1/512)</span>
+&gt; (head (lazy-map * g1 g2) 10)
+<span class='response'>(1 1 1 1 1 1 1 1 1 1)</span>
+&gt; (define ar1 (ari 1 1))        <span class='comment'>;初項 1 公差 1 の等差数列</span>
+&gt; (head ar1 10)
+<span class='response'>(1 2 3 4 5 6 7 8 9 10)</span>
+&gt; (head (lazy-filter even? ar1) 10)
+<span class='response'>(2 4 6 8 10 12 14 16 18 20)</span>
+</pre>
+
+
+<h4> 4.2.2 Fibonacci 数列</h4>
+Fibonacci 数列は、
+<pre>
+fib(1) = 1
+fib(2) = 1
+fib(n+1) = fib(n) + fib(n-1)
+</pre>
+で表される数列です。<tt>lazy-cons</tt> と <tt>lazy-map</tt> を使うと、[code 3] に示す様に、数学上の定義のままの
+コードが書けます。しかも <i>O(n)</i> のオーダーで各項が計算されます。[sample 3] の値は瞬時に
+計算されます。
+<p>
+[code 3]
+<pre class='code'>
+<span class="linenumber">01:</span>     (define fib
+<span class="linenumber">02:</span>       (lazy-cons 1
+<span class="linenumber">03:</span>                  (lazy-cons 1
+<span class="linenumber">04:</span>                             (lazy-map + fib (lazy-cdr fib)))))
+</pre>
+
+<br>
+[sample 3]
+<pre class='samp'>
+&gt; (head fib 20)
+<span class='response'>(1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765)</span>
+&gt; (lazy-ref fib 100)
+<span class='response'>573147844013817084101</span>
+</pre>
+
+<h3> 4.3. 無限数列の数値計算への応用</h3>
+以下の例は<a href='http://www.sampou.org/haskell/article/whyfp.html'>
+なぜ関数プログラムは重要か</a>にあった例を Scheme を使って書き直したものです。
+遅延評価の数値計算への応用については
+<a href='http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-24.html#%_sec_3.5'>SICP 3.5. Streams</a>
+も参照してください。
+<p>
+
+<h4> 4.3.1. ニュートン-ラプソン法による平方根の計算</h4>
+
+ニュートン-ラプソン法は数値 <tt>N</tt> の平方根を、
+初期近似値 <tt>a0</tt> から始めて、以下の式を使って近似を良くしていく方法です。
+<pre>
+     a(n+1) =  (a(n) + N/a(n)) / 2                   (2)
+</pre>
+
+もし、この近似がある極限値 <tt>a</tt> に収束するなら、
+
+<pre>
+      a =  (a +  N/a) / 2
+したがって、
+      2a = a +  N/a
+      a =  N/a
+      a*a = N
+      a =  squareroot(N)
+</pre>
+となり、確かに極限値 <tt>a</tt> は <tt>N</tt> の平方根です。 
+(2) 式より、次項は前項だけの関数なので、近似値の数列は inf-seq で表せます。
+初期値は 1 に固定しましたが、この数列は収束が早いので問題はありません。
+<p>
+[code 4] に平方根を求めるプログラムを示します。
+
+<p>
+[code 4]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; Newton-Raphson method</span>
+<span class="linenumber">02:</span>     (define (newton-raphson n)
+<span class="linenumber">03:</span>       (inf-seq 1 (lambda (x) (/ (+ x (/ n x)) 2))))
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     <span class="comment">;;; returning a reasonable answer.</span>
+<span class="linenumber">06:</span>     <span class="comment">;;; If the ratio of successive terms is in (1 - eps) and (1 + eps),</span>
+<span class="linenumber">07:</span>     <span class="comment">;;; or the following term is zero,</span>
+<span class="linenumber">08:</span>     <span class="comment">;;; the function returns it.</span>
+<span class="linenumber">09:</span>     (define (lazylist->answer ls eps)
+<span class="linenumber">10:</span>       (let ((e1 (- 1.0 eps))
+<span class="linenumber">11:</span>             (e2 (+ 1.0 eps)))
+<span class="linenumber">12:</span>         (let loop ((val (lazy-car ls))
+<span class="linenumber">13:</span>                    (ls1 (lazy-cdr ls)))
+<span class="linenumber">14:</span>           (let ((val2 (lazy-car ls1)))
+<span class="linenumber">15:</span>             (if  (or (zero? val2) (&lt; e1 (/ val val2) e2))
+<span class="linenumber">16:</span>                 (exact->inexact val2)
+<span class="linenumber">17:</span>               (loop val2 (lazy-cdr ls1)))))))
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     <span class="comment">;;;</span>
+<span class="linenumber">20:</span>     (define (my-sqrt n eps)
+<span class="linenumber">21:</span>       (lazylist->answer (newton-raphson n) eps))
+</pre>
+<dl>
+  <dt><span class='ttb'>(newton-raphson n)</span></dt>
+      <dd> n の平方根の近似値の遅延リストを作る関数です。</dd>
+  <dt><span class='ttb'>(lazylist->answer ls eps)</span></dt>
+      <dd> 遅延リストの連続する２項の比が (1 - eps) と (1 + eps) との間に入るか、
+２番目の項がゼロになれば、その２番目の項を返します。</dd>
+  <dt><span class='ttb'>(my-sqrt n eps)</span></dt>
+      <dd> n の平方根を相対誤差 eps で求めます。</dd>
+</dl>
+<pre class='samp'>
+&gt; (my-sqrt 9 0.0000001)
+<span class='response'>3.0</span>
+</pre>
+<h4> 4.3.2. 数値微分</h4>
+単純な微分の式は [code 5] の <span class='ttb'>easydiff</span> で表されます。この式で <var>f</var> は微分を求める関数、
+<var>x</var> は微分を求める x の値、
+<var>h</var> は微分を求めるための x の値の幅です。理論上は <var>h</var> をゼロに近づければ微分の値の近似は良くなりますが、
+コンピュータの数値計算上の誤差が生ずるため <var>h</var> をあまり小さくはできません。<p>
+
+そこで、<span class='ttb'>lazylist-diff</span> に示すように
+  初期値 <var>h0</var> から初めてその値を半分にしていく遅延リスト <tt>(geo h0 0.5)</tt> を作り、
+それに対応する近似値の微分リストを作ります。<p>
+<pre>
+(lazylist->answer (lazylist-diff h0 f x) eps)
+</pre>
+を使って素直に値を求めても良いのですが、収束が遅いので、収束を早くする関数 <span class='ttb'>super</span> を使って
+収束を早めます。
+収束を早めるテクニックについては
+<a href='http://www.sampou.org/haskell/article/whyfp.html'>
+なぜ関数プログラミングは重要か</a>
+を見てください。
+収束を加速させるアルゴリズムはそれなりに複雑で、通常の反復を使ったコーディングではかなりの量になります。
+遅延評価を使うとそれが、数学の定義に近い形で簡潔に表現できます。また、プログラムがモジュール化されているので
+そのまま他の問題に適応できます。4.3.3. 節で示す数値積分は [code 5] で示した収束加速関数をそのまま再利用しています。
+<p>
+[code 5]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; differentiation</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="comment">;;; primitive function for differentiation</span>
+<span class="linenumber">04:</span>     (define (easydiff f x h)
+<span class="linenumber">05:</span>       (/ (- (f (+ x h)) (f x)) h))
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     <span class="comment">;;; create a lazy list of approximation for differentiation</span>
+<span class="linenumber">08:</span>     (define (lazylist-diff h0 f x)
+<span class="linenumber">09:</span>       (lazy-map (lambda (h) (easydiff f x h)) (geo h0 0.5)))
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     <span class="comment">;;; eliminate error from the approximation</span>
+<span class="linenumber">12:</span>     (define (elimerror n ls)
+<span class="linenumber">13:</span>       (let ((a (lazy-car ls))
+<span class="linenumber">14:</span>             (b (lazy-second ls))
+<span class="linenumber">15:</span>             (c (expt 2 n)))   
+<span class="linenumber">16:</span>         (lazy-cons
+<span class="linenumber">17:</span>          (/ (- (* b c) a) (- c 1))
+<span class="linenumber">18:</span>          (elimerror n (lazy-cdr ls)))))
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     <span class="comment">;;; estimate `n' in elimerror</span>
+<span class="linenumber">21:</span>     (define (order ls)
+<span class="linenumber">22:</span>       (let* ((a (lazy-car ls))
+<span class="linenumber">23:</span>              (b (lazy-second ls))
+<span class="linenumber">24:</span>              (c (lazy-ref ls 2))
+<span class="linenumber">25:</span>              (d (- (/ (- a c) (- b c)) 1.0)))
+<span class="linenumber">26:</span>         (cond
+<span class="linenumber">27:</span>          ((&lt; d 2) 1)
+<span class="linenumber">28:</span>          ((&lt;= 2 d 16) (inexact->exact (round (log2 d))))
+<span class="linenumber">29:</span>          (else 4))))
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     <span class="comment">;;;</span>
+<span class="linenumber">32:</span>     (define (log2 x)
+<span class="linenumber">33:</span>       (/ (log x) (log 2)))
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>     <span class="comment">;;; improve convergency of the lazy list of the approximation</span>
+<span class="linenumber">36:</span>     (define (improve ls)
+<span class="linenumber">37:</span>       (elimerror (order ls) ls))
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>     <span class="comment">;;; return the second value of the lazy list</span>
+<span class="linenumber">40:</span>     (define (lazy-second ls)
+<span class="linenumber">41:</span>       (lazy-car (lazy-cdr ls)))
+<span class="linenumber">42:</span>     
+<span class="linenumber">43:</span>     <span class="comment">;;; further improve the convergency of the list</span>
+<span class="linenumber">44:</span>     (define (super ls)
+<span class="linenumber">45:</span>       (lazy-map lazy-second (inf-seq ls improve)))
+<span class="linenumber">46:</span>                 
+<span class="linenumber">47:</span>     
+<span class="linenumber">48:</span>     <span class="comment">;;; calculate the differentiation of function `f' at x within error eps</span>
+<span class="linenumber">49:</span>     <span class="comment">;;; h0 is initial window width</span>
+<span class="linenumber">50:</span>     (define (diff f x h0 eps)
+<span class="linenumber">51:</span>       (lazylist->answer (super (lazylist-diff h0 f x)) eps))
+</pre>
+
+<pre class='samp'>
+&gt; (diff sin 0.0 0.1 0.0000001)
+<span class='response'>0.9999999999999516</span>
+&gt; (diff exp 0.0 0.1 0.000001)
+<span class='response'>0.9999999991733471</span>
+</pre>
+<h4> 4.3.3. 数値積分</h4>
+収束を早めるためのテクニックはそのまま数値積分にも使えます。
+まず、<span class='ttb'>easyintegrate</span> でごく荒い近似を定義します。
+それを区間の中点で区切って近似を上げていく遅延リスト
+<span class='ttb'>lazylist-integrate</span> を定義します。
+この関数は再帰関数で、<tt>lazy-map</tt> を使って簡潔に書くことができます。
+最後に関数 <span class='ttb'>integrate</span> で数値微分の場合と同様に収束を加速し、収束した値を返します。<p>
+
+実行例に示すように正常に動作します。<p>
+
+[code 6]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; integration</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="comment">;;; primitive integration</span>
+<span class="linenumber">04:</span>     (define (easyintegrate f a b)
+<span class="linenumber">05:</span>       (* (/ (+ (f a) (f b)) 2) (- b a)))
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     <span class="comment">;;; create the lazy list of approximation for integration</span>
+<span class="linenumber">08:</span>     (define (lazylist-integrate f a b)
+<span class="linenumber">09:</span>       (let ((mid (/ (+ a b) 2)))
+<span class="linenumber">10:</span>         (lazy-cons (easyintegrate f a b)
+<span class="linenumber">11:</span>                    (lazy-map + (lazylist-integrate f a mid)
+<span class="linenumber">12:</span>                                (lazylist-integrate f mid b)))))
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     <span class="comment">;;; integrate function `f' in a range of `a' and `b' within error `eps'</span>
+<span class="linenumber">15:</span>     (define (integrate f a b eps)
+<span class="linenumber">16:</span>       (lazylist->answer (super (lazylist-integrate f a b)) eps))
+</pre>
+
+<pre class='samp'>
+&gt; (integrate sin 0 pi 0.0000001)
+<span class='response'>2.000000002272428</span>
+&gt; (integrate exp 0 1 0.0000001)
+<span class='response'>1.7182818277724858</span>
+&gt; (- (exp 1) 1)
+<span class='response'>1.718281828459045</span>
+</pre>
+<h2>5. 終わりに</h2>
+遅延評価を用いるとデータ構造に繰り返しを自然に組み込むことができます。<p>
+  通常のプログラム言語では繰り返しはそれ用の構文を使って書く必要があったので
+  プログラムのモジュール化には限界があります。一方、遅延評価リストを使うと
+  データに繰り返し計算されるという性質を持たせることができるので、
+  プログラムを簡潔に書くことができます。
+  <p>
+    遅延評価についてさらに詳しく知りたい人は Haskell 関連のページを
+    google で探ってみてください。よろしかったら拙作
+<a href='http://www.shido.info/hs/index.html'>
+    Haskell のお勉強</a>も見てみてください。<p>
+
+  このページで示したコードは
+<a href='scheme_lazy.lzh'>
+      付録</a>につけておきますので気が向いたら
+      ダウンロードして遊んでみてください。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_cc.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  16. 継続</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_amb.html"><img src='../images/right_arrow.gif' class='arrow' border=0>18. 非決定性</a></td>
+<td><a rel=download href="scheme_lazy.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_lazy.html&t=Scheme+%C6%FE%CC%E7+17.+%C3%D9%B1%E4%C9%BE%B2%C1' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+
+</body>
+</html>
+

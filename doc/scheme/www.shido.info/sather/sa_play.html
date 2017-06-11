@@ -1,0 +1,388 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!----
+-- $Id: sa_play.html,v 1.5 2006/06/12 23:01:52 takafumi Exp $
+--->
+
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, getting start">
+<meta name="description" content="Sather のプログラムの書き方について">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 3. Sather を 動かす  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_install.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  2. Sather を インストールする</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_iter.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+4. 繰り返しとイテレーター</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_play.html&t=Sather%3A%20Sather%20%A4%F2%20%C6%B0%A4%AB%A4%B9%A1%A3' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 3. Sather を 動かす</h1>
+<hr>
+<h2>1. はじめに</h2>
+この章では簡単なプログラムを例にとって、Sather の書式、コンパイルのしかたを説明します。
+<h2>2. Hello World!</h2>
+まず、お決まりの "Hello World" プログラムを書いてみましょう。[code 1] のようになります。
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple "Hello World" program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        main is
+<span class="linenumber">05:</span>           #OUT +  "Hello World!\n";
+<span class="linenumber">06:</span>        end;
+<span class="linenumber">07:</span>     end;
+</pre>
+<ul>
+<li> 命令は ';' で終わります。
+<li> 'is' はクラスや関数定義の本体の始まりを示すキーワードです。
+<li> 'end;' は定義やブロックの終わりを示します。
+<li> '#OUT' は標準出力を表します。出力するときは '+' のあとに出力する値を書きます。
+次の例のように '+' は複数つなげることができ、'str' メソッドが定義されているオブジェクトなら
+何でも出力されます。ちなみに備え付けのデータ型にはすぺて str メソッドが定義されています。
+<pre class='code'>
+#OUT + "1 + 2 = " + (1+2) + "\n";
+</pre> 
+<li> '-' のあとに ';' が現れなかった場合、'-' から行末まではコメントです。
+ただ、エディタに認識させるため、普通コメントは '--' ではじめます。
+<li>MAIN クラスの内部にある main 関数が起動時に呼び出されます。
+<br>
+MAIN 以外に main がある場合には -main オプションで sacomp に知らせてあげる必要があります。
+</ul>
+コンパイルと実行は以下のように行います。
+<pre class='samp'>
+$ sacomp hello.sa -o hello
+$ ./hello
+Hello World!
+</pre>
+また、複数のソースコードをコンパイルするときは以下のようにコンパイルするファイルを列挙します。
+<pre class='samp'>
+$ sacomp foo1.sa foo2.sa foo3.sa -o foo
+</pre>
+コンパイラーは sacomp といいます。他のコンパイラーと同様に '-o' オプションで実行ファイル名を指定します。
+sacomp のオプションについては
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Compiler/cs.man.html'>Compiler Man Page</a>
+を見てください。このリンクではコンパイラーを 'cs' と書いてありますが、'sacomp' に読みかえてください。
+<p>
+-output_C や -only_C オプションをつけてコンパイルすると C 言語のソースコードが生成されるので
+そのソースを他のプラットフォームでコンパイルすることが可能です。win32+cygwin ではそのまま make して
+実行ファイルが作成されます。
+<p>
+sabrowse はソースコードおよびクラス間の関係を表示します（図 1, 2)。
+Sather は多重継承をサポートしているので、このヴューアーは複雑なプログラムを書くときに重宝します。<br>
+<pre class='samp'>
+$ sabrowse hello.sa
+</pre>
+
+<center>
+<img src='sa_play1.png'><br>
+図 1. ソースコードを表示する画面
+<p>
+<img src='sa_play2.png'><br>
+図 2. クラス間の関係を表示する画面
+</p></center>
+
+
+<h2>3. 変数</h2>
+
+
+<h3>3.1 基本的なデータ型</h3>
+以下に基本的なデータ型を挙げます。
+<table border=1>
+   <tr>
+      <th>データ型</th>
+      <th>初期値</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>BOOL</td>
+      <td>false</td>
+      <td>真偽値。true と false があります。</td>
+   </tr>
+   <tr>
+      <td>INT</td>
+      <td>0</td>
+      <td>符号付整数型。32 bit 以上。</td>
+   </tr>
+   <tr>
+      <td>INTI</td>
+      <td>0i</td>
+      <td>無限精度整数型</td>
+   </tr>
+   <tr>
+      <td>FLT</td>
+      <td>0.0</td>
+      <td>単精度浮動小数点。IEEE-754-1985</td>
+   </tr>
+   <tr>
+      <td>FLTD</td>
+      <td>0.0d</td>
+      <td>倍精度浮動小数点</td>
+   </tr>
+   <tr>
+      <td>CHAR</td>
+      <td>'\0'</td>
+      <td>文字。特殊文字は C 言語と同じ。</td>
+   </tr>
+   <tr>
+      <td>STR</td>
+      <td>""</td>
+      <td>文字列</td>
+   </tr>
+</table>
+
+<h3>3.2. 変数の宣言</h3>
+C 言語とは逆の記法で、変数名 ':' データ型の順で書きます。
+また、代入は '<b>:=</b>' で表します。<br>
+例：
+<pre class='code'>
+b0:BOOL := true;
+
+ia:INT := 10;
+ib:INT := -321;
+ic:INT := 13_456_367_443;    <span class='comment'>-- '_' で区切ることができます。</span>
+id:INT := 0b11001;           <span class='comment'>-- binary = 25</span>
+ie:INT := 0o37323;           <span class='comment'>-- Oct</span>
+if:INT := 0x_ea_75_67;       <span class='comment'>-- Hex</span>
+
+ig:INTI := -4325i;           <span class='comment'>-- 無限精度整数</span>
+ih:INTI := 0o33784;
+
+fa:FLT := 0.0;
+fb:FLTD := 3.1345e-2d;
+
+ca:CHAR := 'a';
+cb:CHAR := '\n';               <span class='comment'>-- 改行</span>
+
+sa:STR := "Hi";
+</pre>
+
+同じ型であれば複数まとめて宣言することができます。
+<pre class='code'>
+a,b,c :INT;
+x,y,z :FLT;
+</pre>
+
+<h3>3.3. ARRAY 型</h3>
+配列は ARRAY 型を用いてあらわします。
+<pre class='code'>
+                                          <span class='comment'>-- C style</span>
+a:ARRAY{INT}:=#(10);                      <span class='comment'>-- int a[10];</span>
+a[0] := 100;                              <span class='comment'>-- a[0] = 100;</span>
+i:INT := a[1];                            <span class='comment'>-- int i = a[1];</span>
+
+s:ARRAY{STR}:= |"foo", "bar", "baz"|;     <span class='comment'>-- char* s[] = {"foo", "bar", "baz"};</span>
+s.has("foo") &rarr; true
+</pre>
+<h4>メモ</h4>
+<ol>
+<li>'#' はクラスのインスタンスを作るときのオペレーターです。配列クラスの場合は引数に配列のサイズを指定します。
+<li>参照、代入は C 言語風です。
+<li>ARRAY のリテラルは <tt>| item1, item2, ..... |</tt> であらわします。
+<li>ARRAY クラスは has(<var>obj</var>) メソッドがあり、配列に <var>obj</var> が含まれれば true を返します。
+</ol>
+
+<h2>4. メソッド定義</h2>
+[code 2] に factorial を計算するプログラムを示します。<br>
+[code 2]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple factorial program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">05:</span>           n:INT;
+<span class="linenumber">06:</span>           if av.size = 2 then
+<span class="linenumber">07:</span>     	 n := av[1].cursor.get_int;
+<span class="linenumber">08:</span>           #OUT +  fact(n) + "\n";
+<span class="linenumber">09:</span>           else
+<span class="linenumber">10:</span>     	 #ERR + "Usage: fact N\n";
+<span class="linenumber">11:</span>           end;
+<span class="linenumber">12:</span>        end;
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>        fact(n:INT):INT is
+<span class="linenumber">15:</span>           if n=0 then return 1;
+<span class="linenumber">16:</span>           else return n * fact(n-1);
+<span class="linenumber">17:</span>           end;
+<span class="linenumber">18:</span>        end;
+<span class="linenumber">19:</span>     end;
+</pre>
+
+メソッドの定義は
+<pre class='code'>
+method_name(parm1:TYPE1, parm2:TYPE2):RETURN_TYPE is
+.......
+.......
+end;
+</pre>
+のように、メソッド名、引数のリスト、返り値のデータ型
+で定義します。
+<p>
+<h4>メモ</h4>
+<ol>
+<li>main への引数は <tt>ARRAY{STR}</tt> タイプで渡す。
+<li> STR を INT に変換するには <var>str</var><tt>.cursor.get_int</tt> を使う。
+</ol>
+
+<h2>5. 分岐</h2>
+分岐は if 節または case 節で行います。<p>
+<h3>5.1. if 節</h3>
+書式は以下の通りです。
+<pre class='code'>
+if <var>if_test</var> then
+    <var>if_body</var>
+elsif <var>elsif_test</var> then
+    <var>elsif_body</var>
+else
+    <var>else_body</var>
+end;
+</pre>
+<ol>
+<li>elsif, else 節は省略可能です。
+<li>elsif 節は好きなだけ加えることができます。
+</ol>
+例：
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- example of if: iftest</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        main(argv: ARRAY{STR}) is
+<span class="linenumber">05:</span>           a1, s1: STR;
+<span class="linenumber">06:</span>           flag : ARRAY{CHAR} := |'a', 'b', 'c'|;
+<span class="linenumber">07:</span>           if argv.size = 2 then
+<span class="linenumber">08:</span>     	 a1 := argv[1];
+<span class="linenumber">09:</span>     	 if a1[0] = '-' then
+<span class="linenumber">10:</span>     	    if flag.has(a1[1]) then  print_out(a1);
+<span class="linenumber">11:</span>     	    else #OUT + "This option is not supported.\n";
+<span class="linenumber">12:</span>     	    end;
+<span class="linenumber">13:</span>     	 else show_usage;
+<span class="linenumber">14:</span>     	 end;
+<span class="linenumber">15:</span>           else show_usage;
+<span class="linenumber">16:</span>           end;
+<span class="linenumber">17:</span>        end;
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>        print_out(s:STR) is
+<span class="linenumber">20:</span>           #OUT + "Option " + s + " is selected.\n"; 
+<span class="linenumber">21:</span>        end;
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>        show_usage is
+<span class="linenumber">24:</span>           #OUT + "Usage iftest -[abc]\n";
+<span class="linenumber">25:</span>        end;
+<span class="linenumber">26:</span>     end;
+</pre>
+
+<pre class='samp'>
+$ sacomp iftest.sa -o iftest
+$ ./iftest -a
+Option -a is selected.
+$ ./iftest -d
+This option is not supported.
+$ ./iftest a
+Usage iftest -[abc].
+</pre>
+
+
+
+<h3>5.2.  case 節</h3>
+書式は以下の通りです。
+<pre class='code'>
+case <var>parameter</var>
+when <var>values_1</var> then
+    <var>procedure_1</var>
+when values_2 then
+    <var>procedure_2</var>
+else
+    <var>else_procedure</var>
+end;
+</pre>
+<ol>
+<li>when の後には複数の値を書くことができます。
+<li>when 節は必要なだけ加えることができます。
+<li>どの when にもマッチしない場合 else 節が実行されます。
+</ol>
+実は上の例は case を使うともっと簡単に書くことができます。
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- example of case: casetest</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        main(argv: ARRAY{STR}) is
+<span class="linenumber">05:</span>           a1, s1: STR;
+<span class="linenumber">06:</span>     <span class="comment">--       flag : ARRAY{CHAR} := |'a', 'b', 'c'|;</span>
+<span class="linenumber">07:</span>           if argv.size = 2 then
+<span class="linenumber">08:</span>     	 a1 := argv[1];
+<span class="linenumber">09:</span>     	 if a1[0] = '-' then
+<span class="linenumber">10:</span>     <span class="comment">--	    if flag.has(a1[1]) then  print_out(a1);</span>
+<span class="linenumber">11:</span>     	    case a1[1]
+<span class="linenumber">12:</span>     	    when 'a', 'b', 'c' then print_out(a1);
+<span class="linenumber">13:</span>     	    else #OUT + "This option is not supported.\n";
+<span class="linenumber">14:</span>     	    end;
+<span class="linenumber">15:</span>     	 else show_usage;
+<span class="linenumber">16:</span>     	 end;
+<span class="linenumber">17:</span>           else show_usage;
+<span class="linenumber">18:</span>           end;
+<span class="linenumber">19:</span>        end;
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>        print_out(s:STR) is
+<span class="linenumber">22:</span>           #OUT + "Option " + s + " is selected.\n"; 
+<span class="linenumber">23:</span>        end;
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>        show_usage is
+<span class="linenumber">26:</span>           #OUT + "Usage iftest -[abc]\n";
+<span class="linenumber">27:</span>        end;
+<span class="linenumber">28:</span>     end;
+</pre>
+
+
+<h2>6. 終わりに</h2>
+今回はとりあえず Sather のプログラムの形式とコンパイルの方法について述べました。
+次回はイテレータについて述べます。<p>
+
+
+
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_install.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  2. Sather を インストールする。</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_iter.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+4. 繰り返しとイテレーター</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_play.html&t=Sather%3A%20Sather%20%A4%F2%20%C6%B0%A4%AB%A4%B9%A1%A3' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+</body></html>
+    
+
+
+
+

@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme imprementations, MIT-Scheme">
+<meta name="description" content="installing MIT-Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>Installing MIT-Scheme</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Yet Another Scheme Introduction</a></td>
+<td><a rel='next' href="scheme2_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>2. Using Scheme as a Calculator</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme1_e.html&t=Installing+MIT-Scheme' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 1. Installing MIT-Scheme</h1>
+<hr>
+<h2>1. Why Scheme? </h2>
+By Using Scheme:
+<ul>
+<li>You can write beautiful programs.
+<li>You can enjoy programming.
+  </ul>
+These are the only reasons to learn Scheme.
+You will find some difficulties if you write practical applications using Scheme.<p>
+
+However, as excellent hackers favor Scheme, it is worth learning the language.
+In fact, <a href='http://mitpress.mit.edu/sicp/'>Structure and Interpretation of Computer Programs (SICP)</a>
+  &mdash; one of the best textbook on computer science &mdash;
+  uses Scheme to describe programs.
+  <a href='http://www.gnu.org/'>GNU</a> also uses Scheme
+  (named <a href='http://www.gnu.org/software/guile/guile.html'>guile</a>) for
+  a common script language for its applications.
+  The guile corresponds to a macro for MS-Word or Excell. It is used to manupulate applications
+  with a simple script.
+  <p>
+
+  Even Common Lisp is better for building practical applications, I recommend to learn Scheme first
+    because of its
+<ol>
+  <li>compact language design and
+  <li>simple syntax.
+</ol>
+It is said that 
+<a href='http://www.catb.org/~esr/faqs/hacker-howto.html#skills1'>Scheme makes you better programmer</a>.
+Even you seldom use Scheme for your business,
+the good sense provided by learning Scheme will guide you even if you use other programming languages.
+<p>
+Scheme tutorials in the web (so many as Scheme is popular language)
+are somehow difficult for beginners.
+This tutorial, on the other hand, is written for beginner programmers and
+little knowledge on programming is required.
+
+
+<h2>2. Expected readers</h2>
+This tutorial expects PC users who have little programming experience such as:
+<ul>
+  <li> Students who cannot follow his course because the professor uses Scheme in the lecture.
+  <li> People who try to learn programming
+ </ul>
+
+The syntax of Scheme is extremely simple and can be explained in a simple manner.
+However, such explanation is quite difficult for beginners.
+In this tutorial, I will try to explain step by step.<p>
+
+Scheme codes consist of only words, parentheses and spaces, which may embarrass you at the beginning.
+If you use proper editor, however, it shows the pairing bracket automatically and
+indents code for you. As a result, you do not have to worry about pairing of parentheses and
+you can read codes by indent. If the indent looks strange, you can find 
+the wrong pairing using the editor.
+
+  
+<h2>3. Installing MIT-Scheme</h2>
+This tutorial expects Windows user.
+I have no experience of Macintosh so I can tell nothing about it.
+If you are a Unix (or Linux) user, ask the administrator to install it
+(if you cannot by yourself).
+The way of using Scheme is not depend on the Operation system.
+Only the installation matters.
+<p>
+
+There are several specification on Scheme programming language and
+the latest version is 
+  <a href='http://www.schemers.org/Documents/Standards/R5RS/HTML/r5rs.html'>
+    Revised<sup>5</sup> Report on the Algorithmic Language Scheme
+  (R<sup>5</sup>RS)</a>.
+<p>
+Most of the implementations are (fully or partially) based on R<sup>5</sup>RS.
+If you use one that partially satisfies R<sup>5</sup>RS, you should be careful about it. 
+
+  
+There are several free Scheme implementations working on Windows such as:
+      <a href='http://www.scheme.com/'>ChezScheme</a>,
+      <a href='http://www.plt-scheme.org/software/mzscheme/'>MzScheme</a>,
+      <a href='http://www.drscheme.org/'>DrScheme</a>,
+      <a href='http://swissnet.ai.mit.edu/~jaffer/SCM.html'>SCM</a>.
+
+In this tutorial, I use <a href='http://www.gnu.org/software/mit-scheme/'>MIT/GNU Scheme</a>
+      because it is easy to install and
+it has high performance.
+The interpreter is quite fast and in addition MIT-Scheme can compile your program to a native code.
+The problem of MIT-Scheme is that it does not fully satisfy the R<sup>5</sup>RS.
+I will mention about it later in detail.<p>
+
+Actually, only MIT-Scheme and DrScheme are equipped with installer.
+Some recommend DrScheme, but it is slow.
+
+If you have enough knowledge to install programs by hand, I also recommend
+  <a href='http://www.scheme.com/petitechezscheme.html'>Petite Chez Scheme</a>.
+It is a nice interpreter working on command line (DOS window).
+<p>  
+
+      <a href='http://www.aracnet.com/~briand/scheme_eval.html'>Scheme Implementations</a>
+compares several Scheme implementations.
+When you get used to Scheme, it will be a nice idea to try several implementations.
+You need a Linux machine because most of Scheme implementations work only on Unix and Linux.
+<h3>3.1. How to install MIT-Scheme on Windows</h3>
+The MIT-Scheme can be installed by just downloading and executing the installer.
+  <ol>
+<li>Go to <a href='http://www.gnu.org/software/mit-scheme/'>the homepage of MIT/GNU Scheme</a> and 
+    download the Windows binary, <tt>mit-scheme-N.N.N-ix86-win32.exe</tt>.
+<li> Double click the downloaded installer.
+  The installer asks something and leave everything as default.
+<li> After installation, four shortcuts are created, named
+  <b>Scheme</b>, <b>Compiler</b>, <b>Edwin</b>, and <b>Documentation</b>.
+  <b>Scheme</b>, <b>Compiler</b>, and <b>Edwin</b> are shortcuts to the same program
+  with different options.
+  By using the 
+  <b>Compiler</b>, you can compile your program into a native code, which makes run-time shorter.
+  On the other hand, <b>Compiler</b> consumes more memory. <br>
+  <b>Edwin</b> is an Emacs like editor for editing Scheme programs.
+  You can use this or your favorite editor.
+<li> You can customize the MIT-Scheme by editing the configuration file <b>scheme.ini</b>.<br>
+  Create <tt>scheme.ini</tt> in a directory defined by the 
+  environmental variable <span class='ttb'>HOMEPATH</span>. You can check the value of  <tt>HOMEPATH</tt>
+  by giving
+<pre class='samp'>
+&gt;set HOMEPATH
+</pre>
+from a console (DOS window).
+In the case of WinXP, <tt>HOMEPATH</tt> is predefined as <br>
+<u><tt>\Document and Setting\<i>username</i></tt></u><p>
+  
+Following code shows an example of <tt>scheme.ini</tt> 
+
+<pre class='code'>
+(cd "C:\\doc\\scheme")
+(define call/cc call-with-current-continuation)
+</pre>
+
+The first line means changing directory to  <tt>C:\doc\scheme</tt>.
+By this code, the MIT-Scheme move to this directory and you don't have to
+give full path name to load Scheme programs.
+The second line defines abbreviation of <tt>call-with-current-continuation.</tt>
+</ol>
+<h2>4. Summary</h2>
+As the installation is quite easy (except editing <tt>scheme.ini</tt>),
+you should get it without any problem.<p>
+The next chapter is about how to talk with the front end of the MIT-Scheme. 
+<p>
+
+
+  
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Yet Another Scheme Introduction</a></td>
+<td><a rel='next' href="scheme2_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>2. Using Scheme as a Calculator</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme1_e.html&t=Installing+MIT-Scheme' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+
+

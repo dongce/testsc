@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell">
+<meta name="description" content="About Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Haskell とは </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell2.html"><img src='../images/right_arrow.gif' class='arrow' border=0>2. プログラムを動かす</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell1.html&t=Haskell+%A4%C8%A4%CF' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>1. Haskell とは</h1> 
+<hr>
+Haskell は遅延評価を基本とする、純粋な関数型プログラミング言語です。<p>
+  Haskell は簡単なことと難しいことが入れ替わったような言語で、
+  IO などの普通の言語ではなんでもないことが難しく、探索、構文解析などの
+  むずかしいことが比較的簡単に出来ます。<p>
+	 
+ Haskell は純粋な関数型なので、代入に伴うバグを気にしないですみます
+ （参照透明性があるといいます）。また、
+ 値は必要になって初めて求められるので、無限の大きさをもつデータを扱うことが出来ます。<p>
+ 例えば、奇数の最初の３つが欲しいときは
+ <pre class="code">
+take 3 [1,3..]
+</pre>
+ と書くことが出来ます。
+遅延評価を行わない普通のプログラミング言語では、途中に無限ループがあると
+ そこで止まってしまいますが、Haskell の場合は必要な値だけを計算して、
+ 最後まで実行してくれます。<p>
+
+ Haskell のプログラムは、値を求める手順ではなく、値の定義を書いたものなので、
+ 数学の本に載っている数式の定義がほぼそのまま使えます。特に、再帰的な定義はすっきり書けます。<p>
+
+<b>階乗</b>
+<pre class="code">
+fact 0 = 1
+fact n = n * fact (n-1)
+</pre>
+
+<b>quick sort</b><br>
+Haskell の紹介記事によく載っている例です。
+<pre class="code">
+qsort _ [] = []                                             <span class='comment'>(1)</span>
+qsort f (x:xs) =  before ++ (x : after)                     <span class='comment'>(2)</span>
+ where before =  qsort f (filter  (not . (f x)) xs)         <span class='comment'>(3)</span>
+       after  =  qsort f (filter (f x) xs)                  <span class='comment'>(4)</span>
+</pre>
+注：<br>
+<ol>
+<li>リストが空の時は空のリストを返します。
+<li>before と after の定義は次の行以降で出てきます。この行はとりあえず、before, x,  after の順にリストを並べ替えるという意味です。
+<li>where は "ここで" という意味の予約語です。前の行で出てきた before と after を定義します。<br>
+    この行で、before の定義をしています。これは、xs の中から関数 (f x) を満たさないものを選んで、それを再帰的に qsort するという意味です。<br>
+<tt>filter</tt> は、関数 <var>fun</var> とリスト <var>ls</var> をとり、
+<var>ls</var> の要素のうち、<var>fun</var> を満たすものからなるリストを返す関数です。
+    f は２つのものを比較する関数なので、２つの引数を取る関数です。それと引数の１つ x とから (f x) という１つの引数を取る関数が作られます。
+    これを関数の部分適用といいます。
+たとえば、<tt>filter (> 2) [0,1,2,3,4,5]</tt>
+は <tt>[3,4,5]</tt> になります。
+<li>after の定義です。xs の中から関数 (f x) を満たすものを選んで、それを再帰的に qsort しています。
+    再帰的に関数を定義することによって、繰り返しをすっきりと記述することができます。
+</ol>
+<pre class="samp">
+Main&gt; qsort (&gt;) [3,1,5,2,10,0]
+[10,5,3,2,1,0]
+</pre>
+<a name="series">
+<b>数列</b></a><br>
+  驚くべきほど簡潔に定義できます。<br>
+  この例のほうが前に挙げた例より Haskell の性質をよく表していると思います。<br>
+<pre class="code">
+<span class="comment">-- 等比数列などの次の項が今の項の関数であらわされる無限数列（初項 a0、 関数 f） </span>
+seqn a0 f = a0 : seqn (f a0) f                 <span class="comment"> -- (1)</span>
+
+<span class="comment">-- 初項 a0 公比 r の等比数列</span>
+geo a0 r = seqn a0 (*r)
+  
+<span class="comment">--  Fibonacci 数列</span>
+fib = 1:1:zipWith (+) fib (tail fib)
+</pre>
+(1) はほとんどトートロジー（単なる言い換え）ですが、ちゃんと計算してくれます。
+この様な数列の定義は一見無駄な計算をしているように見えますが、そのようなことはなく、
+  <i>O(n)</i> のオーダーです。<br>
+    (1) が
+<pre class="o">
+a<sub>0</sub> = a0
+a<sub>n+1</sub> = f(a<sub>n</sub>)
+</pre>
+  で表される無限数列であることの証明は
+    <a href="h1p.pdf">ここ</a>
+    を見てください。<p>
+
+  
+上の例でも分かるように、コードには”どういう値が欲しいか？”を記述するだけです。
+その値をどういう手順で求めるかについてはほとんど気にする必要がありません。<p>
+
+このことから、下で示すような種類のプログラムでは有効です。
+  <ul>
+<li> 数値計算: <a href="http://www.nr.com/">Numerical Recipes</a> に載っているようなアルゴリズム。
+  <li> 探索: 詰め将棋などの経路を求めるような問題。
+	 <li> 構文解析: Haskell の業界標準コンパイラー
+		<a href="http://www.haskell.org/ghc/">GHC</a> は Haskell で書かれている。また、
+		<a href="http://www.pugscode.org/">Perl6 を Haskell で</a>書いた人がいる。
+	 </ul>
+  一方、以下の種類のプログラムには向きません。書けないことはありませんが、
+  他の言語で書いたほうが楽でしょう。また、Haskell でこれらのプログラムを書くと、
+  手続き型言語で書いたのと同じようなコードが出来上がります。
+  <ul>
+<li> 頻繁に IO を行うプログラム: IO などの不純な行為は Haskell は苦手。
+  <li> 大きなデータベースを扱うプログラム: Haskell は純粋な関数型なので、データベースを少ししか
+	 変更しないときでも全体を更新する必要がある。IO 型のデータ構造を使えばこの問題は回避できるが、
+	 単純ではない。
+	 </ul>
+<p>
+  このことから、Haskell は Fortran ユーザー、AI プログラマにとっては
+  便利だと思います。もちろん、実行速度は Fortran に比べてかなり遅いのですが、
+  GHC には profiler が付いているので、bottle-neck を見つけることが出来ます。
+  そして、もし、どうしても必要ならその部分を C で書き直せば速度は改善されます。<p>
+
+	 大雑把な感じとしては、GHC でコンパイルした Haskell プログラムは Python のプログラムと同じくらいの
+	 速度です。つまり、多くの場合ほとんど問題が無いが、速度が気になるプログラムでは問題になります。
+	 <p>
+	 以下に主な Web site を挙げておきます。
+	 <ul>
+<li> <a href="http://www.haskell.org/">The Haskell Home Page</a>: Haskell の情報が集まっています。
+  ここを見れば大体の情報は手に入ります。
+<li> <a href="http://www.haskell.org/aboutHaskell.html">About Haskell</a>
+  <a href="http://web.yl.is.s.u-tokyo.ac.jp/~ganat/memo/aboutHaskell.html">（日本語訳）</a>
+  : Haskell の紹介が手際よくまとめられている。必読。
+  <li> <a href="http://www.sampou.org/cgi-bin/haskell.cgi">Programming in Haskell</a>（日本語のページ）
+	 <li><a href="http://www.md.chalmers.se/~rjmh/Papers/whyfp.html">Why Functional Programming Matters</a>
+		<a href="http://www.sampou.org/haskell/article/whyfp.html">（日本語訳）</a>
+		</ul>
+ <hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell2.html"><img src='../images/right_arrow.gif' class='arrow' border=0>2. プログラムを動かす</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell1.html&t=Haskell+%A4%C8%A4%CF' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>
+

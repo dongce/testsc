@@ -1,0 +1,134 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="shell script, functional programming">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 関数プログラミング的なシェルスクリプト </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc29&t=%B4%D8%BF%F4%A5%D7%A5%ED%A5%B0%A5%E9%A5%DF%A5%F3%A5%B0%C5%AA%A4%CA%A5%B7%A5%A7%A5%EB%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>関数プログラミング的なシェルスクリプト</h1>
+<hr>
+Mar 18, 2007
+<p>
+
+ご存知のように、POSIX (UNIX, Linux など) では <tt>bash</tt> などのシェルスクリプトをもちいて
+処理を自動化できます。ここでは、シェルスクリプトを関数言語的に味付けして遊んでみました。
+<p>
+<tt>bash</tt> の関数は再帰的に呼び出すことが可能なので、例えば、階層的なディレクトリ構造以下の
+全てのファイルに同じ処理を施したいときは以下のような簡単なスクリプト (<tt>for_all</tt>) でできます。
+<br>
+このスクリプトで 変数 <tt>FULL</tt> を<tt>local</tt> で宣言しているのがミソで、
+こうすることによって、変数が関数内だけで有効になるので、関数を再帰的に定義することができるようになります。
+<br>
+<tt>for_all</tt> の内部で定義されている関数 <tt>rec</tt> は以下のように動作します。
+<ul>
+<li> <tt>ls</tt> で見つかったものがファイルなら <tt>$1</tt> で指定された処理を行う。
+<li> ディレクトリなら <tt>rec</tt> を再帰的に呼び出す。
+</ul>
+
+<p>
+<tt>[for_all]</tt>
+<pre class='code'>
+#! /bin/bash
+
+function rec {
+    for FILE in `ls ${2}`
+        do
+           local FULL=${2}/${FILE}
+           if [ -f $FULL ]; then $1 $FULL
+           elif [ -d $FULL ]; then rec $1 $FULL
+           fi
+        done
+}
+
+rec $1 `pwd`/${2}
+</pre>
+
+実用的な例として、<tt>for_all</tt> を使ってあるディレクトリ以下の改行コードを全て
+ <tt>&#92;r&#92;n</tt> (MicroSoft 形式) から <tt>&#92;n</tt> (UNIX 形式)
+に換えてみます。
+
+次のような簡単なスクリプト (<tt>ms2uinx</tt>) を <tt>for_all</tt> の第一引数として渡せば
+実現できます。<tt>tr</tt> は便利な <q>文字の変換、圧縮、削除</q> ツールで、使い方は
+<a href='http://www-06.ibm.com/jp/developerworks/linux/030523/j_l-tiptex5.html'>
+http://www-06.ibm.com/jp/developerworks/linux/030523/j_l-tiptex5.html</a> などをご覧ください。
+<p>
+<tt>[ms2unix]</tt>
+<pre class='code'>
+#! /bin/bash
+
+cat $1 | tr -d '&#92;r'  > $1
+</pre>
+<p>
+例えば、カレントディレクトリの下に <tt>win_texts</tt> という階層的な構造を持つディレクトリがあり、
+その中の全てのファイルの改行コードを <tt>&#92;r&#92;n</tt> から <tt>&#92;n</tt> に換えたいときは、
+
+<pre class='samp'>
+$ for_all ms2unix win_texts
+</pre>
+
+とすればできます。
+<tt>for_all</tt> の第一引数は手続きなので、手続きを変えることによりいろいろなことができます。
+例えば、ディレクトリ <tt>dir1</tt> 以下のファイル名と内容を全部表示させたいときは、
+次のようなスクリプトを <tt>for_all</tt> の第一変数に渡して
+これを実行します。
+<p>
+<tt>[name_cat]</tt>
+<pre class='code'>
+#! /bin/bash
+
+echo "[ $1 ]"
+cat $1
+echo "[EOF]"
+echo""
+</pre>
+
+<pre class='samp'>
+$ for_all name_cat dir1
+</pre>
+<p>
+また、<tt>for_all</tt> をちょっと改良すると特定の拡張子のファイルだけを処理するようにもできます。
+試してみてください。
+<p>
+
+<tt>for_all</tt> は以下の２つの理由で関数プログラミング風です。
+<ol>
+<li>内部で再帰関数 (<tt>rec</tt>) を使っている。
+<li>引数に手続きをとる高階関数。
+</ol>
+
+<tt>bash</tt> を関数プログラム風に使うのも楽しいですね。
+<br>
+なお今回のねたは、<a href='/gb/guestbook.php?id=183'>読者の方の書き込みから</a>着想を得ました。
+
+
+
+
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc29&t=%B4%D8%BF%F4%A5%D7%A5%ED%A5%B0%A5%E9%A5%DF%A5%F3%A5%B0%C5%AA%A4%CA%A5%B7%A5%A7%A5%EB%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

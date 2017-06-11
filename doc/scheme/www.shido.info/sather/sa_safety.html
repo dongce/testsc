@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!----
+-- $Id: sa_safety.html,v 1.2 2006/05/19 21:15:23 takafumi Exp $
+--->
+
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, safety, program by contract">
+<meta name="description" content="Sather の契約プログラミングについて。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 13. 契約プログラミング  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_except.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  12. 例外</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_gui.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+14. GUI プログラミング</a></td>
+
+<td><a rel=download href="point2.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_safety.html&t=Sather%3A%20%B7%C0%CC%F3%A5%D7%A5%ED%A5%B0%A5%E9%A5%DF%A5%F3%A5%B0' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 13. 契約プログラミング </h1>
+<hr>
+
+<!------------------------------------------
+- 準備中です。<br>
+- しばらくお待ちください。<p>
+- <img src='../images/under_construction.gif'>
+------------------------------------------->
+
+<h2>1. はじめに</h2>
+Sather は Eiffel から契約による設計 (DBC) を引き継ぎました
+DBC は呼び出し元が満たすべき条件 (precondition) と呼び出される側が保証すべき
+条件 (postcondition) からなっています。
+<p>
+Sather はそのほかに assert, invariant などの実行時安全ネットを用意しています。<p>
+
+これらの安全ネットを働かすかどうかはコンパイル時に決定することができます。
+詳しくは <a href='http://www.icsi.berkeley.edu/~sather/Documentation/Compiler/cs.man.html'>
+sacomp man page</a> をみてください。
+大規模プログラムを作成するときにはどんなバグが潜んでいるか予期できないので、
+なるべく安全ネットを働かせるようにしましょう。
+
+<h2>2. precondition</h2>
+呼び出し元が保証すべき条件です。この条件が満たされないとき呼び出される側は文句を言ってプログラムが終了します。<br>
+以下のコードは array.sa の一部です。大きさを指定して ARRAY のインスタンスを作るときは、大きさは非負である必要
+があります。
+
+<pre class='code'>
+   create(n:INT):SAME pre n&gt;=0 is 
+      <span class='comment'>-- Create a new array of size `n' all of whose elements are void.</span>
+      return new(n) end;
+</pre>
+
+<h2>3. postcondition</h2>
+呼び出された側が保証すべき条件です。この条件が満たされないと呼び出し側は文句を言ってプログラムが終了します。
+メッソドからの返り値は、予約語 '<tt>result</tt>' であらわします。<p>
+
+以下のコードは前に示した <a href='sa_immutable.html#point'>point.sa</a> にセーフティネットをつけたものの一部です。
+
+<pre class='code'>
+
+   const eta:FLT:= 0.00001;       <span class='comment'>-- 誤差の許容範囲</span>
+
+<span class='comment'>-- (中略)</span>
+
+   abs:FLT 
+      post result &gt;=0.0               <span class='comment'>-- 長さが正であることを確認</span>
+   is
+      return (x*x+y*y).sqrt;
+   end;
+
+   rotate(theta:FLT):SAME 
+      post result.abs/abs &gt; 1.0-eta and result.abs/abs &lt; 1.0+eta  <span class='comment'>-- 回転前後で原点からの距離の変化が</span>
+   is                                                                   <span class='comment'>-- 許容範囲以内に収まっていることを確認</span>
+      theta := y.atan2(x)+theta;
+      return #SAME(self.abs*theta.cos, self.abs*theta.sin);
+   end;
+</pre>
+
+<h2>4. assert</h2>
+メソッドの内部におきます。assert が false を返すと文句を言って終了します。<p>
+以下のコードも <a href='sa_immutable.html#point'>point.sa</a> にセーフティネットをつけたものの一部です。
+
+<pre class='code'>
+   out2file(a0,a1:ARRAY{POINT}) 
+      pre a0.size > 0 and a1.size > 0  <span class='comment'>-- 配列の大きさが 0 より大きい事を前提とする。</span>
+   is
+      f:FILE:=FILE::open_for_write(fout);
+      assert ~f.error;        <span class='comment'>-- ファイルが開けなければ文句を言って終了</span>
+      p0,p1:POINT;
+      i:INT;
+      loop
+	 i:=(a0.size+1).times!;
+	 if i = a0.size then i:=0; end;
+	 p0:=a0[i];
+	 p1:=a1[i];
+	 f + p0.x + "\t" + p0.y + "\t" + p1.x + "\t" + p1.y + "\n";
+      end;
+      f.close;
+   end;
+</pre>
+
+<h2>5. invariant</h2>
+<tt>invariant：BOOL</tt> は特殊なメソッドで、インスタンスがこれを満たさなくなると文句を言って終了します。
+あまり使われることはありません。また、Sather-1.2.2 ではうまく働かないみたいです。
+
+<h2>6. セーフティネット付 point.sa</h2>
+<a href='point2.tar.bz2'>付録</a>にセーフティネット付 point.sa (point2.sa) をつけておきますので遊んでみてください。
+コンパイルするときに -chk オプションをつけます。
+<pre class='samp'>
+$ sacomp -chk point2.sa -o point2
+</pre>
+
+<h2> 7. 終わりに</h2>
+今回は Sather の契約プログラミングについて述べてみました。これは大規模ソフトウェアを開発するときに有効な手法です。
+普段から pre, post, assert を使う癖をつけておくと良いかもしれません。
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_except.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  12. 例外</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_gui.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+14. GUI プログラミング</a></td>
+
+<td><a rel=download href="point2.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_safety.html&t=Sather%3A%20%B7%C0%CC%F3%A5%D7%A5%ED%A5%B0%A5%E9%A5%DF%A5%F3%A5%B0' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+</body></html>
+    
+
+
+
+

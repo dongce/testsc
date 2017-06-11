@@ -1,0 +1,502 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell, monad, MonadPlus, depth first search, breadth first search">
+<meta name="description" content="search in Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>Search using Haskell</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell8.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. Monad</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell10.html"><img src='../images/right_arrow.gif' class='arrow' border=0>10. 種々のデータ構造</a></td>
+<td><a rel=download href="easy_search.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell9.html&t=Search+using+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>9. 探索</h1> 
+<hr>
+ <!---------------------------------------------------->
+
+この文章では、探索問題を通じて、なぜ List に Monad があるのかを説明します。
+ 
+<h2> 1. 探索のおさらい</h2>
+ここで、探索 (search) とは
+<a href="http://hwb.ecc.u-tokyo.ac.jp/current/CDD1B8ECBDB82FCDADB8FEA5B0A5E9A5D5.html">
+有向グラフ</a>のある点（始点）からある点（終点）までの経路を（もしあれば）求めること
+を指します。<p>
+
+  探索のアルゴリズムには大きく分けて、深さ優先探索 (depth first search) と
+  幅優先探索 (breadth first search) の２つがあります。<p>
+
+	 深さ優先探索とは、終点にたどり着くか、行き止まりになるまで１つの経路を探索してから、
+	 次の経路を探索する方法です。プログラムが簡単なのと、メモリー量、計算時間が比較的短くて済むという
+	 特徴があります。ただし、最初に見つかった経路が最短経路だという保障はありません。
+	 行き止まりになったら元の地点に戻って他の可能性を探すことをバックトラックといいます。<p>
+
+		それに対し、幅優先探索とは、全ての可能性について一様に探索する手法です。
+		メモリーを消費し、比較的計算時間が長くかかりますが、
+		最初に見つかった経路が最短であることが保障されています。<p>
+
+		  また、両方の手法で、一度訪れた節を再び訪れないようにする必要があります。
+		  そうしないとループにはまってしまいます。<p>
+		  
+
+<h2> 2. 深さ優先探索</h2>
+深さ優先探索のプログラムを書く場合、バックトラックをどのように表現するかが
+  問題になります。Haskell では、バックトラックを表現するのに
+  <span class="monoblue">mplus</span> という総称関数を使います。
+  <span class="mono">mplus</span> は <span class="mono">class MonadPlus</span>
+  に定義されていて、<span class="mono">Maybe</span> と List が
+  <span class="mono">MonadPlus</span> の instance です。
+  <span class="mono">Maybe</span> の <span class="mono">mplus</span>
+  は最初に現れた <span class="mono">Just a</span>
+  を返し、List の <span class="mono">mplus</span> は <span class="mono">(++)</span> です。
+ 詳しくは Haskell 98 の 
+<a href="http://www.haskell.org/onlinelibrary/monad.html#sect20.2">
+  20.2 Class MonadPlus </a>を見てください。<p>
+  
+
+  深さ優先探索のコードを以下に示します。<p>
+[code 1]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">-- easy search</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     module EasySearch where
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     import Monad
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     type Graph = ([Int], [(Int, Int)])
+<span class="linenumber">08:</span>                
+<span class="linenumber">09:</span>     <span class="comment">-- graph with loop</span>
+<span class="linenumber">10:</span>     gr0 :: Graph
+<span class="linenumber">11:</span>     gr0 = ( [1,2,3,4,5,6,7,8,9],                                                        <span class="comment">-- nodes</span>
+<span class="linenumber">12:</span>             [(1,2),(1,3),(1,4),(2,5),(3,5),(3,6),(4,7),(5,1),(6,7),(6,8),(7,9),(8,4)])  <span class="comment">-- arrows</span>
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     find_next :: Int -&gt; Graph -&gt; [Int]
+<span class="linenumber">15:</span>     find_next k gr = map snd  $ filter ((==k) . fst)  (snd gr)
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>     <span class="comment">--------------------------------------------------------------------------</span>
+<span class="linenumber">18:</span>     <span class="comment">-- depth first search</span>
+<span class="linenumber">19:</span>     <span class="comment">--dfs :: Graph -&gt; Int -&gt; Int -&gt;  Maybe [Int]                            </span>
+<span class="linenumber">20:</span>     dfs :: Graph -&gt; Int -&gt; Int -&gt;  [[Int]]
+<span class="linenumber">21:</span>     dfs gr p0 p1 = dfs_aux gr p0 p1 []
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>     dfs_aux gr p0 p1 path 
+<span class="linenumber">24:</span>         | p0 == p1 = return (reverse (p1:path))
+<span class="linenumber">25:</span>         | otherwise = msum $
+<span class="linenumber">26:</span>                         map (\p -&gt; dfs_aux gr p p1 (p0:path))
+<span class="linenumber">27:</span>                            [ x | x &lt;- find_next p0 gr, not (x `elem` path)]
+</pre>
+
+[図 1]<br>
+  <center><img src="hs8gr.png"></center><p>
+
+<table border=1>
+   <tr>
+      <th>行</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>5</td>
+      <td> <span class="mono">module Monad</span> を import しています。このことによって class MonadPlus が使えるようになります。</td>
+   </tr>
+   <tr>
+      <td>7</td>
+      <td><span class="mono">([Int], [(Int, Int)])</span> に <span class="mono">Graph</span> という別名をつけます。 以降、<span class="mono">([Int], [(Int, Int)])</span>と書く代わりに <span class="mono">Graph</span> と書くことが出来ます。<span class="mono">Graph</span> は <span class="mono">[Int], [(Int, Int)]</span> の２つのリストからなる pair で、最初のリストは節、２番目は辺のリストです。</td>
+   </tr>
+   <tr>
+      <td>10--13</td>
+      <td>図１に示す構造を持つ有向グラフを定義します。</td>
+   </tr>
+   <tr>
+      <td>14--15</td>
+      <td><span class="monoblue">find_next</span> は <span class="mono">gr</span> に含まれる節 <span class="mono">k</span> に隣接する節のリストを返します。</td>
+   </tr>
+   <tr>
+      <td>16--19</td>
+      <td>深さ優先探索を行う関数 <span class="monoblue">dfs</span> の型宣言です。<span class="mono">Maybe [Int]</span> を返すか、 <span class="mono">[[Int]]</span>を返すか選ぶことが出来ます。</td>
+   </tr>
+   <tr>
+      <td>21</td>
+      <td><span class="mono">dfs</span> の定義があります。補助関数 <span class="mono">dfs_aux</span> を使って定義されています。</td>
+   </tr>
+   <tr>
+      <td>23--27</td>
+      <td><span class="mono">dfs_aux</span> の定義です。<span class="mono">dfs_aux</span> の型宣言は明示的に行わず、処理系に任せます。</td>
+   </tr>
+   <tr>
+      <td>23</td>
+      <td><span class="mono">dfs_aux</span> は４つの引数をとります。最初から順番に、グラフ (<span class="mono">gr</span>)、現在の節 (<span class="mono">p0</span>)、目的の節 (<span class="mono">p1</span>)、（降順の）たどってきた経路 (<span class="mono">path</span>) です。</td>
+   </tr>
+   <tr>
+      <td>24</td>
+      <td>もし、現在の節が目的の節と等しければ、経路 (<span class="mono">reverse (p1:path)</span>) を返します。</td>
+   </tr>
+   <tr>
+      <td>25</td>
+      <td>そうでなければ、<span class="mono">p0</span> に隣接する節で、まだ、訪れていないもの
+	(<span class="mono">[ x | x &lt;- find_next p0 gr, not (x `elem` path)]</span>) のリストについて深さ優先探索 (<span class="mono">dfs_axu</span>) を <span class="mono">map</span> し、その結果を <span class="mono">msum</span> します。</td>
+   </tr>
+</table>
+
+msum の定義は <a href="http://www.haskell.org/onlinereport/monad.html#section20.4">
+  Haskell 98 20. Monad</a> にあり、以下のようになっています。
+<pre class="def">
+msum  :: MonadPlus m => [m a] -> m a
+msum xs  =  foldr mplus mzero xs
+</pre>
+
+mzero, mplus の定義は以下の通りです。
+<pre class="def">
+-- Instances of MonadPlus
+
+instance  MonadPlus Maybe  where
+    mzero                 = Nothing
+
+    Nothing `mplus` ys    =  ys
+    xs      `mplus` ys    =  xs
+
+instance  MonadPlus []  where
+    mzero =  []
+    mplus = (++)
+</pre>
+msum は以下のような動作をします。
+<pre class="samp">
+msum [Nothin, Just 1, Just 2] &rArr; Just 1
+msum [[], [1], [2]] &rArr; [1, 2]
+</pre>
+
+
+  実行結果を以下に示します。<span class="mono">dfs</span>
+  が <span class="mono">Maybe [Int]</span> を返す型の場合は最初に見つかった経路が、
+  <span class="mono">[[Int]]</span> の場合は全ての経路が返ってきます。
+  [code 1] の 19, 20 行目を入れ替えるだけで
+  得られる結果を変えることが出来ます。
+<pre class="samp">
+<span class="comment">-- dfs :: Graph -&gt; Int -&gt; Int -&gt;  Maybe [Int] のとき</span>
+EasySearch&gt; dfs gr0 1 9
+Just [1,3,6,7,9]            <span class="comment">-- 最初に見つかった経路を返す。</span>
+
+<span class="comment">-- dfs :: Graph -&gt; Int -&gt; Int -&gt;  [[Int]] のとき</span>
+EasySearch&gt; dfs gr0 1 9
+[[1,3,6,7,9],[1,3,6,8,4,7,9],[1,4,7,9]]  <span class="comment">-- 見つかった経路全てのリストを返す。</span>
+</pre>
+
+<h2> 3. 幅優先探索</h2>
+幅優先探索では、探索する必要のある局面の待ち行列を使って探索を進めます。
+具体的には、待ち行列の最初の局面をとり、
+<ol>
+<li>その局面が終了条件を満たせば、
+その局面までの経路と残りの探索を <span class="mono">mplus</span> します。
+<li>そうでなければ、その局面から派生する局面を待ち行列の末尾に加えて探索を続けます。
+  </ol>
+コードを以下に示します。<p>
+[code 2]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">-- breadth first search</span>
+<span class="linenumber">02:</span>     bfs :: Graph -&gt; Int -&gt; Int -&gt; [[Int]]
+<span class="linenumber">03:</span>     <span class="comment">--bfs :: Graph -&gt; Int -&gt; Int -&gt; Maybe [Int]</span>
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     bfs gr p0 p1 = bfs_aux gr p1 [ x : [p0] | x &lt;- find_next p0 gr] 
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     bfs_aux _ _ [] = fail "no path"
+<span class="linenumber">08:</span>     bfs_aux gr p1 (path:queue)
+<span class="linenumber">09:</span>         | p0 == p1 =  (return (reverse path)) `mplus` (bfs_aux gr p1 queue)
+<span class="linenumber">10:</span>         | otherwise = bfs_aux gr p1 ( queue ++
+<span class="linenumber">11:</span>                                       [ x : path | x &lt;- find_next p0 gr, not (x `elem` path)])
+<span class="linenumber">12:</span>      where p0 = head path
+</pre>
+2,3 行目で幅優先探索を行う関数 bfs の型を宣言します。<br>
+5 行目は <span class="mono">bfs</span> の定義です。
+グラフ <span class="mono">gr</span> において、
+<span class="mono">p0</span> から <span class="mono">p1</span> への経路は、<br>
+<span class="mono">bfs_aux gr p1 [ x : [p0] | x &lt;- find_next p0 gr]</span><br>
+で定義されます。<br>
+7--11 行目は <span class="mono">bfs_aux</span> の定義です。
+<span class="mono">bfs_aux</span> はグラフ (<span class="mono">gr</span>)、
+終点 (<span class="mono">p1</span>)、待ち行列の３つの
+引数をとります。もし、待ち行列が空なら <span class="mono">fail</span> を返します。そうでなければ、
+待ち行列の最初の項をとりだし、それの最初の項 (<span class="mono">p0</span>) が
+終点 (<span class="mono">p1</span>) と等しければ経路を <span class="mono">return</span> し、
+それと残りの探索を <span class="mono">mplus</span> します。
+<span class="mono">p0</span> と <span class="mono">p1</span>
+が等しくなければ、待ち行列 (<span class="mono">queue</span>)
+に、<span class="mono">p0</span> から派生する局面のリスト<br>
+ <span class="mono">([ x : path | x &lt;- find_next p0 gr, not (x `elem` path)])</span> <br>を加えて
+探索を続けます。<p>
+
+  実行例を以下に示します。<span class="mono">dfs</span> の場合と同様に、
+  <span class="mono">bfs</span> の型によって、返る値が違ってきます。
+<pre class="samp">
+<span class="comment">-- bfs :: Graph -&gt; Int -&gt; Int -&gt;  Maybe [Int] のとき</span>
+EasySearch&gt; bfs gr0 1 9
+Just [1,4,7,9]                <span class="comment">-- 最短経路を返す。</span>
+
+<span class="comment">-- bfs :: Graph -&gt; Int -&gt; Int -&gt;  [[Int]] のとき</span>
+EasySearch&gt; bfs gr0 1 9
+[[1,4,7,9],[1,3,6,7,9],[1,3,6,8,4,7,9]]    <span class="comment">-- 見つかった経路全てのリストを短い順に返す。</span>
+</pre>
+これらのことから、Monad を使えば、Maybe 型と List 型は全く同じに取り扱える
+ことが分かります。つまり、List の Monad が定義されていることによって、
+コードの再利用が促進されます。
+<h2> 4. 三夫婦の川渡り問題</h2>
+探索問題の実際例として、三夫婦の川渡り問題を考えます。<p>
+  一般に川渡り問題というのは、
+  ２人乗り（N&gt;2 人乗りの場合もある）のボートを用いて、許されない組み合わせを回避しながら全員を対岸に渡す際の
+最短経路を求める問題です。<p>
+	 三夫婦の川渡り問題の場合は、夫がいないときに妻が他の男といるのは許されないと
+	 いう制約がつきます。<p>
+
+	最短経路を求める問題なので、幅優先探索で解くことにします。
+	プログラムを容易にするために、３人の夫に正の整数 <span class="mono">1,2,3</span> の、
+		彼らの妻に絶対値が等しい負の整数 <span class="mono">-1, -2, -3</span> の番号をつけます。
+		<p>
+
+		  さらに、３組の夫婦が等価であることを利用して探索する局面の
+数を減らします。３組の夫婦は等価なので、岸の状態は、夫の人数、妻の人数、夫婦の数、
+ボートの有無のみで区別され、どの夫婦がいるかは経路を求める際に考慮する必要はありません。
+ <span class="mono">data 型 River</span> を定義し、
+ 上で述べた方針で <span class="mono">River の Eq</span> を定義します。こうすると
+		  探索する局面の数が著しく減少します。<p>
+
+			 コードを以下に示します。<p>
+
+
+[code 3]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">---------------------------------------------------------------------------</span>
+<span class="linenumber">02:</span>     <span class="comment">-- river_cross.hs</span>
+<span class="linenumber">03:</span>     <span class="comment">--       by T.Shido (shido_takafumi@ybb.ne.jp)</span>
+<span class="linenumber">04:</span>     <span class="comment">--</span>
+<span class="linenumber">05:</span>     <span class="comment">-- Getting one of the shortest path for the river crossing puzzle of three couples:</span>
+<span class="linenumber">06:</span>     <span class="comment">-- three couples are going to cross a river using a boat under following conditions.</span>
+<span class="linenumber">07:</span>     <span class="comment">-- 1) the boat is two-seated</span>
+<span class="linenumber">08:</span>     <span class="comment">-- 2) All wives should be with their husbands if other men are with them.</span>
+<span class="linenumber">09:</span>     <span class="comment">--</span>
+<span class="linenumber">10:</span>     <span class="comment">-- In this program, the husbands are represented by 1, 2, and 3, and</span>
+<span class="linenumber">11:</span>     <span class="comment">-- their wives are by -1, -2, and -3. </span>
+<span class="linenumber">12:</span>     <span class="comment">-----------------------------------------------------------------------------</span>
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     module Main where
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     import List
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     data River = River {
+<span class="linenumber">19:</span>                           this :: [Int],         <span class="comment">-- the river side where people are at the beginning</span>
+<span class="linenumber">20:</span>                           that :: [Int],         <span class="comment">-- the river side where people are at the end</span>
+<span class="linenumber">21:</span>                           boat :: Bool           <span class="comment">-- if the boat is at `this' </span>
+<span class="linenumber">22:</span>                        } deriving Show
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>     <span class="comment">-- </span>
+<span class="linenumber">25:</span>     instance Eq River where
+<span class="linenumber">26:</span>         r1 == r2 = n_hus this1 == n_hus this2 &&
+<span class="linenumber">27:</span>                    n_wif this1 == n_wif this2 &&
+<span class="linenumber">28:</span>                    n_cop this1 == n_cop this2 &&
+<span class="linenumber">29:</span>                    boat r1 == boat r2
+<span class="linenumber">30:</span>          where this1 = this r1
+<span class="linenumber">31:</span>                this2 = this r2
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>     <span class="comment">----</span>
+<span class="linenumber">34:</span>     n_hus :: [Int] -&gt; Int
+<span class="linenumber">35:</span>     n_hus = length . (filter (&gt;0))
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>     n_wif :: [Int] -&gt; Int
+<span class="linenumber">38:</span>     n_wif = length . (filter (&lt;0))
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>     n_cop :: [Int] -&gt; Int
+<span class="linenumber">41:</span>     n_cop [] = 0
+<span class="linenumber">42:</span>     n_cop (x:xs) = (if (negate x) `elem` xs then 1 else 0) + n_cop xs
+<span class="linenumber">43:</span>     
+<span class="linenumber">44:</span>     <span class="comment">---</span>
+<span class="linenumber">45:</span>     remove_couple :: [Int] -&gt; [Int]
+<span class="linenumber">46:</span>     remove_couple [] = []
+<span class="linenumber">47:</span>     remove_couple (x:xs) = if elem x' xs 
+<span class="linenumber">48:</span>                                then remove_couple (delete x' xs)
+<span class="linenumber">49:</span>                                else x : (remove_couple xs)
+<span class="linenumber">50:</span>      where x' = negate x
+<span class="linenumber">51:</span>     
+<span class="linenumber">52:</span>     <span class="comment">--- check if the river situation is safe</span>
+<span class="linenumber">53:</span>     safe :: River -&gt; Bool
+<span class="linenumber">54:</span>     safe' :: [Int] -&gt; Bool
+<span class="linenumber">55:</span>     
+<span class="linenumber">56:</span>     safe river = safe' (this river) && safe' (that river) 
+<span class="linenumber">57:</span>     safe' ls =  all (&lt;0) ls || all (&gt;0) (remove_couple ls)
+<span class="linenumber">58:</span>     
+<span class="linenumber">59:</span>     <span class="comment">--- breadth first search for river crossing</span>
+<span class="linenumber">60:</span>     river_bfs :: [River] -&gt; [[River]] -&gt; [River]
+<span class="linenumber">61:</span>     river_bfs _ [] = []
+<span class="linenumber">62:</span>     river_bfs track (path:qs)
+<span class="linenumber">63:</span>         | this now == [] = reverse path
+<span class="linenumber">64:</span>         | otherwise = river_bfs (now:track)
+<span class="linenumber">65:</span>                          (qs ++ [ next:path | next &lt;- update_river now, next `notElem` track])
+<span class="linenumber">66:</span>      where now = head path
+<span class="linenumber">67:</span>     
+<span class="linenumber">68:</span>     <span class="comment">--- return the list of possible situation</span>
+<span class="linenumber">69:</span>     update_river :: River -&gt; [River]
+<span class="linenumber">70:</span>     update_river = nub . (filter safe) . choices
+<span class="linenumber">71:</span>     
+<span class="linenumber">72:</span>     <span class="comment">--- return the list of next river situation</span>
+<span class="linenumber">73:</span>     choices :: River -&gt; [River]
+<span class="linenumber">74:</span>     choices river = [ River{
+<span class="linenumber">75:</span>                              this = (if boat river then (\\) else (++)) (this river) x,
+<span class="linenumber">76:</span>                              that = (if boat river then (++) else (\\)) (that river) x,
+<span class="linenumber">77:</span>                              boat = not (boat river)}
+<span class="linenumber">78:</span>                            | x &lt;- group ls0 ++                 <span class="comment">-- x is people who ride boat.</span>
+<span class="linenumber">79:</span>                                   filter safe' [[x, y] | x &lt;- ls0, y &lt;- (fst . (break (==x))) ls0]]  
+<span class="linenumber">80:</span>      where ls0 = (if boat river then this else that) river
+<span class="linenumber">81:</span>     
+<span class="linenumber">82:</span>     <span class="comment">---</span>
+<span class="linenumber">83:</span>     main :: IO()
+<span class="linenumber">84:</span>     main =  mapM_ print (river_bfs [] [[River{ this = [-3,-2,-1,1,2,3],
+<span class="linenumber">85:</span>                                                that = [],
+<span class="linenumber">86:</span>                                                boat = True }]])
+</pre>
+
+簡単な説明
+<table border =1, class="mono">
+   <tr>
+      <th>行</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>14</td>
+      <td>module List を import する。List 用の種種の関数が使えるようになる。</td>
+   </tr>
+   <tr>
+      <td>18--22</td>
+      <td>data River を名前付きフィールドを用いて定義する。
+this は初めの岸にいる人のリスト、that は向こう岸にいる人のリストboat はボートが
+初めの岸にあれば True。</td>
+   </tr>
+   <tr>
+      <td>25--31</td>
+      <td> data River の Eq を定義する。this の夫、妻、夫婦の数が等しく、boat が
+等しければ２つの River は等しい。</td>
+   </tr>
+   <tr>
+      <td>34--35</td>
+      <td> 夫の数を求める。</td>
+   </tr>
+   <tr>
+      <td>37--38</td>
+      <td> 妻の数を求める。</td>
+   </tr>
+   <tr>
+      <td>40--42</td>
+      <td> 夫婦の数を求める。</td>
+   </tr>
+   <tr>
+      <td>45--50</td>
+      <td> リストから夫婦を取り除いたリストを返す。<br>
+          remove_couple [-1,1,2,3] &rArr; [2,3]</td>
+   </tr>
+   <tr>
+      <td>54,57</td>
+      <td> 引数が許容される組み合わせであるか調べる。許容されれば True</td>
+   </tr>
+   <tr>
+      <td>53,56</td>
+      <td> River が許容される常態か調べる。</td>
+   </tr>
+   <tr>
+      <td>60--66</td>
+      <td> 幅優先探索を行う。最短経路を返すだけなら Monad を使う必要はない。<br>
+river_bfs は探索した局面のリスト (track) と経路の待ち行列の
+２つの引数を取る。待ち行列が [] なら [] を返す。
+待ち行列が (path:qs) なら、
+<ol>
+<li> もし、元の岸に誰もいなかったら (this now == []) 経路 (reverse path) を返す。
+  <li> そうでなかったら、now から生成する局面 (next) で、まだ探索されていないもの
+	 <span class="mono">(next `notElem` track)</span> を待ち行列の末尾に加え、探索を繰り返す。
+	 </ol>
+ここで now は head path である。</td>
+   </tr>
+   <tr>
+      <td>69--70</td>
+      <td> River の局面から次の可能な局面を生成して返す。<br>
+まず、choices でボートを動かすことによって生成する全ての局面を生成し、
+それを safe を使って filtering する。さらに、nub で等価な局面を取り除く。</td>
+   </tr>
+   <tr>
+      <td>73--80</td>
+      <td> ボートを動かすことによって生成する全ての River を返す。
+ボートが初めの岸にあれば、this から、向こう岸にあれば that から
+許容される組み合わせの１人か２人選んで対岸に渡す。<br>
+(\\) は２つの引数の差集合を返す。 <span class="mono">[1,2,3] \\ [1] &rArr; [1,2]</span><br>
+		  group は引数の要素をリストにして返す。
+		  <span class="mono">group [1,2,3] &rArr; [[1], [2], [3]]</span><br>
+		  つまり、<span class="mono">group ls0</span> はボートに１人乗っている場合、<br>
+		  <span class="mono">filter safe' [[x, y] | x &lt;- ls0, y &lt;- (fst . (break (==x))) ls0]</span><br>
+		  はボートに２人乗っている場合である。
+		  
+		</td>
+   </tr>
+   <tr>
+      <td>83--86</td>
+      <td>main 関数。mapM_ print で結果を表示。</td>
+   </tr>
+</table><p>
+実行例: 11 ステップで渡河が完了します。
+<pre class="samp">
+D:\doc\05-04\hs&gt;runhugs river_cross.hs
+River{this=[-3,-2,-1,1,2,3],that=[],boat=True}   <span class="comment">-- initial, step 0</span>
+River{this=[-3,1,2,3],that=[-1,-2],boat=False}
+River{this=[-2,-3,1,2,3],that=[-1],boat=True}
+River{this=[1,2,3],that=[-3,-2,-1],boat=False}
+River{this=[-1,1,2,3],that=[-3,-2],boat=True}
+River{this=[-1,1],that=[3,2,-3,-2],boat=False}
+River{this=[-2,2,-1,1],that=[3,-3],boat=True}
+River{this=[-2,-1],that=[1,2,3,-3],boat=False}
+River{this=[-3,-2,-1],that=[1,2,3],boat=True}
+River{this=[-3],that=[-1,-2,1,2,3],boat=False}
+River{this=[-2,-3],that=[-1,1,2,3],boat=True}
+River{this=[],that=[-3,-2,-1,1,2,3],boat=False}  <span class="comment">-- final, step 11</span>
+</pre>
+気が向いたら、このプログラムを改造して、
+<a href="http://quiz-tairiku.com/logic/q10.html#q47">宣教師と人食い人種</a>版を作ってみてください。
+禁制条件がシンプルなのでプログラムはむしろ短くなります。
+<h2> 5. 終わりに</h2>
+この文章では、List に Monad があると探索（特に深さ優先探索）に便利な
+ことを説明しました。また、探索問題の実際的？な例として、三夫婦の
+川渡り問題を取り上げました。
+  <a href="easy_search.lzh">付録</a>にコードがありますので気が向いたら遊んでみてください。<p>
+
+  探索問題については
+  <ol>
+<li><a href="http://ray.sakura.ne.jp/search_problem/depth_breadth.html">
+  Depth first search と Breadth first search</a>
+<li><a href="http://www.cs.sunysb.edu/~skiena/combinatorica/animations/search.html">
+Breadth First Search/Depth First Search Animations</a>
+  </ol>
+  などを見てください。<p>
+また、 川渡り問題については
+	 <ol>
+<li><a href="http://quiz-tairiku.com/logic/river_cf.html">川渡りパズル研究</a>
+  </ol>
+を見て下さい。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell8.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. Monad</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell10.html"><img src='../images/right_arrow.gif' class='arrow' border=0>10. 種々のデータ構造</a></td>
+<td><a rel=download href="easy_search.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell9.html&t=Search+using+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>

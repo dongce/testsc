@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, Symbol">
+<meta name="description" content="Data type symbol on Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> 12. Symbols </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_cs_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  11. Characters and Strings</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_ah_e.html">
+<img src='../images/right_arrow.gif' class='arrow' border=0>13. Association Lists and Hash Tables</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_sym_e.html&t=%28Scheme%29+Symbols' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1>12. Symbols </h1>
+<hr>
+<h2>1. Introduction </h2>
+I will explain about data type symbol which is characteristic
+to Lisp/Scheme programming languages.
+Symbols are data that manage strings by their addresses.
+Symbols can be treated by fast functions such as <tt>eq?</tt>,
+while bare strings should be treated by slow functions such as <tt>equal?</tt>.
+
+As symbols can be compared quickly, they are used as keys for 
+association lists and hash tables, which I will explain in the next chapter.
+
+<h2>2. Basic functions for symbols</h2>
+Followings are basic functions for symbols.
+<dl>
+  <dt><span class='ttb'>(symbol? <var>x</var>)</span></dt>
+      <dd> It returns <tt>#t</tt> when <var>x</var> is a symbol.</dd>
+  <dt><span class='ttb'>(string->symbol <var>str</var>)</span></dt>
+      <dd> It converts <var>str</var> to a symbol. 
+	The <var>str</var> should be lower-cased otherwise addressing system may not work properly.<br>
+        In the MIT-Scheme, <tt>(string->symbol "Hello")</tt> and <tt>'Hello</tt> are different.
+<pre class="samp">
+(eq? (string->symbol "Hello") 'Hello)
+;Value: ()
+
+(eq? (string->symbol "Hello") (string->symbol "Hello"))
+;Value: #t
+
+(symbol->string  (string->symbol "Hello"))
+;Value 15: "Hello"
+</pre></dd>
+  <dt><span class='ttb'>(symbol->string <var>sym</var>)</span></dt>
+      <dd> It converts <var>sym</var> to a string.</dd>
+</dl>
+
+<h2>3. Counting words in a text</h2>
+Following code shows a program that counts words in a text, which is frequently used 
+as an example of using symbols.
+This program uses a hash table and association lists, which are
+explained in the <a href='scheme_ah_e.html'>next chapter</a>.
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber">02:</span>     <span class="comment">;;;   wc.scm</span>
+<span class="linenumber">03:</span>     <span class="comment">;;;   a scheme word-count program</span>
+<span class="linenumber">04:</span>     <span class="comment">;;;</span>
+<span class="linenumber">05:</span>     <span class="comment">;;;    by T.Shido</span>
+<span class="linenumber">06:</span>     <span class="comment">;;;    on August 19, 2005</span>
+<span class="linenumber">07:</span>     <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     (define (list->symbol ls0)
+<span class="linenumber">10:</span>       (string->symbol (list->string (reverse! ls0))))
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     (define (char-in c . ls)
+<span class="linenumber">13:</span>       (let loop((ls0 ls))
+<span class="linenumber">14:</span>         (if (null? ls0)
+<span class="linenumber">15:</span>             #f
+<span class="linenumber">16:</span>           (or (char=? c (car ls0))
+<span class="linenumber">17:</span>               (loop (cdr ls0))))))
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     (define (read-words fname)
+<span class="linenumber">20:</span>       (with-input-from-file fname
+<span class="linenumber">21:</span>         (lambda ()
+<span class="linenumber">22:</span>           (let loop((w '()) (wls '()))
+<span class="linenumber">23:</span>             (let ((c (read-char)))
+<span class="linenumber">24:</span>     	  (cond
+<span class="linenumber">25:</span>     	   ((eof-object? c)
+<span class="linenumber">26:</span>                 (reverse! (if (pair? w)
+<span class="linenumber">27:</span>                               (cons (list->symbol w) wls)
+<span class="linenumber">28:</span>                             wls)))
+<span class="linenumber">29:</span>     	   ((char-in c #\Space #\Linefeed #\Tab #\, #\.  #\ #\( #\) #\= #\? #\! #\; #\:)
+<span class="linenumber">30:</span>                 (loop '() (if (pair? w)
+<span class="linenumber">31:</span>                               (cons (list->symbol w) wls)
+<span class="linenumber">32:</span>                             wls)))
+<span class="linenumber">33:</span>     	   (else
+<span class="linenumber">34:</span>     	    (loop (cons (char-downcase c) w) wls))))))))
+<span class="linenumber">35:</span>     
+<span class="linenumber">36:</span>     (define (sort-by-frequency al)
+<span class="linenumber">37:</span>       (sort al (lambda (x y) (&gt; (cdr x) (cdr y)))))
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>     (define (wc fname)
+<span class="linenumber">40:</span>       (let ((wh (make-eq-hash-table)))
+<span class="linenumber">41:</span>         (let loop((ls (read-words fname)))
+<span class="linenumber">42:</span>           (if (null? ls)
+<span class="linenumber">43:</span>               (sort-by-frequency (hash-table->alist wh))
+<span class="linenumber">44:</span>             (begin
+<span class="linenumber">45:</span>              (hash-table/put! wh (car ls) (1+ (hash-table/get wh (car ls) 0)))
+<span class="linenumber">46:</span>              (loop (cdr ls)))))))
+</pre>
+
+
+<pre class='samp'>
+(wc "opensource.txt")
+&rArr;
+((the . 208) (to . 142) (a . 104) (of . 103) (and . 83) (that . 75) (is . 73) (in . 65) (i . 64)
+(you . 55) (it . 54) (they . 48) (for . 46) (what . 38) (work . 37) (but . 35) (have . 32) (on . 32)
+(people . 32) (are . 30) (be . 29) (do . 29) (from . 27) (so . 26) (like . 25) (as . 25) (by . 24)
+(source . 24) (not . 23) (open . 23) (can . 23) (we . 22) (was . 22) (one . 22) (it's . 22) (an . 21)
+(this . 20) (about . 20) (business . 18) (working . 18) (most . 17) (there . 17) (at . 17) (with . 16)
+(don't . 16) (just . 16) (their . 16) (something . 15) (than . 15) (has . 15) (if . 15) (when . 14)
+(because . 14) (more . 14) (were . 13) (office . 13) (own . 13) (or . 12) (online . 12) (now . 12)
+(blogging . 12) (how . 12) (employees . 11) (them . 11) (think . 11) (time . 11) (company . 11)
+(lot . 11) (want . 11) (companies . 10) (could . 10) (know . 10) (get . 10) (learn . 10) (better . 10)
+(some . 10) (who . 10) (even . 9) (thing . 9) (much . 9) (no . 9) (make . 9) (up . 9) (being . 9)
+(money . 9) (relationship . 9) (that's . 9) (us . 9) (anyone . 8) (average . 8) (bad . 8) (same . 8)
+..........)
+</pre>
+
+Comments:
+<table border=1>
+   <tr>
+      <th>line</th>
+      <th>function</th>
+      <th>comment</th>
+   </tr>
+   <tr>
+      <td>09</td>
+      <td><tt>(list-&gt;symbol <var>ls0</var>)</tt></td>
+      <td>Converting a list of characters (<var>ls0</var>) to a symbol.</td>
+   </tr>
+   <tr>
+      <td>12</td>
+      <td><tt>(char-in <var>c</var> . <var>ls</var>)</tt></td>
+      <td>Checking if a character (<var>c</var>) exists in a list (<var>ls</var>).
+          Returning <tt>#t</tt> if it exists otherwise <tt>#f</tt>.</td>
+   </tr>
+   <tr>
+      <td>19</td>
+      <td><tt>(read-words <var>fname</var>)</tt></td>
+      <td>Reading a file named  <var>fname</var> and returning a list of symbols.
+          The function converts caps to lowers and converts a list of characters (<var>w</var>) 
+          to a symbol and adds it to a list of symbols (<var>wls</var>).
+     </td>
+   </tr>
+   <tr>
+      <td>36</td>
+      <td><tt>(sort-by-frequency <var>al</var>)</tt></td>
+      <td>Sorting association lists (<var>al</var>)
+           by frequency of appearance  in descending order.</td>
+   </tr>
+   <tr>
+      <td>39</td>
+      <td><tt>(wc <var>fname</var>)</tt></td>
+      <td>It reads a file named <var>fname</var> and returns a sorted association list by frequency in descending order.
+          As the function uses symbol, <tt>eq-hash-table</tt> is applicable  which uses 
+          fast <tt>eq?</tt> to compare keys (line 40).
+          The function counts words in the list of words created by <tt>read-words</tt> 
+          and stores in a hash table (lines 44&ndash;46).
+          It converts the hash-table to a association list and sorts it when the counting has been finished (line 43).
+       </td>
+   </tr>
+</table>
+<h2>4. Summary</h2>
+Symbol is a characteristic data type of Lisp/Scheme and 
+is used to analyze text (such word count, parsing, so on), because
+fast functions are available for this data type.
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_cs_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  11. Characters and Strings</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_ah_e.html">
+<img src='../images/right_arrow.gif' class='arrow' border=0>13. Association Lists and Hash Tables</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_sym_e.html&t=%28Scheme%29+Symbols' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+

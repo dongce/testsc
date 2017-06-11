@@ -1,0 +1,319 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme 処理系, MIT-Scheme">
+<meta name="description" content="MIT-Scheme のインストール">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>Scheme 入門 1. Scheme 処理系のインストール </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0></a>
+<a rel=home href='http://www.shido.info/index.php'>HOME</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0></a>
+  <a rel=up href="idx_scm.html">もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme2.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0></a>
+<a rel=next href="scheme2.html">2. Scheme を電卓代わりに使う</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme1.html&t=Scheme+%C6%FE%CC%E7+1.+Scheme+%BD%E8%CD%FD%B7%CF%A4%CE%A5%A4%A5%F3%A5%B9%A5%C8%A1%BC%A5%EB' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 1. Scheme 処理系のインストール </h1>
+<hr>
+<h2>1. Scheme のすすめ </h2>
+Scheme を使うと、
+<ul>
+<li>美しいコードを書くことができます。
+<li>プログラミングが楽しくなります。
+  </ul>
+これが Scheme を習う唯一の理由です。
+  Scheme を使って実用的なプログラムを書こうとするとあてが外れるでしょう。
+<!-- <small>(もっとも、最近では仕様の進歩と、処理系の独自拡張により Scheme でも実用的なプログラムが書けるようになってきました。)</small> -->
+<p>
+  しかし、優秀なハッカーは Scheme 好きが多いので、Scheme を習っておいて損は無いと思います。
+  実際、最も優れたコンピュータ科学の教科書の１つである
+    <a href='http://mitpress.mit.edu/sicp/'>Structure and Interpretation of Computer Programs (SICP)</a>
+    <a href='http://sicp.ipl.t.u-tokyo.ac.jp/'>日本語訳：計算機プログラムの構造と解釈</a>
+    のプログラム例も Scheme で書かれています。
+  また、GNU は拡張言語に <a href='http://www.gnu.org/software/guile/guile.html'>guile</a>
+    という Scheme を採用しています。
+  guile は MS-Word や Excell のマクロのようなもので、
+  簡単なスクリプトで、アプリケーションを制御できます。
+<p>
+  紫藤は Common Lisp の方が詳しいのですが、これから Lisp 系の言語を勉強しようという人には
+  Scheme の方がお勧めです。
+  理由は、
+<ol>
+  <li>仕様がコンパクトである。
+  <li> 文法が整っている。
+</ol>
+  の２つです。<p>
+
+<a href='http://www.catb.org/~esr/faqs/hacker-howto.html#skills1'>Scheme を習うと筋が良くなる</a>
+と言われています。たとえ Scheme そのものを仕事で使うことが
+    無いとしても、Scheme によって培われた筋のよさは、他の言語を使う場合でも役に立つでしょう。<p>
+
+  Scheme は人気のある言語なので、Scheme の入門サイトは数多くありますが、
+  どれも、まったくの初心者には少し難しいようです。
+
+  これから書く、一連の文書では、易しく、噛み砕いた説明を心がけます。
+    前提知識もほとんど必要としないように書こうと思っています。
+
+
+<h2>2. 想定読者</h2>
+コンピュータは使ったことがあるが、プログラミング経験が無い人を想定しています。
+テキストファイルの読み込みと保存ができる程度の知識は前提としています。<p>
+
+  具体的には、
+<ul>
+  <li> 情報系学科に入学したは良いが、いきなり Scheme を習わされて講義についていけない学生さん。
+  <li> Basic に飽き足らない人。ただし、Basic の知識は Scheme を習うときかえって障害になります。
+  <li> 普段は C 系言語 (C, C++, Java) を使っているが、他の言語にも手を広げたい人。
+  <li> 趣味でプログラミングを始め、まず、Scheme をマスターしようと決めた人。（こういう人もたまにはいるでしょう。）
+ </ul>
+
+を想定しています。<p>
+
+  scheme は文法が易しいので、簡潔に説明することができます。
+  しかしそうすると勾配がきつい解説になってしまうので、ここではゆっくりと
+  なだらかな勾配の解説を目指します。
+  
+やはり、初めは括弧だらけのコードに戸惑うかもしれません。
+(Scheme のコードがどんな感じかは例えば<a href='scheme_nqueen.html'>ここ</a>をみて下さい。)
+  しかし、適切なエディタを選べばカッコの対応、インデントは自動でやってくれるので
+  括弧を気にしないで読み書きできるようになります。
+  人間はインデントでコードを読みます。インデントがおかしいのは括弧の数がおかしいので、
+  エディタを使ってどの括弧がどれに対応するかを調べ、括弧の数がおかしいところを探します。
+
+  
+<h2>3. Scheme の仕様と処理系</h2>
+    OS は Windows 系 を想定しています。紫藤は Mac を持っていないので、Mac についてはわかりません。
+  また、Unix 系を使う人は自分がかなり詳しいか、詳しい人が知り合い（システム管理者）にいるでしょうから
+  その人に聞いてください（またはやってもらってください）。OS によって異なるのはインストールの方法だけで
+Scheme それ自体の使い方は同じです。<p>
+
+    Scheme にもいろいろな仕様があって、最近よく使われている仕様は
+R<sup>5</sup>RS と R<sup>6</sup>RS です。
+学習向けには R<sup>5</sup>RS で十分ですが、実用的なプログラムを書くには R<sup>6</sup>RS の方が便利でしょう。
+また、R<sup>6</sup>RS では、R<sup>5</sup>RS で明確でなかった点もきちんと規定されています。
+徐々に R<sup>6</sup>RS が普及していくと思うので、この入門記事では R<sup>6</sup>RS に準拠して記述します。
+<p>
+
+R<sup>n</sup>RS は Revised <b>n</b> Report on the Algorithmic Language Scheme の省略形で、
+それぞれ以下のサイトで見ることができます。
+<p>
+<table>
+   <tr>
+      <td>R<sup>5</sup>RS</td>
+      <td><a href='http://www.schemers.org/Documents/Standards/R5RS/HTML/r5rs.html'>原文</a></td>
+      <td>
+<a href='http://www.unixuser.org/~euske/doc/r5rs-ja/index.html'>翻訳</a></td>
+   </tr>
+   <tr>
+      <td>R<sup>6</sup>RS</td>
+      <td><a href='http://www.r6rs.org/'>原文</a></td>
+      <td><a href='http://practical-scheme.net/wiliki/wiliki.cgi?R6RS%3A%E7%BF%BB%E8%A8%B3'>翻訳</a></td>
+   </tr>
+</table>
+
+<p>
+
+また、<a href='http://srfi.schemers.org/'>Scheme Requests For Implementation</a> (SRFI) という標準化ライブラリもあります。
+R<sup>5</sup>RS が 言語のコアしか規定していなかったため、実装ごとに異なる拡張機能が生じ、実装間の互換性が低下しました。
+そこで、拡張機能の標準化を目指した SRFI が策定されました。
+
+
+<p>
+
+
+Windows で動く Scheme の処理系には
+      <a href='http://www.scheme.com/'>ChezScheme</a>,
+      <a href='http://www.plt-scheme.org/software/mzscheme/'>MzScheme</a>,
+      <a href='http://swissnet.ai.mit.edu/~jaffer/SCM.html'>SCM</a> などいろいろありますが、
+この講座ではインストールが簡単で、動作が早い
+      
+<a href='http://www.plt-scheme.org/software/mzscheme/'>MzScheme</a> の
+      を使用します。
+     MzScheme は最近広く用いられている scheme 処理系で、
+最新の仕様 R<sup>6</sup>RS にいち早く対応しています。
+また、SRFI もサポートしています。
+<p>
+
+<h2>4. MzScheme のインストール</h2>
+
+<h3>4.1. MzScheme のインストール</h3>
+MzScheme は <a href='http://download.plt-scheme.org/mzscheme/'>ここ</a> からダウンロードできます。
+ダウンロードしたファイルを実行すると MzScheme がインストールされます。<p>
+最後に、MzScheme.exe があるディレクトリに PATH を通しておきます。
+WinXP で PATH を通す方法は<a href='http://pocketstudio.jp/win/xp/path.html'>ここ</a>などを参考にしてください。
+(google で検索するといろいろとヒットします。)
+<p>
+また、後述する DrScheme を利用する場合は MzScheme も同時にインストールされます。
+そのため、MzScheme を単独でインストールする必要はありません。
+実は、MzScheme は PLT-Scheme という処理系のエンジン部分で、DrScheme は PLT-Scheme のフロントエンドです。
+PLT-Scheme をインストールすると MzScheme と DrScheme の両方がインストールされます。
+
+
+<h3>4.2.フロントエンドのインストール</h3>
+
+MzScheme をコマンドラインから起動して使うこともできますが、DrScheme や Emacs などの便利な
+フロントエンドがあり、それらを使うと作業が効率的に行えます。
+
+<h4>4.2.1. DrScheme (PLT Scheem のフロントエンド)</h4>
+
+DrScheme は <a href='http://download.plt-scheme.org/drscheme/'>http://download.plt-scheme.org/drscheme/</a>
+からダウンロードできます。
+ダウンロードしたファイルを実行すると DrScheme と MzScheme がインストールされます。
+インストールはこれでおしまいです。
+<br>
+スタート &rarr; 全てのプログラム &rarr; PLT Scheme &rarr; DrScheme で起動します。
+起動に若干時間がかかりますが、図 1 に示すような使い勝手のよいフロントエンドが現れます。
+
+
+<center>
+<img src='drscheme.png'>
+<br>
+図 1: DrScheme のスクリーンショット
+</center>
+<p>
+DrScheme の使用法は
+<a href='http://docs.plt-scheme.org/drscheme/index.html'>
+DrScheme: PLT Programming Environment</a>、
+<a href='http://www.score.is.tsukuba.ac.jp/lectures/STEC/DrScheme/index.html'>DrScheme クイックリファレンス</a>
+、
+ <a href='http://www.csg.is.titech.ac.jp/~kourai/lecture/drscheme/drscheme.html'>DrScheme の使い方</a>
+などを参考にしてください。
+<p>
+インストーラを使って簡単にインストールでき、余計な設定作業がなく、すぐに使い始めることができるので、
+多くの人にお勧めです。
+
+<a name='emacs'>
+<h4>4.2.2. Emacs</h3>
+
+もうひとつのお勧めのフロントエンドは <a href='http://www.gnu.org/software/emacs/emacs.html'>Emacs</a> です。
+Emacs は高機能のエディタで、プログラム開発に広く使われています。
+<p>
+Emacs を使うと将来 Scheme 処理系を変更したときも、同じ Emacs とカスタマイズした設定が使えます。
+他の処理系を試してみたい人には Emacs の方が便利だと思います。
+(ちなみに 紫藤は Scheme プログラムの作成には Emacs を使っています。)
+<p>
+Windows 版 Emacs は <a href='ftp://ftp.gnu.org/gnu/emacs/windows/'>ftp://ftp.gnu.org/gnu/emacs/windows/</a>
+からダウンロードできます。2008/06/29 現在の最新版
+<a href='ftp://ftp.gnu.org/gnu/emacs/windows/emacs-22.2-bin-i386.zip'>
+ emacs-22.2-bin-i386.zip</a> をダウンロードして、好きなディレクトリに解凍するだけでインストール完了です。
+解凍して生成した bin/runemacs.exe のショートカットをディスクトップに作っておくと便利でしょう。
+
+最後に emacs と MzScheme の 初期化ファイルを編集してセットアップ終了です。<br>
+
+<h5> .emacs の編集</h5>
+<tt>C:\Documents and Settings\<em>USER</em>\Application Data\.emacs</tt>
+<br>
+(Vista の場合は <tt>C:\Users\<em>USER</em>\Application Data\.emacs</tt>)
+<br>
+に 次の設定を追加しておくと便利です。<em>USER</em> は ログインユーザ名です。
+<p>
+
+<a name='dot_emacs'>
+[.emacs に追加する設定]
+<pre class='code'>
+(show-paren-mode t)  ; 対応する括弧を表示する
+(setq scheme-program-name "C:/Program Files/MzScheme/MzScheme.exe") ; run-scheme で動かす処理系
+
+; もし上の設定でうまくいかなかった場合は C:/Program Files/MzScheme に PATH を通して、
+; (setq scheme-program-name "MzScheme.exe")
+; を試してみてください。
+
+(autoload 'run-scheme "cmuscheme" "Run an inferior Scheme process." t)
+
+(define-key global-map "\C-cs" 'run-scheme) ; C-c s で emacs 上で MzScheme が走るようにする
+
+;; Emacs を scheme 専用に使う時には以下を追加すると便利
+(setq inhibit-startup-message t)  ; 起動画面を表示しない
+
+(run-scheme scheme-program-name)  ; 起動時にいきなり scheme 処理系を走らせる
+
+</pre>
+<h5> mzschemerc.ss の編集</h5>
+<tt>C:\Documents and Settings\<em>USER</em>\mzschemerc.ss</tt>
+を編集または作成し、以下のコードを書きます。
+これをしないとエラー表示が Emacs 上に現れなくなります。
+MzScheme の初期化ファイルを確認するには、MzScheme 上で
+<pre class='samp'>
+&gt;  (find-system-path 'init-file  )   <span class='comment'>; これで、初期化ファイルのパスがわかる</span>
+<span class='response'>#&lt;path:C:\Documents and Settings\USER\mzschemerc.ss&gt;</span>
+</pre>
+とします。
+
+<p>
+[mzschemerc.ss に追加するコード]
+<pre class='code'>
+(current-error-port  (current-output-port))
+</pre>
+
+
+
+
+これで、準備完了です。
+Scheme のコードの作成と、テストを Emacs の内部でできるので便利です。
+図 2 にスクリーンショットを示します。
+上のウィンドウでコードを編集し、下のウィンドウで実行します。
+この環境を使うと関数単位でテストできるのでストレスなくプログラムを書くことができます。<br>
+
+<p>
+<a href='scheme_emacs.html'>
+Appendix 6
+</a>
+に Emacs の使い方を書いておきました。
+参考にしてください。
+<br>
+
+<center style='margin:15pt'>
+<img src='emacs.png'><br>
+図 2: emacs 上で scheme のコードを編集し、テストしているところ
+</center>
+
+
+
+
+
+
+
+
+<h2>5. 終わりに</h2>
+特に難しい点は
+無いので、無事、インストールできたことと思います。
+次回は、インストールした処理系を電卓代わりに使ってみます。<p>
+
+ Scheme に関する本やサイトは<a href='scheme_resources.html'>ここ</a>
+にまとめておいたので、参考にしてください。
+
+
+  
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme2.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>2. Scheme を電卓代わりに使う</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme1.html&t=Scheme+%C6%FE%CC%E7+1.+Scheme+%BD%E8%CD%FD%B7%CF%A4%CE%A5%A4%A5%F3%A5%B9%A5%C8%A1%BC%A5%EB' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+
+</body>
+</html>
+

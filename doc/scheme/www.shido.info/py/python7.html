@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, class, object orientated programming">
+<meta name="description" content="Object orinentated programming using Python">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Python のクラスシステム </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="8queen_py.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python7.html&t=Python+%A4%CE%A5%AF%A5%E9%A5%B9%A5%B7%A5%B9%A5%C6%A5%E0' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>Python のクラスシステム</h1> 
+<hr>
+<h2>1. 初めに</h2>
+この文書の目的は、
+Python で自前の class を作るとき、メソッドの第一引数がそのクラスのインスタンスそれ自身
+（一般に <span class='mono'>self</span> と書かれる）
+であることの理由を説明することです。<p>
+
+他の言語ではメソッドを定義するときに第一引数をインスタンスにするという方法は取り入れておらず、
+  <span class='mono'>this</span> などの予約語を使ってインスタンスを表すのが一般的です。
+Python だけが、独自の流儀をとっています。
+しかし、このことを説明したサイトは見当たりませんでした。
+  どのサイトも<b>それは決まりごとだ</b>で済ませてしまっています。
+しかし、それではどうも Python のクラスシステムを理解した気になれないので、Python でクラスシステムが
+  どのように実装しているか推測しながら、例の <span class='mono'>self</span> について説明したいと思います。<p>
+    
+<h2>2.  オブジェクト指向プログラミングの復習</h2>
+オブジェクトとは、データとそれを操作する手続きをまとめたものです。
+オブジェクトに属するデータと手続きをまとめてオブジェクトの属性といいます。
+オブジェクトは階層構造を持ち、一番下の階層をインスタンスと呼び、
+それより上の階層をクラスと呼びます。
+クラスも階層構造になっており、下の階層のクラスは上の階層のクラスの属性を受け継ぎます(継承といいます）。
+また、必要に応じて上の階層の属性を再定義することができます。
+親クラスを複数持つことを許す言語と、親クラスを1つに限定する言語があります。
+Python は複数の親クラスを許します（多重継承ありといいます）。<p>
+  
+詳しくは、
+<a href='http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0'>Wikipedia (日本語）</a> や、
+<a href='http://en.wikipedia.org/wiki/Object_orientated_programming'>Wikipedia (英語）</a>
+を見てください。詳しく解説されています。
+
+<h2>3. Python のクラスの普通の書き方</h2>
+まず、普通に Python のクラスシステムを使ってプログラムを書いてみましょう。<p>
+  
+IT 企業を自認する 'LiveGate' ではたくさんの IT 技術者を雇っています。技術者たちの情報を管理するプログラムを
+Python で書きました。多分データベースとつながっていると思いますが、ここではそれは割愛します。
+さて、IT 技術者を表すクラスを次の様に書きました。
+[code 1] (workers.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     Workers in a IT company named LiveGate
+<span class="linenumber">05:</span>     """</span>
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     class Workers:
+<span class="linenumber">08:</span>         <span class="string">""" This is a class of workers working in the company."""</span>
+<span class="linenumber">09:</span>         
+<span class="linenumber">10:</span>         def __init__(self, name, position, email, age, salary):
+<span class="linenumber">11:</span>             self.name = name
+<span class="linenumber">12:</span>             self.position = position
+<span class="linenumber">13:</span>             self.email = email
+<span class="linenumber">14:</span>             self.age = age
+<span class="linenumber">15:</span>             self.salary = salary
+<span class="linenumber">16:</span>             
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     class ITWorkers(Workers):
+<span class="linenumber">19:</span>         <span class="string">""" This is a class of IT engineers. """</span>
+<span class="linenumber">20:</span>         
+<span class="linenumber">21:</span>         OS = 'WinNT'
+<span class="linenumber">22:</span>         
+<span class="linenumber">23:</span>         def __init__(self, language, *av):
+<span class="linenumber">24:</span>             Workers.__init__(self, *av)
+<span class="linenumber">25:</span>             self.language=language
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>         def work(self, n):
+<span class="linenumber">28:</span>             <span class="string">""" IT engineers should work."""</span>
+<span class="linenumber">29:</span>     
+<span class="linenumber">30:</span>             if self.position == 'web creator':
+<span class="linenumber">31:</span>                 w = 'makes web site'
+<span class="linenumber">32:</span>             elif self.position == 'server administrator':
+<span class="linenumber">33:</span>                 w = 'checks the trafic'
+<span class="linenumber">34:</span>             elif self.position == 'programmer':
+<span class="linenumber">35:</span>                 w = 'writes programs'
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>             print '%s %s for %d, hours using %s on %s' % (self.name, w, n, self.language, self.OS)
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>     <span class="comment">##------------------------------------------------------------------------------------------------</span>
+<span class="linenumber">40:</span>     henley = ITWorkers('PHP', 'Henley', 'web creator', 'henley@livegate.com', 32, 700)
+<span class="linenumber">41:</span>     thomas = ITWorkers('Python', 'Thomas', 'server administrator', 'thomas@livegate.com', 37, 900)
+<span class="linenumber">42:</span>     gates  = ITWorkers('C', 'Gates', 'programmer', 'gates@livegate.com', 42, 1200)
+<span class="linenumber">43:</span>     
+<span class="linenumber">44:</span>     henley.OS = 'Mac'
+<span class="linenumber">45:</span>     thomas.OS = 'Linux'
+<span class="linenumber">46:</span>     
+<span class="linenumber">47:</span>     if __name__ == '__main__':
+<span class="linenumber">48:</span>     
+<span class="linenumber">49:</span>         henley.work(8)
+<span class="linenumber">50:</span>         thomas.work(7)
+<span class="linenumber">51:</span>         gates.work(10)
+</pre>
+まず、労働者を表す <span class='mono'>class</span> <var>Workers</var> を定義し (7--15 行目)、
+そのサブクラスとして <var>ITWorkers</var> を定義しています (18--37 行目）。
+18 行目の <span class='mono'>ITWorkers(Workers)</span> は <var>ITWorkers</var> は <var>Workers</var>
+のサブクラスであることを示しています。
+<var>ITWorkers</var> は親クラスの <var>Workers</var> の属性を引き継ぎます。
+<var>Workers</var> クラスのインスタンスは初期化されるとき、
+インスタンス変数として、名前、職種、e-mail アドレス、年齢、給料が保持されます。
+<var>ITWorkers</var> はそれらのほかに使用言語をインスタンス変数として保存します。
+使用言語のほかは <var>*av</var> としてレストパラメータに
+まとめてしまい、<var>Workers.__init__ を</var>呼ぶときそれを展開しています。
+ちなみに  <span class='mono'>__init__ は</span>インスタンスを作った直後に呼ばれる特殊メソッドです
+（省略可能だが、実質的なコンストラクター）。<p>
+
+さて、IT 技術者にも給料分働いてもらわなければならないので、メソッド <var>work</var> を定義します (25--33 行目)。
+    <var>work</var> の2つ目の引数 <var>n</var> は働いた時間です。
+    ここでは、職種に応じて何を、何時間したかを表示するだけです。
+    ついでに、使ったプログラミング言語、OS も表示します。
+
+    IT 技術者は当然コンピュータを使うので、その OS が定義されています。
+    ITWorkers クラスにはクラス変数 <var>OS</var> があり、'WinNT' がデフォルトの OS に設定されています (19 行目）。
+    つまり、LiveGate では普通は WindowNT を使っているということです。
+    さて、ここで、3人の IT 技術者に登場してもらいましょう。名前は Henley, Thomas, Gates です。
+    Henley は web クリエーターです。芸術家肌の彼は Mac を使っています (44 行目）。
+    Thomas はシステム管理者です。仕事柄、彼は Linux を使います （45 行目）。
+    プログラマーの Gates はエディターが使えれば OS にはこだわらないのでデフォルトの 'WinNT' を使って
+    仕事をしています。Henley, Thomaso, Gates は今日それぞれ 8, 7, 10 時間働きました (43--45)。
+<p>
+ここで、注意したいのは、<var>henley</var> と <var>thomas</var> に違う OS を設定するということは、
+  彼らの名前空間に OS というエントリーを加えるということです。<var>gates</var> の名前空間には OS というエントリー
+  がないので、<var>ITWorkers</var> の名前空間まで探しにいきますが、
+  <var>henley</var> と <var>thomas</var> は自分の名前空間に OS が見つかるので
+  わざわざ上に探しに行かないで、自分のを使うということです。
+
+    同様に、<var>work</var> というエントリーも個々の IT 技術者の名前空間にはありません。
+    <var>ITWorkers</var> の名前空間に行って見つけてきます。<p>
+
+  <span class='mono'>workers.py</span> を実行すると次のようになります。<p>
+<pre class='samp'>
+D:\doc\05-07\py_test>python workers.py
+<span class='response'>Henley makes web site for 8 hours, using PHP on Mac
+Thomas checks the trafic for 7 hours, using Python on Linux
+Gates writes programs for 10 hours, using C on WinNT</span>
+</pre>
+
+
+<h2>4. もし Python にクラスシステムがなかったら？</h2>
+ここで、もし Python にクラスシステムがなかったらどうすればよいか考えて見ましょう。
+オブジェクト指向を使わないでプログラムを書くことももちろん可能ですが、
+ここでは、自力でクラスシステムを作ることを考えます。<p>
+
+実は、関数をデータとして取り扱える言語（広い意味での関数型言語）を用いてオブジェクト指向言語を作るのは
+簡単です。各オブジェクトの名前空間はハッシュ表（Python 用語では辞書）を用いて表すことができ、
+  オブジェクトの階層構造はハッシュ表を階層構造にすることによって表すことができます。
+Python も関数をデータとして取り扱えるので、簡単にオブジェクト指向にすることができます。<p>
+
+  
+試しに、<span class='mono'>workers.py</span> を自前のクラスシステムを使って書き直してみましょう。
+  書き直したコードを見れば、なぜメソッドの第一引数が <span class='mono'>self</span> なのかがわかると思います。<p>
+  
+[code 2] (workers2.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     This code demostrates how easy to imprement an object orientated system on a functional programming language.
+<span class="linenumber">05:</span>     It only requires a nested hash table.
+<span class="linenumber">06:</span>     """</span>
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     def Cls(cls=None, **key):
+<span class="linenumber">10:</span>         <span class="string">""" making a new class"""</span>
+<span class="linenumber">11:</span>         key['class'] = cls
+<span class="linenumber">12:</span>         return key
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     def new(cls, **key):
+<span class="linenumber">15:</span>         <span class="string">""" making an instance """</span>
+<span class="linenumber">16:</span>         key['class'] = cls
+<span class="linenumber">17:</span>         return key
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     def geta(obj, attr):
+<span class="linenumber">21:</span>         <span class="string">""" getting the attribute of object """</span>
+<span class="linenumber">22:</span>         if attr in obj:
+<span class="linenumber">23:</span>             return obj[attr]
+<span class="linenumber">24:</span>         elif(obj['class']):
+<span class="linenumber">25:</span>             return geta(obj['class'], attr)
+<span class="linenumber">26:</span>         else:
+<span class="linenumber">27:</span>             return None
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>     def tell(obj, method, *av):
+<span class="linenumber">30:</span>         <span class="string">""" tell object do something"""</span>
+<span class="linenumber">31:</span>         fun=geta(obj, method)
+<span class="linenumber">32:</span>         if callable(fun):
+<span class="linenumber">33:</span>             return fun(obj, *av)
+<span class="linenumber">34:</span>         
+<span class="linenumber">35:</span>     if __name__=='__main__':
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>         def it_work(self, n):
+<span class="linenumber">38:</span>             <span class="string">"""This funciton demonstrates how IT engineers work.
+<span class="linenumber">39:</span>                Notice that arguments of thie function is identical to the method 'work' in workers.py"""</span>
+<span class="linenumber">40:</span>                
+<span class="linenumber">41:</span>             if geta(self, 'position') == 'web creator':
+<span class="linenumber">42:</span>                 w = 'makes web site'
+<span class="linenumber">43:</span>             elif geta(self, 'position') == 'server administrator':
+<span class="linenumber">44:</span>                 w = 'checks the trafic'
+<span class="linenumber">45:</span>             elif geta(self, 'position') == 'programmer':
+<span class="linenumber">46:</span>                 w = 'writes programs'
+<span class="linenumber">47:</span>     
+<span class="linenumber">48:</span>             print '%s %s for %d, hours using %s on %s' %
+                                                 (geta(self, 'name'), w, n, geta(self, 'language'), geta(self, 'OS'))
+<span class="linenumber">49:</span>             
+<span class="linenumber">50:</span>         workers = Cls() <span class="comment"># dummy class</span>
+<span class="linenumber">51:</span>         it_workers = Cls(workers, OS='winNT', work=it_work) <span class="comment"># class of IT workers</span>
+<span class="linenumber">52:</span>     
+<span class="linenumber">53:</span>         henley = new(it_workers, language='PHP', name='henley',
+<span class="linenumber">54:</span>                                  position='web creator', email='henley@livegate.com', age=32, salary=700)
+<span class="linenumber">55:</span>         thomas = new(it_workers, language='Python', name='Thomas',
+<span class="linenumber">56:</span>                                  position='server administrator', email='thomas@livegate.com', age=37, salary=900)
+<span class="linenumber">57:</span>         gates  = new(it_workers, language='C', name='Gates',
+<span class="linenumber">58:</span>                                  position='programmer', email='gates@livegate.com', age=42, salary=1200)
+<span class="linenumber">59:</span>         henley['OS'] = 'Mac'
+<span class="linenumber">60:</span>         thomas['OS'] = 'Linux'
+<span class="linenumber">61:</span>     
+<span class="linenumber">62:</span>         tell(henley, 'work', 8)
+<span class="linenumber">63:</span>         tell(thomas, 'work', 7)
+<span class="linenumber">64:</span>         tell(gates, 'work', 10)
+</pre>
+
+workers2.py では単純化のため、多重継承はなしにします。<p>
+まず、クラスを作る関数 <var>Cls</var> とインスタンスを作る関数 <var>new</var> を見てみましょう。
+  実は、両方ともまったく同じものです。やっていることは、キーワード変数のハッシュ表に親クラスを
+  表す 'class' を加えて返すだけです。<p>
+
+次に、関数 <var>geta</var> を見てみましょう。これはオブジェクトの属性を探す関数です。
+    オブジェクトのハッシュ表にその属性がなければ、親クラスのハッシュ表から属性を探すということを
+    再帰的に行います。これで、継承とオーバーライドが実装できます。
+    属性がなければ上に探しに行くことで継承が実装できます。また、
+    下のオブジェクトに属性を定義すれば、上の属性を無視してそれを使うので
+    再定義が実装できます。
+<p>
+   また、関数 <var>tell</var> は オブジェクトに何かをさせる関数です。まず、<var>geta</var> を使ってメソッドを探します。
+  そして、見つけたメソッドが関数ならば、それを呼んで、結果を返します。<p>
+
+    これで、クラスシステムを定義する関数 <var>Cls</var>, <var>new</var>, <var>geta</var>, <var>tell</var> ができました。
+きわめて簡単に作れたことに注目してください。<p>
+    
+    さて、今作ったクラスシステムを使って <span class='mono'>workers.py</span> を書き直すと 37 行目以降のようになります。<p>
+まず、関数 <var>it_work</var> を定義して、IT 技術者の働き振りを表します。
+    第一引数が <span class='mono'>self</span> になっていることに注意してください。
+      関数 <var>it_work</var> の中では <var>geta</var> を使って IT 技術者の属性を
+    得ています。<p>
+
+     そして、<var>it_workers</var> クラスを作るとき、関数 <var>it_work</var> へのポインターを 'work' の値としてます。
+      つまり、ハッシュ表 <var>it_workers</var> の キー 'work' の値は <var>it_work</var> へのポインターということです。
+      関数をデータとして扱えると、ハッシュ表に関数を組み込むことができます。
+      <p>
+      <span class='mono'>workers.py</span> と同じように三人の IT 技術者を登場させます。
+      特殊メソッド <span class='mono'>__init__ を</span>シミュレートするのは簡単ではないので、
+      ここではインスタンスを作るときに IT 技術者の属性を全てキーワードパラメターとして与えました。
+      そして、関数 <var>tell</var> を使って3人に働いてもらいます。
+      <span class='mono'>workers.py</span> とまったく同じ結果が得られます。<p>
+      
+<pre class='samp'>
+D:\doc\05-07\py_test>python workers2.py
+<span class='response'>Henley makes web site for 8 hours, using PHP on Mac
+Thomas checks the trafic for 7 hours, using Python on Linux
+Gates writes programs for 10 hours, using C on winNT</span>
+</pre>
+    
+[code 1] と [code 2] を見比べると良く似ていることがわかると思います。
+<table class='mono' border=1>
+   <tr>
+      <th>[code 1]</th>
+      <th>[code3]</th>
+   </tr>
+   <tr>
+      <td>obj.attribute</td>
+      <td> geta(obj, 'attribute')</td>
+   </tr>
+   <tr>
+      <td>obj.method(*av)</td>
+      <td> tell(obj, 'method', *av)</td>
+   </tr>
+   <tr>
+      <td>def work(self, n)</td>
+      <td>def it_work(self, n)</td>
+   </tr>
+</table>
+これは、偶然ではなく、Python の class は原理的にこのように実装されています。
+（<a href='http://www.python.jp/doc/release/ref/datamodel.html'>
+  Python リファレンスマニュアル 3. データモデル</a>を見てください。）
+実際、<var>geta</var> と同じ働きをする関数 <span class='mono'>getattr</span> が用意されています。
+また、オブジェクトの名前空間を定義するハッシュ表は
+特殊変数 <span class='mono'>__dict__ </span> に定義されています。
+試しに、コマンドラインから 'python' とだけ打ち込んで以下のように入力してみてください。
+小豆色の文字は応答です。
+<pre class='samp'>
+D:\doc\05-07\py_test>python
+Python 2.4.1 (#65, Mar 30 2005, 09:13:57) [MSC v.1310 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+[x]&gt;&gt;&gt; import sys
+[x]&gt;&gt;&gt; from workers import *
+[<span class='redtext'>1</span>]&gt;&gt;&gt; gates.__dict__
+<span class='response'>{'salary': 1200, 'name': 'Gates', 'language': 'C', 'age': 42, 'position': 'programmer',
+ 'email': 'gates@livegate.com'}</span>
+[<span class='redtext'>2</span>]&gt;&gt;&gt; henley.__dict__
+<span class='response'>{'salary': 700, 'name': 'Henley', 'language': 'PHP', 'age': 32, 'position': 'web  creator',
+ 'OS': 'Mac', 'email': 'henley@livegate.com'}</span>
+[<span class='redtext'>3</span>]&gt;&gt;&gt; ITWorkers.__dict__
+<span class='response'>{'__module__': 'workers', 'work': &lt;function work at 0x00A34630&gt;, 'OS': 'WinNT',
+'__doc__': ' This is a class of IT engineers. ', '__init__': &lt;function __init__
+at 0x00A345F0&gt;}</span>
+[<span class='redtext'>4</span>]&gt;&gt;&gt; ITWorkers.work(gates, 10)
+<span class='response'>Gates writes programs for 10, hours using C on WinNT</span>
+[<span class='redtext'>5</span>]&gt;&gt;&gt;  gates.__class__.work(gates, 10)
+<span class='response'>Gates writes programs for 10, hours using C on WinNT</span>
+[<span class='redtext'>6</span>]&gt;&gt;&gt; getattr(henley, 'OS')
+<span class='response'>'Mac'</span>
+[<span class='redtext'>7</span>]&gt;&gt;&gt; getattr(henley, 'work')
+<span class='response'>&lt;bound method ITWorkers.work of &lt;workers.ITWorkers instance at 0x00A33760&gt;&gt;</span>
+[<span class='redtext'>8</span>]&gt;&gt;&gt; getattr(henley, 'work')(8)
+<span class='response'>henley makes web site for 8 hours, using PHP on Mac</span>
+</pre>
+
+<span class='mono'>sys</span> と <var>workers</var> を import してから、 ８つのコマンドを入力して遊んでみます。
+まず、<var>gates</var> の名前空間を見てみましょう ([<span class='redtext'>1</span>])。いろいろなエントリーがありますが、
+<span class='mono'>'OS</span>' はありません。
+次に <var>henley</var> の名前空間を見てみましょう ([<span class='redtext'>2</span>])。
+<span class='mono'>'OS</span>' が定義されています。
+さらに、<var>ITWorkers</var> の名前空間を見てみましょう ([<span class='redtext'>3</span>])。
+<span class='mono'>__module__, <span class='mono'>__doc__ などのあらかじめ</span></span>定義された変数のほかに
+<span class='mono'>'OS</span>' と
+<var>work</var>, <span class='mono'>__init__ が</span>定義されています。
+特にメソッドは、<span class='response'>&lt;function work at 0x00A34630&gt;</span>
+のように定義されており、関数としてメモリー上に保持されていることがわかります。
+前に述べたように、<var>henley</var> は自分の OS が定義されているので
+それを使い、<var>gates</var> は定義されていないので、
+上に探しに行き、<span class='mono'>class</span> <var>ITWorkers</var> で見つかった OS を使います。<p>
+
+さて、<var>ITWorkers</var> クラスには <var>work</var> という関数が定義されているので、
+  [<span class='redtext'>4</span>] のように
+  直接呼び出して見ましょう。<span class='mono'>gates.work(10)</span> としたのと同じ結果になります。
+また、インスタンスには <span class='mono'>__class__ </span> という特殊変数があり、
+  自分が属するクラスを指します。従って、
+[<span class='redtext'>5</span>] のように呼び出しても同じ結果が得られます。<p>
+
+  最後に <span class='mono'>getattr</span> を使って遊んでみましょう。[<span class='redtext'>6</span>] に示すように、
+  <span class='mono'>getattr(henley, 'OS')</span> は <span class='mono'>henley.OS</span> と同じ結果になります。
+  次に、メソッドを見てみましょう ([<span class='redtext'>7</span>] )。
+  次のような結果が返ってきます。<br>
+  <span class='response'>&lt;bound method ITWorkers.work of &lt;workers.ITWorkers instance at 0x00A33760&gt;&gt;</span><br>
+  
+<span class='mono'>&lt;workers.ITWorkers instance at 0x00A33760&gt;</span> の部分は <var>henley</var>
+のアドレスのようです。また、この関数は
+  '<span class='mono'>function</span>' ではなく '<span class='mono'>bound method</span>' と表示されます。
+  この、'<span class='mono'>bound method</span>' を [<span class='redtext'>8</span>] のように呼び出すことができます。
+  このように変化していることが、外から呼び出す場合、第一引数に
+  自分自身をつけなくて良い理由です。尤も、本当の理由はそんなことするのはクールでないからでしょう。
+  '<span class='mono'>bound method</span>' は [code 2] の関数 '<var>tell</var>' の構文糖衣とみなせます。<p>
+
+
+これらのことから、関数型言語にクラスシステムを導入する場合、
+    メソッドとして定義される関数はインスタンスを引数にとるのが自然であるといえます。
+<span class='mono'>class</span> のなかで定義される手続きは、
+<span class='mono'>def</span> を使って、通常の関数とまったく同様に定義されていることから、
+    スコープがそのクラスに限定されたものの、通常の関数と同等であるということができます。
+    つまり、メソッド定義の第一引数が <span class='mono'>self</span> であるのは当然の成り行きであるということです。
+そうしないと、インスタンスに含まれる変数を参照することができません。
+
+
+
+<h2>4. 終わりに</h2>
+Pyhton は基本的には（広い意味での）関数型言語で、オブジェクト指向はハッシュ表を使って後付したものです。
+この点、もともとオブジェクト指向言語として設計された C++, Java, Ruby などとは違います。<p>
+
+Python は手続きの定義を、関数定義とメソッド定義に分ける代わりに、
+全てを関数定義にし、メソッド定義として使う場合は第一引数をインスタンスに割り当てるという
+約束事を導入しました。<p>
+
+このようにしたのは、関数型言語は、オブジェクト指向言語より抽象性が高いという信念でしょう。
+  Python は関数型言語 Haskell から多大な影響を受けているいわれています。
+  実際、[code 2] で示したように関数型言語を使えばオブジェクト指向は簡単に実装できます。
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="8queen_py.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python7.html&t=Python+%A4%CE%A5%AF%A5%E9%A5%B9%A5%B7%A5%B9%A5%C6%A5%E0' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

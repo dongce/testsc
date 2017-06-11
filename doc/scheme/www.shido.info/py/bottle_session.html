@@ -1,0 +1,457 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, bottle.py, session, access control, decorator">
+<meta name="description" content="Object orinentated programming using Python">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>デコレータを用いた bottle.py のセッション管理 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.html'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!--<td><a rel='download' href="python12.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+</tr></table></p>
+
+
+<h1>デコレータを用いた bottle.py のアクセスコントロール</h1> 
+<hr>
+<h2>1. 初めに</h2>
+<a href='http://bottlepy.org/docs/0.12/'>bottle.py</a> は軽量な python 製 web フレームワークです。
+機能はルーティングとレンダリングだけの簡単なフレームワークで、極めて簡単に習得できます。
+そのため、モックアップの作成に最適で、紫藤もしばしば利用しています。
+<p>
+bottle.py には セッション管理機能はないのですが、<a href='http://beaker.readthedocs.org/en/latest/'>beaker</a> 
+と組み合わせてセッション管理をすることができます。
+この記事ではセッションを用いた実用的なアクセスコントロールについて述べます。
+
+<h2>2. インストールと基本手な使いかた</h2>
+
+bottle.py の基本的な使い方は、
+<a href='http://d.hatena.ne.jp/nagaetty/20120924'>Bottleチュートリアル(日本語訳)</a>
+などを参考にしてください。
+<p>
+以下、簡単に記載します。
+<h3>2.1. インストール</h3>
+bottle.py や beaker のインストール方法は <a href='http://bottlepy.org/docs/dev/index.html'>ここ</a>や
+<a href='http://momijiame.tumblr.com/post/22248585136/beaker-wsgi'>ここ</a>に詳しく書いてあります。
+pip を使えば簡単に、
+<pre class='samp'>
+pip install bottle
+pip install beaker
+</pre>
+でインストールできます。
+
+<h3>2.2. bottle.py の基本的な使い方</h3>
+<a href='http://d.hatena.ne.jp/nagaetty/20120924'>Bottleチュートリアル(日本語訳)</a>
+や
+<a href='http://nagaetty.blogspot.jp/2013/02/to-do.html'>
+Bottleのチュートリアル：To-Do - リスト·アプリケーション</a>
+を見てください。
+
+<h3>2.3. beaker.middleware.SessionMiddreware と bottle との連携</h3>
+bottle.py でセッション管理を行うためには、<a href='http://beaker.readthedocs.org/en/latest/'>beaker</a> と連携させる必要があります。
+詳しくは、
+<a href='http://bottlepy.org/docs/dev/recipes.html'>Recipes — Bottle 0.13-dev documentation</a>
+を見てください。
+
+
+<h2>3. bottle.py と beaker を使ったアクセスコントロール</h2>
+
+<h3>3.1. 方針</h3>
+ユーザに権限 (role) を持たせて、その権限によってアクセスコントロールします。
+たとえば、以下のようなアクセスコントロールを考えます。
+<ul>
+<li> Login ページには誰でもアクセスできる。
+<li> TOP ページにはログインすれば権限に関係なくアクセスできる。
+<li> ユーザの一覧は role が admin のユーザだけがアクセスできる。
+</ul>
+
+
+<h3>3.1. 準備</h3>
+
+上の方針を実現するために、users テーブルをデータベースに作成します。
+users テーブルには uid, pw, role の 3 つのフィールドがあり、uid が主キーです。<p>
+sqlite での create table 文は以下のようになります。
+
+<pre class='code'>
+create table users(
+  uid text primary key not null,
+  pw text not null,
+  role text not null
+)
+</pre>
+<h3>3.2. 素直な実装</h3>
+以下に素直な実装を示します。
+権限があればそのページを表示し、なければログインページにリダイレクトします。
+
+<h4>3.2.1 ログイン画面</h4>
+ログインに成功するとセッション情報に uid と role が保持されます。
+form_get(), session_get(), session_set(), get_role() の機能は以下の通りです。
+また、bottle は btl として import しています。
+<p>
+<table border=1>
+   <tr>
+      <th>関数名</th>
+      <th>機能</th>
+   </tr>
+   <tr>
+      <td>form_get(k)</td>
+      <td>POST メソッドで渡されたフォームから k の値を取り出す</td>
+   </tr>
+   <tr>
+      <td>session_get(k, delete=False)</td>
+      <td>セッションから k の値を取り出す。delete == True のときは取りだしたあと削除する。</td>
+   </tr>
+   <tr>
+      <td>session_set(k, v)</td>
+      <td>セッションの項目 k に v を保持する</td>
+   </tr>
+   <tr>
+      <td>get_role(uid, pw)</td>
+      <td>DB に問い合わせて、uid, pw をもつユーザの role を返す。存在しない場合には None を返す。</td>
+   </tr>
+</table>
+
+
+<pre class='code'>
+<span class="linenumber">001:</span>   @btl.get('/login')
+<span class="linenumber">002:</span>   @btl.view('login')
+<span class="linenumber">003:</span>   def login_form():
+<span class="linenumber">004:</span>       return {'message':session_get('message', True)}
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   @btl.post('/login')
+<span class="linenumber">008:</span>   @btl.view('login')
+<span class="linenumber">009:</span>   def login():
+<span class="linenumber">010:</span>       uid=form_get('uid')
+<span class="linenumber">011:</span>       pw=form_get('pw')
+<span class="linenumber">012:</span>       role=get_role(uid, pw)
+<span class="linenumber">013:</span>       if role is not None:
+<span class="linenumber">014:</span>           session_set('uid', uid)
+<span class="linenumber">015:</span>           session_set('role', role)
+<span class="linenumber">016:</span>           session_set('message', 'こんにちは、{} さん'.format(uid))
+<span class="linenumber">017:</span>           return btl.redirect('/')
+<span class="linenumber">018:</span>       else:
+<span class="linenumber">019:</span>           return {'message':'ID か Password が間違っています。'}
+<span class="linenumber">020:</span>           
+<span class="linenumber">021:</span>   
+<span class="linenumber">022:</span>   
+<span class="linenumber">023:</span>   @btl.route('/logout')
+<span class="linenumber">024:</span>   def logout():
+<span class="linenumber">025:</span>       s = btl.request.environ['beaker.session']
+<span class="linenumber">026:</span>       s.delete()
+<span class="linenumber">027:</span>       return btl.redirect('/login')
+</pre>
+    
+<h4>3.2.2 TOP 画面</h4>
+
+ログインしていれば TOP 画面にアクセスすることができます。
+セッション情報の role が None でなければ ログインしていると判断します。
+ログインしてない場合はログイン画面に遷移します。
+
+<pre class='code'>
+<span class="linenumber">001:</span>   @btl.route('/')
+<span class="linenumber">002:</span>   @btl.view('index')
+<span class="linenumber">003:</span>   def index():
+<span class="linenumber">004:</span>       '''TOP page'''
+<span class="linenumber">005:</span>       role=session_get('role')
+<span class="linenumber">006:</span>       if role is not None:
+<span class="linenumber">007:</span>           return {'message':session_get('message', True),
+<span class="linenumber">008:</span>                   'role':role}
+<span class="linenumber">009:</span>       else:
+<span class="linenumber">010:</span>           session_set('message', 'ログインが必要です')
+<span class="linenumber">011:</span>           return btl.redirect('/login')
+</pre>
+
+
+<h4>3.2.3 ユーザ一覧画面</h4>
+
+admin ユーザはユーザ一覧画面にアクセスすることができます。
+セッション情報 role の値が 'admin' ならユーザ一覧を表示し、
+そうでない場合はログイン画面に遷移します。
+
+<pre class='code'>
+<span class="linenumber">001:</span>   @btl.route('/user')
+<span class="linenumber">002:</span>   @btl.view('users')
+<span class="linenumber">003:</span>   def users():
+<span class="linenumber">004:</span>       '''List of users'''
+<span class="linenumber">005:</span>       role=session_get('role')
+<span class="linenumber">006:</span>       if role=='admin':
+<span class="linenumber">007:</span>           return {'users':users()}
+<span class="linenumber">008:</span>       else:
+<span class="linenumber">009:</span>           session_set('message', 'admin でログインが必要です')
+<span class="linenumber">010:</span>           return btl.redirect('/login')
+</pre>
+
+<h4>3.2.4. この実装で分かったこと</h4>
+beaker と組み合わせれば、bottle.py でもアクセスコントロールができることがわかりました。
+<p>
+ただ、上のコードを見るとわかるように、アクセス制御のために同じような処理が index() と users() に書かれています。
+実際のサイトでは、この処理を多くの関数に書く必要があるので、いちいちコーディングしていくのは非効率です。
+<p>
+そこで、次の節でデコレータを使ってコードを短くすることを考えます。
+
+<h3>3.3. デコレータを使った実装</h3>
+
+アクセス制御を抽象化して外出しするために、デコレータを使うことを考えます。
+たとえば、TOP 画面のようにログインが必要な画面では <tt>@req_login</tt>、
+ユーザ一覧のように admin 権限が必要な画面では <tt>@req_admin</tt> というデコレータを使えば、アクセス制御できるようにします。
+<p>
+アクセス制御のためのデコレータを作るクラスを Auth とします (実装は 3.4 で示します)。
+まず、Auth.config() でデータベースにアクセスして role を取得する関数を設定し、
+それから、デコレータ (ここでは req_admin, req_login) を作成します。
+Auth.config() では次の7つの関数を設定できます。そのうち、DB にアクセスして role を取得するメソッド (get_role_from_db)
+は必ず設定する必要があります。
+<p>
+デコレータを定義するときは、role,  権限がない時に表示されるエラーメッセージ, 権限がない時のリダイレクト先を指定します。
+<p>
+
+<pre class='code'>
+<span class="linenumber">001:</span>   Auth.config(get_role_from_db=ut.get_role)
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   <span class="comment"># decorators for access controll</span>
+<span class="linenumber">004:</span>   req_admin=Auth(role='admin', message='Only admin users can access this page.')
+<span class="linenumber">005:</span>   req_login=Auth()
+</pre>
+
+
+
+<p>
+
+<b>Auth.config() のキーワードパラメター</b>
+<table border="1">
+   <tr>
+      <th>メソッド名</th>
+      <th>機能</th>
+   </tr>
+   <tr>
+      <td>get_role_from_db</td>
+      <td>uid, pw を引数にとり、DB に保持されている role を返す。必須</td>
+   </tr>
+   <tr>
+      <td>logout</td>
+      <td>セッション情報をクリアする。省略可</td>
+   </tr>
+   <tr>
+      <td>get_role</td>
+      <td>セッションから role の情報を取得する。省略可</td>
+   </tr>
+   <tr>
+      <td>get_uid</td>
+      <td>セッションから uid の情報を取得する。省略可</td>
+   </tr>
+   <tr>
+      <td>set_role</td>
+      <td>セッションに role を設定する。省略可</td>
+   </tr>
+   <tr>
+      <td>set_uid</td>
+      <td>セッションに uid を設定する。省略可</td>
+   </tr>
+   <tr>
+      <td>set_message</td>
+      <td>セッションにメッセージを設定する。省略可</td>
+   </tr>
+</table>
+
+
+<p>
+<b>デコレータ作成時のキーワードパラメター</b>
+<table border="1">
+   <tr>
+      <th>パラメータ名</th>
+      <th>デフォルト</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>role</td>
+      <td>None</td>
+      <td>権限</td>
+   </tr>
+   <tr>
+      <td>message</td>
+      <td>'login required.'</td>
+      <td>権限がない時にセッション変数 'message' に設定される文字列</td>
+   </tr>
+   <tr>
+      <td>failure_redirect</td>
+      <td>'/login'</td>
+      <td>権限がない時のリダイレクト先</td>
+   </tr>
+</table>
+
+
+<p>
+
+
+アクセス制御をデコレータで外出しにすると、TOP 画面とユーザ一覧画面の関数は以下のようになります。
+関数本体は1行でかけてしまいます。
+デコレータの順番は、上からルーティング、アクセス制御、レンダリングです。この順番で書かないと動きません。
+<p>
+<pre class='code'>
+<span class="linenumber">001:</span>   @btl.route('/')
+<span class="linenumber">002:</span>   <span class='redtext'>@req_login</span>
+<span class="linenumber">003:</span>   @btl.view('index')
+<span class="linenumber">004:</span>   def index():
+<span class="linenumber">005:</span>       return {'message':ut.session_get('message', True),
+<span class="linenumber">006:</span>               'role':Auth.get_role()}
+<span class="linenumber">007:</span>   
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   @btl.route('/user')
+<span class="linenumber">010:</span>   <span class='redtext'>@req_admin</span>
+<span class="linenumber">011:</span>   @btl.view('users')
+<span class="linenumber">012:</span>   def users():
+<span class="linenumber">013:</span>       return {'users':ut.users()}
+</pre>
+
+また、ログイン、ログアウト画面は以下のようになります。
+
+<pre class='code'>
+<span class="linenumber">001:</span>   @btl.post('/login')
+<span class="linenumber">002:</span>   @btl.view('login')
+<span class="linenumber">003:</span>   def login():
+<span class="linenumber">004:</span>       uid,pw = [ut.form_get(x) for x in ('uid', 'pw')]
+<span class="linenumber">005:</span>       if Auth.login(uid,pw):
+<span class="linenumber">006:</span>           ut.session_set('message', 'こんにちは、{} さん'.format(uid))
+<span class="linenumber">007:</span>           return btl.redirect('/')
+<span class="linenumber">008:</span>       else:
+<span class="linenumber">009:</span>           return {'message':'ID か Password が間違っています。'}
+<span class="linenumber">010:</span>   
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   @btl.route('/logout')
+<span class="linenumber">013:</span>   def logout():
+<span class="linenumber">014:</span>       Auth.logout()
+<span class="linenumber">015:</span>       return btl.redirect('/login')
+</pre>
+
+
+<h3>3.4. Auth の実装 </h3>
+
+Auth のソースコードは以下のようになります。50 行未満の短いコードです。
+<p>
+このモジュールは、uid と pw を引数に与えて DB から role を取得できる関数があれば、バックエンドの DB の種類にかかわらず使うことができます。
+ここでは sqlite を使いましたが、他の RDBM でもよいし、Key-Value 型のストレージも使えます。
+<p>
+39--48 行目の __call__() がデコレータとして呼ばれたときの挙動で、権限があるときに引数で与えられた関数を呼び出し、
+そうでなければ、/login に遷移する関数を返します。
+
+
+
+<pre class='code'>
+<span class="linenumber">001:</span>   import bottle as btl
+<span class="linenumber">002:</span>   import session_utils as ut
+<span class="linenumber">003:</span>   from functools import partial, wraps
+<span class="linenumber">004:</span>   
+<span class="linenumber">005:</span>   class Auth:
+<span class="linenumber">006:</span>       '''generating decorators for access control'''
+<span class="linenumber">007:</span>          
+<span class="linenumber">008:</span>       <span class="comment"># class attribute</span>
+<span class="linenumber">009:</span>       CLS_ATTR=[
+<span class="linenumber">010:</span>         ('get_role_from_db', lambda uid,pw:None), <span class="comment"># lambda uid,pw: role if a record having (uid, pw) exists in the db else None </span>
+<span class="linenumber">011:</span>         ('logout', ut.logout), <span class="comment"># method to clear the session</span>
+<span class="linenumber">012:</span>         ('set_uid', partial(ut.session_set, 'uid')), <span class="comment"># method to set uid into the session</span>
+<span class="linenumber">013:</span>         ('set_role', partial(ut.session_set, 'role')), <span class="comment"># method to set role into the session</span>
+<span class="linenumber">014:</span>         ('get_uid', lambda:ut.session_get('uid')), <span class="comment"># method to get uid from the session</span>
+<span class="linenumber">015:</span>         ('get_role', lambda:ut.session_get('role')), <span class="comment"># method to get role from the session</span>
+<span class="linenumber">016:</span>         ('set_message', partial(ut.session_set,'message')), 
+<span class="linenumber">017:</span>       ]
+<span class="linenumber">018:</span>       
+<span class="linenumber">019:</span>       @classmethod
+<span class="linenumber">020:</span>       def config(cls, **kw):
+<span class="linenumber">021:</span>           '''setting static methods'''
+<span class="linenumber">022:</span>           for k,v in cls.CLS_ATTR:
+<span class="linenumber">023:</span>               setattr(cls, k, staticmethod(kw.get(k,v)))
+<span class="linenumber">024:</span>               
+<span class="linenumber">025:</span>       @classmethod    
+<span class="linenumber">026:</span>       def login(cls, uid, pw):
+<span class="linenumber">027:</span>           role=cls.get_role_from_db(uid, pw)
+<span class="linenumber">028:</span>           if role:
+<span class="linenumber">029:</span>               cls.set_uid(uid)
+<span class="linenumber">030:</span>               cls.set_role(role)
+<span class="linenumber">031:</span>           return role
+<span class="linenumber">032:</span>           
+<span class="linenumber">033:</span>       def  __init__(self,**kw):
+<span class="linenumber">034:</span>           '''kw parameters are role, message and failure_redirect'''
+<span class="linenumber">035:</span>           for k,v in [('message', 'Login required'), ('failure_redirect', '/login')]:
+<span class="linenumber">036:</span>               setattr(self, k, kw.get(k, v))
+<span class="linenumber">037:</span>           self.is_auth=(lambda :kw['role']==self.get_role()) if 'role' in kw else self.get_role
+<span class="linenumber">038:</span>                               
+<span class="linenumber">039:</span>       def __call__(self, fun):
+<span class="linenumber">040:</span>           '''acting as a decorator'''
+<span class="linenumber">041:</span>           @wraps(fun)
+<span class="linenumber">042:</span>           def _f(*a, **k):
+<span class="linenumber">043:</span>               if self.is_auth():
+<span class="linenumber">044:</span>                   return fun(*a, **k)
+<span class="linenumber">045:</span>               else:
+<span class="linenumber">046:</span>                   self.set_message(self.message)
+<span class="linenumber">047:</span>                   return btl.redirect(self.failure_redirect)
+<span class="linenumber">048:</span>           return _f
+</pre>
+<h2>4. サンプルコード</h2>
+
+セッション管理の実際のコードをアップしておきます。興味のある人はダウンロードして動かしてみてください。
+
+
+<h3>4.1. ダウンロード</h3>
+<a href="bottle_session.zip">ここ</a>からサンプルコードをダウンロードできます。
+
+<h3>4.2. 使い方</h3>
+
+<ol>
+<li> 前提: python 3.x, bottle, beaker がインストールされている。
+<li> 解凍: ダウンロードした bottle_session.zip を解凍する。
+<li> DB 作成: 解凍して生成したディレクトリ bottle_session にいって、<tt>python init.py</tt> と入力する。DB が初期化される。
+<li> 実行: 続けて <tt>python session.py</tt> と入力する。アプリケーションサーバが立ち上がる。
+<li> アクセス: ブラウザで http://127.0.0.1:8080/login にアクセスする。初期ユーザは以下の通り。
+</ol>
+<b>初期ユーザ</b>
+<table border="1">
+   <tr>
+      <th>uid</th>
+      <th>pw</th>
+      <th>role</th>
+   </tr>
+   <tr>
+      <td>john</td>
+      <td>smith</td>
+      <td>guest</td>
+   </tr>
+   <tr>
+      <td>peter</td>
+      <td>norvig</td>
+      <td>admin</td>
+   </tr>
+</table>
+
+
+<h2>4. 終わりに</h2>
+
+python のデコレータはとても強力な機能で、ここで示したように共通で使われているルーチンを外だしすることができます。
+その結果、ソースコードが短くなり、可読性も大幅に増加します。
+<p>
+実は bottle.py には<a href='http://cork.firelet.net/'>アクセス制御用の plug-in</a> があるのですが、
+自分で書いても大した手間でないのと、自作のものの方が、自分で使う分には便利なので、書いてみました。
+<p>
+bottle.py は徐々に発展しており、<a href='http://bottlepy.org/docs/dev/plugins/index.html'>便利な plug-in </a>も増えてきているので、
+小規模なサイトであれば業務用にも使えるようになってきています。
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+</tr></table></p></body>
+</html>
+

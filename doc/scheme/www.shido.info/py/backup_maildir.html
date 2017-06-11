@@ -1,0 +1,347 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, class, object orientated programming">
+<meta name="description" content="Object orinentated programming using Python">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Maildir のバックアップ </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.html'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!--<td><a rel='download' href="python12.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+</tr></table></p>
+
+
+<h1>Maildir のバックアップ</h1> 
+<hr>
+<h2>1. 初めに</h2>
+紫藤の自宅サーバでは、メールを Maildir 形式で保存しています。<p>
+Maildir 形式はメッセージを別々のファイルとして保存する電子メール格納方式で、そのファイル名はシステムで一意であることが保障されています。
+この性質を利用して、効率的にメールをバックアップするスクリプトを書いてみました。
+<p>
+スクリプトの仕様は以下の通りです。
+
+<ol>
+<li> メールは圧縮してバックアップすること。
+<li> 新着メールのみを追加でバックアップしていくこと。(Maildir 内を移動したメッセージについては、path のみを更新し、コンテンツは変更しない。)
+<li> バックアップファイルには、Maildir の情報すべてが保持されていること。
+</ol>
+
+<ul>
+<li>rsync は 1 の仕様を満足しません。また、バックアップに rsync を使うのは危険です。
+<br>(元が削除されるとバックアップも削除されるので。
+一方、削除しないオプションを使うと、元のメールを移動した際にバックアップに同じファイル名のメールが複数存在することになるので
+ Maildir の仕様を満たさないくなる。)
+<li>フルバックアップは 2 の仕様を満たしていません。バックアップに大変時間がかかります。
+<li>差分バックアップは 3 の仕様を満たしていません。リストアが面倒です。
+</ul>
+
+Maildir 中のファイルを手動で書き換えることは通常行いません。従って、ファイル名と内容は対応しているといえます。
+メールファイル名はシステムごとに一意なので、辞書のキーになることができます。
+そこで、
+<ol>
+<li> メールファイル名 =&gt; メールファイルパス の辞書 (DP)。
+<li> メールファイル名 =&gt; メールのコンテンツ の辞書 (DC)。コンテンツは圧縮して保持する。
+</ol>
+の2つの辞書でメールをバックアップすることを考えます。
+
+
+Maildir の内容が変化するのは次の 3 つの場合は考えられます。
+<ol>
+<li> 新着メールがある
+<li> メールを別のフォルダーに移動する
+<li> メールを削除する
+</ol>
+
+1 の場合、DP と DC の両方にデータを挿入します。<br>
+ 2 の場合は DP のみ更新します。<br>
+ 3 の場合は何も行いません。
+削除したメールが backup に残っていても全く問題はありませんし、むしろ、誤って削除したメールを復活できるという利点があります。
+
+
+
+<h2>2. 実装</h2>
+<h3>2.1. データベースの選択</h3>
+辞書をストレージに保持する方法はいくつか考えられます。
+<ol>
+<li> <a href='http://docs.python.jp/3.3/library/dbm.html#module-dbm.gnu'>gdbm</a> を使う。
+<li> <a href='http://docs.python.jp/3.3/library/pickle.html#module-pickle'>pickle</a> を使って python の辞書をストレージにダンプする。
+<li> <a href='http://docs.python.jp/3.3/library/sqlite3.html#module-sqlite3'>sqlite</a>を使う。
+</ol>
+pickle を使う方法は、バックアップ作業のたびに全てのバックアップデータをメモリーにロードする必要があるので、現実的でありません。
+<br> sqlite と gdbm は一長一短ですが、RDBM は必要ないので、key-value 型の gdbm にしました。
+gdbm は、処理速度、メモリー使用量で有すぐれており、Linux 上で動作する多くのアプリケーションで採用されています。
+(<a href='http://ja.wikipedia.org/wiki/Berkeley_DB'>wikipedia</a>参照。)
+
+<h3>2.2. バックアップ用ソースコード</h3>
+[code 1] にバックアップ用ソースコードを示します。
+MailBackup がバックアップを取るクラスで、
+Maildir を渡り歩いて、前回のバックアップから変更があったメールファイルについて、
+path と contents をそれぞれ
+/var/backup_mail/$USER/mail_path.db, /var/backup_mail/$USER/mail_contents.db に保存していきます。
+<p>
+[code 1] backup_mail.py<br>
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#!/usr/bin/python3</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   <span class="string">'''
+<span class="linenumber">004:</span>   Maildir のバックアップを取るスクリプト
+<span class="linenumber">005:</span>   Maildir 形式では、ファイル名が一意に決まることを利用して、
+<span class="linenumber">006:</span>   ファイル名をキーとしてメールファイルのストレージ上での場所と内容を
+<span class="linenumber">007:</span>   別々の辞書として保持する。
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   辞書の実装として gdbm を用いる。
+<span class="linenumber">010:</span>   メールの内容は内容は zlib で圧縮する。
+<span class="linenumber">011:</span>   '''</span>
+<span class="linenumber">012:</span>   
+<span class="linenumber">013:</span>   import os, os.path, zlib, re
+<span class="linenumber">014:</span>   
+<span class="linenumber">015:</span>   <span class="comment">#dbm.gnu がインストールされている必要がある。</span>
+<span class="linenumber">016:</span>   import dbm.gnu as dbm
+<span class="linenumber">017:</span>   
+<span class="linenumber">018:</span>   <span class="comment"># 圧縮レベル</span>
+<span class="linenumber">019:</span>   CLEVEL=3
+<span class="linenumber">020:</span>   
+<span class="linenumber">021:</span>   <span class="comment"># このサイズを超えると flush する</span>
+<span class="linenumber">022:</span>   BUF_SIZE=0x100000 <span class="comment"># 1 M</span>
+<span class="linenumber">023:</span>   
+<span class="linenumber">024:</span>   <span class="comment"># バックアップを取らないメールのリストを書いたファイル。HOME 直下に置いておく</span>
+<span class="linenumber">025:</span>   EXCLUDE='.exclude4mailbackup'
+<span class="linenumber">026:</span>   
+<span class="linenumber">027:</span>   
+<span class="linenumber">028:</span>   def walk(f, d0='.', excludes=('.Junk',)):
+<span class="linenumber">029:</span>       <span class="string">'''ディレクトリを渡り歩いて、ファイルを処理する。'''</span>
+<span class="linenumber">030:</span>       def _iter(d):
+<span class="linenumber">031:</span>           for e in os.listdir(d):
+<span class="linenumber">032:</span>               if e in excludes: <span class="comment"># 除外リストにある場合は処理しない</span>
+<span class="linenumber">033:</span>                   continue
+<span class="linenumber">034:</span>               p=os.path.join(d,e)
+<span class="linenumber">035:</span>               if os.path.isdir(p): <span class="comment"># ディレクトリの場合は再帰的に処理を続ける</span>
+<span class="linenumber">036:</span>                   _iter(p)
+<span class="linenumber">037:</span>               elif os.path.isfile(p): <span class="comment"># ファイルの場合は関数 f を適用する。</span>
+<span class="linenumber">038:</span>                   f(p)
+<span class="linenumber">039:</span>                   
+<span class="linenumber">040:</span>       _iter(d0)
+<span class="linenumber">041:</span>   
+<span class="linenumber">042:</span>   
+<span class="linenumber">043:</span>   def get_contents(_path):
+<span class="linenumber">044:</span>       <span class="string">'''メールの内容を圧縮する'''</span>
+<span class="linenumber">045:</span>       with open(_path, 'rb') as f:
+<span class="linenumber">046:</span>           return zlib.compress(f.read(), CLEVEL)
+<span class="linenumber">047:</span>   
+<span class="linenumber">048:</span>   
+<span class="linenumber">049:</span>   RE_U=re.compile(r'[,:]')
+<span class="linenumber">050:</span>   def get_ukey(p):
+<span class="linenumber">051:</span>       <span class="string">'''メールのファイル名から一意な文字列を取り出す'''</span>
+<span class="linenumber">052:</span>       return RE_U.split(os.path.basename(p),1)[0].encode('ascii')
+<span class="linenumber">053:</span>   
+<span class="linenumber">054:</span>   
+<span class="linenumber">055:</span>   def get_status(db,k,v):
+<span class="linenumber">056:</span>       <span class="string">'''path のdb の状態'''</span>
+<span class="linenumber">057:</span>       return 'insert' if k not in db \
+<span class="linenumber">058:</span>         else 'update' if db[k]!=v \
+<span class="linenumber">059:</span>         else 'nothing'
+<span class="linenumber">060:</span>   
+<span class="linenumber">061:</span>       
+<span class="linenumber">062:</span>   def get_exclude(d):
+<span class="linenumber">063:</span>       <span class="string">'''除外するメールのリストを取得する'''</span>
+<span class="linenumber">064:</span>       fname=os.path.join(d, EXCLUDE)
+<span class="linenumber">065:</span>       if os.path.exists(fname):
+<span class="linenumber">066:</span>           with open(fname) as f:
+<span class="linenumber">067:</span>               return tuple(line.strip() for line in f if line[0]!='<span class="comment">#')</span>
+<span class="linenumber">068:</span>       else:
+<span class="linenumber">069:</span>           return ('.Junk',)
+<span class="linenumber">070:</span>                         
+<span class="linenumber">071:</span>   def is_mail(p):
+<span class="linenumber">072:</span>       <span class="string">'''メールファイルかどうか判定する'''</span>
+<span class="linenumber">073:</span>       d=os.path.dirname(p)
+<span class="linenumber">074:</span>       return any(d.endswith(x) for x in ('cur', 'new', 'tmp'))
+<span class="linenumber">075:</span>   
+<span class="linenumber">076:</span>   
+<span class="linenumber">077:</span>   
+<span class="linenumber">078:</span>   class MailBackup:
+<span class="linenumber">079:</span>       <span class="string">'''メールのバックアップを取るクラス'''</span>
+<span class="linenumber">080:</span>   
+<span class="linenumber">081:</span>       BACKUP_ROOT='/var/backup_mail'
+<span class="linenumber">082:</span>       
+<span class="linenumber">083:</span>       def __init__(self, usr):
+<span class="linenumber">084:</span>           self.db_path=dbm.open(os.path.join(self.BACKUP_ROOT, usr, 'mail_path.db'), 'cf')
+<span class="linenumber">085:</span>           self.db_contents=dbm.open(os.path.join(self.BACKUP_ROOT, usr, 'mail_contents.db'), 'cf')
+<span class="linenumber">086:</span>           self.counter=dict(path=0,contents=0)
+<span class="linenumber">087:</span>   
+<span class="linenumber">088:</span>       def __call__(self, p):
+<span class="linenumber">089:</span>           if is_mail(p):
+<span class="linenumber">090:</span>               <span class="comment"># メールの path と contents を db に保存する</span>
+<span class="linenumber">091:</span>               bp=p.encode('ascii')
+<span class="linenumber">092:</span>               ukey=get_ukey(p)
+<span class="linenumber">093:</span>               status=get_status(self.db_path, ukey, bp)
+<span class="linenumber">094:</span>               if status in ('insert', 'update'):
+<span class="linenumber">095:</span>                   self.update_path(ukey, bp)
+<span class="linenumber">096:</span>                   if status == 'insert':
+<span class="linenumber">097:</span>                       self.add_contents(ukey, get_contents(p))
+<span class="linenumber">098:</span>       
+<span class="linenumber">099:</span>       def update_path(self, k, p):
+<span class="linenumber">100:</span>           <span class="string">'''path を更新する'''</span>
+<span class="linenumber">101:</span>           self.db_path[k]=p
+<span class="linenumber">102:</span>           self.db_flush('path', len(p))
+<span class="linenumber">103:</span>           
+<span class="linenumber">104:</span>       def add_contents(self, k, c):
+<span class="linenumber">105:</span>           <span class="string">'''内容を追加する'''</span>
+<span class="linenumber">106:</span>           self.db_contents[k]=c
+<span class="linenumber">107:</span>           self.db_flush('contents', len(c))
+<span class="linenumber">108:</span>           
+<span class="linenumber">109:</span>       def close(self):
+<span class="linenumber">110:</span>           for dbname in ('db_path', 'db_contents'):
+<span class="linenumber">111:</span>               db=getattr(self, dbname)
+<span class="linenumber">112:</span>               db.sync()
+<span class="linenumber">113:</span>               db.close()
+<span class="linenumber">114:</span>       
+<span class="linenumber">115:</span>       def db_flush(self, k, n):
+<span class="linenumber">116:</span>       <span class="string">'''一定量を超えたらストレージに flush する'''</span>
+<span class="linenumber">117:</span>       if self.counter[k]+n &gt; BUF_SIZE: 
+<span class="linenumber">118:</span>           getattr(self, 'db_'+k).sync()
+<span class="linenumber">119:</span>       self.counter[k]=0
+<span class="linenumber">120:</span>           
+<span class="linenumber">121:</span>        
+<span class="linenumber">122:</span>   if __name__=='__main__':
+<span class="linenumber">123:</span>       home, user = [os.getenv(x) for x in ('HOME', 'USER')]
+<span class="linenumber">124:</span>       os.chdir(os.path.join(home, 'Maildir'))
+<span class="linenumber">125:</span>       mail_backup=MailBackup(user)
+<span class="linenumber">126:</span>       walk(mail_backup, '.', get_exclude(home))
+<span class="linenumber">127:</span>       mail_backup.close()
+<span class="linenumber">128:</span>       print ('backup mail for {} done.'.format(user))
+</pre>
+
+
+<h3>2.3. cron 用スクリプト</h3>
+
+[code 2] に示すようなスクリプトを使って、家族のメールのバックアップを毎晩取ります。
+SCRIPT には実際の python スクリプトへのフルパスを、WE にはバックアップを取るユーザをスペースで区切って書きます。
+<p>
+su の -l オプションと -c オプションを使って、対象ユーザになってスクリプトを実行します。
+<br>
+[code 2]
+<pre class='code'>
+<span class="linenumber">001:</span>   #!/bin/sh
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   SCRIPT=/full/path/to/backup_mail.py
+<span class="linenumber">004:</span>   WE="taro hanako saki mai"
+<span class="linenumber">005:</span>   for ME in ${WE}
+<span class="linenumber">006:</span>   do
+<span class="linenumber">007:</span>     su -l $ME -c $SCRIPT
+<span class="linenumber">008:</span>   done
+</pre>
+
+<h3>2.4. リストア用スクリプト</h3>
+
+リストア用のスクリプトを以下に示します。
+<p>
+[code 3]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#!/usr/bin/python3</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   <span class="string">'''backup_mail.py で作られたメールバックアップを復元する。'''</span>
+<span class="linenumber">004:</span>   
+<span class="linenumber">005:</span>   import os, os.path, zlib, stat
+<span class="linenumber">006:</span>   import dbm.gnu as dbm
+<span class="linenumber">007:</span>   
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   def restore_mail(path, contents):
+<span class="linenumber">010:</span>       <span class="string">'''個々のメールのリストア'''</span>
+<span class="linenumber">011:</span>       ps=path.decode('ascii')
+<span class="linenumber">012:</span>       d,f=os.path.split(ps)
+<span class="linenumber">013:</span>       if not os.path.isdir(d):
+<span class="linenumber">014:</span>           os.makedirs(d, 0o700)
+<span class="linenumber">015:</span>       with open(ps, 'wb') as f:
+<span class="linenumber">016:</span>           f.write(zlib.decompress(contents))
+<span class="linenumber">017:</span>       os.chmod(ps, stat.S_IRUSR|stat.S_IWUSR)
+<span class="linenumber">018:</span>           
+<span class="linenumber">019:</span>       
+<span class="linenumber">020:</span>   class MailRestore:
+<span class="linenumber">021:</span>   
+<span class="linenumber">022:</span>       BACKUP_ROOT='/var/backup_mail'
+<span class="linenumber">023:</span>       
+<span class="linenumber">024:</span>       def __init__(self, usr):
+<span class="linenumber">025:</span>           dbname_path=os.path.join(self.BACKUP_ROOT, usr, 'mail_path.db')
+<span class="linenumber">026:</span>           dbname_contents=os.path.join(self.BACKUP_ROOT, usr, 'mail_contents.db')
+<span class="linenumber">027:</span>           assert all(os.path.exists(p) for p in (dbname_path, dbname_contents))
+<span class="linenumber">028:</span>           self.db_path=dbm.open(dbname_path)
+<span class="linenumber">029:</span>           self.db_contents=dbm.open(dbname_contents)
+<span class="linenumber">030:</span>   
+<span class="linenumber">031:</span>       def restore(self):
+<span class="linenumber">032:</span>            k=self.db_contents.firstkey()
+<span class="linenumber">033:</span>           while k is not None:
+<span class="linenumber">034:</span>               if k in self.db_path:
+<span class="linenumber">035:</span>                   restore_mail(self.db_path[k], self.db_contents[k])
+<span class="linenumber">036:</span>               else:
+<span class="linenumber">037:</span>                   print ('Path for {} does not exist'.format(k.decode('ascii')),
+<span class="linenumber">038:</span>                          file=sys.stderr)
+<span class="linenumber">039:</span>               k=self.db_contents.nextkey(k)
+<span class="linenumber">040:</span>               
+<span class="linenumber">041:</span>       def close(self):
+<span class="linenumber">042:</span>           self.db_path.close()
+<span class="linenumber">043:</span>           self.db_contents.close()
+<span class="linenumber">044:</span>   
+<span class="linenumber">045:</span>   
+<span class="linenumber">046:</span>   if __name__=='__main__':
+<span class="linenumber">047:</span>       os.chdir(os.path.join(os.getenv('HOME'), 'Maildir'))    
+<span class="linenumber">048:</span>       agent=MailRestore(os.getenv('USER'))
+<span class="linenumber">049:</span>       agent.restore()
+<span class="linenumber">050:</span>       agent.close()
+</pre>
+
+
+<h3>2.5. .exclude の書式</h3>
+HOME 直下に .exclude4mailbackup というファイルを作って、バックアップから除外するディレクトリを指定することができます。
+書式は、以下の例のように1行に1つづつ除外するディレクトリを書いていきます。このファイルがない場合は .Junk がバックアップ対象外
+になります。
+<pre class='code'>
+.Junk
+.sale
+.ready_to_delete
+</pre>
+
+<h2>3. 性能</h2>
+紫藤の Maildir のサイズは 2.6 Gb で、8 年分のメールがたまっています。
+この Maildir のバックアップの速度と圧縮率は以下のようになりました。
+
+
+<h3>3.1. 速度</h3>
+この Maildir の新規バックアップおよびリストアは 40 min ほどで終了します。<br>
+また、1 日分の増分のバックアップは 3 min ほどで終了します。<br>
+速度は申し分ありません。
+
+<h3>3.2. バックアップのファイルサイズ</h3>
+バックアップのサイズは
+mail_path.db が 20 Mb、
+mail_contents.db が 960 Mb
+です。合わせて 1 Gb ほどで、圧縮率は 40% ほどです。個々のメールを別々に圧縮していることを考えればまずまずでしょう。
+また、最近はストレージの容量が大きくなったので、圧縮率はそれほどこだわらなくてもよくなっています。
+
+
+<h2>4. 終わりに</h2>
+以前は毎月のフルバックアップと毎日の差分バックアップでメールのバックアップを作成していたのでとても不便だったのですが、
+このスクリプトでバックアップを取るようにしてからとても快適です。
+<p>
+皆さんも機会があったら試してみてください。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+</tr></table></p></body>
+</html>
+

@@ -1,0 +1,349 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, japanese kana translate">
+<meta name="description" content="a libraly to translate Japanese Kana characters written in python">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>47 行の かな変換ライブラリ</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'><img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="kana.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python_kana.html&t=47+%B9%D4%A4%CE+%A4%AB%A4%CA%CA%D1%B4%B9%A5%E9%A5%A4%A5%D6%A5%E9%A5%EA' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+<h1>47 行の かな変換ライブラリ</h1> 
+<hr>
+<h2>1. 初めに</h2>
+
+仕事で全角カタカナと半角カタカナを相互に変換する必要が生じたのと、
+Python 3 用のものは見当たらなかったので
+自分で書いてみました。
+<p>
+以下 (kana.py) に示すように、意外と簡潔に書くことができます。
+説明と、テストコードを除いた本体は 47 行で済みます。
+
+
+
+<h2> 2. 仕様と使い方</h2>
+全角カタカナ、半角カタカナ、ひらがなを相互に変換することができます。
+平仮名には 「ヴ」に対応する文字がないので、かわりに 「う゛」で表します。
+数字については、半角カタカナでは半角で、全角カタカナ及び平仮名では全角で表します。
+
+変換関数は以下の6種類です。
+<dl>
+  <dt><b>jz(s)</b></dt>
+      <dd>文字列 s に含まれる平仮名を全角カタカナに置き換えます。</dd>
+  <dt><b>jh(s)</b></dt>
+      <dd>文字列 s に含まれる平仮名を半角カタカナに置き換えます。</dd>
+  <dt><b>zj(s)</b></dt>
+      <dd>文字列 s に含まれる全角カタカナを平仮名に置き換えます。</dd>
+  <dt><b>zh(s)</b></dt>
+      <dd>文字列 s に含まれる全角カタカナを半角カタカナに置き換えます。</dd>
+  <dt><b>hj(s)</b></dt>
+      <dd>文字列 s に含まれる半角カタカナを平仮名に置き換えます。</dd>
+  <dt><b>hz(s)</b></dt>
+      <dd>文字列 s に含まれる半角カタカナを全角カタカナに置き換えます。</dd>
+</dl>
+
+次の様に、import して使います、kana.py は sys.path で定義されるパスのどれか
+(例えば、[Python をインストールしたディレクトリ]/lib/site-packages)に入れておくか、
+呼び出すスクリプトと同じディレクトリに入れておきます。
+
+<pre class='code'>
+#!python
+#coding:utf8
+
+import kana
+
+def pprint(*ls):
+    print(*ls, sep='\n', end='\n\n')
+
+if __name__=='__main__':
+    for s in ['てんはひとのうえにひとをつくらずひとのしたにひとをつくらず', \
+              'ほんじつはせいてんなれどもなみたかし', \
+              'わがはいはねこである', \
+             ]:
+        pprint(s, kana.jz(s), kana.jh(s))
+
+    for s in ['テンハヒトノウエニヒトヲツクラズヒトノシタニヒトヲツクラズ', \
+              'ホンジツハセイテンナレドモナミタカシ', \
+              'ワガハイハネコデアル', \
+             ]:
+        pprint(s,  kana.zh(s), kana.zj(s))
+
+    for s in ['ﾃﾝﾊﾋﾄﾉｳｴﾆﾋﾄｦﾂｸﾗｽﾞﾋﾄﾉｼﾀﾆﾋﾄｦﾂｸﾗｽﾞ', \
+              'ﾎﾝｼﾞﾂﾊｾｲﾃﾝﾅﾚﾄﾞﾓﾅﾐﾀｶｼ', \
+              'ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ', \
+              ]:
+        pprint(s, kana.hz(s), kana.hj(s))
+</pre>
+
+実行結果
+<pre class='samp'>
+Z:\doc\monthly\12-11\kana>d:\python32\python.exe test_kana.py         
+てんはひとのうえにひとをつくらずひとのしたにひとをつくらず
+テンハヒトノウエニヒトヲツクラズヒトノシタニヒトヲツクラズ
+ﾃﾝﾊﾋﾄﾉｳｴﾆﾋﾄｦﾂｸﾗｽﾞﾋﾄﾉｼﾀﾆﾋﾄｦﾂｸﾗｽﾞ
+
+ほんじつはせいてんなれどもなみたかし
+ホンジツハセイテンナレドモナミタカシ
+ﾎﾝｼﾞﾂﾊｾｲﾃﾝﾅﾚﾄﾞﾓﾅﾐﾀｶｼ
+
+わがはいはねこである
+ワガハイハネコデアル
+ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ
+
+テンハヒトノウエニヒトヲツクラズヒトノシタニヒトヲツクラズ
+ﾃﾝﾊﾋﾄﾉｳｴﾆﾋﾄｦﾂｸﾗｽﾞﾋﾄﾉｼﾀﾆﾋﾄｦﾂｸﾗｽﾞ
+てんはひとのうえにひとをつくらずひとのしたにひとをつくらず
+
+ホンジツハセイテンナレドモナミタカシ
+ﾎﾝｼﾞﾂﾊｾｲﾃﾝﾅﾚﾄﾞﾓﾅﾐﾀｶｼ
+ほんじつはせいてんなれどもなみたかし
+
+ワガハイハネコデアル
+ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ
+わがはいはねこである
+
+ﾃﾝﾊﾋﾄﾉｳｴﾆﾋﾄｦﾂｸﾗｽﾞﾋﾄﾉｼﾀﾆﾋﾄｦﾂｸﾗｽﾞ
+テンハヒトノウエニヒトヲツクラズヒトノシタニヒトヲツクラズ
+てんはひとのうえにひとをつくらずひとのしたにひとをつくらず
+
+ﾎﾝｼﾞﾂﾊｾｲﾃﾝﾅﾚﾄﾞﾓﾅﾐﾀｶｼ
+ホンジツハセイテンナレドモナミタカシ
+ほんじつはせいてんなれどもなみたかし
+
+ﾜｶﾞﾊｲﾊﾈｺﾃﾞｱﾙ
+ワガハイハネコデアル
+わがはいはねこである
+</pre>
+
+
+<h2>3. 動作環境</h2>
+以下の環境で動作を確認しています。<br>
+<ul>
+<li>Windows XP and Python 3.2, 3.3, 
+<li>Debian squeese and Python 3.2
+</ul>
+
+<h2>4. 制約</h2>
+&amp;#x80 --&amp;#xA0 の文字を含む文字列は正しく変換されません。
+ただ、これらの文字は制御コードなので、通常の文字列に含まれることはまずありません。
+
+
+
+<h2>5. 概要</h2>
+
+基本的には、Python の str.translate(trans_table) をつかって変換します。
+trans_table は文字の変換方法を規定した辞書です。これは後述する str.maketrans() を使って作成します。
+変換テーブルのキーは文字である必要があります。そのため、半角カタカナの濁音は
+translate メソッドをもちいて直接変換できません。
+(半角カタカナの濁音は「カ」などの文字と濁点、半濁点の2文字からなっているため。)
+
+そこで、半角カタカナの濁音を
+通常の文字列には含まれない制御文字 (&amp;#x80 --&amp;#xA0) に置き換えて、それを変換テーブルで変換します。
+
+<br>
+さらに、平仮名には「ヴ」に相当する文字がないので、「う」と「゛」で表します。平仮名から変換するときは、
+「う゛」を「ヴ」に置き換えてから変換テーブルで変換します。また、平仮名に変換するときは変換テーブルで変換した結果の
+「ヴ」を「う゛」に置き換えます。
+<p>
+変換テーブルを作成するのに、str.maketrans(x [,y [,z]]) を使います。
+str.maketrans() の引数には文字をキーとする辞書、あるいは、等しい長さの２つの文字列を渡すことができます。
+辞書を渡す場合、キーは文字である必要がありますが、値は文字列でよいので、1文字を文字列に変換することができます。
+そのため全角の濁音 (例えば「ガ」や「が」) を半角の濁音 (「ｶﾞ」)に変換することができます。
+文字列を引数に渡す場合、1番目の文字列を2番目の文字列に変換する変換テーブルを返します。また、
+3番目の引数は変換後の文字列には含めない文字の文字列を渡します。
+str.maketrans() についての詳しい説明は、<a href='http://docs.python.org/release/3.2.3/library/stdtypes.html#str.maketrans'>
+python のドキュメント</a> を見てください。
+
+
+
+
+<h3>6. ソースコードと簡単な説明</h3>
+[code 1] にソースを示します。
+かな変換を行っているのは 30 -- 77 行で、47 行で書くことができます 
+(1,2 行目はなくても良いおまじない、3--28 行目は説明、80 行目以降は簡単なテストコード)。
+
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#!python3</span>
+<span class="linenumber">002:</span>   <span class="comment">#coding:utf8</span>
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   <span class="string">"""
+<span class="linenumber">005:</span>   かな変換ライブラリ
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   変換関数:
+<span class="linenumber">008:</span>   zj(s): s に含まれる 全角カタカナをひらがなに変換
+<span class="linenumber">009:</span>   jz(s): s に含まれる ひらがなを全角カタカナに変換
+<span class="linenumber">010:</span>   zh(s): s に含まれる 全角カタカナを半角カタカナに変換
+<span class="linenumber">011:</span>   jh(s): s に含まれる ひらがなを半角カタカナに変換
+<span class="linenumber">012:</span>   hz(s): s に含まれる 半角カタカナを全角カタカナに変換
+<span class="linenumber">013:</span>   hj(s): s に含まれる 半角カタカナをひらがなに変換
+<span class="linenumber">014:</span>   
+<span class="linenumber">015:</span>   ノート
+<span class="linenumber">016:</span>   str.translate メソッドをつかって変換。
+<span class="linenumber">017:</span>   それに加えて以下の操作を行う
+<span class="linenumber">018:</span>   
+<span class="linenumber">019:</span>   半角カタカナから変換する場合:
+<span class="linenumber">020:</span>   半角カタカナの濁音は2文字で表されるので、それらを正規表現を用いて制御文字1文字 (&amp;#x80 --&amp;#xA0)
+<span class="linenumber">021:</span>   におきかえてから translate を用いて全角の濁音に置き換える。
+<span class="linenumber">022:</span>   
+<span class="linenumber">023:</span>   平仮名から変換する場合:
+<span class="linenumber">024:</span>   う゛を ヴ に置き換えてから translate で変換する。
+<span class="linenumber">025:</span>   
+<span class="linenumber">026:</span>   平仮名に変換する場合
+<span class="linenumber">027:</span>   translate の結果の ヴ を う゛に置き換える。
+<span class="linenumber">028:</span>   """</span>
+<span class="linenumber">029:</span>   
+<span class="linenumber">030:</span>   import re, functools
+<span class="linenumber">031:</span>   
+<span class="linenumber">032:</span>   C_OFF = 0x80
+<span class="linenumber">033:</span>   
+<span class="linenumber">034:</span>   S_HIR = '、。「」　ー０１２３４５６７８９' \
+<span class="linenumber">035:</span>             'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん' \
+<span class="linenumber">036:</span>               'っぁぃぅぇぉゃゅょ' \
+<span class="linenumber">037:</span>                 'がぎぐげござじずぜぞだぢづでどばびぶべぼヴ' \
+<span class="linenumber">038:</span>                   'ぱぴぷぺぽ' \
+<span class="linenumber">039:</span>   
+<span class="linenumber">040:</span>   S_ZEN = '、。「」　ー０１２３４５６７８９' \
+<span class="linenumber">041:</span>             'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン' \
+<span class="linenumber">042:</span>               'ッァィゥェォャュョ'  \
+<span class="linenumber">043:</span>                 'ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ' \
+<span class="linenumber">044:</span>                   'パピプペポ'
+<span class="linenumber">045:</span>   
+<span class="linenumber">046:</span>   S_SEI = '､｡｢｣ -0123456789'  \
+<span class="linenumber">047:</span>              'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝ' \
+<span class="linenumber">048:</span>                'ｯｧｨｩｪｫｬｭｮ'
+<span class="linenumber">049:</span>   S_DAK ='ｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾊﾋﾌﾍﾎｳ'
+<span class="linenumber">050:</span>   S_HAT ='ﾊﾋﾌﾍﾎ'
+<span class="linenumber">051:</span>   TENN, MARU = 'ﾞ', 'ﾟ'
+<span class="linenumber">052:</span>   
+<span class="linenumber">053:</span>   L_DAK = [c+TENN for c in S_DAK] + [c+MARU for c in S_HAT]
+<span class="linenumber">054:</span>   S_CCH = ''.join(chr(i+C_OFF) for i in range(len(L_DAK)))
+<span class="linenumber">055:</span>   S_HAN = S_SEI + S_CCH
+<span class="linenumber">056:</span>   L_HAN = list(S_SEI) + L_DAK
+<span class="linenumber">057:</span>   H_DAK = dict(zip(L_DAK, S_CCH))
+<span class="linenumber">058:</span>   R_DAK = re.compile('[{}]{}|[{}]{}'.format(S_DAK, TENN, S_HAT, MARU))
+<span class="linenumber">059:</span>   
+<span class="linenumber">060:</span>   def comb(*fs):
+<span class="linenumber">061:</span>       return lambda x: functools.reduce(lambda y,f:f(y), fs, x)
+<span class="linenumber">062:</span>   
+<span class="linenumber">063:</span>   def trans(k,v):
+<span class="linenumber">064:</span>       assert len(k)==len(v)
+<span class="linenumber">065:</span>       tbl = str.maketrans(k,v) if type(v) is str else \
+<span class="linenumber">066:</span>             str.maketrans(dict(zip(k,v)))
+<span class="linenumber">067:</span>       return lambda s: s.translate(tbl)
+<span class="linenumber">068:</span>   
+<span class="linenumber">069:</span>   def replace(c0, c1): return lambda s: s.replace(c0,c1)
+<span class="linenumber">070:</span>   subd = lambda s: R_DAK.sub(lambda m:H_DAK[m.group()], s)
+<span class="linenumber">071:</span>   
+<span class="linenumber">072:</span>   zj=comb(trans(S_ZEN, S_HIR), replace('ヴ', 'う゛'))
+<span class="linenumber">073:</span>   jz=comb(replace('う゛', 'ヴ'), trans(S_HIR, S_ZEN))
+<span class="linenumber">074:</span>   zh=trans(S_ZEN, L_HAN)
+<span class="linenumber">075:</span>   jh=comb(replace('う゛', 'ヴ'), trans(S_HIR, L_HAN))
+<span class="linenumber">076:</span>   hz=comb(subd, trans(S_HAN, S_ZEN))
+<span class="linenumber">077:</span>   hj=comb(subd, trans(S_HAN, S_HIR), replace('ヴ', 'う゛'))
+<span class="linenumber">078:</span>   
+<span class="linenumber">079:</span>   
+<span class="linenumber">080:</span>   def test(name, fun, s):
+<span class="linenumber">081:</span>       print(name, 'ok' if s==fun(s) else 'ng', sep=' .... ')
+<span class="linenumber">082:</span>       
+<span class="linenumber">083:</span>   if __name__=='__main__':
+<span class="linenumber">084:</span>       test('zen&gt;han&gt;zen', comb(zh, hz), S_ZEN)
+<span class="linenumber">085:</span>       test('zen&gt;hira&gt;zen', comb(zj, jz), S_ZEN)
+<span class="linenumber">086:</span>       
+<span class="linenumber">087:</span>       s_hir = S_HIR.replace('ヴ', 'う゛')
+<span class="linenumber">088:</span>       test('hira&gt;zen&gt;hira', comb(jz, zj), s_hir)
+<span class="linenumber">089:</span>       test('hira&gt;han&gt;hira', comb(jh, hj), s_hir)
+<span class="linenumber">090:</span>       
+<span class="linenumber">091:</span>       s_han=''.join(L_HAN)
+<span class="linenumber">092:</span>       test('han&gt;hira&gt;han', comb(hj, jh), s_han)
+<span class="linenumber">093:</span>       test('han&gt;zen&gt;han', comb(hz, zh), s_han)
+</pre>
+<h3>6.1. 定数</h3>
+<dl>
+  <dt><b>C_OFF</b></dt>
+      <dd>半角カタカナの濁音を1文字に変換する際の文字コードのオフセットです。<br>
+つまり、半角カタカナの濁音は C_OFF + i の文字に変換されます。(S_CCH, R_DAK の説明を参照。)</dd>
+  <dt><b>S_HIR</b></dt>
+      <dd>平仮名に含まれる文字からなる文字列です。<br>
+「う゛」は2文字になるので、ここでは「ヴ」で表しておきます。(前述したように変間前後で置き換えます。)</dd>
+  <dt><b>S_ZEN</b></dt>
+      <dd>全角カタカナに含まれる文字からなる文字列です。</dd>
+  <dt><b>S_SEI</b></dt>
+      <dd>半角カタカナの清音からなる文字列です。</dd>
+  <dt><b>S_DAK</b></dt>
+      <dd>「゛」をつけると濁音になる文字からなる文字列です。</dd>
+  <dt><b>S_HAT</b></dt>
+      <dd>「゜」をつけると半濁音になる文字からなる文字列です。</dd>
+  <dt><b>TENN, MARU</b></dt>
+      <dd>半角の濁点と半濁点です。</dd>
+  <dt><b>L_DAK</b></dt>
+      <dd>半角カタカナの濁音を表す文字列のリストです。</dd>
+  <dt><b>S_CCH</b></dt>
+      <dd>&amp;#x80 から始まる文字列です。</dd>
+  <dt><b>S_HAN</b></dt>
+      <dd>変換テーブルのキーとして用いる半角カタカナの文字です。
+清音を表す文字と、&amp;#x80 からの制御文字からなります。</dd>
+  <dt><b>L_HAN</b></dt>
+      <dd>変換テーブルの値になる半角カタカナの文字列のリストです。</dd>
+  <dt><b>H_DAK</b></dt>
+      <dd>半角カタカナの濁音を表す文字列と制御文字とを対応付けるハッシュ表です。</dd>
+  <dt><b>R_DAK</b></dt>
+      <dd>半角カタカナの濁音の正規表現です。</dd>
+</dl>
+
+<h3>6.2. 関数</h3>
+<dl>
+  <dt><b>comb(*fs)</b></dt>
+      <dd> fs で与えられた関数を合成した関数を返す関数です。<br>例えば、 comb(fa, fb, fc) は lambda x: fc(fb(fa(x))) を返します。</dd>
+  <dt><b>trans(k,v)</b></dt>
+      <dd>変換テーブルを用いて、k の文字を v の文字あるいは文字列に置き換える関数を返す関数です。</dd>
+  <dt><b>replace(c0, c1)</b></dt>
+      <dd> 文字列の中の c0 を c1 に変換した文字列を返す関数を返す関数です。</dd>
+  <dt><b>subd</b></dt>
+      <dd>文字列のなかの半角カタカナの濁音を制御文字に置き換える関数です。</dd>
+  <dt><b>zj</b></dt>
+      <dd>全角カタカナを平仮名に置き換える関数です。変換テーブルで S_ZEN を S_HIR に置き換えたあと、「ヴ」を「う゛」に置き換えます。</dd>
+  <dt><b>jz</b></dt>
+      <dd>平仮名を全角カタカナに変換する関数です。「う゛」を「ヴ」に置き換えたあと、変換テーブルで S_HIR を S_ZEN に変換します。</dd>
+  <dt><b>zh</b></dt>
+      <dd>全角カタカナを半角カタカナにおきかえる関数です。変換テーブルで S_ZEN を L_HAN に置き換えます。</dd>
+  <dt><b>jh</b></dt>
+      <dd>平仮名を半角カタカナに置き換える関数です。「う゛」を「ヴ」に置き換えたあと、変換テーブルで S_HIR を L_HAN に置き換えます。</dd>
+  <dt><b>hz</b></dt>
+      <dd>半角カタカナを全角カタカナに置き換える関数です。濁音を表す文字列を制御文字に置き換えたあと、変換テーブルを用いて S_HAN を L_ZEN に置き換えます。</dd>
+  <dt><b>hj</b></dt>
+      <dd>半角カタカナを平仮名に置き換えます。濁音を表す文字列を制御文字に置き換え、変換テーブルで S_HAN を S_HIR に置き換え、さらに、「ヴ」を「う゛」に置き換えます。</dd>
+</dl>
+
+<h2>7. 終わりに</h2>
+カナ変換プログラムは冗長なコードになると思われがちですが、
+意外と簡潔に書くことができます。<br>
+このコードには関数型のテクニックをふんだんに使っています。
+関数型を使うとこのようなライブラリを簡潔に書くことができます。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'><img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="kana.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python_kana.html&t=47+%B9%D4%A4%CE+%A4%AB%A4%CA%CA%D1%B4%B9%A5%E9%A5%A4%A5%D6%A5%E9%A5%EA' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p></body>
+</html>
+

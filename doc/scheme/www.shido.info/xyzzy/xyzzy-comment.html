@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="xyzzy, コメントアウト, マクロ">
+<meta name="description" content="モードごとのコメントアウト設定">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> コメントアウト用マクロ for xyzzy </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="comment_l.txt"><img src='../images/down_arrow.gif' class='arrow' border=0>code</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/xyzzy-comment.html&t=%A5%B3%A5%E1%A5%F3%A5%C8%A5%A2%A5%A6%A5%C8%CD%D1%A5%DE%A5%AF%A5%ED+for+xyzzy' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+<h1>複数のモードに対応したコメントアウト用マクロ</h1>
+<hr>
+<h2>1. はじめに </h2>
+コメントアウト用マクロを書いてみました。
+本文をコメントアウトしたり、コメントを本文に戻したりできます。<br>
+モードごとに書式が設定できます。<br>
+ご参考までに。
+<p>
+
+
+<h2>2. 準備 </h2>
+<ol>
+<li><a href="comment_l.txt">comment_l.txt</a> の内容全てを siteinit.l にコピーしてください。
+
+<li>siteinit.l にさらに以下の様なコードを追加します。
+(in-package "editor") と (in-packate "user") の間に追加してください。
+<pre class="oset">
+(comment-out [key-out] [key-in] [n-columns]
+    ([mode-name-1]  [start-string-1] [bol-char-1] [end-string-1])
+    ([mode-name-2]  [start-string-2] [bol-char-2] [end-string-2])
+     ........................................................
+    ([mode-name-n]  [start-string-n] [bol-char-n] [end-string-n])
+  )
+</pre>
+<dl>
+   <dt><b>[key-out]</b></dt>
+      <dd>コメントアウト用関数にバインドするキー。</dd>
+   <dt><b>[key-in]</b></dt>
+      <dd>コメントを本文に戻す関数にバインドするキー。</dd>
+   <dt><b>[n-columns]</b></dt>
+      <dd>区切り行に出力する [bol-char] （または [start-string] の最初の文字）の個数（目安）。</dd>
+   <dt><b>[mode-name]</b></dt>
+      <dd>モードの名前。lisp-mode, c-mode, c++-mode, LaTeX-mode, html-mode など。 </dd>
+   <dt><b>[start-string]</b></dt>
+      <dd>コメントの最初につく文字列。";", "/*", "//" "%", "&lt!--" など。 </dd>
+   <dt><b>[bol-char]</b></dt>
+      <dd>コメントが複数の行にわたるとき行の先頭につける文字（列） #\;, #\*, #\%, #\- など。
+          指定されていないときは [start-string] を使用。</dd>
+   <dt><b>[end-string]</b></dt>
+      <dd>コメントの最後につく文字列。"*/", "--&gt" など。 なければ 省略。</dd>
+</dl>
+例）
+<pre class="oset">
+(comment-out #\M-o #\M-p 40
+     (lisp-mode ";")
+     (c-mode "/*" #\* "*/")
+     (c++-mode "//")
+     (perl-mode "#")
+     (LaTeX-mode "%")
+     (html-mode "&lt!--" #\- "--&gt")
+   )
+</pre>
+<li> <font color="red"> [重要]</font>siteinit.l をコンパイルし、ダンプファイルを再作成します。
+
+
+<h2> 3. 使い方 </h2>
+コメントアウト用キー（上の場合は Alt-o) を入力すると、<br>
+範囲を選択していない場合は、カーソルのある位置から行末までがコメントアウトされます。<br>
+範囲を選択してある場合、設定範囲の前後に区切り行が入り、選択範囲がコメントアウトされます。<br>
+
+また、本文に戻すキー（上の場合は Alt-p) を入力すると、<br>
+範囲を選択していない場合は、カーソルのある行のコメントが本文になります。<br>
+範囲を選択してある場合、設定範囲が本文になります。<br>
+
+例）
+<table border="1" bgcolor="lightyellow">
+    <tr>
+        <th>モード</th>
+        <th>一行</th>
+        <th>複数行</th>
+    </tr>
+    <tr>
+        <td>変換前</td>
+        <td>something <span class="redtext">|</span>comment <br>
+           (<span class="redtext">|</span> はカーソルの位置)</td>
+        <td>
+          This is comment 1. <br>
+          This is comment 2.<br>
+          This is comment 3.<br>
+        </td>
+    </tr>
+                   
+    <tr>
+        <td>lisp-mode</td>
+        <td> something <font color="darkgreen">; comment</font></td>
+        <td> <font color="darkgreen">
+          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;<br>
+          ; This is comment 1.<br>
+          ; This is comment 2.<br>
+          ; This is comment 3.<br>
+          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;<br>
+          </font></td>
+    </tr>
+    <tr>
+        <td>c-mode</td>
+        <td>something <font color="darkgreen">/* comment*/ </font></td>
+        <td><font color="darkgreen">
+          /*****************************************<br>
+          * This is comment 1.<br>
+          * This is comment 2.<br>
+          * This is comment 3.<br>
+          *****************************************/<br>
+          </font></td>
+    </tr>
+    <tr>
+        <td>c++-mode</td>
+        <td>something <font color="darkgreen">// comment </font></td>
+        <td><font color="darkgreen">
+          //////////////////////////////////////////<br>
+          // This is comment 1.<br>
+          // This is comment 2.<br>
+          // This is comment 3.<br>
+          //////////////////////////////////////////<br>
+          </font></td>
+    </tr>
+    <tr>
+        <td>perl-mode</td>
+        <td> something <font color="darkgreen"># comment</font></td>
+        <td><font color="darkgreen">
+         #########################################<br>
+         # This is comment 1.<br>
+         # This is comment 2.<br>
+         # This is comment 3.<br>
+         #########################################<br>
+          </font></td>
+    </tr>
+    <tr>
+        <td>LaTeX-mode</td>
+        <td>something <font color="darkgreen">% comment </font></td>
+        <td><font color="darkgreen">
+         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<br>
+         % This is comment 1.<br>
+         % This is comment 2.<br>
+         % This is comment 3.<br>
+         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<br>
+         </font></td>
+    </tr>
+    <tr>
+        <td>html-mode</td>
+        <td>something <font color="darkgreen">&lt!-- comment--&gt </font></td>
+        <td><font color="darkgreen">
+         &lt!------------------------------------------<br>
+         - This is comment 1.<br>
+         - This is comment 2.<br>
+         - This is comment 3.<br>
+         -------------------------------------------&gt<br>
+         </font></td>
+    </tr>
+</table>
+<h2> 4. 補足 </h2>
+マクロ comment-out はモードごとにコメントアウトする関数を定義し、それを
+モードのキーマップに登録します。
+例えば、lisp-mode の場合 lisp-mode-comment-out, lisp-mode-comment-in という関数が定義され、
+それが *lisp-mode-map* の設定されたキーにバインドされます。<p>
+
+関数をモードごとに分けないで、１つの関数で全てのモードをカバーすることも
+可能だと思いますが、複雑になりそうですし、実行時の処理が多くなりそうなので
+モードごとの関数を定義するマクロを書いてみました。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="comment_l.txt"><img src='../images/down_arrow.gif' class='arrow' border=0>code</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/xyzzy-comment.html&t=%A5%B3%A5%E1%A5%F3%A5%C8%A5%A2%A5%A6%A5%C8%CD%D1%A5%DE%A5%AF%A5%ED+for+xyzzy' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

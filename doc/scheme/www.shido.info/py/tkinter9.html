@@ -1,0 +1,544 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="Image Viewer using Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 9. ボードゲーム用 GUI を作ろう </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter8.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. Menu を使ったシンプル 画像 Viewer</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter10.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  10. キャンバスにドラッグできるオブジェクトを描こう</a></td>
+<td><a rel='download' href="tkinter9.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter9.html&t=Tkinter+%C6%FE%CC%E7%3A+9.+%A5%DC%A1%BC%A5%C9%A5%B2%A1%BC%A5%E0%CD%D1+GUI+%A4%F2%BA%EE%A4%ED%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>9. ボードゲーム用 GUI を作ろう </h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+今回から、Tk.Canvas の説明をします。Tk.Canvas は Tkinter の中で
+ 最も<u>使いでがある</u> widget です。<p>
+
+   この章では、Tk.Canvas について簡単に説明した後、まず手始めにチェス版と碁盤を作ってみます。
+
+<h2>2. Tk.Canvas の簡単な説明</h2>
+<h3>2.1. 作り方</h3>
+Tk.Canvas は他の widget と同じように、第一引数に親 widget, それ以降にオプションを指定して作成します。
+<pre class='code'>
+Tk.Canvas(master, **options)
+</pre>
+Tk.Canvas には以下の特徴があります。
+<ul>
+ <li>T.Canvas は２つの座標を持っています。キャンバス全体の左上からの座標と、表示されている部分の左上からの
+   座標です。キャンバスが大きくて、スクロールバーがついているときこれらの座標系は異なる値を持ちます。
+   表示されている部分の座標からキャンバス全体の座標を求めるには <em>.canvasx()</em>, <em>.canvasy()</em>
+   メソッドを使います。
+ <li>表示リスト：キャンバス上にあるオブジェクトは表示リストで管理されています。
+   複数のオブジェクトが重なった場合、表示リストの前にあるオブジェクトが上に表示されます。
+ <li> オブジェクトの ID キャンバス上にオブジェクトを作るとその ID が返ってくるので、それを用いて
+   オブジェクトの属性を変化させることができます。
+ <li>オブジェクトを生成するとき <span class='mono'>tags</span> オプションを使って、オブジェクトにタグをつけることが
+   できます。
+ <li>オブジェクトのタグを指定してオブジェクトの属性を変えることができます。複数のオブジェクトの属性を
+   まとめて変えるときに便利です。
+ </ul>
+Tk.Canvas の主なメソッドを次に示します。
+下の表で、ID は、ID ナンバーまたは Tag を指します。
+<table border=1>
+   <tr>
+      <td>.delete(ID)</td>
+      <td> ID で指定されたオブジェクトを削除します。</td>
+   </tr>
+   <tr>
+      <td>.itemcget(ID, option)</td>
+      <td> ID で指定されたオブジェクトの option の値を返します。</td>
+   </tr>
+   <tr>
+      <td>.itemconfigure(ID, option)</td>
+      <td> ID で指定されたオブジェクトの属性を指定します。</td>
+   </tr>
+   <tr>
+      <td>.move(ID, x, y)</td>
+      <td> ID で指定されたオブジェクトを (x, y) だけ動かします。</td>
+   </tr>
+   <tr>
+      <td>.scale(ID, x0, y0, rx, ry)</td>
+      <td> ID で指定されたオブジェクトを、(x0, y0) を基準点にして、
+(rx, ry) だけ拡大します。</td>
+   </tr>
+   <tr>
+      <td>.tag_bind(ID, event, func)</td>
+      <td> ID で指定されたオブジェクトと event を結びつけ、event が起こると func が呼ばれるようにします。</td>
+   </tr>
+</table>
+   そのほかにも山ほどのメソッドがあります。
+詳しくは、以下を参照してください。
+<ul>
+<li><a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/canvas-methods.html'>
+        Tkinter reference: 6.2. Methods on Canvas objects</a>
+  <li><a href='http://effbot.org/tkinterbook/canvas.htm'>The Tkinter Canvas Widget</a>
+    </ul>
+<h3>2.2.Tk.Canvas に描けるオブジェクト</h3>
+Tk.Canvas に描けるオブジェクトを下の表に示します。詳しくは
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/canvas-concepts.html'>
+  Tkinter reference: 6. The Canvas widget</a> を見てください。
+下の表で、TkRef とは <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/index.html'>Tkinter reference</a>
+を指します。
+<table border=1>
+   <tr>
+      <th>Object</th>
+      <th>作成するメソッド</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>弧</td>
+      <td>.create_arc()</td>
+      <td>円弧（の一部）を描きます。<span class='mono'>PIESLICE, CHORD, ARC</span> の３つのタイプがあります。
+          see <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/create_arc.html'>TkRef 6.3. The canvas arc object</a></td>
+   </tr>
+   <tr>
+      <td>ビットマップ</td>
+      <td>.create_bitmap()</td>
+      <td>ビットマップイメージを作成します。
+See <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/create_bitmap.html'>TkRef 6.4.  The canvas bitmap object</a>    </td>
+   </tr>
+   <tr>
+      <td>イメージ</td>
+      <td>.create_image()</td>
+      <td>Graphic Image を作成します。
+See<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/create_image.html'> TkRef 6.5. The canvas image object</a></td>
+   </tr>
+   <tr>
+      <td>線分</td>
+      <td>.create_line()</td>
+      <td>線分を描きます。曲線も描くことができます。
+See <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/create_line.html'>TkRef 6.6. The canvas line object</a></td>
+   </tr>
+   <tr>
+      <td>楕円</td>
+      <td>.create_oval()</td>
+      <td>円、楕円を描きます。
+See <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/create_oval.html'>TkRef 6.7. The canvas oval object</a></td>
+   </tr>
+   <tr>
+      <td>多角形</td>
+      <td>.create_polygon()</td>
+      <td>See <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/create_polygon.html'>
+  TkRef 6.8. The canvas polygon object</a></td>
+   </tr>
+   <tr>
+      <td>長方形</td>
+      <td>create_rectangle()</td>
+      <td>See <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/create_rectangle.html'>
+  TkRef 6.8. The canvas rectangle object</a></td>
+   </tr>
+   <tr>
+      <td>テキスト</td>
+      <td>.create_text()</td>
+      <td>See <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/create_text.html'>
+  TkRef 6.10. The canvas text object</a></td>
+   </tr>
+   <tr>
+      <td>ウインドウ</td>
+      <td>.create_window()</td>
+      <td> Tk.Canvas 上に他の widget を入れるとき使います。
+ See <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/create_window.html'>TkRef 6.11. The canvas window object</a></td>
+   </tr>
+</table>
+      
+<h2>3. Eight Queens 再び</h2>
+<a href="python5.html">wxPython と Tkinter で Eight Queens を作る。</a>
+でとりあげた Eight Queens 用 GUI を Tk.Canvas で作ってみます。
+<a href="python5.html">wxPython と Tkinter で Eight Queens を作る。</a>では、
+Queen を移動させるとき、もとあった画像を壊して、新しい画像をはめ込んでいましたが、
+Tk.Canvas で盤を作り、透過 GIF の Queen を移動させたほうが効率がいいことに気づいたので、書き直してみました。
+下の図に示すような画面が表示されます。
+
+<center><img src='8q_tk_cvs.jpg'></center>
+
+コードを [code 1] に示します。<p>
+
+[code 1] (8queens.py)     
+<pre class='code'>
+<span class="linenumber"> 01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber"> 02:</span>     
+<span class="linenumber"> 03:</span>     <span class="string">"""
+<span class="linenumber"> 04:</span>     eight queens, whose gui uses Tkinter
+<span class="linenumber"> 05:</span>     """</span>
+<span class="linenumber"> 06:</span>     
+<span class="linenumber"> 07:</span>     import Tkinter as Tk
+<span class="linenumber"> 08:</span>     import queen as Q
+<span class="linenumber"> 09:</span>     
+<span class="linenumber"> 10:</span>     
+<span class="linenumber"> 11:</span>     
+<span class="linenumber"> 12:</span>     Q_font = ("Times", 14)
+<span class="linenumber"> 13:</span>     
+<span class="linenumber"> 14:</span>     
+<span class="linenumber"> 15:</span>     
+<span class="linenumber"> 16:</span>     def move_queen(now, next):
+<span class="linenumber"> 17:</span>         return [(i, z1-z0) for i, (z0, z1) in enumerate(zip(now, next)) if z0 != z1]
+<span class="linenumber"> 18:</span>     
+<span class="linenumber"> 19:</span>     
+<span class="linenumber"> 20:</span>     
+<span class="linenumber"> 21:</span>     class Cboard(Tk.Canvas):
+<span class="linenumber"> 22:</span>         cell_size = 46
+<span class="linenumber"> 23:</span>         margin = 5
+<span class="linenumber"> 24:</span>         q_images = []
+<span class="linenumber"> 25:</span>         q_figure = []
+<span class="linenumber"> 26:</span>         
+<span class="linenumber"> 27:</span>         def __init__(self, master):
+<span class="linenumber"> 28:</span>             cwidth = 8*self.cell_size 
+<span class="linenumber"> 29:</span>     
+<span class="linenumber"> 30:</span>             Tk.Canvas.__init__(self, master, relief=Tk.RAISED, bd=4, bg='white',
+<span class="linenumber"> 31:</span>                                 width=cwidth, height=cwidth)
+<span class="linenumber"> 32:</span>                                 
+<span class="linenumber"> 33:</span>             self.q_answers = Q.eight_queens()
+<span class="linenumber"> 34:</span>             
+<span class="linenumber"> 35:</span>     
+<span class="linenumber"> 36:</span>             for i in range(8):
+<span class="linenumber"> 37:</span>     
+<span class="linenumber"> 38:</span>                 for j in range(8):
+<span class="linenumber"> 39:</span>                     bcolor = (i-j)%2==0 and "#699C69" or "#D4D49F"
+<span class="linenumber"> 40:</span>                     x0 = i*self.cell_size + self.margin
+<span class="linenumber"> 41:</span>                     y0 = j*self.cell_size + self.margin
+<span class="linenumber"> 42:</span>                     self.create_rectangle(x0, y0, x0+self.cell_size, y0+self.cell_size, fill=bcolor, width=0)
+<span class="linenumber"> 43:</span>     
+<span class="linenumber"> 44:</span>                 self.q_images.append(Tk.PhotoImage(file="queen.gif"))
+<span class="linenumber"> 45:</span>                 z =  self.q_answers[0][i]
+<span class="linenumber"> 46:</span>                 x = self.cell_size*((z / 8)+0.5) + self.margin
+<span class="linenumber"> 47:</span>                 y = self.cell_size*((z % 8)+0.5) + self.margin
+<span class="linenumber"> 48:</span>                 self.q_figure.append(self.create_image(x, y, image=self.q_images[i], tags="queen"))
+<span class="linenumber"> 49:</span>     
+<span class="linenumber"> 50:</span>     
+<span class="linenumber"> 51:</span>         def refresh(self, now, next):
+<span class="linenumber"> 52:</span>             answer_now = self.q_answers[now]
+<span class="linenumber"> 53:</span>             answer_next = self.q_answers[now+next]
+<span class="linenumber"> 54:</span>             for i, j in move_queen(answer_now, answer_next):
+<span class="linenumber"> 55:</span>                 self.move(self.q_figure[i], 0, j*self.cell_size) 
+<span class="linenumber"> 56:</span>     
+<span class="linenumber"> 57:</span>     
+<span class="linenumber"> 58:</span>     
+<span class="linenumber"> 59:</span>     
+<span class="linenumber"> 60:</span>     class Queen(Tk.Frame):
+<span class="linenumber"> 61:</span>     
+<span class="linenumber"> 62:</span>         def __init__(self, master=None):
+<span class="linenumber"> 63:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber"> 64:</span>             self.master.title("8 Queens")
+<span class="linenumber"> 65:</span>     
+<span class="linenumber"> 66:</span>             
+<span class="linenumber"> 67:</span>             <span class="comment"># title</span>
+<span class="linenumber"> 68:</span>             l_title = Tk.Label(self, text='Eight Queens', font=('Times', '24', ('italic', 'bold')),
+<span class="linenumber"> 69:</span>                                     fg='#191970', bg='#EEE8AA', width=12)
+<span class="linenumber"> 70:</span>             l_title.pack(padx=10, pady=10)
+<span class="linenumber"> 71:</span>     
+<span class="linenumber"> 72:</span>             <span class="comment"># chess board</span>
+<span class="linenumber"> 73:</span>             self.f_board = Cboard(self)
+<span class="linenumber"> 74:</span>             self.f_board.pack(padx=10, pady=10)
+<span class="linenumber"> 75:</span>     
+<span class="linenumber"> 76:</span>             <span class="comment"># buttons and a counter</span>
+<span class="linenumber"> 77:</span>             self.q_counter = 0
+<span class="linenumber"> 78:</span>             self.f_footer = Tk.Frame(self)
+<span class="linenumber"> 79:</span>             self.f_footer.pack()
+<span class="linenumber"> 80:</span>             self.s_counter = Tk.StringVar()
+<span class="linenumber"> 81:</span>             self.s_counter.set("%d/12" % (1 + self.q_counter))
+<span class="linenumber"> 82:</span>             self.a_button = Tk.Button(self.f_footer, text="next", font=Q_font, command = self.show_next)
+<span class="linenumber"> 83:</span>             self.a_button.pack(side=Tk.LEFT, padx=5,pady=5)
+<span class="linenumber"> 84:</span>             self.b_button = Tk.Button(self.f_footer, text="prev", font=Q_font, command = self.show_prev)
+<span class="linenumber"> 85:</span>             self.b_button.pack(side=Tk.LEFT, padx=5,pady=5)
+<span class="linenumber"> 86:</span>             self.f_label = Tk.Label(self.f_footer, textvariable = self.s_counter, font=Q_font)
+<span class="linenumber"> 87:</span>             self.f_label.pack(side=Tk.LEFT, padx=5, pady=5)
+<span class="linenumber"> 88:</span>     
+<span class="linenumber"> 89:</span>     
+<span class="linenumber"> 90:</span>         def show_next(self):
+<span class="linenumber"> 91:</span>             if(self.q_counter &lt; 11):
+<span class="linenumber"> 92:</span>                 self.f_board.refresh(self.q_counter, 1)
+<span class="linenumber"> 93:</span>                 self.change_counter(1)
+<span class="linenumber"> 94:</span>     
+<span class="linenumber"> 95:</span>     
+<span class="linenumber"> 96:</span>         def show_prev(self):
+<span class="linenumber"> 97:</span>             if(self.q_counter &gt; 0):
+<span class="linenumber"> 98:</span>                 self.f_board.refresh(self.q_counter, -1)
+<span class="linenumber"> 99:</span>                 self.change_counter(-1)
+<span class="linenumber">100:</span>     
+<span class="linenumber">101:</span>     
+<span class="linenumber">102:</span>         def change_counter(self, i):
+<span class="linenumber">103:</span>             self.q_counter += i
+<span class="linenumber">104:</span>             self.s_counter.set("%d/12" % (1 + self.q_counter))
+<span class="linenumber">105:</span>         
+<span class="linenumber">106:</span>                 
+<span class="linenumber">107:</span>     <span class="comment">##--------------------------------------------------- </span>
+<span class="linenumber">108:</span>     if __name__ == "__main__":
+<span class="linenumber">109:</span>         app = Queen()
+<span class="linenumber">110:</span>         app.pack()
+<span class="linenumber">111:</span>         app.mainloop()
+</pre>
+
+<h3>3.1. ソースコードの簡単な説明</h3>
+<span class='mono'>Tk.Canvas</span> の派生クラス <var>Cboard</var> を作り、その中に升目を作って、Queen を配置します。
+Queen を動かすときは <em>.move</em> メソッドを使って Queen のイメージを動かします。<p>
+
+<ul>
+  <li><span class='mono'>Tkinter(Tk)</span> と <span class='mono'>queen(Q)</span> をインポートします。(7,8)<br>
+    <span class='mono'>queen</span> は Eight Queens を解くモジュールです。
+    Eight Queens の解の数は盤の対称操作を考慮すると 12 個になります。（考慮しないと 92 個）
+    ここでは、対称操作を考慮しています。
+  <li> 表示用のフォントを定義しています。 (10)
+  <li> <b>move_queen(now, next)</b>(16,17)<br>
+    何列目の Queen を何行動かすかのリストを返します。
+    例えば、[(1,3), (4,-2)] は 1 列目の Queen を下に 3 行、4 列目の Queen を 上に 2 行動かすことを
+    意味します。ここで、列数は 0 から数え始めます。
+ <li> <b>class Cboard(Tk.Canvas)</b> (21--55)
+   <span class='mono'>Tk.Canvas</span> の派生クラス <var>Cboard</var> を定義します。
+   <ul>
+     <li>クラス変数 (22--25)
+       <ul>
+         <li><var>cell_size</var>: 升目の大きさです。
+	 <li><var>margin</var>: 上下左右のマージンです。
+	 <li><var>q_images</var>: <var>queen.gif</var> を Tk.PhotoImage に変えたもののリストです。
+	 <li><var>q_figure</var>: <var>q_iamges</var> を
+	   キャンバスに貼り付けたものです。Tk.PhotoImage は 貼り付ける数と同じだけ用意する必要が
+	   あります。
+	</ul>
+    <li><b>__init__(self, master)</b>(27--48)
+      <ul>
+        <li>まず、<span class='mono'>Tk.Canvas</span> として初期化します。(30,31)
+	<li> Eight Queens の解を <var>self.q_answers</var> に代入します。(33)
+	<li><span class='mono'>i in range(8)</span> について 48 行目までを行います。(36)
+	  <ul>
+           <li><span class='mono'>j in range(8)</span> について 42 行目までを行います。(36)<br>
+	    <em>create_rectangle</em> メソッドを使って升目を作って、
+	    <span style=background:#699C69>"#699C69"</span> と
+	    <span style=background:#D4D49F>"#D4D49F"</span> で塗り分けています。
+	   <li><var>self.q_images</var> に <span class='mono'>Tk.PhotoImage(file="queen.gif")</span> を加えていきます。 (44)
+	   <li>最初の答えの i 番目の Queen の位置を <var>z</var> に代入します。(45)
+	   <li><var>z</var> から、位置を求めて、イメージを作成し、それを <var>self.q_figure</var> に加えます。(45--48)
+	 </ul>
+       </ul>
+   <li><b>refresh(self, now, next)</b> (51--55)<br>
+     Queen を動かして、次、または前の解を表示するメソッドです。
+     今表示している解 <var>answer_now</var> とこれから表示する解 <var>answer_next</var> から、
+     どの Queen をどれだけ動かせばよいかを <var>move_queen</var> を使って計算し、
+     <em>.move</em> メソッドを使って Queen の画像を動かします。
+ </ul>
+ <li><b>class Queen(Tk.Frame)</b> (60--104)<br>
+   メインフレームです。
+   <ul>
+    <li><b>__init__(self, master=None)</b> (62--87)<br>
+      タイトルラベル、チェス版、ボタン、カウンターを初期化します。
+    <li> <b>show_next(self)</b> (90--93)<br>
+      次の解を表示します。
+    <li> <b>show_prev(self)</b> (96--99)<br>
+      前の解を表示します。
+    <li><b>change_counter(self, i)</b> (102--104)<br>
+      カウンターを更新します。
+ </ul>
+</ul>
+
+
+
+
+
+<h2>4. 詰碁作成用 GUI</h2>
+<a href='../hs/haskell12.html'>Haskell で詰碁を解くプログラム</a>を作ったので、その GUI を Tkinter で作りました。
+碁盤をクリックすると黒石が置かれ、黒石をクリックすると白石に変わり、
+白石をクリックすると石が消えます。盤上の石を、詰碁プログラムが読める形式で保存します。
+少し長いので、Tk.Canvas に関する部分だけを示します。興味のある方は <a href='../hs/haskell12.html'>詰碁を解く</a>
+を見てください。
+<pre class='code'>
+<span class="linenumber"> 01:</span>     class Gboard(Tk.Canvas):
+<span class="linenumber"> 02:</span>         <span class="string">"""Tk.Canvas for Go Board"""</span>
+<span class="linenumber"> 03:</span>         
+<span class="linenumber"> 04:</span>         grid_size = 20
+<span class="linenumber"> 05:</span>         stones = dict()
+<span class="linenumber"> 06:</span>     
+<span class="linenumber"> 07:</span>     
+<span class="linenumber"> 08:</span>         def __init__(self, master):
+<span class="linenumber"> 09:</span>             
+<span class="linenumber"> 10:</span>             en = self.grid_size * 19
+<span class="linenumber"> 11:</span>             z = self.grid_size * 0.36
+<span class="linenumber"> 12:</span>             hosi = 2
+<span class="linenumber"> 13:</span>     
+<span class="linenumber"> 14:</span>             Tk.Canvas.__init__(self, master, relief=Tk.RAISED, bd=4, bg="#F7EE8A",</span>
+<span class="linenumber"> 15:</span>                                 width=20*self.grid_size, height=20*self.grid_size, highlightthickness=0)
+<span class="linenumber"> 16:</span>             <span class="comment"># binding the goban canvas to put_stones method</span>
+<span class="linenumber"> 17:</span>             self.bind("&lt;1&gt;", self.put_stones)
+<span class="linenumber"> 18:</span>             
+<span class="linenumber"> 19:</span>             <span class="comment"># drawing lines and coordinate </span>
+<span class="linenumber"> 20:</span>             for i in range(19):
+<span class="linenumber"> 21:</span>                 x= (i+1) * self.grid_size
+<span class="linenumber"> 22:</span>                 self.create_line(x, self.grid_size, x, en)
+<span class="linenumber"> 23:</span>                 self.create_line( self.grid_size, x, en, x)
+<span class="linenumber"> 24:</span>                 
+<span class="linenumber"> 25:</span>                 self.create_text(z, x, text=str(i), justify=Tk.RIGHT, fill=" #002010",
+<span class="linenumber"> 26:</span>                                        font = ("Helvetica","6","normal"))
+<span class="linenumber"> 27:</span>                 self.create_text(x, z , text=str(i), justify=Tk.CENTER, fill="#002010",
+<span class="linenumber"> 28:</span>                                        font = ("Helvetica","6","normal"))
+<span class="linenumber"> 29:</span>     
+<span class="linenumber"> 30:</span>             <span class="comment"># drawing black dots</span>
+<span class="linenumber"> 31:</span>             for i in range(4,17,6):
+<span class="linenumber"> 32:</span>                 for j in range(4,17,6):
+<span class="linenumber"> 33:</span>                     x = i * self.grid_size
+<span class="linenumber"> 34:</span>                     y = j * self.grid_size
+<span class="linenumber"> 35:</span>                     self.create_oval(x-hosi, y-hosi, x+hosi, y+hosi, fill= "black")
+<span class="linenumber"> 36:</span>     
+<span class="linenumber"> 37:</span>     
+<span class="linenumber"> 38:</span>     
+<span class="linenumber"> 39:</span>     
+<span class="linenumber"> 40:</span>         def bclear(self):
+<span class="linenumber"> 41:</span>             <span class="string">""" clear stones in the map and on the canvas"""</span>
+<span class="linenumber"> 42:</span>             self.stones.clear()
+<span class="linenumber"> 43:</span>             self.delete("stone")
+<span class="linenumber"> 44:</span>     
+<span class="linenumber"> 45:</span>     
+<span class="linenumber"> 46:</span>     
+<span class="linenumber"> 47:</span>     
+<span class="linenumber"> 48:</span>         def bopen (self, fname):
+<span class="linenumber"> 49:</span>             <span class="string">"""open *.gbn file, whose content is ( [kuro ishi positions], [shiro ishi positions])"""</span>
+<span class="linenumber"> 50:</span>             fp = file(fname)
+<span class="linenumber"> 51:</span>             lb, lw = eval(rm_cmt(fp.read()))
+<span class="linenumber"> 52:</span>             fp.close()
+<span class="linenumber"> 53:</span>             
+<span class="linenumber"> 54:</span>             for row, col in lb:
+<span class="linenumber"> 55:</span>                 self.stones[(row,col)] = self.put_a_stone(row, col, "black")
+<span class="linenumber"> 56:</span>      
+<span class="linenumber"> 57:</span>             for row, col in lw:
+<span class="linenumber"> 58:</span>                 self.stones[(row,col)] = self.put_a_stone(row, col, "white")
+<span class="linenumber"> 59:</span>     
+<span class="linenumber"> 60:</span>     
+<span class="linenumber"> 61:</span>     
+<span class="linenumber"> 62:</span>     
+<span class="linenumber"> 63:</span>         def bsave(self, fname):
+<span class="linenumber"> 64:</span>             <span class="string">""" save positions of stones in a file """</span>
+<span class="linenumber"> 65:</span>             lb = []
+<span class="linenumber"> 66:</span>             lw = []
+<span class="linenumber"> 67:</span>             for key, val in self.stones.iteritems():
+<span class="linenumber"> 68:</span>                 if self.itemcget(val, "fill") == "black":
+<span class="linenumber"> 69:</span>                     lb.append(key)
+<span class="linenumber"> 70:</span>                 else:
+<span class="linenumber"> 71:</span>                     lw.append(key)
+<span class="linenumber"> 72:</span>             fp = file(fname, 'w')
+<span class="linenumber"> 73:</span>             fp.write("-- ([black stones], [white stones])\n")
+<span class="linenumber"> 74:</span>             fp.write ("(\n     ")
+<span class="linenumber"> 75:</span>             fp.write(str(lb))
+<span class="linenumber"> 76:</span>             fp.write(",\n     ")
+<span class="linenumber"> 77:</span>             fp.write(str(lw))
+<span class="linenumber"> 78:</span>             fp.write("\n)\n")
+<span class="linenumber"> 79:</span>             fp.close()
+<span class="linenumber"> 80:</span>     
+<span class="linenumber"> 81:</span>     
+<span class="linenumber"> 82:</span>     
+<span class="linenumber"> 83:</span>     
+<span class="linenumber"> 84:</span>         def put_stones(self, event):
+<span class="linenumber"> 85:</span>             <span class="string">""" putting go ishis on the goban,
+<span class="linenumber"> 86:</span>             this function is bounded to the left one click of the mouse"""</span>
+<span class="linenumber"> 87:</span>     
+<span class="linenumber"> 88:</span>             cx = self.canvasx(event.x, self.grid_size)
+<span class="linenumber"> 89:</span>             cy = self.canvasy(event.y, self.grid_size)
+<span class="linenumber"> 90:</span>     
+<span class="linenumber"> 91:</span>             col = int(cx/self.grid_size) - 1 
+<span class="linenumber"> 92:</span>             row = int(cy/self.grid_size) - 1
+<span class="linenumber"> 93:</span>             if (0&lt;=row&lt;=18 and 0&lt;=col&lt;=18):
+<span class="linenumber"> 94:</span>                 if (not ((row,col) in self.stones)) :
+<span class="linenumber"> 95:</span>                     self.stones[(row,col)] = self.put_a_stone(row, col, "black")
+<span class="linenumber"> 96:</span>                 elif(self.itemcget(self.stones[(row,col)], "fill") == "black"):
+<span class="linenumber"> 97:</span>                     self.itemconfig(self.stones[(row,col)], fill="white")
+<span class="linenumber"> 98:</span>                 else:
+<span class="linenumber"> 99:</span>                     self.delete(self.stones[(row,col)])
+<span class="linenumber">100:</span>                     del self.stones[(row,col)]
+<span class="linenumber">101:</span>     
+<span class="linenumber">102:</span>     
+<span class="linenumber">103:</span>     
+<span class="linenumber">104:</span>     
+<span class="linenumber">105:</span>         def put_a_stone(self, row, col, color):
+<span class="linenumber">106:</span>             <span class="string">""" it drows a go-ishi on the goban canvas and returns the go-ishi's ID """</span>
+<span class="linenumber">107:</span>             r = self.grid_size * 0.45
+<span class="linenumber">108:</span>             x_left = (col+1)*self.grid_size-r
+<span class="linenumber">109:</span>             x_right = (col+1)*self.grid_size+r
+<span class="linenumber">110:</span>             y_top = (row+1)*self.grid_size-r
+<span class="linenumber">111:</span>             y_bottom = (row+1)*self.grid_size+r
+<span class="linenumber">112:</span>             return self.create_oval(x_left, y_top, x_right, y_bottom, fill = color, tags = "stone")
+<span class="linenumber">113:</span>     
+<span class="linenumber">114:</span>     
+<span class="linenumber">115:</span>     
+<span class="linenumber">116:</span>     
+<span class="linenumber">117:</span>         def add_n_on_stone(self, i, row, col, tcolor):
+<span class="linenumber">118:</span>             <span class="string">""" draw number of a stone """</span>
+<span class="linenumber">119:</span>             return self.create_text((col+1)*self.grid_size, (row+1)*self.grid_size,
+<span class="linenumber">120:</span>                                      text=str(i+1), justify=Tk.CENTER, fill=tcolor,
+<span class="linenumber">121:</span>                                        font = ("Helvetica","8","bold"), tags="stone")
+</pre>
+
+<h3> 4.1. 簡単な説明</h3>
+<var>Gboard</var> は <span class='mono'>Tk.Canvas</span> の派生クラスで、碁盤を表します。
+<ul>
+ <li><var>grid_size</var>, <var>stones</var> の２つのクラス変数があります。(4,5)<br>
+   <var>grid_size</var> は升目の大きさ、
+   <var>stones</var> は置かれている石を位置のタプルをキーとして保持するマップです。
+ <li><b>__init__(self, master)</b> (8--35)<br>
+   <ul>
+     <li><var>en</var> は升目の線の終点、 <var>z</var> は座標の文字の位置、<var>hosi</var> は "星" の半径です。(10--12)
+     <li><span class='mono'>Tk.Canvas</span> として初期化します。(14,15)
+     <li>マウス左クリックを <var>self.put_stones</var> と結び付けます。(17)
+     <li>升目の線と座標を書きます。(20--28)
+     <li>"星"を描きます。(31--35)
+   </ul>
+ <li><b>bclear(self)</b> (40--43)<br>
+   碁盤をクリアします。
+ <li><b>bopen (self, fname)</b> (48--58)<br>
+   <var>fname</var> の名前のファイルを開いて、コメントを取り除いて (<var>rm_cmt</var>)
+   黒石のリスト (<var>lb</var>) と白石のリスト (<var>lw</var>)
+   を読み込みます。その後、黒石と、白石を碁盤に置いていきます。
+ <li><b>bsave (self, fname)</b> (63--79)<br>
+   盤上にある石を <var>fname</var> という名前のファイルに保存します。
+ <li><b>put_stones(self, event)</b> (84--100)<br>
+   マウス左クリックで呼ばれる関数です。<em>canvasx</em>, <em>canvasy</em>
+   メソッドを利用して、マウスクリックの位置を <var>self.grid_size</var>
+   で丸めます。つまり、マウスで、中途半端な位置をクリックしても、升目の座標が取得できます。
+   93--100 行で、空き地の場合、黒石がおかれていた場合、白石がおかれていた場合についての動作を定義しています。
+   もし、空き地だったら黒石を置き、黒石があったらそれを白石に変え、白石だったらそれを取り除きます。
+ <li><b>put_a_stones(self, row, col, color)</b> (105--112)<br>
+   盤上に円を描き、その ID を返します。
+ <li><b>add_n_on_stone(self, i, row, col, tcolor)</b> (117--121)<br>
+   碁石の上に数字を描いて、その ID を返します。
+</ul>
+    
+  <h2>5. 終わりに</h2>
+今回は、Tk.Canvas を使ってボードゲーム用 GUI を作成しました。
+  Tk.Canvas の使い方もコツを覚えれば、それほど難しくありません。
+  <strong>tag_bind</strong> と <strong>itemconfigure</strong> メソッドが使いこなせればいろいろなことができます。
+  <a href='python6.html'>Tkinter demo</a> にも Tk.Canvas のいろいろな例がありますので
+  見てみてください。<p>
+  次回は大画面の Tk.Canvas を用いて スクロールバーのつけ方について解説します。
+  
+  
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter8.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. Menu を使ったシンプル 画像 Viewer</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter10.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  10. キャンバスにドラッグできるオブジェクトを描こう</a></td>
+<td><a rel='download' href="tkinter9.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter9.html&t=Tkinter+%C6%FE%CC%E7%3A+9.+%A5%DC%A1%BC%A5%C9%A5%B2%A1%BC%A5%E0%CD%D1+GUI+%A4%F2%BA%EE%A4%ED%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

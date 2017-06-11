@@ -1,0 +1,1401 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Python, quick look">
+<meta name="description" content="Python summary">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Python Quick Look </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=py/python2_e.html&t=Python+Quick+Look' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+ <h1>Python Quick Look</h1> 
+<hr>
+<h2>Preface</h2>
+This document overviews Python using top-down method.
+A tutorial with a top-down method is feasible using the advantage of HTML
+that it can link to any resources on the web.
+
+The document shows the general features first and then 
+goes into the details step by step.
+You can stop reading at the place where you get tired.
+<p>
+Python is getting popular and there are several good introductions on the web.
+Among them, the official documents such as 
+<a href='http://docs.python.org/tut/tut.html'>the tutorial</a>, 
+<a href='http://docs.python.org/lib/lib.html'>the library reference</a>, and 
+<a href='http://docs.python.org/ref/ref.html'>the language reference</a>
+are most useful. 
+This page is, actually, a collection of links to the official documents.
+As the official documents have huge volume, links to frequently used features
+and library is useful.
+I use (the Japanese version of) this page most frequently among documents I wrote.
+I hope it is also useful for you.
+
+<h2>Contents</h2>
+<ol>
+  <li><a href="#cmdline">Executing Python</a>
+  <li><a href="#format">The Form of Python Scripts</a>
+  <li><a href='#assign'>Assignment</a>
+  <li><a href="#block">Blocks</a>
+  <li><a href="#io">IO</a>
+  <li><a href="#func">Functions</a>
+  <li><a href="#class">Classes</a>
+  <li><a href="#data">Data Types</a>
+  <li><a href="#operator">Operators</a>
+  <li><a href="#library">Library Tour</a>
+  <li><a href="#appendix">Appendix</a>
+</ol>
+
+<a name="cmdline">
+<h2>1. Executing Python</h2>
+First, include the directory where Python executable is to the PATH environmental variable.<br>
+Then type like as follow from the prompt to execute Python.
+<pre class="samp">
+python <span class="parm">option   script   argvs </span>
+</pre>
+If you type just "python", the interactive mode is invoked, which
+ is convenient to test each function.
+<p>
+Followings show the command line option.
+<pre class='code'>
+python [-diOStuUvx?] [-c command | script | - ] [argvs]
+</pre>
+<table border=1>
+    <tr>
+        <th>Option</th>
+        <th>Effect</th>
+    </tr>
+    <tr>
+        <td>-d </td>
+        <td>Output debugging information.</td>
+    </tr>
+    <tr>
+        <td>-i </td>
+        <td>Check the script interactively and show the prompt.</td>
+    </tr>
+    <tr>
+        <td>-O </td>
+        <td>Optimise the byte code.</td>
+    </tr>
+    <tr>
+        <td>-S </td>
+        <td>Ignore <tt>import</tt> statement.</td>
+    </tr>
+    <tr>
+        <td>-t </td>
+        <td>Warn contradicting indent.</td>
+    </tr>
+    <tr>
+        <td>-u </td>
+        <td>Use non-buffered binary standard output and standard error.</td>
+    </tr>
+    <tr>
+        <td>-U </td>
+        <td>Read String literals as Unicode.</td>
+    </tr>
+    <tr>
+        <td>-v </td>
+        <td>Detailed tracking of import statement.</td>
+    </tr>
+    <tr>
+        <td>-x </td>
+        <td>Skip the first line of the source code.</td>
+    </tr>
+    <tr>
+        <td>-? </td>
+        <td>Help.</td>
+    </tr>
+	 </table>
+
+    <dl>
+        <dt><b>-c command </b></dt>
+        <dd>Execute the specified command.</dd>
+        <dt><b>script </b></dt>
+        <dd>Read and execute a python source file.</dd>
+        <dt><b>argvs </b></dt>
+        <dd>Arguments of the script or command.</dd>
+    </dl>
+
+When Python is exuecuted as the interactive mode, it read a file specified by <tt>PYTHONSTARTUP</tt> 
+environmental variable.
+It is convenient to importing often used modules using this file.
+See <a href='http://docs.python.org/tut/node4.html#SECTION004240000000000000000'>
+      Tutorial 2.2.4</a> for detailed information.<p>
+
+Example of the start up file:
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment"># PYTHONSTARTUP</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     import sys, math, re, os, os.path
+<span class="linenumber">04:</span>     print 'sys, math, re, os, os.path has been imported.'
+</pre>
+<a name="format">
+<h2>2. The Form of Python Scripts</h2>
+Following code shows an example of a Python script
+<pre class="code">
+<font color="goldenrod">00:</font>     <span class="comment">#! /usr/bin/env python</span>
+<font color="goldenrod">01:</font>     <span class="comment"># -*- coding: iso-8859-1  -*-</span>
+<font color="goldenrod">02:</font>     
+<font color="goldenrod">03:</font>     <span class="string">r"""
+<font color="goldenrod">04:</font>     Comments on the script
+<font color="goldenrod">05:</font>     Comment 1:
+<font color="goldenrod">06:</font>     Comment 2:
+<font color="goldenrod">07:</font>     """</span>
+<font color="goldenrod">08:</font>     import string
+<font color="goldenrod">09:</font>     from datetime import date
+<font color="goldenrod">10:</font>     import tkinter as tk
+<font color="goldenrod">11:</font>     
+<font color="goldenrod">12:</font>     <span class="comment">#function</span>
+<font color="goldenrod">13:</font>     def sum(ls):
+<font color="goldenrod">14:</font>         <span class="string">""" returns sum of list items"""</span>
+<font color="goldenrod">15:</font>         s=0
+<font color="goldenrod">16:</font>         for x in ls:
+<font color="goldenrod">17:</font>             s+=x
+<font color="goldenrod">18:</font>         return s
+<font color="goldenrod">19:</font>     
+<font color="goldenrod">20:</font>     class MyClass:
+<font color="goldenrod">21:</font>         <span class="string">"""My class"""</span>
+<font color="goldenrod">22:</font>         def __init__(self, p1, p2):
+<font color="goldenrod">23:</font>             self.p1 = p1
+<font color="goldenrod">24:</font>             self.p2 = p2
+<font color="goldenrod">25:</font>     
+<font color="goldenrod">26:</font>         def show_p1(self):
+<font color="goldenrod">27:</font>             return self.p1
+<font color="goldenrod">28:</font>     
+<font color="goldenrod">29:</font>         def show_p2(self):
+<font color="goldenrod">30:</font>             return self.p2
+<font color="goldenrod">31:</font>     
+<font color="goldenrod">32:</font>     if __name__ == '__main__':
+<font color="goldenrod">33:</font>         print sum([x*x for x in range(10)]
+</pre>
+<b>Line</b>
+<dl>
+  <dt><b>01:</b></dt>
+  <dd> This line specifies the program to execute the script. This line is valid on
+ UNIX like system and ignored on others such as Windows and Mac.
+The script can be executed by <u><var>script</var></u> instead of <u>python <var>script</var></u>
+after <u>chmod +x <var>script</var></u>.
+It is recommended to add this line for portability even if the script is not executed on UNIX like system.
+Parts starting from '#' to the end of line are comments.
+Lines one and two are special comments.</dd>
+	 
+  <dt><b>02:</b></dt>
+  <dd>This line specifies the character set. 
+	 Character sets <u>iso-8859-N or utf-8</u> are used for Europian languages.
+</dd>
+  
+  <dt><b>03 &ndash; 06:</b></dt>
+  <dd>This is the explaination on the code. String literals quoted by <span class='ttb'>"""</span> 
+are accepted as they are.
+The <a href='http://docs.python.org/lib/module-pydoc.html'>pydoc</a>
+ generates the document of the source code <a href="pydoc_vector.html">like this</a> automatically
+ using comments at the top of the code, or beginning of 
+class and function difinitions.
+</dd>
+  
+  <dt><b>08 &ndash; 10:</b></dt>
+  <dd>These are statements for <tt>import</tt> modules. 
+Python has a large library like C and C++ and most of functions, classes, constants
+are definec in the library (module).
+There are four ways to <tt>import</tt> a <var>module</var>:
+ <ol>
+<li> <tt>import <var>module</var></tt>
+  <li> <tt>from <var>module</var> import <var>name</var></tt>
+ <li> <tt>import <var>module</var> as <var>nickname</var></tt>
+<li> <tt>from <var>module</var> import *</tt>
+  </ol>
+The first way imports all the names [note 1] defined in the <var>module</var>. 
+Write <var>module.name</var>
+to use the <var>name</var> defined in the <var>module</var>.<p>
+
+The second way imports the <var>name</var> only from the <var>name</var>.
+In this case, <var>name</var> can be used without specifing the <var>module</var>.<p>
+
+The third way is basically the same as the first way.
+<var>nickname</var> is used to specify the module.
+Write <var>nickname.name</var> to use the <var>name</var>.
+<p>
+The fourth way imports all the names of the module and the <var>name</var>
+can be used without specifing the module name. This way is not recommended as
+Python uses same function names in many modules. If you are lazy to add the module name,
+give a short nickname to the module name and use the third way.
+
+ <pre class="samp">
+import os.path as path
+import Tkinter as tk
+</pre></dd>
+  
+  <dt><b>13 &ndash; 18:</b></dt>
+  <dd>This is a function difinition. See <a href="#func">Chapter 5</a>.
+	 </dd>
+  <dt><b>20 &ndash; 30:</b></dt>
+  <dd>This is a class difinition. See <a href="#class">Chapter 6</a>.
+	 </dd>
+  <dt><b>32 &ndash; 33:</b></dt>
+  <dd> When the script is invoked directly, Line 33 is executed.
+Line 32 is the charm to use this feature.
+As line 33 is not executed when the script is imported, the feature is convenient to 
+test each function interactively.
+  </dd>
+</dl>
+
+<a name="assign">
+<h2>3. Assignment</h2>
+
+First I will explain about assignment because assignment appears everywhere in Python and
+I cannot explain anything without it.<p>
+
+The assignment in Python is basically similar to that of the C language.
+The '=' is used as the assignment operator. The operator assigns the right side value to the
+left side variable.
+The difference from the C language is that the assignment statements don't return values.
+Thus, <span class='warn'>you cannot write like as follows</span>.
+<pre class='code'>
+c=1
+if 0==(a=c):
+    print 'a = 0'
+else:
+    print 'a = 1'
+</pre>
+On the other hand, Python supports structured assignment. 
+This feature is useful in many cases.
+<pre class='code'>
+a, b, c = 1, 2, 3
+(a, (b, c)) = (10, (20, 30))
+</pre>
+
+<a name="block">
+<h2>4. Block</h2>
+The block of Python starts with colon ('<b>:</b>') and  increment of indent
+and ends with  decrement of the indent to the original amount.
+Blocks are used in class and function difinitions, branchings, and loops.
+
+<h3> 4.1. Branching (if, elif, else)</h3>
+The <tt>if</tt> block is used for branching like as follows.<br>
+<pre class="code">
+if <span class="parm">test</span>:
+    <span class="parm">then_block</span>
+elif <span class="parm">test_elif</span>:
+    <span class="parm">elif_block</span>
+else:
+    <span class="parm">else_block</span>
+</pre>
+First the <var>test</var> clause is evaluated and the <var>then_block</var> is evaluated  
+if the <var>test</var> is true.
+If not, <var>test_elif</var> is evaluated and the <var>elif_block</var>  is evaluated if the <var>test_elif</var> is true.
+Otherwise the <var>else_block</var> is evaluated.
+
+<ul>
+<li> The <tt>elif</tt> blocks can be chained as much as they required.
+<li> The <tt>elif</tt> block and <tt>else</tt> block can be omitted if not necessary. 
+</ul>
+<h4>Boolean</h4>
+In Python following are regarded as false and others are true. The representing value of true is <tt>True</tt>.<p>
+<b>List of values regarded as false</b>
+<ul>
+<li><tt>None</tt>
+<li><tt>False</tt>
+<li><tt>0</tt> (integer)
+<li><tt>0.0</tt> (floating point)
+<li>empty sequence
+<li>empty dictionary
+</ul>
+
+Comparison operators are <tt>==</tt>, <tt>!=</tt>, <tt>&lt</tt>, <tt>&gt</tt>, <tt>&lt=</tt>, <tt>&gt=</tt>, <tt>in</tt>, and <tt>is</tt>.
+The <tt>not</tt> toggles boolean values.
+<a href="#boolian">Appendex 2</a> summarizes comparison operators and functions that return booleans.
+
+<h3> 4.2. Loop</h3>
+The <tt>while</tt> and <tt>for</tt> blocks are available for loop.
+
+<h4> 4.2.1. The <span class='ttb' style='font-size:150%'>while</span> loop</h4>
+The <tt>while</tt> block repeats evaluating the <var>body_block</var> while the <var>test</var> is true.
+The <tt>break</tt> and <tt>continue</tt> are available like the C language.
+If the <tt>while</tt> block terminates without breaking, the <var>else_block</var> is evaluated.
+The <var>else_block</var> can be omitted.
+
+<pre class="code">
+while <span class="parm">test</span>:
+    <span class="parm">body_block</span>
+    if <span class="parm">break_test</span>:
+           break
+    if <span class="parm">continue_test</span>:
+           continue
+else:
+    <span class="parm">else_block</span>
+</pre>
+<h4> 4.2.2. The <span class='ttb' style='font-size:150%'>for</span> loop</h4>
+The <tt>for</tt> block evaluates <var>body_block</var> for each item (<var>x</var>) of the <var>iterator</var>.
+The <tt>break</tt> and <tt>continue</tt> are available like the <tt>while</tt> block.
+If the <tt>for</tt> block terminates without breaking, the <var>else_block</var> is evaluated.
+The <var>else_block</var> can be omitted.
+
+<pre class="code">
+for <span class="parm">x</span> in <span class="parm">iterator</span>:
+    <span class="parm">body_block</span>
+    if <span class="parm">break_test</span>:
+           break
+    if <span class="parm">continue_test</span>:
+           continue
+else:
+    <span class="parm">else_block</span>
+</pre>
+<h4> 4.2.3. Tips for the  <span class='ttb' style='font-size:150%'>for</span> loop</h4>
+Followings are some tips of the <tt>for</tt> loop.
+<dl>
+  <dt><b><tt>range</tt>, <tt>xrange</tt>: loop in a range of number</b></dt>
+  <dd>The function <tt>range</tt> makes a list of numbers and returns it in an ordinal way.
+ The <tt>for</tt> loop 
+takes the list item one by one and applys the block to the number.
+On the other hand, the <tt>xrange</tt> is a <a href="#generator">generator</a> and
+returns numbers in a lazy way (it returns a value only after the value being required).
+The <tt>xrange</tt> is suit for a wide range of numbers.
+
+ <pre class="samp">
+&gt;&gt;&gt; for x in xrange(10):
+	print x, ', ',
+
+0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 
+</pre>
+ <ul>
+<li>range(n) &rArr; a list of 0,1,2,3....(n-1); example)  range(3) &rArr; [0,1,2]
+  <li>range(n,m) &rArr; a list of n,n+1,n+2......(m-1); example) range(7,10) &rArr; [7,8,9]
+ <li>range(n,m,s) &rArr; a list of n, n+s, n+2*s,......n+X*s(&lt m);
+example) range(2,10,3) &rArr; [2,5,8]
+</ul>
+ </dd>
+  <dt><b>enumerate the <var>iterator</var></b></dt>
+  <dd> The function <tt>enumerate</tt> is available for this. 
+ <pre class="samp">
+&gt;&gt;&gt; s='abc'
+&gt;&gt;&gt; for i, c in enumerate(s):
+	print i, ':', c, ' ',
+
+0 : a   1 : b   2 : c    
+</pre></dd>
+  <dt><b>treating file contents line by line</b></dt>
+  <dd>The <tt>for</tt> loop takes file contents line by line if a file object is given as an iterator.
+ <pre class="code">
+for line in <span class="parm">_file</span>:
+     ..............
+</pre></dd>
+
+  <dt><span class='ttb'>iteritems()</span></dt>
+<dd>The <tt>iteritems()</tt> method of the <a href="#dictionary">dictionary</a>
+returns a iterator object consisting of a tuple of the key and the value. 
+As the dictionary is a hash table, the order of items are indeterminate.
+ <pre class="samp">
+&gt;&gt;&gt; days = {'sun':0, 'mon':1, 'tue':2, 'wed':3, 'thu':4, 'fri':5, 'sat':6}
+&gt;&gt;&gt; for k, v in days.iteritems():
+	print k, ':', v, ' ',
+
+wed : 3   sun : 0   thu : 4   tue : 2   mon : 1   fri : 5   sat : 6  
+</pre></dd>
+<dt><b><span class='ttb'>zip()</span></b></dt>
+<dd>This is a function to merge lists.
+<pre class="samp">
+&gt;&gt;&gt; zip(['Bill', 'Richard', 'Michael'], ['Lucia', 'Susan', 'Maria'])
+[('Bill', 'Lucia'), ('Richard', 'Susan'), ('Michael', 'Maria')]
+
+&gt;&gt;&gt; questions = ['name', 'quest', 'favorite color']
+&gt;&gt;&gt; answers = ['lancelot', 'the holy grail', 'blue']
+&gt;&gt;&gt; for q, a in zip(questions, answers):
+...     print 'What is your %s?  It is %s.' % (q, a)
+... 
+What is your name?  It is lancelot.
+What is your quest?  It is the holy grail.
+What is your favorite color?  It is blue.
+</pre></dd></dl>
+<h4> 4.2.4. List comprehensive</h4>
+The list conprehensive is a sort of function
+ that takes lists as arguments and that returns a list.
+The list comprehensive can perform filtering by <tt>if</tt> statement
+and multiple loops.
+The expression is similar to the mathematical one such as <br>
+<tt> X = {x | x is a positive integer}</tt><br>
+<strong>This expression is quite useful.</strong>
+See <a href="#data">Data types</a> for more about list.
+
+
+<pre class="code">
+<span class="comment"># calculating the square root if the list item is positive</span>
+ls = [1, 2, -3, -4]
+<span class="comment"># conventional loop</span>
+ls1=[]
+for x in ls:
+    if x &gt 0:
+        ls1.append(math.sqrt(x))
+return ls1
+
+<span class="comment"># list comprehensive</span>
+return [ math.sqrt(x) for x in ls if x &gt 0]
+</pre>
+<pre class="code">
+<span class="comment"># making the multiplication table
+# conventional loop</span>
+ls1=[]
+for x in range(2,13):
+    for y in range(2,13):
+        ls1.append(x*y)
+return ls1
+
+<span class="comment"># list conprehensive</span>
+return [x * y for x in range(2,13) for y in range(2,13)]
+</pre>
+
+
+<h3>4.3. Exception handling</h3>
+The <tt>try</tt> block is available for exception handling.
+The form of the <tt>try</tt> block is like as follows.
+<pre class="code">
+try:
+    <var>try_block</var>
+except <var>??Error</var>:
+    <var>exept_block</var>
+else:
+    <var>else_block</var>
+finally:
+    <var>finally_block</var>
+</pre>
+<p>
+<ol>
+<li>First, the <var>try_block</var> is executed.
+<li>If a exception occurs, <var>exept_block</var> is executed. <br>
+You can write several <var>exept_block</var>s for distinct type of exceptions.
+<li>If no exception occurs, the <var>else_block</var> is executed.<br>
+You can omit this block.
+<li>The <var>finally_block</var> block is always invoked regardless of exceptions.<br>
+You can omit this.
+</ol>
+<p>
+When you create an instance of a class in which __enter__ and __exit__ methods are defined,
+The 'with' statement is also available.
+<p>
+See <a href="http://docs.python.org/tut/node10.html">Tutorial 8. Errors and Exceptions</a> for detailed information.<p>
+
+<a name="io">
+  <h2>5. IO</h2>
+<ul>
+ <h3>5.1. The <span class='ttb' style='font-size:130%'>print</span> statement</h3>
+The <tt>print</tt> statement is used to output values. A linefeed is inserted at the end.
+Data are conveted to corresponding string to output.<br>
+Following shows the form. 
+If the file handle (<var>file_handle</var>) is specified, values are output to the file handle.
+otherwise they are output to the standard output.
+<pre class='code'>
+print &gt;&gt; <var>file_handle</var>, <var>value1</var>, <var>value2</var>, ....
+</pre>
+
+ <h3>5.2. File handle</h3>
+
+<li>The function <tt>file</tt> is used to open file.
+<pre class='code'>
+  f = file('<span class="parm">file_name</span>', <span class="parm">mode</span>)
+</pre>
+The file mode (<var>mode</var>) is almost the same as that of the C language.
+Descriptors 'r', 'w', 'a', and 'b' represent reading, writing, adding, and binary, respectively.
+Reading and writing in the binary mode are represented by 'rb' and 'wb'.
+
+<li>Reading <var>n</var> byte from a file object (<var>f</var>) is performed by the <tt>read</tt> method.
+<pre class='code'>
+f.read(<var>n</var>)
+</pre>
+If <var>n</var> is omitted, all contents of the file are read.
+
+<li> The readline method is used to read one line from the file object. 
+<pre class='code'>
+s = f.readline()
+</pre>
+The linefeed is included at the end.
+To remove the linefeed, do
+<tt>s[:-1]</tt> or <tt>s.rstrip('\n')</tt>.
+
+<li>To write a string <var>s</var> to a file <var>f</var>,
+<tt>f.write(<var>s</var>)</tt> is used.
+
+<li>The <tt>close</tt> method of the file object (<var>f</var>) is used to close the file.<br>
+<pre class='code'>
+f.close()
+</pre>
+
+<li>Using <tt>sys.stdin</tt> and <tt>sys.stdout</tt> is convenient, as you don't have to write error handling by yourself.
+
+</ul>
+See 
+<a href="http://docs.python.org/lib/bltin-file-objects.html">
+the library reference 2.3.9.</a>
+for detailed information.
+<a name="func">
+<h2>6. Defining functions</h2>
+Functions are defined by statement <tt>def</tt>.
+You can use local variables without declaration.
+Use <tt>return</tt> statement to return value.
+If the first sentence of the function difinition is a string literal,
+the pydoc creates the document from the string automatically.
+Following code shows an example of function difinition.
+The function name follows the statement <tt>def</tt>.
+Then the list of parameters follows.
+After colon, newline and increasing indent, the body of the function difinition starts.
+Returning to the original indent terminates the function difinition.<p>
+
+See <a href="#operator">7. Operators</a> to know the function of the operators used in the following code.<br>
+See sections 
+<a href="http://docs.python.org/tut/node6.html#SECTION006600000000000000000">4.6</a> and
+<a href="http://docs.python.org/tut/node6.html#SECTION006700000000000000000">4.7</a>
+of the tutorial for detailed information about defining functions.
+
+
+<pre class="code">
+def sum(ls):
+    <span class="string">""" calculating the sum of the list items"""</span>
+    s=0
+    for x in ls:
+        s+=x
+    return s
+</pre>
+<pre class="samp">
+&gt;&gt;&gt;sum([1,2,3])
+6
+</pre>
+
+<h3>6.1. Arguements</h3>
+There are several ways to give arguments to a function.
+<dl>
+  <dt><b>def func(a, b, c): (ordinal way)</b></dt>
+  <dd>The function takes exact three arguments otherwise an error occurs. No default values are specified.
+  <dt><b>def func(a=0, b=1, c=2): (specifying default values)</b></dt>
+  <dd>The default values are used if the arguments are not given.
+    <ul>
+       <li>func() &rArr; (0, 1, 2) for (a, b, c) are given to the function.
+       <li>func(10,20) &rArr; (10, 20, 2)
+       <li>func(c=100) &rArr; (0, 1, 100)
+    </ul>
+  </dd>
+  <dt><b>def func(a, *rest): (arbitrary number of arguments)</b></dt>
+  <dd>The <tt>rest</tt> is given as a <a href="#tuple">tuple</a>.
+   <ul>
+     <li>func(1) &rArr; a=1 and rest=() are given
+     <li>func(1,2) &rArr; a=1 and rest=(2,) 
+     <li>func(1,2,3) &rArr; a=1 and rest=(2,3) 
+   </ul>
+  </dd>
+  <dt><b>def func(**key): ¡Êparameters are given as a<a href="#dictionary">dictionary</a>¡Ë</b></dt>
+  <dd>func(a=1, b=2) &rArr; key={'a':1, 'b':2} are given<br>
+	 If both <tt>*rest</tt> and <tt>**key</tt> are used, the <tt>*rest</tt> should be before the  <tt>**key</tt>.
+  </dd>
+</dl>
+
+<a name="generator">
+<h3>6.2. Generator</h3>
+The generator returns values according to the internal state and
+returns different values each time when it is called.
+It is mainly used for the <tt>for</tt> loop.
+<p>
+The generator returns a value when it meets <tt>yield</tt> statement
+and halts calculating.
+When it is called again, the calculation starts again and 
+halts at <tt>yield</tt> with returning a value.
+<p>
+A generator version of the <tt>range</tt> can be defined like as the following code.
+<pre class="code">
+import sys
+
+def my_xrange(*parms):
+    lp = len(parms)
+    if not 0 &lt= lp &lt= 3:
+        print &gt&gt sys.stderr, <span class="string">"Wrong argument count."</span>
+
+    if(lp==0):
+        i = 0
+        while True:
+            yield i
+            i += 1
+    else:
+        i, n, s = (lp==1 and (0, parms[0], 1)) or \
+                  (lp==2 and (parms[0], parms[1], 1)) or \
+                  (parms[0], parms[1], parms[2])
+
+        if(s==0):
+            print &gt&gt sys.stderr, <span class="string">"Step width shuld be non-zero."</span>
+        
+        elif(s &gt 0):
+            while(i &lt n):
+                yield i
+                i+=s
+            
+        else:
+            while(i &gt n):
+                yield i
+                i+=s
+</pre>
+<a name="class">
+<h2>7. Classes</h2>
+I am explaining how to define classes using a vector class as an example.
+Operators '+' and '*' are overrode to calculate the sum and inner product.
+<p>
+
+Predefined data types can be a super class in Python 2.2 and later versions.
+A vector class using this feature is defined in <a href='python9_e.html'>The new class of Python</a>.
+That difinition is more practical. 
+
+<pre class="code">
+<span class="comment">#! /usr/bin/env python
+
+import sys, math
+
+def sum(ls):
+    <span class="string">"""calculating the sum of the list items"""</span>
+    s=0
+    for x in ls:
+        s+=x
+    return(s)
+
+class Vector:
+    <span class="string">"""
+    Vector is a class for vector operations.
+    """</span>
+    def __init__(self, *rest, **key):
+        <span class="string">"""
+        It initialize a vector.
+        It makes a vector if the items are given like:
+        v1 = Vector(1,2,3)
+        If the dimension and the initial value is given, it makes a vector with dimension of dim with values val.
+        The initial values are set to 0 if the val is omitted.
+        v1 = Vector(dim=3, val=3)
+        """</span>
+        if rest:
+            self.v = list(rest)
+        else:
+            dim = key['dim']
+            val = (('val' in key) and key['val']) or 0
+            self.v =  [val for x in range(dim)]
+
+    def __len__(self):
+        <span class="string">"""It returns the dimension of the vector."""</span>
+        return len(self.v)
+    
+    def abs(self):
+        <span class="string">"""It returns the absolute value of the vector."""</span>
+        return math.sqrt(sum([ x * x for x in self.v ]))
+
+    def norm(self):
+        <span class="string">"""It returns the normalized vector."""</span>
+        a = self.abs()
+        b = Vector(dim=len(self))
+        b.v = [x/a for x in self.v]
+        return b
+        
+    def __add__(self, a):
+        <span class="string">"""It calculates the sum of vector and number or vector and vector. """</span>
+        b = Vector(dim=len(self))
+        if isinstance(a, Vector):
+            if len(self) != len(a):
+                print >> sys.stderr, "Dimension Error"
+            else:
+                b.v =  [ x + y for x, y in zip(self.v, a.v)]
+        else:
+            b.v = [ x + a for x in self.v]
+        return b
+            
+    def __mul__(self, m):
+        <span class="string">"""It calculates the product of vector and number and the inner product of two vectors."""</span>
+        if isinstance(m, Vector):
+            if len(self) != len(m):
+                print >> sys.stderr, "Dimension Error"
+            else:
+                return sum([ x * y for x, y in zip(self.v, m.v)])
+        else:
+            b = Vector(dim=len(self))
+            b.v = [ x * m for x in self.v]
+            return b
+
+    def __repr__(self):
+        <span class="string">"""It defines the string to print vectors."""</span>
+        return '#V' + `self.v`
+
+    __str__ = __repr__
+</pre>        
+
+
+<h3>7.1. Defining classes</h3>
+Defining classes can be done using following statement.
+<pre class='code'>
+class <var>class_name</var>(<var>*super_classes</var>):
+  .......
+</pre>
+The parameters (<var>*super_classes</var>) are super classes to be inherited.
+Pyhton allows multiple inheritance.
+
+<h3>7.2. Making instances</h3>
+A special method <tt>__init__ </tt> is used to initialize instances.
+The first arguemnt (usually named <tt>self</tt>) of the method is the instance itself
+and the following arguments are paremeters to initialize the instance.
+
+In the case of the Vector class, instances are initialized like as follows:
+<pre class="samp">
+<span class="comment"># Giving vector items explicitly. </span>
+&gt;&gt;&gt;v1 = Vector(1,2,3)
+<span class="comment"># Giving dimension and initial value</span>
+&gt;&gt;&gt;v2 = Vector(dim=3, val=0)
+</pre>
+
+<h3>7.3. Defining methods</h3>
+¥á¥½¥Ã¥É¤ÎÄêµÁ¤Ï´Ø¿ôÄêµÁ¤ÈÆ±¤¸ <span class='mono'>def</span> ¤òÍÑ¤¤¤Þ¤¹¡£
+ºÇ½é¤Î²¾°ú¿ô¤Ï¥¤¥ó¥¹¥¿¥ó¥¹¤½¤ì¼«¿È¤Ç¤¹¡£
+¤³¤³¤Ç¤Ï¡¢¥Ù¥¯¥È¥ë¤ÎÄ¹¤µ¤òÊÖ¤¹¥á¥½¥Ã¥É abs ¤Èµ¬³Ê²½¤µ¤ì¤¿¥Ù¥¯¥È¥ë¤òÊÖ¤¹ norm
+¤òÄêµÁ¤·¤Æ¤¤¤Þ¤¹¡£»È¤¦¤È¤­¤Ï¥¤¥ó¥¹¥¿¥ó¥¹¤Î¸å¤í¤Ë '<b>.</b>'¡Ê¥É¥Ã¥È¡Ë¤ò¤Ä¤±¤Æ¤Ä¤Ê¤²¤Þ¤¹¡£
+<pre class="samp">
+&gt;&gt;&gt;v = Vector(1,2,3)
+<span class="comment"># Ä¹¤µ¤Î·×»»</span>
+&gt;&gt;&gt;v.abs()
+3.7416573867739413
+
+<span class="comment"># µ¬³Ê²½¤¹¤ë</span>
+&gt;&gt;&gt;v.norm()
+#V[0.2672612419124244, 0.53452248382484879, 0.80178372573727319]
+</pre>
+
+<h3>7.4. ´Ø¿ô¤ä±é»»»Ò¤Î¥ª¡¼¥Ð¡¼¥é¥¤¥É</h3>
+´ûÂ¸¤Î´Ø¿ô¤òºÆÄêµÁ¤¹¤ë¤³¤È¤¬½ÐÍè¤Þ¤¹¡£
+<span class='mono'>__add__</span> ¤ÏÂ­¤·»»¤ò¡¢<span class='mono'>__mul__</span> ¤Ï³Ý¤±»»¤òÄêµÁ¤·¤Þ¤¹¡£
+¤Þ¤¿¡¢__repr__ ¤ÏÉ½¼¨ÊýË¡¤òÄêµÁ¤·¤Þ¤¹¡£
+Â¾¤Ë¤â¤¤¤í¤¤¤í¤¢¤ê¤Þ¤¹¡£¾Ü¤·¤¯¤Ï
+<a href="http://www.python.jp/doc/release/ref/specialnames.html"> ¥ê¥Õ¥¡¥ì¥ó¥¹¥Þ¥Ë¥å¥¢¥ë 3.3</a>
+¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£
+»È¤¤Êý¤Ï°Ê²¼¤ÎÄÌ¤ê¤Ç¤¹¡£
+<pre class="samp">
+&gt;&gt;&gt; v1=Vector(1,2,3)
+&gt;&gt;&gt; v2=Vector(dim=3, val=2)
+&gt;&gt;&gt; v1+10
+#V[11, 12, 13]
+&gt;&gt;&gt; v1+v2
+#V[3, 4, 5]
+&gt;&gt;&gt; v1*100
+#V[100, 200, 300]
+&gt;&gt;&gt; v1*v2
+12
+</pre>
+
+<h3>7.6. ´Ø¿ô¤Î¥¯¥é¥¹</h3>
+<span class='mono'>__call__ </span> ¥á¥½¥Ã¥É ¤Î¤¢¤ë¥¯¥é¥¹¤Ï´Ø¿ô¤Î¥¯¥é¥¹¤È¤·¤Æµ¡Ç½¤·¤Þ¤¹¡£
+¾Ü¤·¤¯¤Ï¡¢<a href='http://www.python.jp/doc/release/ref/callable-types.html'>
+  ¥ê¥Õ¥¡¥ì¥ó¥¹¥Þ¥Ë¥å¥¢¥ë 3.3.4.</a>
+¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+
+<h3>7.6. ¥¤¥Æ¥ì¡¼¥¿¡¼</h3>
+¥¤¥Æ¥ì¡¼¥¿¡¼¥¯¥é¥¹¤òÄêµÁ¤¹¤ë¤³¤È¤â½ÐÍè¤Þ¤¹¡£
+ÄÌ¾ï¤Ï <a href="#generator">generator</a> ¤ò»È¤Ã¤¿¤Û¤¦¤¬³Ú¤Ç¤·¤ç¤¦¡£
+¾Ü¤·¤¯¤Ï
+<a href="http://www.python.jp/doc/release/tut/node11.html#SECTION0011800000000000000000">
+¥Á¥å¡¼¥È¥ê¥¢¥ë 9.8. </a>¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+
+<a name="data">
+<h2>8. ¥Ç¡¼¥¿·¿</h2>
+<h3>8.1. ¿ôÃÍ</h3>
+¿ôÃÍ·¿¤Ë¤Ï¡¢<b>À°¿ô·¿ ¡¢ Ä¹À°¿ô·¿ ¡¢ÉâÆ°¾®¿ôÅÀ·¿ ¡¢¤ª¤è¤Ó Ê£ÁÇ¿ô·¿</b> ¤Î£´¤Ä¤Î·¿¤¬¤¢¤ê¤Þ¤¹¡£
+¾Ü¤·¤¯¤Ï
+<a href="http://www.python.jp/doc/release/lib/typesnumeric.html">
+¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 2.3.4</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+<a name="seq">
+<h3>8.2. ÇÛÎó</h3>
+ÇÛÎó·¿¤Ë¤Ï¡¢<b>Ê¸»úÎó¡¢¥æ¥Ë¥³¡¼¥ÉÊ¸»úÎó¡¢¥ê¥¹¥È¡¢¥¿¥×¥ë¡¢¥Ð¥Ã¥Õ¥¡¡¢¤½¤·¤Æ xrange ¥ª¥Ö¥¸¥§¥¯¥È</b>¤Î
+£¶¤Ä¤¬¤¢¤ê¤Þ¤¹¡£ÇÛÎó·¿¤Ë¶¦ÄÌ¤Î±é»»¤ò²¼¤ÎÉ½¤Ë¤Þ¤È¤á¤Þ¤¹¡£
+<table border=3>
+  <thead>
+    <tr>
+      <th align="center"><b>±é»»</b>&nbsp;</th>
+      <th align="left"><b>·ë²Ì</b>&nbsp;</th>
+      </tr>
+
+    </thead>
+  <tbody valign="baseline">
+    <tr><td align="center" valign="baseline"><code><var>x</var> in <var>s</var></code></td>
+        <td align="left"><var>s</var> ¤Î¤¢¤ëÍ×ÁÇ <var>x</var> ¤ÈÅù¤·¤¤¾ì¹ç True ¡¢¤½¤¦¤Ç¤Ê¤¤¾ì¹ç False</td>
+
+  
+    <tr><td align="center" valign="baseline"><code><var>s</var> + <var>t</var></code></td>
+        <td align="left"><var>s</var> ¤ª¤è¤Ó <var>t</var> ¤Î·ë¹ç</td>
+
+    <tr><td align="center" valign="baseline"><code><var>s</var> * <var>n</var> , <var>n</var> * <var>s</var></code></td>
+        <td align="left"><var>s</var> ¤ÎÀõ¤¤¥³¥Ô¡¼ <var>n</var> ¸Ä¤«¤é¤Ê¤ë·ë¹ç</td>
+  
+    <tr><td align="center" valign="baseline"><code><var>s</var>[<var>i</var>]</code></td>
+        <td align="left"><var>s</var> ¤Î 0 ¤«¤é¿ô¤¨¤Æ <var>i</var> ÈÖÌÜ¤ÎÍ×ÁÇ</td>
+
+    <tr><td align="center" valign="baseline"><code><var>s</var>[<var>i</var>:<var>j</var>]</code></td>
+        <td align="left"><var>s</var> ¤Î <var>i</var> ÈÖÌÜ¤«¤é <var>j</var> ÈÖÌÜ¤Þ¤Ç¤Î¥¹¥é¥¤¥¹</td>
+
+    <tr><td align="center" valign="baseline"><code><var>s</var>[<var>i</var>:<var>j</var>:<var>k</var>]</code></td>
+        <td align="left"><var>s</var> ¤Î <var>i</var> ÈÖÌÜ¤«¤é <var>j</var>  ÈÖÌÜ¤Þ¤Ç¡¢<var>k</var> Ëè¤Î¥¹¥é¥¤¥¹</td>
+
+  
+    <tr><td align="center" valign="baseline"><code>len(<var>s</var>)</code></td>
+        <td align="left"><var>s</var> ¤ÎÄ¹¤µ</td>
+    <tr><td align="center" valign="baseline"><code>min(<var>s</var>)</code></td>
+
+        <td align="left"><var>s</var> ¤ÎºÇ¾®¤ÎÍ×ÁÇ</td>
+    <tr><td align="center" valign="baseline"><code>max(<var>s</var>)</code></td>
+        <td align="left"><var>s</var> ¤ÎºÇÂç¤ÎÍ×ÁÇ</td>
+
+</table>
+<pre class="samp">
+<span class="comment"># Îã</span>
+&gt;&gt;&gt; s='abcde'
+&gt;&gt;&gt; s[-1]      <span class="comment"># ¥¤¥ó¥Ç¥Ã¥¯¥¹ -1 ¤ÏºÇ¸å¤ÎÍ×ÁÇ</span>
+'e'
+&gt;&gt;&gt; s[1:]      <span class="comment"># ºÇ½é¤ÎÍ×ÁÇ¤ò½ü¤¯</span>
+'bcde'
+&gt;&gt;&gt; s[:-1]     <span class="comment"># ºÇ¸å¤ÎÍ×ÁÇ¤ò½ü¤¯</span>
+'abcd'
+&gt;&gt;&gt; s*2
+'abcdeabcde'
+&gt;&gt;&gt; min(s)
+'a'
+&gt;&gt;&gt; max(s)
+'e'
+&gt;&gt;&gt; s[0:-1:2]
+'ac'
+</pre>
+<h4>8.2.1. Ê¸»úÎó¡¢¥æ¥Ë¥³¡¼¥ÉÊ¸»úÎó</h4>
+Ê¸»úÎó¤ÎÍ×ÁÇ¤ËÄ¾ÀÜÃÍ¤òÂåÆþ¤¹¤ë¤³¤È¤Ï½ÐÍè¤Þ¤»¤ó¡£
+<pre class="samp">
+s = 'abcdefg'
+<span class="comment"># ÉÔ²Ä¡¢Ê¸»ú¤òÄ¾ÀÜÂåÆþ¤Ç¤­¤Ê¤¤¡£</span>
+s[0]='z'
+
+<span class="comment"># ¼¡¤Î¤è¤¦¤Ë¤·¤ÆÁ´ÂÎ¤òºî¤êÄ¾¤¹É¬Í×¤¬¤¢¤ë¡£</span>
+s = 'z' + s[1:]
+</pre>
+<h4>Ê¸»úÎó¥ê¥Æ¥é¥ë</h4>
+<ul>
+  <li><span class="string">'...'</span> µÚ¤Ó <span class="string">"...."</span> ¤ÏÊ¸»úÎó¥ê¥Æ¥é¥ë¤Ç¤¹¡£
+<li>u<span class="string">'abc'</span> ¡¢
+  u<span class="string">"def"</span> ¤È¤¤¤Ã¤¿¤è¤¦¤ËÀèÆ¬¤ËÊ¸»ú "u" ¤òÉÕ¤±¤ë¤È Unicode Ê¸»úÎó¤Ë¤Ê¤ê¤Þ¤¹¡£
+  <li>r'\n' ¤Î¤è¤¦¤ËÀèÆ¬¤Ë "r" ¤ò¤Ä¤±¤ë¤È raw_string ¤Ë¤Ê¤ê¡¢¥Ð¥Ã¥¯¥¹¥é¥Ã¥·¥å¤Ï¥¨¥¹¥±¡¼¥×Ê¸»ú¤Ë¤Ê¤ê¤Þ¤»¤ó¡£
+¤Ä¤Þ¤ê¡¢r'\n' ¤Ï²þ¹Ô¤Ç¤Ï¤Ê¤¯¡¢\ ¤È n ¤È¤«¤é¤Ê¤ëÊ¸»úÎó¤Ç¤¹¡£
+r (raw_string) ¥ª¥×¥·¥ç¥ó¤ÏÀµµ¬É½¸½¤Î¥Ñ¥¿¡¼¥ó¤òµ­½Ò¤¹¤ë¤È¤­¤ËÊØÍø¤Ç¤¹¡£
+	 </ul>
+Ê¸»úÎó¥ê¥Æ¥é¥ë¤Ë¤Ä¤¤¤Æ¤Î¾ÜºÙ¤Ï
+<a href="http://www.python.jp/doc/release/ref/strings.html">
+¥ê¥Õ¥¡¥ì¥ó¥¹¥Þ¥Ë¥å¥¢¥ë 2.4.1</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+<h4>Ê¸»úÎó¥á¥½¥Ã¥É</h4>
+<a href="http://www.python.jp/doc/release/lib/string-methods.html">
+¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 2.3.6.1</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£<p>
+Memo:<br>
+Ê¸»úÎó line ¤«¤éËöÈø¤Î²þ¹ÔÊ¸»ú¤ò¼è¤ê½ü¤¯¤Ë¤Ï¡¢
+<pre class="code">
+line = line.rstrip('\n')
+<span class="comment"># ¤¢¤ë¤¤¤Ï¡¢</span>
+import string
+line = string.rstrip(line, '\n')
+</pre>
+¤È¤·¤Þ¤¹¡£¥Õ¥¡¥¤¥ë¤«¤é£±¹Ô¤º¤ÄÆÉ¤ß¹þ¤à¤È¤­¤è¤¯»È¤¤¤Þ¤¹¡£
+
+<h4>Ê¸»úÎó¥Õ¥©¡¼¥Þ¥Ã¥È</h4>
+<span class="parm">format</span> % <span class="parm">vars</span> ¤È¤¤¤¦¤è¤¦¤Ëµ­½Ò¤·¤Þ¤¹¡£
+<span class="parm">format</span> ¤Ï C ¸À¸ìÉ÷¤Ç¤¹¡£
+<span class="parm">vars</span> ¤¬Ê£¿ô¤Î¾ì¹ç <b>( )</b> ¤Ç
+¤¯¤¯¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹¡£
+¤Þ¤¿¡¢<span class="parm">vars</span> ¤Ë<a href="#dictionary">¼­½ñ·¿</a>
+¤ò»ØÄê¤·¤Æ¥­¡¼¥ï¡¼¥É¤Ç»ØÄê¤¹¤ë¤³¤È¤â½ÐÍè¤Þ¤¹¡£
+<!-- rink to dictionary-->
+¾Ü¤·¤¯¤Ï
+<a href="http://www.python.jp/doc/release/lib/typesseq-strings.html">
+¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 2.3.6.2 Ê¸»úÎó¥Õ¥©¡¼¥Þ¥Ã¥ÈÁàºî</a>¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+<pre class="samp">
+&gt;&gt;&gt;'%d:%d' % (1, 2)
+'1:2'
+&gt;&gt;&gt;'%(month)s %(date)d, %(year)4d' % {'year':2005, 'month':'February', 'date':3}
+'February 3, 2005'
+</pre>
+
+<h4>8.2.2. ¥ê¥¹¥È</h4>
+  ¥ê¥¹¥È¤Ï <b>[ ]</b> ¤Ç¤¯¤¯¤Ã¤Æ¤¢¤é¤ï¤·¤Þ¤¹¡£¥ê¥¹¥È¤Î³ÆÍ×ÁÇ¤ËÄ¾ÀÜÃÍ¤òÂåÆþ¤Ç¤­¤Þ¤¹¡£
+  ¤Þ¤¿¡¢¥ê¥¹¥È¤Ï¥Í¥¹¥È¤Ç¤­¤Þ¤¹¡£
+  <pre class="samp">
+&gt;&gt;&gt; ls=[1,2,3]
+&gt;&gt;&gt; ls[0]=100
+&gt;&gt;&gt; ls
+[100, 2, 3]
+&gt;&gt;&gt; ls2=[ls, 10,20,30]
+&gt;&gt;&gt; ls2
+[[100, 2, 3], 10, 20, 30]</pre>
+  ¥ê¥¹¥È¤ÎÁàºî¤Ë¤Ä¤¤¤Æ¤Ï
+<a href="http://www.python.jp/doc/release/lib/typesseq-mutable.html">
+  ¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 2.3.6.4</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£<p>
+Memo:<br>
+¥ê¥¹¥È¤ÎËöÈø¤ËÍ×ÁÇ¤ò£±¤Ä¤¯¤ï¤¨¤ë¤Ë¤Ï <var>append</var> ¤ò»È¤¤¤Þ¤¹¡£
+<pre class="samp">
+&gt;&gt;&gt;ls = []
+&gt;&gt;&gt;ls.append(1)
+&gt;&gt;&gt;ls
+[1]
+</pre>
+<a name="tuple">
+<h4>8.2.3. ¥¿¥×¥ë</h4>
+  ¥¿¥×¥ë¤Ï (,) ¤ò»È¤Ã¤Æ¤¢¤é¤ï¤·¤Þ¤¹¡£ÊÑ¹¹¤Ç¤­¤Ê¤¤ÅÀ¤ò½ü¤¤¤Æ¥ê¥¹¥È¤ÈÆ±¤¸¤Ç¤¹¡£
+¥ê¥¹¥È¤è¤ê¹âÂ®¤Ç¤¹¡£ÊÑ¹¹¤¹¤ë¤Ä¤â¤ê¤¬¤Ê¤¤ÃÍ¤Î¥»¥Ã¥È¤Ï¥¿¥×¥ë¤È¤·¤ÆÄêµÁ¤¹¤ë¤ÈÎÉ¤¤¤Ç¤·¤ç¤¦¡£<br>
+¤Ê¤ª¡¢¹à¤¬1¤Ä¤Î¥¿¥×¥ë¤Ï¹à¤Î¸å¤Ë¥«¥ó¥Þ¤ò¤Ä¤±¤Æ <span class='mono'>(item,)</span> ¤È½ñ¤­¤Þ¤¹¡£<p>
+  ¾Ü¤·¤¯¤Ï
+<a href="http://www.python.jp/doc/release/tut/node7.html#SECTION007300000000000000000">
+¥Á¥å¡¼¥È¥ê¥¢¥ë 5.3.</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+
+<a name="dictionary">
+<h3>8.3. ¼­½ñ·¿</h3>
+¤¤¤ï¤æ¤ë¥Ï¥Ã¥·¥åÉ½¤Ç¤¹¡£¿ôÃÍ¡¢Ê¸»úÎó¡¢¥¿¥×¥ë¤ò key ¤È¤·¤Æ¡¢ÂÐ±þ¤¹¤ëÃÍ¤òÊÝ»ý¤·¤¿¤ê¡¢¼è¤ê½Ð¤·¤¿¤ê¤¹¤ë¤³¤È¤¬½ÐÍè¤Þ¤¹¡£
+½é´ü²½¤Ï¡¢Á´ÂÎ¤ò { } ¤Ç¤¯¤¯¤Ã¤Æ¡¢¥³¥í¥ó ':' ¤ÇÂÐ¤Ë¤Ê¤Ã¤¿ key:val ¤Î¥Ú¥¢¤ò¥³¥ó¥Þ¤Ç¶èÀÚ¤ê¤Þ¤¹¡£
+ÂåÆþ¤ä¡¢ºï½ü¤¬½ÐÍè¤Þ¤¹¡£
+¤¢¤ë key ¤¬¼­½ñ¤ËÅÐÏ¿¤µ¤ì¤Æ¤¤¤ë¤«¤Ï in ¤ò»È¤Ã¤ÆÄ´¤Ù¤é¤ì¤Þ¤¹¡£<br>
+<span class="warn">Ãí°Õ¡§¥ê¥¹¥È¤Ï¼­½ñ·¿¤Î key ¤Ë¤Ê¤ì¤Þ¤»¤ó¡£</span><br>
+Îã:
+<pre class="samp">
+&gt;&gt;&gt;days = {'sun':0, 'mon':1, 'tue':2, 'wed':3, 'thu':4, 'fri':5, 'sat':6}  # ½é´ü²½
+&gt;&gt;&gt;'sun' in days                                                           # Â¸ºß¤¹¤ë¤«¡©
+True
+&gt;&gt;&gt;month={}
+&gt;&gt;&gt;month['jan'] = 1                                                        # ÂåÆþ
+&gt;&gt;&gt;month['jan'] += 1
+&gt;&gt;&gt;month['jan']
+2
+&gt;&gt;&gt;del month['jan']                                                        # ºï½ü
+</pre>
+¾Ü¤·¤¯¤Ï
+<a href="http://www.python.jp/doc/release/lib/typesmapping.html">
+¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 2.3.7.</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+
+<a name="operator">
+<h2>9. ±é»»»Ò</h2>
+  <ul>
+	 <li>Ã±¹à±é»»»á¤È»°¹à±é»»»Ò¤¬Ìµ¤¤¤³¤È¤ò½ü¤±¤Ð¤Û¤È¤ó¤É C ¸À¸ì¤ÈÆ±¤¸¤Ç¤¹¡£
+<li><b>+</b> ¤È <b>*</b> ¤Ï <a href="#seq">7.2.</a>¤Ç½Ò¤Ù¤¿¤è¤¦¤Ë
+¿ôÃÍ±é»»¤Î¤Û¤«¤Ë¡¢ÇÛÎó¤Î·ë¹ç¤È·«¤êÊÖ¤·¤ò¤·¤Þ¤¹¡£
+
+  <li><b>and</b> ¤È <b>or</b> ¤Ï Lisp É÷¤Ç¡¢¼¡¤Î¤è¤¦¤ËÆ°ºî¤·¤Þ¤¹¡£
+ <dl>
+	<dt><b>and</b></dt>
+	<dd>¤Þ¤º¡¢º¸Â¦¤òÉ¾²Á¤·¡¢µ¶¤À¤Ã¤¿¤é¤½¤ÎÃÍ¤òÊÖ¤¹¡£
+	  ¿¿¤À¤Ã¤¿¤é±¦Â¦¤âÉ¾²Á¤·¡¢¤½¤ÎÃÍ¤òÊÖ¤¹¡£</dd>
+	<dt><b>or</b></dt>
+	<dd>¤Þ¤º¡¢¤Þ¤º¡¢º¸Â¦¤òÉ¾²Á¤·¡¢¿¿¤À¤Ã¤¿¤é¤½¤ÎÃÍ¤òÊÖ¤¹¡£
+	  µ¶¤À¤Ã¤¿¤é±¦Â¦¤âÉ¾²Á¤·¡¢¤½¤ÎÃÍ¤òÊÖ¤¹¡£</dd>
+	</dl>
+ <b>and</b> ¤È <b>or</b> ¤òÁÈ¤ß¹ç¤ï¤»¤ë¤È C ¸À¸ì¤Î»°¹à±é»»»Ò¤Þ¤¿¤Ï Lisp ¤Î if ¤ËÁêÅö¤¹¤ë¤â¤Î¤¬½ñ¤±¤Þ¤¹¡£
+ <pre class="code">
+<span class="comment"># C</span>
+a = <span class="parm">test</span>? <span class="parm">then_value</span>: <span class="parm">else_value</span>
+
+<span class="comment"># Lisp</span>
+(setf a (if <span class="parm">test</span> <span class="parm">then_value</span> <span class="parm">else_value</span>))
+
+<span class="comment"># Python</span>
+(a,) = <span class="parm">test</span> and (<span class="parm">then_value</span>,) or (<span class="parm">else_value</span>,)
+</pre></ul>
+
+<span class='warn'>Ãí°Õ¡§</span>
+Python ¤ÎÎã¤Ç¡¢ÃÍ¤ò¥¿¥×¥ë¤Ç¤¯¤¯¤Ã¤Æ¤¤¤ë¤Î¤Ï¡¢
+Python ¤Î¾ì¹ç¡¢<span class="parm">test</span> ¤¬¿¿¤Ç¤â¡¢<span class="parm">then_value</span>
+¤¬µ¶¤ÈÇ§¼±¤µ¤ì¤ëÃÍ(0, '' ¤Ê¤É¡Ë¤Î¤È¤­¤Ï <span class="parm">else_value</span> ¤¬ÊÖ¤Ã¤Æ¤­¤Æ¤·¤Þ¤¦¤«¤é¤Ç¤¹¡£
+¤â¤·¡¢<span class="parm">then_value</span> ¤¬ÀäÂÐ¤Ëµ¶¤Ë¤Ê¤é¤Ê¤¤¤È¤­¤Ï¥¿¥×¥ë¤ò¤Ï¤º¤·¤Æ¼¡¤Î¤è¤¦¤Ë½ñ¤¯¤³¤È¤â¤Ç¤­¤Þ¤¹¡£
+¤·¤«¤·¡¢»çÆ£¤Ï¥¿¥×¥ë¤Ä¤­¤ÎÊý¤ò¤ª´«¤á¤·¤Þ¤¹¡£
+<pre class='code'>
+a = <span class="parm">test</span> and <span class="parm">then_value</span> or <span class="parm">else_value</span>
+</pre>
+  
+ ¾Ü¤·¤¯¤Ï¡¢¥ê¥Õ¥¡¥ì¥ó¥¹¥Þ¥Ë¥å¥¢¥ë
+<a href="http://www.python.jp/doc/release/ref/operators.html">
+2.5</a>,
+<a href="http://www.python.jp/doc/release/ref/delimiters.html">
+2.6</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+
+<a name="library">
+<h2>10. ¥é¥¤¥Ö¥é¥ê¡¼¥Ä¥¢¡¼</h2>
+¤è¤¯»È¤¦¥é¥¤¥Ö¥é¥ê¡¼¤ò´ÊÃ±¤ËÀâÌÀ¤·¤Þ¤¹¡£
+¾Ü¤·¤¯¤Ï
+<a href="http://www.python.jp/doc/release/lib/lib.html">
+¥é¥¤¥Ö¥é¥ê¡¼¥ê¥Õ¥¡¥ì¥ó¥¹</a>¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+<h3>10.1. sys</h3>
+  <dl>
+	 <dt><b>sys.argv</b></dt>
+	 <dd> ¥³¥Þ¥ó¥É¥é¥¤¥ó¤«¤éÅÏ¤µ¤ì¤¿°ú¿ô¤Î¥ê¥¹¥È¤Ç¤¹¡£
+	 sys.argv[0] ¤Ï¥¹¥¯¥ê¥×¥È¼«¿È¤Ç¡¢¼ÂºÝ¤Î°ú¿ô¤Ï sys.argv[1:] ¤Ç¤¹¡£</dd>
+	 <dt><b>sys.exit()</b></dt>
+	 <dd>Python ¤ò½ªÎ»¤¹¤ë¤È¤­»È¤¤¤Þ¤¹¡£
+		</dd></dl>
+  ¾Ü¤·¤¯¤Ï
+<a href="http://www.python.jp/doc/release/lib/module-sys.html">
+  ¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 3.1</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+  <h3>10.2. os</h3>
+°Ê²¼¤ÏÈ´¿è¡£¾Ü¤·¤¯¤Ï
+<a href="http://www.python.jp/doc/release/lib/module-os.html">
+  ¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 6.1</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+<dl>
+  <dt><b>chdir(<span class="parm">path</span>)</b></dt>
+    <dd>¸½ºß¤Îºî¶È¥Ç¥£¥ì¥¯¥È¥ê¤ò <span class="parm">path</span> ¤ËÀßÄê¤·¤Þ¤¹¡£</dd>
+
+<dt><b>getcwd()</b></dt>
+    <dd>¸½ºß¤Îºî¶È¥Ç¥£¥ì¥¯¥È¥ê¤òÉ½¸½¤¹¤ëÊ¸»úÎó¤òÊÖ¤·¤Þ¤¹¡£</dd>
+<dt><b>listdir(<span class="parm">path</span>)</b></dt>
+    <dd>¥Ç¥£¥ì¥¯¥È¥êÆâ¤Î¥¨¥ó¥È¥êÌ¾¤¬Æþ¤Ã¤¿¥ê¥¹¥È¤òÊÖ¤·¤Þ¤¹¡£¥ê¥¹¥ÈÆâ¤Î½çÈÖ¤ÏÉÔÄê¤Ç¤¹¡£ÆÃ¼ì¥¨¥ó¥È¥ê '.' ¤ª¤è¤Ó '..' ¤Ï¡¢¤½¤ì¤é¤¬¥Ç¥£¥ì¥¯¥È¥ê¤ËÆþ¤Ã¤Æ¤¤¤Æ¤â¥ê¥¹¥È¤Ë¤Ï´Þ¤á¤é¤ì¤Þ¤»¤ó¡£ </dd>
+<dt><b>mkdir(<span class="parm">path</span>[, <span class="parm">mode</span>])</b></dt>
+    <dd>¿ôÃÍ¤Ç»ØÄê¤µ¤ì¤¿¥â¡¼¥É mode ¤ò¤â¤Ä¥Ç¥£¥ì¥¯¥È¥ê <span class="parm">path</span> ¤òºîÀ®¤·¤Þ¤¹¡£</dd>
+<dt><b>remove(<span class="parm">path</span>)</b></dt>
+    <dd>¥Õ¥¡¥¤¥ë <span class="parm">path</span> ¤òºï½ü¤·¤Þ¤¹¡£</dd>
+<dt><b>rename(<span class="parm">src</span>, <span class="parm">dst</span>)</b></dt>
+    <dd>¥Õ¥¡¥¤¥ë¤Þ¤¿¤Ï¥Ç¥£¥ì¥¯¥È¥ê <span class="parm">src</span> ¤ò <span class="parm">dst</span>
+		¤ËÌ¾Á°ÊÑ¹¹¤·¤Þ¤¹¡£ </dd>
+<dt><b>exec[l, le, lp, lpe, v, ve, vp, vpe]</b></dt>
+  <dd>³°Éô¥×¥í¥»¥¹¤òµ¯Æ°¤·¤Þ¤¹¡£</dd></dl>
+
+<h3>10.3. os.path</h3>
+exists, getatime, getmtime, getsize, isfile, isdir
+¤Ê¤É¤Î´Ø¿ô¤ò´Þ¤à¥â¥¸¥å¡¼¥ë¤Ç¤¹¡£
+¾Ü¤·¤¯¤Ï
+
+<a href="http://www.python.jp/doc/release/lib/module-os.path.html">
+¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 6.2.</a>
+¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+
+
+  <h3>10.4. fileinput</h3>
+  Perl ¤Î "while(<>)" ¤Î¤è¤¦¤Ë¡¢¥³¥Þ¥ó¥É¥é¥¤¥ó¤Î°ú¿ô¤ÇÍ¿¤¨¤é¤ì¤¿¥Õ¥¡¥¤¥ë¤«¤éÆþÎÏ¤·¤Þ¤¹¡£
+  <pre class="code">
+<span class="comment"># fileinput ¤ò»È¤ï¤Ê¤¤¤È</span>
+for fname in sys.argv[1:]:
+    f=file(fname)
+    for line in f:
+        <span class="parm">(do something with line)</span>
+    f.close()
+
+<span class="comment"># fileinput ¤ò»È¤¦¤È</span>
+import fileinput
+for line in fileinput.input():
+    <span class="parm">(do something with line)</span>
+</pre>
+  ¾Ü¤·¤¯¤Ï
+  <a href="http://www.python.jp/doc/release/lib/module-fileinput.html">
+    ¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 5.15</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+  <h3>10.5. re</h3>
+  Àµµ¬É½¸½¤Î¥â¥¸¥å¡¼¥ë¤Ç¤¹¡£
+  <ol>
+<li>Python ¤Ç¤Ï¡¢¥Ñ¥¿¡¼¥ó¤ò¤Þ¤º compile ¤·¤Æ¡¢<em>Àµµ¬É½¸½¥ª¥Ö¥¸¥§¥¯¥È</em>¤ò
+  ºî¤Ã¤Æ¤«¤é¸¡º÷¤·¤Þ¤¹¡£
+  <li>¥Ñ¥¿¡¼¥ó¤Ï raw_string ¤ò»È¤Ã¤Æ½ñ¤¯¤Î¤¬ÊØÍø¤Ç¤¹¡£
+  <li>Àµµ¬É½¸½¥ª¥Ö¥¸¥§¥¯¥È¤Ï match, finditer, split ¤Ê¤É¤Î¥á¥½¥Ã¥É¤ò»ý¤Á¤Þ¤¹¡£
+  ¾Ü¤·¤¯¤Ï
+<a href="http://www.python.jp/doc/release/lib/re-objects.html">
+	 ¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 4.2.4</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+  <li>Àµµ¬É½¸½¥ª¥Ö¥¸¥§¥¯¥È¤ÇÊ¸»úÎó¤ò¸¡º÷¤·¤Æ¥Þ¥Ã¥Á¤·¤¿ÉôÊ¬Ê¸»úÎó¤Ï¡¢
+  <em>¥Þ¥Ã¥Á¥ª¥Ö¥¸¥§¥¯¥È</em>¤È¤·¤ÆÊÖ¤µ¤ì¤Þ¤¹¡£
+  <li>¥Þ¥Ã¥Á¥ª¥Ö¥¸¥§¥¯¥È¤«¤éÊ¸»úÎó¤ò¼è¤ê½Ð¤·¤¿¤¤¤È¤­¤Ï <em>group</em> ¥á¥½¥Ã¥É¤ò»È¤¤¤Þ¤¹¡£
+	 ¤Þ¤¿¡¢<em>start, end</em> ¥á¥½¥Ã¥É¤Ç
+  ¥Þ¥Ã¥Á¤·¤¿ÉôÊ¬Ê¸»úÎó¤Î°ÌÃÖ¤ò¼è¤ê½Ð¤»¤Þ¤¹¡£
+	 </ol>
+  ¾Ü¤·¤¯¤Ï
+<a href="http://www.python.jp/doc/release/lib/match-objects.html">
+  ¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 4.2.5</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£<p>
+Îã¡¢HTML ¥Õ¥¡¥¤¥ë¤«¤é¥ê¥ó¥¯¤ò¼è¤ê½Ð¤¹¡£ 
+  <pre class="code">
+<span class="comment">#! /usr/bin/env python</span>
+<span class="comment"># coding: shift_jis</span>
+
+<span class="string">"""
+°ú¿ô¤ÇÍ¿¤¨¤é¤ì¤¿¥Õ¥¡¥¤¥ë¤ò¸¡º÷¤·¤Æ¥ê¥ó¥¯¤ò¤òÃµ¤·¡¢
+¤½¤ì¤ò rink.txt ¤Ë½ñ¤­½Ð¤¹¡£
+"""</span>
+
+import sys
+
+RINK = 'rink.txt'
+A_HREF = re.compile("&lt;a href ?= ?\"http://([^\"]+)\"&gt;([^&lt;]+)&lt;/a&gt;", re.S) 
+
+<span class="comment">#main</span>
+if __name__=='__main__':
+    rink_hash={}
+    for fname in sys.argv[1:]:
+        f=file(fname, 'r')
+        for m in A_HREF.finditer(f.read()):
+            rink_hash[m.group(1)] = m.group(2)
+        f.close()
+    fout = file(RINK, 'w')
+    for address, name in rink_hash.iteritems():
+        fout.write("&lt;li&gt; &lt;a href = \"http://%s\"&gt;%s&lt;/a&gt;\n" % (address, name))
+    fout.close()
+</pre>
+  <h3>10.6. shutil, filecmp, glob</h3>
+  <dl>
+	 <dt><b>shutil.copyfile</b></dt><dd>¥Õ¥¡¥¤¥ë¤ò¥³¥Ô¡¼¤·¤Þ¤¹¡£</dd>
+	 <dt><b>filecmp.cmp</b></dt><dd>¥Õ¥¡¥¤¥ë¤ÎÈæ³Ó¤ò¤·¤Þ¤¹¡£</dd>
+	 <dt><b>glob.glob(<span class="parm">pattern</span>)</b></dt><dd>¸½ºß¤Î¥Ç¥£¥ì¥¯¥È¥ê¤Î¥¨¥ó¥È¥ê¡¼¤Î¤¦¤Á
+		<span class="parm">pattern</span> ¤Î¥Þ¥Ã¥Á¤¹¤ë¤â¤Î¤òÊÖ¤·¤Þ¤¹¡£
+	 </dl>
+  ¾Ü¤·¤¯¤Ï¡¢¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹
+<a href="http://www.python.jp/doc/release/lib/module-filecmp.html">
+  6.7</a>,
+<a href="http://www.python.jp/doc/release/lib/module-glob.html">
+  6.23</a>,
+<a href="http://www.python.jp/doc/release/lib/module-shutil.html">
+  6.25</a> ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+  <h3>10.7. datetime</h3>
+  Æü»þ¤òÆÀ¤ë¤Î¤Ë»È¤¤¤Þ¤¹¡£
+  <a href="http://www.python.jp/doc/release/lib/module-datetime.html">datetime</a> ¤Ï
+<a href="http://www.python.jp/doc/release/lib/module-time.html">
+  time</a> ¤È¤Û¤ÜÆ±ÍÍ¤Ç¤¹¤¬¡¢time ¤¬ 1970--2038 Ç¯¤·¤«°·¤¨¤Ê¤¤¤Î¤ËÂÐ¤·¡¢
+  datetime ¤Ï ¤½¤ì°ÊÁ°¤â¤½¤ì°Ê¹ß¤â¼è¤ê°·¤¨¤Þ¤¹¡£
+  <dl>
+	 <dt><b>datetime.date.today()</b></dt>
+	 <dd>¸½ºß¤Î¥í¡¼¥«¥ë¤ÊÆüÉÕ¤òÆÀ¤Þ¤¹¡£</dd>
+	 <dt><b>datetime.datetime.now()</b></dt>
+	 <dd>¸½ºß¤Î¥í¡¼¥«¥ë¤ÊÆüÉÕ¤È»þ¹ï¤òÆÀ¤Þ¤¹¡£</dd>
+	 <dt><b>isoformat ¥á¥½¥Ã¥É</b></dt>
+	 <dd>ÆüÉÕ¤È»þ¹ï¤ò ISO 8601 ·Á¼°¤ÎÊ¸»úÎó¤Ë¤·¤Þ¤¹¡£
+		<pre class="samp">
+&gt;&gt;&gt; datetime.date.today().isoformat()
+'2005-02-02'
+&gt;&gt;&gt; datetime.datetime.now().isoformat()
+'2005-02-02T17:50:09.867000'
+</pre>
+	 <dt><b>strftime</b></dt>
+	 <dd>Æü»þ¤ò½ñ¼°¤Ë½¾¤Ã¤Æ½ÐÎÏ¤·¤Þ¤¹¡£¾Ü¤·¤¯¤Ï¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹
+<a href="http://www.python.jp/doc/release/lib/node211.html">
+		 6.9.7</a>,
+<a href="http://www.python.jp/doc/release/lib/module-time.html">
+6.10</a>
+¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+<pre class="samp">
+&gt;&gt;&gt; datetime.datetime.now().strftime('%y-%m-%d: %H:%M:%S')
+'05-02-02: 23:20:12'
+&gt;&gt;&gt; datetime.date.today().strftime('%y-%m-%d')
+'05-02-02'
+</pre>
+</dd>
+	 </dl>
+
+<h3>10.8. operator</h3>
+add(a,b) (ÄÌ¾ï¤Î½ñ¼°¤Ç¤Ï `a+b') ¤ä mul(a,b) (ÄÌ¾ï¤Î½ñ¼°¤Ç¤Ï `a*b') ¤òÄêµÁ¤·¤¿¥â¥¸¥å¡¼¥ë¡£
+reduce ¤ò»È¤¦¤È¤­ÊØÍø¡£
+<pre class="samp">
+&gt;&gt;&gt; import operator as op
+&gt;&gt;&gt; reduce(op.add, [1,2,3,4,5])  <span class="comment"># 1+2+3+4+5</span>
+15
+</pre>
+¾Ü¤·¤¯¤Ï¡¢
+  <a href="http://www.python.jp/doc/release/lib/module-operator.html">
+    ¥é¥¤¥Ö¥é¥ê¥ê¥Õ¥¡¥ì¥ó¥¹ 3.10. operator -- ´Ø¿ô·Á¼°¤ÎÉ¸½à±é»»»Ò</a>¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£
+<h3>10.9. ¤½¤ÎÂ¾¤Î¥â¥¸¥å¡¼¥ë</h3>
+<ol>
+<li><a href="http://www.python.jp/doc/release/lib/misc.html">
+³Æ¼ï¥µ¡¼¥Ó¥¹</a>
+<li><a href="http://www.python.jp/doc/release/lib/allos.html">
+ÈÆÍÑ¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¥µ¡¼¥Ó¥¹</a>
+<li><a href="http://www.python.jp/doc/release/lib/someos.html">
+¥ª¥×¥·¥ç¥ó¤Î¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¥µ¡¼¥Ó¥¹</a>
+<li><a href="http://www.python.jp/doc/release/lib/unix.html">
+UnixÆÈÆÃ¤Î¥µ¡¼¥Ó¥¹</a>
+<li><a href="http://www.python.jp/doc/release/lib/internet.html">
+¥¤¥ó¥¿¡¼¥Í¥Ã¥È¥×¥í¥È¥³¥ë¤È¤½¤Î»Ù±ç</a>
+  </ol>
+
+  <a name="appendix">
+  <h2> 11. ÉÕÏ¿</h2>
+<a name="boolian">
+<h3>11.1. ¿¿µ¶ÃÍ¤òÊÖ¤¹±é»»»Ò¤È¼ç¤Ê´Ø¿ô</h3>
+<table border=3>
+  <col span="1" width="100" align="center">
+  <col span="1" width="130" align="center">
+  <col span="1" width="600">
+  <thead>
+  <tr>
+	 <th>¥â¥¸¥å¡¼¥ë</th>
+	 <th>±é»»»Ò¡¢´Ø¿ô</th>
+	 <th>µ¡Ç½ (True ¤Ç¤Ê¤¤¾ì¹ç¤Ï False)</th>
+	 </tr>
+  </thead>
+  <tdoby>
+  <tr>
+	 <td align="center">ÁÈ¤ß¹þ¤ß</td>
+	 <td align="center">==</td>
+	 <td>º¸ÊÕ¤È±¦ÊÕ¤¬Åù¤·¤±¤ì¤Ð True¡£</td>
+	 </tr>
+  <tr>
+	 <td align="center">ÁÈ¤ß¹þ¤ß</td>
+	 <td align="center">!=</td>
+	 <td>º¸ÊÕ¤È±¦ÊÕ¤¬Åù¤·¤¯¤Ê¤±¤ì¤Ð True¡£</td>
+	 </tr>
+  <tr>
+	 <td align="center">ÁÈ¤ß¹þ¤ß</td>
+	 <td align="center">&lt</td>
+	 <td>º¸ÊÕ¤¬±¦ÊÕ¤è¤ê¾®¤µ¤±¤ì¤Ð True¡£<br>
+	 Ê¸»úÎó¤Ë¤â»È¤¨¤ë¡£Îã¡§ 'abc' &lt 'ab' &rArr False </td>
+	 </tr>
+  <tr>
+	 <td align="center">ÁÈ¤ß¹þ¤ß</td>
+	 <td align="center">&gt</td>
+	 <td>º¸ÊÕ¤¬±¦ÊÕ¤è¤êÂç¤­¤±¤ì¤Ð True¡£
+	 Ê¸»úÎó¤Ë¤â»È¤¨¤ë¡£</td>
+	 </tr>
+  <tr>
+	 <td align="center">ÁÈ¤ß¹þ¤ß</td>
+	 <td align="center">&lt=</td>
+	 <td>º¸ÊÕ¤¬±¦ÊÕ¤è¤ê¾®¤µ¤¤¤«¡¢º¸ÊÕ¤È±¦ÊÕ¤¬Åù¤·¤±¤ì¤Ð True¡£
+	 Ê¸»úÎó¤Ë¤â»È¤¨¤ë¡£</td>
+	 </tr>
+  <tr>
+	 <td align="center">ÁÈ¤ß¹þ¤ß</td>
+	 <td align="center">&gt=</td>
+	 <td>º¸ÊÕ¤¬±¦ÊÕ¤è¤êÂç¤­¤¤¤«¡¢º¸ÊÕ¤È±¦ÊÕ¤¬Åù¤·¤±¤ì¤Ð True¡£
+	 Ê¸»úÎó¤Ë¤â»È¤¨¤ë¡£</td>
+	 </tr>
+  <tr>
+	 <td align="center">ÁÈ¤ß¹þ¤ß</td>
+	 <td align="center"> in </td>
+	 <td>º¸ÊÕ¤¬±¦ÊÕ¤Ë´Þ¤Þ¤ì¤Æ¤¤¤ì¤Ð True¡£
+	 Îã¡§<br>
+	 ¥ê¥¹¥È¡§  1 in [1,2,3] &rArr True<br>
+	 Ê¸»úÎó¡§  'ab' in 'abc' &rArr True<br>
+	 ¼­½ñ¡§    'mon' in {'sun':0, 'mon':1, 'tue':2, 'wed':3} &rArr True<br></td>
+	 </tr>
+  <tr>
+	 <td align="center">ÁÈ¤ß¹þ¤ß</td>
+	 <td align="center">is</td>
+	 <td>º¸ÊÕ¤È±¦ÊÕ¤¬Åù¤·¥ª¥Ö¥¸¥§¥¯¥È¤Ê¤é¤Ð True¡£<br>
+		ls1 = [1,2,3]<br>
+		ls2 = [1,2,3]<br>
+		ls3 = ls1<br>
+		ls1 is ls2 &rArr False<br>
+		ls1 is ls3 &rArr True
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">ÁÈ¤ß¹þ¤ß</td>
+	 <td align="center">isinstance(  object, classinfo)</td>
+	 <td>°ú¿ô object ¤¬°ú¿ô classinfo ¤Î¥¤¥ó¥¹¥¿¥ó¥¹¤Ç¤¢¤ë¤«¡¢ (Ä¾ÀÜ¤Þ¤¿¤Ï´ÖÀÜÅª¤Ê)
+		¥µ¥Ö¥¯¥é¥¹¤Î¥¤¥ó¥¹¥¿¥ó¥¹¤Î¾ì¹ç True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">ÁÈ¤ß¹þ¤ß</td>
+	 <td align="center">issubclass(  	class, classinfo)</td>
+	 <td>class ¤¬ classinfo ¤Î (Ä¾ÀÜ¤Þ¤¿¤Ï´ÖÀÜÅª¤Ê) ¥µ¥Ö¥¯¥é¥¹¤Ç¤¢¤ë¾ì¹ç¤Ë True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">Ê¸»úÎó¥á¥½¥Ã¥É</td>
+	 <td align="center">isalnum()</td>
+	 <td>Ê¸»úÎóÃæ¤ÎÁ´¤Æ¤ÎÊ¸»ú¤¬±Ñ¿ôÊ¸»ú [a-zA-Z0-9] ¤Ç¡¢¤«¤Ä 1 Ê¸»ú°Ê¾å¤¢¤ë¾ì¹ç True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">Ê¸»úÎó¥á¥½¥Ã¥É</td>
+	 <td align="center">isalpha()</td>
+	 <td>Ê¸»úÎóÃæ¤ÎÁ´¤Æ¤ÎÊ¸»ú¤¬±ÑÊ¸»ú [a-zA-Z] ¤Ç¡¢¤«¤Ä 1 Ê¸»ú°Ê¾å¤¢¤ë¾ì¹ç True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">Ê¸»úÎó¥á¥½¥Ã¥É</td>
+	 <td align="center">isdigit()</td>
+	 <td>Ê¸»úÎóÃæ¤Ë¿ô»ú¤·¤«¤Ê¤¤¾ì¹ç True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">Ê¸»úÎó¥á¥½¥Ã¥É</td>
+	 <td align="center">islower()</td>
+	 <td>Ê¸»úÎóÃæ¤ÎÂç¾®Ê¸»ú¤Î¶èÊÌ¤Î¤¢¤ëÊ¸»úÁ´¤Æ¤¬¾®Ê¸»ú¤Ç¡¢¤«¤Ä 1 Ê¸»ú°Ê¾å¤¢¤ë¾ì¹ç True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">Ê¸»úÎó¥á¥½¥Ã¥É</td>
+	 <td align="center">isspace()</td>
+	 <td>Ê¸»úÎó¤¬¶õÇòÊ¸»ú¤À¤±¤«¤é¤Ê¤ê¡¢¤«¤Ä 1 Ê¸»ú°Ê¾å¤¢¤ë¾ì¹ç True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">Ê¸»úÎó¥á¥½¥Ã¥É</td>
+	 <td align="center">istitle()</td>
+	 <td>Ê¸»úÎó¤¬¥¿¥¤¥È¥ë¥±¡¼¥¹Ê¸»úÎó¤Ç¤¢¤ê¡¢¤«¤Ä 1 Ê¸»ú°Ê¾å¤¢¤ë¾ì¹ç¡¢
+		¤¹¤Ê¤ï¤ÁÂçÊ¸»ú¤ÏÂç¾®Ê¸»ú¤Î¶èÊÌ¤Î¤Ê¤¤Ê¸»ú¤Î¸å¤Ë¤Î¤ßÂ³¤­¡¢
+		¾®Ê¸»ú¤ÏÂç¾®Ê¸»ú¤Î¶èÊÌ¤Î¤¢¤ëÊ¸»ú¤Î¸å¤í¤Ë¤Î¤ßÂ³¤¯¾ì¹ç True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">Ê¸»úÎó¥á¥½¥Ã¥É</td>
+	 <td align="center">isupper()</td>
+	 <td>Ê¸»úÎóÃæ¤ÎÂç¾®Ê¸»ú¤Î¶èÊÌ¤Î¤¢¤ëÊ¸»úÁ´¤Æ¤¬ÂçÊ¸»ú¤Ç¡¢¤«¤Ä 1 Ê¸»ú°Ê¾å¤¢¤ë¾ì¹ç True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">os.path</td>
+	 <td align="center">exists(path)</td>
+	 <td> path ¤¬Â¸ºß¤¹¤ë¾ì¹ç True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">os.path</td>
+	 <td align="center">isfile(path)</td>
+	 <td>  path ¤¬Â¸ºß¤¹¤ëÀµ¤·¤¤¥Õ¥¡¥¤¥ë¤Î¾ì¹ç True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">os.path</td>
+	 <td align="center">isdir(path)</td>
+	 <td>  path ¤¬¥Ç¥£¥ì¥¯¥È¥ê¤Î¾ì¹ç True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">fileinput</td>
+	 <td align="center">isfirstline()</td>
+	 <td>  ºÇ¸å¤ËÆÉ¤ß¹þ¤Þ¤ì¤¿¹Ô¤¬¥Õ¥¡¥¤¥ë¤Î1¹ÔÌÜ¤Ê¤é True¡£
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">fileinput</td>
+	 <td align="center">isstdin()</td>
+	 <td>  ºÇ¸å¤ËÆÉ¤ß¹þ¤Þ¤ì¤¿¹Ô¤¬sys.stdin¤«¤éÆÉ¤Þ¤ì¤Æ¤¤¤ì¤Ð True¡£
+	 </td>
+	 </tr>
+</tbody>
+ </table>
+
+<h3>11.2. web documents </h3>
+<ol>
+  <li><a href="http://www.python.org/">python.org</a>
+	 <ol>
+		<li><a href="http://www.python.org/download/">¥À¥¦¥ó¥í¡¼¥É</a>
+		  <li><a href="http://docs.python.org/">¥É¥­¥å¥á¥ó¥È</a>
+			 </ol>
+<li><a href="http://www.python.jp/Zope/">ÆüËÜPython¥æ¡¼¥¶²ñ</a>
+  <ol>
+	 <li><a href="http://www.python.jp/doc/release/index.html">ÆüËÜ¸ìÌõ¥É¥­¥å¥á¥ó¥È</a>
+		<li><a href="http://www.python.jp/Zope/articles/SoftwareTools">¾®¤µ¤Ê¼ÂÎã½¸</a>
+		  <li><a href="http://www.python.jp/Zope/links">¥ê¥ó¥¯½¸</a></ol>
+<li><a href='http://diveintopython.org/'>Dive Into Python</a>: ¤³¤ÎÊ¸½ñ¤È
+  <a href='http://www.python.jp/doc/release/tut/tut.html'>¥Á¥å¡¼¥È¥ê¥¢¥ë</a>¤Î¼¡¤Ë
+  ÆÉ¤àÊ¸½ñ¤È¤·¤Æ¤ª´«¤á¤Ç¤¹¡£
+    </ol>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=py/python2_e.html&t=Python+Quick+Look' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+

@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!----
+-- $Id: sa_perform.html,v 1.6 2006/05/22 06:57:27 takafumi Exp $
+--->
+
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, C++ 実行速度, 比較">
+<meta name="description" content="素数の数を数えるプログラムで Sather と C++ の実行速度を比較しました">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 1. Sather vs C++: 実行速度の比較  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+<td><a rel=next href="sa_install.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+2. Sather を インストールする。</a></td>
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_perform.html&t=%28Sather+%A4%F2%BB%EE%A4%BD%A4%A6%29+1.+Sather+vs+C%2B%2B%3A+%BC%C2%B9%D4%C2%AE%C5%D9%A4%CE%C8%E6%B3%D3' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 1. Sather vs C++: 実行速度の比較 </h1>
+<hr>
+<h2>1. Sather は本当に C++ より速いのか？ </h2>
+<a href='http://en.wikipedia.org/wiki/Sather'>Wikipedia</a> をみると "Sather で書かれたプログラムはしばしば C++ 
+で書かれたものよりも早く実行される" と書いてありました。本当か？と思って簡単なプログラムを書いて試してみることにしました。
+Sather と C++ の特徴が出て、かつ、
+単純で処理時間が長いプログラムということで素数の数を数え上げる簡単なプログラムを書いて試してみました。
+見つかった素数はリストに保持していきます。
+
+
+<h2>2. C++ で書くと</h2>
+まず、C++ で書くと [code 1] のようになります。vector&lt;int&gt; を使って見つかった素数をリストに加えていきます。
+それほど C++ の特徴を生かした例ではないのですが、vector クラスを使ったということで良しとしましょう。
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class='comment'>// g++ -O2 nprime.cpp -o nprime_cpp</span>
+<span class="linenumber">02:</span>     #include &lt;iostream&gt;
+<span class="linenumber">03:</span>     #include &lt;vector&gt;        <span class='comment'>// 指摘により list &rarr vector に書き換える</span>
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     #define W 500
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     using namespace std;
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     inline bool primep(vector&lt;int&gt;& plist, int i){             <span class='comment'>// 指摘により参照渡しにする</span>
+<span class="linenumber">11:</span>       for( vector&lt;int&gt;::iterator iter = plist.begin();iter != plist.end(); iter++){
+<span class="linenumber">12:</span>         int j = *iter;
+<span class="linenumber">13:</span>         if(j*j&gt;i) return true;
+<span class="linenumber">14:</span>         if(i%j==0) return false;
+<span class="linenumber">15:</span>       }
+<span class="linenumber">16:</span>     }
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     void nprime(int m){
+<span class="linenumber">19:</span>       vector&lt;int&gt; plist;
+<span class="linenumber">20:</span>       plist.push_back(2);
+<span class="linenumber">21:</span>       plist.push_back(3);
+<span class="linenumber">22:</span>       for(int j =5, r=3; j &lt;= m; j+=2, r++){
+<span class="linenumber">23:</span>         if(primep(plist, j)) plist.push_back(j);
+<span class="linenumber">24:</span>         if(r==W){
+<span class="linenumber">25:</span>           cout &lt;< j &lt;< " " &lt;< plist.size() &lt;< "\n";
+<span class="linenumber">26:</span>           r = 0;
+<span class="linenumber">27:</span>         }
+<span class="linenumber">28:</span>       }
+<span class="linenumber">29:</span>     }
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     int main(int ac, char** av){
+<span class="linenumber">32:</span>       if(ac ==2){
+<span class="linenumber">33:</span>         int m = atoi(av[1]);
+<span class="linenumber">34:</span>         if(m &gt; 10000){
+<span class="linenumber">35:</span>           cout &lt;< "#Limit, N of primes\n0 0\n";
+<span class="linenumber">36:</span>           nprime(m);
+<span class="linenumber">37:</span>           return 0;
+<span class="linenumber">38:</span>         }else{
+<span class="linenumber">39:</span>           cerr &lt;< "limit should be &gt; 10000\n";
+<span class="linenumber">40:</span>         }
+<span class="linenumber">41:</span>       }else{
+<span class="linenumber">42:</span>         cerr &lt;< "Usage: nprime_cpp N\n";
+<span class="linenumber">43:</span>       }
+<span class="linenumber">44:</span>     }
+</pre>
+
+<h4>簡単な説明</h4>
+<ol>
+<li> inline bool primep(vector&lt;int&gt;& plist, int i):<br>
+ i が素数なら真を返します。高速化のため inline 宣言しています。
+ i が plist にある今まで見つかった素数で割り切れるか調べています。
+<li> void nprime(int m):<br>
+ 素数が見つかるとそれを plist に加えていきます。また、
+ 0 から m までの素数の数を 1000 ごとに標準出力に吐き出します。
+<li> int main(int ac, char** av):<br>
+ 引数をチェックして、問題が無ければ nprime を呼び出します。
+</ol>
+
+このプログラムは 0 から N (av[1]) までの素数の数を 1000 ごとに標準出力に出力します。
+コンパイルして 10000000 までの素数の数を求めてみました。
+
+<pre class='samp'>
+$ g++ -O2 nprime.cpp -o nprime_cpp
+
+$ time ./nprime_cpp 10000000 > nprime_cpp.dat
+
+real    0m8.365s
+user    0m8.245s
+sys     0m0.004s
+</pre>
+8.365 秒で終わりました。やはり早いです。
+
+<h2>3. Sather で書くと</h2>
+次に、同じプログラムを Sather で書いてみました [code 2]。
+繰り返しのやり方が特徴的でイテレーターを使っています。elt! や step! などのイテレータを使うと
+ while! を使ったときより処理時間が短くなるようです。
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- primitive couting prime numbers program</span>
+<span class="linenumber">02:</span>     <span class="comment">-- sacomp -O_fast nprime.sa -o nprime_sa</span>
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     class MAIN is
+<span class="linenumber">05:</span>        attr plist :LIST{INT}; 
+<span class="linenumber">06:</span>        const w:INT := 500;
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>        private primep(i:INT):BOOL is
+<span class="linenumber">09:</span>           j:INT;
+<span class="linenumber">10:</span>           
+<span class="linenumber">11:</span>           loop 
+<span class="linenumber">12:</span>     	 j :=self.plist.elt!;
+<span class="linenumber">13:</span>     	 if j * j &gt; i then
+<span class="linenumber">14:</span>     	    return true;
+<span class="linenumber">15:</span>     	 end;
+<span class="linenumber">16:</span>     	 if i % j = 0 then
+<span class="linenumber">17:</span>     	    return false;
+<span class="linenumber">18:</span>     	 end;
+<span class="linenumber">19:</span>           end;
+<span class="linenumber">20:</span>        end;
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>        nprime(maxi:INT) is
+<span class="linenumber">24:</span>           j,r:INT;
+<span class="linenumber">25:</span>           self.plist := #(|2,3|);
+<span class="linenumber">26:</span>           r := 3;
+<span class="linenumber">27:</span>           loop
+<span class="linenumber">28:</span>     	 j := 5.step!((maxi-3)/2, 2);
+<span class="linenumber">29:</span>     	 if self.primep(j) then
+<span class="linenumber">30:</span>     	    self.plist.append(j);
+<span class="linenumber">31:</span>     	 end;
+<span class="linenumber">32:</span>     	 if r = w then
+<span class="linenumber">33:</span>     	    #OUT + j + " " + self.plist.size + "\n";
+<span class="linenumber">34:</span>     	    r := 0;
+<span class="linenumber">35:</span>     	 end;
+<span class="linenumber">36:</span>     	 r := r+1;
+<span class="linenumber">37:</span>           end;
+<span class="linenumber">38:</span>        end;
+<span class="linenumber">39:</span>        
+<span class="linenumber">40:</span>        main(av:ARRAY{STR}) is
+<span class="linenumber">41:</span>           if av.size = 2 then
+<span class="linenumber">42:</span>     	 m:INT := av[1].cursor.get_int;
+<span class="linenumber">43:</span>     	 if m &lt;= 10000 then
+<span class="linenumber">44:</span>     	    #ERR + "limit should be &gt; 10000\n";
+<span class="linenumber">45:</span>     	 else
+<span class="linenumber">46:</span>     	    #OUT +"# limit, N of primes\n0 0\n";
+<span class="linenumber">47:</span>     	    nprime(m);
+<span class="linenumber">48:</span>     	 end;
+<span class="linenumber">49:</span>           else
+<span class="linenumber">50:</span>     	 #ERR + "Usage: nprime N\n"
+<span class="linenumber">51:</span>           end;
+<span class="linenumber">52:</span>        end;
+<span class="linenumber">53:</span>     end;
+</pre>
+
+やっていることは C++ で書いたものと同じです。C++ のと Sather のを比べてみてください。
+
+<pre class='samp'>
+$sacomp -O_fast nprime.sa -o nprime_sa
+$time nprime_sa 10000000 > nrpime_sa.dat
+
+real    0m14.262s
+user    0m11.617s
+sys     0m0.016s
+</pre>
+
+14.262 秒かかりました。このような単純なプログラムではやはり C++ より少し遅いようです。
+しかしもちろん Python や Scheme よりは圧倒的に早いので Sather は
+簡単に高速なプログラムが書ける
+魅力的な言語だといえます。
+そして、もし速度をもっと向上させたければ C や Fortran とのインターフェースを利用することができます。
+<p>
+<center>
+<img src='nprime.png'> <br>
+図 1. 素数の数
+</center>
+<p>
+素数の密度は数が大きくなっていくと徐々に減少していくことがわかります。
+
+
+<h2>4. Sather を使ってみよう！</h2>
+紫藤はこの結果をみて Sather を勉強しようと思いました。高速なプログラムをきわめて簡単に書くことができます。
+ちゃんと書かれた C++ の方が早かったのですが、<b>C++ はちょっとしたミスでものすごく遅いプログラムになってしまいます。</b>
+実行速度が気にならないプログラムであれば Python や Scheme で書くのが簡単ですが、実行速度が問題になる
+プログラムを書くときはこれからは Sather を使おうと思います。
+このプログラムの可読性は Sather, C++, C ともそんなに変わりませんが、大きなプログラムになると
+圧倒的に Sather の方が読みやすくなります。<p>
+なぜ Sather が普及しないのか不思議です。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+<td><a rel=next href="sa_install.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+2. Sather を インストールする。</a></td>
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_perform.html&t=%28Sather+%A4%F2%BB%EE%A4%BD%A4%A6%29+1.+Sather+vs+C%2B%2B%3A+%BC%C2%B9%D4%C2%AE%C5%D9%A4%CE%C8%E6%B3%D3' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body></html>
+    
+
+
+
+

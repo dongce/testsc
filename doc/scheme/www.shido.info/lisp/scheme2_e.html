@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="S expression, calculator">
+<meta name="description" content="give S expression from the front end">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Using Scheme as a Calculator </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme1_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  1. Installing MIT-Scheme</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Introduction</a></td>
+<td><a rel=next href="scheme3_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>3. Making Lists</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme2_e.html&t=Using+Scheme+as+a+Calculator' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 2. Using Scheme as a Calculator</h1>
+<hr>
+<h2>1. Introduction </h2>
+Let's use Scheme interpreter as a calculator. It is more convenient than the calculator
+equipped with Windows.
+
+<a name='eval'>
+<h2>2. Using Scheme as a Calculator</h2>
+Crick <u>Start</u> &rarr; <u>All Programs</u> &rarr; <u>MIT Scheme</u>  &rarr; <u>Scheme</u><br>
+to start up the
+Scheme interpreter and a console like the following picture will appear.
+<p>
+<center><img src='mit_scheme1.png'></center><p>
+First, let's calculate '1+2'. Give <tt>(+ 1 2)</tt> to the prompt.
+<pre class='samp'>
+<span class='response'>1 ]=&gt; </span>(+ 1 2)
+
+;Value: 3
+
+<span class='response'>1 ]=&gt; </span>
+</pre>
+The interpreter returns 3 as the answer.<br>
+Pay attention to following three points:
+<ol>
+  <li> A pair of parentheses indicates one step of calculation.
+    In this case, (+ 1 2) indicate a step of 1+2.
+  <li>A function name comes after the open parenthesis followed by arguments.
+    Most of operators in Scheme are functions.
+    In this case, function '+' comes first then two arguments 1 and 2 follow.
+  <li> Separators of tokens are spaces, tabs and newlines. No comma nor colon is used as a separator.
+</ol>
+Let's analyse the process of the calculation in detail.
+In the case of functions, calculation proceeds after all arguments
+are evaluated. The order of the evaluation is not specified, which means
+that arguments are not always evaluated from the left to the right.
+
+<ul>
+<li> The symbol '+' is evaluated to be a procedure addition.
+  Give just '+' from the front end and the interpreter responds<br>
+  <tt><span class='response'>[arity-dispatched-procedure 1]</span></tt><br>
+ which indicates that '+' is a symbol for "procedure 1".
+<li> '1' is evaluated to be 1. In general, booleans, numbers, characters, and strings are evaluated to be themselves.
+  On the other hand, symbol is evaluated to be something else. 
+<li> '2' is evaluated to be 2.
+<li> Finally, <tt>(+ 1 2)</tt> is evaluated and  3 comes out from the parentheses.
+  In the Scheme, evaluated values are coming out from the parentheses and
+  the value coming from the outermost parentheses is printed on the front end.
+  </ul>
+Function '+' accepts arbitrary numbers of arguments.
+<pre>
+(+) &rarr; 0
+(+ 1)  &rarr; 1
+(+ 1 2) &rarr; 3
+(+ 1 2 3) &rarr; 6
+</pre>
+
+<h2>3. Four Basic Arithmetic Operations</h2>
+Scheme (and most of Lisp) can treat fractional numbers. Function <b><tt>exact-&gt;inexact</tt></b>
+is to convert from fractional numbers to floating point numbers.
+Scheme can also treat complex numbers. Complex numbers are represented by
+<tt><var>a</var>+<var>b</var>i</tt>, where
+<var>a</var> and <var>b</var> are real and imaginary parts.
+<tt>+, -, *, and /</tt> represent
+addition, subtraction, multiplication, and division, respectively.
+These functions accept arbitrary numbers of arguments.
+<p>
+Examples:
+<pre class='samp'>
+(- 10 3) &rarr; 7
+(- 10 3 5)  &rarr; 2
+(* 2 3) &rarr; 6
+(* 2 3 4) &rarr; 24
+(/ 29 3) &rarr; 29/3
+(/ 29 3 7) &rarr; 29/21
+(/ 9 6) &rarr; 3/2
+(exact-&gt;inexact (/ 29 3 7)) &rarr; 1.380952380952381
+</pre>
+
+Parentheses can be nested like as follows:
+<pre class='samp'>
+(* (+ 2 3) (- 5 3)) &rarr; 10
+(/ (+ 9 1) (+ 2 3)) &rarr; 2
+</pre>
+Formulas consisting of parentheses, tokens, and separators are called <strong>S-expressions</strong>.
+<h3>Exercise 1</h3>
+Calculate followings using Scheme interpreter.
+<ol>
+  <li> (1+39) * (53-45)
+  <li> (1020 / 39) + (45 * 2)
+  <li> Sum of 39, 48, 72, 23, and 91
+  <li> Average of 39, 48, 72, 23, and 91 as a floating point.
+</ol>
+
+<h2>4.  Other Arithmetic Operations</h2>
+<h3>4.1. quotient, remainder, modulo, and sqrt</h3>
+<ul>
+<li>Function <tt><b>quotient</b></tt> is to get quotient.
+<li>Functions <tt><b>remainder</b></tt> and  <tt><b>modulo</b></tt> are to get remainder.
+<li>Function <tt><b>sqrt</b></tt> is to get the square root of the argument.
+</ul>
+<pre class='samp'>
+(quotient 7 3) &rarr; 2
+(modulo 7 3) &rarr; 1
+(sqrt 8) &rarr; 2.8284271247461903
+</pre>
+
+<h3>4.2. Trigonometric Functions</h3>
+Functions <tt><b>sin</b></tt>, <tt><b>cos</b></tt>, <tt><b>tan</b></tt>, <tt><b>asin</b></tt>,
+<tt><b>acos</b></tt>, and <tt><b>atan</b></tt>
+are available. <tt>atan</tt> accepts one or two arguments.
+if the value of <tt>atan</tt> is expected to be 1/2 &pi;, use 
+two arguments.
+
+<pre class='samp'>
+(atan 1) &rarr; 0.7853981633974483
+(atan 1 0) &rarr; 1.5707963267948966
+</pre>
+
+<h3>4.3. Exponential and Logarithm</h3>
+Exponential and logarithm are calculated by  <tt><b>exp</b></tt>, and <tt><b>log</b></tt>, respectively.
+The value of  <var>b</var> to the power of <var>a</var> can be calculated by
+(<tt><b>expt</b></tt> <var>a</var> <var>b</var>).
+
+<h3>Exercise 2</h3>
+  Calculate following values using Scheme interpreter.
+<ol>
+  <li> circle ratio, &pi;
+  <li> <i>exp</i>(2/3)
+  <li> 3 to the power of 4
+  <li> logarithm of 1000
+</ol>
+<h2>5. Summary</h2>
+In this chapter, we have used the Scheme interpreter as a calculator.
+It will help you to getting used to Scheme.
+I will explain about data type 'list' in Scheme in the next chapter.
+
+
+<h3>The Answers for Exercises</h3>
+
+<h4>Answer 1</h4>
+
+<pre class='samp'>
+;1
+(* (+ 1 39) (- 53 45))              &rArr;    320
+
+;2
+(+ (/ 1020 39) (* 45 2))            &rArr;    1510/13
+
+;3
+(+ 39 48 72 23 91)                  &rArr;    273
+
+;4
+(exact->inexact (/ (+ 39 48 72 23 91) 5))   &rArr;    54.6
+</pre>
+
+<h4>Answer 2</h4>
+<pre class='samp'>
+;1
+(* 4 (atan 1.0))          &rArr;   3.141592653589793
+
+;2
+(exp 2/3)                 &rArr;   1.9477340410546757
+
+;3
+(expt 3 4)                &rArr;   81
+
+;4
+(log 1000)                &rArr;   6.907755278982137
+</pre>
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme1_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  1. Installing MIT-Scheme</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Introduction</a></td>
+<td><a rel=next href="scheme3_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>3. Making Lists</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/schem2_e.html&t=Using+Scheme+as+a+Calculator' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+
+

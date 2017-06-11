@@ -1,0 +1,496 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="Image Viewer using Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 10. キャンバスにドラッグできるオブジェクトを描こう </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter9.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  9. ボードゲーム用 GUI を作ろう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter11.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  11. Canvas を使って納涼しよう</a></td>
+<td><a rel='download' href="tkinter10.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter10.html&t=Tkinter+%C6%FE%CC%E7%3A+10.+%A5%AD%A5%E3%A5%F3%A5%D0%A5%B9%A4%CB%A5%C9%A5%E9%A5%C3%A5%B0%A4%C7%A4%AD%A4%EB%A5%AA%A5%D6%A5%B8%A5%A7%A5%AF%A5%C8%A4%F2%C9%C1%A4%B3%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>10. キャンバスにドラッグできるオブジェクトを描こう </h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+今回は、大きめのキャンバスの作り方と、オブジェクトをつまんで動かしたりする方法について述べます。
+ 題材は、知育教材 (toy.py) です。要するに子供だましですが、童心に還って遊んでみてください。
+
+<a name='sec2'>
+<h2>2. Tk.Canvas へのスクロールバーのつけ方</h2>
+以下のコードは toy.py からの抜粋です。
+スクロールバーのつけ方は以下の通りです。
+<ol>
+  <li> まず、<span class='mono'>Tk.Canvas</span> を作ります (<var>self.cvs</var>)。そのとき、
+    オプションで <em>scrollregion</em> を指定します。<br>
+       下の例は縦横に 0--40 cm スクロールするという意味です。<span class='mono'>width</span>
+    と <span class='mono'>height</span> は表示する幅と高さです。
+  <li> <var>self.cvs</var> を grid します。縦横にスクロールバーをつけるときは必ず grid してください。<br>
+        <em>sticky= Tk.N+Tk.E+Tk.W+Tk.S</em> を指定して、上下左右に広がるようにします。
+  <li> 次に横スクロールバーを作ります (<var>xscroll</var>)。
+    オプションに <em>command=self.cvs.xview</em> を指定します。
+  <li> <var>xscroll</var> を grid します。 <em>sticky=Tk.E+Tk.W</em> を指定して、左右に伸びるようにします。
+  <li> 同様に縦スクロールバー (<var>yscroll</var>) を作って grid します。
+  <li> その後 <span class='mono'>config</span> メソッドを使って、<var>self.cvs</var> の属性
+    <em>xscrollcommnad</em> を <em>xscroll.set</em> に、
+    <em>yscrollcommnad</em> を <em>yscroll.set</em> にします。
+  <li>親 widget の <em>grid_rowconfigure</em>, <em>grid_columncofigure</em>
+    メソッドを使って、row=0, column=0 の weight を 1 にします。
+    こうすることによって、キャンバスが親 widget の伸縮に伴って伸縮します。
+  <li>親 widget を pack するときは <em>fill=Tk.BOTH, expand=1</em> を指定します。
+ </ol>
+以上で縦横スクロールバー付伸縮自在キャンバスが出来上がりです。<p>
+  
+[code 1] Tk.Canvas を作る部分
+<pre class='code'>
+<span class="linenumber">01:</span>         def __init__(self, master=None):
+<span class="linenumber">02:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">03:</span>             self.master.title("Toy")
+<span class="linenumber">04:</span>             self.master.geometry("+20+20")
+<span class="linenumber">05:</span>             self.cvs = Tk.Canvas(self, scrollregion=("0c", "0c",  "40c",  "40c"), width="20c", height="20c",   
+<span class="linenumber">06:</span>                                        relief=Tk.SUNKEN, borderwidth=2, bg='#FFEFD5') 
+<span class="linenumber">07:</span>             self.cvs.grid(row=0, column=0, sticky= Tk.N+Tk.E+Tk.W+Tk.S)
+<span class="linenumber">08:</span>             
+<span class="linenumber">09:</span>             xscroll = Tk.Scrollbar(self, orient=Tk.HORIZONTAL, command=self.cvs.xview)
+<span class="linenumber">10:</span>             xscroll.grid(row=1, column=0, sticky=Tk.E+Tk.W)
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>             yscroll = Tk.Scrollbar(self, orient=Tk.VERTICAL, command=self.cvs.yview)
+<span class="linenumber">13:</span>             yscroll.grid(row=0, column=1, sticky=Tk.N+Tk.S)
+<span class="linenumber">14:</span>             
+<span class="linenumber">15:</span>             self.cvs.config(xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
+<span class="linenumber">16:</span>             self.grid_rowconfigure(0, weight=1, minsize=0)     
+<span class="linenumber">17:</span>             self.grid_columnconfigure(0, weight=1, minsize=0)  
+</pre>
+
+[code 2] Frame を pack する部分
+<pre class='code'>
+<span class="linenumber">01:</span>     if __name__ == '__main__':
+<span class="linenumber">02:</span>         f = Frame()
+<span class="linenumber">03:</span>         f.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">04:</span>         f.mainloop()
+</pre>
+<h2>3. 知育教材</h2>
+図１に示す知育教材 (toy.py) を作ります。この知育教材は以下の４つの部分からなっています。カッコ内はキャンバス上の位置です。
+
+<center><table>
+<tr><td>(a)<br><img src='toy1.png'></td><td>(b)<br><img src='toy2.png'></td></tr>
+<tr><td>(c)<br><img src='toy3a.png'></td><td>(d)<br><img src='toy4.png'></td></tr>
+</table></center>
+<p style=margin-left:150>
+図１：<br>
+  a) 色分けして箱にしまう課題（左上）<br>
+  b) 正三角形を大きさ順に並べる課題（右上）<br>
+  c) 番号を線で結ぶ課題（左下）<br>
+  d) しりとりになるように単語を線で結ぶ課題（右下）
+</p>
+
+
+
+<a name='sec3.1'>
+<h3>3.1. ドラッグできるキャンバスオブジェクト CanvasItem の定義</h3>
+toy.py のコードを示す前に、ドラッグできるキャンバスオブジェクトの定義の仕方について述べます。<p>
+刺激に反応するオブジェクトを表すのには新しいクラスを定義するのが OOP の定石です。
+ここでもそれに従って <span class='mono'>class</span> <var>CanvasItem</var> を定義します。<br>
+<var>CanvasItem</var> の定義は以下の通りです。<p>
+[code 3]
+<pre class='code'>
+<span class="linenumber">01:</span>     class CanvasItem:
+<span class="linenumber">02:</span>         canvas = None
+<span class="linenumber">03:</span>         
+<span class="linenumber">04:</span>         def make_binds(self):
+<span class="linenumber">05:</span>             CanvasItem.canvas.tag_bind(self.id, '&lt;1&gt;', self.drag_start)
+<span class="linenumber">06:</span>             CanvasItem.canvas.tag_bind(self.id, '&lt;Button1-Motion&gt;', self.dragging)
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>         def drag_start(self, event):
+<span class="linenumber">09:</span>             self.x = event.x
+<span class="linenumber">10:</span>             self.y = event.y
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>         def dragging(self, event):
+<span class="linenumber">13:</span>             x1 = event.x
+<span class="linenumber">14:</span>             y1 = event.y
+<span class="linenumber">15:</span>             CanvasItem.canvas.move(self.id, x1-self.x, y1-self.y)
+<span class="linenumber">16:</span>             self.x = x1
+<span class="linenumber">17:</span>             self.y = y1
+</pre>
+<ul>
+ <li>まず、クラス変数 <var>canvas</var> を定義します。これは、<var>CanvasItem</var> のインスタンスが描かれるキャンバスで、
+インスタンス間で共通の変数です。
+   <li><span class='mono'>__init__</span> が無いので、単独では使えず、サブクラスを定義して使うことになります。
+   <li><var>make_binds</var> はマウス左クリックと <var>self.drag_start</var> と マウスの移動と <var>self.dragging</var>
+     を結び付けています。
+   <li> <var>drag_start</var> メソッドではマウスの座標を <var>self.x</var>, <var>self.y</var> として保持します。
+   <li> <var>dragging</var> では、マウスの位置 <var>x1</var>, <var>y1</var> を取得し、
+     <var>self.id</var> のオブジェクトを <span class='mono'>(x1-self.x, y1-self.y)</span>
+       だけ移動させた後、<var>self.x</var> に <var>x1</var> を、<var>self.y</var> に <var>y1</var> を代入します。
+     こうすると <var>self.id</var> はマウスに引っ張られて
+     移動します。 <var>self.id</var> も各サブクラスで定義する必要があります。
+     </ul>
+<a name='sec3.2'>
+<h3>3.2.  CanvasItem サブクラス</h3>
+
+このスクリプトでは、<var>CanvasItem</var> のサブクラスとして、<var>CanvasOval</var>,
+<var>CanvasRectangle</var>, <var>CanvasTriangle</var>, <var>CanvasText</var>,
+ <var>CanvasCircleNumber</var> を定義しています。その部分のコードを以下に示します。<p>
+
+[code 4]
+<pre class='code'>
+<span class="linenumber">01:</span>     class CanvasOval(CanvasItem):
+<span class="linenumber">02:</span>         def __init__(self, x0, y0, x1, y1, **key):
+<span class="linenumber">03:</span>             self.id = CanvasItem.canvas.create_oval(x0, y0, x1, y1, **key)
+<span class="linenumber">04:</span>             self.make_binds()
+<span class="linenumber">05:</span>             
+<span class="linenumber">06:</span>     class CanvasRectangle(CanvasItem):
+<span class="linenumber">07:</span>         def __init__(self, x0, y0, x1, y1, **key):
+<span class="linenumber">08:</span>             self.id = CanvasItem.canvas.create_rectangle(x0, y0, x1, y1, **key)
+<span class="linenumber">09:</span>             self.make_binds()
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     class CanvasTriangle(CanvasItem):
+<span class="linenumber">12:</span>         def __init__(self, x, y, r, color):
+<span class="linenumber">13:</span>             self.id = CanvasItem.canvas.create_polygon(str(x)+'c', str(y-r*SQRT3)+'c', str(x-r)+'c', str(y)+'c',
+<span class="linenumber">14:</span>                                                        str(x+r)+'c', str(y)+'c', fill=color)
+<span class="linenumber">15:</span>             self.make_binds()
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>     class CanvasText(CanvasItem):
+<span class="linenumber">18:</span>         def __init__(self, *pos, **key):
+<span class="linenumber">19:</span>             self.id = CanvasItem.canvas.create_text(*pos, **key)
+<span class="linenumber">20:</span>             self.make_binds()
+<span class="linenumber">21:</span>            
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>     class CanvasCircleNumber(CanvasItem):
+<span class="linenumber">24:</span>         def __init__(self, x, y, num, session):
+<span class="linenumber">25:</span>             s = session + str(num)
+<span class="linenumber">26:</span>             self.circle = CanvasItem.canvas.create_oval('%fc' % (x-0.7), '%fc' % (y-0.7), '%fc' % (x+0.7), '%fc' % (y+0.7),
+<span class="linenumber">27:</span>                                                         width=2, outline='red', fill='#FFFFF0', tag=s)
+<span class="linenumber">28:</span>             self.number = CanvasItem.canvas.create_text(str(x)+'c', str(y)+'c', text=str(num),
+<span class="linenumber">29:</span>                                                         font=('Helvetica', '14', 'bold'), tag=s)
+<span class="linenumber">30:</span>             CanvasItem.canvas.tag_bind(s, '&lt;1&gt;', self.drag_start)
+<span class="linenumber">31:</span>             CanvasItem.canvas.tag_bind(s, '&lt;Button1-Motion&gt;', self.dragging)
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>         def dragging(self, event):
+<span class="linenumber">34:</span>             x1 = event.x
+<span class="linenumber">35:</span>             y1 = event.y
+<span class="linenumber">36:</span>             CanvasItem.canvas.move(self.circle, x1-self.x, y1-self.y)
+<span class="linenumber">37:</span>             CanvasItem.canvas.move(self.number, x1-self.x, y1-self.y)
+<span class="linenumber">38:</span>             self.x = x1
+<span class="linenumber">39:</span>             self.y = y1
+</pre>
+<ol>
+<li><var>CanvasOval</var>, では、<var>CanvasItem.canvas</var> 上に楕円を描き、その ID を <var>self.id</var> に代入しています。
+  その後、<var>self.make_binds</var> メソッドによって、ドラッグができるようにします。
+  <var>CanvasRectangle</var>, <var>CanvasText</var> も同様です。
+<li><var>CanvasTriangle</var> では、<var>CanvasItem.canvas</var>
+  上に <var>create_polygon</var> メソッドを使って正三角形を描きその ID を <var>self.id</var>
+  に代入しています。
+<li> <var>CanvasCircleNumber</var> では、円と数字を同時に移動させなければならないので、 <var>make_bind</var> を使わず、自前の
+  bind をしています。また、<var>dragging</var> メソッドも再定義しています。
+  </ol>
+
+
+<h3>3.3. toy.py 全体の簡単な説明</h3>
+
+最後に toy.py の全コードを示します。<p>
+
+[code 5]
+<pre class='code'>
+<span class="linenumber"> 01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber"> 02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber"> 03:</span>     <span class="string">"""
+<span class="linenumber"> 04:</span>     toy.py
+<span class="linenumber"> 05:</span>     
+<span class="linenumber"> 06:</span>     July 08, 2005
+<span class="linenumber"> 07:</span>     """</span>
+<span class="linenumber"> 08:</span>     import Tkinter as Tk
+<span class="linenumber"> 09:</span>     import random as R
+<span class="linenumber"> 10:</span>     import math
+<span class="linenumber"> 11:</span>     
+<span class="linenumber"> 12:</span>     
+<span class="linenumber"> 13:</span>     
+<span class="linenumber"> 14:</span>     TITLE_COLOER = '#FF6600'
+<span class="linenumber"> 15:</span>     COLOR = ['red', 'gold', 'blue']
+<span class="linenumber"> 16:</span>     TITLE_FONT = ('Helvetica', '20', 'bold')
+<span class="linenumber"> 17:</span>     CAPPING = [u'あさがお', u'おけ', u'けいと', u'とり', u'リス', u'スイカ', u'かき', u'きもの', u'のはら']
+<span class="linenumber"> 18:</span>     SQRT3 = math.sqrt(3)
+<span class="linenumber"> 19:</span>     
+<span class="linenumber"> 20:</span>     
+<span class="linenumber"> 21:</span>     class CanvasItem:
+<span class="linenumber"> 22:</span>         canvas = None
+<span class="linenumber"> 23:</span>         
+<span class="linenumber"> 24:</span>         def make_binds(self):
+<span class="linenumber"> 25:</span>             CanvasItem.canvas.tag_bind(self.id, '&lt;1&gt;', self.drag_start)
+<span class="linenumber"> 26:</span>             CanvasItem.canvas.tag_bind(self.id, '&lt;Button1-Motion&gt;', self.dragging)
+<span class="linenumber"> 27:</span>     
+<span class="linenumber"> 28:</span>         def drag_start(self, event):
+<span class="linenumber"> 29:</span>             self.x = event.x
+<span class="linenumber"> 30:</span>             self.y = event.y
+<span class="linenumber"> 31:</span>     
+<span class="linenumber"> 32:</span>         def dragging(self, event):
+<span class="linenumber"> 33:</span>             x1 = event.x
+<span class="linenumber"> 34:</span>             y1 = event.y
+<span class="linenumber"> 35:</span>             CanvasItem.canvas.move(self.id, x1-self.x, y1-self.y)
+<span class="linenumber"> 36:</span>             self.x = x1
+<span class="linenumber"> 37:</span>             self.y = y1
+<span class="linenumber"> 38:</span>     
+<span class="linenumber"> 39:</span>     
+<span class="linenumber"> 40:</span>     class CanvasOval(CanvasItem):
+<span class="linenumber"> 41:</span>         def __init__(self, x0, y0, x1, y1, **key):
+<span class="linenumber"> 42:</span>             self.id = CanvasItem.canvas.create_oval(x0, y0, x1, y1, **key)
+<span class="linenumber"> 43:</span>             self.make_binds()
+<span class="linenumber"> 44:</span>             
+<span class="linenumber"> 45:</span>     class CanvasRectangle(CanvasItem):
+<span class="linenumber"> 46:</span>         def __init__(self, x0, y0, x1, y1, **key):
+<span class="linenumber"> 47:</span>             self.id = CanvasItem.canvas.create_rectangle(x0, y0, x1, y1, **key)
+<span class="linenumber"> 48:</span>             self.make_binds()
+<span class="linenumber"> 49:</span>     
+<span class="linenumber"> 50:</span>     class CanvasTriangle(CanvasItem):
+<span class="linenumber"> 51:</span>         def __init__(self, x, y, r, color):
+<span class="linenumber"> 52:</span>             self.id = CanvasItem.canvas.create_polygon(str(x)+'c', str(y-r*SQRT3)+'c', str(x-r)+'c', str(y)+'c',
+<span class="linenumber"> 53:</span>                                                        str(x+r)+'c', str(y)+'c', fill=color)
+<span class="linenumber"> 54:</span>             self.make_binds()
+<span class="linenumber"> 55:</span>     
+<span class="linenumber"> 56:</span>     class CanvasText(CanvasItem):
+<span class="linenumber"> 57:</span>         def __init__(self, *pos, **key):
+<span class="linenumber"> 58:</span>             self.id = CanvasItem.canvas.create_text(*pos, **key)
+<span class="linenumber"> 59:</span>             self.make_binds()
+<span class="linenumber"> 60:</span>            
+<span class="linenumber"> 61:</span>     
+<span class="linenumber"> 62:</span>     class CanvasCircleNumber(CanvasItem):
+<span class="linenumber"> 63:</span>         def __init__(self, x, y, num, session):
+<span class="linenumber"> 64:</span>             s = session + str(num)
+<span class="linenumber"> 65:</span>             self.circle = CanvasItem.canvas.create_oval('%fc' % (x-0.7), '%fc' % (y-0.7), '%fc' % (x+0.7), '%fc' % (y+0.7),
+<span class="linenumber"> 66:</span>                                                         width=2, outline='red', fill='#FFFFF0', tag=s)
+<span class="linenumber"> 67:</span>             self.number = CanvasItem.canvas.create_text(str(x)+'c', str(y)+'c', text=str(num),
+<span class="linenumber"> 68:</span>                                                         font=('Helvetica', '14', 'bold'), tag=s)
+<span class="linenumber"> 69:</span>             CanvasItem.canvas.tag_bind(s, '&lt;1&gt;', self.drag_start)
+<span class="linenumber"> 70:</span>             CanvasItem.canvas.tag_bind(s, '&lt;Button1-Motion&gt;', self.dragging)
+<span class="linenumber"> 71:</span>     
+<span class="linenumber"> 72:</span>         def dragging(self, event):
+<span class="linenumber"> 73:</span>             x1 = event.x
+<span class="linenumber"> 74:</span>             y1 = event.y
+<span class="linenumber"> 75:</span>             CanvasItem.canvas.move(self.circle, x1-self.x, y1-self.y)
+<span class="linenumber"> 76:</span>             CanvasItem.canvas.move(self.number, x1-self.x, y1-self.y)
+<span class="linenumber"> 77:</span>             self.x = x1
+<span class="linenumber"> 78:</span>             self.y = y1
+<span class="linenumber"> 79:</span>     
+<span class="linenumber"> 80:</span>     
+<span class="linenumber"> 81:</span>     
+<span class="linenumber"> 82:</span>            
+<span class="linenumber"> 83:</span>     class Frame (Tk.Frame):       
+<span class="linenumber"> 84:</span>         
+<span class="linenumber"> 85:</span>         def __init__(self, master=None):
+<span class="linenumber"> 86:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber"> 87:</span>             self.master.title("Toy")
+<span class="linenumber"> 88:</span>             self.master.geometry("+20+20")
+<span class="linenumber"> 89:</span>             self.cvs = Tk.Canvas(self, scrollregion=("0c", "0c",  "40c",  "40c"), width="20c", height="20c",
+<span class="linenumber"> 90:</span>                                        relief=Tk.SUNKEN, borderwidth=2, bg='#FFEFD5')  
+<span class="linenumber"> 91:</span>             self.cvs.grid(row=0, column=0, sticky= Tk.N+Tk.E+Tk.W+Tk.S)
+<span class="linenumber"> 92:</span>             
+<span class="linenumber"> 93:</span>             xscroll = Tk.Scrollbar(self, orient=Tk.HORIZONTAL, command=self.cvs.xview)
+<span class="linenumber"> 94:</span>             xscroll.grid(row=1, column=0, sticky=Tk.E+Tk.W)
+<span class="linenumber"> 95:</span>     
+<span class="linenumber"> 96:</span>             yscroll = Tk.Scrollbar(self, orient=Tk.VERTICAL, command=self.cvs.yview)
+<span class="linenumber"> 97:</span>             yscroll.grid(row=0, column=1, sticky=Tk.N+Tk.S)
+<span class="linenumber"> 98:</span>             
+<span class="linenumber"> 99:</span>             self.cvs.config(xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
+<span class="linenumber">100:</span>             self.grid_rowconfigure(0, weight=1, minsize=0)     
+<span class="linenumber">101:</span>             self.grid_columnconfigure(0, weight=1, minsize=0)  
+<span class="linenumber">102:</span>     
+<span class="linenumber">103:</span>             <span class="comment"># assign a CanvasItem class parameter</span>
+<span class="linenumber">104:</span>             CanvasItem.canvas=self.cvs
+<span class="linenumber">105:</span>     
+<span class="linenumber">106:</span>             <span class="comment"># binding</span>
+<span class="linenumber">107:</span>             self.cvs.bind('&lt;3&gt;', self.draw_start)
+<span class="linenumber">108:</span>             self.cvs.bind('&lt;Button3-Motion&gt;', self.drawing)
+<span class="linenumber">109:</span>             self.cvs.bind('&lt;Double-Button-1&gt;', self.delete_line)
+<span class="linenumber">110:</span>     
+<span class="linenumber">111:</span>             
+<span class="linenumber">112:</span>             <span class="comment"># Display a 2x2 rectangular grid.</span>
+<span class="linenumber">113:</span>             self.cvs.create_line('0c', '20c', '40c', '20c', width=2)
+<span class="linenumber">114:</span>             self.cvs.create_line('20c', '0c', '20c', '40c', width=2)
+<span class="linenumber">115:</span>     
+<span class="linenumber">116:</span>     
+<span class="linenumber">117:</span>             <span class="comment"># First Toy</span>
+<span class="linenumber">118:</span>             self.cvs.create_text('10c', '1.5c', text=u'色別に整理して、しまいましょう。\n左ボタンドラッグで動きます。',
+<span class="linenumber">119:</span>                                   font=TITLE_FONT, fill=TITLE_COLOER)
+<span class="linenumber">120:</span>             for i, c in enumerate(COLOR):
+<span class="linenumber">121:</span>                 self.cvs.create_line('%dc' % (i*6+1), '16c', '%dc' % (i*6+1), '19c', '%dc' % (i*6+6),
+<span class="linenumber">122:</span>                                     '19c', '%dc' % (i*6+6), '16c', fill=c, width=3)
+<span class="linenumber">123:</span>     
+<span class="linenumber">124:</span>             for i in range(5):
+<span class="linenumber">125:</span>                 x=R.randint(200, 1800) * 0.01
+<span class="linenumber">126:</span>                 y=R.randint(300, 1500) * 0.01
+<span class="linenumber">127:</span>                 r=R.randint(30, 150) * 0.01
+<span class="linenumber">128:</span>                 c=R.randint(0,2)
+<span class="linenumber">129:</span>                 CanvasOval('%fc' % (x-r), '%fc' % (y-r), '%fc' % (x+r), '%fc' % (y+r), fill=COLOR[c], width=0)
+<span class="linenumber">130:</span>     
+<span class="linenumber">131:</span>             for i in range(5):
+<span class="linenumber">132:</span>                 x=R.randint(100, 1700) * 0.01
+<span class="linenumber">133:</span>                 y=R.randint(300, 1500) * 0.01
+<span class="linenumber">134:</span>                 w=R.randint(50, 150) * 0.01
+<span class="linenumber">135:</span>                 h=R.randint(50, 150) * 0.01
+<span class="linenumber">136:</span>                 c=R.randint(0,2)
+<span class="linenumber">137:</span>                 CanvasRectangle('%fc' % (x), '%fc' % (y), '%fc' % (x+w), '%fc' % (y+h), fill=COLOR[c], width=0)
+<span class="linenumber">138:</span>     
+<span class="linenumber">139:</span>     
+<span class="linenumber">140:</span>             <span class="comment"># Second Toy</span>
+<span class="linenumber">141:</span>             self.cvs.create_text('30c', '1.5c', text=u'三角形を大きい順に並べましょう。\n左ボタンドラッグで動きます。',
+<span class="linenumber">142:</span>                                   font=TITLE_FONT, fill=TITLE_COLOER)
+<span class="linenumber">143:</span>             for i in range(10):
+<span class="linenumber">144:</span>                 x=R.randint(2200, 3800) * 0.01
+<span class="linenumber">145:</span>                 y=R.randint( 300, 1950) * 0.01
+<span class="linenumber">146:</span>                 r=R.randint(3000, 20000) * 0.0001
+<span class="linenumber">147:</span>                 c=R.randint(0,2)
+<span class="linenumber">148:</span>                 CanvasTriangle(x, y, r, COLOR[c])
+<span class="linenumber">149:</span>                                   
+<span class="linenumber">150:</span>             <span class="comment"># Third Toy</span>
+<span class="linenumber">151:</span>             self.cvs.create_text('10c', '21.5c', text=u'数字を順番に線で結びましょう。\n右ボタンドラッグで線が引けます。',
+<span class="linenumber">152:</span>                                   font=TITLE_FONT, fill=TITLE_COLOER)
+<span class="linenumber">153:</span>             self.cvs.create_text('10c', '22.8c', text=u'数字が重なっていたら、ドラッグして位置を少しずらしましょう。',
+<span class="linenumber">154:</span>                                   font=('Helveticla', '12'))
+<span class="linenumber">155:</span>             for i in range(12):
+<span class="linenumber">156:</span>                 x=R.randint(200, 1800) * 0.01
+<span class="linenumber">157:</span>                 y=R.randint(2400, 3600) * 0.01
+<span class="linenumber">158:</span>                 CanvasCircleNumber(x, y, i+1, 'third')
+<span class="linenumber">159:</span>                 
+<span class="linenumber">160:</span>     
+<span class="linenumber">161:</span>             <span class="comment"># Fourth Toy</span>
+<span class="linenumber">162:</span>             self.cvs.create_text('30c', '21.5c', text=u'「しりとり」になるように単語を線で結びましょう。\n'
+<span class="linenumber">163:</span>                                                       u'右ボタンドラッグで線が引けます。',
+<span class="linenumber">164:</span>                                   font=TITLE_FONT, fill=TITLE_COLOER)
+<span class="linenumber">165:</span>             self.cvs.create_text('30c', '22.8c', text=u'単語が重なっていたら、ドラッグして位置を少しずらしましょう。',
+<span class="linenumber">166:</span>                                   font=('Helveticla', '12'))
+<span class="linenumber">167:</span>     
+<span class="linenumber">168:</span>                                   
+<span class="linenumber">169:</span>             for txt in CAPPING:
+<span class="linenumber">170:</span>                 x=R.randint(2200, 3800) * 0.01
+<span class="linenumber">171:</span>                 y=R.randint(2400, 3600) * 0.01
+<span class="linenumber">172:</span>                 r=R.randint(0,200)
+<span class="linenumber">173:</span>                 g=R.randint(0,200)
+<span class="linenumber">174:</span>                 b=R.randint(0,200)
+<span class="linenumber">175:</span>                 CanvasText(str(x)+'c', str(y)+'c', text=txt, font=('Helvetica', '18', 'bold'), fill='#%02X%02X%02X' % (r, g, b))
+<span class="linenumber">176:</span>                 
+<span class="linenumber">177:</span>     
+<span class="linenumber">178:</span>     
+<span class="linenumber">179:</span>     
+<span class="linenumber">180:</span>     <span class="comment">###</span>
+<span class="linenumber">181:</span>         def draw_start(self, event):
+<span class="linenumber">182:</span>             self.x = self.cvs.canvasx(event.x, '0.2m')
+<span class="linenumber">183:</span>             self.y = self.cvs.canvasy(event.y, '0.2m')
+<span class="linenumber">184:</span>     
+<span class="linenumber">185:</span>         def drawing(self, event):
+<span class="linenumber">186:</span>             x1 = self.cvs.canvasx(event.x, '0.2m')
+<span class="linenumber">187:</span>             y1 = self.cvs.canvasy(event.y, '0.2m')
+<span class="linenumber">188:</span>             self.cvs.create_line(self.x, self.y, x1, y1, width=2, fill='#CC3300', tag='line')
+<span class="linenumber">189:</span>             self.x = x1
+<span class="linenumber">190:</span>             self.y = y1
+<span class="linenumber">191:</span>     
+<span class="linenumber">192:</span>         def delete_line(self, event):
+<span class="linenumber">193:</span>             self.cvs.delete('line')
+<span class="linenumber">194:</span>         
+<span class="linenumber">195:</span>                                   
+<span class="linenumber">196:</span>     
+<span class="linenumber">197:</span>     <span class="comment">##-----------------------------------------------------</span>
+<span class="linenumber">198:</span>     if __name__ == '__main__':
+<span class="linenumber">199:</span>         f = Frame()
+<span class="linenumber">200:</span>         f.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">201:</span>         f.mainloop()
+</pre>
+<h3>簡単な説明</h3>
+以下に簡単な説明を示します。カッコ内は行数です。
+<ul>
+<li> <span class='mono'>Tkinter(Tk), random(R), math</span> をインポートします。(8--10)
+<li> ５つのグローバル変数 <var>TITLE_COLOER</var>, <var>COLOR</var>, <var>TITLE_FONT</var>,
+  <var>CAPPING</var>, <var>SQRT3</var> を定義します。(14--18)
+<li> <var>CanvasItem</var> クラスを定義します。<a href='#sec3.1'>3.1 節</a> で説明しました。(21--37)
+<li> <var>CanvasOval</var> クラスを定義します。<a href='#sec3.2'>3.2 節</a> で説明しました。(40-43)
+<li> <var>CanvasRectangle</var> クラスを定義します。<a href='#sec3.2'>3.2 節</a> で説明しました。(45-48)
+<li> <var>CanvasTriangle</var> クラスを定義します。<a href='#sec3.2'>3.2 節</a> で説明しました。(50--54)
+<li> <var>CanvasText</var> クラスを定義します。<a href='#sec3.2'>3.2 節</a> で説明しました。(56-59)
+<li> <var>CanvasCircleNumber</var> クラスを定義します。<a href='#sec3.2'>3.2 節</a> で説明しました。(62--78)
+<li> class <var>Frame</var> (Tk.Frame)       (83--193)<br>
+  メインクラスの定義です。
+  <ul>
+     <li> <b>__init__(self, master=None)</b>   (85--175)
+       <ul>
+          <li><span class='mono'>Tk.Frame</span> として初期化します。(86)
+	  <li>window のタイトルを "Toy" にします。  (87)
+	  <li>window の位置を "+20+20" にします。   (88)
+	  <li> <span class='mono'>Tk.Canvas</span> <var>self.cvs</var> を定義し、
+	    スクロールバーをつけます。<a href='#sec2'>2 節</a>で説明しました。  (89--101)
+	  <li> <var>CanvasItem.canvas</var> に <var>self.cvs</var> を代入します。(104)<br>
+	    これで、<var>CanvasItem</var> の全てのインスタンスが self.cvs 上に
+	    描かれることになります。
+	  <li> マウス右ボタンドラッグで線を引けるようにします。(107,108)
+	  <li> マウス左ボタンダブルクリックで線が消えるようにします。(109)
+	  <li> 課題をわける縦横の線を引きます。(113,114)
+	  <li> 最初の課題です。まず、課題の説明文をつけます。(118,119)
+	  <li> 色別の整理箱を作ります。(120--122)
+	  <li> ドラッグできる円をランダムに５個作ります。(124--128)
+	  <li> ドラッグできる長方形をランダムに５個作ります。(131--137)
+	  <li>  ２つめの課題です。まず、課題の説明文をつけます。(141,142)
+	  <li> ドラッグできる正三角形をランダムに１０個作ります。(143--148)
+	  <li>  ３つめの課題です。まず、課題の説明文をつけます。(151--154)
+	  <li> 丸に囲まれた数字を １から１２まで作ります。位置はランダムです。(155--158)
+	  <li>  ４つめの課題です。まず、課題の説明文をつけます。(162--166)
+	  <li> しりとりになる単語のリストをキャンバス上に置きます。位置、色はランダムです。(169--175)
+	    </ul>
+      <li> <b> draw_start(self, event)</b>  (181--183)<br>
+	線を引き始める関数です。マウスの位置を<em>canvasx</em>,
+	<em>canvasy</em> メソッドで、キャンバスの座標に変換します。
+	そうしないと線の位置がずれてしまいます。
+      <li><b>drawing(self, event)</b>  (185--190)<br>
+	線を引き続ける関数です。マウスの位置を<em>canvasx</em>,
+	<em>canvasy</em> メソッドで、キャンバスの座標に変換します。
+      <li><b>delete_line(self, event)</b>  (192,193)<br>
+	線を消去する関数です。
+	</ul>
+<li> <b>__name__ == '__main__'</b> (198--201)
+  <ul>
+  <li> <var>Frame</var> のインスタンス <var>f</var> を作り、それを pack します。(199,200)<br>
+    pack するとき <span class='mono'>fill=TK.BOTH, expand=1</span> を指定することによって
+    <var>self.cvs</var> がサイズを変えられるようになります。
+  <li><span class='mono'>mainloop</span> メソッドでプログラムを動かします。(201)
+  </ul>
+  </ul>
+
+
+  <h2>5. 終わりに</h2>
+ toy.py は <a href='python6.html'>Tkinter demo</a> にある items.py を簡略化したものです。そちらも見てください。<br>
+  <span class='mono'>Tk.Canvas</span> を使うといろいろと楽しいアプリケーションが書けることがお分かりいただけたと思います。<br>
+  次回は <span class='mono'>Tk.Canvas</span> を使って花火を打ち上げて、
+  <span class='mono'>Tk.Canvas</span> の説明の締めくくりにしたいと思います。
+  
+  
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter9.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  9. ボードゲーム用 GUI を作ろう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter11.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  11. Canvas を使って納涼しよう</a></td>
+<td><a rel='download' href="tkinter10.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter10.html&t=Tkinter+%C6%FE%CC%E7%3A+10.+%A5%AD%A5%E3%A5%F3%A5%D0%A5%B9%A4%CB%A5%C9%A5%E9%A5%C3%A5%B0%A4%C7%A4%AD%A4%EB%A5%AA%A5%D6%A5%B8%A5%A7%A5%AF%A5%C8%A4%F2%C9%C1%A4%B3%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

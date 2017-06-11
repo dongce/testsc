@@ -1,0 +1,287 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="IBM NetVista, personal server, used PC, Cerelon">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 中古 PC を使った 格安、省電、静音、省スペース自宅サーバー </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc11&t=%C3%E6%B8%C5+PC+%A4%F2%BB%C8%A4%C3%A4%BF+%B3%CA%B0%C2%A1%A2%BE%CA%C5%C5%A1%A2%C0%C5%B2%BB%A1%A2%BE%CA%A5%B9%A5%DA%A1%BC%A5%B9%BC%AB%C2%F0%A5%B5%A1%BC%A5%D0%A1%BC"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>中古 PC を使った 格安、省電、静音、省スペース自宅サーバー</h1>
+<hr>
+Jan 29, 2006
+<p>
+<h2>1. はじめに</h2>
+今回の情報は久しぶりに（初めての？）お役立ち情報です。
+いかに安く、電気代の安い自宅サーバーを立ち上げるかについて述べています。
+いろいろと試行錯誤した結果（つまり無駄金を使った結果）紫藤が
+お勧めできるオプションについて述べていたいと思います。
+
+<h2>2. ハードウェアの選定</h2>
+自宅サーバなので、CPU の処理速度より消費電力の方が気になります。そこで、
+消費電力の低い CPU を 
+<a href="http://hp.vector.co.jp/authors/VA004323/cpupower/index.html">CPUの消費電力</a>
+で調べます。
+広く出回っている CPU の中では Celeron 566 &mdash; 700 MHz が 14 &mdash; 19 W でもっとも消費電力が少ないことがわかります。
+次にこの CPU を搭載した中古 PC を
+<a href="http://www.kakaku.com/usedpc/win_d.asp">
+価格.com </a> を使って調べると 
+<a href="http://www.used-pc.co.jp/">
+USED-PC</a> で
+ IBM NetVista A40 6881-20J が 3980 円で、
+ IBM NetVista A40 6842-10J が 5980 円で売っていました。
+紫藤は、両方を1台ずつ買いましが、<b>A40 6842-10J</b> の方が静音設定ができるので静かです。
+6881-20J は CPU ファンのやかましい音がします。
+紫藤は IBM NetVista A40 6842-10J が気に入ったので web サーバー用にもう一台買い足しました。
+ここで使用する A40 6842-10J には Celeron 700 MHz が載っているのですが、消費電力を下げるために Celeron 566 MHz (FC-PGA) に
+換えます。この交換で 2 W 位違ってきます。この CPU は
+<a href="http://shop.janpara.co.jp/">
+ジャンパラ</a>で 580 円で買えます。
+また、6842-10J には 20 GB の HDD がついているのですが、音がうるさいので、
+新しい HDD に換えましょう。新しい HDD はほとんど無音です。
+
+送料がばかにならないので、サーバーを 2 つ立ち上げる予定があるのなら 
+IBM NetVista A40 6842-10J を 2 台まとめて買うほうがいいでしょう。
+
+HDD は最近のものならどれでも静かだと思いますが、紫藤は ファイルサーバ用に
+HITACHI HDS722525VLAT80 (250 GB) (PC success 11,724 円)
+web サーバ用に
+HITACHI HDS728080PLAT20 (80 GB) (PC success 5,280 円)
+を買いました。
+両方静かで満足しています。web サーバ用に 80 GB はいらないのですが、
+容量が小さいものも値段がほとんど変わらなかったのでこれにしました。
+今のところ HDD は 80 GB と 250 GB がお買い得だと思います。
+
+価格は 2005 年 12 月現在のものです。値上がりしていたら悪しからずご了承ください。
+
+<h2>3. ハードウェアの設定 (1)</h2>
+
+<h3>3.1. HDD の交換</h3>
+写真 1 に IBM NetVista A40 6842-10J を示します。
+後部の上部真ん中についているねじをはずして蓋を前にずらすと、蓋が外れます (写真 2)。
+写真 2 の左側に 20GB の HDD がついていますので、それを新しいものと交換します。
+<p>
+<center>
+<img src="PICT0043s.jpg"><br>
+写真 1: IBM NetVista A40 6842-10J。<p>
+<img src="PICT0044s.jpg"><br>
+写真 2: IBM NetVista A40 6842-10J。蓋をはずしたところ。左側に HDD が、右側に 電源、CPU、FDD、CD-ROM がある。<p>
+
+</center>
+<h3>3.2. CPU の交換</h3>
+消費電力を抑えるために、CPU を Celeron 566 MHz に交換します。この交換で 2 W ほど違ってきます。
+ただ、たいした違いではないので交換しなくても良いでしょう。また、
+消費電力を気にしないなら性能を上げるために Celeron 800 &mdash; 1200 MHz に
+交換するという手もあります。
+
+CPU は写真 2 の右側の部分の底に鎮座していますので、交換するには電源ユニットと CPU ファンを取り外す必要があります (写真 3)。
+CPU を取り替えてグリースを塗りなおして、CPU ファン、電源ユニットを組み立てていけば交換は完了です。
+CPU を取り替えたので BIOS をアップデートします。これをしないと、"CPU が違う" と文句を言ってきます。
+BIOS は
+<a href="http://www-06.ibm.com/jp/pc/support/">
+Lenovo のサポートページ</a>
+からダウンロードして、FD に書き込みます。
+<p>
+LAN ケーブル、キーボード、モニター、電源ケーブルをつないで
+BIOS が入った FD を FDD に差し込んで、電源を入れます。
+"BIOS はすでに最新バージョンです。それでもアップデートしますか？"
+と聞いてくるので Yes と答えます。
+これで、BIOS は更新されます。<p>
+<center>
+<img src="PICT0048s.jpg"><br>
+写真 3: CPU が顔を出したところ。<p>
+</center>
+<h2>4. OS のインストール</h2>
+OS は Debian GNU Linux にします。
+選定理由は、
+<ol>
+<li> フリーである。
+<li> FD からインストールできる。
+<li> サーバー用 OS として評価が高い。
+</ol>
+の3つです。<p>
+まず、Debian sarge の boot FD, root FD, net-devices FD を用意します。
+イメージは
+<a href="http://ftp.jp.debian.org/debian/dists/sarge/main/installer-i386/current/images/floppy/">
+http://ftp.jp.debian.org/debian/dists/sarge/main/installer-i386/current/images/floppy/</a>
+にあります。
+これを 
+<a href="http://ntrawrite.sourceforge.net/">NT-rawrite</a>
+をつかって FD にイメージを書き込みます。
+LAN に接続されていることを確認して、
+boot FD を挿入し、電源を入れると Debian が立ち上がります。
+次に指示に従って、root FD, net-devices FD を差し込みます。
+
+なお、<strong>言語は英語を選択しないと文字化けします</strong>。
+ファイルサーバーの場合は、パーティショニングは”マルチユーザーサーバー”を選択します。
+また、Web サーバーは（好みにもよりますが）全部を1つのパーティションにまとめます。
+
+質問に答えていくと最後にインストールするソフトを聞いてきますので、
+ファイルサーバの場合はファイルサーバーを選択します。
+また、web サーバーは最新版をソースコードからコンパイルしたかったので、何も選択しないで終了します。
+
+すると、インターネットから必要なソフトをダウンロードして自動的にインストールしてくれます。
+その際に２，３質問されますが、適切に答えます。
+
+<h2>5. ハードウェアの設定 (2)</h2>
+
+Debian をインストールしたら 一度 shutdown して電源を切ります。
+それから、FDD や CD-ROM を取り外して消費電力を減らします。
+また、マザーボードにささっている PCI 接続用ボードをはずして風通しを良くします。
+取り外し自体は簡単に行えます。
+取り外した後、電源を入れて、すぐに F1 を押して BIOS 設定画面に入ります。
+BIOS 設定画面で以下のことを設定します。
+<ol>
+<li> FDD を None にします。
+<li> 第一起動デバイスを HDD にします。
+<li> 使わないインターフェースを None にします。
+<li> 静音設定を On にします。
+<li> <strong>省電設定を Off にします</strong>。（重要）
+これをしないとデーモンがうまく動作しないことがあります。
+<li> FDD, キーボード無しで起動するようにします。
+</ol>
+最後に保存して設定を終了します。<p>
+
+<h2>6. Debian の設定</h2>
+<h3>6.1. sudo のインストール</h3>
+<a href="http://www.linux.or.jp/JM/html/sudo/man8/sudo.8.html">
+sudo</a> をインストールして簡単に root になれるようにします。
+まず、
+<tt>apt-get install sudo</tt> で、sudo をインストールします。
+そして、<tt>visudo</tt> を使って sudo で root になれるユーザーを設定します。
+
+<h3>6.2. IP address の設定</h3>
+サーバーなので IP address を固定する必要があります。
+<tt>/etc/network/interfaces</tt> を編集して次のようにします。
+次に立ち上げるときから有効になります。
+<pre class="code">
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet static      <span style="color:green">（"static" で固定アドレスにすることを宣言します）</span>
+address 192.168.1.2         <span style="color:green">（このサーバーのアドレス）</span>
+netmask 255.255.255.0       <span style="color:green">（普通はこの値にします。詳しくはその手の本を読んでください。）</span>
+gateway 192.168.1.1         <span style="color:green">（ルーターのアドレス）</span>
+</pre>
+<h3>6.3. 電源管理</h3>
+shutdown すると電源が自動的に切れるように /etc/lilo.conf と /etc/modules
+を次のように編集します。<p>
+/etc/lilo.conf
+<pre class="code">
+append="mem=128M apm=on apm=power-off noapic"
+</pre>
+
+/etc/modules
+<pre class="code">
+......
+apm power_off=1     <span style="color:green">（ファイルの最後にこの行を追加する）</span>
+</pre>
+<h3>6.4. 時計あわせ</h3>
+サーバーの時計がずれているとみっともないので ntpdate を使って時計あわせをします。
+まず、ntpdate を apt-get install します。
+それから次のスクリプト <tt>(timekeeper)</tt> を <tt>/etc/cron.hourly</tt> に作り、
+<tt>sudo chmod 755 timekeeper</tt> で実行可能にします。これで、1 時間おきに時計が
+あわせられます。時計あわせの結果は <tt>/var/log/daemon.log</tt> に保存されるので、
+どれだけずれているかチェックできます。紫藤のサーバはかなりずれが大きく1時間で 0.8 秒もずれます。
+<pre class="code">
+#!/bin/sh
+
+PATH=/sbin:/bin
+
+test -f /usr/sbin/ntpdate || exit 0
+
+if test -f /etc/default/ntpdate ; then
+. /etc/default/ntpdate
+else
+NTPSERVERS="pool.ntp.org"
+fi
+
+test -n "$NTPSERVERS" || exit 0
+
+  /usr/sbin/ntpdate -b -s $NTPOPTIONS $NTPSERVERS
+
+exit 0
+</pre>
+
+<h3>6.5. telnetd, proFTPd のインストール</h3>
+<tt>telnet localhost</tt> として telnetd がインストールされているかチェックします。
+もしインストールされていなければ apt-get install します。
+telnetd は inetd 経由で起動されるので host.allow と host.deny を編集して
+サーバにアクセスできるクライアントを制限します。<p>
+
+proFTPd も同様に apt-get install します。install するとき standalone にするか inetd 経由で
+起動するか聞かれるので inetd 経由を選択します。standalone にするとアクセス可能なクライアントを
+別途設定しなければならないので手間が増えます。
+
+<h2>7. 終わりに</h2>
+以上の説明で、サーバに最低限必要なソフトのインストールは済みました。
+後は用途にあわせて ファイルサーバ、web サーバー、データベースをインストールします。
+<p>
+写真 4 に、洋服ダンスの上に鎮座する我が家のサーバー群を示します。
+外部に公開する（予定の） web サーバと大切なファイルがあるファイルサーバーは分けたほうが安全でしょう。<p>
+こうしてみるとなかなか貫禄があります。
+また、音はほとんどしません。
+定常状態では、
+電源のファンがかすかに回っているだけで、CPU ファンはまったく回っていません。
+つまり、実質的に "ファンレス" になっています。
+
+消費電力を
+<a href="http://www.takemotodenki.co.jp/keisoku/t3t-r.html">
+エコワット</a>
+（実売価格 3000 円）
+を使って測定したところ
+ファイルサーバーが 24 W、web サーバーが 22 W でした。
+<a href="http://www.kuroutoshikou.com/products/kuro-box/kuro-boxfset.html">
+玄箱</a>の消費電力が 15&ndash;20 W 前後ですので
+かなりいい線だと思います。
+<p>
+<a href="http://www.janpara.co.jp/contents/?contents=kaitori_guide">
+ジャンパラ買い取りサービス</a>で、
+celeron 700 MHz は 400 円、
+薄型 CD-ROM は 100 円
+20 GB HDD は 1000 円で
+売れました。
+
+従って、HDD を除くハードウェアの値段は
+5980+560-1000-400-100=5040 円 になります。
+玄箱の実売価格が 12000 円 ですので、7000 円の価格差があります。(10 W) * (1 日)で 5 円 ですから、
+価格差を吸収するためには 4 年近くかかることになります。
+<p>
+ハードウェアの価格と消費電力を考慮すると中古の NetVista は良い選択肢だと思います。
+NetVista にはいろいろな種類がありますので、<b>A40 6842-10J</b> などの静音機能つきのを買ってください。<p>
+
+<center>
+<img src="PICT0039s.jpg"><br>
+写真 4: 洋服たんすの上の我が家のサーバー群。<p>
+</center>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc11&t=%C3%E6%B8%C5+PC+%A4%F2%BB%C8%A4%C3%A4%BF+%B3%CA%B0%C2%A1%A2%BE%CA%C5%C5%A1%A2%C0%C5%B2%BB%A1%A2%BE%CA%A5%B9%A5%DA%A1%BC%A5%B9%BC%AB%C2%F0%A5%B5%A1%BC%A5%D0%A1%BC"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

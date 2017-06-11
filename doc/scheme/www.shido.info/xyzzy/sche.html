@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="xyzzy, スケジューラー">
+<meta name="description" content="xyzzy を用いた簡易スケジューラーです。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+  <link rel ="home" href="http://www.shido.info/index.php">
+<title> xyzzy:  簡易スケジューラー </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="sche.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/sche.html&t=xyzzy%3A++%B4%CA%B0%D7%A5%B9%A5%B1%A5%B8%A5%E5%A1%BC%A5%E9%A1%BC' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>簡易スケジューラー</h1>
+<hr>
+<h2>1. はじめに </h2>
+いつも xyzzy が立ち上がっている人のためのスケジューラー兼日誌です。
+今日の予定、締め切りまでの日数、ある期間の予定表の表示ができます。
+また、日誌の編集を支援します。
+
+
+<h2>2.  インストールと設定 </h2>
+<h3> 2.1. インストール</h3>
+インストールの手順は以下の通りです。
+<ol>
+<li><a href="sche.lzh"><span class="mono">sche.lzh</span></a>を解凍すると
+  <span class="mono">sche.l, sche.lc, sche.dat, todo.dat, log.dat</span> が生成する。
+  <li>  <span class="mono">sche.dat, todo.dat, log.dat</span> を
+    <span class="mono">(user-homedir-pathname)</span> が返すディレクトリにコピーする。
+    （<span class="mono">*scratch*</span> で <span class="mono">(user-homedir-pathname)</span> を実行してみて下さい。）
+  <li> <span class="mono">sche.l, sche.lc</span> を <span class="mono">/site-lisp</span>
+    にコピーし、ダンプファイルを再作成する。
+<li> <tt>.xyzzy</tt> に 
+<pre>
+(load-library "sche")
+</pre>
+を加える。
+</ol>
+
+<h3> 2.2. 設定</h3>
+このスケジューラーはスケジュールファイル、todo ファイル、日誌ファイルの３つのファイルを使います。
+これらのあるディレクトリを変更するには
+ <span class="mono">.xyzzy</span> で  <span class="mono">*sche-home* </span> の値を設定してください。
+   <br>
+   ちなみに、デフォルトでは以下のようになっています。
+<pre class="code">
+(defvar *sche-home* (user-homedir-pathname))
+(defvar *sche-schedule* (merge-pathnames "sche.dat" *sche-home* )) ; 予定表
+(defvar *sche-additional* (merge-pathnames  "todo.dat" *sche-home*)) ; メモ (to do)
+(defvar *sche-log*  (merge-pathnames "log.dat" *sche-home*)) ; 日誌
+</pre>
+
+
+<h2> 3. 使い方 </h2>
+sche をインストールして xyzzy を再起動すると、メニューバーに "スケジュール" という項目が追加されます。
+それをクリックすると、
+<ol>
+<li>  今日の予定
+<li> その日の予定
+<li> 予定表
+<li> メモを編集
+<li> 日誌を編集
+<li> 予定を編集
+<li> クリップボードを日誌に追加
+<li> クリップボードをメモに追加
+</ol>
+の８つの項目が現れます。
+<h4> 3.1.1. 今日の予定</h4>
+クリックすると今日の予定が次のように表示されます。
+<ol>
+  <li>今日の予定には、sche.dat の該当する部分が時刻の昇順で、
+  <li>締め切りには sche.dat に書いてある締め切りまでの日数が、
+  <li>その他には todo.dat の内容が表示されます。
+    </ol>
+[1]
+<pre class="samp">
+*** 今日 2005/4/25(Mon) の予定 ***
+ [10:30] 定例会議
+
+*** 締め切り ***
+ 報告書の締め切り (2005/12/31) まで あと 250 日
+
+*** その他 ***
+# todo.dat にはこれからやることを書きます。
+</pre>
+<h4> 3.1.2. その日の予定</h4>
+今日以外の日の予定を表示するのに使います。
+クリックするとミニバッファで年月日を聞いてきますので、
+<pre class="o">
+2005/5/12&crarr;
+_/5/12&crarr;
+</pre>
+のように年月日(<span class="mono"> yyyy/mm/dd </span>)を入力して下さい。
+特定しないときは <span class="mono">'_'</span> を使います。
+日付を入力すると [1] のようにその日の予定を表示します。
+
+<h4> 3.1.3. 予定表</h4>
+ある期間の予定を表示するのに使います。
+ミニバッファから年月日と期間を聞いてきますので、
+年月日と期間を次のように入力します。
+<pre class="o">
+&crarr;
+,10&crarr;
+2005/5/12,10&crarr;
+</pre>
+<ol>
+<li> 何も入力しないでリターンすると今日から１週間の予定が表示されます。
+  <li> カンマに続けて整数 (n) を入力すると今日から n 日の予定が表示されます。
+    <li> 日付と整数 (n) を入力するとその日から n 日の予定が表示されます。
+</ol>
+<pre class="samp">
+2005/4/25(Mon):
+ [10:30] 定例会議
+
+2005/4/26(Tue):
+
+2005/4/27(Wed):
+
+2005/4/28(Thu):
+
+2005/4/29(Fri):
+
+2005/4/30(Sat):
+
+2005/5/1(Sun):
+
+</pre>
+
+<h3>3.1.4. メモを編集</h3>
+ <span class="mono"> todo.dat </span>の内容を編集します。
+ todo.dat の書式は特にありません。
+
+<h3> 3.1.5. 日誌を編集</h3>
+ <span class="mono"> log.dat </span>の内容を編集します。
+ log.dat の書式は特にありません。
+ log.dat にはやったことを書きます。
+ 
+<h3>3.1.6. 予定を編集</h3>
+予定と締め切りのデータファイルである <span class="mono">sche.dat</span> を編集します。
+書式は以下の通りです。
+<ol>
+<li> １ 行に日付と予定を <span class="mono">':'</span> で区切って書きます。
+  <li> 日付は <span class="mono">'yyyy/mm/dd/www'</span> の様に、年月日、曜日を '/' で区切って書きます。
+    ここで、
+    <ol>
+   <li> <span class="mono">yyyy</span> は 2005 年の様に 4 桁の数字、
+     <li> <span class="mono">mm, dd</span> は 2 桁の数字
+       <li> <span class="mono">www</span> は <span class="mono">Sun, Mon, Tue, Wed, Thu, Fri, Sat</span> のうちどれか
+	 <li> 第 n w 曜日は 'w n' と書く。（たとえば Sun 1）
+	 <li> 特定しないときは <span class="mono">'_'</span> を使う。
+	 </ol>
+    <li> 時間を指定するときは予定の欄に  <span class="mono">[hh:mm]</span> と書く
+      <li> '*' で始まる年月日は締め切りを表す。
+<li> '#' で始まる行はコメント。
+  </ol>
+例：<br>
+<pre class="samp">
+# 毎週月曜に 10:00 時から作戦会議がある場合
+_/_/_/Mon : [10:00] 作戦会議（第一会議室）
+
+# 毎月第一水曜日に 11:00 時から連絡会議がある場合
+_/_/_/Wed 1 : [11:00] 連絡会議（第一会議室）
+
+# 毎月 1 日に販売促進会議がある場合
+_/_/1/_ : [9:00] 販売促進会議（第一会議室）
+
+# 報告書の締め切りが 2005/6/2 の場合
+*2005/6/2/_ : 報告書の締め切り
+
+</pre>
+
+<h3> 3.1.7. クリップボードを日誌に追加</h3>
+クリップボードの中身を <span class="mono">log.dat</span> に追加します。
+e-mail の内容を日誌に追加するときなどに使います。
+
+<h3> 3.1.7. クリップボードをメモに追加</h3>
+クリップボードの中身を <span class="mono">todo.dat</span> に追加します。
+e-mail の内容を  <span class="mono">todo.dat</span> に追加するときなどに使います。
+予定をとりあえず todo.dat に書いておき、時間がある時に <span class="mono">sche.dat</span> に
+移すという使い方もあります。
+
+<h2>5. 終わりに</h2>
+せっかくいつも xyzzy が立ち上がっているので、それをスケジューラにも使おう、ということで
+書いてみました。<br>
+本人は便利よく使っています。<br>
+データファイルを直接いじれなくするという選択肢もありましたが、xyzzy はエディタなのでそれらを直接編集できるようにしました。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="sche.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/sche.html&t=xyzzy%3A++%B4%CA%B0%D7%A5%B9%A5%B1%A5%B8%A5%E5%A1%BC%A5%E9%A1%BC' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

@@ -1,0 +1,387 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!----
+-- $Id: sa_interface.html,v 1.2 2006/05/19 21:15:23 takafumi Exp $
+--->
+
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, interface, C, Fortran">
+<meta name="description" content="Sather と C, Fortran との interface について。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 15. 他言語 (C, Fortran) とのインターフェース  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_gui.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  14. GUI プログラミング</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+<!---
+<td><a rel=next href="NULL">
+  <img src='../images/right_arrow.gif' class='arrow' border=0></a>
+<a rel=next href="NULL">NULL. NULL</a></td>
+--->
+
+<td><a rel=download href="sa_interface.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_interface.html&t=Sather%3A%20%C2%BE%B8%C0%B8%EC%20%28C%2C%20Fortran%29%20%A4%C8%A4%CE%A5%A4%A5%F3%A5%BF%A1%BC%A5%D5%A5%A7%A1%BC%A5%B9' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 15. 他言語 (C, Fortran) とのインターフェース </h1>
+<hr>
+
+<!------------------------------------------
+- 準備中です。<br>
+- しばらくお待ちください。<p>
+- <img src='../images/under_construction.gif'>
+------------------------------------------->
+
+<h2>1. はじめに</h2>
+今回は Fortran や C 言語とのインターフェースについて述べます。
+Fortran や C で書いたほうが実行速度面で有利な場合が多々あるので、
+このような方法が用意されているのは Sather が実用的な言語を目指して開発されたことの表れです。
+
+<h2>2. Fortran とのインターフェース</h2>
+階乗の計算と行列の積の２つの例を説明します。
+
+<h3>2.1. 階乗の計算</h3>
+コード(ffact.f, ffact.sa) を [code 1a], [code 1b] に示します。
+ffact.f は n の階乗を返す Fortran で書かれた関数です。一方、ffact.sa は ffact.f
+を呼び出す Sather のプログラムです。
+<p>
+
+[code 1a]: ffact.f
+<pre class='code'>
+<span class="linenumber">01:</span>           integer function factorial(n)
+<span class="linenumber">02:</span>           integer n
+<span class="linenumber">03:</span>           factorial = 1
+<span class="linenumber">04:</span>           do i=1,n
+<span class="linenumber">05:</span>              factorial = factorial * i
+<span class="linenumber">06:</span>           enddo
+<span class="linenumber">07:</span>           return
+<span class="linenumber">08:</span>           end
+</pre>
+
+[code 1b]: ffact.sa
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- interface with fortran</span>
+<span class="linenumber">02:</span>     <span class="comment">-- to compile:</span>
+<span class="linenumber">03:</span>     <span class="comment">-- sacomp ffact.sa -external FACT ffact.f  -o ffact</span>
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     external FORTRAN class FACT is          <span class="comment">-- Fortran で書かれた外部クラスを宣言します。</span>
+<span class="linenumber">07:</span>        factorial(i:F_INTEGER):F_INTEGER;    <span class="comment">-- FACT で定義されている関数です。</span>
+<span class="linenumber">08:</span>     end;
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     class MAIN is
+<span class="linenumber">11:</span>        main(av:ARRAY{STR}) is
+<span class="linenumber">12:</span>           i:F_INTEGER := #(av[1].cursor.get_int);  <span class="comment">-- Fortran の integer 型は Sather から見ると F_INTEGER class になる。</span>
+<span class="linenumber">13:</span>           a:F_INTEGER := FACT::factorial(i);       <span class="comment">-- #(INT) でインスタンスを生成できる。</span>
+<span class="linenumber">14:</span>           #OUT + av[1] + "! = " + a.str + "\n";    <span class="comment">-- str メソッドで文字列に変換する。</span>
+<span class="linenumber">15:</span>        end;
+<span class="linenumber">16:</span>     end;
+</pre>
+<p>
+コンパイルするときは -external オプションを使ってクラス FACT の実態が ffact.f だということを sacomp に知らせる必要があります。
+
+<pre class='samp'>
+$ sacomp ffact.sa -external FACT ffact.f -o ffact
+$ ./ffact 10
+10! = 3628800
+</pre>
+
+Fortran のデータタイプは F_INTEGER, F_REAL などがあります。対応する Sather のデータを引数にして
+create を呼び出せば、インスタンスが生成されます。
+詳しくは<a href='http://www.gnu.org/software/sather/docs-1.2/tutorial/fortran.html'>
+Sather &mdash; A Language Tutorial: Chapter 13 Interfacing with Fortran</a>
+をみてください。
+
+<h3>2.2. 行列の積</h3>
+
+行列を表すには F_ARRAY2{<var>F_data_type</var>} クラスを用います。
+F_ARRAY2{<var>F_data_type</var>} は ARRAY2{T} から作ることができます。
+
+<p>
+行列の積を求めるコードは [code 2a], [code 2b] のようになります。
+Fortran と Sather は２次元配列のインデックスの順番が逆になるので注意が必要です。
+<p>
+
+[code 2a]: mat.f
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class='comment'>c</span>
+<span class="linenumber">02:</span>     <span class='comment'>c     calculating the product of matrices c = a * b</span>
+<span class="linenumber">03:</span>     <span class='comment'>c</span>
+<span class="linenumber">04:</span>           subroutine mattimes(l,m,n,a,b,c)
+<span class="linenumber">05:</span>           integer l,m,n,i,j,k
+<span class="linenumber">06:</span>           real a(n,l), b(m,n), c(m,l), tmp
+<span class="linenumber">07:</span>           do i=1,l
+<span class="linenumber">08:</span>              do j=1,m
+<span class="linenumber">09:</span>                 tmp=0.0
+<span class="linenumber">10:</span>                 do k=1,n
+<span class="linenumber">11:</span>                    tmp=tmp+a(k,i)*b(j,k)
+<span class="linenumber">12:</span>                 enddo
+<span class="linenumber">13:</span>                 c(j,i)=tmp
+<span class="linenumber">14:</span>              enddo
+<span class="linenumber">15:</span>           enddo
+<span class="linenumber">16:</span>           return
+<span class="linenumber">17:</span>           end
+</pre>
+
+[code 2b]: mat.sa
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- Matrix test</span>
+<span class="linenumber">02:</span>     <span class="comment">--  sacomp mat.sa -chk -external FMAT mat.f -o mat</span>
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     external FORTRAN class FMAT is
+<span class="linenumber">05:</span>        mattimes(l,m,n:F_INTEGER, a,b,c:F_ARRAY2{F_REAL}); 
+<span class="linenumber">06:</span>     end;
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     class MAT is
+<span class="linenumber">09:</span>        include ARRAY2{FLT};               <span class="comment">-- ARRAY2{FLT} に</span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>        times(b:SAME):SAME                 <span class="comment">-- 掛け算を定義した MAT クラスを定義する。</span>
+<span class="linenumber">12:</span>           pre self.nc = b.nr              <span class="comment">-- 掛け算の左側の行列の行数と右側の行列の列数が等しいことを確認</span>
+<span class="linenumber">13:</span>        is
+<span class="linenumber">14:</span>           c:SAME:=#(self.nr, b.nc);       <span class="comment">-- 行数と列数を指定して答えを格納する MAT を宣言</span>
+<span class="linenumber">15:</span>           FMAT::mattimes(#(self.nr), #(b.nc), #(self.nc), #(self), #(b), #(c)); <span class="comment">-- Fortran で書かれた mattimes を呼び出す。</span>
+<span class="linenumber">16:</span>           return c;  <span class="comment">-- F_ARRAY2{REAL} の値が変化すると ARRAY2{FLT} の値も変化する。</span>
+<span class="linenumber">17:</span>        end;
+<span class="linenumber">18:</span>     end;
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     class MAIN is
+<span class="linenumber">21:</span>        main is
+<span class="linenumber">22:</span>           i:INT;
+<span class="linenumber">23:</span>           a,b,c:MAT;
+<span class="linenumber">24:</span>           a:=#(||1.0, 1.0, 2.0|, |2.0, 2.0, 3.0||);
+<span class="linenumber">25:</span>           b:=#(||1.0, 1.0|, |1.0, 2.0|, |1.0, 3.0||);
+<span class="linenumber">26:</span>           c:=a*b;         <span class="comment">-- 行列の掛け算がきわめて簡単になる。</span>
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>           loop                          <span class="comment">-- 答えの表示</span>
+<span class="linenumber">29:</span>     	 i:=1.up!;
+<span class="linenumber">30:</span>     	 #OUT + c.elt!;
+<span class="linenumber">31:</span>     	 if i%c.nc=0 then #OUT+"\n";
+<span class="linenumber">32:</span>     	 else #OUT+" ";
+<span class="linenumber">33:</span>     	 end;
+<span class="linenumber">34:</span>           end;
+<span class="linenumber">35:</span>        end;
+<span class="linenumber">36:</span>     end;
+</pre>
+
+mat.sa ではテストとして<br>
+<img src='mat.png'><br>
+を計算しています。
+
+<pre class='samp'>
+$ sacomp mat.sa -chk  -external FMAT mat.f -o mat
+$ ./mat
+4 9
+7 15
+</pre>
+
+
+<h2>3. C とのインターフェース</h2>
+Sather と C とのインターフェーシングも Fortran の場合と同様に行えます。
+
+<h3>3.1. 階乗の計算</h3>
+手始めに C を使って階乗を計算してみます。コードは [code 3a], [code 3b] のようになります。<p>
+
+[code 3a]: cfact.c
+<pre class='code'>
+<span class="linenumber">01:</span>     unsigned long factorial(unsigned long i){
+<span class="linenumber">02:</span>         unsigned long j, n;
+<span class="linenumber">03:</span>         for(n=1,j=1;j&lt;=i;++j) n*=j;
+<span class="linenumber">04:</span>         return n;
+<span class="linenumber">05:</span>     }
+</pre>
+
+[code 3b] cfact.sa
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- interfacing with C</span>
+<span class="linenumber">02:</span>     <span class="comment">-- to compile:</span>
+<span class="linenumber">03:</span>     <span class="comment">-- sacomp cfact.sa -external FACT cfact.c  -o cfact</span>
+<span class="linenumber">04:</span>     <span class="comment">--</span>
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     external C class FACT is
+<span class="linenumber">07:</span>        factorial(i:C_UNSIGNED_LONG):C_UNSIGNED_LONG;
+<span class="linenumber">08:</span>     end;
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     class MAIN is
+<span class="linenumber">11:</span>        main(av:ARRAY{STR}) is
+<span class="linenumber">12:</span>           i:C_UNSIGNED_LONG := #(av[1].cursor.get_int);
+<span class="linenumber">13:</span>           a:C_UNSIGNED_LONG := FACT::factorial(i);
+<span class="linenumber">14:</span>           #OUT + av[1] + "! = " + a.str + "\n";
+<span class="linenumber">15:</span>        end;
+<span class="linenumber">16:</span>     end;
+</pre>
+
+Sather から C 言語のデータ型を見るときは C_CHAR, C_FLOAT などのクラスを使います。
+対応する Sather のデータを引数にして
+create を呼び出せば、インスタンスが生成されます。
+詳しくは<a href='http://www.gnu.org/software/sather/docs-1.2/tutorial/c.html'>
+Sather &mdash; A Language Tutorial: Chapter 14 Interfacing with ANSI C</a>
+をみてください。
+<p>
+Fortran で書いた ffact と同様にコンパイルして実行します。
+
+<pre class='samp'>
+$ sacomp cfact.sa -external FACT cfact.c -o cfact
+$ ./cfact 10
+10! = 3628800
+</pre>
+
+<h3>3.2. 配列とポインターとの変換</h3>
+次に C 言語のポインターを使ったプログラムの例を示します。Sather の ARRAY{T} クラスは array_ptr メソッドに
+よってポインターに変換されます。<p>
+
+例として、以前紹介した暗号化プログラム 
+<a href='sa_abst.html#crypt_sa'>
+crypt.sa</a> の改良版を示します。
+Sather は CHAR 型のビット排他論理和が取れないので、CHAR 型を一度 INT 型に変換する必要がありました。
+C で書かれた関数を呼び出せばこの部分の効率がよくなります。[code 4a] に C で書かれた関数を、
+[code 4b] に crypt.sa の変更した部分を挙げます。
+
+<p>
+
+[code 4a]: encrypt.c
+<pre class='code'>
+<span class="linenumber">01:</span>     void encrypt(char* key, char* plain, char* cipher){
+<span class="linenumber">02:</span>         char *key1, *plain1, *cipher1;
+<span class="linenumber">03:</span>         for(key1=key, plain1=plain, cipher1=cipher; *plain1 != 0; key1++, plain1++, cipher1++){  <span class='comment'>// 文字列の最後がヌル文字であることをあてにしている</span>
+<span class="linenumber">04:</span>     	if(*key1==0) key1=key;    <span class='comment'>// key を使い切ったら最初に戻る</span>
+<span class="linenumber">05:</span>     	*cipher1 = *key1 ^ *plain1;  <span class='comment'>// bit ごとの XOR をとる</span>
+<span class="linenumber">06:</span>         }
+<span class="linenumber">07:</span>         *cipher1=0;  <span class='comment'>// 最後にヌル文字を追加</span>
+<span class="linenumber">08:</span>     } 
+</pre>
+
+
+[code 4b] crypt.sa （一部）
+<pre class='code'>
+<span class="linenumber">01:</span>     external C class ENCRYPT is                     <span class="comment">-- 外部クラス ENCRYPT を宣言する</span>
+<span class="linenumber">02:</span>        encrypt(key,plain,cipher:C_CHAR_PTR);
+<span class="linenumber">03:</span>     end;
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     class ARCHAR is  <span class="comment">-- ARRAY{CHAR} + methods to convert from/to STR</span>
+<span class="linenumber">06:</span>        include ARRAY{CHAR};  <span class="comment">-- ARRAY{CHAR} の機能拡張クラス ARCHAR を定義</span>
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>        create(s:STR):SAME is  <span class="comment">-- STR から create できるようにする。</span>
+<span class="linenumber">09:</span>           res:SAME:=#(s.size);
+<span class="linenumber">10:</span>           loop
+<span class="linenumber">11:</span>     	 res.set!(s.elt!);
+<span class="linenumber">12:</span>           end;
+<span class="linenumber">13:</span>           return res;
+<span class="linenumber">14:</span>        end;
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>        to_str:STR is         <span class="comment">-- STR に変換できるようにする。</span>
+<span class="linenumber">17:</span>           fs:FSTR:=#(self.size);
+<span class="linenumber">18:</span>           loop
+<span class="linenumber">19:</span>     	 fs:=fs+self.elt!;
+<span class="linenumber">20:</span>           end;
+<span class="linenumber">21:</span>           return fs.str;
+<span class="linenumber">22:</span>        end;
+<span class="linenumber">23:</span>     end;  <span class="comment">-- ARCHAR</span>
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>     class XOR &lt; $CRYPT is
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>        private attr akey:ARCHAR;
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>        create(key0:STR):SAME is
+<span class="linenumber">30:</span>           return new.init(key0);
+<span class="linenumber">31:</span>        end;
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>        private init(key0:STR):SAME is
+<span class="linenumber">34:</span>           akey:=#(key0);
+<span class="linenumber">35:</span>           return self;
+<span class="linenumber">36:</span>        end;
+<span class="linenumber">37:</span>     
+<span class="linenumber">38:</span>        encrypt(s:STR):STR is
+<span class="linenumber">39:</span>           pl:ARCHAR:=#(s);
+<span class="linenumber">40:</span>           ci:ARCHAR:=#(s.size);
+<span class="linenumber">41:</span>           ENCRYPT::encrypt(#(akey.array_ptr), #(pl.array_ptr), #(ci.array_ptr));  <span class="comment">-- C で書かれた関数を呼び出す</span>
+<span class="linenumber">42:</span>           return ci.to_str;
+<span class="linenumber">43:</span>        end;
+<span class="linenumber">44:</span>     
+<span class="linenumber">45:</span>        decrypt(s:STR):STR is   <span class="comment">-- decrypt is same as the encrypt</span>
+<span class="linenumber">46:</span>           return encrypt(s);
+<span class="linenumber">47:</span>        end;
+<span class="linenumber">48:</span>     end; <span class="comment">-- end of XOR</span>
+</pre>
+
+文字列の最後がヌル文字で終わっていることを当てにしている C の関数も問題なく働きます。
+C_CHAR_PTR に変換するときヌル文字が付加されるのでしょう。
+<p>
+コンパイルして実行すると次のようになります。
+
+<pre class='samp'>
+$ sacomp crypt.sa -external ENCRYPT encrypt.c -o crypt
+$ ./crypt 'hello world! beautiful beautiful!'
+Sipher Test using "hello world! beautiful beautiful!"
+
+Plain send: hello world! beautiful beautiful!
+Planin receive: hello world! beautiful beautiful!
+
+XOR send: <span class='comment'>（表示できない文字列）</span>
+XOR receive: hello world! beautiful beautiful!
+</pre>
+
+<h2>4. 終わりに</h2>
+Sather は簡単に C や Fortran と連携することができるので、
+ボトルネックに C や Fortran で書かれた実行速度の速い関数を使うことができます。
+これによってプログラム全体の実行速度が向上し、
+かつ速度に関係しない部分は Sather を使って効率的に書くことができます。
+Sather のソースは一度 C に変換されるので、C コンパイラーのプロファイラーを利用して
+ボトルネックを調べることができます。
+
+<p>
+<a href='sa_interface.tar.bz2'>付録</a>にこの章で使ったコードをつけておきます。
+
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_gui.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  14. GUI プログラミング</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+<!---
+<td><a rel=next href="NULL">
+  <img src='../images/right_arrow.gif' class='arrow' border=0></a>
+<a rel=next href="NULL">NULL. NULL</a></td>
+--->
+
+<td><a rel=download href="sa_interface.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_interface.html&t=Sather%3A%20%C2%BE%B8%C0%B8%EC%20%28C%2C%20Fortran%29%20%A4%C8%A4%CE%A5%A4%A5%F3%A5%BF%A1%BC%A5%D5%A5%A7%A1%BC%A5%B9' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+</body></html>
+    
+
+
+
+

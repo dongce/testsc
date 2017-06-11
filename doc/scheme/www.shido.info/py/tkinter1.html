@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="demostrations of Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 1. Hello World! </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+
+<!------------------------------------------
+- <td><a rel='prev' href="macro1.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+-   1. テンプレートの使い方と展開形の確認</a></td>
+------------------------------------------->
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter2.html"><img src='../images/right_arrow.gif' class='arrow' border=0>2. widget を配置しよう</a></td>
+<!-- <td><a rel='download' href="8queen_py.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter1.html&t=Tkinter+%C6%FE%CC%E7%3A+1.+Hello+World%21' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>1. Hello world!</h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+Tkinter は Python の標準的な GUI(Graphic User Interface) ツールです。Python は人気のある言語なので、
+ GUI Tool としては Tkinter のほかに wxPython, Qt, GTK などがありますが、Tkinter が一番
+ こなれている感じです。つまり、
+ <ol>
+<li> 動作が安定している。
+  <li> 起動が早い。
+    <li> プログラムが短くてすむ。
+      </ol>
+ の３つが特徴として挙げられると思います。
+
+ <a href=python6.html#manual>Tkinter のチュートリアル</a>
+ はすでにかなり存在しているのですが、Tk が巨大なシステムということも有り、
+全てをカバーしたものはありません。この一連の文書では、他のチュートリアルがあまり取り上げていない話題を
+中心に取り上げたいと思います。特に、widget を変化させることは他のチュートリアルで取り上げられていないので、
+積極的に解説していきたいと思います。また、プログラムを作りながら説明していきます。
+ プログラムを実際に作ると楽しいし、理解が深まると思います。
+ <p>
+  しかし、
+ただそれだけだと、Cookbook の類になってしまうので、Tkinter の初歩から
+わかりやすく解説していきたいと思います。
+
+<h2>2. 前提知識</h2>
+この文書は Python の基礎知識および Python での オブジェクト指向プログラミング (OOP) の知識を前提としています。
+必要に応じてリンクをたどってください。
+<ul>
+<li> Python の基礎知識
+  <ul>
+     <li><a href='http://www.python.jp/doc/release/tut/tut.html'>Python チュートリアル</a>
+       <li><a href='http://www.f7.ems.okayama-u.ac.jp/~yan/python/'>ニシキヘビを飼おう: Python入門</a>
+           <li> <a href='python2.html'>Python 早めぐり</a>
+	     <li><a href='http://www.lib.uchicago.edu/keith/courses/python/'>
+	                       Introduction to the Python Programming Language</a>
+     </ul>
+  <li> Pyhon での OOP
+    <ul>
+<li><a href='http://www.python.jp/doc/release/ref/datamodel.html'>Python リファレンスマニュアル: 3. データモデル</a>
+  <li><a href='http://www.lib.uchicago.edu/keith/courses/python/class/5/'>
+    Introduction to the Python Programming Language: 5.Classes; object-oriented programming</a>
+  <li><a href='http://www.lib.uchicago.edu/keith/courses/python/class/6/'>
+    Introduction to the Python Programming Language: 6.Type emulation</a>
+    <li><a href='http://www.shido.info/py/python2.html#class'>
+      Python 早めぐり: 6. クラス定義</a>
+      </ul></ul>
+
+
+
+<h2>3. モジュールの import の方法</h2>
+この文章では、<br>
+<span class='mono'>from <var>Module</var> import * </span><br>
+の形式の import の形式は使いません。<br>
+必ず、以下の形式を使います。
+この方が、名前の由来がわかりやすく、バグを少なくできます。
+  <ol>
+<li><span class='mono'>import <var>Module</var></span>
+<li><span class='mono'>import <var>Module</var> as <var>Alias</var></span>
+<li><span class='mono'>from <var>Module</var> import <var>name</var> </span>
+</ol>
+
+多くの解説書では、
+<span class='mono'>from Tkinter import * </span><br>
+として Tkinter を import しますが、ここでは、<br>
+<span class='mono'>import Tkinter as Tk</span><br>
+とします。<p>
+  この記法はスクリプト中だけでなく、本文中でも用いられます。
+  Tkinter module にある定数 (例えば <var>CONST</var>) を
+  <var>Tk.CONST</var> と書きます。
+
+
+<h2>4. 動作環境</h2>
+この一連の文書で示したプログラムは、
+<ul>
+<li>Python2.4 + Windows XP
+  <li>Python2.3 + Debian GNU Linux
+</ul>
+    で動作を確認しています。
+    
+<h2>5. Hello World!</h2>
+それでは早速、例の 'Hello World!' を書いてみましょう。以下のように実質４行で書けます。
+Tkinter は wxPython などのほかの GUI Tool に比べてプログラムが短くなる利点があります。
+
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     import Tkinter as Tk
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     la = Tk.Label(None, text='Hello World!', font=('Times', '18'))
+<span class="linenumber">06:</span>     la.pack()
+<span class="linenumber">07:</span>     la.mainloop()
+</pre>
+上のスクリプトを実行すると右のような Window が現れます。
+<img src='hello.jpg'><p>
+説明：<br>
+<table border=1>
+   <tr>
+      <th>行</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>1</td>
+      <td> スクリプト言語特有のおまじない。
+        (<a href='http://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%90%E3%83%B3_%28Unix%29'>shebang</a> といいます)
+      </td>
+   </tr>
+   <tr>
+      <td>3</td>
+      <td> Tkinter を Tk として import</td>
+   </tr>
+   <tr>
+      <td>5</td>
+      <td> Label を定義; 最初の引数は親 widget。この場合は None なので親はいない。widget は GUI の部品という意味。
+    text, font は keyword parameters。Times 18pt を使って 'Hello World!' と書くラベルを作成して
+    la に代入。</td>
+   </tr>
+   <tr>
+      <td>6</td>
+      <td> la を配置する。配置方法については次の章で述べる。</td>
+   </tr>
+   <tr>
+      <td>7</td>
+      <td> mainloop メソッドを使って、la をアプリケーション（部品ではなく、プログラム全体）
+にする。Tkinter の widget はこのメソッドによってアプリケーションに
+変身できる。アプリケーションをあらわすクラス 'Tk' というのもあるが、ほとんど使うことはない。
+通常は、親なしの widget の mainloop を用いてアプリケーションを作る。</td>
+   </tr>
+</table>
+
+
+<h2>6. 今後の予定</h2>
+次回は widget の配置の方法について述べ、それから、各 widget の使い方について述べていきたいと思います。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+
+<!------------------------------------------
+- <td><a rel='prev' href="macro1.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+-   1. テンプレートの使い方と展開形の確認</a></td>
+------------------------------------------->
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter2.html"><img src='../images/right_arrow.gif' class='arrow' border=0>2. widget を配置しよう</a></td>
+<!-- <td><a rel='download' href="8queen_py.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter1.html&t=Tkinter+%C6%FE%CC%E7%3A+1.+Hello+World%21' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

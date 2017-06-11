@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme,  assignment">
+<meta name="description" content="Assignment on Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> 10. Assignment </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme9_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  9. IO</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_cs_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>11. Characters and Strings</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_asg_e.html&t=%28Scheme%29+Assignment' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 10. Assignment   </h1>
+<hr>
+<h2>1. Introduction </h2>
+As Scheme is a functional programming language, you can write programs without assignment in principle.
+However, some algorithm can be implemented easily by using assignment. Especially 
+internal states and continuations require assignment.<p>
+
+Even assignment is convenient and easy to understand, it has substantial drawback.
+See <a href='http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-20.html#%_sec_3.1'>
+  SICP: 3.1  Assignment and Local State</a>
+and
+<a href='http://www.md.chalmers.se/~rjmh/Papers/whyfp.html'>
+Why Functional Programming Matters</a>.
+
+<p>
+
+Forms for assignment defined in R<sup>5</sup>RS are
+  <span class='ttb'>set!</span>,  <span class='ttb'>set-car!</span>,
+  <span class='ttb'>set-cdr!</span>,  <span class='ttb'>string-set!</span>,  <span class='ttb'>vector-set!</span>
+and etc. In addition there are several implementation depending assignment forms.
+As assignment changes values of parameters, it is called destructive.
+In Scheme, names of destructive operators end with <strong>!</strong> to warn programmers.
+<h2> 2. set!</h2>
+The <span class='ttb'>set!</span> is used to assign a parameter.
+The operator can not assign a value to a S-expression which is different from the <tt>setf</tt> of the Common Lisp.
+Parameters should be defined before assignment.
+
+<pre class='samp'>
+(define var 1)
+(set! var (* var 10))
+var &rArr; 10
+
+(let ((i 1))
+    (set! i (+ i 3))
+    i)
+&rArr; 4
+</pre>
+
+
+<h2> 3. Assignment and Internal status</h2>
+
+<h3>3.1. Static Scope (Lexical Closure)</h3>
+The scope of variables in Scheme is in the parentheses in that the variables are defined on the source code.
+The scope as written in the source code  is called  lexical closure or static scope.
+This way of scope eliminates bags, as you can grasp the scope of parameters
+quite easily &mdash; written on the source code. 
+On the other hand, there is another way of determining scopes, called dynamic scope. In this way 
+the scope is determined when the program is executed. This way is not used nowadays often because of difficulties 
+of bug fixing.
+
+<p>
+The <tt>let</tt>, <tt>lambda</tt>, and <tt>letrec</tt> form make closures.
+The arguments of <tt>lambda</tt> expression are valid in the function definition.
+As <tt>let</tt> is a syntax sugar for <tt>lambda</tt>, the same thing happens.
+<p>
+
+<h3>3.2. Implementation of Internal States using the Lexical Closure and Assignment</h3>
+You can make procedures with internal status  by using the lexical closure.
+For instance, procedure that simulate bank accounts can be written like as follows:<br>
+Ten dollars should be donated to make new bank account.
+The function takes one integer argument. The positive values represent donation and
+the negative withdrawing. Negative balance is allowed for simplification.
+
+<pre class='code'>
+(define bank-account
+  (let ((balance 10))
+    (lambda (n)
+      (set! balance (+ balance n))
+      balance)))
+</pre>
+The procedure assigns <tt>(+ balance n)</tt> to the  <var>balance</var>. <br>
+Following is the result of calling this function.
+<pre class='samp'>
+(bank-account 20)     <span class='comment'>; donating 20 dollars </span>
+<span class='response'>;Value: 30</span>
+
+(bank-account -25)     <span class='comment'>; withdrawing 25 dollars</span>
+<span class='response'>;Value: 5</span>
+</pre>
+
+<p>
+  As you can write procedures that returns a procedure using Scheme, 
+  you can write a function that create 'bank account'.<br>
+  This example implies that it is easy to make an object oriented (OO) language using functional programming language.
+In fact, only few more is required from here to make an OO language.
+
+<pre class='code'>
+(define (make-bank-account balance)
+  (lambda (n)
+    (set! balance (+ balance n))
+    balance))
+</pre>
+
+<pre class='samp'>
+(define gates-bank-account (make-bank-account 10))   <span class='comment'>; Gates makes a bank account by donating  10 dollars</span>
+<span class='response'>;Value: gates-bank-account</span>
+
+(gates-bank-account 50)                              <span class='comment'>; donating 50 dollars</span>
+<span class='response'>;Value: 60</span>
+
+(gates-bank-account -55)                             <span class='comment'>; withdrawing 55 dollars</span>
+<span class='response'>;Value: 5</span>
+
+
+(define torvalds-bank-account (make-bank-account 100))  <span class='comment'>; Torvalds makes a bank account by donating 100 dollars</span>
+<span class='response'>;Value: torvalds-bank-account</span>
+
+(torvalds-bank-account -70)                             <span class='comment'>; withdrawing 70 dollars</span>
+<span class='response'>;Value: 30</span>
+
+(torvalds-bank-account 300)                             <span class='comment'>; donating 300 dollars</span>
+<span class='response'>;Value: 330</span>
+</pre>
+<p>
+
+<h3> 3.3. Side effect</h3>
+The main goal of Scheme procedure is to return a value and other effect is called <strong>side effect</strong>.
+Assignment and IO are side effects. 
+<h3> Exercise 1 </h3>
+Modify <tt>make-bank-account</tt> so that withdrawing more than balance causes error.<br> 
+hint: Use <span class='ttb'>begin</span> to group more than one S-expressions.
+
+<h2> 4. Destructive Operations on Lists (set-car!, set-cdr!)</h2>
+The <span class='ttb'>set-car!</span> and <span class='ttb'>set-cdr!</span> 
+assign a value to the car and cdr part of a cons cell, respectively.
+These operators can assign a value to a S-expression, which is different in the case of <tt>set!</tt>.
+
+<pre class='samp'>
+(define tree '((1 2) (3 4 5) (6 7 8 9)))
+
+(set-car! (car tree) 100)  <span class='comment'>; changing 1 to 100 </span>
+
+tree
+ ((100 2) (3 4 5) (6 7 8 9))
+
+(set-cdr! (third tree) '(a b c)) <span class='comment'>; changing  '(7 8 9) to '(a b c) </span>
+
+tree
+&rArr; ((100 2) (3 4 5) (6 a b c))
+</pre>
+<a name='queue'>
+<h3> 4.1. Queue</h3>
+Queue can  be implemented by using <tt>set-car!</tt> and <tt>set-cdr!</tt>.
+Queue is a first in first out (FIFO) date structure while ordinary list is first in last out (FILO).
+Figure 1 shows the data structure of queue. 
+The pointer of the car part of <tt>cons-cell-top</tt> points to the list and that
+of the cdr part to the last cons cell of the list.
+<p>
+  <center><img src='queue1a.png'><br>Figure 1: The data structure of queue.</center><p>
+
+Enqueue is performed with following procedure (Fig. 2):
+<ol>
+<li>Redirecting the cdr part of the last cons cell which is accessible directly by  <tt>(cdr cons-cell-top)</tt>
+to a new item.
+<li>Redirecting the cdr part of cons-cell-top to the new item.
+</ol>
+<p>
+      <center><img src='queue2a_e.png'><br>Figure 2: The procedure of adding 'item 4' to the queue.</center><p>
+
+Dequeue is performed with following procedure (Fig. 3)
+<ol>
+<li> Storing the top item of the list to a local variable.
+<li> Redirecting the car part of the cons-cell-top to the second item of the list.
+</ol>
+<p>
+      <center><img src='queue3a_e.png'><br>Figure 3: The procedure of popping 'item 1' from the queue.</center><p>
+
+[code 1] shows a implementation of queue.
+The function <span class='ttb'>enqueue!</span> returns a queue in that the <var>obj</var>
+is added at the last of the  <var>queue</var>.
+The function <span class='ttb'>dequeue!</span> 
+removes the first item from the queue and return the first item.
+<p>
+  
+[code 1]
+<pre class='code'>
+(define (make-queue)
+  (cons '() '()))
+
+(define (enqueue! queue obj)
+  (let ((lobj (cons obj '())))
+    (if (null? (car queue))
+	(begin
+	  (set-car! queue lobj)
+	  (set-cdr! queue lobj))
+	(begin
+	  (set-cdr! (cdr queue) lobj)
+	  (set-cdr! queue lobj)))
+    (car queue)))
+
+(define (dequeue! queue)
+  (let ((obj (car (car queue))))
+    (set-car! queue (cdr (car queue)))
+    obj))
+</pre>
+
+<pre class='samp'>
+(define q (make-queue))
+<span class='response'>;Value: q</span>
+
+(enqueue! q 'a)
+<span class='response'>;Value 12: (a)</span>
+
+(enqueue! q 'b)
+<span class='response'>;Value 12: (a b)</span>
+
+(enqueue! q 'c)
+<span class='response'>;Value 12: (a b c)</span>
+
+(dequeue! q)
+<span class='response'>;Value: a</span>
+
+q
+<span class='response'>;Value 13: ((b c) c)</span>
+</pre>
+<a name='hash'>
+
+<h2> 5. Summary</h2>
+I have explained about assignment and scope of variables in this chapter. 
+Even assignment is not used in Scheme often,
+it is indispensable for some algorithm and data structure.
+<p>
+Too much use of assignment makes your code ugly.
+Use assignment only it is really required with care.
+<p>
+I will explain about data structures used in Scheme in following several chapters.
+
+<h4>Answer 1 </h4>
+<pre class='code'>
+(define (make-bank-account amount)
+  (lambda (n)
+    (let ((m (+ amount n)))
+      (if (negative? m)
+	  'error
+	  (begin
+	    (set! amount m)
+	    amount)))))
+</pre>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme9_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  9. IO</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_cs_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>11. Characters and Strings</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_asg_e.html&t=%28Scheme%29+Assignment' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</body>
+</html>
+

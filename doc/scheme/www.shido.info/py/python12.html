@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, class, object orientated programming">
+<meta name="description" content="Object orinentated programming using Python">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> パスワード管理スクリプト </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="python12.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python12.html&t=%A5%D1%A5%B9%A5%EF%A1%BC%A5%C9%B4%C9%CD%FD%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+ <h1>パスワード管理スクリプト</h1> 
+<hr>
+<h2>1. 初めに</h2>
+
+パスワードを複数のアカウントで使いまわした場合、1つのアカウントでパスワードがもれると、芋づる式に他のサイトにも侵入されるので非常に危険です。
+そのため、アカウントごとにパスワードを作成する必要があります。
+しかし、アカウントごとにパスワードを分けると、パスワードが多量になり、全部を暗記することはできません。
+<p>
+このような事情から、多くのパスワード管理ソフトが出回っています。しかし、紫藤には使いづらいので、Python で自作しました。
+(出回っているパスワード管理ソフトは、アカウント検索に手間がかかるので使い勝手がよくありません。)
+自作のパスワード管理スクリプトは、SQL の like 演算子を使って、アカウントをすばやく検索できます。また、以下のような特徴があります。
+
+<ol>
+<li> ユーザ名とサイト名からすばやくパスワードを検索できる '%' を使った検索が可能。
+<li> パスワードは、乱数初期化文字列と擬似乱数を使ってそのつど計算する。パスワードそのものはどこにも保存していないので、漏洩の可能性が低い。
+<li> パスワードをクリップボードにコピーするので、入力の手間が省ける。
+<li> パスワードは自動生成される。パスワードの更新や新しいアカウントの登録が簡単
+<li> コンソールベースのシンプルな UI。
+</ol>
+
+
+
+
+
+<h2>2. 使い方</h2>
+
+<h3>2.1. 起動とパスワードの表示</h3>
+Python 3.x を使って、コンソールから立ち上げます。<br>
+その後、パスフレーズを2回入力します。パスフレーズが間違っていても動作はしますが、
+正しいパスワードを計算してくれません。
+
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   &gt;python seepass.py
+<span class="linenumber">002:</span>   Enter keyword:
+<span class="linenumber">003:</span>   Again:
+<span class="linenumber">004:</span>   &gt;
+</pre>
+
+プロンプト <em>(&gt;)</em> が表示されたら、ユーザ名とサイト名を <em>;</em> で区切って入力します。<br>
+ユーザ名やサイト名のどちらか一方を省略することができます。また、<em>%</em> を使った、パターンマッチを行うこともできます。<br>
+複数の候補があるときは、候補の一覧が表示されるので、番号を入力して選択します。<br>
+アカウントが特定されると、パスワードが表示されます。
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   &gt; foo;    <span class='comment'>ユーザ名だけを入力</span>
+<span class="linenumber">002:</span>   0: foo;gmail   <span class='comment'>2 つの候補が表示される</span>
+<span class="linenumber">003:</span>   1: foo;yahoo
+<span class="linenumber">004:</span>   select:0      <span class='comment'>1つを選択</span>
+<span class="linenumber">005:</span>   foo;gmail: ,Ary*tE815  <span class='comment'>パスワードが表示される</span>
+</pre>
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   &gt; ;y%               <span class='comment'>サイト名だけを入力</span>
+<span class="linenumber">002:</span>   foo;yahoo: Be=-/+/aL344
+</pre>
+
+<em>q</em> と入力すると終了します。
+<p>
+以下のようなコマンドが使えます。
+
+<dl>
+  <dt><b>'e', 'end', 'q', 'quit'</b></dt>
+      <dd>終了</dd>
+  <dt><b>'u', 'update'</b></dt>
+      <dd>パスワードを更新。新しいパスワードが表示されるので、気に入るまで u を押し続ける。</dd>
+  <dt><b>'i', 'insert'</b></dt>
+      <dd>新しいアカウントを登録</dd>
+  <dt><b> 'd', 'delete'</b></dt>
+      <dd>選択したアカウントを削除</dd>
+  <dt><b> 'a', 'show all', 'all'</b></dt>
+      <dd>全ての アカウント、パスワードを表示</dd>
+  <dt><b> 'h', 'help'</b></dt>
+      <dd>ヘルプを表示</dd>
+  <dt><b>'p', 'previous'</b></dt>
+      <dd>直前のクエリーを実行</dd>
+</dl>
+
+<h3>2.2. パスワードの更新</h3>
+
+
+アカウントとパスワードが表示されている状態で <em>u</em> と入力するとパスワードが更新されます。<br>
+気に入ったパスワードになるまで <em>u</em> を押し続けます。
+<pre class='samp'>
+<span class="linenumber">001:</span>   &gt; f%;g%
+<span class="linenumber">002:</span>   foo;gmail: TheSThe&lt;w923
+<span class="linenumber">003:</span>   &gt; u
+<span class="linenumber">004:</span>   foo;gmail: aN&gt;m*aine=b399
+<span class="linenumber">005:</span>   &gt; u
+<span class="linenumber">006:</span>   foo;gmail: .*@AnOn.p016
+<span class="linenumber">007:</span>   &gt; u
+<span class="linenumber">008:</span>   foo;gmail: fElAn?-oF178
+<span class="linenumber">009:</span>   &gt;
+</pre>
+
+<h3>2.3. パスワードの新規登録</h3>
+
+
+<em>i</em> と入力後、<em>;</em> で区切って、ユーザ名とサイト名を入力します。<br>
+パスワードは自動で生成されます。好みに応じて、<em>u</em> を押下してパスワードを変更します。
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   &gt; i
+<span class="linenumber">002:</span>   give [user];[site]: foo2;facebook
+<span class="linenumber">003:</span>   foo2;facebook: sHe,-Sou017
+></pre>
+
+
+<h3>2.4. パスワードの削除</h3>
+
+
+アカウントとパスワードが表示されている状態で <em>d</em> と入力すると、そのアカウントが削除されます。<br>
+
+<pre class='samp'>
+<span class="linenumber">001:</span>   foo2;facebook: sHe,-Sou017
+<span class="linenumber">002:</span>   &gt; d
+<span class="linenumber">003:</span>   Record of foo2@facebook has been deleted.
+<span class="linenumber">004:</span>   &gt;
+</pre>
+
+<h2>3. 動作環境</h2>
+
+<h3>3.1. OS</h3>
+Win 32 で動作します。<p>
+他の OS に移植する際には <a href='http://d.hatena.ne.jp/foo9/20100810/1281416573?sid=7f104f62cacdfd85'>
+文字列をクリップボードにコピーするpythonスクリプト(Win, Mac, Linux)</a>
+などを参考にして、seepass.py の <em>copy2clipboard</em> を書き換えてください。
+
+<h3>3.2. Python の version</h3>
+Python 3.x で動作します。
+
+<h3>3.3. 必要なライブラリ</h3>
+クリップボードへの書き込みを行うために、
+<a href='http://sourceforge.net/projects/pywin32/'>Python for Windows extensions</a> が必要です。
+
+<h2>4. インストール</h2>
+
+<ol>
+<li> 必要に応じて Python 3.x をインストールします。<a href='http://www.python.org/download/'>Python Programming Language - Official Website</a>から
+インストーラーをダウンロードして、実行します。また、Path を通しておくと便利です。
+
+<li>必要に応じて <a href='http://sourceforge.net/projects/pywin32/'>Python for Windows extensions</a> をインストールします。インストーラーをダウンロードして実行するだけで、インストールされます。
+
+<li><a href='python12.lzh'>このスクリプトと関連ファイルを圧縮したもの</a>を解凍します。
+</ol>
+
+<h2>5. 簡単な説明</h2>
+
+<h3>5.1. スクリプトと関連ファイル</h3>
+
+以下のような構成になっています。
+
+
+<table border=1>
+   <tr>
+      <th>ファイル名</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>seepass.py</td>
+      <td> コマンドラインから呼び出すスクリプト</td>
+   </tr>
+   <tr>
+      <td>make_pw.py</td>
+      <td> スペル頻度と擬似乱数からパスワードを計算するモジュール</td>
+   </tr>
+   <tr>
+      <td>spell_statistics.py</td>
+      <td>ある文字の次に来る文字の頻度のハッシュ表</td>
+   </tr>
+   <tr>
+      <td>passwd.txt</td>
+      <td>アカウントとパスワード生成時刻の一覧</td>
+   </tr>
+</table>
+
+<h3>5.2. パスワード計算方法の簡単な説明</h3>
+
+<ol>
+<li>ユーザ名 (user)、サイト名 (site)、生成時刻 (create_dt)、キーフレーズ (key) の連結文字列を乱数の種にします。<br>
+<tt>random.seed( user+site+create_dt+key )</tt>
+パスワード生成時刻を変えることで、同じアカウント、キーフレーズから異なるパスワードを計算することができます。
+
+<li>スペル頻度と擬似乱数を用いて部分的にありうる綴りのパスワードを生成します。<br>
+スペル頻度と部分的にありうる綴りのパスワードについては拙著 <a href='http://www.kohgakusha.co.jp/books/detail/978-4-7775-1321-5'>はじめてのPython</a>
+または、<a href='http://www.kohgakusha.co.jp/books/detail/978-4-7775-1419-9'>はじめてのPython3</a> を見てください。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="python12.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python12.html&t=%A5%D1%A5%B9%A5%EF%A1%BC%A5%C9%B4%C9%CD%FD%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p></body>
+</html>
+

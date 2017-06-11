@@ -1,0 +1,138 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="Android mail 文字化け MIME">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> Android 端末でのメールの文字化けを防ぐ </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc42&t=Android+%C3%BC%CB%F6%A4%C7%A4%CE%A5%E1%A1%BC%A5%EB%A4%CE%CA%B8%BB%FA%B2%BD%A4%B1%A4%F2%CB%C9%A4%B0"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>Android 端末でのメールの文字化けを防ぐ</h1>
+<hr>
+Mar 21, 2011
+<p>
+
+紫藤は、自宅サーバーにあるメールを IMAP で読んでいます。こうするといろいろな端末でメールを読むことができるので大変便利です。<p>
+
+Android 端末で自宅メールサーバのメールを読むとき、メールのヘッダが文字化けして困っていたのですが、
+その原因がわかったので対処しておきました。<br>
+原因は、日本語のメールのなかには、ヘッダが、MIME 規格に準じていないものがあるということと、
+Android 端末では、MIME 規格に沿ったメールしか正しく表示しないと言うことです。
+普通の日本のメーラーでは、MIME 規格に沿っていないメールも正しく表示してくれましたが、
+Android 端末では、規格に合っていないものは正しく表示されません。
+<p>
+日本語のメールには、ISO-2022-JP でエンコードした日本語を直接ヘッダに書いたものもあります。<br>
+例えば、<br>
+<pre class='samp'>
+Subject: (ISO-2022-JP でエンコードした日本語)
+</pre>
+です。<br>
+普通の日本のメーラーはこれを正しく表示してくれましたが、Android 端末ではこれでは文字化けします。
+<br>
+正しく表示させるためには、次の様に、MIME format に変換する必要があります。
+<pre class='samp'>
+Subject: &#61;&#63;ISO-2022-JP&#63;B&#63;GyRCOGZDbUo4JCIkaiQsJEgkJiQ0JDYkJCReJDkbKEI&#61;&#63;&#61;
+</pre>
+なお、MIME 形式のメールヘッダは、ほとんどのメーラーで正しく表示されるので、Android 端末用に変換すると
+普通のメーラーで読めなくなるということは起こりません。
+
+メールヘッダの MIME format については
+<a href='http://www.atmarkit.co.jp/fnetwork/rensai/netpro04/netpro01.html'>MIME（Multipurpose Internet Mail Extensions）〜後編</a>
+などを見てください。
+<p>
+この問題を解消するため、次のようなスクリプト (format_header.py) を書き、
+<a href='http://www.courier-mta.org/maildrop/'>
+maildrop</a> で処理しました。
+<p>
+[format_header.py]
+<pre class='code'>
+<span class='comment'>#! /usr/local/bin/python</span>
+<span class='comment'># coding:utf-8</span>
+<span class='string'>u"""
+ISO-2022-JP で書かれたメールヘッダを MIME フォーマットに変換するスクリプト
+"""</span>
+
+from base64 import b64encode
+import sys, re
+
+def conv_b64(s0):
+    <span class='string'>u"""s0 を MIME format に変換 """</span>
+    return "=?ISO-2022-JP?B?%s?=" % b64encode(s0)
+
+
+def format_header(s0):
+    <span class='string'>u"""ISO-2022-JP で書かれたヘッダのメールを MIME format に変換"""</span>
+    <span class='comment'># ISO-2022-JP での日本語の正規表現。</span>
+    <span class='comment'># 日本語は、[ESC](J, [ESC]$@, [ESC]$B で始まり、[ESC](B で終わる</span>
+    re_jp = re.compile(r'&#92;033(&#92;(J|&#92;$&#92;@|&#92;$B).+?(&#92;033&#92;(B|$)', re.M)
+
+    <span class='comment'># 文字列全体を空白行で分ける。(前半がヘッダ、後半が本文)</span>
+    re_sp = re.compile(r'&#92;A(.+?)(?=^$)(.*)&#92;Z', re.M | re.S)
+
+    def f_jp(mobj):
+        <span class='string'>u"""マッチした文字列を MIME format にする"""</span>
+        return conv_b64(mobj.group(0))
+
+    mobj= re_sp.match(s0)
+    if mobj:
+        return re_jp.sub(f_jp, mobj.group(1)) + mobj.group(2)
+    else:
+        return re_jp.sub(f_jp, s0)
+    
+
+
+if __name__ == '__main__':
+    sys.stdout.write(format_header(sys.stdin.read())) 
+</pre>
+
+
+以下は .mailfilter (maildrop の設定ファイル) の例です。<a href='http://kakasi.namazu.org/'>kakasi</a>, 
+<a href='http://bogofilter.sourceforge.net/'>bogofilter</a> と併用しています。
+<br>
+bogofilter をつかったスパムメールのフィルタリングは
+<a href='http://www.ginganet.org/ginga/memo/200309bogofilter.txt'>ここ</a> などを参照してください。
+<p>
+[.mailfilter]
+<pre class='code'>
+MAILDIR="/home/takafumi/Maildir/"
+DEFAULT=$MAILDIR
+WAKATI="/usr/local/bin/kakasi -w"
+BOGOFILTER="/usr/local/bin/bogofilter"
+BOGOFILTER_OPTION="-u -e -p"
+FORMAT_HEADER="/home/me/bin/format_header.py"
+BOGOJP="${FORMAT_HEADER} | ${WAKATI} | ${BOGOFILTER} ${BOGOFILTER_OPTION}"
+SENDMAIL="/usr/sbin/sendmail"
+
+xfilter "${BOGOJP}"
+...
+(以下省略)
+</pre>
+
+これで Android 端末で自宅メールを見るとき文字化けしなくなり、大変快適になりました。
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc42&t=Android+%C3%BC%CB%F6%A4%C7%A4%CE%A5%E1%A1%BC%A5%EB%A4%CE%CA%B8%BB%FA%B2%BD%A4%B1%A4%F2%CB%C9%A4%B0"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!----
+-- $Id: sa_class.html,v 1.4 2006/06/12 23:00:55 takafumi Exp $
+--->
+
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, class">
+<meta name="description" content="Sather の class について説明しています。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 5. クラス定義  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0></a>
+<a rel=home href='http://www.shido.info/index.php'>HOME</a></td>
+
+<td><a rel=prev href="sa_iter.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. 繰り返しとイテレーター</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_io.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+6. IO</a></td>
+
+<td><a rel=download href="sa_class.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_class.html&t=Sather%3A%20%A5%AF%A5%E9%A5%B9%C4%EA%B5%C1' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 5. クラス定義 </h1>
+<hr>
+<h2>1. はじめに</h2>
+いよいよ自前のクラス定義について述べます。<p>
+Sather はオブジェクト指向言語なので、クラス定義は中心的な機能です。
+<p>
+Sather のクラスシステムは結構複雑で、通常のクラスの他に
+部分クラス (partial class)、
+抽象クラス (abstracted class)、コンテナ型クラス (parametrized class)、変更不能クラス (immutable class) があります。
+今回は通常のクラス、部分クラスについて説明し、コンテナ型クラス、抽象クラス、変更不能クラスは 7, 8 章で説明します。
+
+<h2>2. 通常のクラス</h2>
+まず、通常のクラスについての述べます。
+オブジェクト指向についての知識がある読者を対象にしているので、退屈な説明は抜きにして例を挙げて説明します。
+<p>
+今流行の携帯電話を例にとります。携帯電話は電話であり、かつメーラーとしても機能しますので、
+電話とメーラーの属性を継承することになります。 
+Sather は多重継承をサポートしているので、電話クラス、
+メーラークラス、携帯電話クラスは次のように書くことができます。
+
+<h3>2.1. 電話クラス</h3>
+
+まず電話クラスを定義します。
+属性：電話番号とメソッド：電話をかける　を持ちます。
+説明はソースコード内にコメントとして付け加えておきました。
+<pre class='code'>
+<span class="linenumber">01:</span>     class PHONE is                      <span class="comment">-- 電話クラスです</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>        private attr phone_number:STR;   <span class="comment">-- 電話番号です。private はプライベート変数。 attr はインスタンス変数の意味です。</span>
+<span class="linenumber">04:</span>                                         <span class="comment">-- private をつけないとパブリック変数になります。</span>
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>        create(pn:STR):SAME is           <span class="comment">-- create は特殊なメソッドで、インスタンスを作るときは必ずこれを使います。</span>
+<span class="linenumber">07:</span>           return new.init(pn);          <span class="comment">-- まず new でメモリー領域を確保して、それに init メソッドを作用させます。</span>
+<span class="linenumber">08:</span>        end;                             <span class="comment">-- 返り値 SAME は create を呼んだクラスです。継承を考えると SAME を使うのが良いでしょう。</span>
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>        private init(pn:STR):SAME is     <span class="comment">-- init は初期化の関数です。create の書き方は他にもありますが、継承を考えると return new.init</span>
+<span class="linenumber">11:</span>           phone_number := pn;           <span class="comment">-- と書くのが良いでしょう。インスタンス変数 phone_number を初期化します。</span>
+<span class="linenumber">12:</span>           return self;                  <span class="comment">-- 自分自身 (self) を返します。</span>
+<span class="linenumber">13:</span>        end;
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>        get_number:STR is                <span class="comment">-- 電話番号を取得するメソッドです。self.phone_number の self は省略できます。</span>
+<span class="linenumber">16:</span>           return phone_number;
+<span class="linenumber">17:</span>        end;
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>        phone_call(to:SAME, msg:STR):STR is    <span class="comment">-- 電話をかけるメソッドです。他の電話とメッセージを引数に取ります。</span>
+<span class="linenumber">20:</span>           return "From: " + phone_number +    <span class="comment">-- 簡単のため文字列を返すだけです。</span>
+<span class="linenumber">21:</span>     	    "\nTo: " + to.phone_number +  <span class="comment">-- to.phone_number のようにインスタンスを特定することもできます。</span>
+<span class="linenumber">22:</span>     	    "\nSubject: " + msg + "\n";   <span class="comment">-- この関数でも SAME を使っています。可能な限り SAME を使うほうが良いでしょう。</span>
+<span class="linenumber">23:</span>        end;
+<span class="linenumber">24:</span>     end;  <span class="comment">-- end of PHONE</span>
+</pre>
+その他
+<ul>
+<li><tt>readonly</tt> 宣言をすると外部からは参照だけができます。
+<li><tt>constant</tt> 宣言で、定数を定義することができます。
+</ul>
+
+電話のインスタンスを作るときは次のようにします。
+<pre class='code'>
+ phone1:PHONE:=PHONE::create("012-345-6789");  <span class="comment">-- 省略していない書き方です。省略形を使ってコンパイラーに文句を言われたらこう書く必要があります。</span>
+ phone2:PHONE:=#PHONE("023-444-5555");         <span class="comment">-- 通常は '#PHONE' で代用できます。</span>
+ phone3:PHONE:=#("023-4545-6767");             <span class="comment">-- さらに、作られるインスタンスの型が明らかな場合は '#' で代用できます。</span>
+</pre>
+
+<h3>2.2. メーラークラス</h3>
+以下のように定義します。<br>
+自分のメールアドレス、新着メールリストをインスタンス属性として持ち、
+メーリングリストをクラス属性として持ちます。
+また、メソッドとして、メールの送受信、メーリングリストへの投稿、メーリングリストを読むを持ちます。
+<pre class='code'>
+<span class="linenumber">01:</span>     class MAIL is
+<span class="linenumber">02:</span>        private attr address:STR;                                 <span class="comment">-- メールアドレス</span>
+<span class="linenumber">03:</span>        private attr newmails:LIST{STR};                          <span class="comment">-- 新着メールリスト LIST{STR} 型</span>
+<span class="linenumber">04:</span>        private shared mailinglist:LIST{STR}:=LIST{STR}::create;  <span class="comment">-- クラス属性 メーリングリスト (LIST{STR}) を宣言して作成。 </span>
+<span class="linenumber">05:</span>                                                                  <span class="comment">-- constant と shared の場合は '#' を使った省略形が使えない。</span>
+<span class="linenumber">06:</span>        create(ad:STR):SAME is
+<span class="linenumber">07:</span>           return new.init(ad);
+<span class="linenumber">08:</span>        end;
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>        init(ad:STR):SAME is
+<span class="linenumber">11:</span>           newmails := #LIST{STR};                                <span class="comment">-- 新着メールリストを作成。</span>
+<span class="linenumber">12:</span>           address := ad;                                         <span class="comment">-- 自分のアドレスを設定</span>
+<span class="linenumber">13:</span>           return self;                                           <span class="comment">-- 自分自身を返す</span>
+<span class="linenumber">14:</span>        end;
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>        get_address:STR is                                        <span class="comment">-- アドレスを取得</span>
+<span class="linenumber">17:</span>           return address;
+<span class="linenumber">18:</span>        end;
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>        send(to:SAME, msg:STR) is                                 <span class="comment">-- メールを送るメソッド。相手先の新着メールリストにメッセージを追加</span>
+<span class="linenumber">21:</span>           to.newmails.append("From: " + address + "\nSubject: " + msg + "\n");
+<span class="linenumber">22:</span>        end;
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>        send2mailinglist(msg:STR) is                              <span class="comment">-- メーリングリストに投稿。メーリングリストにメッセージを追加</span>
+<span class="linenumber">25:</span>           mailinglist.append("From: " + address + "\nSubject: " + msg + "\n");
+<span class="linenumber">26:</span>        end;
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>        read_mail:STR is                                          <span class="comment">-- メールを読む。</span>
+<span class="linenumber">29:</span>           s:STR := address + " received following new messages:\n";
+<span class="linenumber">30:</span>           loop
+<span class="linenumber">31:</span>     	 s := s+ newmails.elt!;                              <span class="comment">-- 新着メールリストから新着メールを取り出す</span>
+<span class="linenumber">32:</span>           end;
+<span class="linenumber">33:</span>           newmails.clear;                                        <span class="comment">-- 新着メールをクリアする。</span>
+<span class="linenumber">34:</span>           return s + "\n";
+<span class="linenumber">35:</span>        end;
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>        read_mailinglist:STR is                                   <span class="comment">-- メーリングリストを読む。</span>
+<span class="linenumber">38:</span>           s:STR := "Messages in the mailing list are:\n";
+<span class="linenumber">39:</span>           loop
+<span class="linenumber">40:</span>     	 s := s+ mailinglist.elt!;
+<span class="linenumber">41:</span>           end;
+<span class="linenumber">42:</span>           return s + "\n";
+<span class="linenumber">43:</span>        end;
+<span class="linenumber">44:</span>     
+<span class="linenumber">45:</span>     end; <span class="comment">-- end of MAIL</span>
+</pre>
+メモ
+<ul>
+<li> LIST 型は ARRAY 型と同様なコンテナクラスです。詳しくは
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+Sather Class Index: LIST</a>
+をみて下さい。
+</ul>
+
+<h3>2.3. 携帯電話クラス</h3>
+携帯電話クラスは電話とメーラーを継承します。簡潔に書くことができます。
+
+<pre class='code'>
+<span class="linenumber">01:</span>     class MOBILE is                                 
+<span class="linenumber">02:</span>        include PHONE init -&gt; phone_init, create -&gt;; <span class="comment">-- 継承は include で表します。</span>
+<span class="linenumber">03:</span>        include MAIL  init -&gt; mail_init, create -&gt;;  <span class="comment">-- 親クラスの init に別名をつけ、create は継承しません。</span>
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        create(ph,ad:STR):SAME is
+<span class="linenumber">06:</span>           return new.phone_init(ph).mail_init(ad); <span class="comment">-- 親クラスの init 関数を使って簡潔に書けます。</span>
+<span class="linenumber">07:</span>        end;
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     end; <span class="comment">-- end of MOBILE</span>
+</pre>
+
+<h3>2.4. テスト</h3>
+
+テストルーチンを以下に示します。全体のプログラムは付録につけておきますのでダウンロードして遊んでみてください。
+
+<pre class='code'>
+<span class="linenumber">01:</span>     class MAIN is
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">04:</span>           if av.size = 5 then
+<span class="linenumber">05:</span>     	 mob1:MOBILE := #(av[1], av[2]);   <span class="comment">-- 携帯電話を 2 つ作って</span>
+<span class="linenumber">06:</span>     	 mob2:MOBILE := #(av[3], av[4]);
+<span class="linenumber">07:</span>     	 mobile_test(mob1, mob2);          <span class="comment">-- 通話テストを行う。</span>
+<span class="linenumber">08:</span>           else
+<span class="linenumber">09:</span>     	 #ERR + "Usage:mobile PHONE_NUMBER_1 EMAIL_ADDRESS_1 PHONE_NUMBER_2 EMAIL_ADDRES_2 \n";
+<span class="linenumber">10:</span>           end;
+<span class="linenumber">11:</span>        end;
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>        mobile_test(mob1, mob2:MOBILE) is
+<span class="linenumber">14:</span>           #OUT + "Phone number(1) is " + mob1.get_number + "\n";          <span class="comment">-- 携帯電話 (1) の電話番号を表示</span>
+<span class="linenumber">15:</span>           #OUT + "E-mail address(1) is " + mob1.get_address + "\n";       <span class="comment">-- 携帯電話 (1) のメールアドレスを表示</span>
+<span class="linenumber">16:</span>           #OUT + "\nPhone call test (1) -&gt; (2):\n" +                      <span class="comment">-- 携帯電話 (1) から (2) に電話をかける。</span>
+<span class="linenumber">17:</span>     	    mob1.phone_call(mob2, "Hello");
+<span class="linenumber">18:</span>           #OUT + "\nE-mail transfer test (2) -&gt; (1):\n";
+<span class="linenumber">19:</span>           mob2.send(mob1, "How are you?");                                <span class="comment">-- 携帯電話 (2) から (1) にメールを送る。</span>
+<span class="linenumber">20:</span>           mob2.send(mob1, "I want to see you.");                          <span class="comment">-- 携帯電話 (2) から (1) にメールを送る。</span>
+<span class="linenumber">21:</span>           #OUT + mob1.read_mail;                                          <span class="comment">-- 携帯電話 (1) が新着メールを見る。</span>
+<span class="linenumber">22:</span>           #OUT + "\nTest for mailing list:\n";
+<span class="linenumber">23:</span>           mob1.send2mailinglist("Is Sather good?");                       <span class="comment">-- 携帯電話 (1) がメーリングリストへメールを出す。</span>
+<span class="linenumber">24:</span>           mob2.send2mailinglist("Yes. Sather is good.");                  <span class="comment">-- 携帯電話 (2) がメーリングリストへメールを出す。</span>
+<span class="linenumber">25:</span>           #OUT + mob1.read_mailinglist + "\n";                            <span class="comment">-- メーリングリストを見る。</span>
+<span class="linenumber">26:</span>        end;
+<span class="linenumber">27:</span>     end; <span class="comment">-- end of MAIN</span>
+<span class="linenumber">28:</span>     
+</pre>
+
+
+<pre class='samp'>
+> sacomp mobile.sa -o mobile
+> ./mobile 012-222-3333 foo@ab.ne.jp 023-444-5677 bar@cd.com
+Phone number(1) is 012-222-3333
+E-mail address(1) is foo@ab.ne.jp
+
+Phone call test (1) -> (2):
+From: 012-222-3333
+To: 023-444-5677
+Subject: Hello
+
+E-mail transfer test (2) -> (1):
+foo@ab.ne.jp received following new messages:
+From: bar@cd.com
+Subject: How are you?
+From: bar@cd.com
+Subject: I want to see you.
+
+
+Test for mailing list:
+Messages in the mailing list are:
+From: foo@ab.ne.jp
+Subject: Is Sather good?
+From: bar@cd.com
+Subject: Yes. Sather is good.
+
+</pre>
+
+
+<h2>3. 部分クラス</h2>
+
+部分クラスは継承されることを前提としたクラスです。
+自身のインスタンスを作ることは無く、かつ
+ stub 変数を持ちます。stub 変数は子クラスで再定義される必要があります。
+<p>
+今流行の無線 LAN を例にとってみます。無線 LAN は盗聴される危険があるので、
+個人レベルでも WEP か WPA-PSK などの暗号化を施す必要があります。
+<br>
+ここでは、部分クラス WLAN とそれを継承したクラス WEP, WPA_PSK を定義します。
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- an example of partical classes, WLAN</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     partial class WLAN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        stub security:STR;                <span class="comment">-- この属性は子クラスで再定義される必要がある。</span>
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>        get_security:STR is
+<span class="linenumber">08:</span>           return security;               <span class="comment">-- security を取得するメソッド。</span>
+<span class="linenumber">09:</span>        end;
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     end;  <span class="comment">-- WLAN</span>
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     class WEP is
+<span class="linenumber">15:</span>        include WLAN;
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>        const security:STR := "wep";
+<span class="linenumber">18:</span>        private attr key:STR;
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>        create(k:STR):SAME is
+<span class="linenumber">21:</span>           return new.init(k);
+<span class="linenumber">22:</span>        end;
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>        init(k:STR):SAME is
+<span class="linenumber">25:</span>           key := k;
+<span class="linenumber">26:</span>           return self;
+<span class="linenumber">27:</span>        end;
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>        get_key:STR is
+<span class="linenumber">30:</span>           return key;
+<span class="linenumber">31:</span>        end;
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>     end; <span class="comment">-- WEP</span>
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>     class WPA_PSK is
+<span class="linenumber">36:</span>        include WLAN;
+<span class="linenumber">37:</span>     
+<span class="linenumber">38:</span>        const security:STR := "wpa psk";
+<span class="linenumber">39:</span>        private attr key:STR;
+<span class="linenumber">40:</span>     
+<span class="linenumber">41:</span>        create(k:STR):SAME is
+<span class="linenumber">42:</span>           return new.init(k);
+<span class="linenumber">43:</span>        end;
+<span class="linenumber">44:</span>     
+<span class="linenumber">45:</span>        init(k:STR):SAME is
+<span class="linenumber">46:</span>           key := k;
+<span class="linenumber">47:</span>           return self;
+<span class="linenumber">48:</span>        end;
+<span class="linenumber">49:</span>     
+<span class="linenumber">50:</span>        get_key:STR is
+<span class="linenumber">51:</span>           return key;
+<span class="linenumber">52:</span>        end;
+<span class="linenumber">53:</span>     
+<span class="linenumber">54:</span>     end; <span class="comment">-- WPA_PSK</span>
+<span class="linenumber">55:</span>     
+<span class="linenumber">56:</span>     
+<span class="linenumber">57:</span>     
+<span class="linenumber">58:</span>     class MAIN is
+<span class="linenumber">59:</span>     
+<span class="linenumber">60:</span>        main is
+<span class="linenumber">61:</span>           wlan_test;
+<span class="linenumber">62:</span>        end;
+<span class="linenumber">63:</span>     
+<span class="linenumber">64:</span>        wlan_test is
+<span class="linenumber">65:</span>           wep0:WEP:=#("foo");
+<span class="linenumber">66:</span>           wpa0:WPA_PSK:=#("bar");
+<span class="linenumber">67:</span>           
+<span class="linenumber">68:</span>           #OUT + "Security and key of wep0 are: " + wep0.get_security + " and \"" + wep0.get_key + "\".\n";
+<span class="linenumber">69:</span>           #OUT + "Security and key of wpa0 are: " + wpa0.get_security + " and \"" + wpa0.get_key + "\".\n";
+<span class="linenumber">70:</span>           
+<span class="linenumber">71:</span>        end;
+<span class="linenumber">72:</span>     end; <span class="comment">-- end of MAIN</span>
+</pre>
+
+出力は以下のようになります。
+
+<pre class='samp'>
+$ sacomp wlan.sa -o wlan
+$ ./wlan
+Security and key of wep0 are: wep and "foo".
+Security and key of wpa0 are: wpa psk and "bar".
+</pre>
+
+<h2> 4. 終わりに</h2>
+今回は普通のクラスについて例を挙げて説明しました。Sather には他にもいろいろなクラスがあるので
+おいおい説明していきます。一応 <a href='sa_class.tar.bz2'>付録</a> にコードをつけておきます。
+
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0></a>
+<a rel=home href='http://www.shido.info/index.php'>HOME</a></td>
+
+<td><a rel=prev href="sa_iter.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. 繰り返しとイテレーター</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_io.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+6. IO</a></td>
+
+<td><a rel=download href="sa_class.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_class.html&t=Sather%3A%20%A5%AF%A5%E9%A5%B9%C4%EA%B5%C1' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+</body></html>
+    
+
+
+
+

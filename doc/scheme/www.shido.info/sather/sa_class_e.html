@@ -1,0 +1,377 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, class">
+<meta name="description" content="About the classes of Sather">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 5. Class</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0></a>
+<a rel=home href='http://www.shido.info/index_e.php'>HOME</a></td>
+
+<td><a rel=prev href="sa_iter_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. Iteration</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Try Sather</a></td>
+
+<td><a rel=next href="sa_io_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+6. IO</a></td>
+
+<td><a rel=download href="sa_class.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_class_e.html&t=%28Try+Sather%29+5%2E+Class'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 5. Class</h1>
+<hr>
+<h2>1. Introduction</h2>
+In this section, I will talk about how to define your won classes.<p>
+As sather is an object oriented language, classes play an important role in the language.
+
+<p>
+The class system of Sather is somehow complicated. 
+It contains partial classes, abstracted classes, parametrized classes, and immutable classes as well as
+conventional ones.
+I am explaining about conventional and  abstracted classes in this section,
+then I will explain about parametrized and immutable classes in section 7 and 8.
+
+
+<h2>2. Conventional classes</h2>
+First I talk about the conventional classes.
+I just show a simple example without boring explanation, as the expected readers should know well about
+object oriented paradigm.
+<p>
+Let's think about cellphones. A cellphones is a mailer as well as a telephone.
+Thus cellphones inherit the function of telephone and mailer.
+Sather supports multiple inheritance and the telephone, the mailer, and the cellphone
+classes can be defined like as follows.
+
+
+<h3>2.1. The telephone class</h3>
+
+The telephone class is like as follows.
+it has two functions, to call and to receive.
+See also comments in the source code.
+
+<pre class='code'>
+<span class="linenumber">01:</span>     class PHONE is                      <span class="comment">-- The telephone class</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>        private attr phone_number:STR;   <span class="comment">-- the phone number. Keywords private and attr mean that the parameter is private and belonging to instance, respectively</span>
+<span class="linenumber">04:</span>                                         <span class="comment">-- if not private keyword, it is public</span>
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>        create(pn:STR):SAME is           <span class="comment">-- create is the constructor in C++</span>
+<span class="linenumber">07:</span>           return new.init(pn);          <span class="comment">-- new allocate memory and apply init to it</span>
+<span class="linenumber">08:</span>        end;                             <span class="comment">-- The SAME is the class that calls create. SAME should be used as the class can be inherited.</span>
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>        private init(pn:STR):SAME is     <span class="comment">-- init is a function to initialize. Even there are several way to implement create,</span>
+<span class="linenumber">11:</span>           phone_number := pn;           <span class="comment">-- return new.init suit inheritance. The function initialize the instance parameter, phone_number.</span>
+<span class="linenumber">12:</span>           return self;                  <span class="comment">-- returning the initialized instance (self).</span>
+<span class="linenumber">13:</span>        end;
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>        get_number:STR is                <span class="comment">-- The method to get the phone number. The self in the self.phone_number can be omitted.</span>
+<span class="linenumber">16:</span>           return phone_number;
+<span class="linenumber">17:</span>        end;
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>        phone_call(to:SAME, msg:STR):STR is    <span class="comment">-- The method to call. The argument is other phone and message.</span>
+<span class="linenumber">20:</span>           return "From: " + phone_number +    <span class="comment">-- It just returns a string (to make it simple).</span>
+<span class="linenumber">21:</span>     	    "\nTo: " + to.phone_number +  <span class="comment">-- You can specify the instance like to.phone_number.</span>
+<span class="linenumber">22:</span>     	    "\nSubject: " + msg + "\n";   <span class="comment">-- This method also use SAME. Use SAME as many as possible.</span>
+<span class="linenumber">23:</span>        end;
+<span class="linenumber">24:</span>     end;  <span class="comment">-- end of PHONE</span>
+</pre>
+Notes:
+<ul>
+<li>With <tt>readonly</tt> declaration, you can make read-only parameters from the outside.
+<li>With <tt>constant</tt> declaration, you can define constants.
+</ul>
+
+Following shows how to make an instance of the PHONE class.
+<pre class='code'>
+ phone1:PHONE:=PHONE::create("012-345-6789");  <span class="comment">-- Formal way. Use this if the compiler doesn't like the abbreviations.</span>
+ phone2:PHONE:=#PHONE("023-444-5555");         <span class="comment">-- '#PHONE' is the abbreviation of PHONE::create</span>
+ phone3:PHONE:=#("023-4545-6767");             <span class="comment">-- You can omit the class name in many cases.</span>
+</pre>
+
+<h3>2.2. The mailer class</h3>
+The mailer class can be defined like as follow.<br>
+It has its own mail address and the list of new mails as instance parameters,
+and mailing list as a class parameters.
+The methods of the class are to send, to receive, to submit to the mailing list, and to read the mailing list.
+
+<pre class='code'>
+<span class="linenumber">01:</span>     class MAIL is
+<span class="linenumber">02:</span>        private attr address:STR;                                 <span class="comment">-- mail address</span>
+<span class="linenumber">03:</span>        private attr newmails:LIST{STR};                          <span class="comment">-- the list of new mail, whose type is LIST{STR}</span>
+<span class="linenumber">04:</span>        private shared mailinglist:LIST{STR}:=LIST{STR}::create;  <span class="comment">-- declaring and defining a class parameter mailinglist whose type is LIST{STR}. </span>
+<span class="linenumber">05:</span>                                                                  <span class="comment">-- In the case of constant and shared, you cannot use the abbreviation with '#'.</span>
+<span class="linenumber">06:</span>        create(ad:STR):SAME is
+<span class="linenumber">07:</span>           return new.init(ad);
+<span class="linenumber">08:</span>        end;
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>        init(ad:STR):SAME is
+<span class="linenumber">11:</span>           newmails := #LIST{STR};                                <span class="comment">-- Making the list of new mail.</span>
+<span class="linenumber">12:</span>           address := ad;                                         <span class="comment">-- Setting its own address</span>
+<span class="linenumber">13:</span>           return self;                                           <span class="comment">-- returning itself</span>
+<span class="linenumber">14:</span>        end;
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>        get_address:STR is                                        <span class="comment">-- getting the address</span>
+<span class="linenumber">17:</span>           return address;
+<span class="linenumber">18:</span>        end;
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>        send(to:SAME, msg:STR) is                                 <span class="comment">-- The mail sending method, which add the message on his list of new mails.</span>
+<span class="linenumber">21:</span>           to.newmails.append("From: " + address + "\nSubject: " + msg + "\n");
+<span class="linenumber">22:</span>        end;
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>        send2mailinglist(msg:STR) is                              <span class="comment">-- Submitting to the mailing list. it add the message to the list.</span>
+<span class="linenumber">25:</span>           mailinglist.append("From: " + address + "\nSubject: " + msg + "\n");
+<span class="linenumber">26:</span>        end;
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>        read_mail:STR is                                          <span class="comment">-- Reading mails</span>
+<span class="linenumber">29:</span>           s:STR := address + " received following new messages:\n";
+<span class="linenumber">30:</span>           loop
+<span class="linenumber">31:</span>     	 s := s+ newmails.elt!;                              <span class="comment">-- Taking a new mali from the new-mail-list.</span>
+<span class="linenumber">32:</span>           end;
+<span class="linenumber">33:</span>           newmails.clear;                                        <span class="comment">-- Clearing the new-mail-list</span>
+<span class="linenumber">34:</span>           return s + "\n";
+<span class="linenumber">35:</span>        end;
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>        read_mailinglist:STR is                                   <span class="comment">-- Reading the mailing list.</span>
+<span class="linenumber">38:</span>           s:STR := "Messages in the mailing list are:\n";
+<span class="linenumber">39:</span>           loop
+<span class="linenumber">40:</span>     	 s := s+ mailinglist.elt!;
+<span class="linenumber">41:</span>           end;
+<span class="linenumber">42:</span>           return s + "\n";
+<span class="linenumber">43:</span>        end;
+<span class="linenumber">44:</span>     
+<span class="linenumber">45:</span>     end; <span class="comment">-- end of MAIL</span>
+</pre>
+¥á¥â
+<ul>
+<li> Type <tt>LIST</tt> is a parameterized class similar to  <tt>ARRAY</tt>. See
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+Sather Class Index: LIST</a>
+for detailed information.
+</ul>
+
+<h3>2.3. The cellphone class</h3>
+The cellphone class (<tt>MOBILE</tt>) inherits <tt>PHONE</tt> and <tt>MAIL</tt>.
+
+<pre class='code'>
+<span class="linenumber">01:</span>     class MOBILE is                                 
+<span class="linenumber">02:</span>        include PHONE init -&gt; phone_init, create -&gt;; <span class="comment">-- include indicates inhelitance</span>
+<span class="linenumber">03:</span>        include MAIL  init -&gt; mail_init, create -&gt;;  <span class="comment">-- Renaming the MAIL's init to mail_init and forgetting MAIL's create.</span>
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        create(ph,ad:STR):SAME is
+<span class="linenumber">06:</span>           return new.phone_init(ph).mail_init(ad); <span class="comment">-- Concise code using parents init methods.</span>
+<span class="linenumber">07:</span>        end;
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     end; <span class="comment">-- end of MOBILE</span>
+</pre>
+
+<h3>2.4. Test</h3>
+
+Following is the test code. 
+<a href='sa_class.tar.bz2'>
+Download</a> and play.
+
+<pre class='code'>
+<span class="linenumber">01:</span>     class MAIN is
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">04:</span>           if av.size = 5 then
+<span class="linenumber">05:</span>     	 mob1:MOBILE := #(av[1], av[2]);   <span class="comment">-- Making two cellphones</span>
+<span class="linenumber">06:</span>     	 mob2:MOBILE := #(av[3], av[4]);
+<span class="linenumber">07:</span>     	 mobile_test(mob1, mob2);          <span class="comment">-- and test them.</span>
+<span class="linenumber">08:</span>           else
+<span class="linenumber">09:</span>     	 #ERR + "Usage:mobile PHONE_NUMBER_1 EMAIL_ADDRESS_1 PHONE_NUMBER_2 EMAIL_ADDRES_2 \n";
+<span class="linenumber">10:</span>           end;
+<span class="linenumber">11:</span>        end;
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>        mobile_test(mob1, mob2:MOBILE) is
+<span class="linenumber">14:</span>           #OUT + "Phone number(1) is " + mob1.get_number + "\n";          <span class="comment">-- Showing the phone number of cellphone one.</span>
+<span class="linenumber">15:</span>           #OUT + "E-mail address(1) is " + mob1.get_address + "\n";       <span class="comment">-- Showing the mail address of cellphone one.</span>
+<span class="linenumber">16:</span>           #OUT + "\nPhone call test (1) -&gt; (2):\n" +                      <span class="comment">-- Calling from cellphone one to cellphone two.</span>
+<span class="linenumber">17:</span>     	    mob1.phone_call(mob2, "Hello");
+<span class="linenumber">18:</span>           #OUT + "\nE-mail transfer test (2) -&gt; (1):\n";
+<span class="linenumber">19:</span>           mob2.send(mob1, "How are you?");                                <span class="comment">-- Sending an email message to cellphone two to cellphone one.</span>
+<span class="linenumber">20:</span>           mob2.send(mob1, "I want to see you.");                          <span class="comment">-- Sending an email message to cellphone two to cellphone one again.</span>
+<span class="linenumber">21:</span>           #OUT + mob1.read_mail;                                          <span class="comment">-- Cellphone one check the new mails.</span>
+<span class="linenumber">22:</span>           #OUT + "\nTest for mailing list:\n";
+<span class="linenumber">23:</span>           mob1.send2mailinglist("Is Sather good?");                       <span class="comment">-- Cellphone one submit a message to the mailing list.</span>
+<span class="linenumber">24:</span>           mob2.send2mailinglist("Yes. Sather is good.");                  <span class="comment">-- Cellphone two also submit a message to the mailing list.</span>
+<span class="linenumber">25:</span>           #OUT + mob1.read_mailinglist + "\n";                            <span class="comment">-- Checking the mailing list</span>
+<span class="linenumber">26:</span>        end;
+<span class="linenumber">27:</span>     end; <span class="comment">-- end of MAIN</span>
+<span class="linenumber">28:</span>     
+</pre>
+
+
+<pre class='samp'>
+> sacomp mobile.sa -o mobile
+> ./mobile 012-222-3333 foo@ab.ne.jp 023-444-5677 bar@cd.com
+Phone number(1) is 012-222-3333
+E-mail address(1) is foo@ab.ne.jp
+
+Phone call test (1) -> (2):
+From: 012-222-3333
+To: 023-444-5677
+Subject: Hello
+
+E-mail transfer test (2) -> (1):
+foo@ab.ne.jp received following new messages:
+From: bar@cd.com
+Subject: How are you?
+From: bar@cd.com
+Subject: I want to see you.
+
+
+Test for mailing list:
+Messages in the mailing list are:
+From: foo@ab.ne.jp
+Subject: Is Sather good?
+From: bar@cd.com
+Subject: Yes. Sather is good.
+
+</pre>
+
+
+<h2>3. Partial class</h2>
+
+The partial class is a class that is expeted to be used only as a parent.
+It cannot have its own instance.
+It has <tt>stab</tt> parameters which should be defined in the childen classes.
+<p>
+Let's think abou a wireless LAN (WLAN). As the WLAN has a risk of tapping,
+the trafic should be encoded by using a encryption technology such as WEP and  WPA.<p>
+Following code defines a partial class WLAN and two children WEP and WPA_PSK.
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- an example of partical classes, WLAN</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     partial class WLAN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        stub security:STR;                <span class="comment">-- This attribure should be defined in the children classes.</span>
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>        get_security:STR is
+<span class="linenumber">08:</span>           return security;               <span class="comment">-- getting the attribute named security.</span>
+<span class="linenumber">09:</span>        end;
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     end;  <span class="comment">-- WLAN</span>
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     class WEP is
+<span class="linenumber">15:</span>        include WLAN;
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>        const security:STR := "wep";
+<span class="linenumber">18:</span>        private attr key:STR;
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>        create(k:STR):SAME is
+<span class="linenumber">21:</span>           return new.init(k);
+<span class="linenumber">22:</span>        end;
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>        init(k:STR):SAME is
+<span class="linenumber">25:</span>           key := k;
+<span class="linenumber">26:</span>           return self;
+<span class="linenumber">27:</span>        end;
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>        get_key:STR is
+<span class="linenumber">30:</span>           return key;
+<span class="linenumber">31:</span>        end;
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>     end; <span class="comment">-- WEP</span>
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>     class WPA_PSK is
+<span class="linenumber">36:</span>        include WLAN;
+<span class="linenumber">37:</span>     
+<span class="linenumber">38:</span>        const security:STR := "wpa psk";
+<span class="linenumber">39:</span>        private attr key:STR;
+<span class="linenumber">40:</span>     
+<span class="linenumber">41:</span>        create(k:STR):SAME is
+<span class="linenumber">42:</span>           return new.init(k);
+<span class="linenumber">43:</span>        end;
+<span class="linenumber">44:</span>     
+<span class="linenumber">45:</span>        init(k:STR):SAME is
+<span class="linenumber">46:</span>           key := k;
+<span class="linenumber">47:</span>           return self;
+<span class="linenumber">48:</span>        end;
+<span class="linenumber">49:</span>     
+<span class="linenumber">50:</span>        get_key:STR is
+<span class="linenumber">51:</span>           return key;
+<span class="linenumber">52:</span>        end;
+<span class="linenumber">53:</span>     
+<span class="linenumber">54:</span>     end; <span class="comment">-- WPA_PSK</span>
+<span class="linenumber">55:</span>     
+<span class="linenumber">56:</span>     
+<span class="linenumber">57:</span>     
+<span class="linenumber">58:</span>     class MAIN is
+<span class="linenumber">59:</span>     
+<span class="linenumber">60:</span>        main is
+<span class="linenumber">61:</span>           wlan_test;
+<span class="linenumber">62:</span>        end;
+<span class="linenumber">63:</span>     
+<span class="linenumber">64:</span>        wlan_test is
+<span class="linenumber">65:</span>           wep0:WEP:=#("foo");
+<span class="linenumber">66:</span>           wpa0:WPA_PSK:=#("bar");
+<span class="linenumber">67:</span>           
+<span class="linenumber">68:</span>           #OUT + "Security and key of wep0 are: " + wep0.get_security + " and \"" + wep0.get_key + "\".\n";
+<span class="linenumber">69:</span>           #OUT + "Security and key of wpa0 are: " + wpa0.get_security + " and \"" + wpa0.get_key + "\".\n";
+<span class="linenumber">70:</span>           
+<span class="linenumber">71:</span>        end;
+<span class="linenumber">72:</span>     end; <span class="comment">-- end of MAIN</span>
+</pre>
+
+Following shows the output.
+
+<pre class='samp'>
+$ sacomp wlan.sa -o wlan
+$ ./wlan
+Security and key of wep0 are: wep and "foo".
+Security and key of wpa0 are: wpa psk and "bar".
+</pre>
+
+<h2> 4. Summerly</h2>
+I have explaind about the conventional and partial classes of Sather.
+The language has other class type, which I will explain in the following sections.
+
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0></a>
+<a rel=home href='http://www.shido.info/index_e.php'>HOME</a></td>
+
+<td><a rel=prev href="sa_iter_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. Iteration</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+Try Sather</a></td>
+
+<td><a rel=next href="sa_io_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+6. IO</a></td>
+
+<td><a rel=download href="sa_class.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_class_e.html&t=%28Try+Sather%29+5%2E+Class'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+</body></html>
+    

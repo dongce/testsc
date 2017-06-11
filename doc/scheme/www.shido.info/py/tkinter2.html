@@ -1,0 +1,465 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="demostrations of Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 2. Widget を配置しよう</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+
+<td><a rel='prev' href="tkinter1.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  1. Hello world!</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter3.html"><img src='../images/right_arrow.gif' class='arrow' border=0>3. Label だけでタイマーを作ろう</a></td>
+<!-- <td><a rel='download' href="8queen_py.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter2.html&t=Tkinter+%C6%FE%CC%E7%3A+2.+Widget+%A4%F2%C7%DB%C3%D6%A4%B7%A4%E8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>2. Widget を配置しよう</h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+Tkinter は widget を配置する方法として pack, grid, place の３つの方法があり、
+ ３つとも widget のメソッドとして定義されています。また、配置の枠組みを決める Frame という
+ widget があります。Frame 自身はほとんど何も表示しませんが、widget をまとめるのに使います。<p>
+
+   まず、Frame について説明して、それから、pack, grid, place の順に説明していきます。
+
+<h2>2. Frame</h2>
+<ul>
+<li>widget を生成するとき、親 widget を指定する必要があります。多くの場合、それは Frame になります。
+<li>Frame は widget をグループ化する widget と考えることができます。
+<li>Frame は入れ子にすることができ、それによって、プログラムのモジュール化を図れます。
+<li>多くの場合、一番上の Frame の mainloop メソッドを使ってアプリケーションを作ります。
+<li>Frame の導出クラスを定義してプログラムを書くのが一般的です。
+<li>Frame の定義は以下のように、親 widget と option を指定します。<br>
+<span class='mono'>f=Tk.Frame(master, options)</span><br>
+Frame の 主な option は以下の通りです。詳しくは
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/frame.html'>Tkinter reference: 9. The Frame widget</a>
+を見てください。
+<table border=1>
+   <tr>
+      <th>属性</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td><b>bg</b> or <b>background</b></td>
+      <td>背景の色を指定します。</td>
+   </tr>
+   <tr>
+      <td><b>bd</b> or <b>bordewidth</b></td>
+      <td>ボーダーの幅を指定します。デフォルトでは 0, relief を指定するときはこの値を指定する必要有り。</td>
+                                
+   </tr>
+   <tr>
+      <td><b>relief</b></td>
+      <td>周りの形を指定します。Tk.FLAT(default), Tk.RAISED, Tk.SUNKENN, Tk.GROOVE, Tk.RIDGE があります。
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/relief.html'>Tkinter reference: 4.6. Relief styles</a> 
+を見てください。</td>
+   </tr>
+   <tr>
+      <td><b>width</b></td>
+      <td>幅を pixel で指定。place を使って中身を配置するときは指定する必要がある。</td>
+   </tr>
+   <tr>
+      <td><b>height</b></td>
+      <td>高さを pixel で指定。place を使って中身を配置するときは指定する必要がある。</td>
+   </tr>
+</table>
+</ul>
+
+<h2>3. pack</h2>
+pack は widget を縦または横に１次元的に配列するときに使います。pack には以下の option があります。
+<table border=1>
+   <tr>
+      <th>属性</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td><b>anchor</b></td>
+      <td>
+    配置可能なスペースに余裕がある場合、Widget をどこに配置するか指定します。デフォルトは Tk.CENTER.
+そのほかに、Tk.W (左よせ）、Tk.E （右よせ）、Tk.N （上よせ）、Tk.S （下よせ）、
+Tk.NW （左上）、Tk.SW （左下）、Tk.NE （右上）、Tk.SE （右下）があります。
+詳しくは、
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/anchors.html'>Tkinter reference: 4.5. Anchors</a>
+を見てください。</td>
+   </tr>
+   <tr>
+      <td><b>expand</b></td>
+      <td>親 widget が大きくなったとき、大きくなるかどうかを指定します。
+1 を指定すると大きくなり、0 だとなりません。デフォルトは 0</td>
+   </tr>
+   <tr>
+      <td><b>fill</b></td>
+      <td>widget が空いているスペースを埋めるかどうか指定します： Tk.NONE, 元のサイズを保持します。
+Tk.X, 横に広がります。 Tk.Y, 縦に広がります。 Tk.BOTH, 縦横に広がります。</td>
+   </tr>
+   <tr>
+      <td><b>padx</b></td>
+      <td>外側の横の隙間を指定します。</td>
+   </tr>
+   <tr>
+      <td><b>pady</b></td>
+      <td>外側の縦の隙間を指定します。</td>
+   </tr>
+   <tr>
+      <td><b>ipadx</b></td>
+      <td>内側の横の隙間を指定します。</td>
+   </tr>
+   <tr>
+      <td><b>ipady</b></td>
+      <td>内側の縦の隙間を指定します。</td>
+   </tr>
+   <tr>
+      <td><b>side</b></td>
+      <td> どの方向からつめていくかを指定します：Tk.TOP (default), 上からつめます。
+Tk.LEFT, 左からつめます。Tk.RIGHT, 右からつめます。Tk.BOTTOM, 下からつめます。</td>
+   </tr>
+</table>
+
+<h3>3.1. ラベルを３つ縦に並べる。</h3>
+簡単な例としてラベルを３つ縦に並べることを考えてみましょう。
+ラベルの幅を違えるため、文字列を長いのと短いのを表示させます。
+また、境界をはっきりさせるため、relief=Tk.RIDGE を指定し、背景色をつけましょう。
+まずは普通に縦に配置してみます。<br>
+<b>[code 1]</b> にコードを示します。<p>
+
+<b>[code 1]</b>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     three_labels_a.py
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     pack three labels from the TOP.
+<span class="linenumber">07:</span>     No option of pack is used.
+<span class="linenumber">08:</span>     """</span>
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     import Tkinter as Tk
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     class Frame(Tk.Frame):
+<span class="linenumber">14:</span>         <span class="string">""" Frame with three label """</span>
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>         def __init__(self, master=None):
+<span class="linenumber">17:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">18:</span>             self.master.title('Pack Three Labels')
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>             <span class="comment"># First Label</span>
+<span class="linenumber">21:</span>             la = Tk.Label(self, text='Hello everybody. How are you?',  bg='yellow', relief=Tk.RIDGE, bd=2)
+<span class="linenumber">22:</span>             la.pack()
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>             <span class="comment"># Second Label</span>
+<span class="linenumber">25:</span>             lb = Tk.Label(self, text='Oh My God!', bg='red', relief=Tk.RIDGE, bd=2)
+<span class="linenumber">26:</span>             lb.pack()
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>             <span class="comment"># Third Label</span>
+<span class="linenumber">29:</span>             lc = Tk.Label(self, text='See you tomorrow.', bg='LightSkyBlue', relief=Tk.RIDGE, bd=2)
+<span class="linenumber">30:</span>             lc.pack()
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>     <span class="comment">##----------------</span>
+<span class="linenumber">33:</span>     if __name__ == '__main__':
+<span class="linenumber">34:</span>         f = Frame()
+<span class="linenumber">35:</span>         f.pack()
+<span class="linenumber">36:</span>         f.mainloop()
+</pre>
+このコードでは、Tk.Frame クラスの導出クラスとして Frame クラスを定義し、その中にラベルを配置していきます。
+Python の GUI プログラムは Tkinter に限らず、このような形で書くのが一般的です。<p>
+このコードを実行すると <b>[図 1]</b> のような widget が生成します。<p>
+<b>[図 1]</b><br>
+<img src='three_labels_a.jpg'>
+<p>
+  22, 26, 30 行目の pack に <em>padx=5, pady=5</em> のオプションをつけると <b>[図 2]</b> 
+  のようにラベルの間に隙間ができます。<p>
+    <b>[図 2]</b><br><img src='three_labels_b.jpg'><p>
+
+  pack のオプションを <em>padx=5, pady=5, fill=TK.X</em> とすると <b>[図 3]</b> のようにラベルが横に広がります。<p>
+    <b>[図 3]</b><br><img src='three_labels_c.jpg'><p>
+
+      pack のオプションを <em>padx=5, pady=5, anchor=Tk.W</em> とすると <b>[図 4]</b>
+      のようにラベルが左寄せになります。。<p>
+    <b>[図 4]</b><br><img src='three_labels_d.jpg'><p>
+
+<h2>4. grid</h2>
+２次元的に配置するときは grid を使います。grid には以下の option があります。
+
+<table border=1>
+   <tr>
+      <th>属性</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td><b>column</b></td>
+      <td>配置する列です。</td>
+   </tr>
+   <tr>
+      <td><b>columnspan<b></td>
+      <td>何列にわたって配置するかを指定します。デフォルトは 1 です。</td>
+   </tr>
+   <tr>
+      <td><b>padx</b></td>
+      <td>外側の横の隙間を指定します。</td>
+   </tr>
+   <tr>
+      <td><b>pady</b></td>
+      <td>外側の縦の隙間を指定します。</td>
+   </tr>
+   <tr>
+      <td><b>ipadx<b></td>
+      <td>内側の横の隙間を指定します。</td>
+   </tr>
+   <tr>
+      <td><b>ipady<b></td>
+      <td>内側の縦の隙間を指定します。</td>
+   </tr>
+   <tr>
+      <td><b>row</b></td>
+      <td>配置する行です。</td>
+   </tr>
+   <tr>
+      <td><b>rowspan</b></td>
+      <td>何行にわたって配置するかを指定します。デフォルトは 1 です。</td>
+   </tr>
+   <tr>
+      <td><b>sticky</b></td>
+      <td>pack の anchor と fill をあわせた属性です。
+  スペースに余裕がある場合、どこに配置するか、どのように引き伸ばすかを指定します。<br>
+  指定できる値は anchor と同じ、Tk.CENTER, Tk.W, Tk.E, Tk.N, Tk.S, Tk.NW, Tk.NW, Tk.SW, Tk.SE です。
+  位置決めには値を単独で、引き伸ばす場合には値を '+' して指定します。<br>
+  たとえば、左寄せは <em>sticky=Tk.W</em>, 上よせは <em>sticky=Tk.N</em>。<br>
+  左右に引き伸ばすには <em>sticky=Tk.W + Tk.E</em>, 上下に引き伸ばすには <em>sticky=Tk.N + Tk.S</em>,<br>
+  全体に引き伸ばすには <em>sticky=Tk.W + Tk.E + Tk.N + Tk.S</em>。</td>
+   </tr>
+</table>
+<h3>4.1. ラベルを３つ、上段に１つ、下段に２つ配置する。</h3>
+  3.1. と同じ３つのラベルを上段に１つ、下段に２つ配置してみましょう。<br>
+コードを <b>[code 2]</b> 示します。pack を使った場合とほとんど同じです。<p>
+
+<b>[code 2]</b><p>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     three_labels_b.py
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     grid three labels from the TOP.
+<span class="linenumber">07:</span>     one at row=0, other two at row=1
+<span class="linenumber">08:</span>     """</span>
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     import Tkinter as Tk
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     class Frame(Tk.Frame):
+<span class="linenumber">14:</span>         <span class="string">""" Frame with three label """</span>
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>         def __init__(self, master=None):
+<span class="linenumber">17:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">18:</span>             self.master.title('Pack Three Labels')
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>             <span class="comment"># First Label</span>
+<span class="linenumber">21:</span>             la = Tk.Label(self, text='Hello everybody.',  bg='yellow', relief=Tk.RIDGE, bd=2)
+<span class="linenumber">22:</span>             la.grid(row=0, column=0, columnspan=2, padx=5, pady=5)
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>             <span class="comment"># Second Label</span>
+<span class="linenumber">25:</span>             lb = Tk.Label(self, text='Oh My God!', bg='red', relief=Tk.RIDGE, bd=2)
+<span class="linenumber">26:</span>             lb.grid(row=1, column=0, padx=5, pady=5)
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>             <span class="comment"># Third Label</span>
+<span class="linenumber">29:</span>             lc = Tk.Label(self, text='See you tomorrow.', bg='LightSkyBlue', relief=Tk.RIDGE, bd=2)
+<span class="linenumber">30:</span>             lc.grid(row=1, column=1, padx=5, pady=5)
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>     <span class="comment">##----------------</span>
+<span class="linenumber">33:</span>     if __name__ == '__main__':
+<span class="linenumber">34:</span>         f = Frame()
+<span class="linenumber">35:</span>         f.pack()
+<span class="linenumber">36:</span>         f.mainloop()
+</pre>
+  このコードを実行して生成する widget は <b>[図 5]</b> のようになります。<p>
+    <b>[図 5]</b><br><img src='three_labels_e.jpg'><p>
+
+      22 行目の grid のオプションを <em>row=0, column=0, columnspan=2, padx=5, pady=5, sticky=Tk.W+Tk.E</em>
+      に変更して、上のラベルを横に広げて見ましょう。結果は <b>[図 6]</b>のようになります。<p>
+    <b>[図 6]</b><br><img src='three_labels_f.jpg'><p>
+
+今度は 22 行目の grid のオプションを <em>row=0, column=0, columnspan=2, padx=5, pady=5, sticky=Tk.W</em>
+      に変更して、上のラベルを左寄せして見ましょう。結果は <b>[図 7]</b> のようになります。<p>
+    <b>[図 7]</b><br><img src='three_labels_g.jpg'><p>
+
+  <h2>5. place</h2>
+配置を直接指定する方法です。pack や grid でうまく配置できないときにつかいます。
+  place の option は以下の通りです。
+<table border=1>
+   <tr>
+      <th>属性</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td><b>anchor</b></td>
+      <td>pack と同じ、デフォルトは Tk.NW</td>
+   </tr>
+   <tr>
+      <td><b>bordermode</b></td>
+      <td>縁を内側 (Tk.INSIDE) か外側(Tk.OUTSIDE)につける。デフォルトは Tk.INSIDE</td>
+   </tr>
+   <tr>
+      <td><b>height</b></td>
+      <td> 高さを pixel で指定。</td>
+   </tr>
+   <tr>
+      <td><b>relheight</b></td>
+      <td> 親 widget に対する相対的な高さを 0.0 -- 1.0 の実数で指定。</td>
+   </tr>
+   <tr>
+      <td><b>relwidth</b></td>
+      <td> 親 widget に対する相対的な幅を 0.0 -- 1.0 の実数で指定。</td>
+   </tr>
+   <tr>
+      <td><b>relx</b></td>
+      <td>親 widget に対する相対的な横の位置を 0.0 -- 1.0 の実数で指定。デフォルトは 0</td>
+   </tr>
+   <tr>
+      <td><b>rely</b></td>
+      <td>親 widget に対する相対的な横の位置を 0.0 -- 1.0 の実数で指定。デフォルトは 0</td>
+   </tr>
+   <tr>
+      <td><b>width</b></td>
+      <td> 幅を pixel で指定。</td>
+   </tr>
+   <tr>
+      <td><b>x</b></td>
+      <td>横の位置を pixel で指定。デフォルトは 0</td>
+   </tr>
+   <tr>
+      <td><b>y</b></td>
+      <td>縦の位置を pixel で指定。デフォルトは 0</td>
+   </tr>
+</table>
+<p>
+<b>[code 3]</b> に place を使った例を挙げます。
+widget を斜めにずらして配置するときには place を使うとすっきりと記述できます。
+  place メソッドを使うときは親フレームの width と height をあらかじめ指定しておく必要があります。<p>
+<b>[code 3]</b><br>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     three_labels_p.py
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     place three labels using place method.
+<span class="linenumber">07:</span>     """</span>
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     import Tkinter as Tk
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     class Frame(Tk.Frame):
+<span class="linenumber">13:</span>         <span class="string">""" Frame with three label """</span>
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>         def __init__(self, master=None):
+<span class="linenumber">16:</span>             Tk.Frame.__init__(self, master, height=100, width=200)
+<span class="linenumber">17:</span>             self.master.title('Pack Three Labels')
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>             <span class="comment"># First Label</span>
+<span class="linenumber">20:</span>             la = Tk.Label(self, text='Hello everybody. How are you?',  bg='yellow', relief=Tk.RIDGE, bd=2)
+<span class="linenumber">21:</span>             la.place(relx=0.02, rely=0.1, relheight=0.3, relwidth=0.95)
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>             <span class="comment"># Second Label</span>
+<span class="linenumber">24:</span>             lb = Tk.Label(self, text='Oh My God!', bg='red', relief=Tk.RIDGE, bd=2)
+<span class="linenumber">25:</span>             lb.place(relx=0.15, rely=0.45)
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>             <span class="comment"># Third Label</span>
+<span class="linenumber">28:</span>             lc = Tk.Label(self, text='See you tomorrow.', bg='LightSkyBlue', relief=Tk.RIDGE, bd=2)
+<span class="linenumber">29:</span>             lc.place(relx=0.5, rely=0.75)
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     <span class="comment">##----------------</span>
+<span class="linenumber">32:</span>     if __name__ == '__main__':
+<span class="linenumber">33:</span>         f = Frame()
+<span class="linenumber">34:</span>         f.pack()
+<span class="linenumber">35:</span>         f.mainloop()
+</pre>
+<b>[図 8]</b> に生成する widget を示します。<p>
+  <b>[図 8]</b><br><img src='three_labels_p.jpg'><p>
+
+    
+  <h2>6. Frame を入れ子にする</h2>
+Frame を入れ子にすることによって、複雑な window を作ることができます。
+  <b>[code 4]</b> に例を示します。この Frame は f1 と f2 を内部に含み、f1 と f2 は
+  それぞれ４つのラベルを含みます。<p>
+<b>[code 4]</b><br>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     nested_frames.py
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     """</span>
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     import Tkinter as Tk
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     class Frame(Tk.Frame):
+<span class="linenumber">12:</span>         <span class="string">""" Frame with two frames inside """</span>
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>         def __init__(self, master=None):
+<span class="linenumber">15:</span>             Tk.Frame.__init__(self, master, height=200, width=200)
+<span class="linenumber">16:</span>             self.master.title('Nested Frames')
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>             <span class="comment"># First Frame</span>
+<span class="linenumber">19:</span>             f1 = Tk.Frame(self, relief=Tk.RIDGE, bd=2)
+<span class="linenumber">20:</span>             for text, color in [('A', 'magenta'), ('B', 'yellow'), ('C', 'SeaGreen'), ('D', 'LightSkyBlue')]:
+<span class="linenumber">21:</span>                 l=Tk.Label(f1, text=text, bg=color, font=('Helvetica', '16'))
+<span class="linenumber">22:</span>                 l.pack(side=Tk.LEFT)
+<span class="linenumber">23:</span>             f1.place(relx=0.2, rely=0.2)
+<span class="linenumber">24:</span>             
+<span class="linenumber">25:</span>             <span class="comment"># Second Frame</span>
+<span class="linenumber">26:</span>             f2 = Tk.Frame(self, relief=Tk.RIDGE, bd=2)
+<span class="linenumber">27:</span>             for i, (text, color) \
+                        in enumerate([('A', 'magenta'), ('B', 'yellow'), ('C', 'SeaGreen'), ('D', 'LightSkyBlue')]):
+<span class="linenumber">28:</span>                 l=Tk.Label(f2, text=text, bg=color, font=('Helvetica', '16'))
+<span class="linenumber">29:</span>                 l.grid(row=i/2, column=i%2)
+<span class="linenumber">30:</span>             f2.place(relx=0.6, rely=0.6)
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>     <span class="comment">##----------------</span>
+<span class="linenumber">34:</span>     if __name__ == '__main__':
+<span class="linenumber">35:</span>         f = Frame()
+<span class="linenumber">36:</span>         f.pack()
+<span class="linenumber">37:</span>         f.mainloop()
+</pre>
+
+<b>[code 4]</b> を動かすと <b>[図 9]</b> の window が生成します。<p>
+  <b>[図 9]</b><br><img src='nested_frames.jpg'><p>
+
+  <h2>7. 終わりに</h2>
+今回の話は少し退屈だったかもしれません。しかし、widget の配置の方法を知らないと先に進めないので、
+  少し丁寧に説明しました。<p>
+    次回からはそれぞれの widget について解説していきます。
+  
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+
+<td><a rel='prev' href="tkinter1.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  1. Hello world!</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter3.html"><img src='../images/right_arrow.gif' class='arrow' border=0>3. Label だけでタイマーを作ろう</a></td>
+<!-- <td><a rel='download' href="8queen_py.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter2.html&t=Tkinter+%C6%FE%CC%E7%3A+2.+Widget+%A4%F2%C7%DB%C3%D6%A4%B7%A4%E8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

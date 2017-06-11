@@ -1,0 +1,369 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme 入門">
+<meta name="description" content="初心者向け Scheme 入門">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 A-1. N Queens パズル</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_amb.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  18. 非決定性</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_calc.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-2. 関数電卓</a></td>
+<td><a rel=download href="nqueen.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_nqueen.html&t=Scheme+%C6%FE%CC%E7+A-1.+N+Queens+%A5%D1%A5%BA%A5%EB' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>  Appendix 1. N Queens パズル   </h1>
+<hr>
+<h2>1. 初めに </h2>
+今までの説明で通常のプログラムは書けるようになったので、
+今回は復習をかねて、 N Queen パズルを取り上げます。
+このパズルは N x N のチェス盤の上に N 個の Queen を互いの利き筋が重ならない（つまり、一手ではお互いに取られない）
+ように置くパズルです。Queen はチェスの駒で、縦横、斜めに駒にぶつかるか、盤の端に来るまで好きなだけ動けます。
+（日本将棋の飛車と角を合わせた動きをします。）
+<p>
+  ８ x 8 のチェス盤の場合、解は 92 個あります。チェス盤の対称操作を考慮すると独立の解は 12 個になります。
+  ここでは、対称操作を考慮した解を求めてみます。
+  このパズルを解くプログラムには再帰関数がふんだんに出てくるので Scheme 向きの問題といえます。
+  Scheme である程度大きいプログラムを書くとどんな感じになるか見てください。
+
+<h2>2. パズルの解き方</h2>
+<h3>2.1. 縦横の利きの避け方</h3>
+Queen は縦横に利いているので、それぞれの行と列には Queen は１つずつしか入れません。
+従って、0 から (n-1) の整数の順列を作り、数が行、数の位置が列を表すようにすれば、
+縦横の利きはぶつかりません。(図１）後は斜めの利きがぶつからないようにしながら Queen を置いていけば
+解けます。<p>
+  <center><img src='8q_a.png'><br>
+    <big>'(3 1 6 2 5 7 4 0)</big><p>
+    図１：0 から (n-1) の整数の順列を作り、数が行、数の位置が列を表すようにすれば、
+縦横の利きは避けることができる。</center>
+
+<h3>2.2. 斜めの利き避け方</h3>
+Queen は盤の右から左に向かって置いていきます。<p>
+  新しく置かれた Queen の行の位置を <var>p</var> とすると、隣の列での斜めの利きは <var>(p+1)</var>, <var>(p-1)</var>
+  となり、列の移動に伴って１つ増えるか、１つ減るかします。従って、新しく置かれた Queen <var>q</var>
+  がすでに盤上にある Queen <var>qs</var> とぶつかるかどうかは次の関数で調べることができます。（2.1. の方針に従って
+  縦横はぶつからないことが保証されているとします。）<p>
+[code 1]
+<pre class='code'>
+<span class='comment'>;; check if queens conflict each other</span>
+(define (conflict? q qs)
+  (let loop((up (inc q)) (down (dec q)) (ls0 qs))
+    (if (null? ls0)
+        #f
+      (let ((c (car ls0)))
+        (or
+         (= c up)
+         (= c down)
+         (loop (inc up) (dec down) (cdr ls0)))))))
+</pre>
+関数 <tt>conflict?</tt> は Queen の利きが衝突すれば #t をしなければ #f を返します。
+ここで <tt>(inc x)</tt>, <tt>(dec x)</tt> は引数 x に１を加える、1 を引く関数です。
+
+<h3> 2.3. Queen を盤に置いていく</h3>
+Queen を盤に置いていくには [code 2] に示す <span class='ttb'>q-add</span> を使います。
+<tt>q-add</tt> は <tt>queen</tt> の内部関数です。<p>
+[code 2]
+<pre class='code'>
+    (letrec ((q-sethash (lambda (qs)                 <span class='comment'>;; registrate on the hash table</span>
+                          (let ((qi (q2int n qs)))
+                            (when (eq? (hashtable-ref qsol qi 'not-yet) 'not-yet)
+                                 (for-each
+                                  (lambda (op)
+                                    (hashtable-set! qsol (q2int n (op qs)) #f))
+                                  (list t90 t180 t270 reverse usd d1 d2))
+                                 (hashtable-set! qsol qi #t)))))
+                          
+              
+             (q-add (lambda (qs i pool)             <span class='comment'>;; adding new queen</span>
+                      (if (= i n)
+                          (q-sethash qs)
+                        (for-each (lambda (x)
+                                    (or (conflict? x qs)
+                                        (q-add (cons x qs) (inc i) (remove x pool))))
+                                  pool)))))
+ 
+</pre>
+<tt>q-add</tt> はすでに盤上にある Queen のリスト <var>qs</var> と置かれている
+Queen の数 <var>i</var> とまだ使われていない行のリスト <var>pool</var>
+の３つの引数をとります。置かれている Queen の数が <var>n</var> に等しいときは、<span class='ttb'>q-sethash</span>
+補助関数を使って解をハッシュ表に登録します。そうでなければ、<var>pool</var> に残っている行について、すでに置かれている
+Queen と衝突するか調べ、衝突しなければ、それを盤上に加え、<var>pool</var> からそれを取り除いて、
+<tt>q-add</tt> を繰り返します。
+<tt>(remove x ls)</tt> は ls から x を取り除いたリストを返す関数です。付録の nqueen.scm にその定義があります。
+
+<h3> 2.4. 解をハッシュ表に登録する</h3>
+[code 2] の補助関数 <tt>q-sethash</tt> を使って解をハッシュ表に登録します。
+<p>
+q-sethash では、まず、解を q2int で整数に変えてハッシュ表のキーにします。
+  次に、解がすでにハッシュ表に登録されているか調べます。
+  もし、登録されていなければ、対称操作で生ずる盤面を値 <tt>#f</tt> で登録し、その後、もとの盤面を
+  値 <tt>#t</tt> で登録します。こうすると、対称操作で互いの変換できない独立した解のみが値
+   <tt>#t</tt> でハッシュ表に登録されます。
+<p>
+N Queens を解く関数 (queen n) は [code 3] のようになります。
+24 行目の <tt>(q-add () 0 (range n)))</tt> でを探し始め、25--27 行目で独立解を選び出し、
+  28 行目でプロットします。
+  値が何も返らないと落ち着かないので、解の数を返すようにします。<p>
+<a name='code3'>
+[code 3]
+<pre class='code'>
+<span class='comment'>;;; the main function</span>
+(define (queen n)
+  (let ((qsol (make-eqv-hashtable))
+        (qlist '()))
+    (letrec ((q-sethash (lambda (qs)                 <span class='comment'>;; registrate on the hash table</span>
+                          (let ((qi (q2int n qs)))
+                            (when (eq? (hashtable-ref qsol qi 'not-yet) 'not-yet)
+                                 (for-each
+                                  (lambda (op)
+                                    (hashtable-set! qsol (q2int n (op qs)) #f))
+                                  (list t90 t180 t270 reverse usd d1 d2))
+                                 (hashtable-set! qsol qi #t)))))
+                          
+              
+             (q-add (lambda (qs i pool)             <span class='comment'>;; adding new queen</span>
+                      (if (= i n)
+                          (q-sethash qs)
+                        (for-each (lambda (x)
+                                    (or (conflict? x qs)
+                                        (q-add (cons x qs) (inc i) (remove x pool))))
+                                  pool)))))
+                      
+            (q-add '() 0 (range n)))
+    (let-values (((key value) (hashtable-entries qsol)))  <span class='comment'>; pick up distinct solutions</span>
+                (vector-for-each
+                 (lambda (k v)
+                   (when v (set! qlist (cons (int2q n k) qlist))))
+                 key value))
+    (qplot n qlist)   <span class='comment'>;; plotting the distinct solutions</span>
+    (length qlist)))
+</pre>
+
+
+   
+<h3> 2.5. 対称操作</h3>
+対称操作には、動かさないという操作のほかに、90, 180, 270 度回転、上下、左右、対角線（２つ）反転
+の７つがあります。回転は、N Queens パズルの性質から、0 -- (n-1) の数の列の位置を返すと 90 度回転になります。
+対称操作関数を [code 4] に挙げます。
+<p>
+[code 4]
+<pre class='code'>
+<span class='comment'>;;; symmetry operations</span>
+<span class='comment'>;; turn 90 degree</span>
+(define (t90 qs)
+  (let ((n (length qs)))
+    (let loop ((ls1 '()) (i 0))
+      (if (= i n)
+          ls1
+        (loop (cons (position i qs) ls1) (inc i))))))
+
+<span class='comment'>;; turn 180 degree</span>
+(define (t180 qs)
+  (usd (reverse qs)))
+
+<span class='comment'>;; turn 270 degree</span>
+(define (t270 qs)
+  (t90 (t180 qs)))
+
+<span class='comment'>;; up side down</span>
+(define (usd qs)
+  (let ((n (dec (length qs))))
+    (map (lambda (x) (- n x)) qs)))
+
+<span class='comment'>;; reflection on diagonal 1</span>
+(define (d1 qs)
+  (reverse (t90 qs)))
+
+<span class='comment'>;; reflection on diagonal 2</span>
+(define (d2 qs)
+  (usd (t90 qs)))
+</pre>
+
+<h3> 2.6. 結果の表示</h3>
+結果の表示には <a href='http://www.gnuplot.info/'>gnuplot</a> を使います。<p>
+  MzScheme には グラフィック用ライブラリがありますが、gnuplot に書かせたほうが簡単です。
+  表示の部分のコードを [code 5] に示します。<var>i</var> 番目の解に対して q<var>i</var>.dat という
+  データファイルをつくり、それを queen.plt というコマンドファイルでプロットします。
+  gnuplot のコンソールに<br>
+  load 'queen.plot'<br>
+  と与えると、図に示すプロットが表示され、ダイアログで 'OK' をクリックすると次の解が表示されます。<p>
+    <center><img src='8q_b.png'><br>
+      図２： N Queen パズルの解の表示</center>
+    
+  
+[code 5]
+<pre class='code'>
+<span class='comment'>;;; plotting using gnuplot</span>
+;; drawing grid
+(define (draw-grid n)
+  (let ((p (number-&gt;string (inc n))))
+    (let loop((i 0))
+      (when (&lt;= i n)
+          (let ((s (number-&gt;string (inc i))))
+            (print-lines
+             (string-append "set arrow from " s ", 1 to " s ", " p " nohead lt 5")
+             (string-append "set arrow from 1, " s " to " p ", " s " nohead lt 5"))
+            (loop (inc i)))))))
+    
+
+<span class='comment'>;; plotting data file of the solution</span>
+(define (plot-queen len)
+  (let loop((i 0))
+    (when (&lt; i len)
+         (print-lines
+          (string-append "set title \"solution: " (number-&gt;string (inc i)) "\"")
+          (string-append "plot \"q" (number-&gt;string i) ".dat\" title \"queen\" with point pointsize 3")
+          "pause -1 \"Hit return to continue\"")
+         (loop (inc i)))))
+
+<span class='comment'>;; writing data files</span>
+(define (q-write-dat qls)
+  (let loop((i 0) (ls qls))
+    (when (pair? ls)
+         (with-output-to-file (string-append "q" (number-&gt;string i) ".dat")
+            (lambda ()
+              (let rec((j 0) (ls1 (car ls)))
+                (when (pair? ls1)
+                     (print-lines (string-append (number-&gt;string (+ j 1.5)) " " (number-&gt;string (+ (car ls1) 1.5))))
+                     (rec (inc j) (cdr ls1))))))
+         (loop (inc i) (cdr ls)))))
+                   
+<span class='comment'>;; making a command file for gnuplot</span>                
+(define (qplot n qls)
+  (q-write-dat qls)
+  (with-output-to-file "queen.plt"
+    (lambda ()
+      (let ((s (number-&gt;string (+ n 2))))
+        (print-lines
+         "reset"
+         "set size square"
+         (string-append "set xrange [0:" s "]")
+         (string-append "set yrange [0:" s "]"))
+        (draw-grid n)
+        (plot-queen (length qls))))))
+
+</pre>
+<h2>3. 付録の使い方</h2>
+<a href='nqueen.lzh'>付録</a>には <tt>nqueen.scm</tt> が入っているので、
+次のようにして遊んでください。
+<ol>
+ <li> 付録を解凍して生じた <tt>nqueen.scm</tt> を MzScheme で load する。
+<li> (queen <var>n</var>) を実行する。
+
+<pre class='samp'>
+C:\doc\scheme>mzscheme
+Welcome to MzScheme v4.0.2 [3m], Copyright (c) 2004-2008 PLT Scheme Inc.
+&gt; (load/cd "nqueen.scm")
+&gt; (queen 8)
+<span class='response'>12</span>
+</pre>
+
+<li> gnuplot で、'load queen.plt' として、解を表示させる。
+</ol>
+
+
+
+
+
+
+<h3> 練習問題 1</h3>
+<a href='#code3'>[code 3]</a> の関数 <tt>queen</tt> を改造して、
+N Queens パズルの解のうち、対称性を持つ解を求める関数 <tt>queen_sym</tt> を書いてください。
+<br>
+また、N Queens の性質から、どういう対象性が許されるか考えてください。
+
+
+
+<h2>4. 終わりに</h2>
+今回は今までの復習として少し大きめのプログラムを書いてみました。
+大き目といっても、200 行弱で、そのうち、汎用ユーティリティが 40 行、
+出力が 50 行占めています。単にリストを返すだけなら 150 行弱で書けることになります。<p>
+
+  ソースコードを見ていただくとわかるように、queen を除く全ての関数が 20 行以下で書かれています。
+  Scheme ではこのように小さい関数を積み上げてプログラムを作っていきます。
+
+
+<h3>練習問題の解答</h3>
+
+<h4>練習問題 1</h4>
+<tt>q-sethsh</tt> を少し変えて、対称操作によって、自分自身に重なるものだけをハッシュ表に登録します。<br>
+反転対称性をもつ解は Queen の利き筋から存在しません。90 度回転の対称性を持つ解は珍しく、
+13x13 以下では 4x4, 5x5, 12x12, 13x13 の場合にしかありません。(図３）ほとんどは 180 度回転の対象性を持ちます。
+<center>
+  <img src='12q90.png'><br>
+  図３：90 度回転対称性を持つ解</center>
+
+<pre class='code'>
+<span class='comment'>;; make my own memv as memv in MzScheme require a 'proper list'</span>
+(define (my-memv obj ls)
+  (cond
+   ((null? ls) #f)
+   ((= obj (car ls)) #t)
+   (else (my-memv obj (cdr ls)))))
+
+<span class='comment'>;;; the main function to find symmetrical solutions</span>
+(define (queen_sym n)
+  (let ((qsol (make-eqv-hashtable))
+        (qlist '()))
+    (letrec ((q-sethash (lambda (qs)                 <span class='comment'>;; registrate on the hash table</span>
+                          (let ((qi (q2int n qs)))
+                            (when (not (hashtable-contains? qsol qi))
+                              (let ((ls_sym (map (lambda (op) (q2int n (op qs))) `(,t90 ,t180 ,t270 ,reverse ,usd ,d1 ,d2))))
+                                (when (my-memv qi ls_sym)
+                                      (for-each
+                                       (lambda (v)
+                                         (hashtable-set! qsol v #f))
+                                       ls_sym)
+                                  (hashtable-set! qsol qi #t)))))))
+
+                          
+             (q-add (lambda (qs i pool)             <span class='comment'>;; adding new queen</span>
+                      (if (= i n)
+                          (q-sethash qs)
+                        (for-each (lambda (x)
+                                    (or (conflict? x qs)
+                                        (q-add (cons x qs) (inc i) (remove x pool))))
+                                  pool)))))
+                      
+            (q-add '() 0 (range n)))
+    (let-values (((key value) (hashtable-entries qsol)))  <span class='comment'>; pick up distinct solutions</span>
+                (vector-for-each
+                 (lambda (k v)
+                   (when v (set! qlist (cons (int2q n k) qlist))))
+                 key value))
+    (qplot n qlist)   ;; plotting the distinct solutions
+    (length qlist)))
+</pre>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_amb.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  18. 非決定性</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_calc.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-2. 関数電卓</a></td>
+<td><a rel=download href="nqueen.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_nqueen.html&t=Scheme+%C6%FE%CC%E7+A-1.+N+Queens+%A5%D1%A5%BA%A5%EB' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+
+</body>
+</html>
+

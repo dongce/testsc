@@ -1,0 +1,406 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="demostrations of Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 4. タイマーにボタンをつけよう </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+
+<td><a rel='prev' href="tkinter3.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  3. Label だけでタイマーを作ろう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter5.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  5. 関数のクラスを使ってクールなコードを書こう</a></td>
+<td><a rel='download' href="tkinter4.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter4.html&t=Tkinter+%C6%FE%CC%E7%3A+4.+%A5%BF%A5%A4%A5%DE%A1%BC%A4%CB%A5%DC%A5%BF%A5%F3%A4%F2%A4%C4%A4%B1%A4%E8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>4. タイマーにボタンをつけよう</h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+今回は<a href='tkinter3.html'>前回</a>作成したタイマーにボタンをつけ、図１に示すようなアプリを作ります。<p>
+  <center><img src='timerb.jpg'><br>[図１]<p></center>
+
+前回作成したタイマーは設定時間を GUI 上で変更できなかったので、それを変更できるようにしました。
+また、Start, Stop, Reset ボタンをつけてみました。<p>
+
+まず、Button の作成方法について述べてから、プログラムの説明をします。
+
+ 
+
+
+<h2>2. Button の作成</h2>
+Button は以下のように作成します。
+<pre class='code'>
+Tk.Button(master, **options)
+</pre>
+最初の引数で親 widget を指定し、キーワード引数を続けます。<br>
+以下に主な属性を示します。
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/button.html'>
+  Tkinter reference: 5. The Button widget</a>
+や、
+<a href='http://effbot.org/tkinterbook/button.htm'>
+  The Tkinter Button Widget</a>
+も参照してください。
+<table border=1>
+   <tr>
+      <th>属性</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>anchor</td>
+      <td>ボタン上のテキストの位置。</td>
+   </tr>
+   <tr>
+      <td>bd or borderwidth</td>
+      <td>pixel 単位の縁の幅</td>
+   </tr>
+   <tr>
+      <td>bg or background</td>
+      <td>ボタンの背景色</td>
+   </tr>
+   <tr>
+      <td>bitmap</td>
+      <td>（テキストの代わりに、）ボタンに表示する bitmap 名</td>
+   </tr>
+   <tr>
+      <td>command</td>
+      <td>ボタンを押したときに呼ばれる関数を指定</td>
+   </tr>
+   <tr>
+      <td>cursor</td>
+      <td>カーソルがボタンにあるとき、その形を指定</td>
+   </tr>
+   <tr>
+      <td>default</td>
+      <td>ボタンの状態の初期値。普通は Tk.NORMAL。押せないようにするには Tk.DISABLED。'state' option で同じことができる。</td>
+   </tr>
+   <tr>
+      <td>disabledforeground</td>
+      <td>ボタンが押せない状態のときの文字色</td>
+   </tr>
+   <tr>
+      <td>fg or foreground</td>
+      <td>通常の文字色</td>
+   </tr>
+   <tr>
+      <td>font</td>
+      <td>フォント</td>
+   </tr>
+   <tr>
+      <td>height</td>
+      <td>テキストの行単位のボタンの高さ。image の時は pixel 単位</td>
+   </tr>
+   <tr>
+      <td>image</td>
+      <td>テキストの代わりにボタンに表示するイメージ</td>
+   </tr>
+   <tr>
+      <td>justify</td>
+      <td>数行に渡るテキストのそろえ方。</td>
+   </tr>
+   <tr>
+      <td>padx</td>
+      <td>横の余白</td>
+   </tr>
+   <tr>
+      <td>pady</td>
+      <td>縦の余白</td>
+   </tr>
+   <tr>
+      <td>relief</td>
+      <td>縁の形</td>
+   </tr>
+   <tr>
+      <td>state</td>
+      <td>ボタンの状態を指定。デフォルトは NORMAL.
+	ボタンが利かない状態にするには DISABLED を指定。</td>
+   </tr>
+    <tr>
+      <td>text</td>
+      <td>ボタン上に表示するテキスト</td>
+   </tr>
+   <tr>
+      <td>textvariable</td>
+      <td>ボタン上に表示する Tk.StringVar()</td>
+   </tr>
+   <tr>
+      <td>underline</td>
+      <td>下線をつける文字の位置を指定。デフォルトは -1</td>
+   </tr>
+   <tr>
+      <td>width</td>
+      <td>テキストを表示しているときは文字数、イメージを表示しているときは pixel で指定。</td>
+   </tr>
+   <tr>
+      <td>wraplength</td>
+      <td>長いテキストの折り返しの幅を指定。</td>
+   </tr>
+</table>
+Label の時と同様に、これらの属性は <span class='mono'>configure</span> メソッドを使って、
+プログラムの実行中に変化させることができます。
+また、image の貼り方なども Label と同様です。
+
+<h2>3. タイマーにボタンをつける。</h2>
+早速タイマーを作ってみましょう。
+かなりの部分は前回作ったものと同じです。
+動作中に不要なボタンを押せないようにするため、こまめに <var>state</var> 属性を変えています。<p>
+[code 1](timerb.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     timerb.py
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     June 27, 2005
+<span class="linenumber">07:</span>     """</span>
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     import Tkinter as Tk
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     BLUE = '#99CCFF'
+<span class="linenumber">15:</span>     YELLOW = '#FFCC00'
+<span class="linenumber">16:</span>     RED = '#FF00FF'
+<span class="linenumber">17:</span>     CLOCK = 'meza-bl-2.gif'
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     class Frame(Tk.Frame):
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>         def __init__(self, master=None):
+<span class="linenumber">22:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">23:</span>             
+<span class="linenumber">24:</span>             self.echo = Tk.StringVar()
+<span class="linenumber">25:</span>             self.m = 3
+<span class="linenumber">26:</span>             self.echo_set()
+<span class="linenumber">27:</span>             
+<span class="linenumber">28:</span>             self.master.title('Alarm')
+<span class="linenumber">29:</span>             f_display = Tk.Frame(self, relief=Tk.RIDGE, bd=4)
+<span class="linenumber">30:</span>             f_display.pack(fill=Tk.X, expand=1)
+<span class="linenumber">31:</span>             
+<span class="linenumber">32:</span>             self.image= Tk.PhotoImage(file=CLOCK)
+<span class="linenumber">33:</span>             self.icon=Tk.Label(f_display, image=self.image, bg=BLUE)
+<span class="linenumber">34:</span>             self.icon.grid(row=0,column=0, rowspan=2)
+<span class="linenumber">35:</span>             display = Tk.Label(f_display, textvariable=self.echo, width=5, relief=Tk.SUNKEN, bd=2, anchor = Tk.E, 
+<span class="linenumber">36:</span>                                  font=('Helvetica', '24'), bg='white')
+<span class="linenumber">37:</span>             display.grid(row=0, column=1, rowspan=2, sticky=Tk.N+Tk.S)
+<span class="linenumber">38:</span>             self.b_inc = Tk.Button(f_display, font=('Helvetica', '6'), text='+', command=self.inc_time)
+<span class="linenumber">39:</span>             self.b_inc.grid(row=0, column=2, sticky=Tk.W + Tk.E + Tk.S, pady=1)
+<span class="linenumber">40:</span>             self.b_dec = Tk.Button(f_display, font=('Helvetica', '6'), text='-', command=self.dec_time)
+<span class="linenumber">41:</span>             self.b_dec.grid(row=1, column=2, sticky=Tk.W + Tk.E + Tk.N, pady=1)
+<span class="linenumber">42:</span>     
+<span class="linenumber">43:</span>             
+<span class="linenumber">44:</span>             f_button = Tk.Frame(self)
+<span class="linenumber">45:</span>             f_button.pack(pady=2)
+<span class="linenumber">46:</span>             self.b_start = Tk.Button(f_button, text='Start', command=self.start)
+<span class="linenumber">47:</span>             self.b_stop = Tk.Button(f_button, text='Stop', command=self.stop, state=Tk.DISABLED)
+<span class="linenumber">48:</span>             self.b_reset = Tk.Button(f_button, text='Reset', command=self.reset, state=Tk.DISABLED)
+<span class="linenumber">49:</span>             self.b_start.pack(side=Tk.LEFT, padx=1)
+<span class="linenumber">50:</span>             self.b_stop.pack(side=Tk.LEFT, padx=1)
+<span class="linenumber">51:</span>             self.b_reset.pack(side=Tk.LEFT, padx=1)
+<span class="linenumber">52:</span>     
+<span class="linenumber">53:</span>     
+<span class="linenumber">54:</span>         def echo_set(self):
+<span class="linenumber">55:</span>             self.timer = 60 * self.m
+<span class="linenumber">56:</span>             self.echo.set('%02d:00' % (self.m))
+<span class="linenumber">57:</span>             
+<span class="linenumber">58:</span>         def inc_time(self):
+<span class="linenumber">59:</span>             self.m += 1
+<span class="linenumber">60:</span>             self.echo_set()
+<span class="linenumber">61:</span>     
+<span class="linenumber">62:</span>         def dec_time(self):
+<span class="linenumber">63:</span>             self.m -= 1
+<span class="linenumber">64:</span>             self.echo_set()
+<span class="linenumber">65:</span>     
+<span class="linenumber">66:</span>         def start(self):
+<span class="linenumber">67:</span>             self.started = True
+<span class="linenumber">68:</span>             if 0&lt;self.timer&lt;=20:
+<span class="linenumber">69:</span>                 self.icon.configure(bg=YELLOW)
+<span class="linenumber">70:</span>             elif(0 &gt;= self.timer):
+<span class="linenumber">71:</span>                 self.icon.configure(bg=RED)
+<span class="linenumber">72:</span>             self.after(1000, self.counting)
+<span class="linenumber">73:</span>             self.b_start.configure(state=Tk.DISABLED)
+<span class="linenumber">74:</span>             self.b_stop.configure(state=Tk.NORMAL)
+<span class="linenumber">75:</span>             self.b_inc.configure(state=Tk.DISABLED)
+<span class="linenumber">76:</span>             self.b_dec.configure(state=Tk.DISABLED)
+<span class="linenumber">77:</span>     
+<span class="linenumber">78:</span>         def stop(self):
+<span class="linenumber">79:</span>             self.icon.configure(bg=BLUE)
+<span class="linenumber">80:</span>             self.started = False
+<span class="linenumber">81:</span>             self.b_start.configure(state=Tk.NORMAL)
+<span class="linenumber">82:</span>             self.b_stop.configure(state=Tk.DISABLED)
+<span class="linenumber">83:</span>             self.b_reset.configure(state=Tk.NORMAL)
+<span class="linenumber">84:</span>     
+<span class="linenumber">85:</span>     
+<span class="linenumber">86:</span>         def reset(self):
+<span class="linenumber">87:</span>             self.echo_set()
+<span class="linenumber">88:</span>             self.b_reset.configure(state=Tk.DISABLED)
+<span class="linenumber">89:</span>             self.b_inc.configure(state=Tk.NORMAL)
+<span class="linenumber">90:</span>             self.b_dec.configure(state=Tk.NORMAL)
+<span class="linenumber">91:</span>     
+<span class="linenumber">92:</span>         def counting(self):
+<span class="linenumber">93:</span>                 if self.started:
+<span class="linenumber">94:</span>                     self.timer -=1
+<span class="linenumber">95:</span>                     self.echo.set('%02d:%02d' % (self.timer/60, self.timer%60))
+<span class="linenumber">96:</span>                     if self.timer == 20:
+<span class="linenumber">97:</span>                         self.icon.configure(bg=YELLOW)
+<span class="linenumber">98:</span>     
+<span class="linenumber">99:</span>                     if self.timer &lt;= 0:
+<span class="linenumber">100:</span>                         self.bell()
+<span class="linenumber">101:</span>                         t= -1 * self.timer
+<span class="linenumber">102:</span>                         self.icon.configure(bg=RED)
+<span class="linenumber">103:</span>                         self.echo.set('-%02d:%02d' % (t/60, t%60))
+<span class="linenumber">104:</span>                         self.after(500, self.yellow)
+<span class="linenumber">105:</span>                         
+<span class="linenumber">106:</span>                     self.after(1000, self.counting)
+<span class="linenumber">107:</span>     
+<span class="linenumber">108:</span>         def yellow(self):
+<span class="linenumber">109:</span>             if self.started:
+<span class="linenumber">110:</span>                 self.icon.configure(bg=YELLOW)
+<span class="linenumber">111:</span>     
+<span class="linenumber">112:</span>     
+<span class="linenumber">113:</span>     if __name__ == '__main__':
+<span class="linenumber">114:</span>         f = Frame()
+<span class="linenumber">115:</span>         f.pack()
+<span class="linenumber">116:</span>         f.mainloop()
+</pre>
+
+<h3>3.1. 使い方と動作</h3>
+コマンドラインから
+<pre class='samp'>
+&gt;python timerb.py 
+</pre>
+とすると、図１で示した widget があらわれます。
+設定時間を増やすときには時間表示の右側の '+' ボタンを、減らすときには '-' ボタンを押します。
+設定時間は 1 分単位で増減します。<p>
+
+計測を始めるには 'Start'、止めるには 'Stop'、リセットするには 'Reset' ボタンを押します。
+  時計アイコンの背景色の変化などは<a href='tkinter3.html'>前回</a>と同じです。
+
+
+<h3>3.2. プログラムの簡単な説明</h3>
+以下に簡単な説明をします。カッコ内の数字はソースコードの行数です。<p>
+  <ul>
+<li><b>class Frame(Tk.Frame)</b>:<br>
+  まず、<var>Tk.Frame</var> の導出クラスである <var>Frame</var> クラスを作ります。
+  これが、時計の GUI を定義します (19--110)。
+  <ul>
+<li> <b>__init__</b> (21--41)。
+  <ul>
+     <li>まず、Tk.Frame として初期化します (22)
+       <li>表示用 変数 <var>self.echo</var> と 設定時間を
+                               保持する <var>self.m</var> を定義します (25,26)、
+	 その後、メソッド <var>self.echo_set</var> (54--56)を呼び出して、
+表示と残り時間をセットします (26)。
+	 <li> 28 行目で Window のタイトルを 'Alarm' にセットします。
+
+  <li>次に、時計アイコンと、時間表示、設定値の増減ようボタンを収めるフレーム <var>f_display</var> を作成し、pack します 
+  (29,30)。
+    <li>時計アイコンの画像を <var>self.image</var> をつくり (32)、それをラベル <var>self.icon</var> に貼り付け (33)、さらに
+      <var>self.icon</var> を grid します。このとき <span class='mono'>rowspan=2</span> を指定して上下に突き抜けます (34)。
+  
+    <li>表示用ラベル <var>display</var> を作り、それを grid します (35--37)。
+    <li>設定時間増加用ボタン <var>self.b_inc</var> を作ります。コマンドに <var>self.inc_time</var> を指定します (38)。
+    <li><var>self.b_inc</var> を grid します。ボタンの大きさがちょうど良くなるように sticky で調節します (39)。
+    <li>同様に、設定時間減少用ボタン <var>self.b_dec</var> を作って grid します (40,41)。
+    <li>Start, Stop, Reset ボタン用のフレーム <var>f_button</var> を作り、 pack します (44,45)。
+     <li> Start ボタン <var>self.b_start</var> を作ります。command は <var>self.start</var> です (46)。
+     <li> Stop ボタン <var>self.b_stop</var> を作ります。command は <var>self.stop</var> です。
+       <span class='mono'>state=Tk.DISABLED</span> にして、
+       このボタンが利かないようにします (47)。
+     <li> Reset ボタン <var>self.b_reset</var> を作ります。command は <var>self.reset</var> です。
+       <span class='mono'>state=Tk.DISABLED</span> にして、
+       このボタンが利かないようにします (48)。
+    <li> これら３つのボタンを左から pack します (49--51)。
+      </ul>
+  
+   <li> <b>echo_set</b>: <br>表示と残り時間を設定するメソッド <var>self.echo_set</var> を定義します (54--56)。
+   <li> <b>inc_time</b>: <br>設定時間を１分増やすメソッド <var>self.inc_time</var> を定義します (58-60)。
+   <li> <b>dec_time</b>: <br>設定時間を１分減らすメソッド <var>self.dec_time</var> を定義します (58-60)。
+   <li> <b>start</b>: <br>時計を動かすメソッド <var>self.start</var> を定義します (66--76)。
+     <ul>
+       <li>時計が動いているので、<span class='mono'>self.started = True</span> にします (67)。
+       <li>残り時間が 0--20 秒のときは時計アイコンの背景を黄色にします (68,69)。また、
+       残り時間がなくなっているときは赤色にします (70,71)。
+       <li>一秒後に <var>self.counting</var> を呼び出します (72)。
+	 <li><var>self.b_stop</var> の state を <span class='mono'>Tk.NORMAL</span> にし、
+	   <var>self.b_start</var>, <var>self.b_inc</var>, <var>self.b_dec</var> を
+	   <span class='mono'>Tk.DISABLED</span> にします (73--76)。
+	   </ul>
+    <li> <b>stop</b>: <br>時計を止めるメソッド <var>self.stop</var> を定義します (78--83)。
+      <ul>
+        <li>時計アイコンの背景を青にします (79)
+	  <li> 時計が止まったので、<span class='mono'>self.started = False</span> にします (80)。
+	    <li><var>self.b_start</var> と <var>self.b_reset</var> を
+	      <span class='mono'>NORMAL</span> にし、 <var>self.b_stop</var> を
+	      <span class='mono'>DISABLED</span> にします (81--83)。
+	      </ul>
+      <li><b>reset</b>: <br>時計をリセットするメソッド <var>self.reset</var> を定義します (86--90)。
+	<ul>
+         <li>まず <var>self.echo_set</var> を呼び出して、残り時間と表示をセットします (87)。
+	   <li> 次に <var>self.b_inc</var> と <var>self.b_dec</var> を
+	     <span class='mono'>NORMAL</span> にし、<var>self.b_reset</var> を
+	     <span class='mono'>DISABLED</span> にします (88--90)。
+	     </ul>
+	<li><b>counting</b>: <br>時間を計るメソッド <var>self.counting</var> を定義します (92--106)。
+	  <ul>
+             <li>もし時計が動いていれば (93)、残り時間を１秒減らし (94)、<var>self.echo</var> をセットします (95)。
+	       <li> のこり 20 秒になったら時計アイコンの背景を黄色にします (96,97)。
+	     <li> もし、残り時間がなくなったら、ベルを鳴らし、時計アイコンを赤ー黄に点滅させます。
+	       <li> 1 秒後に <var>self.counting</var> を再帰的に呼び出します。
+		 </ul>
+	 <li><b>yellow</b>: <br>時計アイコンを黄色くするメソッドです (108--110)。
+	   </ul>
+  <li> <b>if __name__ == '__main__'</b>: <br>もし、OS から直接呼ばれたら、
+    <ul>
+     <li> Frame のインスタンス <var>f</var> を作り、
+       <li> それを pack し、
+	 <li> <var>f.mainloop</var> を呼び出して <var>f</var> をアプリにする。
+	   </ul></ul>
+
+
+
+  <h2>4. Button から指定できる command について</h2>
+  Tk.Button の command オプションで指定するのは<span class='important'>関数へのポインター</span>です。
+  従って、
+  引数などは指定できません。
+  指定される関数は内部変数にアクセスするためのポインター <span class='mono'>self</span>
+  のみを引数とするものに限られます。<p>
+
+    普通に考えれると、これはとても不便で、プログラムが冗長になりがちだと思われるかもしれませんが、
+    次回に述べる手法を用いることによってこの問題を回避することができます。
+  <h2>7. 終わりに</h2>
+  Tk.Button の使い方は一通り説明できたと思います。<p>
+  次回は似たような command を効率よく定義する<u>こつ</u>について述べます。
+    
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+
+<td><a rel='prev' href="tkinter3.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  3. Label だけでタイマーを作ろう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter5.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  5. 関数のクラスを使ってクールなコードを書こう</a></td>
+<td><a rel='download' href="tkinter4.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter4.html&t=Tkinter+%C6%FE%CC%E7%3A+4.+%A5%BF%A5%A4%A5%DE%A1%BC%A4%CB%A5%DC%A5%BF%A5%F3%A4%F2%A4%C4%A4%B1%A4%E8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

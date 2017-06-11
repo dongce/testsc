@@ -1,0 +1,91 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="IPA フォント, M+ IPA, フリーフォント">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> Linux できれいな日本語フォントを使う </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc21&t=Linux+%A4%C7%A4%AD%A4%EC%A4%A4%A4%CA%C6%FC%CB%DC%B8%EC%A5%D5%A5%A9%A5%F3%A5%C8%A4%F2%BB%C8%A4%A6"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>Linux できれいな日本語フォントを使う</h1>
+<hr>
+Oct 03, 2006
+<p>
+
+<h2>1. はじめに</h2>
+ディストリビューションに付属している Linux の日本語フォントは
+いまいちなので <a href='http://mix-mplus-ipa.sourceforge.jp/'>M<sup>+</sup> + IPA</a>
+をインストールしました。<p>
+
+IPA フォントは無償で利用できるハイクォリティの日本語フォントです。
+詳しくは <a href='http://yamashita.dyndns.org/blog/173'>ここ</a>などをみてください。<br>
+M<sup>+</sup> + IPA は、IPA フォントに M<sup>+</sup> （きれいなひらがなフォント）を組み合わせて、
+若干改良したものです。
+
+<h2>2. ダウンロードとインストール</h2>
+<a href='http://mix-mplus-ipa.sourceforge.jp/download.html'>ここ</a>
+からダウンロードできます。
+<p>
+
+Plamo Linux では以下の手順でインストールします。
+ディストリビューションによってインストールの方法が若干違いますので、
+詳しくは google などで調べてください。
+<pre class='samp'>
+$ tar xjvf mixfont-mplus-ipa-TrueType-20060520.tar.bz2
+$ cd mixfont-mplus-ipa-TrueType-20060520
+$ cd opfc_ModuleHP-1.1.1_withIPAFonts_and_Mplus
+$ cd fonts
+$ su
+# cp *.ttf /usr/X11R6/lib/X11/fonts/TrueType
+# cd /usr/X11R6/lib/X11/fonts/TrueType
+# mkfontdir
+# mkfontscale
+</pre>
+
+この後、X Windows を再起動すると
+<a href="http://mix-mplus-ipa.sourceforge.jp/preview.html">ここ</a>にある４種類のフォントがインストールされます。M+ と IPA の複合フォントはとてもきれいです。
+
+<p>
+インストール後は Firefox や gnome のフォント設定メニューにこれらのフォントが加わるので
+気に入ったものを選択します。
+
+<h2>3. 見栄え</h2>
+M+2P+IPAG で紫藤のページを Firefox で表示するとこんな感じになります。
+画像をクリックすると拡大されます。<p>
+<center>
+<a href='ipa_font.png'><img border=0 width=300 src='ipa_font.png'></a>
+</center>
+<p>
+Linux のデフォルトの日本語フォント（さざなみ）に比べてだいぶきれいです。<br>
+これなら MS P ゴシックと比べてもこちらのほうがきれいです。
+
+
+<h2>4. 終わりに</h2>
+フォントがきれいになると使っていて気持ちよくなります。<br>
+今までは Linux の日本語フォントの質の低さに辟易していたのですが、
+これからは快適に使えます。<p>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc21&t=Linux+%A4%C7%A4%AD%A4%EC%A4%A4%A4%CA%C6%FC%CB%DC%B8%EC%A5%D5%A5%A9%A5%F3%A5%C8%A4%F2%BB%C8%A4%A6"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

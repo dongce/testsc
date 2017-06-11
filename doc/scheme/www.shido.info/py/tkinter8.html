@@ -1,0 +1,481 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="Image Viewer using Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 8. Menu を使ったシンプル 画像 Viewer </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter7.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. Widget てんこ盛り画像 Viewer</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter9.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  9. ボードゲーム用 GUI を作ろう</a></td>
+<td><a rel='download' href="tkinter8.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter8.html&t=Tkinter+%C6%FE%CC%E7%3A+8.+Menu+%A4%F2%BB%C8%A4%C3%A4%BF%A5%B7%A5%F3%A5%D7%A5%EB+%B2%E8%C1%FC+Viewer' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>8. Menu を使ったシンプル 画像 Viewer</h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+前回は、widget 盛りだくさんの 画像 Viewer を作りましたが、次のような問題がありました。
+ <ol>
+   <li> 画面がうるさい。
+   <li> 一覧表示できる画像が限られている。
+   <li> 背景色をつけた画像を保存できない。
+ </ol>
+ この問題を解決するために今回メニューを使った画像 Vierer backgrounder.py を作りました。
+ backgrounder.py の特徴は、
+ <ol>
+   <li> Tk.Menu を使っているので画面がシンプルである。
+   <li> ScrolledText に一覧表示画像を貼り付けたので、一覧表示できる画像に制限がない。
+   <li> 背景色をつけた画像を保存できる。
+ </ol>
+ の３つです。生成する Widget は図１のようになります。<p>
+<center>
+  <img src='backgrounder_main.jpg'><br>(a)<p>
+  <table cellpadding="10">
+  <tr>
+    <td align="center"><img src='backgrounder_original.jpg'><br>(b)</td>
+    <td align="center"><img src='backgrounder_bgscale.jpg'><br>(c)</td>
+  </tr>
+  <tr>
+    <td align="center"><img src='backgrounder_dir.jpg'><br>(d)</td>
+    <td align="center"><img src='backgrounder_info.jpg'><br>(e)</td>
+  </tr>
+  </table>
+</center>
+<p style='margin-left:70'>
+図１．backgrounder.py で生成する Window。<br>
+a) メイン window。<br>
+b) オリジナルサイズの画像に (GIF の場合）背景色をつけたもの。<br>
+c) 背景色調節用 window<br>
+d) ディレクトリ選択 window<br>
+e) 説明 window<br>
+</p>
+   
+
+<h2>2. プログラムの作成</h2>
+[code 1] にソースコードを示します。<p>
+[code 1] (backgrounder.py)
+<pre class='code'>
+<span class="linenumber"> 01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber"> 02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber"> 03:</span>     
+<span class="linenumber"> 04:</span>     <span class="string">"""
+<span class="linenumber"> 05:</span>     backgrounder.py 
+<span class="linenumber"> 06:</span>     
+<span class="linenumber"> 07:</span>     view images in a directory
+<span class="linenumber"> 08:</span>     
+<span class="linenumber"> 09:</span>     July 04, 2005
+<span class="linenumber"> 10:</span>     """</span>
+<span class="linenumber"> 11:</span>     
+<span class="linenumber"> 12:</span>     import re
+<span class="linenumber"> 13:</span>     import os
+<span class="linenumber"> 14:</span>     import os.path as P
+<span class="linenumber"> 15:</span>     import Tkinter as Tk
+<span class="linenumber"> 16:</span>     import ScrolledText as S
+<span class="linenumber"> 17:</span>     import Image as I
+<span class="linenumber"> 18:</span>     import ImageTk as Itk
+<span class="linenumber"> 19:</span>     import ImageColor as Ic
+<span class="linenumber"> 20:</span>     import tkFileDialog as D
+<span class="linenumber"> 21:</span>     import tkMessageBox as M
+<span class="linenumber"> 22:</span>     
+<span class="linenumber"> 23:</span>     
+<span class="linenumber"> 24:</span>     SIZE = 100
+<span class="linenumber"> 25:</span>     IMAGR_TYPES = ['gif', 'png', 'bmp', 'jpg', 'tif', 'ppm']
+<span class="linenumber"> 26:</span>     MAM_COLN = 6
+<span class="linenumber"> 27:</span>     GEO_MAIN = '680x600+20+20'
+<span class="linenumber"> 28:</span>     GEO_SATE = '+730+50'
+<span class="linenumber"> 29:</span>     GEO_SCAL = '+730+400'
+<span class="linenumber"> 30:</span>     
+<span class="linenumber"> 31:</span>     
+<span class="linenumber"> 32:</span>     <span class="comment">## functions ------------------------------------------------</span>
+<span class="linenumber"> 33:</span>     def get_size(tup):
+<span class="linenumber"> 34:</span>         <span class="string">""" It returns the size of images on the summary"""</span>
+<span class="linenumber"> 35:</span>         x, y = tup
+<span class="linenumber"> 36:</span>         if (x&lt;=100 and y&lt;=100):
+<span class="linenumber"> 37:</span>             return (x, y)
+<span class="linenumber"> 38:</span>         elif x &gt; y:
+<span class="linenumber"> 39:</span>             r = float(SIZE) / float(x)
+<span class="linenumber"> 40:</span>             return (100, int(y*r))
+<span class="linenumber"> 41:</span>         else:
+<span class="linenumber"> 42:</span>             r = float(SIZE) / float(y)
+<span class="linenumber"> 43:</span>             return (int(x*r), 100)
+<span class="linenumber"> 44:</span>             
+<span class="linenumber"> 45:</span>     
+<span class="linenumber"> 46:</span>     def make_regexp(types):
+<span class="linenumber"> 47:</span>         <span class="string">""" It returns the regular expression of the image file type"""</span> 
+<span class="linenumber"> 48:</span>         str = "\.("
+<span class="linenumber"> 49:</span>         for k, v in types.iteritems():
+<span class="linenumber"> 50:</span>             if v.get():
+<span class="linenumber"> 51:</span>                 str += k + '|'
+<span class="linenumber"> 52:</span>     
+<span class="linenumber"> 53:</span>         str = str[0:-1] + ')$'
+<span class="linenumber"> 54:</span>         return re.compile(str, re.I)
+<span class="linenumber"> 55:</span>     
+<span class="linenumber"> 56:</span>     
+<span class="linenumber"> 57:</span>     <span class="comment">## classes -----------------------------------------------------------------------------------</span>
+<span class="linenumber"> 58:</span>     class ImageLabel:
+<span class="linenumber"> 59:</span>         <span class="string">""" A Label class to show an image """</span>
+<span class="linenumber"> 60:</span>     
+<span class="linenumber"> 61:</span>         id_original_size = None    <span class="comment"># ID of the Label showing an original size image</span>
+<span class="linenumber"> 62:</span>         bg_var = None              <span class="comment"># variable for background color</span>
+<span class="linenumber"> 63:</span>         image_file_now = None
+<span class="linenumber"> 64:</span>         
+<span class="linenumber"> 65:</span>         def __init__(self, stxt, image_file, img):
+<span class="linenumber"> 66:</span>             self.image= img
+<span class="linenumber"> 67:</span>             self.image_file = image_file
+<span class="linenumber"> 68:</span>             frame = Tk.Frame(stxt, height=115, width=100)
+<span class="linenumber"> 69:</span>             frame.pack_propagate(0)
+<span class="linenumber"> 70:</span>             txt_label=Tk.Label(frame, text=P.basename(self.image_file), font=('Helvetica', '8'))
+<span class="linenumber"> 71:</span>             txt_label.pack(side=Tk.BOTTOM)
+<span class="linenumber"> 72:</span>             
+<span class="linenumber"> 73:</span>             self.img_label=Tk.Label(frame, image=self.image)
+<span class="linenumber"> 74:</span>             self.img_label.pack(side=Tk.BOTTOM)
+<span class="linenumber"> 75:</span>     
+<span class="linenumber"> 76:</span>             stxt.window_create(Tk.END, align=Tk.BASELINE, padx=5, pady=5, window=frame)
+<span class="linenumber"> 77:</span>             self.img_label.bind('&lt;Double-Button-1&gt;', self.show)
+<span class="linenumber"> 78:</span>     
+<span class="linenumber"> 79:</span>         def show(self, event):
+<span class="linenumber"> 80:</span>             label = ImageLabel.id_original_size
+<span class="linenumber"> 81:</span>             if (label and label.winfo_exists()):
+<span class="linenumber"> 82:</span>                 top = label.winfo_toplevel()
+<span class="linenumber"> 83:</span>                 top.destroy()
+<span class="linenumber"> 84:</span>             top = Tk.Toplevel(self.img_label)
+<span class="linenumber"> 85:</span>             top.title(P.basename(self.image_file))
+<span class="linenumber"> 86:</span>             top.geometry(GEO_SATE)
+<span class="linenumber"> 87:</span>             img = I.open(self.image_file)
+<span class="linenumber"> 88:</span>             self.timg = Itk.PhotoImage(img)
+<span class="linenumber"> 89:</span>             label=Tk.Label(top, image=self.timg, bg=ImageLabel.bg_var.get())
+<span class="linenumber"> 90:</span>             label.pack()
+<span class="linenumber"> 91:</span>             ImageLabel.id_original_size = label
+<span class="linenumber"> 92:</span>             ImageLabel.image_file_now = self.image_file
+<span class="linenumber"> 93:</span>     
+<span class="linenumber"> 94:</span>     
+<span class="linenumber"> 95:</span>     class Frame(Tk.Frame):
+<span class="linenumber"> 96:</span>         <span class="string">""" The main class of this program. """</span>
+<span class="linenumber"> 97:</span>         
+<span class="linenumber"> 98:</span>         def __init__(self, master=None):
+<span class="linenumber"> 99:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">100:</span>             self.master.title('BackGrounder')
+<span class="linenumber">101:</span>             self.master.geometry(GEO_MAIN)
+<span class="linenumber">102:</span>             self.cus_top = None
+<span class="linenumber">103:</span>             self.fout = None
+<span class="linenumber">104:</span>     
+<span class="linenumber">105:</span>             <span class="comment">### Menu</span>
+<span class="linenumber">106:</span>             menu_bar = Tk.Menu(self, tearoff=0)
+<span class="linenumber">107:</span>             <span class="comment"># File</span>
+<span class="linenumber">108:</span>             menu_file = Tk.Menu(menu_bar, tearoff=0)
+<span class="linenumber">109:</span>             menu_bar.add_cascade(label="File", menu=menu_file,  underline=0)
+<span class="linenumber">110:</span>             menu_file.add_command(label="Browse Dir.", command=self.browse, underline=0, accelerator = 'Ctrl-O')
+<span class="linenumber">111:</span>             menu_file.add_command(label="ReLoad", command=self.load_dir, underline=0, accelerator = 'Ctrl-R')
+<span class="linenumber">112:</span>             menu_file.add_command(label="Save As", command=self.save_image, underline=0, accelerator = 'Ctrl-S')
+<span class="linenumber">113:</span>             menu_file_type = Tk.Menu(menu_file, tearoff=0)
+<span class="linenumber">114:</span>             menu_file.add_cascade(label="File Type", menu=menu_file_type, underline=0)
+<span class="linenumber">115:</span>             menu_file.add_separator()
+<span class="linenumber">116:</span>             menu_file.add_command(label="Exit", command=self.exit, underline=0 , accelerator = 'Ctrl-Q')
+<span class="linenumber">117:</span>     
+<span class="linenumber">118:</span>             menu_bar.add_command(label="Back Ground", command=self.cus_bg, underline=0)
+<span class="linenumber">119:</span>             menu_bar.add_command(label="Help", command=self.show_info, underline=0)
+<span class="linenumber">120:</span>     
+<span class="linenumber">121:</span>             <span class="comment"># short-cuts</span>
+<span class="linenumber">122:</span>             self.master.bind('&lt;Control-KeyPress-o&gt;', self.browse)
+<span class="linenumber">123:</span>             self.master.bind('&lt;Control-KeyPress-s&gt;', self.save_image)
+<span class="linenumber">124:</span>             self.master.bind('&lt;Control-KeyPress-r&gt;', self.load_dir)
+<span class="linenumber">125:</span>             self.master.bind('&lt;Control-KeyPress-q&gt;', self.exit)
+<span class="linenumber">126:</span>     
+<span class="linenumber">127:</span>             <span class="comment"># check buttons in menu_file_type</span>
+<span class="linenumber">128:</span>             self.var_type = dict()
+<span class="linenumber">129:</span>             for i, image_type in enumerate(IMAGR_TYPES):
+<span class="linenumber">130:</span>                 self.var_type[image_type] = Tk.IntVar()
+<span class="linenumber">131:</span>                 menu_file_type.add_checkbutton(label=image_type, variable=self.var_type[image_type])
+<span class="linenumber">132:</span>                 menu_file_type.invoke(i)
+<span class="linenumber">133:</span>     
+<span class="linenumber">134:</span>             ImageLabel.bg_var = Tk.StringVar()
+<span class="linenumber">135:</span>             ImageLabel.bg_var.set('#FFFFFF')
+<span class="linenumber">136:</span>     
+<span class="linenumber">137:</span>             <span class="comment"># add menu bar</span>
+<span class="linenumber">138:</span>             try:
+<span class="linenumber">139:</span>                 self.master.config(menu=menu_bar)     <span class="comment"># this required to show the menu bar</span>
+<span class="linenumber">140:</span>             except AttributeError:
+<span class="linenumber">141:</span>                 self.master.Tk.call(master, "config", "-menu", menu_bar)
+<span class="linenumber">142:</span>     
+<span class="linenumber">143:</span>     
+<span class="linenumber">144:</span>             self.once = False
+<span class="linenumber">145:</span>             self.stxt = S.ScrolledText(self, bg=self.cget('bg'), cursor=self.cget('cursor'), state=Tk.DISABLED)
+<span class="linenumber">146:</span>             self.stxt.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">147:</span>             self.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">148:</span>     
+<span class="linenumber">149:</span>     
+<span class="linenumber">150:</span>         def update(self, dir, types):
+<span class="linenumber">151:</span>             self.stxt.configure(state=Tk.NORMAL)
+<span class="linenumber">152:</span>             if self.once:
+<span class="linenumber">153:</span>                 self.stxt.delete('1.0', Tk.END)
+<span class="linenumber">154:</span>     
+<span class="linenumber">155:</span>             self.once=True
+<span class="linenumber">156:</span>             pat = make_regexp(types)
+<span class="linenumber">157:</span>     
+<span class="linenumber">158:</span>             for f in os.listdir(dir):
+<span class="linenumber">159:</span>                 if pat.search(f):
+<span class="linenumber">160:</span>                     file = P.join(dir, f)
+<span class="linenumber">161:</span>                     img = I.open(file)
+<span class="linenumber">162:</span>                     ImageLabel(self.stxt, file,
+<span class="linenumber">163:</span>                                Itk.PhotoImage(img.resize(get_size(img.size), I.NEAREST)))
+<span class="linenumber">164:</span>     
+<span class="linenumber">165:</span>             self.stxt.configure(state=Tk.DISABLED)
+<span class="linenumber">166:</span>     
+<span class="linenumber">167:</span>     
+<span class="linenumber">168:</span>         def browse(self, event=None):
+<span class="linenumber">169:</span>             self.dir = D.askdirectory()
+<span class="linenumber">170:</span>             if self.dir:
+<span class="linenumber">171:</span>                 self.load_dir()
+<span class="linenumber">172:</span>     
+<span class="linenumber">173:</span>         def load_dir(self, event=None):
+<span class="linenumber">174:</span>             self.update(self.dir, self.var_type)
+<span class="linenumber">175:</span>             
+<span class="linenumber">176:</span>     
+<span class="linenumber">177:</span>         def show_info(self):
+<span class="linenumber">178:</span>             M.showinfo(u"使い方",  u"メニューバーの File-&gt;Browse Dir. でディレクトリを選択してください。\n"
+<span class="linenumber">179:</span>                                    u"そのディレクトリに含まれる画像ファイルの一覧が表示されます。\n"
+<span class="linenumber">180:</span>                                    u"一覧にある画像をクリックすると、別窓でオリジナルサイズの画像が表示されます。\n\n"
+<span class="linenumber">181:</span>                                    u"透過型 GIF の場合は背景色をつけることができます。\n"
+<span class="linenumber">182:</span>                                    u"メニューバーの Back Ground をクリックすると\n"
+<span class="linenumber">183:</span>                                    u"赤、緑、青用の３つのスケールがある Window が現れるので、\n"
+<span class="linenumber">184:</span>                                    u"それで背景色を調節できます。\n\n"
+<span class="linenumber">185:</span>                                    u"背景色をつけた画像は File-&gt;SaveAs により保存することができます。"
+<span class="linenumber">186:</span>                                    )
+<span class="linenumber">187:</span>     
+<span class="linenumber">188:</span>         def cus_bg(self):
+<span class="linenumber">189:</span>             if not (self.cus_top and  self.cus_top.winfo_exists()):
+<span class="linenumber">190:</span>                 self.cus_top = Tk.Toplevel(self)
+<span class="linenumber">191:</span>                 self.cus_top.title('Create Back Ground')
+<span class="linenumber">192:</span>                 self.cus_top.geometry(GEO_SCAL)
+<span class="linenumber">193:</span>                 cusf = Tk.Frame(self.cus_top)
+<span class="linenumber">194:</span>                 cusf.pack(fill=Tk.BOTH, padx=10, pady=10)
+<span class="linenumber">195:</span>                 self.scale = dict()
+<span class="linenumber">196:</span>                 for i, color in enumerate(('red', 'green', 'blue')):
+<span class="linenumber">197:</span>                     l=Tk.Label(cusf, text=color+': ', anchor=Tk.W, fg=color, font=('Helvetica', '10', 'bold'))
+<span class="linenumber">198:</span>                     l.grid(row=i, column=0, sticky=Tk.W)
+<span class="linenumber">199:</span>                     self.scale[color] = Tk.Scale(cusf, orient=Tk.HORIZONTAL, length=300, from_=0, to=255, 
+<span class="linenumber">200:</span>                                                  command=self.customize_bg, tickinterval=50)
+<span class="linenumber">201:</span>                     self.scale[color].set(255)
+<span class="linenumber">202:</span>                     self.scale[color].grid(row=i, column=1)
+<span class="linenumber">203:</span>     
+<span class="linenumber">204:</span>     
+<span class="linenumber">205:</span>         def customize_bg(self, event):
+<span class="linenumber">206:</span>             ImageLabel.bg_var.set('#%02X%02X%02X' %
+<span class="linenumber">207:</span>                             (self.scale['red'].get(), self.scale['green'].get(), self.scale['blue'].get()))
+<span class="linenumber">208:</span>             bg1 = ImageLabel.bg_var.get()
+<span class="linenumber">209:</span>             label = ImageLabel.id_original_size
+<span class="linenumber">210:</span>             if label and label.winfo_exists():
+<span class="linenumber">211:</span>                 label.configure(bg=bg1)
+<span class="linenumber">212:</span>                 top = label.winfo_toplevel()
+<span class="linenumber">213:</span>                 top.focus_set()
+<span class="linenumber">214:</span>     
+<span class="linenumber">215:</span>         def save_image(self, event=None):
+<span class="linenumber">216:</span>             self.fout = D.asksaveasfilename(initialdir=self.dir, initialfile=self.fout and P.basename(self.fout) or None)
+<span class="linenumber">217:</span>             if self.fout:
+<span class="linenumber">218:</span>                 img=I.open(ImageLabel.image_file_now)
+<span class="linenumber">219:</span>                 imgc = img.mode == 'RGB' and img or img.convert('RGB')
+<span class="linenumber">220:</span>                 bg1 = Ic.getrgb(ImageLabel.bg_var.get())         <span class="comment"># background color</span>
+<span class="linenumber">221:</span>                 ls=[]                                            <span class="comment"># a sequence to store image data</span>
+<span class="linenumber">222:</span>                 for c0 in imgc.getdata():
+<span class="linenumber">223:</span>                     if(c0==(255,255,255)):
+<span class="linenumber">224:</span>                         ls.append(bg1)
+<span class="linenumber">225:</span>                     else:
+<span class="linenumber">226:</span>                         ls.append(c0)
+<span class="linenumber">227:</span>                         
+<span class="linenumber">228:</span>                 imgc.putdata(ls)
+<span class="linenumber">229:</span>                 imgc.save(self.fout)
+<span class="linenumber">230:</span>     
+<span class="linenumber">231:</span>         def exit(self, event=None):
+<span class="linenumber">232:</span>             self.master.destroy()
+<span class="linenumber">233:</span>     
+<span class="linenumber">234:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">235:</span>     
+<span class="linenumber">236:</span>     if __name__ == '__main__':
+<span class="linenumber">237:</span>         f = Frame()
+<span class="linenumber">238:</span>         f.mainloop()
+</pre>
+<p>
+  ご覧になるとわかるように７割以上 viewer.py と同じです。
+  プログラムが若干長いので、部分ごとに説明していきたいと思います。見出しのカッコ内の数字はコードの行数です。
+<h3>2.1. import するモジュールの宣言 </h3>
+12-21 行目で<span class='mono'>re, os, os.path(P), Tkinter(Tk), ScrolledText(S), Image(I), ImageTk(Itk),
+  ImageColor(Ic), tkFIleDialog(D), tkMessageBox(M)</span>
+の１０個のモジュールを読み込んでいます。
+このうち、<span class='mono'>ScrolledText</span> については次回以降詳しく説明します。
+ImageColor モジュールは色文字列を整数のタプル (r, g, b) に変換するとき使います。
+
+<h3>2.2. 定数の宣言</h3>
+ 24--29 行目で定数を宣言しています。viewer.py と同じものです。
+
+<h3>2.3. 関数の宣言</h3>
+33--54 行目で２つの関数を定義しています。これも viewer.py と同じものです。
+
+<h3>2.4. class ImageLabel)</h3>
+一覧表示する画像のクラスです。クリックされると原寸大のイメージを別窓で表示します。(58--92)
+<ul>
+<li><b>クラス変数</b> (61,63)
+  <ul>
+   <li><var>id_original_size</var>: 原寸大表示ラベルの ID です。現在表示されている原寸大画像の ID を保持します。
+   <li><var>gb_var</var>: 背景色の文字列を保持する変数です。（いきなり Tk.StringVar にすると Error になるので
+     とりあえず None にしておく。）
+   <li><var>image_file_now</var>: 現在原寸大表示している画像のファイルです。
+  </ul>
+<li> <b>__init__(self, stxt, image_file, img)</b> (65--77)<br>
+  <ul>
+   <li> 引数は、<var>self</var>, <var>stxt</var>, <var>image_file</var>, <var>img</var> の４つです。<br>
+     <var>stxt</var> は画像一覧を表示する ScrolledText、
+     <var>image_file</var> はもとのイメージファイル。<var>img</var> は一覧で表示する Tk.Image です。
+   <li> <var>img</var>, <var>image_file</var> を内部変数に保持します。(66,67)
+   <li> <span class='mono'>Tk.Frame</span> <var>frame</var> を作成します。(68)
+   <li> <var>frame</var> のサイズが内部の widget のサイズによって変わらないようにします。(69)
+   <li> ファイル名表示用ラベル <var>txt_label</var> を作って BOTTOM から パックします。(70,71)
+   <li> 画像表示用ラベル <var>self.img_label</var> を作ってpack します。(73,74)
+   <li> <var>stxt</var> に <var>frame</var> が中に入った window を作って、それを文章の最後に付け加えます。(76)
+   <li> 画像ラベルをダブルクリックすると原寸大表示が現れるようにします。(77)
+  </ul>
+<li> <b>show(self, event)</b> (79--92)<br>
+  原寸大表示用メソッドです。viewer.py とほとんど同じです。
+  違う点は、92 行目の <var>self.image_file</var> を <var>ImageLabel.image_file_now</var> に代入している点だけです。
+
+  </ul>
+
+
+<h3>2.5. class Frame(Tk.Frame):</h3>
+  メインのクラスの説明です。__init__ でメニューバーを定義しています。(95--229)
+<ul>
+<li><b>__init__(self, master=None)</b>  (98--150)
+  <ul>
+   <li>まず、 <span class='mono'>Tk.Frame</span> として初期化 (99)
+   <li>window のタイトルを 'BackGrounder' にする。(100)
+   <li>window のサイズと表示位置を指定する。(101)<br>
+       'WxH+X+Y' 形式の文字列を与える。W は window の幅、 H は高さ、X, Y は画面の左上を基準にしたときの window の位置。
+     全て pixel 単位。WxH は省略可能。
+   <li>背景色調節 window をあらわす内部変数 <var>self.cur_top</var> を定義 (102)
+   <li>画像保存用ファイル名 self.fout を定義 (103)
+     
+   <li> <span class='mono'>Tk.Menu</span> <var>menu_bar</var> を定義。これがメニューバーになる。(106)
+   <li> <span class='mono'>Tk.Menu</span> <var>menu_file</var> を定義。これがファイルメニューになる。(108)
+   <li> <var>menu_bar</var> に <var>menu_file</var> を加える。
+     サブメニューを加えるときは <em>add_cascade</em> メソッドを使う。(109)<br>
+     <span class='mono'>underline=0</span> は最初の文字に下線をつけるという意味。こうすると、
+     <b>Alt+F</b> で <var>menu_file</var> が開く。
+   <li> <var>menu_file</var> にコマンド <var>self.browse</var> を追加する。(110)<br>
+     コマンドを追加するときは <em>add_command</em> メソッドを使う。
+     <span class='mono'>accelerator</span> オプションで、ショートカットの表示をする。
+     ただし、このオプションは実際にショートカットは作らない。
+     ショートカットを作っているのは 122 行目。
+   <li> コマンド <var>self.load_dir</var> を <var>menu_file</var> に追加 (111)
+   <li> コマンド <var>self.save_image</var> を <var>menu_file</var> に追加 (112)
+   <li> <span class='mono'>Tk.Menu</span> <var>menu_file_type</var> を定義して <var>menu_file</var> に追加。(113, 114)
+   <li> <var>menu_file</var> にセパレータを追加。 (115)
+   <li>コマンド <var>self.exit</var> を <var>menu_file</var> に追加 (116)
+   <li>コマンド <var>self.cus_bg</var> を <var>menu_bar</var> に追加 (118)
+   <li>コマンド <var>self.show_info</var> を <var>menu_bar</var> に追加 (119)
+   <li>ショートカットを定義する。(122--125)
+   <li>menu_file_type に checkbutton を加える。(128--132)
+   <li> ImageLabel.bg_var を Tk.StringVar() にし、 '#FFFFFF' をセットする。(134,135)
+   <li>menu_bar を window に貼り付ける。(138--141)
+   <li> 内部変数 self.once を定義。すでに一覧表示したかどうかを示す。
+   <li>画像に一覧を表示する <span class='mono'>ScrolledText</span> <var>self.stxt</var> を定義する。背景色とカーソルの形状は
+       メインフレームにそろえる。<span class='mono'>state=Tk.DISABLED</span> にして編集できないようにする。
+   <li><var>self.stxt</var> を pack する。
+   <li>メインフレーム <var>self</var> を pack する。
+  </ul>
+  <li><b>update(self, dir, type)</b>
+    <ul>
+     <li> <var>self.stxt</var> を編集可能にする。(151)
+     <li> もし、以前に一覧を表示したことがあるなら、<var>elf.stxt</var> の内容を全て消去。
+       <span class='mono'>'1.0'</span> は最初の文字、
+       <span class='mono'>Tk.END</span> は最後の文字を示す。(152,153)
+     <li> <var>self.once</var> を True にする。(155)
+     <li> 一覧表示するファイルタイプの正規表現を求めて <var>pat</var> に代入。(156)
+     <li><var>dir</var> に含まれるファイル <var>f</var> に対して 163 行目までを行う。 (158--163)
+       <ul>
+         <li>もし、<var>f</var> が正規表現 <var>pat</var> にマッチすれば、(159)
+	 <li>フルパスのファイル名 <var>file</var> を求めて、(160)
+	 <li>それを開いて <var>img</var> に代入する。(161)
+	 <li>そして、<var>img</var> を表示する <var>ImageLabel</var> を <var>self.stxt</var> 上に作成する。(162, 163)
+       </ul>
+     <li><var>self.stxt</var> を編集できないようにする。(165)
+  </ul>
+<li><b>browse(self, event=None)</b> (168--171)<br>
+  ダイアログを開いてディレクトリ名を取得し、その中にある画像ファイルの一覧を表示するメソッド。
+<li><b>load_dir(self, event=None)</b> (173--174)<br>
+  一覧表示の内容を更新するメソッド。
+<li><b>show_info(self)</b> (177--186)<br>
+  使い方を示すダイアログを表示するメソッド。
+<li><b>cus_bg(self)</b> (188--202)<br>
+  背景色を調節する window を作るメソッド。 viewer.py とまったく同じ。
+<li><b>customize_bg(self, event)</b> (205--213)<br>
+  原寸大画像に背景色をつけるメソッド。 viewer.py とまったく同じ。
+<li><b>save_image(self, event=None)</b> (212--225)<br>
+  背景色をつけた画像を保存するメソッド。
+  <ul>
+   <li>保存するファイル名を聞いて、self.fout に保持する。(216)
+   <li>もし、self.fout があれば、229 行目までを行う。 (217--229)
+     <ul>
+       <li><var>mageLabel.image_file_now</var> を開いて <var>img</var> に代入。(215)
+       <li> <var>img</var> を 'RGB' 形式に変換して <var>imgc</var> に代入。(216)
+       <li> <span class='mono'>Ic.getrbg</span> を使って<var>、mageLabel.bg_var</var>
+	 の色文字列から (red, green, blue) のタプルを得、それを <var>gb1</var> に代入。
+       <li> 色データのリストを保持する <var>ls</var> を初期化
+       <li> imgc.getdata() の c0 に対して 226 行目までを行う。(222--226)<br>
+	    <em>getdata</em> は、pixel ごとの色の配列を返すメソッド。
+	    <ul>
+             <li> もし、<var>c0</var> が白なら、<var>ls</var> に <var>bg1</var> を append。(223,224)
+             <li> そうでなければ、<var>ls</var> に もともとの色 <var>c0</var> を append。(225,226)
+	    </ul>
+       <li> <var>imgc</var> に変換したデータ <var>ls</var> を <em>putdata</em> メソッドで書き込む。(228)
+       <li> <var>imgc</var> をファイル名 <var>self.fout</var> で保存。画像ファイルの形式は
+	 ファイル名の拡張子にあわせて自動で選ぶ。
+    </ul>
+  <li><b>exit(self, event=None)</b> (231--232)<br>
+    プログラムを終了するメソッド。
+</ul>
+  
+
+  <h2>3. 終わりに</h2>
+背景色エディター backgrounder.py をネタに、Tk.Menu の使い方を大体説明しました。
+  まだ、説明しきれていない点があるので、それについては、
+  <ul>
+    <li><a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/menu.html'>Tkinter reference: 12. The Menu widget</a>
+    <li><a href='http://effbot.org/tkinterbook/menu.htm'>The Tkinter Menu Widget</a>
+    <li><a href='python6.html'>Tkinter demo</a>
+   </ul>
+を参考にしてください。
+  次回はからは Tk.Canvas について述べます。Tk.Canvas はTkinter の中でもっとも使いでがある widget ですので、
+  複数回にわけて詳しく述べていくつもりです。
+  
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter7.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. Widget てんこ盛り画像 Viewer</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter9.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  9. ボードゲーム用 GUI を作ろう</a></td>
+<td><a rel='download' href="tkinter8.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter8.html&t=Tkinter+%C6%FE%CC%E7%3A+8.+Menu+%A4%F2%BB%C8%A4%C3%A4%BF%A5%B7%A5%F3%A5%D7%A5%EB+%B2%E8%C1%FC+Viewer' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

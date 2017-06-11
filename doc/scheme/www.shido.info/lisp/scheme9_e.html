@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, IO">
+<meta name="description" content="IO of Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>9. IO </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme8_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. Higher Order Functions</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_asg_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>10. Assignment</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme9_e.html&t=%28Scheme%29+IO' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1>9. Input/Output   </h1>
+<hr>
+<h2>1. Introduction </h2>
+You should be able to write and execute programs using interactive front end of Scheme using the knowledge
+provided by previous chapters.<p>
+
+In this chapter, I will explain about input and output.
+  Using this feature, you can read and write data from/to files.
+  
+<h2>2. Input from files</h2>
+<h3> 2.1. <tt style='font-size:120%'>open-input-file</tt>, <tt style='font-size:120%'>read-char</tt>, 
+and <tt style='font-size:120%'>eof-object?</tt></h3>
+The function (<span class='ttb'>open-input-file</span> <var>filename</var>) is available to
+open a file. This function return a port for input.
+The function (<span class='ttb'>read-char</span> <var>port</var>) is to read a character from the <var>port</var>.
+As this function returns <tt>eof-object</tt> when it reaches the end of the file (EOF), you can check it by
+using <span class='ttb'>eof-object?</span>. The function (<span class='ttb'>close-input-port</span> <var>port</var>)
+is to close the input port. The [code 1] shows a function that returns file contents as string.<p>
+
+[code 1]
+<pre class='code'>
+(define (read-file file-name)
+  (let ((p (open-input-file file-name)))
+    (let loop((ls1 '()) (c (read-char p)))
+      (if (eof-object? c)
+	  (begin
+	    (close-input-port p)
+	    (list->string (reverse ls1)))
+	  (loop (cons c ls1) (read-char p))))))
+</pre>
+
+For instance, the result shown in [example 1] is obtained by applying the [code 1] to a file [hello.txt].
+As the newline character is represented by '\n', it is not easy to read.
+Function <span class='ttb'>display</span> is available, however, for formatting ([example 2]).
+<p>
+
+[hello.txt]
+<pre class='code'>
+Hello world!
+Scheme is an elegant programming language.
+</pre>
+
+[example 1]
+<pre class='samp'>
+(cd "C:\\doc")
+(read-file "hello.txt")
+<span class='response'>;Value 14: "Hello world!\nScheme is an elegant programming language.\n"</span>
+</pre>
+[example 2]
+<pre class='samp'>
+(display (read-file "hello.txt"))
+<span class='response'>Hello world!
+Scheme is an elegant programming language.
+;Unspecified return value</span>
+</pre>
+
+
+<h3> 2.2. Syntaxes <tt style='font-size:120%'>call-with-input-file</tt> and  <tt style='font-size:120%'>with-input-from-file</tt></h3>
+You can open a file for input using the syntax <span class='ttb'>call-with-input-file</span> or
+<span class='ttb'>with-input-from-file</span>.
+These syntaxes are convenient because they handle errors.
+<dl>
+  <dt>(<span class='ttb'>call-with-input-file</span> <var>filename</var> <var>procedure</var>)</dt>
+      <dd>
+It opens a file named <var>filename</var> for input.
+The <var>procedure</var> is a function that takes input port as an argument.
+The file should be closed explicitly because it is not closed when the control is returned from the <var>procedure</var>
+if the input port is potentially used again. 
+
+The [code 1] can be rewritten like [code 2] using <tt>call-with-input-file</tt>.
+<p>
+[code 2]
+<pre class='code'>
+(define (read-file file-name)
+  (call-with-input-file file-name
+    (lambda (p)
+      (let loop((ls1 '()) (c (read-char p)))
+	(if (eof-object? c)
+	    (begin
+	      (close-input-port p)
+	      (list->string (reverse ls1)))
+	    (loop (cons c ls1) (read-char p)))))))
+</pre></dd>
+  <dt>(<span class='ttb'>with-input-from-file</span> <var>filename</var> <var>procedure</var>)</dt>
+      <dd>
+It opens a file named <var>filename</var> as the standard input.
+The <var>procedure</var> is a function with no argument.
+The file is closed when the control is returned from the <var>procedure</var>.
+[code 3] shows the rewritten function of [code 1] using  <tt>with-input-from-file</tt>.
+<p>
+[code 3]
+<pre class='code'>
+(define (read-file file-name)
+  (with-input-from-file file-name
+    (lambda ()
+      (let loop((ls1 '()) (c (read-char)))
+	(if (eof-object? c)
+	    (list->string (reverse ls1))
+	    (loop (cons c ls1) (read-char)))))))
+</pre>
+
+  </dd>
+</dl>
+
+<h3> 2.3. <tt style='font-size:120%'>read</tt></h3>
+The function (<span class='ttb'>read</span> <var>port</var>) reads a S-expression
+from the <var>port</var>.
+It is convenient to read contents with parentheses like [paren.txt].
+<p>
+[paren.txt]
+<pre class='code'>
+'(Hello world!
+Scheme is an elegant programming language.)
+
+'(Lisp is a programming language ready to evolve.)
+</pre>
+
+[code 4]
+<pre class='code'>
+(define (s-read file-name)
+  (with-input-from-file file-name
+    (lambda ()
+      (let loop ((ls1 '()) (s (read)))
+	(if (eof-object? s)
+	    (reverse ls1)
+	    (loop (cons s ls1) (read)))))))
+</pre>
+The following shows the result of reading <tt>paren.txt</tt> by <tt>s-read</tt>.
+<pre class='samp'>
+(s-read "paren.txt")
+&rArr; <span class='response'>((quote (hello world! scheme is an elegant programming language.))
+(quote (lisp is a programming language ready to evolve.)))</span>
+</pre>
+<h3> Exercise 1</h3>
+Write the function <span class='ttb'>read-lines</span>
+that returns a list of strings which correspond to each line of file contents.
+The newline character is represented by <tt>#\Linefeed</tt> in Scheme.
+Following is the result of applying this function to the <tt>hello.txt</tt>.
+<pre>
+(read-lines "hello.txt") &rArr; ("Hello world!" "Scheme is an elegant programming language.")
+</pre>
+
+
+<h2>3. Output to files</h2>
+<h3> 3.1. Making a Port for output</h3>
+Similar functions to those for input are available to make output ports.
+<dl>
+  <dt>(<span class='ttb'>open-output-file</span> <var>filename</var>)</b></dt>
+      <dd>It opens a file for output and returns a output port.</dd>
+  <dt><b>(<span class='ttb'>close-output-port</span> <var>port</var>)</b></dt>
+      <dd> It closes the port for output.</dd>
+  <dt><b>(<span class='ttb'>call-with-output-file</span> <var>filename</var> <var>procedure</var>)</b></dt>
+      <dd> It opens a file named <var>filename</var> for output and calls <var>procedure</var>.
+          The function <var>procedure</var> takes the port as an argument.</dd>
+  <dt><b>(<span class='ttb'>with-output-to-file</span> <var>filename</var> <var>procedure</var>)</b></dt>
+      <dd> It opens a file named <var>filename</var> as the standard output and calls <var>procedure</var>.
+The <var>procedure</var> is a function with no argument.
+The file is closed when the control is returned from the <var>procedure</var>.</dd>
+</dl>
+
+<h3> 3.1. Functions for output</h3>
+Following functions for output are available.
+These functions output to the standard output if the <var>port</var> is omitted.
+<dl>
+  <dt>(<span class='ttb'>write</span> <var>obj</var> <var>port</var>)</dt>
+      <dd> It outputs the <var>obj</var> to the <var>port</var>. Strings are enclosed in double quotes and
+	characters are combined with the <tt>#\</tt>. </dd>
+  <dt>(<span class='ttb'>display</span> <var>obj</var> <var>port</var>)</dt>
+      <dd> It outputs the  <var>obj</var> to the  <var>port</var>.
+      Strings are <b>not</b> enclosed in double quotes and
+	characters are <b>not</b> combined with the <tt>#\</tt>. </dd>
+  <dt>(<span class='ttb'>newline</span> <var>port</var>)</dt>
+      <dd> It begins a new line.</dd>
+  <dt>(<span class='ttb'>write-char</span> <var>char</var> <var>port</var>)</dt>
+      <dd> It outputs the <var>char</var> to the <var>port</var>.</dd>
+</dl>
+
+
+<h3> Exercise 2</h3>
+Write a function to copy files (my-copy-file).
+
+<h3> Exercise 3</h3>
+Write the function (<tt>print-lines</tt>)
+that takes arbitrary number of strings as arguments and outputs them to the standard output.
+The output strings should be separated by newline.
+<h2>4.Summary</h2>
+This chapter is short because Scheme has a minimum IO facility. 
+<p>
+I will explain about assignment on Scheme in the next chapter.
+
+<h3>Answers for Exercises</h3>
+
+<h4>Answer 1</h4>
+First, write the function <tt>group-list</tt> that separates a list by a separator.
+Then divide the list of characters read from the input file by #\Linefeed and
+convert them into strings. (see <span class='comment'>; *</span>)
+<pre class='code'>
+(define (group-list ls sep)
+  (letrec ((iter (lambda (ls0 ls1)
+		   (cond
+		    ((null? ls0) (list ls1))
+		    ((eqv? (car ls0) sep) 
+		     (cons ls1 (iter (cdr ls0) '())))
+		    (else (iter (cdr ls0) (cons (car ls0) ls1)))))))
+    (map reverse (iter ls '()))))
+
+
+(define (read-lines file-name)
+  (with-input-from-file file-name
+    (lambda ()
+      (let loop((ls1 '()) (c (read-char)))
+	(if (eof-object? c)
+	    (map list->string (group-list (reverse ls1) #\Linefeed))  <span class='comment'>; *</span>
+	    (loop (cons c ls1) (read-char)))))))
+</pre>
+
+example:
+<pre class='samp'>
+(group-list '(1 4 0 3 7 2 0 9 5 0 0 1 2 3) 0)
+<span class='response'>;Value 13: ((1 4) (3 7 2) (9 5) () (1 2 3))</span>
+
+(read-lines "hello.txt")
+<span class='response'>;Value 14: ("Hello world!" "Scheme is an elegant programming language." "")</span>
+</pre>
+
+
+<h4>Answer 2</h4>
+<pre class='code'>
+(define (my-copy-file from to)
+  (let ((pfr (open-input-file from))
+	(pto (open-output-file to)))
+    (let loop((c (read-char pfr)))
+      (if (eof-object? c)
+	  (begin
+	    (close-input-port pfr)
+	    (close-output-port pto))
+	  (begin
+	    (write-char c pto)
+	    (loop (read-char pfr)))))))
+</pre>
+
+<h4>Answer 3</h4>
+<pre class='code'>
+(define (print-lines . lines)
+  (let loop((ls0 lines))
+    (if (pair? ls0)
+        (begin
+         (display (car ls0))
+         (newline)
+         (loop (cdr ls0))))))
+</pre>
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme8_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. Higher Order Functions</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_asg_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>10. Assignment</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme9_e.html&t=%28Scheme%29+IO' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+

@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, XML parser, dom, minidom">
+<meta name="description" content="how to deal with XML documents using python">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> xml.dom.minidom を用いた XML の取り扱い </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+
+<!------------------------------------------
+- <td><a rel='download' href="python9.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+------------------------------------------->
+<td><a href='../gb/write_guestbook.php?ref=py/python11.html&t=xml.dom.minidom+%A4%F2%CD%D1%A4%A4%A4%BF+XML+%A4%CE%BC%E8%A4%EA%B0%B7%A4%A4' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+ <h1>xml.dom.minidom を用いた XML の取り扱い</h1> 
+<hr>
+<h2>1. 初めに</h2>
+<a href='http://ja.wikipedia.org/wiki/XML'>XML</a> は html のように、タグで文章の意味をあらわす形式で、
+技術文書のように構造化された文書をあらわす
+形式として最近広く用いられるようになっています。
+たとえば、<a href='http://ja.wikipedia.org/wiki/DocBook'>DocBook</a>
+ は XML を用いた技術文書のフォーマットであり、これを元に html, tex, pdf などの出力形式が生成されます。
+<p>
+
+Python には expat, dom, sax などの複数の XML パーサの
+ライブラリがあります。ここでは、比較的簡単で、機能も豊富な xml.dom.minidom を取り上げ、
+どんな感じで XML をパースし、別形式で出力するか述べます。
+
+<h2>2. 参考文献</h2>
+この文書の種本は以下の２つです。
+どちらも英語ですが、xml.dom.minidom について詳しく書かれています。
+<ul>
+<li><a href='http://www.diveintopython.org/xml_processing/index.html'>XML Processing</a> in Dive Into Python
+<li><a href='http://docs.python.org/lib/module-xml.dom.minidom.html'>8.7 xml.dom.minidom -- Lightweight DOM implementation</a>
+ in Python Library Reference
+</ul>
+
+<h2>3. 例: XML から Tex を生成する。</h2>
+早速例をあげて説明します。
+XML から Tex のソースファイルを作ってみます。
+まず、[code 1] のような入力ファイルを作ります。
+<p>
+まず、１行目で文字コードに UTF-8 を指定します。こうすると日本語も読んでくれます。
+4, 9 行目でタグを入れ子にします。また、
+ 10 &mdash; 23 行目で入れ子のリストを作ります。<p>
+
+[code 1] (party.xml)
+<pre class='code'>
+<span class="linenumber">001:</span>   &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+<span class="linenumber">002:</span>   &lt;article paper='a4paper' size='12pt' type='jarticle'&gt;
+<span class="linenumber">003:</span>   &lt;document&gt;
+<span class="linenumber">004:</span>   &lt;center&gt;&lt;Large&gt;お知らせ&lt;/Large&gt;&lt;/center&gt;
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   下記の通り飲み会を行います。
+<span class="linenumber">007:</span>   &lt;em&gt;ふるって&lt;/em&gt;ご参加ください。
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   &lt;center&gt;&lt;large&gt;&lt;bf&gt;記&lt;/bf&gt;&lt;/large&gt;&lt;/center&gt;
+<span class="linenumber">010:</span>   &lt;enumerate&gt;
+<span class="linenumber">011:</span>       &lt;item&gt;新年会
+<span class="linenumber">012:</span>       &lt;itemize&gt;
+<span class="linenumber">013:</span>           &lt;item&gt;日時：2010 年 1 月 1 日&lt;/item&gt;
+<span class="linenumber">014:</span>           &lt;item&gt;場所：新橋の飲み屋&lt;/item&gt;
+<span class="linenumber">015:</span>           &lt;item&gt;会費：5000 円&lt;/item&gt;
+<span class="linenumber">016:</span>       &lt;/itemize&gt;&lt;/item&gt;
+<span class="linenumber">017:</span>       &lt;item&gt;花見
+<span class="linenumber">018:</span>       &lt;itemize&gt;
+<span class="linenumber">019:</span>           &lt;item&gt;日時：2010 年 4 月 3 日&lt;/item&gt;
+<span class="linenumber">020:</span>           &lt;item&gt;場所：上野公園&lt;/item&gt;
+<span class="linenumber">021:</span>           &lt;item&gt;会費：3500 円&lt;/item&gt;
+<span class="linenumber">022:</span>      &lt;/itemize&gt;&lt;/item&gt;
+<span class="linenumber">023:</span>   &lt;/enumerate&gt;
+<span class="linenumber">024:</span>   &lt;flushright&gt;以上&lt;/flushright&gt;
+<span class="linenumber">025:</span>   &lt;vspace value='2cm' /&gt;
+<span class="linenumber">026:</span>   &lt;center&gt;
+<span class="linenumber">027:</span>   &lt;img file='december.bmp' height='5cm' width='4cm'/&gt;
+<span class="linenumber">028:</span>   &lt;/center&gt;
+<span class="linenumber">029:</span>   &lt;/document&gt;
+<span class="linenumber">030:</span>   &lt;/article&gt;
+</pre>
+
+[code 2] に [code 1] から tex ファイルを作る python コードを示します。
+<ol>
+<li>(8 行目) XML ファイルのパースは簡単です。xml.dom.minidom の parse を使えば XML ファイルから木構造のオブジェクトを作ってくれます。
+<li>(9 行目) getElementsByTagName で、今のノードの子ノードで article という名前のもののリストを返します。
+<li>(73 行目) codecs.open を使って、文字コードを指定して出力ファイルを開きます。
+<li>(74 行目) print_node を使って、木構造を出力ファイルに書き出していきます。
+<li>(45 &mdash; 66 行目) print_node の定義です。この関数を再帰的に呼び出すことによって木構造を書き出していきます。
+    node.childNodes は node の子ノード全てのリストです。
+<li>(50,51 行目) ノードがタグにはさまれたテキストの場合、それを出力します。
+<li>(12 &mdash; 17 行目など) ノードの属性のハッシュテーブルは attributes に収められています。ただ、普通のハッシュ表と違い、
+値を取り出すときは value をつける必要があります。また、ある属性があるかどうかは has_key() というメソッドで調べることができます。
+<li>(29 行目など) ノードの名前は tagName で取り出します。
+<li>(23 &mdash; 47 行目) いろいろなタグに分類していますが、基本的には同じです。
+</ol>
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#!/usr/bin/env python</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   from xml.dom.minidom import parse
+<span class="linenumber">004:</span>   import sys, codecs
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   def get_article(fname):
+<span class="linenumber">008:</span>       obj = <span class='redtext'>parse</span>(fname)
+<span class="linenumber">009:</span>       return obj.<span class='redtext'>getElementsByTagName</span>('article')[0]
+<span class="linenumber">010:</span>   
+<span class="linenumber">011:</span>   def print_article(f, article):
+<span class="linenumber">012:</span>       options=article.<span class='redtext'>attributes</span>
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>       print &gt;>f, r'\documentclass[%s,%s]{%s}' % \
+<span class="linenumber">015:</span>         ((options['paper'].<span class='redtext'>value</span> if options.<span class='redtext'>has_key</span>('paper') else 'a4paper'), \
+<span class="linenumber">016:</span>          (options['size'].<span class='redtext'>value</span> if options.<span class='redtext'>has_key</span>('size') else '12pt'), \
+<span class="linenumber">017:</span>          (options['type'].<span class='redtext'>value</span> if options.<span class='redtext'>has_key</span>('type') else 'jarticle'))
+<span class="linenumber">018:</span>       print &gt;>f, r'\usepackage{graphicx}'
+<span class="linenumber">019:</span>   
+<span class="linenumber">020:</span>       for node in article.childNodes:
+<span class="linenumber">021:</span>           print_node(f, node)
+<span class="linenumber">022:</span>   
+<span class="linenumber">023:</span>   def print_img(f, node):
+<span class="linenumber">024:</span>       attr=node.attributes
+<span class="linenumber">025:</span>       print &gt;>f, r'\includegraphics[height=%s, width=%s]{%s}' % \
+<span class="linenumber">026:</span>                       (attr['height'].value, attr['width'].value, attr['file'].value)
+<span class="linenumber">027:</span>           
+<span class="linenumber">028:</span>   def print_env(f, node):
+<span class="linenumber">029:</span>       print &gt;>f, r'\begin{%s}' % (node.<span class='redtext'>tagName</span>,)
+<span class="linenumber">030:</span>       for c in node.childNodes:
+<span class="linenumber">031:</span>           print_node(f, c)
+<span class="linenumber">032:</span>       print &gt;>f, '\n\\end{%s}' % (node.tagName,)    
+<span class="linenumber">033:</span>       
+<span class="linenumber">034:</span>   def print_block(f, node):
+<span class="linenumber">035:</span>       f.write(r'{\%s ' % (node.tagName))
+<span class="linenumber">036:</span>       for c in node.childNodes:
+<span class="linenumber">037:</span>           print_node(f, c)
+<span class="linenumber">038:</span>       f.write('}')
+<span class="linenumber">039:</span>   
+<span class="linenumber">040:</span>   def print_parm(f, node):
+<span class="linenumber">041:</span>       f.write(r'\%s{%s}' % (node.tagName, node.attributes['value'].value))
+<span class="linenumber">042:</span>       
+<span class="linenumber">043:</span>   
+<span class="linenumber">044:</span>   def print_uni(f, node):
+<span class="linenumber">045:</span>       f.write(r'\%s ' % (node.tagName))
+<span class="linenumber">046:</span>       for child in node.childNodes:
+<span class="linenumber">047:</span>           print_node(f, child)
+<span class="linenumber">048:</span>       
+<span class="linenumber">049:</span>   def print_node(f, node):
+<span class="linenumber">050:</span>       if node.<span class='redtext'>nodeType</span> == node.<span class='redtext'>TEXT_NODE</span>:
+<span class="linenumber">051:</span>           f.write(node.<span class='redtext'>data</span>)
+<span class="linenumber">052:</span>       elif node.tagName=='article':
+<span class="linenumber">053:</span>           print_article(f, node)
+<span class="linenumber">054:</span>       elif node.tagName=='img':
+<span class="linenumber">055:</span>           print_img(f, node)
+<span class="linenumber">056:</span>       elif node.tagName in ('document', 'flushleft', 'flushright', 'center', 'enumerate', 'itemize'):
+<span class="linenumber">057:</span>           print_env(f, node)
+<span class="linenumber">058:</span>       elif node.tagName in ('hspace', 'vspace'):
+<span class="linenumber">059:</span>           print_parm(f, node)
+<span class="linenumber">060:</span>       elif node.tagName in ('large', 'Large', 'small', 'em', 'bf'):
+<span class="linenumber">061:</span>           print_block(f, node)
+<span class="linenumber">062:</span>       elif node.tagName in ('item', 'newpage'):
+<span class="linenumber">063:</span>           print_uni(f, node)
+<span class="linenumber">064:</span>       else:
+<span class="linenumber">065:</span>           for child in node.<span class='redtext'>childNodes</span>:
+<span class="linenumber">066:</span>               print_node(f, child)
+<span class="linenumber">067:</span>       
+<span class="linenumber">068:</span>   if __name__=='__main__':
+<span class="linenumber">069:</span>       fname=sys.argv[1]
+<span class="linenumber">070:</span>       article=get_article(fname)
+<span class="linenumber">071:</span>       if article:
+<span class="linenumber">072:</span>           pos=fname.find('.')
+<span class="linenumber">073:</span>           f = <span class='redtext'>codecs.open</span>(fname[0:pos]+'.tex', 'w', 'shift_jis')
+<span class="linenumber">074:</span>           <span class='redtext'>print_node</span>(f, article)
+<span class="linenumber">075:</span>           f.close()
+</pre>
+
+<pre class='samp'>
+$ python xml2tex.python party.xml
+</pre>
+
+とすると、[code 3] で示す tex ファイルができ、これをコンパイルすると 図 1 に示すような dvi ファイルが出来上がります。<p>
+
+[code 3] (party.tex)
+<pre class='code'>
+<span class="linenumber">001:</span>   \documentclass[a4paper,12pt]{jarticle}
+<span class="linenumber">002:</span>   \usepackage{graphicx}
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   \begin{document}
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   \begin{center}
+<span class="linenumber">007:</span>   {\Large お知らせ}
+<span class="linenumber">008:</span>   \end{center}
+<span class="linenumber">009:</span>   
+<span class="linenumber">010:</span>   
+<span class="linenumber">011:</span>   下記の通り飲み会を行います。
+<span class="linenumber">012:</span>   {\em ふるって}ご参加ください。
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   \begin{center}
+<span class="linenumber">015:</span>   {\large {\bf 記}}
+<span class="linenumber">016:</span>   \end{center}
+<span class="linenumber">017:</span>   
+<span class="linenumber">018:</span>   \begin{enumerate}
+<span class="linenumber">019:</span>   
+<span class="linenumber">020:</span>       \item 新年会
+<span class="linenumber">021:</span>       \begin{itemize}
+<span class="linenumber">022:</span>   
+<span class="linenumber">023:</span>           \item 日時：2010 年 1 月 1 日
+<span class="linenumber">024:</span>           \item 場所：新橋の飲み屋
+<span class="linenumber">025:</span>           \item 会費：5000 円
+<span class="linenumber">026:</span>       
+<span class="linenumber">027:</span>   \end{itemize}
+<span class="linenumber">028:</span>   
+<span class="linenumber">029:</span>       \item 花見
+<span class="linenumber">030:</span>       \begin{itemize}
+<span class="linenumber">031:</span>   
+<span class="linenumber">032:</span>           \item 日時：2010 年 4 月 3 日
+<span class="linenumber">033:</span>           \item 場所：上野公園
+<span class="linenumber">034:</span>           \item 会費：3500 円
+<span class="linenumber">035:</span>      
+<span class="linenumber">036:</span>   \end{itemize}
+<span class="linenumber">037:</span>   
+<span class="linenumber">038:</span>   
+<span class="linenumber">039:</span>   \end{enumerate}
+<span class="linenumber">040:</span>   
+<span class="linenumber">041:</span>   \begin{flushright}
+<span class="linenumber">042:</span>   以上
+<span class="linenumber">043:</span>   \end{flushright}
+<span class="linenumber">044:</span>   
+<span class="linenumber">045:</span>   \vspace{2cm}
+<span class="linenumber">046:</span>   \begin{center}
+<span class="linenumber">047:</span>   
+<span class="linenumber">048:</span>   \includegraphics[height=5cm, width=4cm]{december.bmp}
+<span class="linenumber">049:</span>   
+<span class="linenumber">050:</span>   
+<span class="linenumber">051:</span>   \end{center}
+<span class="linenumber">052:</span>   
+<span class="linenumber">053:</span>   
+<span class="linenumber">054:</span>   \end{document}
+</pre>
+
+[図 1]
+<center>
+<img src='dvi.png' border=1>
+</center>
+
+<h2>4. 終わりに</h2>
+簡単ですが、python での XML ファイルの取り扱いについて述べてみました。
+今後少しずつ書き足していこうと思っています。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+
+<!------------------------------------------
+- <td><a rel='download' href="python9.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+------------------------------------------->
+<td><a href='../gb/write_guestbook.php?ref=py/python11.html&t=xml.dom.minidom+%A4%F2%CD%D1%A4%A4%A4%BF+XML+%A4%CE%BC%E8%A4%EA%B0%B7%A4%A4' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

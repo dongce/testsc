@@ -1,0 +1,329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, function, 関数">
+<meta name="description" content="Scheme における関数定義">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 4. 関数を定義しよう </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme3.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  3. リストを作ろう</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme5.html"><img src='../images/right_arrow.gif' class='arrow' border=0>5. 分岐</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme4.html&t=Scheme+%C6%FE%CC%E7+4.+%B4%D8%BF%F4%A4%F2%C4%EA%B5%C1%A4%B7%A4%E8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>  4. 関数を定義しよう </h1>
+<hr>
+<h2>1. 初めに </h2>
+前回までに、
+<ol>
+  <li> Scheme の処理系のインストールと使い方
+  <li> Scheme が式を評価する仕組み
+  <li> 基本的なリスト操作
+ </ol>
+  について説明したので、今回はユーザ定義関数の作り方について説明します。
+Scheme は関数型言語で、小さい関数を積み重ねてプログラムを書いていきます。
+関数をうまく書けることは Scheme を使いこなす上で重要なことです。<p>
+
+  関数の定義をするようになると処理系のコマンドラインからコードを打ち込むのは不便ですので、エディタで
+  コードを編集してから、処理系にロードさせることになります。
+<h2>2. 簡単な関数の定義とロード</h2>
+<a href='http://ja.wikipedia.org/wiki/%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB%E5%A4%89%E6%95%B0'>
+グローバル変数
+</a>
+を宣言し、それに値を結びつけるには <span class='ttb'>define</span> という命令を使います。
+<tt>define</tt> は通常の変数の宣言の他に、関数を定義するためにも使われます。
+(Scheme には関数と通常の変数の区別がないことを思い出してください。)
+<p>
+
+ここでは、第一章でセットアップした Emacs での作業を例にとって話を進めます。DrScheme を用いた場合も
+基本的にはほとんど同じです。
+Emacs を立ち上げて、 <tt>(C-x 2)</tt> または メニューの File &rarr; Split Window で Emacs のウィンドウを上下に分割します。
+その後、(C-x C-f) または File &rarr; Visit New File で新しいファイルを作成します。
+作成するディレクトリはたとえば "C:\doc\scheme" とし、ファイル名は "hello.scm" とします。
+新しいファイルに、[code 1] のコードを打ち込んでみてください。
+
+
+<p>
+[code 1] (hello.scm)
+<pre class='code'>
+<span class='comment'>; Hello world as a variable</span>
+(define vhello "Hello world")     <span class='comment'>;1</span>
+
+<span class='comment'>; Hello world as a function</span>
+(define fhello (lambda ()         <span class='comment'>;2</span>
+		 "Hello world"))
+</pre>
+
+入力が終わったら (C-x C-s) または、File &rarr; Save で保存します。
+<p>
+次に (C-c C-l) または、メニュー の Scheme &rarr; Load Scheme File を用いて
+ファイルを処理系のロードします。
+
+
+さて、プログラムのロードがすんだら (C-x o) で下側のウィンドウに飛び、
+'&gt; ' の後に次のように入力してください。入力が済むと 図 1 のような画面になると思います。
+<p>
+このように、
+エディタを用いたコードの編集と、 処理系でのテストを繰り返すことによって、
+Scheme プログラムを作成していきます。こまめにテストすることによって、
+プログラムの信頼性が高まり、作業効率もよくなります。
+エディタによっては ソースコードを部分的に評価する機能を備えたものもあり、ロードする手間が省けることがあります。
+(Emacs の場合は<a href='scheme_emacs.html'>A-6: Emacs の使いかた</a>を参照してください。)
+
+
+<pre class='samp'>
+&gt; vhello
+<span class='response'>"Hello world"</span>
+
+&gt; fhello
+<span class='response'>#&lt;procedure:fhello&gt;</span>
+
+&gt; (fhello)
+<span class='response'>"Hello world"</span>
+</pre>
+
+<center>
+<img src='hello_scm_emacs.png'><br>図 1: Emacs を用いて Scheme ソースコードの編集とテストを行っているところ。
+</center>
+<p>
+
+<span class='ttb'>define</span> はグローバル変数を宣言する命令で、
+2つの引数をとります。この命令は、最初の引数の名前の変数を宣言すると同時にその値を2番目の引数の値にします。
+つまり、[code 1] の <span class='comment'><tt>;1</tt></span> の部分は、<tt>vhello</tt> という変数を宣言し、
+その値を "Hello world" にするということを意味します。<p>
+
+それに対し、[code 1] の <span class='comment'><tt>;2</tt></span> の部分は、"Hello world" を返す手続き <tt>fhello</tt>
+  を宣言しています。<br>
+  手続きを定義するには <span class='ttb'>lambda</span> という特殊形式を使います。<tt>lambda</tt>
+  は1つ以上の引数をとり、最初の引数は
+  定義する手続きがとる引数のリストです。この場合は引数を取らないので引数のリストは <tt>()</tt> になります。<p>
+
+ 処理系に <tt>vhello</tt> と入力するとその値 "Hello world" が返ってきます。
+    <tt>fhello</tt> と入力しても同様にその値 <var>#&lt;procedure:fhello&gt;</var> が返ってきます。
+ これは、Scheme が手続きを他のデータと同じように扱っていることを意味します。
+    <a href='scheme3.html#cons'>前回</a>説明したように、
+ Scheme は全てのデータをそのメモリー上のアドレスで管理しているので、メモリーにあるものは何でも一元管理できます。<br>
+ fhello を手続きとして呼び出すためには <tt>(fhello)</tt> というように括弧でくくります。そうすると、
+    <a href='scheme2.html#eval'>前々回</a>で説明した手順を
+    踏んでこの式が評価され、その値 "Hello world" が返ってきます。<p>
+
+ 
+<h2>3. 引数をとる関数の定義</h2>
+<h3>3.1. 決まった数の引数をとる場合</h3>
+引数を取る関数を定義するときは <tt>lambda</tt> の後に引数のリストを置けば、それが、引数となります。
+次のコードを <tt>farg.scm</tt> という名前で先ほど作った <tt>hello.scm</tt> があるディレクトリに保存してください。<p>
+[code 2] (farg.scm)
+<pre class='code'>
+<span class='comment'>; hello with name</span>
+(define hello
+  (lambda (name)
+    (string-append "Hello " name "!")))
+
+
+<span class='comment'>; sum of three numbers</span>
+(define sum3
+  (lambda (a b c)
+    (+ a b c)))
+</pre>
+
+
+保存したら、scheme 処理系にロードして、関数を呼び出してみてください。
+<pre class='samp'>
+&gt; (hello "Lucy")
+<span class='response'>"Hello Lucy!"</span>
+
+&gt; (sum3 10 20 30)
+<span class='response'>60</span>
+</pre>
+
+<dl>
+  <dt><b>hello</b></dt>
+      <dd> 関数 <tt>hello</tt> は１つの引数 <tt>name</tt> を取り、<tt>name</tt> を "Hello " と "!" ではさんで返します。<br>
+<span class='ttb'>string-append</span> は任意個の文字列の引数をとり、それらをつなぎ合わせた文字列を
+返します。</dd>
+  <dt><b>sum3</b></dt>
+      <dd>３個の数の引数をとり、それらの合計を返します。</dd>
+</dl>
+
+<p>
+<h3>3.2. 任意個の引数を取る方法</h3>
+任意個の引数をとる関数を定義することができます。
+ゼロ個以上の固定された引数に加えて、個数が不定の引数（レストパラメータ）をとることができます。
+個数が不定の引数は、リストとして関数本体に渡ります。
+今までの説明範囲では使い道は無いのですが、<a href='scheme7.html'>繰り返し</a>や、<a href='scheme8.html'>高階関数</a>
+とともに利用するとエレガントなコードを書くことができます。<p>
+
+以下の例は、関数に渡った引数をリストにして返す関数です。
+3 つの通常の引数とレストパラメータをとります。
+通常の引数の後に、ドットで区切って、レストパラメータを書きます。
+<pre class='code'>
+(define three-args+
+  (lambda (a b c . d)
+    (list a b c d)))
+</pre>
+<p>
+以下は実行例です。
+レストパラメータがリストとして
+関数本体に渡っているのがわかると思います。
+
+<pre class='samp'>
+&gt; (three-args+ 2 3 4)
+<span class='response'>(2 3 4 ())</span>
+
+&gt; (three-args+ 2 3 4 5)
+<span class='response'>(2 3 4 (5))</span>
+
+&gt; (three-args+ 2 3 4 5 6 7)
+<span class='response'>(2 3 4 (5 6 7))</span>
+
+</pre>
+
+<h2>4. 関数定義の省略形</h2>
+<tt>lambda</tt> を使って関数を定義するのが正統的な関数の定義法ですが、 [code 3] に示すような
+省略形が使えます。<p>
+  
+[code 3]
+<pre class='code'>
+<span class='comment'>; hello with name</span>
+(define (hello name)
+  (string-append "Hello " name "!"))
+
+
+<span class='comment'>; sum of three numbers</span>
+(define (sum3 a b c)
+  (+ a b c))
+
+
+<span class='comment'>; returning a list of three and additional arguments</span>
+(define (three-args+ a b c . d)
+  (list a b c d))
+</pre>
+[code 3] に示すように、呼び出されるときの形で関数を定義します。
+[code 3] は [code 2] と全く同等です。この記法を嫌う人もいますが、
+コードが短くなることに越したことは無いので、この解説では遠慮なく使います。
+
+<h3> 練習問題 1</h3>
+次の関数を書いてください。簡単な関数ですが、しばしば使うことになると思います。<br>
+これらの関数は R<sup>6</sup>RS では定義されていませんが、便利なので、
+この解説記事では今後説明抜きで使います。
+<ol>
+<li> 引数に 1 を加えて返す関数 (<b>inc</b>)。
+<li> 引数から 1 を引いて返す関数 (<b>dec</b>)。
+</ol>
+
+
+
+<a name='practice'>
+<h3> 練習問題 2</h3>
+ボールを投げたときに飛ぶ距離を求める関数を以下の手順で書いてみようと思います。
+<ol>
+<li> 角度の度を弧度法単位(ラジアン）に変換する関数。<br>
+  180 度は &pi; ラジアンである。
+  &pi; の定義は、<br>
+  <tt>(define pi (* 4 (atan 1.0)))</tt><br>
+  を用いよ。
+
+<li> 速度 <var>v<sub>x</sub></var> で等速運動するものが <var>t</var> 秒間に移動する距離を求める関数。
+<li> 垂直方向の初速度 <var>v<sub>y</sub></var> で投げたものが落ちてくるまでの時間を
+  計算する関数。<br>
+  空気抵抗は無視し、重力加速度 <i>g</i> は <tt>9.8 m s<sup>-2</sup></tt>
+  とする。<br>
+  ヒント：落ちてくるときの速度は <var>-v<sub>y</sub></var> になっているから、<br>
+  <tt>2 v<sub>y</sub> = g t</tt> <br>
+  が成り立つ。ここで <tt>t</tt> は落ちてくるのにかかる時間である。
+<li> 1--3 の関数を利用して、初速度 <var>v</var> で角度 <var>theta</var> 度で投げたものが飛ぶ距離を求める関数。<br>
+  ヒント：まず、最初に関数を利用して角度 <var>theta</var> を弧度法単位に換算する（それを <var>theta1</var> とする）。<br>
+  垂直、水平方向の初速度はそれぞれ <var>v</var> <tt>sin</tt>(<var>theta1</var>),
+  <var>v</var> <tt>cos</tt>(<var>theta1</var>) で表される。
+  落ちてくるまでにかかる時間は関数３を用いて計算できる。
+  水平方向に加速度はかからないので、飛ぶ距離は関数２を用いて計算できる。
+ <li> 初速度 <tt>40 m s<sup>-1</sup></tt>, 角度 30 度で投げたボールが飛ぶ距離を上で定義した関数を用いて求めよ。
+   （肩の強いプロ野球選手が遠投したときの距離に近い値になります。）
+</ol>
+
+
+<h2>5. 終わりに</h2>
+今回は関数の定義の方法について述べました。<p>
+  関数定義は <span class='ttb'>define</span> を使って行います。
+  関数を定義するときは、処理系に直接打ち込むよりも、エディタを使ってソースコードを作ってから
+  それをロードする方が能率的です。Emacs を使うと便利よく編集とテストができます。<p>
+
+次回は分岐について述べます。
+分岐ができるようになると、それなりのプログラムが書けます。
+
+
+<h3>練習問題の解答</h3>
+<a name='a1'>
+<h4> 練習問題 1</h4>
+<pre class='code'>
+; 1
+(define (inc x)
+  (+ x 1))
+
+; 2
+(define (dec x)
+  (- x 1))
+</pre>
+
+<h4> 練習問題 2</h4>
+以下のようなコードを書きます。
+<pre class='code'>
+<span class='comment'>; definition of pi</span>
+(define pi (* 4 (atan 1.0)))
+
+<span class='comment'>; degree -> radian</span>
+(define (radian deg)
+  (* deg (/ pi 180.0)))
+
+<span class='comment'>; free fall time</span>
+(define (ff-time vy)
+  (/ (* 2.0 vy) 9.8))
+
+<span class='comment'>; horizontal distance </span>
+(define (dx vx t)
+  (* vx t))
+
+<span class='comment'>; distance</span>
+(define (distance v ang)
+  (dx
+   (* v (cos (radian ang)))                     <span class='comment'>; vx</span>
+   (ff-time (* v (sin (radian ang))))))         <span class='comment'>; t</span>
+</pre>
+
+処理系にロードした後、以下のように入力するとボールが飛ぶ距離 (m) が計算されます。
+<pre class='samp'>
+&gt; (distance 40 30)
+<span class='response'>141.39190265868385</span>
+</pre>
+141.4 m と計算されます。空気抵抗を考慮に入れていないので若干大きめですが、
+妥当な値が出てきました。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme3.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  3. リストを作ろう</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme5.html"><img src='../images/right_arrow.gif' class='arrow' border=0>5. 分岐</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme4.html&t=Scheme+%C6%FE%CC%E7+4.+%B4%D8%BF%F4%A4%F2%C4%EA%B5%C1%A4%B7%A4%E8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+
+

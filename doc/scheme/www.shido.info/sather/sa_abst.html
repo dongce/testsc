@@ -1,0 +1,351 @@
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, abstract class, cypher">
+<meta name="description" content="Sather の抽象クラス">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 7. 抽象クラス  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_io.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. IO</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_para.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+8. パラメター付クラス</a></td>
+
+<td><a rel=download href="crypt.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_abst.html&t=Sather%3A%20%C3%EA%BE%DD%A5%AF%A5%E9%A5%B9' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 7. 抽象クラス </h1>
+<hr>
+
+<!------------------------------------------
+- 準備中です。<br>
+- しばらくお待ちください。<p>
+- <img src='../images/under_construction.gif'>
+------------------------------------------->
+
+<h2>1．はじめに</h2>
+抽象クラスは Java のインターフェースに相当するもので、
+メソッドを宣言したものです。<p>
+
+実装抜きで宣言することによって、実装に依存しないクラス間の関係を構築でき、
+コードの再利用を促進します。<p>
+
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+The Online Sather Code Browser</a> をみるとわかるように、
+Sather では、継承の多くは抽象クラスを用いて行われており、通常のクラスの継承は底のほうで少しあるだけです。<p>
+
+抽象クラスは、次の章で説明するパラメター付クラス (Parametrized Class) と組み合わせることにより、柔軟なデータ型を構築することができます。
+
+<h2>2. 例：暗号化通信</h2>
+早速、例を挙げて説明します。
+暗号化には AES, DES, RC4 などのさまざまなアルゴリズムがあり、抽象クラスを作ってまとめるのに
+適した題材だと思いました。
+[code 1] に簡単な暗号化通信の例を示します。<p>
+
+<ul>
+<li>暗号アルゴリズムは暗号化と復号ができる必要があります。<br>
+[code 1] では抽象クラス <tt>$CRYPT</tt> で暗号アルゴリズムは <tt>encrypt</tt> と <tt>decrypt</tt> の２つの
+メソッドを持つことを規定しています。<br>
+簡単のため、具体的なアルゴリズムとして、何もしない PLAIN と キーとの排他的論理和をとる XOR の2つを考えます。
+<li>メッセージは送受信ができる必要があります。<br>
+[code 1] では抽象クラス <tt>$MESSAGE</tt> でメッセージは送信と受信用に <tt>send</tt> と <tt>receive</tt> の２つのメソッドを
+持ちます。暗号化しない通常の通信 USUAL と 暗号化する IMPORTANT を考えます。
+</ul>
+
+<a name='crypt_sa'>
+[code 1]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- an example of abstract class; $CRYPT and $MESSAGE</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     <span class="comment">-- algorithm for cryptogram</span>
+<span class="linenumber">05:</span>     abstract class $CRYPT is      <span class="comment">-- 暗号化アルゴリズムの抽象クラス。抽象クラスは $ に続けて全て大文字で書く。</span>
+<span class="linenumber">06:</span>        encrypt(s:STR):STR;        <span class="comment">-- 暗号化と</span>
+<span class="linenumber">07:</span>        decrypt(s:STR):STR;        <span class="comment">-- 復号化の２つのメソッドを持つ。</span>
+<span class="linenumber">08:</span>     end; <span class="comment">-- end $CRYPT</span>
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     <span class="comment">-- sipher message</span>
+<span class="linenumber">11:</span>     abstract class $MESSAGE is    <span class="comment">-- メッセージ用抽象クラス</span>
+<span class="linenumber">12:</span>        send(s:STR):STR;
+<span class="linenumber">13:</span>        receive(s:STR):STR;
+<span class="linenumber">14:</span>     end; <span class="comment">-- end $MESSAGE</span>
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     <span class="comment">-- Plain text</span>
+<span class="linenumber">17:</span>     class PLAIN &lt; $CRYPT is      <span class="comment">-- 何もしない暗号化アルゴリズム</span>
+<span class="linenumber">18:</span>        create:SAME is
+<span class="linenumber">19:</span>           return new;
+<span class="linenumber">20:</span>        end;
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>        encrypt(s:STR):STR is
+<span class="linenumber">23:</span>           return s;
+<span class="linenumber">24:</span>        end;
+<span class="linenumber">25:</span>     
+<span class="linenumber">26:</span>        decrypt(s:STR):STR is
+<span class="linenumber">27:</span>           return s;
+<span class="linenumber">28:</span>        end;
+<span class="linenumber">29:</span>     end; <span class="comment">-- end PLAIN</span>
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     <span class="comment">-- Simple XOR cryptogram</span>
+<span class="linenumber">32:</span>     class XOR &lt; $CRYPT is           <span class="comment">-- キーとの排他的論理和をとる暗号化アルゴリズム</span>
+<span class="linenumber">33:</span>     
+<span class="linenumber">34:</span>        private attr keylist:ARRAY{INT};
+<span class="linenumber">35:</span>     
+<span class="linenumber">36:</span>        create(key:STR):SAME is
+<span class="linenumber">37:</span>           return new.init(key);
+<span class="linenumber">38:</span>        end;
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>        private init(key:STR):SAME is
+<span class="linenumber">41:</span>           keylist:=#(key.size);
+<span class="linenumber">42:</span>           loop
+<span class="linenumber">43:</span>     	 keylist.set!(key.elt!.int);   <span class="comment">-- キーを整数の配列として保持</span>
+<span class="linenumber">44:</span>           end;
+<span class="linenumber">45:</span>           return self;
+<span class="linenumber">46:</span>        end;
+<span class="linenumber">47:</span>     
+<span class="linenumber">48:</span>        private key_rotate!:INT is         <span class="comment">-- 呼ばれるたびに keylist の次の要素を返す。最後まで行ったら最初に戻る。</span>
+<span class="linenumber">49:</span>           i:INT:=0;
+<span class="linenumber">50:</span>           n:INT:=keylist.size-1;
+<span class="linenumber">51:</span>           loop
+<span class="linenumber">52:</span>     	 yield keylist[i];
+<span class="linenumber">53:</span>     	 if i=n then
+<span class="linenumber">54:</span>     	    i:=0;
+<span class="linenumber">55:</span>     	 else
+<span class="linenumber">56:</span>     	    i:=i+1;
+<span class="linenumber">57:</span>     	 end;
+<span class="linenumber">58:</span>           end;
+<span class="linenumber">59:</span>        end;
+<span class="linenumber">60:</span>     
+<span class="linenumber">61:</span>        encrypt(s:STR):STR is
+<span class="linenumber">62:</span>           fs:FSTR:=#(s.size);  <span class="comment">-- FSTR は変更可能な文字列</span>
+<span class="linenumber">63:</span>           loop
+<span class="linenumber">64:</span>     	 fs := fs + s.elt!.int.bxor(key_rotate!).char;    <span class="comment">-- fs の最後にメッセージとキーの XOR で作った一文字を追加していく。</span>
+<span class="linenumber">65:</span>           end;
+<span class="linenumber">66:</span>           return fs.str;
+<span class="linenumber">67:</span>        end;
+<span class="linenumber">68:</span>     
+<span class="linenumber">69:</span>        decrypt(s:STR):STR is           <span class="comment">-- 排他的論理和による暗号化では、復号化は暗号化と同じ。</span>
+<span class="linenumber">70:</span>           return encrypt(s);
+<span class="linenumber">71:</span>        end;
+<span class="linenumber">72:</span>     end; <span class="comment">-- end of XOR</span>
+<span class="linenumber">73:</span>           
+<span class="linenumber">74:</span>     partial class MESSAGE &lt; $MESSAGE is    <span class="comment">-- メッセージに共通する要素を部分クラスとして書き出す。</span>
+<span class="linenumber">75:</span>        stub cry:$CRYPT;                    <span class="comment">-- 暗号化アルゴリズム。下部クラスで再定義される。</span>
+<span class="linenumber">76:</span>     
+<span class="linenumber">77:</span>        send(s:STR):STR is
+<span class="linenumber">78:</span>           return cry.encrypt(s);
+<span class="linenumber">79:</span>        end;
+<span class="linenumber">80:</span>     
+<span class="linenumber">81:</span>        receive(s:STR):STR is
+<span class="linenumber">82:</span>           return cry.decrypt(s);
+<span class="linenumber">83:</span>        end;
+<span class="linenumber">84:</span>     end; <span class="comment">-- end MESSAGE</span>
+<span class="linenumber">85:</span>     
+<span class="linenumber">86:</span>     <span class="comment">-- Plain Message</span>
+<span class="linenumber">87:</span>     class USUAL &lt; $MESSAGE is
+<span class="linenumber">88:</span>        include MESSAGE;
+<span class="linenumber">89:</span>        private const cry:PLAIN:=PLAIN::create;  <span class="comment">-- cannot use #PLAIN here.</span>
+<span class="linenumber">90:</span>     
+<span class="linenumber">91:</span>        create:SAME is
+<span class="linenumber">92:</span>           return new;
+<span class="linenumber">93:</span>        end;
+<span class="linenumber">94:</span>     end; <span class="comment">-- end USUAL</span>
+<span class="linenumber">95:</span>     
+<span class="linenumber">96:</span>     <span class="comment">-- Sipher Message </span>
+<span class="linenumber">97:</span>     class IMPORTANT &lt; $MESSAGE is
+<span class="linenumber">98:</span>        include MESSAGE;
+<span class="linenumber">99:</span>        private attr cry:XOR;
+<span class="linenumber">100:</span>     
+<span class="linenumber">101:</span>        create(key:STR):SAME is
+<span class="linenumber">102:</span>           return new.init(key);
+<span class="linenumber">103:</span>        end;
+<span class="linenumber">104:</span>     
+<span class="linenumber">105:</span>        private init(key:STR):SAME is
+<span class="linenumber">106:</span>           cry:=#(key);
+<span class="linenumber">107:</span>           return self;
+<span class="linenumber">108:</span>        end;
+<span class="linenumber">109:</span>     end; <span class="comment">-- end IMPORTANT</span>
+<span class="linenumber">110:</span>     
+<span class="linenumber">111:</span>     class MAIN is
+<span class="linenumber">112:</span>     
+<span class="linenumber">113:</span>        private const key:STR:= "qwertyuiop@asdfghjkl;zxcvbnm,"; <span class="comment">-- key for XOR</span>
+<span class="linenumber">114:</span>     
+<span class="linenumber">115:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">116:</span>           if av.size=2 then
+<span class="linenumber">117:</span>     	 plain:USUAL:= #;
+<span class="linenumber">118:</span>     	 sixor:IMPORTANT:=#(key); 
+<span class="linenumber">119:</span>     	 msg:STR:=av[1];                                    <span class="comment">-- 最初の引数を暗号化する。</span>
+<span class="linenumber">120:</span>     	 plain_send:STR:=plain.send(msg); 
+<span class="linenumber">121:</span>     	 plain_receive:STR:=plain.receive(plain_send);
+<span class="linenumber">122:</span>     	 xor_send:STR:=sixor.send(msg);
+<span class="linenumber">123:</span>     	 xor_receive:STR:=sixor.receive(xor_send);
+<span class="linenumber">124:</span>     	 #OUT + "Sipher Test using \"" + msg + "\"\n\n";
+<span class="linenumber">125:</span>     	 #OUT + "Plain send: " + plain_send + "\n";
+<span class="linenumber">126:</span>     	 #OUT + "Planin receive: " + plain_receive + "\n\n";
+<span class="linenumber">127:</span>     	 #OUT + "XOR send: " + xor_send + "\n";
+<span class="linenumber">128:</span>     	 #OUT + "XOR receive: " + xor_receive + "\n\n";
+<span class="linenumber">129:</span>           else
+<span class="linenumber">130:</span>     	 #ERR + "Usage: crypt \'STRING\'\n";
+<span class="linenumber">131:</span>           end;
+<span class="linenumber">132:</span>        end;
+<span class="linenumber">133:</span>     end; <span class="comment">-- end of MAIN</span>
+</pre>
+
+コンパイルして実行すると以下のようになります。
+
+<pre class='samp'>
+$ sacomp crypt.sa -o crypt
+$ ./crypt 'Welcome to Satehr World.'
+Sipher Test using "Welcome to Satehr World."
+
+Plain send: Welcome to Satehr World.
+Planin receive: Welcome to Satehr World.
+
+XOR send: <span class='comment'>(表示できない文字列)</span>
+XOR receive: Welcome to Satehr World.
+
+</pre>
+
+暗号化アルゴリズムは抽象クラスになっているので、もっと強度の強い暗号を用いたいときにはコードのほかの部分を
+ほとんど変えることなく暗号化アルゴリズムを変更することができます。<br>
+具体的には、IMPORTANT に AES を使いたくなったら、99 行目を次のように変えるだけです。
+<pre class='code'>
+<span class="linenumber">99:</span>        private attr cry:AES;
+</pre>
+
+<h2>3. 備え付けの抽象クラス</h2>
+Sather に備え付けの抽象クラスのうち主なものを下の表にまとめます。
+詳しくは
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+The Online Sather Code Browser</a>
+をみてください。詳しい説明とクラスの関係を示す図が載っています。
+<table border=1>
+   <tr>
+      <th>クラス名</th>
+      <th>インターフェース</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>$OB</td>
+      <td> </td>
+      <td> 全てのクラスは $OB のサブクラスです。</td>
+   </tr>
+   <tr>
+      <td>$IS_EQ</td>
+      <td>is_eq(e:$OB):BOOL;</td>
+      <td>self と e が等しければ true を返します。</td>
+   </tr>
+   <tr>
+      <td>$IS_LT</td>
+      <td>is_lt(e:T):BOOL;</td>
+      <td>self が e より小さければ true を返します。 $IS_EQ のサブクラスです。</td>
+   </tr>
+   <tr>
+      <td>$IS_NIL</td>
+      <td>is_nil:BOOL;</td>
+      <td>self が nil なら true を返します。</td>
+   </tr>
+   <tr>
+      <td>$NIL</td>
+      <td>nil:SAME;</td>
+      <td>self を nil にします。</td>
+   </tr>
+   <tr>
+      <td>$STR</td>
+      <td>str:STR</td>
+      <td>self を文字列に変換します。ほとんど全てのクラスは $STR のサブクラスです。</td>
+   </tr>
+   <tr>
+      <td>$NEF{NTP}</td>
+      <td>abs, plus, minus, tiems, div, ...</td>
+      <td>代数のクラスです。サブクラスに $NUMBER{NTP}, $CPX_NUMBER{ETP} があります。</td>
+   </tr>
+   <tr>
+      <td>$ELT</td>
+      <td>elt!:$OB</td>
+      <td>イテレーター elt! を定義するクラスです。$ELT{T} の親クラスです。</td>
+   </tr>
+   <tr>
+      <td>$ELT{T}</td>
+      <td>elt!:T</td>
+      <td>実質的にイテレーター elt! を定義しています。</td>
+   </tr>
+   <tr>
+      <td>$CONTAINER{ETP}</td>
+      <td>copy, has, size</td>
+      <td>入れものクラスです。パラメター付クラスのほとんどがこのクラスのサブクラスです。</td>
+   </tr>
+   <tr>
+      <td>$HASH</td>
+      <td>hash</td>
+      <td>ハッシュ値を計算するクラスです。ハッシュ表のキーになることができるクラスは $HASH のサブクラスです。</td>
+   </tr>
+</table>
+
+
+<h2>4. 終わりに</h2>
+この章では簡単な暗号化プログラムを例にとって抽象クラスについて説明しました。
+<a href='crypt.tar.bz2'>付録</a>にコードをつけておきますので気が向いたら遊んでください。<p>
+抽象クラスについての詳しい情報は
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/LanguageDescription/contents.html'>
+  Sather 1.1 : Language Essentials </a>
+をみてください。
+また、
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+The Online Sather Code Browser</a>
+を眺めると感じをつかむことができます。<p>
+
+次回はパラメター付クラス (Parametrized Class) について説明します。
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_io.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. IO</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_para.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+8. パラメター付クラス</a></td>
+
+<td><a rel=download href="crypt.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_abst.html&t=Sather%3A%20%C3%EA%BE%DD%A5%AF%A5%E9%A5%B9' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+</body></html>
+    
+
+
+
+

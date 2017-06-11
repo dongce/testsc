@@ -1,0 +1,219 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="functional programming, curry, python, scheme">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 身も蓋もない Curry 化の実装 </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc45&t=%BF%C8%A4%E2%B3%B8%A4%E2%A4%CA%A4%A4+Curry+%B2%BD%A4%CE%BC%C2%C1%F5"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>身も蓋もない Curry 化の実装</h1>
+<hr>
+Feb 14, 2012
+<p>
+
+
+<h2>1. Curry 化の定義</h2>
+
+Curry 化というのは、複数の引数を取る関数を1つの引数をとる関数の列に置き換えることです。
+たとえば、3 つの引数をとる <tt>f(x,y,z)</tt> を <tt>f<sub>curried</sub>(x)(y)(z)</tt> の形式に変換することです。
+<p>
+<tt>f<sub>curried</sub>(x)</tt> は１つの引数をとる関数を返し、
+その関数を呼び出すと、また１つの引数をとる関数 (<tt>f<sub>curried</sub>(x)(y)</tt>)を返し、
+さらにその関数を呼び出す (<tt>f<sub>curried</sub>(x)(y)(z)</tt>) と、もともとの関数 f(x,y,z)
+を呼び出したときの結果を返します。
+<p>
+また、Curry 化した関数は使いまわすことが可能です。
+<pre class='samp'>
+p = f<sub>curried</sub>(x)(y)
+p(z1) --&gt; f(x,y,z1)
+p(z2) --&gt; f(x,y,z2)
+</pre>
+
+
+詳しくは <a href='http://en.wikipedia.org/wiki/Currying'>Curry (Wikipedia)</a> を見てください。
+
+
+<h2>2. 1 個以上の引数をとり、引数の数が固定されている任意の関数を Curry 化する関数の実装方法</h2>
+
+1 個以上の引数をとり、引数の数が固定されている任意の関数を Curry 化する関数 curry を作ってみます。
+<p>
+Curry 化についてはいろいろな人がいろいろな実装を試していますが、結構ごたごたしているので、
+もっと簡単な方法はないか考えてみました。
+その結果、以下に述べるような身も蓋もないやり方がシンプルに、かつ (コードは) エレガントに
+実装できることに気づきました。
+<p>
+
+Curry 化された関数は、
+<ol>
+<li> もともとの関数と、確定した引数のリストを保持し、1つの引数をとる関数として呼び出されることができる。
+<li> 関数として呼び出されると、与えられた引数を、保持している引数のリストに加え、
+<ul>
+<li> 確定した引数の数が、もともとの関数がとる引数の数に等しければ、もともとの関数に確定した引数を適用し、その結果を返す。
+<li> そうでなければ、もともとの関数と、新たな確定した引数のリストを保持する Curry 化された関数を返す。
+</ul>
+</ol>
+つまり、 Curry 化された関数から Curry 化された関数を作る関数を呼び出すことでシンプルに実装できます。
+
+
+<h2>3. Python での実装 (1) クラスを定義する</h2>
+
+上で述べた方針に従って、Curry 化された関数のクラスを Python で書いてみます。
+<p>
+[curry0.py]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#!python3.2</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   from inspect import getfullargspec
+<span class="linenumber">004:</span>   from copy import  copy
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   
+<span class="linenumber">008:</span>   def cons(ls, x):
+<span class="linenumber">009:</span>       ls1=copy(ls)
+<span class="linenumber">010:</span>       ls1.append(x)
+<span class="linenumber">011:</span>       return ls1
+<span class="linenumber">012:</span>   
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   class Curry :
+<span class="linenumber">015:</span>       <span class='string'>'''class of Curried function'''</span>
+<span class="linenumber">016:</span>   
+<span class="linenumber">017:</span>       def __init__(self, fun, av=[]):
+<span class="linenumber">018:</span>           self.fun = fun
+<span class="linenumber">019:</span>           self.ac = len(getfullargspec(fun).args)
+<span class="linenumber">020:</span>           self.av=av
+<span class="linenumber">021:</span>           assert len(self.av) &lt; self.ac
+<span class="linenumber">022:</span>   
+<span class="linenumber">023:</span>   
+<span class="linenumber">024:</span>       def __call__(self, val):
+<span class="linenumber">025:</span>           av = cons(self.av, val)
+<span class="linenumber">026:</span>           return self.fun(*av) if len(av) == self.ac else Curry(self.fun, av)
+<span class="linenumber">027:</span>   
+</pre>
+
+inspect モジュールの <a href='http://docs.python.org/py3k/library/inspect.html#inspect.getfullargspec'>getfullargspec()</a> 
+を使うと関数がどのような引数をとるのか調べることができます。
+通常の引数は argspec オブジェクトの args というリストに格納されているので、その長さを調べると引数の個数がわかります。
+Curry 化された関数のオブジェクトは もともとの関数 (self.fun)、その関数がとる引数の数 (self.ac)、及び確定した引数のリスト (self.av) を保持しています。
+<br>
+Curry 化された関数のオブジェクトが1引数の関数として呼ばれると、与えられた引数を保持していた引数のリストに加え、その長さが self.ac に等しいときは
+もともとの関数に確定した引数を適用した結果 (self.fun(*av)) を返し、
+そうでなければ もともとの関数と新たな確定した引数のリストから Curry 化された関数のオブジェクト (Curry(self.fun, av) を作ってそれを返します。
+<p>
+curry0.py を import して試してみると以下のようになり、正常に動作しているのがわかります。
+
+<pre class='samp'>
+&gt;&gt;&gt; from curry0 import Curry
+&gt;&gt;&gt; def sub3(x,y,z): return x-y-z
+...
+&gt;&gt;&gt; csub3 = Curry(sub3)
+&gt;&gt;&gt; csub3(10)(2)(3)
+5
+&gt;&gt;&gt; p=csub3(10)(5)
+&gt;&gt;&gt; p(1)
+4
+&gt;&gt;&gt; p(3)
+2
+</pre>
+
+また、次のようにデコレータとして用いることができます。
+<pre class='code'>
+<span class="linenumber">001:</span>   @Curry
+<span class="linenumber">002:</span>   def sub3(x,y,z):
+<span class="linenumber">003:</span>       return x-y-z
+</pre>
+
+
+<h2>4. Python での実装 (2) 高階関数を使う</h2>
+
+メソッドとして __init__() と __call__() しか持たないクラスは高階関数を使うと簡潔に書けます。
+curry0.py の 14 行目以降を高階関数で書き直すと以下のようになります。
+10 行で Curry 化を実装することができます。
+<p>
+[curry.py] (抜粋)
+<pre class='code'>
+<span class="linenumber">001:</span>   def curry(fun, av=[]):
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>       ac = len(getfullargspec(fun).args)
+<span class="linenumber">004:</span>       assert len(av) &lt; ac
+<span class="linenumber">005:</span>       
+<span class="linenumber">006:</span>       def curried(x):
+<span class="linenumber">007:</span>           av1=cons(av, x)
+<span class="linenumber">008:</span>           return  fun(*av1) if len(av1) == ac  else curry(fun, av1)
+<span class="linenumber">009:</span>   
+<span class="linenumber">010:</span>       return curried
+</pre>
+
+curry.py を import して試すと以下のようになり、正常に動作しているのがわかります。
+<pre class='samp'>
+&gt;&gt;&gt; from curry import curry
+&gt;&gt;&gt; def sub3(x,y,z): return x-y-z
+...
+&gt;&gt;&gt; csub3 = curry(sub3)
+&gt;&gt;&gt; csub3(10)(2)(3)
+5
+&gt;&gt;&gt; p=csub3(10)(5)
+&gt;&gt;&gt; p(1)
+4
+&gt;&gt;&gt; p(3)
+2
+</pre>
+
+Curry クラスと同様にデコレータとして用いることができます。
+<pre class='code'>
+<span class="linenumber">001:</span>   @curry
+<span class="linenumber">002:</span>   def sub3(x,y,z):
+<span class="linenumber">003:</span>       return x-y-z
+</pre>
+
+
+<h2>5. Scheme での実装</h2>
+
+MIT-Scheme での実装を以下に示します。
+arty-process は 関数の引数を返す関数です。
+MIT-Scheme 独自の関数ですが、他の Scheme の実装でも同様の機能があります。
+
+<pre class='code'>
+<span class="linenumber">001:</span>   (define (curry fun . rest)
+<span class="linenumber">002:</span>     (let ((av (if (null? rest) '() (car rest)))
+<span class="linenumber">003:</span>           (ac (car (procedure-arity fun)))) <span class="comment">;; MIT-scheme only</span>
+<span class="linenumber">004:</span>       (lambda (x)
+<span class="linenumber">005:</span>         (let ((av1 (cons x av)))
+<span class="linenumber">006:</span>           (if (= ac (length av1))
+<span class="linenumber">007:</span>               (apply fun (reverse av1))
+<span class="linenumber">008:</span>               (curry fun av1))))))
+</pre>
+
+Scheme の実装は Python の実装よりコードがごてごてした感じです。
+Python は関数型言語としてもいけているといえます。
+<h2> 6. 終わりに</h2>
+
+呼ばれるたびに引数を溜め込んで、必要なだけ溜まったらもともとの関数を適用するという身も蓋もないやり方で
+Curry をごく簡単に実装することができました。
+<p>
+<a href='curry.zip'>ソース</a>はこちらからどうぞ。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc45&t=%BF%C8%A4%E2%B3%B8%A4%E2%A4%CA%A4%A4+Curry+%B2%BD%A4%CE%BC%C2%C1%F5"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

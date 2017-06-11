@@ -1,0 +1,543 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, lazy evaluation, infinite sequence, numerical caluculation">
+<meta name="description" content="lazy evaluation of Scheme and making infinite sequences using this feature">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Scheme) 17. Lazy Evaluation</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_cc_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  16. Continuation</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_amb_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>18. Nondeterminism</a></td>
+<td><a rel=download href="scheme_lazy.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>Download</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_lazy_e.html&t=%28Scheme%29+17.+Lazy+Evaluation' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1>17. Lazy evaluation</h1>
+<hr>
+<h2>1. Introduction </h2>
+
+Lazy evaluation is a way of computing in which values are not calculated until they are required.
+The lazy evaluation includes iteration in data structure naturally
+and represents infinity in a simple matter, which promote modularity of programs.
+See
+<a href='http://www.md.chalmers.se/~rjmh/Papers/whyfp.html'>
+Why Functional Programming Matters</a> on the benefit of the lazy evaluation. <p>
+
+<a href='http://www.haskell.org/'>Haskell</a> is well recognized as a programming language that totally adopts lazy evaluation.
+Scheme also adopts it (even the adoption is partially).
+
+<h2> 2. Functions for the lazy evaluation</h2>
+Following functions are defined in the R<sup>5</sup>RS, which deal with lazy evaluation.
+Intermediate states are called <b>promise</b> in that the way of evaluation is defined and the evaluation is not done yet.
+The final values are calculated by applying <tt>force</tt> to the promises. 
+
+<dl>
+  <dt><span class='ttb'>(delay <var>proc</var>)</span></dt>
+      <dd> making a promise from the <var>proc</var>.</dd>
+  <dt><span class='ttb'>(promise? <var>obj</var>)</span></dt>
+      <dd> returning <tt>#t</tt> if <var>obj</var> is a promise.</dd>
+  <dt><span class='ttb'>(force <var>promise</var>)</span></dt>
+      <dd> Calculating a value from the <var>promise</var>.</dd>
+</dl>
+
+<h2> 3. A simple example of the lazy evaluation</h2>
+[sample 1] shows a simple example of the lazy evaluation.
+In this sample, a promise is produced by applying the function <span class='ttb'>delay</span> to <tt>(+ 1 2)</tt>,
+then evaluate the promise by the function <span class='ttb'>force</span>.
+
+<br>
+[sample 1]
+<pre class='samp'>
+(define laz (delay (+ 1 2)))
+<span class='response'>;Value: laz</span>
+
+laz
+<span class='response'>;Value 11: #[promise 11]</span>
+
+(promise? laz)
+<span class='response'>;Value: #t</span>
+
+(force laz)
+<span class='response'>;Value: 3</span>
+
+(* 10 (force laz))
+<span class='response'>;Value: 30</span>
+</pre>
+
+Notice that promises are not consumed by <tt>force</tt>, which means that the function <tt>force</tt> has no side effect.
+As a consequence, you can reuse promises.
+
+<h2> 4. Representation of infinite sequences using the lazy evaluation</h2>
+Now let's make infinite sequences using the lazy evaluation.
+First I will define some basic functions to treat infinite sequences.
+Then I will make infinite sequences using these functions and 
+apply infinite sequences to numerical calculations.
+<p>
+A infinity sequence is represented by 'a nested structure' of a cons cell shown in eq. (1),
+whose car and cdr parts are a final value and a promise, respectively.
+Another cons cell with a structure of eq. (1) is produced by forcing the cdr part, and you can repeat this
+procedure up to infinity as shown in fig. 1. 
+Even the nested structure of cons cells is similar to that of ordinary lists, 
+using promises as the cdr part makes it possible to represent infinite sequences.
+<pre class='code'>
+(&lt;val&gt; <b>.</b> &lt;promise&gt;)    (1)
+</pre>
+  <center>
+    <img src='lazy_fig_1_e.png'><br>
+    Figure 1. A implementation of a infinity sequence using a cons cell 
+whose car and cdr parts are a final value and a promise, respectively.
+    </center>
+
+
+<h3> 4.1. Basic functions and a macro for infinite sequences</h3>
+[code 1] shows basic functions and a macro for infinite sequences.
+The most important one among them is <span class='ttb'>lazy-map</span>, which is
+used for operations of infinite sequences.
+<p>
+As <span class='ttb'>lazy-cons</span> contains a special form <tt>delay</tt> which delays evaluation,
+it should be defined as a macro.
+
+<p>
+[code 1]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;;;; basic functions and a macro</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="comment">;;; car for lazy evaluation</span>
+<span class="linenumber">04:</span>     (define lazy-car car)
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     <span class="comment">;;; cdr for lazy evaluation</span>
+<span class="linenumber">07:</span>     (define (lazy-cdr ls)
+<span class="linenumber">08:</span>       (force (cdr ls)))
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     <span class="comment">;;; lazy cons</span>
+<span class="linenumber">11:</span>     (define-syntax lazy-cons
+<span class="linenumber">12:</span>        (syntax-rules ()
+<span class="linenumber">13:</span>           ((_ a b) (cons a (delay b)))))
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment">;;; lazy map</span>
+<span class="linenumber">16:</span>     (define (lazy-map fn . lss)
+<span class="linenumber">17:</span>       (if (memq '() lss)
+<span class="linenumber">18:</span>           '()
+<span class="linenumber">19:</span>         (lazy-cons (apply fn (map lazy-car lss))
+<span class="linenumber">20:</span>                    (apply lazy-map fn (map lazy-cdr lss)))))
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>     <span class="comment">;;; lazy filter</span>
+<span class="linenumber">23:</span>     (define (lazy-filter pred ls)
+<span class="linenumber">24:</span>       (if (null? ls)
+<span class="linenumber">25:</span>           '()
+<span class="linenumber">26:</span>         (let ((obj (lazy-car ls)))
+<span class="linenumber">27:</span>           (if (pred obj)
+<span class="linenumber">28:</span>               (lazy-cons obj  (lazy-filter pred (lazy-cdr ls)))
+<span class="linenumber">29:</span>             (lazy-filter pred (lazy-cdr ls))))))
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     <span class="comment">;;; returns n-th item of the lazy list</span>
+<span class="linenumber">32:</span>     (define (lazy-ref ls n)
+<span class="linenumber">33:</span>       (if (= n 0)
+<span class="linenumber">34:</span>           (lazy-car ls)
+<span class="linenumber">35:</span>         (lazy-ref (lazy-cdr ls) (- n 1))))
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>     <span class="comment">;;; returns first n items of the ls</span>
+<span class="linenumber">38:</span>     (define (head ls n)
+<span class="linenumber">39:</span>       (if (= n 0)
+<span class="linenumber">40:</span>           '()
+<span class="linenumber">41:</span>          (cons (lazy-car ls) (head (lazy-cdr ls) (- n 1)))))
+</pre>
+<p>
+<dl>
+  <dt><span class='ttb'>(lazy-car <var>ls</var>)</span></dt>
+      <dd> It is same as <tt>(car <var>ls</var>)</tt> because the car part is a final value.</dd>
+  <dt><span class='ttb'>(lazy-cdr <var>ls</var>)</span></dt>
+      <dd> It calculates the 'final' value of the cdr part (promise) of the <var>ls</var>.</dd>
+  <dt><span class='ttb'>(lazy-cons <var>a</var> <var>b</var>)</span></dt>
+      <dd> It is a macro expanded to <tt>(cons <var>a</var> (delay <var>b</var>))</tt>.
+      If the operation is defined as a function, the <var>b</var> is evaluated immediately and <tt>delay</tt> does not have any sense
+      in this case.</dd>
+  <dt><span class='ttb'>(lazy-map <var>fn</var> . <var>lss</var>)</span></dt>
+      <dd> It is a <tt>map</tt> function for the lazy evaluation, which is the most important in the [code 1].
+      Notice that it returns a cons cell consisting of a final value (car part) and a promise (cdr part).
+      </dd>
+  <dt><span class='ttb'>(lazy-filter <var>pred</var> <var>ls</var>)</span></dt>
+      <dd> It is a  <tt>filter</tt> function for the lazy evaluation. It filters the <var>ls</var> 
+           and returns a 'infinite sequence' consisting of items that satisfy the <var>pred</var>.</dd>
+  <dt><span class='ttb'>(lazy-ref <var>ls</var> <var>n</var>)</span></dt>
+      <dd> It returns the <var>n</var>-th item of <var>ls</var>, a 'infinite sequence'.</dd>
+  <dt><span class='ttb'>(head <var>ls</var> <var>n</var>)</span></dt>
+      <dd> It returns first <var>n</var> items of the <var>ls</var> (lazy evaluated list).</dd>
+</dl>
+<h3> 4.2. Infinite sequences</h3>
+Infinite sequences are represented concisely using <tt>lazy-cons</tt> and <tt>lazy-map</tt>.
+I present two examples:
+<ul>
+  <li>Sequences in which the next term is defined by the previous term such as arithmetic 
+      and geometric sequences.
+  <li>Fibonacci series.
+</ul>
+
+
+<h4> 4.2.1. Sequences in that the next term is defined by the previous term</h4>
+Sequences in that the next term is defined as a function (<tt>f</tt>) of the previous term:
+<br>
+<tt>a<sub>i+1</sub> = f(a<sub>i</sub>)</tt><br>
+can be represented by <span class='ttb'>(inf-seq <var>a0</var> <var>f</var>)</span>
+in [code 2],
+where <var>a0</var> and <var>f</var> are the initial term and the function to calculate the subsequent term.
+<p>
+<tt>(inf-seq <var>a0</var> <var>f</var>)</tt> is defined recursively and the definition shows clearly that
+the initial term is <tt>a0</tt>, that the second term is <tt>(f a0)</tt>, and that <tt>(n+1)</tt>-th term is 
+represented by <tt>(f a<sub>n</sub>)</tt>.
+<p>
+Arithmetic and geometric sequences are defined by 
+ <span class='ttb'>(ari <var>a0</var> <var>d</var>)</span> and
+    <span class='ttb'>(geo <var>a0</var> <var>r</var>)</span>, respectively, where
+<var>a0</var>, <var>d</var> and <var>r</var> are
+    the initial term, common difference, and geometric ratio, respectively.
+These functions are defined using the function <tt>inf-seq</tt>.
+
+[code 2]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;;;  sequences</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="comment">;;; infinite sequences represented by a_(n+1) = f(a_n)</span>
+<span class="linenumber">04:</span>     (define (inf-seq a0 f)
+<span class="linenumber">05:</span>       (lazy-cons a0 (inf-seq (f a0) f)))
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     <span class="comment">;;; arithmetic sequence</span>
+<span class="linenumber">08:</span>     (define (ari a0 d)
+<span class="linenumber">09:</span>       (inf-seq a0 (lambda (x) (+ x d))))
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     <span class="comment">;;; geometric sequence</span>
+<span class="linenumber">12:</span>     (define (geo a0 r)
+<span class="linenumber">13:</span>       (inf-seq a0 (lambda (x) (* x r))))
+</pre>
+
+Let's check if infinite sequences are produced by <tt>inf-seq</tt> (sample 2).
+Make two geometric sequences:
+<ol>
+<li> <var>g1</var>, initial term 1, ratio 2.
+<li> <var>g2</var>, initial term 1, ratio 1/2.
+</ol>
+then evaluate the first 10 terms using the <tt>head</tt>.
+You will see that the two geometric sequences are produced properly.
+<br>
+Next, calculate products of terms in <tt>g1</tt> and  <tt>g2</tt> using the <tt>lazy-map</tt>
+and evaluated the first 10 terms using the <tt>head</tt>.
+You will see a sequence of 1, which indicates that the calculation is done properly.
+<p>
+
+Now, let's play with arithmetic sequences and the <tt>lazy-filter</tt>.
+First, make an arithmetic sequence <var>ar1</var> by <tt>(ari 1 1)</tt>.
+The result of <tt>(head ar1 10)</tt> shows that an arithmetic sequence <tt>(1 2 3 ....)</tt> is produced
+by <tt>(ari 1 1)</tt>.
+Then extract even numbers from the <tt>ar1</tt> using the <tt>lazy-filter</tt>
+and evaluate first 10 terms using the <tt>head</tt>.
+You will see <tt>(2 4 6 8 10 12 14 16 18 20)</tt>, which indicate that the <tt>lazy-filter</tt>
+works properly.
+
+
+<p>
+[sample 2]
+<pre class='samp'>
+(define g1 (geo 1 2))
+<span class='response'>;Value: g1</span>
+
+(define g2 (geo 1 (/ 1 2)))
+<span class='response'>;Value: g2</span>
+
+(head g1 10)
+<span class='response'>;Value 12: (1 2 4 8 16 32 64 128 256 512)</span>
+
+(head g2 10)
+<span class='response'>;Value 13: (1 1/2 1/4 1/8 1/16 1/32 1/64 1/128 1/256 1/512)</span>
+
+(head (lazy-map * g1 g2) 10)
+<span class='response'>;Value 14: (1 1 1 1 1 1 1 1 1 1)</span>
+
+(define ar1 (ari 1 1))
+<span class='response'>;;Value: ar1</span>
+
+(head ar1 10)
+<span class='response'>;;Value 15: (1 2 3 4 5 6 7 8 9 10)</span>
+
+(head (lazy-filter even? ar1) 10)
+<span class='response'>;;Value 16: (2 4 6 8 10 12 14 16 18 20)</span>
+</pre>
+
+
+<h4> 4.2.2 Fibonacci series</h4>
+Fibonacci series is defined like as follows:
+<pre>
+fib(1) = 1
+fib(2) = 1
+fib(n+1) = fib(n) + fib(n-1)
+</pre>
+Code 3 shows a Scheme implementation of the Fibonacci series  
+using <tt>lazy-cons</tt> and <tt>lazy-map</tt>.
+As shown in this code, the definition on Scheme is quite similar to that of mathematical one.
+In addition, terms are calculated in the order of <i>O(n)</i>.<br>
+Values in [sample 3] are calculated immediately.
+
+<p>
+[code 3]
+<pre class='code'>
+<span class="linenumber">01:</span>     (define fib
+<span class="linenumber">02:</span>       (lazy-cons 1
+<span class="linenumber">03:</span>                  (lazy-cons 1
+<span class="linenumber">04:</span>                             (lazy-map + fib (lazy-cdr fib)))))
+</pre>
+
+<br>
+[sample 3]
+<pre class='samp'>
+(head fib 20)
+<span class='response'>;Value 12: (1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765)</span>
+
+(lazy-ref fib 100)
+<span class='response'>;Value: 573147844013817084101</span>
+</pre>
+
+<h3> 4.3. Application of the lazy evaluation to numerical calculations </h3>
+Followings are Scheme version of the code in <a href='http://www.md.chalmers.se/~rjmh/Papers/whyfp.html'>
+Why Functional Programming Matters</a>.
+See also <a href='http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-24.html#%_sec_3.5'>SICP 3.5. Streams</a>
+on the application of the lazy evaluation to numerical calculations.
+<p>
+
+<h4> 4.3.1. Newton&ndash;Raphson square roots</h4>
+
+Newton&ndash;Raphson method is to calculate the square root of <tt>N</tt>
+by using initial value <tt>a0</tt> and eq. (2).
+<pre>
+     a(n+1) =  (a(n) + N/a(n)) / 2                   (2)
+</pre>
+
+If eq (2) converges to a ultimate value <tt>a</tt>, 
+<pre>
+      a =  (a +  N/a) / 2
+&rArr;
+      2a = a +  N/a
+      a =  N/a
+      a*a = N
+      a =  &radic;N
+</pre>
+, which indicates that the ultimate value <tt>a</tt> is the square root of <tt>N</tt>.
+As the next term of the sequence is a function of the previous term (as shown in eq. (2)),
+The sequence is represented by using <tt>inf-seq</tt>.<br>
+Code 4 shows a program to calculate square roots. 
+In code 4, the initial value is fixed at 1, which should be OK because the sequence converges quickly.
+
+<p>
+[code 4]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; Newton-Raphson method</span>
+<span class="linenumber">02:</span>     (define (newton-raphson n)
+<span class="linenumber">03:</span>       (inf-seq 1 (lambda (x) (/ (+ x (/ n x)) 2))))
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     <span class="comment">;;; returning a reasonable answer.</span>
+<span class="linenumber">06:</span>     <span class="comment">;;; If the ratio of successive terms is in (1 - eps) and (1 + eps),</span>
+<span class="linenumber">07:</span>     <span class="comment">;;; or the following term is zero,</span>
+<span class="linenumber">08:</span>     <span class="comment">;;; the function returns it.</span>
+<span class="linenumber">09:</span>     (define (lazylist->answer ls eps)
+<span class="linenumber">10:</span>       (let ((e1 (- 1.0 eps))
+<span class="linenumber">11:</span>             (e2 (+ 1.0 eps)))
+<span class="linenumber">12:</span>         (let loop ((val (lazy-car ls))
+<span class="linenumber">13:</span>                    (ls1 (lazy-cdr ls)))
+<span class="linenumber">14:</span>           (let ((val2 (lazy-car ls1)))
+<span class="linenumber">15:</span>             (if  (or (zero? val2) (&lt; e1 (/ val val2) e2))
+<span class="linenumber">16:</span>                 (exact->inexact val2)
+<span class="linenumber">17:</span>               (loop val2 (lazy-cdr ls1)))))))
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     <span class="comment">;;;</span>
+<span class="linenumber">20:</span>     (define (my-sqrt n eps)
+<span class="linenumber">21:</span>       (lazylist->answer (newton-raphson n) eps))
+</pre>
+<dl>
+  <dt><span class='ttb'>(newton-raphson <var>n</var>)</span></dt>
+      <dd> It is a function to make a lazy list of approximated values of the square root of <var>n</var>.
+</dd>
+  <dt><span class='ttb'>(lazylist->answer <var>ls</var> <var>eps</var>)</span></dt>
+      <dd> It checks if the convergence is good enough. if so it returns the answer of the numerical calculation.<br>
+           The function returns the second term of successive terms of <var>ls</var> (say t<sub>1</sub> and t<sub>2</sub>)
+              if (1 - <var>eps</var>) &lt; t<sub>2</sub>/t<sub>1</sub> &lt; (1 + <var>eps</var>) or t<sub>2</sub> = 0.
+</dd>
+  <dt><span class='ttb'>(my-sqrt <var>n</var> <var>eps</var>)</span></dt>
+      <dd> It calculates the square root of <var>n</var> in a relative error of <var>eps</var>.</dd>
+</dl>
+<pre class='samp'>
+(my-sqrt 9 0.0000001)
+<span class='response'>;Value: 3.</span>
+</pre>
+<h4> 4.3.2. Numerical differentiation</h4>
+The <span class='ttb'>easydiff</span> in [code 5] is a simple way of numerical differentiation,
+where <var>f</var>, <var>x</var>, and <var>h</var> are function to be differentiated, the x value, 
+and &Delta;x, respectively.
+Theoretically, approximation is getting  better if <var>h</var> is reaching to zero.
+In practise, however, because the precision of numerical values in computers is limited,
+too small value of <var>h</var> causes errors.
+<p>
+To solve this problem, 
+we make an lazy list of <var>h</var> 
+as shown in <span class='ttb'>lazylist-diff</span>.
+The lazy list is a geometric sequence with a initial value of <var>h0</var>,
+and ratio of 0.5. Then we make a lazy list of approximated values of differentiation
+corresponding to the lazy list of <var>h</var>.
+<p>
+It could be better to accelerate the convergence even the answer can be obtained by:
+<pre>
+(lazylist->answer (lazylist-diff h0 f x) eps)
+</pre>
+A function <span class='ttb'>super</span> is the convergence accelerating function. 
+See <a href='http://www.md.chalmers.se/~rjmh/Papers/whyfp.html'>
+Why Functional Programming Matters</a>
+about the accelerating technique.
+The accelerating technique is substantially complicated if you use a conventional programming language.
+On the contrary, it can be implemented in a simple way using the lazy evaluation.
+In addition, because of the high modularity, you can reuse the code for other issues
+such as numerical integration (section 4.3.3). Code 6 reuses the acceleration functions defined in code 5. 
+<p>
+[code 5]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; differentiation</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="comment">;;; primitive function for differentiation</span>
+<span class="linenumber">04:</span>     (define (easydiff f x h)
+<span class="linenumber">05:</span>       (/ (- (f (+ x h)) (f x)) h))
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     <span class="comment">;;; create a lazy list of approximation for differentiation</span>
+<span class="linenumber">08:</span>     (define (lazylist-diff h0 f x)
+<span class="linenumber">09:</span>       (lazy-map (lambda (h) (easydiff f x h)) (geo h0 0.5)))
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     <span class="comment">;;; eliminate error from the approximation</span>
+<span class="linenumber">12:</span>     (define (elimerror n ls)
+<span class="linenumber">13:</span>       (let ((a (lazy-car ls))
+<span class="linenumber">14:</span>             (b (lazy-second ls))
+<span class="linenumber">15:</span>             (c (fix:lsh 1 n)))   <span class="comment">; (expt 2 n)</span>
+<span class="linenumber">16:</span>         (lazy-cons
+<span class="linenumber">17:</span>          (/ (- (* b c) a) (- c 1))
+<span class="linenumber">18:</span>          (elimerror n (lazy-cdr ls)))))
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     <span class="comment">;;; estimate `n' in elimerror</span>
+<span class="linenumber">21:</span>     (define (order ls)
+<span class="linenumber">22:</span>       (let* ((a (lazy-car ls))
+<span class="linenumber">23:</span>              (b (lazy-second ls))
+<span class="linenumber">24:</span>              (c (lazy-ref ls 2))
+<span class="linenumber">25:</span>              (d (- (/ (- a c) (- b c)) 1.0)))
+<span class="linenumber">26:</span>         (cond
+<span class="linenumber">27:</span>          ((&lt; d 2) 1)
+<span class="linenumber">28:</span>          ((&lt;= 2 d 16) (inexact->exact (round (log2 d))))
+<span class="linenumber">29:</span>          (else 4))))
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     <span class="comment">;;;</span>
+<span class="linenumber">32:</span>     (define (log2 x)
+<span class="linenumber">33:</span>       (/ (log x) (log 2)))
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>     <span class="comment">;;; improve convergence of the lazy list of the approximation</span>
+<span class="linenumber">36:</span>     (define (improve ls)
+<span class="linenumber">37:</span>       (elimerror (order ls) ls))
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>     <span class="comment">;;; return the second value of the lazy list</span>
+<span class="linenumber">40:</span>     (define (lazy-second ls)
+<span class="linenumber">41:</span>       (lazy-car (lazy-cdr ls)))
+<span class="linenumber">42:</span>     
+<span class="linenumber">43:</span>     <span class="comment">;;; further improve the convergence of the list</span>
+<span class="linenumber">44:</span>     (define (super ls)
+<span class="linenumber">45:</span>       (lazy-map lazy-second (inf-seq ls improve)))
+<span class="linenumber">46:</span>                 
+<span class="linenumber">47:</span>     
+<span class="linenumber">48:</span>     <span class="comment">;;; calculate the differentiation of function `f' at x within error eps</span>
+<span class="linenumber">49:</span>     <span class="comment">;;; h0 is initial window width</span>
+<span class="linenumber">50:</span>     (define (diff f x h0 eps)
+<span class="linenumber">51:</span>       (lazylist->answer (super (lazylist-diff h0 f x)) eps))
+</pre>
+
+<pre class='samp'>
+(diff sin 0.0 0.1 0.0000001)
+<span class='response'>;Value: .9999999999999516</span>
+
+(diff exp 0.0 0.1 0.000001)
+<span class='response'>;Value: .9999999991733471</span>
+</pre>
+<h4> 4.3.3. Numerical integration</h4>
+The convergence acceleration functions can be reused for numerical integration without any modification.
+As a starting point, we make a rough approximation using <span class='ttb'>easyintegrate</span>.
+The function <span class='ttb'>lazylist-integrate</span> uses
+ a lazy list to improve the approximation by splitting the range at the  middle point to
+apply <tt>easyintegrate</tt> recursively. The function can be defined in a simple way using the
+<tt>lazy-map</tt>. Finally, the convergence is accelerated and returns the converged value by
+the function <span class='ttb'>integrate</span>.<p>
+
+
+[code 6]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; integration</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="comment">;;; primitive integration</span>
+<span class="linenumber">04:</span>     (define (easyintegrate f a b)
+<span class="linenumber">05:</span>       (* (/ (+ (f a) (f b)) 2) (- b a)))
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     <span class="comment">;;; create the lazy list of approximation for integration</span>
+<span class="linenumber">08:</span>     (define (lazylist-integrate f a b)
+<span class="linenumber">09:</span>       (let ((mid (/ (+ a b) 2)))
+<span class="linenumber">10:</span>         (lazy-cons (easyintegrate f a b)
+<span class="linenumber">11:</span>                    (lazy-map + (lazylist-integrate f a mid)
+<span class="linenumber">12:</span>                                (lazylist-integrate f mid b)))))
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     <span class="comment">;;; integrate function `f' in a range of `a' and `b' within error `eps'</span>
+<span class="linenumber">15:</span>     (define (integrate f a b eps)
+<span class="linenumber">16:</span>       (lazylist->answer (super (lazylist-integrate f a b)) eps))
+</pre>
+
+<pre class='samp'>
+(define pi (* 4 (atan 1)))
+<span class='response'>;Value: pi</span>
+
+(integrate sin 0 pi 0.0000001)
+<span class='response'>;Value: 2.000000002272428</span>
+
+(integrate exp 0 1 0.0000001)
+<span class='response'>;Value: 1.7182818277724858</span>
+
+(- (exp 1) 1)
+<span class='response'>;Value: 1.718281828459045</span>
+</pre>
+<h2>5. Summary</h2>
+Lazy evaluation allows us to include reputation into data structure concisely.
+This feature promotes the modularity of programs and makes the code tight. <p>
+
+Check web sites on 
+<a href='http://www.haskell.org/haskellwiki/Haskell'>Haskell</a>
+ to know more about the lazy evaluation.<p>
+
+You can download the codes shown in this page from <a href='scheme_lazy.zip'>here</a>.
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_cc_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  16. Continuation</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_amb_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>18. Nondeterminism</a></td>
+<td><a rel=download href="scheme_lazy.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>Download</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_lazy_e.html&t=%28Scheme%29+17.+Lazy+Evaluation' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+
+

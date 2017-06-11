@@ -1,0 +1,530 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, higher order functions">
+<meta name="description" content="Higher order functions on Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>8. Higher Order Functions </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme7_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. Repetition</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme9_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>9. IO</a></td>
+<td><a rel=download href="scheme8.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme8_e.html&t=%28Scheme%29+Higher+Order+Functions' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 8. Higher Order Functions   </h1>
+<hr>
+<h2>1. Introduction </h2>
+Higher order functions are functions that takes functions as arguments.
+They are used for mapping, filtering, folding, and sorting of lists.<p>
+
+The higher order functions promote modularity of programs.
+Writing higher order functions that are applicable in many cases makes program readable
+  rather than writing recursive functions for individual cases.<p>
+
+For instance, using a higher order function for sort allows sorting by variety of conditions, which
+separates the sorting condition and the sorting procedure sharply.
+The function <tt>sort</tt> takes two arguments, one is a list to be sorted and the other is
+an ordering function. The following shows the sort of a list of integral numbers in ascending order by their size.
+The function
+<span class='ttb'>&lt;</span> is the ordering function of two numbers.
+<pre class='samp'>
+(sort '(7883 9099 6729 2828 7754 4179 5340 2644 2958 2239) &lt;)
+&rArr; (2239 2644 2828 2958 4179 5340 6729 7754 7883 9099)
+</pre>
+
+On the other hand, sort by the size of last two digits can be done like as follows:
+<pre class='samp'>
+(sort '(7883 9099 6729 2828 7754 4179 5340 2644 2958 2239) 
+      (lambda (x y) (&lt; (modulo x 100) (modulo y 100))))
+&rArr; (2828 6729 2239 5340 2644 7754 2958 4179 7883 9099)
+</pre>
+
+As shown here, sorting procedures such as quick sort, merge sort, etc. and ordering functions are
+separated completely, which promote reuse of codes.<p>
+
+In this chapter, I will explain about pre-defined higher order functions and then
+about how to make your own.
+As Scheme does not distinguish procedures and other data structures, you can make
+  your own higher order functions quite easily by just giving procedures
+  as arguments.<p>
+    
+Actually, substantial parts of pre-defined functions in Scheme is higher order functions,
+because Scheme does not have a syntax that defines block structure, and because lambda expression is used as
+a block.
+    
+
+<h2>2. Mapping</h2>
+Mapping is a procedure that treats all list items in a same manner. 
+Two mapping functions are defined in the R<sup>5</sup>RS:
+One is <span class='ttb'>map</span> which returns the converted list and the other is
+<span class='ttb'>for-each</span> which is used for side effects.
+
+<h3> 2.1. map </h3>
+The format is like as follows:
+<pre class='def'>
+(map <var>procedure</var> <var>list1</var> <var>list2</var> ...)
+</pre>
+The <var>procedure</var> is a symbol bound to a procedure or a <tt>lambda</tt> expression.
+Number of lists as arguments depend on the number of arguments of the <var>procedure</var>. <p>
+Example:
+<pre class='samp'>
+<span class='comment'>; Adding each item of '(1 2 3) and '(4 5 6).</span>
+(map + '(1 2 3) '(4 5 6))
+&rArr; (5 7 9)
+
+<span class='comment'>; Squaring each item of '(1 2 3)</span>
+(map (lambda (x) (* x x)) '(1 2 3))
+&rArr; (1 4 9)
+</pre>
+<h3>2.2. for-each</h3>
+The format is the same as that of  <tt>map</tt>.  The function does not return a specified value and is used for
+side effects.<p>
+Example:
+<pre class='samp'>
+(define sum 0)
+(for-each (lambda (x) (set! sum (+ sum x))) '(1 2 3 4))
+sum
+&rArr; 10
+</pre>
+
+<h3> Exercise 1</h3>
+ Write followings using <tt>map</tt>.
+ <ol>
+   <li>A function that makes it twice that each item of a list of numbers. 
+   <li>A function that subtracts items of two lists. 
+ </ol>
+
+
+<h2>3. Filtering</h2>
+Even filtering functions are not defined in the R<sup>5</sup>RS,
+<span class='ttb'>keep-matching-items</span> and <span class='ttb'>delete-matching-items</span>
+are available in the MIT-Scheme. Other implementations should have similar functions.
+
+<pre class='samp'>
+(keep-matching-items '(1 2 -3 -4 5) positive?)
+&rArr; (1 2 5)
+</pre>
+<h3>Exercise 2</h3>
+Write followings:
+ <ol>
+   <li>filtering out even numbers in a list.
+   <li>filtering out numbers (<tt>x</tt>) that are not <tt>10 &le; x &le;  100</tt>.
+ </ol>
+
+<h2>4. Folding</h2>
+Even folding functions are not defined in the R<sup>5</sup>RS,
+functions <span class='ttb'>reduce</span> etc. are available in the MIT-Scheme.
+<pre class='samp'>
+(reduce + 0 '(1 2 3 4))                 &rArr;  10
+(reduce + 0 '(1 2))                     &rArr;  3
+(reduce + 0 '(1))                       &rArr;  1
+(reduce + 0 '())                        &rArr;  0
+(reduce + 0 '(foo))                     &rArr;  foo
+(reduce list '() '(1 2 3 4))            &rArr;  (((1 2) 3) 4)
+</pre>
+<a name='p3'>
+<h3>Exercise 3</h3>
+<ol>
+<li> Write a function that squares each item of a list, then sums them and then makes square root of it.
+</ol>
+
+<h2>5. Sorting</h2>
+Even sorting functions are not defined in the R<sup>5</sup>RS,
+functions <span class='ttb'>sort (merge-sort)</span> and <span class='ttb'>quick-sort</span>
+are available in the
+MIT-Scheme.
+<pre class='samp'>
+(sort '(3 5 1 4 -1) &lt;)
+&rArr; (-1 1 3 4 5)</span>
+</pre>
+
+
+<h3>Exercise 4</h3>
+Write followings:
+<ol>
+<li> Sort by magnitude of sin(x) in ascending order.
+<li> Sort by length of lists in descending order. 
+</ol>
+
+<a name='apply'>
+<h2>6. Function <tt>apply</tt> </h2>
+This function is to apply a procedure to a list. Even the function takes arbitrary numbers of arguments,
+the first and last arguments should be a procedure and a list.
+The function is really <strong>convenient</strong> even it does not seem to be.
+
+<pre class='samp'>
+(apply max '(1 3 2))      &rArr;   3
+(apply + 1 2 '(3 4 5))    &rArr;  15
+(apply - 100 '(5 12 17))  &rArr;  66
+</pre>
+
+<h3> Exercise 5</h3>
+<ol>
+<li> Use <tt>apply</tt> to write a same function as that of <a href='#p3'>Exercise 3</a>.
+</ol>
+
+<h2>7. Making Higher Order Functions</h2>
+Writing higher order functions by yourself is quite easy.
+Functions <tt>member-if, member,</tt> and <tt>fractal</tt> are defined here as examples.
+<h3>7.1. <span class='ttb' style='font-size:130%'>member-if</span> and <span class='ttb' style='font-size:130%'>member</span></h3>
+A function <tt>member-if</tt> takes a predicate and a list as arguments and returns a
+sub-list of the original whose <tt>car</tt> is the first item that satisfies the predicate.
+The function <tt>member-if</tt> can be defined like as follows:
+<pre class='code'>
+(define (member-if proc ls)
+  (cond
+   ((null? ls) #f)
+   ((proc (car ls)) ls)
+   (else (member-if proc (cdr ls)))))
+</pre>
+<pre class='samp'>
+(member-if positive? '(0 -1 -2 3 5 -7))
+&rArr;  (3 5 -7)
+</pre>
+
+Further, the function <tt>member</tt> that checks if the specified item is in the list can be defined like
+as follows. The function takes three arguments, a function to compare, the specified item, and a list:
+<pre class='code'>
+(define (member proc obj ls)
+  (cond
+   ((null? ls) #f)
+   ((proc obj (car ls)) ls)
+   (else (member proc obj (cdr ls)))))
+</pre>	
+<pre class='samp'>
+(member string=? "hello" '("hi" "guys" "bye" "hello" "see you"))
+&rArr;  ("hello" "see you")
+</pre>
+
+<h3> 7.2. Fractal Curves</h3>
+Generating fractal curves such as C curves, Dragon curves, etc.
+which are generated by inserting a point(s) between two points according to a positioning function
+can be separated into two parts: a common routine to generate fractal curves and a positioning
+function.
+The code is like as follows:
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber">02:</span>     <span class="comment">;;;</span>
+<span class="linenumber">03:</span>     <span class="comment">;;;                frac.scm</span>
+<span class="linenumber">04:</span>     <span class="comment">;;;</span>
+<span class="linenumber">05:</span>     <span class="comment">;;;        draw fractal curves</span>
+<span class="linenumber">06:</span>     <span class="comment">;;;         by T.Shido</span>
+<span class="linenumber">07:</span>     <span class="comment">;;;       on August 20, 2005</span>
+<span class="linenumber">08:</span>     <span class="comment">;;;</span>
+<span class="linenumber">09:</span>     <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     (define _x car)
+<span class="linenumber">12:</span>     (define _y cdr)
+<span class="linenumber">13:</span>     (define point cons)
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment">;;; (rappend '(1 2 3) '(4 5 6)) -&gt; (3 2 1 4 5 6)</span>
+<span class="linenumber">16:</span>     (define (rappend ls0 ls1)
+<span class="linenumber">17:</span>       (let loop((ls0 ls0) (ls1 ls1))
+<span class="linenumber">18:</span>         (if (null? ls0)
+<span class="linenumber">19:</span>             ls1
+<span class="linenumber">20:</span>           (loop (cdr ls0) (cons (car ls0) ls1)))))
+<span class="linenumber">21:</span>       
+<span class="linenumber">22:</span>     <span class="comment">;;; </span>
+<span class="linenumber">23:</span>     (define (divide p1 p2 r)
+<span class="linenumber">24:</span>       (point (+ (* r (_x p1)) (* (- 1.0 r) (_x p2)))
+<span class="linenumber">25:</span>     	 (+ (* r (_y p1)) (* (- 1.0 r) (_y p2)))))
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>     <span class="comment">;;; print out data points to a file</span>
+<span class="linenumber">28:</span>     (define (print-curve points fout)
+<span class="linenumber">29:</span>       (with-output-to-file fout
+<span class="linenumber">30:</span>         (lambda ()
+<span class="linenumber">31:</span>           (for-each
+<span class="linenumber">32:</span>            (lambda (p)
+<span class="linenumber">33:</span>              (display (_x p))
+<span class="linenumber">34:</span>              (display " ")
+<span class="linenumber">35:</span>              (display (_y p))
+<span class="linenumber">36:</span>              (newline))
+<span class="linenumber">37:</span>            points))))
+<span class="linenumber">38:</span>              
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>     <span class="comment">;;; the main function to create fractal curves</span>
+<span class="linenumber">41:</span>     (define (fractal proc n points fout)
+<span class="linenumber">42:</span>       (let loop((i 0) (points points))
+<span class="linenumber">43:</span>         (if (= n i)
+<span class="linenumber">44:</span>     	(print-curve points fout)
+<span class="linenumber">45:</span>     	(loop
+<span class="linenumber">46:</span>     	 (1+ i)
+<span class="linenumber">47:</span>     	 (let iter ((points points) (acc '()))
+<span class="linenumber">48:</span>     	   (if (null? (cdr points)) 
+<span class="linenumber">49:</span>     	       (reverse! (cons (car points) acc))
+<span class="linenumber">50:</span>     	       (iter
+<span class="linenumber">51:</span>     		(cdr points)
+<span class="linenumber">52:</span>     		(rappend (proc (first points) (second points)) acc)))))))
+<span class="linenumber">53:</span>       'done)
+<span class="linenumber">54:</span>     
+<span class="linenumber">55:</span>     
+<span class="linenumber">56:</span>     
+<span class="linenumber">57:</span>     <span class="comment">;;; c curve</span>
+<span class="linenumber">58:</span>     (define (c-curve p1 p2) 
+<span class="linenumber">59:</span>       (let ((p3 (divide p1 p2 0.5)))
+<span class="linenumber">60:</span>         (list
+<span class="linenumber">61:</span>          p1
+<span class="linenumber">62:</span>          (point (+ (_x p3) (- (_y p3) (_y p2)))
+<span class="linenumber">63:</span>     	    (+ (_y p3) (- (_x p2) (_x p3)))))))
+<span class="linenumber">64:</span>     
+<span class="linenumber">65:</span>     <span class="comment">;;; dragon curve</span>
+<span class="linenumber">66:</span>     (define dragon-curve 
+<span class="linenumber">67:</span>       (let ((n 0))
+<span class="linenumber">68:</span>         (lambda (p1 p2)
+<span class="linenumber">69:</span>           (let ((op (if (even? n) + -))
+<span class="linenumber">70:</span>     	    (p3 (divide  p1 p2 0.5)))
+<span class="linenumber">71:</span>     	(set! n (1+ n))
+<span class="linenumber">72:</span>     	(list
+<span class="linenumber">73:</span>     	 p1
+<span class="linenumber">74:</span>     	 (point (op (_x p3) (- (_y p3) (_y p2)))
+<span class="linenumber">75:</span>     		(op (_y p3) (- (_x p2) (_x p3)))))))))
+<span class="linenumber">76:</span>           
+<span class="linenumber">77:</span>     
+<span class="linenumber">78:</span>     <span class="comment">;;; koch curve</span>
+<span class="linenumber">79:</span>     (define (koch p1 p2)
+<span class="linenumber">80:</span>       (let ((p3 (divide p1 p2 2/3))
+<span class="linenumber">81:</span>     	(p4 (divide p1 p2 1/3))
+<span class="linenumber">82:</span>     	(p5 (divide p1 p2 0.5))
+<span class="linenumber">83:</span>     	(c  (/ (sqrt 3) 2)))
+<span class="linenumber">84:</span>         (list
+<span class="linenumber">85:</span>          p1
+<span class="linenumber">86:</span>          p3
+<span class="linenumber">87:</span>          (point (- (_x p5) (* c (- (_y p4) (_y p3))))
+<span class="linenumber">88:</span>     	    (+ (_y p5) (* c (- (_x p4) (_x p3)))))
+<span class="linenumber">89:</span>          p4)))
+</pre>
+
+
+<table border='1'>
+   <tr>
+      <th>line</th>
+      <th>comments</th>
+   </tr>
+   <tr>
+      <td>11&ndash;13</td>
+      <td>Points on the XY plane are represented by pairs whose car and cdr are x and y coordinates, respectively.
+	Functions <tt>_x</tt> and <tt>_y</tt> are defined to get the coordinates. A function <tt>point</tt>
+	is  to make a point.
+       </td>
+   </tr>
+   <tr>
+      <td>15&ndash;20</td>
+      <td> <tt>(rappend <var>ls0</var> <var>ls1</var>)</tt><br>
+	taking two lists as arguments, and connecting the reverse of the first list to the second
+	list.</td>
+   </tr>
+   <tr>
+      <td>23&ndash;25</td>
+      <td> <tt>(divide <var>p1</var> <var>p2</var> <var>r</var>)</tt><br>
+	dividing <var>p1</var> and <var>p2</var> internally by the ratio <var>r</var>.</td>
+   </tr>
+   <tr>
+      <td>27&ndash;37</td>
+      <td> <tt>(print-curve <var>points</var> <var>fout</var>)</tt><br>
+	Outputting a list of points (<var>points</var>) to <var>fout</var> by one point par line.</td>
+   </tr>
+   <tr>
+      <td>40&ndash;53</td>
+      <td> <tt>(fractal <var>proc</var> <var>n</var> <var>points</var> <var>fout</var>)</tt><br>
+	The higher order function that generate fractal curves.<br>
+	<var>proc</var>, 
+            <var>n</var>,  
+	    <var>points</var>, and
+	    <var>fout</var> are a positioning function,
+	    the number of repetition, a list of initial points,  a file name for output data,
+	    respectively.<br>
+          The function consists of a double loop named <tt>loop</tt> and <tt>iter</tt>.
+	    The <tt>loop</tt> repeats the interpolation for the data list for <var>n</var> times.
+	    The <tt>iter</tt> adds new points to the data list using the positioning function.
+	    In short, <tt>fractal</tt> generates curves by repeating <tt>iter</tt> for <var>n</var>
+	    times.<br>
+	    The positioning function <var>proc</var> takes two points as arguments and
+	    returns a list of the first point and the interpolated point. </td>
+   </tr>
+   <tr>
+      <td>57&ndash;63</td>
+      <td> <tt>(c-curve <var>p1</var> <var>p2</var>)</tt><br> The positioning function for C curves.</td>
+   </tr>
+   <tr>
+      <td>65&ndash;75</td>
+      <td> <tt>(dragon-curve <var>p1</var> <var>p2</var>)</tt><br> The positioning function for Dragon curves.</td>
+   </tr>
+   <tr>
+      <td>78&ndash;89</td>
+      <td> <tt>(koch <var>p1</var> <var>p2</var>)</tt><br> The positioning function for Koch curves.</td>
+   </tr>
+</table>
+Following shows how to generate fractal curves.
+The source code is attached <a href='scheme8.zip'>here</a>.
+Compile it before use to reduce calculation time.
+<pre class='samp'>
+(compile-file "frac.scm")
+(load "frac")
+
+;; C-Curve
+(fractal c-curve 14 '((0 . 0) (2 . 3)) "c14.dat")
+;Value: done
+
+;; Dragon-Curve
+(fractal dragon-curve 14 '((0 . 0) (1 . 0)) "d14.dat")
+;Value: done
+
+;; Koch-Curve
+(fractal koch 5 '((0 . 0) (1 . 0)) "k5.dat")
+;Value: done
+</pre>
+The x and y coordinates are stored in a file named '*.dat'. You can plot it using your favorite plotting application.
+<p>
+
+Figures  1&ndash;3 are plotted using the <a href='http://gnuplot.info/'>gnuplot</a>.
+<center>
+<img src='c.png'><br>
+ Fig. 1: A C-Curve.<p>
+
+ <img src='d.png'><br>
+  Fig. 2: A Dragon-Curve.<p>
+   
+<img src='k.png'><br>
+   Fig. 3: A Koch-Curve.<p>
+</center>
+
+<h3> Exercise 6</h3>
+<ol>
+<li> Define <tt>keep-matching-items</tt> by yourself.
+<li> Define <tt>map</tt> by yourself.
+     It may be some how difficult to accept more than one list as arguments.<br>
+  The rest parameter is defined by a dot pair (<b>.</b>). The cdr part of the pair is sent to the function as a list.
+  <p>
+Example: my-list
+<pre class='code'>
+(define (my-list . x) x)
+</pre>
+In addition, you need the function <a href='#apply'><tt>apply</tt></a>.
+</ol>
+<h2>7. Summary</h2>
+I have explained about higher order functions in this chapter.
+As shown in generating fractal curves, the higher order functions promote the modularity. 
+You can define your own higher order functions quite easily. You should always mind it when you write functions
+that you can abstract more by using higher order functions, which makes your code  reusable. 
+
+<p>
+I will explain about IO in the next chapter.
+
+
+<h3>Answers for Exercises</h3>
+
+<h4>Answer 1</h4>
+
+<pre class='code'>
+
+; 1
+(define (double ls)
+  (map (lambda (x) (* x 2)) ls))
+
+; 2
+(define (sub ls1 ls2)
+  (map - ls1 ls2))
+</pre>
+
+<h4>Answer 2</h4>
+<pre class='code'>
+; 1
+(define (filter-even ls)
+  (keep-matching-items ls even?))
+; 2
+(define (filter-10-100 ls)
+  (keep-matching-items ls (lambda (x) (&lt;= 10 x 100))))
+
+</pre>
+
+
+<h4>Answer 3</h4>
+<pre class='code'>
+(define (sqrt-sum-sq ls)
+  (sqrt (reduce + 0 (map (lambda (x) (* x x)) ls))))
+</pre>
+
+<h4>Answer 4</h4>
+<pre class='code'>
+; 1
+(define (sort-sin ls)
+  (sort ls (lambda (x y) (&lt; (sin x) (sin y)))))
+
+; 2
+(define (sort-length ls)
+  (sort ls (lambda (x y) (&gt; (length x) (length y)))))
+</pre>
+
+<h4>Answer 5</h4>
+<pre class='code'>
+(define (sqrt-sum-sq-a ls)
+  (sqrt (apply + (map (lambda (x) (* x x)) ls))))
+</pre>
+
+
+
+<h4>Answer 6</h4>
+<pre class='code'>
+; 1
+(define (my-keep-matching-items ls fn)
+  (cond
+   ((null? ls) '())
+   ((fn (car ls))
+    (cons (car ls) (my-keep-matching-items (cdr ls) fn)))
+   (else
+    (my-keep-matching-items  (cdr ls) fn))))
+
+; 2
+(define (my-map fun . lss)
+  (letrec ((iter (lambda (fun lss)
+		       (if (null? lss)
+			   '()
+			   (cons (fun (car lss))
+				 (iter fun (cdr lss))))))
+	   (map-rec (lambda (fun lss)
+		      (if (memq '() lss)
+			  '()
+			  (cons (apply fun (iter car lss))
+				(map-rec fun (iter cdr lss)))))))
+    (map-rec fun lss)))
+</pre>
+
+<pre class='samp'>
+(my-map + '(1 2 3) '(10 20 30) '(100 200 300))
+&rArr; (111 222 333)
+</pre>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme7_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. Repetition</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme9_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>9. IO</a></td>
+<td><a rel=download href="scheme8.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme8_e.html&t=%28Scheme%29+Higher+Order+Functions' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+
+

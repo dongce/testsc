@@ -1,0 +1,608 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, vector, structure">
+<meta name="description" content="Vectors and Structures on Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>14. Vectors and Structures</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_ah_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  13. Association Lists and Hash Tables</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_syntax_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>15. Defining Syntax</a></td>
+<td><a rel=download href="scheme_vec.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>Download</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_vec_e.html&t=%28Scheme%29+Vectors+and+Structures' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1>14.  Vectors and Structures   </h1><a name="vector">
+
+<h2>1. Introduction</h2>
+In this chapter, I am going to explain about vectors and structures.<p>
+Vectors are set of data indexed by integer.
+Different types of data can be stored in a same vector, which is different from arrays of the C language.
+Vectors are more compact than lists and the access time is shorter.
+On the other hand, as vectors are manipulated using side effects, it may cause bags.
+<p>
+Structures in the Scheme is similar to those in the C language.
+However, the structures in the Scheme is more convenient than those of the C language,  because
+the Scheme writes accessors and setters for the structures automatically, which is one of the benefits of macro
+of the Lisp/Scheme programming languages.
+
+<h2> 2. Vectors</h2>
+<h3> 2.1. Literals</h3>
+Vectors are represented by '<b>#(</b>' and '<b>)</b>' like  <tt>#(1 2 3)</tt>.
+They should be quoted when used as literals
+<p>
+Examples:
+<pre class='samp'>
+'#(1 2 3)             <span class='comment'>; a vector of integers</span>
+'#(a 0 #\a)           <span class='comment'>; a vector consisting of a symbol, an integer, and a character</span>
+</pre>
+
+
+<h3>2.2. Functions for vectors</h3>
+
+Following functions are defined in the R<sup>5</sup>RS.
+<dl>
+  <dt><span class='ttb'>(vector? <var>obj</var>)</span></dt>
+      <dd> It returns <tt>#t</tt> if <var>obj</var> is a vector.</dd>
+  <dt><span class='ttb'>(make-vector <var>k</var>)<br>(make-vector <var>k</var> <var>fill</var>)</span></dt>
+      <dd> It returns a vector with <var>k</var> elements. If the second argument (<var>fill</var>) is specified,
+       each elements are initialized with <var>fill</var>.</dd>
+  <dt><span class='ttb'>(vector <var>obj</var> ...)</span></dt>
+      <dd>It returns a vector consisting of the arguments. </dd>
+  <dt><span class='ttb'>(vector-length <var>vector</var>)</span></dt>
+      <dd> It returns the length of the <var>vector</var>.</dd>
+  <dt><span class='ttb'>(vector-ref <var>vector</var> <var>k</var>)</span></dt>
+      <dd> It returns the <var>k</var>-th element of the  <var>vector</var>.</dd>
+  <dt><span class='ttb'>(vector-set! <var>vector</var> <var>k</var> <var>obj</var>)</span></dt>
+      <dd> It sets the <var>k</var>-th element of <var>vector</var> to <var>obj</var>.</dd>
+  <dt><span class='ttb'>(vector-&gt;list <var>vector</var>)</span></dt>
+      <dd> It converts <var>vector</var> to a list.</dd>
+  <dt><span class='ttb'>(list-&gt;vector list)</span></dt>
+      <dd> It converts <var>list</var> to a vector.</dd>
+  <dt><span class='ttb'>(vector-fill! <var>vector</var> <var>fill</var>)</span></dt>
+      <dd> It sets all the items of <var>vector</var> to <var>fill</var>.</dd>
+</dl>
+
+Example: A function that calculate the sum of vectors.
+<pre class='code'>
+<span class="linenumber">01:</span>     (define (vector-add v1 v2)
+<span class="linenumber">02:</span>       (let ((lenv1 (vector-length v1))
+<span class="linenumber">03:</span>     	(lenv2 (vector-length v2)))
+<span class="linenumber">04:</span>         (if (= lenv1 lenv2)
+<span class="linenumber">05:</span>     	(let ((v (make-vector lenv1)))
+<span class="linenumber">06:</span>     	  (let loop ((i 0))
+<span class="linenumber">07:</span>     	    (if (= i lenv1)
+<span class="linenumber">08:</span>     		v
+<span class="linenumber">09:</span>     		(begin
+<span class="linenumber">10:</span>     		  (vector-set! v i (+ (vector-ref v1 i) (vector-ref v2 i)))
+<span class="linenumber">11:</span>     		  (loop (1+ i))))))
+<span class="linenumber">12:</span>     	(error "different dimensions."))))
+</pre>
+
+<h3>Exercise 1</h3>
+Write a function that calculates the inner product of two vectors. 
+
+<h2>3. Structures</h2>
+<h3>3.1. General Feature</h3>
+While structures are not defined in the R<sup>5</sup>RS,
+<a href='http://www.h7.dion.ne.jp/~matsu/feature/common-lisp/data-structure/struct.html'>
+Structures similar to those of the Common Lisp</a>
+ is implemented in many Scheme implementations.
+<p>
+The reality of the structures are vectors.
+Each slot is named by using a  <a href='scheme_syntax_e.html'>macro</a>, which I will explain in the next chapter (chapter 15). 
+Structures express data with different kinds of attributes clearly.
+The macro that define the structure makes accessors and setters functions automatically.
+It is one of the greatest benefits of the Lisp/Scheme that you can write programs that write programs.
+By using this feature, you can write beautiful programs quickly.
+<p>
+
+<h3>3.2. Structures in the MIT-Scheme</h3>
+In  the MIT-Scheme, structures are defined by <span class='ttb'>define-structure</span>.
+I will explain using an example, because it is easier to understand.<br>
+Let's think about books.
+Books have following attributes:
+
+<ul>
+<li>title
+<li>author(s)
+<li>publisher
+<li>published year
+<li>ISBN
+</ul>
+The structure  <tt>book</tt> can be defined like as follows:
+<pre class='code'>
+(define-structure book title authors publisher year isbn)
+</pre>
+Following shows how to register <a href='http://www.oreilly.com/catalog/cathbazpaper/'>"The Cathedral and Bazaar"</a>.
+<pre class='code'>
+(define bazaar 
+  (make-book 
+   "The Cathedral and the Bazaar"
+   "Eric S. Raymond"
+   "O'Reilly"
+   1999
+   0596001088))
+</pre>
+However, this way is inconvenient somehow because the association of attributes with values is not clear.
+The <span class='ttb'>keyword-constructor</span> option is available to solve this problem.
+Following code is the revised version using this option, in which the relation between attributes 
+and values is clear. In addition, the order of attributes does not matter in this option.
+The <span class='ttb'>copier</span> option is available, which creates a copier function for the structure. 
+
+<pre class='code'>
+(define-structure (book keyword-constructor copier) 
+  title authors publisher year isbn)
+
+(define bazaar 
+  (make-book 
+   'title "The Cathedral and the Bazaar"
+   'authors "Eric S. Raymond"
+   'publisher "O'Reilly"
+   'year 1999
+   'isbn 0596001088))
+</pre>
+<ul>
+<li>
+  A function named <span class='greenbold'>"[the name of structure]?"</span> checks if an object is an instance
+of the structure.
+For instance, check if the <tt>bazaar</tt> is an instance of the <tt>book</tt> can be checked using <tt>book?</tt>:
+<pre class='samp'>
+(book? bazaar)
+<span class='response'>;Value: #t</span>
+</pre>
+
+<li> The function named <span class='greenbold'>"copy-[structure name]"</span> is to copy a structure.
+For instance, following is a code to copy <tt>bazaar</tt> to <tt>cathedral</tt>.
+<pre class='samp'>
+(define cathedral (copy-book bazaar))
+</pre>
+
+<li>
+The function named <span class='greenbold'>"[structure name]-[attribute name]"</span> is to access
+to the value of the attribute. 
+For instance, following shows how to access to the <tt>title</tt> of the <tt>bazaar</tt>.
+<pre class='samp'>
+(book-title bazaar)
+<span class='response'>;Value 18: "The Cathedral and the Bazaar"</span>
+</pre>
+
+<li>The function named <span class='greenbold'>"set-[structure name]-[attribute name]!"</span>
+  is to set a value to the attribute. 
+Updating the <tt>year</tt> of the bazaar to 2001 is done like as follows (
+"The Cathedral and the Bazaar" has been revised in 2001).
+<pre class='samp'>
+(set-book-year! bazaar 2001)
+<span class='response'>;Unspecified return value</span>
+
+(book-year bazaar)
+<span class='response'>;Value: 2001</span>
+</pre>
+
+See 
+<a href='http://www.gnu.org/software/mit-scheme/documentation/scheme_3.html#SEC41'>
+   MIT/GNU Scheme Reference: 2.10 Structure Definitions</a>
+for further information on the structure.
+
+<a name='mastermind'>
+<h2> 4. The Mastermind &mdash; A Simple Code Breaking Game</h2>
+I show a simple program of code breaking game as an example of vector.
+This is a game to guess the four-digit number of the opponent.
+The four-digit numbers consist of four <b>different</b> numerics in 0 &ndash; 9.
+The opponent should inform the guesser about how good the guess is
+by using numbers of 'bulls' and 'cows'.
+
+<ol>
+<li>The number of bull (N<sub>bull</sub>) is a number of numerics whose value and position are correct.
+  <li>The number of cow (N<sub>cow</sub>) is a number of numerics whose value is correct but wrong position.
+    </ol>
+For example, if the code is 5601 and the guess is 1685, the numbers of bulls and cows are 1 and 2.
+<p>
+The computer and the user guess the code of the opponent each other.
+Player who breaks the code with fewer guesses is the winner.
+The game is draw if both the user and computer break code at the same time.
+
+<h3> 4.1. Expressing the four digit numbers</h3>
+The four digit numbers are expressed by vectors to calculate numbers of bulls and cows efficiently.
+This way of expression  owes the property of the code that all digits should be different numerics.
+<p>
+
+Making a vector whose length is 10 and the value of each index (<var>k</var>) is set
+to the digit at that <var>k</var> appears. The four digits are counted as 1, 2, 3, and 4
+from lower position. If the number does not appear, the value of the index is 0.
+For instance, 5601 and 1685 are represented like as follows:
+
+<pre class='samp'>
+5601 &rarr; #(2 1 0 0 0 4 3 0 0 0)
+1685 &rarr; #(0 4 0 0 0 1 3 0 2 0)
+</pre>
+
+In the case of 5601, as numeric 0, 1, 5, and 6 appear 2nd, 1st, 4th, and 3rd digit, respectively,
+the values of indexes 0, 1, 5, and 6 are  2, 1, 4, and 3 and the values of other indexes are 0
+in its vector expression.
+<p>
+This expression allows fast comparison of two numbers.
+If the index of the two vectors are both positive and
+if the value is same, it is a bull, otherwise a cow.
+In the case of 5601 and 1685, as the values of index 6 are both 3
+and indexes 1 and 5 are both positive, the values of bulls and cows are
+1 and 2.
+
+
+
+<h3> 4.2.The Design of the Program</h3>
+The design of the program is  as follows:
+<ol>
+<li>The program makes a list consisting of the vector expressions of all four digit numbers with different
+numerics.
+
+<li> The program selects one number from the list randomly.
+<li> It shuffles the list of step (1).
+<li> The program guesses the code of the user first and 
+the user gives the number of the bulls and cows.
+Then the user guess the code of the program and the program shows the N<sub>bull</sub> and N<sub>cow</sub>.
+<li> Step (3) is repeated until the number of bulls of the user or the computer becomes 4. 
+If both numbers become 4 at the same time, the game is draw.
+</ol>
+
+<h3> 4.3. The Source Code</h3>
+[code 1] shows the source code.
+It is long but not complicated very much.
+The game proceeds by a recursive function <tt>mastermind-rec</tt>.
+<p>
+[code 1]
+<pre class='code'>
+<span class="linenumber"> 01:</span>     <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber"> 02:</span>     <span class="comment">;;;</span>
+<span class="linenumber"> 03:</span>     <span class="comment">;;; mastermind.scm</span>
+<span class="linenumber"> 04:</span>     <span class="comment">;;; by T.Shido</span>
+<span class="linenumber"> 05:</span>     <span class="comment">;;;</span>
+<span class="linenumber"> 06:</span>     <span class="comment">;;; User and computer try to locate the four-digit integer set by the opponents each other.</span>
+<span class="linenumber"> 07:</span>     <span class="comment">;;; One who locates the integer with fewer question is the winner.</span>
+<span class="linenumber"> 08:</span>     <span class="comment">;;; The four-digit integer contains four of numerals 0--9, like 0123, 3749 etc.</span>
+<span class="linenumber"> 09:</span>     <span class="comment">;;; The opponents should tell the guesser</span>
+<span class="linenumber"> 10:</span>     <span class="comment">;;; (1) number of numerals that are shared by the guessed and set numbers</span>
+<span class="linenumber"> 11:</span>     <span class="comment">;;; at wrong position (cows)</span>
+<span class="linenumber"> 12:</span>     <span class="comment">;;; and (2) number of numerals at collect position (bulls).</span>
+<span class="linenumber"> 13:</span>     <span class="comment">;;; </span>
+<span class="linenumber"> 14:</span>     <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber"> 15:</span>     <span class="comment">;;;</span>
+<span class="linenumber"> 16:</span>     <span class="comment">;;; The four-digit integers are represented by 10-cell vectors in the program</span>
+<span class="linenumber"> 17:</span>     <span class="comment">;;; The value of n-th cell is the number of column that n appears in the integer.</span>
+<span class="linenumber"> 18:</span>     <span class="comment">;;; in n is not appears the value is 0.</span>
+<span class="linenumber"> 19:</span>     <span class="comment">;;; for example, 1234 is represented as #(0 4 3 2 1 0 0 0 0 0) and</span>
+<span class="linenumber"> 20:</span>     <span class="comment">;;; 3916 as #(0 2 0 4 0 0 1 0 0 3).</span>
+<span class="linenumber"> 21:</span>     <span class="comment">;;; With this inner representation, the score of the guess can be calculated faster.</span>
+<span class="linenumber"> 22:</span>     <span class="comment">;;;</span>
+<span class="linenumber"> 23:</span>     <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber"> 24:</span>     
+<span class="linenumber"> 25:</span>     
+<span class="linenumber"> 26:</span>     <span class="comment">;;;</span>
+<span class="linenumber"> 27:</span>     (define (1- x) (- x 1))
+<span class="linenumber"> 28:</span>     
+<span class="linenumber"> 29:</span>     <span class="comment">;;;</span>
+<span class="linenumber"> 30:</span>     (define (char2int c)
+<span class="linenumber"> 31:</span>       (- (char->integer c) (char->integer #\0)))
+<span class="linenumber"> 32:</span>     
+<span class="linenumber"> 33:</span>     <span class="comment">;;; converting a list of 4 numbers to the vector notation</span>
+<span class="linenumber"> 34:</span>     (define (ls2nvec ls)
+<span class="linenumber"> 35:</span>       (let ((vec (make-vector 10 0)))
+<span class="linenumber"> 36:</span>         (let loop ((i (length ls)) (ls ls))
+<span class="linenumber"> 37:</span>           (if (&gt; i 0)
+<span class="linenumber"> 38:</span>     	  (begin
+<span class="linenumber"> 39:</span>                (vector-set! vec (car ls) i)
+<span class="linenumber"> 40:</span>                (loop (1- i) (cdr ls)))
+<span class="linenumber"> 41:</span>             vec))))
+<span class="linenumber"> 42:</span>     
+<span class="linenumber"> 43:</span>     <span class="comment">;;; converting the vector notation to string</span>
+<span class="linenumber"> 44:</span>     (define (nvec2int vec)
+<span class="linenumber"> 45:</span>       (let loop ((i 0) (n 0))
+<span class="linenumber"> 46:</span>         (if (= i 10)
+<span class="linenumber"> 47:</span>             n
+<span class="linenumber"> 48:</span>     	(let ((j (vector-ref vec i)))
+<span class="linenumber"> 49:</span>     	  (loop (1+ i) (+ n (if (&gt; j 0)
+<span class="linenumber"> 50:</span>                                     (* i (expt 10 (1- j)))
+<span class="linenumber"> 51:</span>                                   0)))))))
+<span class="linenumber"> 52:</span>     
+<span class="linenumber"> 53:</span>     <span class="comment">;;;</span>
+<span class="linenumber"> 54:</span>     (define (int2str i)
+<span class="linenumber"> 55:</span>       (string-append
+<span class="linenumber"> 56:</span>        (if (&lt; i 1000) "0" "")
+<span class="linenumber"> 57:</span>        (number->string i)))
+<span class="linenumber"> 58:</span>     
+<span class="linenumber"> 59:</span>     <span class="comment">;;; reading integer from stdin</span>
+<span class="linenumber"> 60:</span>     (define (read-integer str)
+<span class="linenumber"> 61:</span>       (string->number (read-from-stdin str)))
+<span class="linenumber"> 62:</span>     
+<span class="linenumber"> 63:</span>     <span class="comment">;;;</span>
+<span class="linenumber"> 64:</span>     (define (read-from-stdin str)
+<span class="linenumber"> 65:</span>       (display str)
+<span class="linenumber"> 66:</span>       (newline)
+<span class="linenumber"> 67:</span>       (read-line))
+<span class="linenumber"> 68:</span>     
+<span class="linenumber"> 69:</span>     <span class="comment">;;;</span>
+<span class="linenumber"> 70:</span>     (define (write-to-stdout . ls)
+<span class="linenumber"> 71:</span>       (for-each (lambda (obj) (display obj)) ls)
+<span class="linenumber"> 72:</span>       (newline))
+<span class="linenumber"> 73:</span>     
+<span class="linenumber"> 74:</span>     <span class="comment">;;; convert numeral string to the vector representation.</span>
+<span class="linenumber"> 75:</span>     (define (str2nvec str)
+<span class="linenumber"> 76:</span>       (let ((vec (make-vector 10 0)))
+<span class="linenumber"> 77:</span>         (let loop ((i (string-length str)) (ls (string->list str)))
+<span class="linenumber"> 78:</span>           (if (pair? ls)
+<span class="linenumber"> 79:</span>     	  (begin
+<span class="linenumber"> 80:</span>                (vector-set! vec (char2int (car ls)) i)
+<span class="linenumber"> 81:</span>                (loop (1- i) (cdr ls)))
+<span class="linenumber"> 82:</span>             vec))))
+<span class="linenumber"> 83:</span>     
+<span class="linenumber"> 84:</span>     <span class="comment">;;; calculating the score of guess</span>
+<span class="linenumber"> 85:</span>     (define (scoring vec0 vec1)
+<span class="linenumber"> 86:</span>       (let ((n (vector-length vec0)))
+<span class="linenumber"> 87:</span>         (let loop ((i 0) (score 0))
+<span class="linenumber"> 88:</span>           (if (&lt; i n)
+<span class="linenumber"> 89:</span>     	  (let ((d0 (vector-ref vec0 i))
+<span class="linenumber"> 90:</span>                    (d1 (vector-ref vec1 i)))
+<span class="linenumber"> 91:</span>                 (loop (1+ i)
+<span class="linenumber"> 92:</span>     		  (+ score (if (and (&lt; 0 d0) (&lt; 0 d1))
+<span class="linenumber"> 93:</span>                                    (if (= d0 d1) 5 1)
+<span class="linenumber"> 94:</span>                                    0))))
+<span class="linenumber"> 95:</span>             score))))
+<span class="linenumber"> 96:</span>     
+<span class="linenumber"> 97:</span>     <span class="comment">;;; show bulls and cows calculated from the score of user's guess</span>
+<span class="linenumber"> 98:</span>     (define (show-user-score score)
+<span class="linenumber"> 99:</span>       (write-to-stdout "Number of bulls and cows in your guess:" )
+<span class="linenumber">100:</span>       (write-to-stdout "bulls: " (quotient score 5))
+<span class="linenumber">101:</span>       (write-to-stdout "cows: " (modulo score 5))
+<span class="linenumber">102:</span>       (newline))
+<span class="linenumber">103:</span>     
+<span class="linenumber">104:</span>     <span class="comment">;;; calculating the score of computer's guess from bulls and cows</span>
+<span class="linenumber">105:</span>     (define (read-my-score gu0)
+<span class="linenumber">106:</span>       (write-to-stdout "My guess is: " (int2str (nvec2int gu0)))
+<span class="linenumber">107:</span>       (write-to-stdout "Give number of bulls and cows in my guess." )
+<span class="linenumber">108:</span>       (let ((na5 (* 5 (read-integer "bulls: "))))
+<span class="linenumber">109:</span>         (+ na5 (read-integer "cows: ")))) <span class="comment">; the score is calculated by (5 * bull + cow)</span>
+<span class="linenumber">110:</span>     
+<span class="linenumber">111:</span>     <span class="comment">;;; reading the user guess</span>
+<span class="linenumber">112:</span>     (define (read-user-guess)
+<span class="linenumber">113:</span>       (newline)
+<span class="linenumber">114:</span>       (str2nvec (read-from-stdin "Give your guess.")))
+<span class="linenumber">115:</span>     
+<span class="linenumber">116:</span>     <span class="comment">;;; shuffling the list of four-digit numbers</span>
+<span class="linenumber">117:</span>     (define (shuffle-numbers ls0)
+<span class="linenumber">118:</span>       (let ((vec (list->vector ls0)))
+<span class="linenumber">119:</span>         (let loop ((n (vector-length vec)) (ls1 '()))
+<span class="linenumber">120:</span>           (if (= n 0)
+<span class="linenumber">121:</span>               ls1
+<span class="linenumber">122:</span>     	  (let* ((r (random n))
+<span class="linenumber">123:</span>     		 (v (vector-ref vec r)))
+<span class="linenumber">124:</span>     	    (vector-set! vec r (vector-ref vec (1- n)))
+<span class="linenumber">125:</span>     	    (loop (1- n) (cons v ls1)))))))
+<span class="linenumber">126:</span>     
+<span class="linenumber">127:</span>     <span class="comment">;;; making a list of four-digit numbers in which numeral 0--9 appear once</span>
+<span class="linenumber">128:</span>     (define (make-numbers)
+<span class="linenumber">129:</span>       (let ((ls1 '()))
+<span class="linenumber">130:</span>         (letrec ((rec (lambda (i num ls)
+<span class="linenumber">131:</span>     		    (if (= i 4)
+<span class="linenumber">132:</span>     			(set! ls1 (cons (ls2nvec ls) ls1))
+<span class="linenumber">133:</span>     			(for-each 
+<span class="linenumber">134:</span>     			 (lambda (n)
+<span class="linenumber">135:</span>     			   (rec (1+ i) (delv n num) (cons n ls)))
+<span class="linenumber">136:</span>     			 num)))))
+<span class="linenumber">137:</span>           (rec 0 '(0 1 2 3 4 5 6 7 8 9) '()))
+<span class="linenumber">138:</span>         ls1))
+<span class="linenumber">139:</span>     
+<span class="linenumber">140:</span>     <span class="comment">;;;</span>
+<span class="linenumber">141:</span>     (define (game-over sc0 sc1)
+<span class="linenumber">142:</span>       (write-to-stdout
+<span class="linenumber">143:</span>        (cond
+<span class="linenumber">144:</span>         ((= sc0 sc1) "Draw")
+<span class="linenumber">145:</span>         ((&gt; sc0 sc1) "I won.")
+<span class="linenumber">146:</span>         (else "You won.")))
+<span class="linenumber">147:</span>       'game-over)
+<span class="linenumber">148:</span>     
+<span class="linenumber">149:</span>     (define (scoring-user-guess an0 gu1)
+<span class="linenumber">150:</span>       (let ((sc1 (scoring an0 gu1)))
+<span class="linenumber">151:</span>         (show-user-score sc1)
+<span class="linenumber">152:</span>         sc1))
+<span class="linenumber">153:</span>     
+<span class="linenumber">154:</span>     <span class="comment">;;; Practical main function. tail recursive.</span>
+<span class="linenumber">155:</span>     (define (mastermind-rec an0 candidates)
+<span class="linenumber">156:</span>       (if (null? candidates)
+<span class="linenumber">157:</span>           (error "Error. You gave wrong score for my guess, probably.")
+<span class="linenumber">158:</span>           (let ((gu0 (car candidates)))
+<span class="linenumber">159:</span>     	(let ((sc1 (scoring-user-guess an0 (read-user-guess)))
+<span class="linenumber">160:</span>     	      (sc0 (read-my-score gu0)))
+<span class="linenumber">161:</span>     	  (if (or (= sc0 20) (= sc1 20))
+<span class="linenumber">162:</span>     	      (game-over sc0 sc1)
+<span class="linenumber">163:</span>     	      (mastermind-rec an0 
+<span class="linenumber">164:</span>     			   (keep-matching-items 
+<span class="linenumber">165:</span>     			    (cdr candidates)
+<span class="linenumber">166:</span>     			    (lambda (x) (= (scoring gu0 x) sc0)))))))))
+<span class="linenumber">167:</span>     
+<span class="linenumber">168:</span>     <span class="comment">;;; The main function called from the top-level</span>
+<span class="linenumber">169:</span>     (define (mastermind)
+<span class="linenumber">170:</span>       (let ((ls0 (make-numbers)))
+<span class="linenumber">171:</span>         (mastermind-rec (list-ref ls0 (random (length ls0))) (shuffle-numbers ls0))))
+</pre>
+
+<table border=1>
+   <tr>
+      <th>Functions</th>
+      <th>Comments</th>
+      <th>Lines</th>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(1- <var>x</var>)</span></td>
+      <td>It decrements <var>x</var></td>
+      <td>27</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(char2int <var>c</var>)</span></td>
+      <td>It converts a character <var>c</var> (#\0 --#\9) to an integer (0--9).</td>
+      <td>30</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(ls2nvec <var>ls</var>)</span></td>
+      <td>It converts a list of  4 numerics (<var>ls</var>) to the vector expression. 
+	'(5 3 6 0) &rarr; #(1 0 0 3 0 4 2 0 0 0)</td>
+      <td>34</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(nvec2int <var>vec</var>)</span></td>
+      <td>It convers a vector expression  <var>vec</var> to an ordinally integer.</td>
+      <td>44</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(int2str <var>i</var>)</span></td>
+      <td>It converts a four digit integer <var>i</var> to a string.
+      If <var>i</var> is less than 1000, '0' is inserted at higher positions.</td>
+      <td>54</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(read-from-stdin <var>str</var>)</span></td>
+      <td>It displays <var>str</var> to the standard output and returns the line
+          that user inputs from the standard input. </td>
+      <td>64</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(write-to-stdout . <var>ls</var>)</span></td>
+      <td>It outputs each item of  <var>ls</var> to the standard output and insert a line feed at the end.</td>
+      <td>70</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(str2nvec <var>str</var>)</span></td>
+      <td>It converts the user input string <var>str</var> for four digit number 
+	to the vector expression. </td>
+      <td>75</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(scoring <var>vec0</var> <var>vec1</var>)</span></td>
+      <td>It calculates the similarity of two integers (vector expression) <var>vec0</var> and <var>vec1</var>
+      by <tt>(5*N<sub>bull</sub> + N<sub>cow</sub>)</tt>. </td>
+      <td>85</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(show-user-score <var>score</var>)</span></td>
+      <td>It calculates N<sub>bull</sub> and N<sub>cow</sub> from the similarity <var>score</var>
+          and display them to the standard output.</td>
+      <td>98</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(read-my-score <var>gu0</var>)</span></td>
+      <td>It displays the guess by computer  (<var>gu0</var>), let user input the 
+	N<sub>bull</sub> and N<sub>cow</sub>, and return the similarity <tt>score</tt>.
+      </td>
+      <td>105</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(read-user-guess)</span></td>
+      <td> It returns the vector expression of the guess of user.</td>
+      <td>112</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(shuffle-numbers <var>ls0</var>)</span></td>
+      <td>It shuffles  <var>ls0</var>. As random access is required to shulle, it converts the <var>ls0</var> 
+          to a vector and picks the items rondomly to produce a shuffled list. 
+      </td>
+      <td>116</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(make-numbers)</span></td>
+      <td>It returns a list consisting of all four digit numbers of different numerics.
+      </td>
+      <td>128</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(game-over <var>sc0</var> <var>sc1</var>)</span></td>
+      <td>It determines the winner by comparing the score of the computer (<var>sc0</var>) and the user (<var>sc1</var>). 
+     </td>
+      <td>141</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(scoring-user-guess <var>an0</var> <var>gu1</var>)</span></td>
+      <td>It calculates the similarity of the code of computer (<var>an0</var>)
+       and the guess of the user (<var>gu1</var>) and outputs the N<sub>bull</sub> and N<sub>cow</sub>
+       using <tt>show-user-score</tt>.
+       </td>
+      <td>149</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(mastermind-rec <var>an0</var> <var>candidates</var>)</span></td>
+      <td>The practical main function, it takes two arguments; the code of the computer  (<var>an0</var>) 
+          and the list of guesses (<var>candidates</var>). It calculates the score of the computer (<var>sc0</var>)
+          and the user (<var>sc1</var>) and calls <tt>(game-over <var>sc0</var> <var>sc1</var>)</tt>
+          if <var>sc0</var> or <var>sc1</var> is 20. if not, it filters the candidates according
+          to  <var>sc0</var> (lines 164 &ndash; 166) and continues the game.
+      </td>
+      <td>155</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(mastermind)</span></td>
+      <td>Call this function from the console to start the game.</td>
+      <td>169</td>
+   </tr>
+</table>
+
+<h3> 4.4. How to play</h3>
+Input following to start the game. It is better to compile befor play (You need to compile once.).
+Even the program is simple, it is difficult to win.
+<pre class='samp'>
+(compile-file "mastermind.scm")
+(load "mastermind")
+(mastermind)
+</pre>
+
+
+<h2>5. Summary</h2>
+In this chapter, I have explained about vectors and structures and played
+by mastermind.
+<a href='scheme_vec.zip'>The source code of the mastermind</a> is attached.
+<p>
+I will explain about defining your own syntax in the next chapter.
+Ability of user defining syntax is one of the benefits of Lisp/Scheme.
+
+<h2>Answer of Exercise</h2>
+<h3>Answer 1</h3>
+<pre class='code'>
+<span class="linenumber">01:</span>     (define (inner-product vec1 vec2)
+<span class="linenumber">02:</span>       (let ((len1 (vector-length vec1))
+<span class="linenumber">03:</span>     	(len2 (vector-length vec2)))
+<span class="linenumber">04:</span>         (if (= len1 len2)
+<span class="linenumber">05:</span>     	(let loop ((i 0) (pro 0))
+<span class="linenumber">06:</span>     	  (if (= i len1)
+<span class="linenumber">07:</span>     	      pro
+<span class="linenumber">08:</span>     	      (loop (1+ i) (+ pro
+<span class="linenumber">09:</span>     			      (* (vector-ref vec1 i)
+<span class="linenumber">10:</span>     				 (vector-ref vec2 i))))))
+<span class="linenumber">11:</span>     	(error "different dimensions."))))
+</pre>
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_ah_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  13. Association Lists and Hash Tables</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_syntax_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>15. Defining Syntax</a></td>
+<td><a rel=download href="scheme_vec.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>Download</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_vec_e.html&t=%28Scheme%29+Vectors+and+Structures' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>

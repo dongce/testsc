@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, pydoc, xyzzy, lisp">
+<meta name="description" content="using pydoc from xyzzy">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> xyzzy から pydoc を利用する </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="matrix.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python3.html&t=xyzzy+%A4%AB%A4%E9+pydoc+%A4%F2%CD%F8%CD%D1%A4%B9%A4%EB' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>xyzzy から pydoc を利用する</h1> 
+<hr>
+<h2>1. はじめに </h2>
+python 2.4 をインストールすると、 
+python document を HTML または text 形式で生成する
+pydoc というスクリプトが付いてきます。
+このスクリプトは大変よく出来ていて、ソースコードに含まれるドキュメントから、
+インタープリターのオンラインヘルプ、
+や HTML 形式のマニュアルを自動で生成します。
+（詳しい説明は pydoc を使って生成した
+<a href="pydoc.html">pydoc のマニュアル</a>を見てください。）
+ここでは、マニュアルを表示するローカルホストを起動させ、
+それをブラウザで表示する方法について述べます。
+また、これらのことを行う xyzzy スクリプトも書いてみました。
+
+<h2>2. ローカルホストの起動とブラウザでの表示  </h2>
+<h3>2.1. ローカルホストの起動</h3>
+  DOS プロンプトから、
+<pre class="samp">
+python c:\python24\lib\pydoc.pyc -p 50001
+</pre>
+  と打ち込むとローカルホストが起動します。"50001" はポート番号で、
+  50000 台の番号を選ぶのが安全でしょう。
+<h3>2.2. ブラウザを使った表示</h3>
+ブラウザの URL エントリーに
+<pre class="samp">
+http://localhost:50001/
+</pre>
+と打ち込むとコンテンツが表示されます。
+関数、メソッド、定数が色分けされていて、とても見やすい構成になっています。
+これがあればポケットレファレンスの類は必要ないでしょう。
+<h2> 3. ドキュメントを表示する xyzzy スクリプト</h2>
+ドキュメントを表示する xyzzy スクリプトを示します。
+このスクリプトは、ローカルホストを起動するバッチファイル(pydoc.bat)、
+xyzzy スクリプト(add2py.l) と.xyzzy へ記述する部分の３つからなっています。
+<h3>3.1. ローカルホストを起動するバッチファイル</h3>
+１行だけのバッチファイルを作成します。次の行を "pydoc.bat" という名前のバッチファイル
+  に書きます。
+<pre class="code">
+python c:\python24\lib\pydoc.pyc -p 50001
+</pre>
+
+<h3>3.2. *py-mode-hook* で呼び出す xyzzy スクリプト</h3>
+以下のコードを add2py.l というファイルに書きます。add2py.l は xyzzy/site-lisp においておきます。
+<pre class="code">  
+;;; add2py.l
+
+(provide "add2py")
+
+;;; The contents of pydoc.bat is just one line
+;python c:\python24\lib\pydoc.pyc -p 50001 
+(defvar *pydoc-server* "C:\\bin\\pydoc.bat")
+(defvar *pydoc-browser* "C:\\Program Files\\Mozilla Firefox\\firefox.exe")
+(defvar *pydoc-url* "http://localhost:50001/")
+
+(let (server-on)
+  (defun call-pydoc ()
+    (interactive)
+    (unless server-on
+      (call-process *pydoc-server* :show :hide)
+      (setq server-on t)
+      (sleep-for 2))
+    (let ((cmd (concat *pydoc-browser* " " *pydoc-url*)))
+      (call-process cmd)))
+  
+  (defun server-off ()
+    (interactive)
+    (setq server-on nil)))
+
+(eval-when (:load-toplevel :execute)
+  (define-key ed::*py-mode-map* #\C-h    'call-pydoc))
+</pre>
+ここではブラウザは Fire Fox を使っていますが、ふだん使っているブラウザに変更してください。
+
+<h3>3.2. ".xyzzy" に追加するスクリプト</h3>
+.xyzzy に以下のスクリプトを追加してください。
+<pre class="code">
+(add-hook 'ed::*py-mode-hook* #'(lambda () (require "add2py")))
+</pre>
+これで、xyzzy を用いた編集作業中に Ctrl+h をタイプすると pydoc が立ち上がります。
+<h2> 4. その他 </h2>
+pydoc はよく出来たスクリプトですが、<a href="http://wxpython.org/">wx</a>
+などの大きなモジュールを表示させると
+ものすごく時間がかかります。
+この場合はそのモジュールのドキュメントを個別に書き出すほうが良いでしょう。
+DOS 窓を開いて次のように入力します。
+<ol>
+  <li>doc を保存するディレクトリを作り、そのディレクトリに行って python を起動する。
+<pre>
+mkdir wx_doc
+cd wx_doc
+python
+</pre>
+<li>pydoc をインポートし、writedocs を走らせる。パッケージの大きさにもよるが、
+  数１０分で出来上がる。
+<pre>
+import pydoc
+pydoc.writedocs("C:/Python24/Lib/site-packages/wx-2.5.3-msw-unicode")
+</pre>
+  </ol>
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="matrix.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python3.html&t=xyzzy+%A4%AB%A4%E9+pydoc+%A4%F2%CD%F8%CD%D1%A4%B9%A4%EB' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

@@ -1,0 +1,622 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="demostrations of Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 6. Listbox を使ってお花を愛でましょう </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter5.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. 関数のクラスを使ってクールなコードを書こう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter7.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  7. Widget てんこ盛り画像 Viewer</a></td>
+<td><a rel='download' href="tkinter6.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter6.html&t=Tkinter+%C6%FE%CC%E7%3A+6.+Listbox+%A4%F2%BB%C8%A4%C3%A4%C6%A4%AA%B2%D6%A4%F2%B0%A6%A4%C7%A4%DE%A4%B7%A4%E7%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>6. Listbox を使ってお花を愛でましょう</h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+今回は、Tk.Listbox から花の画像ファイルを選んで、それを表示するプログラムを２つ作ります。
+１つは、ひとつの画像ファイルを選んで、それに背景色をつけて表示するもの（図１）で、
+ もうひとつは複数の画像ファイルを選んで、それをまとめて表示するものです（図２）。<p>
+
+   花の画像は<a href='http://www.jttk.zaq.ne.jp/bacsn908/'>素材屋ひなとん</a>
+   からいただきました。<p>
+     
+   まず、Tk.Listbox について説明してからプログラムを作っていきたいと思います。
+   <center>
+  <img src='tkinter6_1.jpg'><br>図１<p>
+  <img src='tkinter6_2.jpg'><br>図2<p>
+ </center>
+
+
+
+<h2>2. Tk.Listbox</h2>
+Tk.Listbox は以下のように親 widget と option を指定して作成します。
+<pre class='code'>
+Tk.Listbox(master, **option)
+</pre>
+option は次の通りです。
+<table border=1>
+   <tr>
+      <th>属性</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>bg or background</td>
+      <td>背景色</td>
+   </tr>
+   <tr>
+      <td>bd or borderwidth</td>
+      <td>縁の幅</td>
+   </tr>
+   <tr>
+      <td>cursor</td>
+      <td>カーソルの形</td>
+   </tr>
+   <tr>
+      <td>font</td>
+      <td>フォント</td>
+   </tr>
+   <tr>
+      <td>fg or foreground</td>
+      <td>文字色</td>
+   </tr>
+   <tr>
+      <td>height</td>
+      <td>表示する行数。pixel ではない。</td>
+   </tr>
+   <tr>
+      <td>highlightbackground</td>
+      <td>focus があるときの背景色</td>
+   </tr>
+   <tr>
+      <td>highlightcolor</td>
+      <td>focus があるときの文字色</td>
+   </tr>
+   <tr>
+      <td>highlightthickness</td>
+      <td>focus lighlight の厚さ</td>
+   </tr>
+   <tr>
+      <td>relief</td>
+      <td>縁の形</td>
+   </tr>
+   <tr>
+      <td>selectbackground</td>
+      <td>選択されたときの背景色</td>
+   </tr>
+   <tr>
+      <td>selectborderwidth</td>
+      <td>選択されたときの縁幅</td>
+   </tr>
+   <tr>
+      <td>selectforeground</td>
+      <td>選択されたときの文字色</td>
+   </tr>
+   <tr>
+      <td>selectmode</td>
+      <td>選択のモード。
+   <ul>
+<li>Tk.BROWSE: デフォルトの設定。リストから１つしか選択できない。マウスの位置につれて選択される行も移動する。
+  <li>Tk.SINGLE: マウスの左ボタンを押したアイテムが選択される。
+    <li>Tk.MULTIPLE: 複数の行を選択可能。マウス左ボタンをクリックすると反転する。
+      <li>Tk.EXTENDED: 複数の行を選択可能。マウスのドラッグ、Shift+左ボタン、Ctrl+左ボタンが使用可能。複数選択できる
+時の通常の形式。
+</td>
+   </tr>
+   <tr>
+      <td>takefocus</td>
+      <td>Tab キーによる widget の移動の対象にするかどうか。1: する。0: しない。</td>
+   </tr>
+   <tr>
+      <td>width</td>
+      <td>１行の文字数。pixel 数ではない。デフォルトは 20 文字。</td>
+   </tr>
+   <tr>
+      <td>xscrollcommand</td>
+      <td> 横スクロークするときのコマンド。</td>
+   </tr>
+   <tr>
+      <td>yscrollcommand	</td>
+      <td> 縦スクロークするときのコマンド。</td>
+   </tr>
+</table>
+
+<p>また、次に示すメソッドがあります。よく使うのは
+  <ul>
+<span class='mono'><b>
+  <li>.curselection()
+    <li>.get(index)
+      <li>.index(i)
+	<li>.insert(index, element)
+	  <li>.selection_clear()</b></span></ul>
+です。<p>
+表： メソッド一覧
+<table border=1>
+   <tr>
+      <th>メソッド</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>.activate ( index  )</td>
+      <td>index で示された行を選択する。</td>
+   </tr>
+   <tr>
+      <td>.curselection()</td>
+      <td>選択された行番号の tuple を返す。複数選択可能なとき、値を取り出すのに使う。</td>
+   </tr>
+   <tr>
+      <td>.delete ( first, last=None )</td>
+      <td> first から last までを削除する。</td>
+   </tr>
+   <tr>
+      <td>.get ( first, last=None )</td>
+      <td> first から last までのテキストのタプルを返す。last が指定されていないときは first にある
+テキストを返す。</td>
+   </tr>
+   <tr>
+      <td>.index ( i )</td>
+      <td> i のインデックスを返す。</td>
+   </tr>
+   <tr>
+      <td>.insert ( index, *elements )</td>
+      <td>index の位置に *elements を挿入する。最後に挿入したときは index を Tk.END とする。</td>
+   </tr>
+   <tr>
+      <td>.nearest ( y )</td>
+      <td> Listbox の上辺を基準とした y 座標に最も近い index を返す。</td>
+   </tr>
+   <tr>
+      <td>.see ( index )
+      <td> index が見えるように位置を調節する。</td>
+   </tr>
+   <tr>
+      <td>.selection_clear ( first, last=None )</td>
+      <td> first から last までの行を選択解除する。</td>
+   </tr>
+   <tr>
+      <td>.selection_includes ( index )</td>
+      <td> index が選択されていれば 1, そうでなければ 0 を返す。</td>
+   </tr>
+   <tr>
+      <td>.selection_set ( first, last=None )</td>
+      <td>first から last までの行を選択する。</td>
+   </tr>
+   <tr>
+      <td>.size()</td>
+      <td>行数を返す。</td>
+   </tr>
+   <tr>
+      <td>.xview()</td>
+      <td>横スクロール可能にする。</td>
+   </tr>
+   <tr>
+      <td>.xview_moveto ( fraction )</td>
+      <td>fraction のところまで横スクロールする。 fraction は 0.0--1.0 の実数。</td>
+   </tr>
+   <tr>
+      <td>.xview_scroll ( number, what )</td>
+      <td> what で示された単位に従って number だけ横スクロールする。</td>
+   </tr>
+   <tr>
+      <td>.yview()</td>
+      <td>縦スクロール可能にする。</td>
+   </tr>
+   <tr>
+      <td>.yview_moveto ( fraction )</td>
+      <td>fraction のところまで縦スクロールする。 fraction は 0.0--1.0 の実数。</td>
+   </tr>
+   <tr>
+      <td>.yview_scroll( number, what )</td>
+      <td> what で示された単位に従って number だけ横スクロールする。</td>
+   </tr>
+</table>
+
+<p><a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/listbox.html'>Tkinter reference: 11. The Listbox widget</a>
+および、
+<a href='http://effbot.org/tkinterbook/listbox.htm'>
+The Tkinter Listbox Widget</a>
+も見てください。
+ 
+<h2> 3. 縦スクロールバー付 Listbox</h2>
+縦スクロークバー付 Listbox はよく使うので、定義しておきましょう。
+Listbox に Scrollbar をつける方法は、
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/listbox-scrolling.html'>
+  Tkinter reference: 11.1. Scrolling a Listbox widget</a>
+も見てください。
+<a href='tkinter6.lzh'>付録</a>についている scrolled_listbox.py は次のような内容になっています。<p>
+[code 1] (scrolled_listbox.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     import Tkinter as Tk
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     class ScrolledListbox(Tk.Listbox):
+<span class="linenumber">06:</span>         <span class="string">""" Listbox with vertical scroll bar """</span>
+<span class="linenumber">07:</span>         
+<span class="linenumber">08:</span>         def __init__(self, master, **key):
+<span class="linenumber">09:</span>             self.frame = Tk.Frame(master)
+<span class="linenumber">10:</span>             self.yscroll = Tk.Scrollbar (self.frame, orient=Tk.VERTICAL)
+<span class="linenumber">11:</span>             self.yscroll.pack(side=Tk.RIGHT, fill=Tk.Y, expand=1)
+<span class="linenumber">12:</span>             key['yscrollcommand']=self.yscroll.set
+<span class="linenumber">13:</span>             Tk.Listbox.__init__(self, self.frame, **key)
+<span class="linenumber">14:</span>             self.pack(side=Tk.LEFT, fill=Tk.BOTH, expand=1)
+<span class="linenumber">15:</span>             self.yscroll.config(command=self.yview)
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>             <span class="comment"># Copy geometry methods of self.frame </span>
+<span class="linenumber">18:</span>             for m in (Tk.Pack.__dict__.keys() + Tk.Grid.__dict__.keys() + Tk.Place.__dict__.keys()):
+<span class="linenumber">19:</span>                 m[0] == '_' or m == 'config' or m == 'configure' or \
+<span class="linenumber">20:</span>                     setattr(self, m, getattr(self.frame, m))
+</pre>
+
+<h3>3.1. 簡単な説明</h3>
+以下に簡単な説明を示します。カッコ内はソースコードの行番号です。
+<ul>
+  <li> Tkinter を Tk として import            (3)
+  <li>class ScrolledListbox を Tk.Listbox の派生クラスとして定義  (5--20)
+    <ul>
+       <li><b>__init__</b>          (8--20)
+          <ul>
+            <li>引数は <var>self</var>, <var>master</var>, <var>**key</var>。  (8)<br>
+	      <var>master</var> は親 widget、 <var>**key</var> は <span class='mono'>Tk.Listbox</span> の属性のマップ。
+            <li>まず、フレーム <var>self.frame</var> を用意する。(9)
+	    <li>次に、縦スクロールバー <var>self.yscroll</var> を用意する。(10)
+	      <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/scrollbar.html'>
+		Tkinter reference: 16. The Scrollbar widget</a> 参照。
+	    <li><var>self.yscroll</var> を 右側に pack する。(11)
+	    <li><span class='mono'>Tk.Listbox</span> の属性 <span class='mono'>yscrollcommand</span>
+	      を <var>self.yscroll.set</var> にする。(12)
+	    <li> <span class='mono'>Tk.Listbox</span> として初期化。'<b>**</b>' を使って
+	      <var>key</var> を unpack して引数に渡す。(13)
+	    <li> 自分自身を pack する。(14)
+	    <li> 縦スクロールバー <var>self.yscroll</var> の <span class='mono'>command</span> 属性を
+	      <var>self.yview</var> にする。(15)
+	    <li> <span class='mono'>Tk.Pack, Tk.Grid, Tk.Place</span> の属性の
+	      <var>self.frame</var> での値を <var>self</var> の属性にセットする。(18--20)<br>
+	         ('_' で始まる属性や、'config', 'configure' 属性は除く。)
+	      これによって <span class='mono'>ScrolledListbox</span> は配置可能な widget となる。
+	   </ul>
+   </ul>
+</ul>
+
+<h2>4. 花の画像と背景色を選んで表示するプログラム</h2>
+花の画像と背景色を選んで表示するプログラムを書いてみましょう。
+[code 2] にソースコードを示します。<p>
+
+[code 2] (flower_bg.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     show_flowers.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     Change Background of flower
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     June 28, 2005
+<span class="linenumber">09:</span>     """</span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     import Tkinter as Tk
+<span class="linenumber">13:</span>     import scrolled_listbox as SL
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment"># thanks to 素材屋ひなとん(http://www.jttk.zaq.ne.jp/bacsn908/)</span>
+<span class="linenumber">16:</span>     FLOWERS = ["suisencut4.gif", "tanpopotouka1.gif", "odamakitouka.gif", "rengetouka2.gif",              \
+<span class="linenumber">17:</span>                "ajisaicatmurasaki-a.gif", "cosmos-s.gif", "fujimurasakitouka.gif", "minaesi-5.gif",       \
+<span class="linenumber">18:</span>                "hotarubukuro3ko.gif", "burudejinarabi.gif", "aoaji3touka.gif", "sakurasou.gif",           \
+<span class="linenumber">19:</span>                "rengetakusann.gif", "nanohana3.gif", "suzurantouka2.gif", "liradai.gif",                  \
+<span class="linenumber">20:</span>                "cosmostouka-b.gif", "syunrantouka2.gif", "sakuraeda9.gif", "syoubu-s.gif",                \
+<span class="linenumber">21:</span>                "suirenpink-a.gif", "yuri2.gif", "aoasagaoline.gif", "asagaoyoujiro2.gif",                 \
+<span class="linenumber">22:</span>                "himawari-l.gif", "yagurumagikutouka1.gif", "susukistouka.gif"]
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>     BGS = [('aliceblue', '#F0F8FF'), ('azure', '#F0FFFF'), ('beige', '#F5F5DC'),              \
+<span class="linenumber">26:</span>            ('cornsilk', '#FFF8DC'), ('khaki', '#F0E68C'), ('lightgreen', '#90EE90'),          \
+<span class="linenumber">27:</span>            ('lightpink', '#FFB6C1'), ('lightskyblue', '#87CEFA'), ('palegreen', '#98FB98')]
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>     
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     class BgChange:
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>         def __init__(self, label, color):
+<span class="linenumber">34:</span>             self.label = label
+<span class="linenumber">35:</span>             self.color = color
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>         def __call__(self, event=None):
+<span class="linenumber">38:</span>             self.label.configure(bg=self.color)
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>     
+<span class="linenumber">41:</span>     class Frame(Tk.Frame):
+<span class="linenumber">42:</span>         
+<span class="linenumber">43:</span>         def __init__(self, master=None):
+<span class="linenumber">44:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">45:</span>             self.master.title('flower image and background')
+<span class="linenumber">46:</span>             intro = Tk.Label(self, font=('Helvetica', '12'),  justify=Tk.LEFT, wraplength='8c', 
+<span class="linenumber">47:</span>                              text = u"リストボックスから画像ファイル（マウス左ダブルクリック）、"
+<span class="linenumber">48:</span>                                     u"ボタンから背景色を選択してください。" 
+<span class="linenumber">49:</span>                                     u"左側のラベルに画像が表示されます。")
+<span class="linenumber">50:</span>             intro.pack()
+<span class="linenumber">51:</span>             f = Tk.Frame(self, bd=3, relief=Tk.RIDGE)
+<span class="linenumber">52:</span>             f.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">53:</span>             
+<span class="linenumber">54:</span>             self.listbox = SL.ScrolledListbox(f)
+<span class="linenumber">55:</span>             self.listbox.pack(side=Tk.LEFT, padx=5, pady=5, fill=Tk.Y)
+<span class="linenumber">56:</span>             self.listbox.bind("&lt;Double-Button-1&gt;", self.change_flower)
+<span class="linenumber">57:</span>             self.listbox.insert(Tk.END, *FLOWERS)
+<span class="linenumber">58:</span>                 
+<span class="linenumber">59:</span>             f_button = Tk.Frame(f)
+<span class="linenumber">60:</span>             f_button.pack(side=Tk.LEFT, padx=5, pady=5)
+<span class="linenumber">61:</span>             self.flower = Tk.PhotoImage(file=FLOWERS[0])
+<span class="linenumber">62:</span>             self.label = Tk.Label(f, image=self.flower, relief=Tk.RAISED, bd=3)
+<span class="linenumber">63:</span>             self.label.pack(side=Tk.RIGHT, padx =5)
+<span class="linenumber">64:</span>     
+<span class="linenumber">65:</span>             for name, code in BGS:
+<span class="linenumber">66:</span>                 b = Tk.Button(f_button, text=name,  bg=code, command=BgChange(self.label, code))
+<span class="linenumber">67:</span>                 b.pack(fill=Tk.X)
+<span class="linenumber">68:</span>     
+<span class="linenumber">69:</span>         def change_flower(self, event):
+<span class="linenumber">70:</span>             self.flower = Tk.PhotoImage(file=self.listbox.get(Tk.ACTIVE))
+<span class="linenumber">71:</span>             self.label.configure(image=self.flower)
+<span class="linenumber">72:</span>     
+<span class="linenumber">73:</span>                 
+<span class="linenumber">74:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">75:</span>     
+<span class="linenumber">76:</span>     if __name__ == '__main__':
+<span class="linenumber">77:</span>         f = Frame()
+<span class="linenumber">78:</span>         f.pack()
+<span class="linenumber">79:</span>         f.mainloop()
+</pre>
+<h3> 4.1. 簡単な説明</h3>
+<a href='tkinter5.html'>前回</a>作ったスクリプトと重複する部分があるので、簡単に説明します。
+Listbox に関する部分は詳しく説明したいと思います。<p>
+  カッコ内は行番号です。
+
+<ul>
+ <li> 文字コードとして Shift-JIS を使うことの宣言。(2)
+ <li>import の宣言。<span class='mono'>Tkinter(Tk), scrolled_listbox(SL)</span> を  import。 (12,13)
+ <li> 画像ファイルのリスト <var>FLOWERS</var> を定義。画像ファイルは<a href='http://www.jttk.zaq.ne.jp/bacsn908/'>素材屋ひなとん</a>
+   からいただきました。(16--22)
+ <li> 背景色のリスト <var>BGS</var> を定義  (25--27)
+ <li> 背景色を変える関数のクラス <var>BgChange</var> を定義 (31-38)
+ <li> Tk.Frame の派生クラス Frame を定義 (41--71)
+   <ul>
+     <li><b>__init__</b>   (43--67)
+         <ul>
+            <li>Tk.Frame として初期化 (44)
+	    <li>window のタイトルを 'flower image and background' にする。(45)
+	    <li>説明ラベル <var>intro</var> を定義して pack (46--50)
+	    <li>リストボックス、ボタン、表示用フレーム <var>f</var> を定義して pack (51,52)
+	    <li>縦スクロールバー付リストボックス <var>self.listbox</var> を定義して <var>f</var> の左側に pack  (54,55)
+	    <li>マウス左ボタンのダブルクリックを <var>self.change_flower</var> にバインド。 (56)
+	    <li><var>FLOWERS</var> を <var>self.listbox</var> に追加する。(57)<br>
+	      '<b>*</b>' を使って
+	      <var>FLOWERS</var> を展開することによって、
+	      いっぺんに追加できる。詳しくは
+	      <a href='http://www.python.jp/doc/release/tut/node6.html#SECTION006740000000000000000'>
+		Python チュートリアル: 4.7.4 引数リストのアンパック</a>
+	      を参照。
+	      第一引数の <span class='mono'>Tk.END</span> はリストボックスの終わりという意味。   
+	    <li>ボタン用フレーム <var>f_button</var> を定義して pack   (59,60)
+	    <li> <var>FLOWERS[0]</var> から画像を読み込み、<var>self.flower</var> に代入。(61)
+	    <li> 画像を表示するラベル <var>self.label</var> を定義して pack (62,63)
+	    <li> 背景色変更用ボタンを定義して pack  (65,67)
+	  </ul>
+	 <li><b>change_flower</b>   (69--71)
+	   <ul>
+             <li><span class='mono'>self.listbox.get(Tk.ACTIVE)</span> で、
+	       リストボックスの選択されている文字列を取得できる。
+	       その文字列をファイル名にもつ画像ファイルを開いて <var>self.flower</var> にセット。   (70)
+	     <li><var>self.label</var> の属性 <span class='mono'>image</span> に <var>self.flower</var> をセット。   (71)
+	   </ul>
+      </ul>
+   <li>if __name__ == '__main__':   (76--79)<br>
+     以下、決まり文句。
+</ul>
+<p>図１のように花の色と背景色が近い色だときれいに見えます。試してみてください。
+<h2>5. 複数の花の画像を選んで表示するプログラム</h2>
+リストボックスから複数のアイテムを選択するプログラムの例として、
+複数の画像ファイルを表示するプルグラムを書いてみました。
+ソースコードを [code 2] に示します。<p>
+
+[code 2] (flowers.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     flowers.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     Show flower images
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     June 28, 2005
+<span class="linenumber">09:</span>     """</span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     import Tkinter as Tk
+<span class="linenumber">13:</span>     import Image as I
+<span class="linenumber">14:</span>     import ImageTk as Itk
+<span class="linenumber">15:</span>     import math
+<span class="linenumber">16:</span>     import scrolled_listbox as SL
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     <span class="comment"># thanks to 素材屋ひなとん(http://www.jttk.zaq.ne.jp/bacsn908/)</span>
+<span class="linenumber">19:</span>     FLOWERS = ["suisencut4.gif", "tanpopotouka1.gif", "odamakitouka.gif", "rengetouka2.gif",              \
+<span class="linenumber">20:</span>                "ajisaicatmurasaki-a.gif", "cosmos-s.gif", "fujimurasakitouka.gif", "minaesi-5.gif",       \
+<span class="linenumber">21:</span>                "hotarubukuro3ko.gif", "burudejinarabi.gif", "aoaji3touka.gif", "sakurasou.gif",           \
+<span class="linenumber">22:</span>                "rengetakusann.gif", "nanohana3.gif", "suzurantouka2.gif", "liradai.gif",                  \
+<span class="linenumber">23:</span>                "cosmostouka-b.gif", "syunrantouka2.gif", "sakuraeda9.gif", "syoubu-s.gif",                \
+<span class="linenumber">24:</span>                "suirenpink-a.gif", "yuri2.gif", "aoasagaoline.gif", "asagaoyoujiro2.gif",                 \
+<span class="linenumber">25:</span>                "himawari-l.gif", "yagurumagikutouka1.gif", "susukistouka.gif"]
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>     SIZE = 100
+<span class="linenumber">29:</span>     
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>     def get_size(tup):
+<span class="linenumber">33:</span>         <span class="string">""" It returns the size of images on the summary"""</span>
+<span class="linenumber">34:</span>         x, y = tup
+<span class="linenumber">35:</span>         if (x&lt;=100 and y&lt;=100):
+<span class="linenumber">36:</span>             return (x, y)
+<span class="linenumber">37:</span>         elif x &gt; y:
+<span class="linenumber">38:</span>             r = float(SIZE) / float(x)
+<span class="linenumber">39:</span>             return (100, int(y*r))
+<span class="linenumber">40:</span>         else:
+<span class="linenumber">41:</span>             r = float(SIZE) / float(y)
+<span class="linenumber">42:</span>             return (int(x*r), 100)
+<span class="linenumber">43:</span>             
+<span class="linenumber">44:</span>     
+<span class="linenumber">45:</span>     
+<span class="linenumber">46:</span>     class Frame(Tk.Frame):
+<span class="linenumber">47:</span>         
+<span class="linenumber">48:</span>         def __init__(self, master=None):
+<span class="linenumber">49:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">50:</span>             self.master.title('show flower images')
+<span class="linenumber">51:</span>             intro = Tk.Label(self, font=('Helvetica', '12'),  justify=Tk.LEFT, wraplength='11c', width=50,
+<span class="linenumber">52:</span>                              text =
+<span class="linenumber">53:</span>               u"リストボックスから画像ファイルを選択してください。"
+<span class="linenumber">54:</span>               u"左ボタンのドラッグ、Shift + 左ボタン、Ctrl + 左ボタン などで複数の画像の選択が可能です。\n"
+<span class="linenumber">55:</span>               u"選択が終わったら、マウス右ボタンをクリックしてください。"
+<span class="linenumber">56:</span>               u"選択された画像が左側に表示されます。")
+<span class="linenumber">57:</span>               
+<span class="linenumber">58:</span>             intro.pack()
+<span class="linenumber">59:</span>             self.f = Tk.Frame(self, bd=3, relief=Tk.RIDGE)
+<span class="linenumber">60:</span>             self.f.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">61:</span>             
+<span class="linenumber">62:</span>             self.listbox = SL.ScrolledListbox(self.f, selectmode=Tk.EXTENDED)
+<span class="linenumber">63:</span>             self.listbox.pack(side=Tk.LEFT, padx=5, pady=5, fill=Tk.Y)
+<span class="linenumber">64:</span>             self.listbox.bind("&lt;3&gt;", self.show_flowers)
+<span class="linenumber">65:</span>             self.listbox.insert(Tk.END, *FLOWERS)
+<span class="linenumber">66:</span>                 
+<span class="linenumber">67:</span>             self.renew()
+<span class="linenumber">68:</span>             
+<span class="linenumber">69:</span>     
+<span class="linenumber">70:</span>         def show_flowers(self, event):
+<span class="linenumber">71:</span>             if self.images:
+<span class="linenumber">72:</span>                 self.ff.destroy()
+<span class="linenumber">73:</span>                 self.renew()
+<span class="linenumber">74:</span>                 
+<span class="linenumber">75:</span>             selected = [ int(x) for x in self.listbox.curselection()]
+<span class="linenumber">76:</span>             span = int(math.ceil(math.sqrt(len(selected))))
+<span class="linenumber">77:</span>             for i, j in  enumerate(selected):
+<span class="linenumber">78:</span>                 img = I.open(FLOWERS[j])
+<span class="linenumber">79:</span>                 img = img.resize(get_size(img.size))
+<span class="linenumber">80:</span>                 tkimg = Itk.PhotoImage(img)
+<span class="linenumber">81:</span>                 la = Tk.Label(self.ff, image=tkimg)
+<span class="linenumber">82:</span>                 la.grid(row=i/span, column=i%span, sticky=Tk.SW)
+<span class="linenumber">83:</span>                 self.images.append(tkimg)
+<span class="linenumber">84:</span>             self.listbox.selection_clear(min(selected), max(selected))
+<span class="linenumber">85:</span>     
+<span class="linenumber">86:</span>     
+<span class="linenumber">87:</span>         def renew(self):
+<span class="linenumber">88:</span>             self.images = []
+<span class="linenumber">89:</span>             self.ff = Tk.Frame(self.f, border=3, relief=Tk.RAISED)
+<span class="linenumber">90:</span>             self.ff.pack(side=Tk.RIGHT, fill=Tk.BOTH, expand=1, padx =5)
+<span class="linenumber">91:</span>             
+<span class="linenumber">92:</span>             
+<span class="linenumber">93:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">94:</span>     
+<span class="linenumber">95:</span>     if __name__ == '__main__':
+<span class="linenumber">96:</span>         f = Frame()
+<span class="linenumber">97:</span>         f.pack()
+<span class="linenumber">98:</span>         f.mainloop()
+<span class="linenumber">99:</span>     
+</pre>
+
+<h3>5.1. 簡単な説明。</h3>
+かなりの部分が  [code 2] と同じですので、[code 2] と違っている点を主に説明します。
+カッコ内の数字はソースコードの行番号です。
+<ul>
+ <li> import するモジュールの宣言、
+   <span class='mono'>Tkinter(Tk), Image(I), ImageTk(Itk), math, scrolled_listbox(SL)</span> を import   (12--16)
+ <li> グローバル変数の宣言、
+   画像ファイルのリスト <var>FLOWERS</var> と、一覧表に貼り付ける画像のサイズ <var>SIZE</var> を宣言。(19--28)
+ <li> <b>get_size</b>    (32--42)<br>
+      縮小イメージの大きさを計算する関数。縦横比を変えずに画像ファイルが 100x100 pixel に収まるよう
+   pixel 数を計算して返す。
+ <li> class Frame(Tk.Frame):       (46--90)
+   <ul>
+     <li><b>__init__</b>  (48--67)<br>
+       初期化。ほとんど [code 1] と同じなので、違っている部分だけを説明。
+       <ul>
+         <li> <span class='mono'>self.listbox = SL.ScrolledListbox(self.f, selectmode=Tk.EXTENDED)</span>     (62)<br>
+	      <span class='mono'>selectmode=Tk.EXTENDED</span> のオプションを用いて複数のアイテムが選択できるようにする。
+	 <li> 右ボタンクリックを <var>self.show_flowers</var> メソッドと結びつける。   (64)
+	 <li> <var>self.renew()</var> を呼び出して、画像表示用フレームを初期化する。   (67)
+	   </ul>
+     <li><b>show_floweres</b>:   (70--84)<br>
+       花の縮小画像を表示するメソッド。
+       <ul>
+          <li> もし、前に一度表示していれば、(71)
+	    <ul>
+	         <li> 花の画像を表示するフレーム <var>self.ff</var> を <span class='mono'>destroy()</span> して、(72)
+	         <li> <var>self.renew()</var> で新しく作り直す。(73)
+	    </ul>
+	  <li> <var>self.listbox</var> の <span class='mono'>.curselection()</span>
+	       メソッドを使って、選択されているアイテムを取り出す。(75)<br>
+	       このメソッドが返す値は文字列のタプルなので、 <span class='mono'>int()</span> を使って整数に変換する。<br>
+	       整数に変換された、インデックスを <var>selected</var> に代入。
+	  <li> 一覧表示の列数を計算する。(76)
+	  <li> <var>selected</var> に <span class='mono'>enumerate</span> 関数を適用して、 83 行目までを繰り返す。(77)
+	     <ul>
+	         <li> まず、<span class='mono'>Image</span> モジュールの <span class='mono'>open</span>
+	                関数を使って <var>FLOWERS[j]</var> を読み込み <var>img</var> に代入。(78)
+	         <li> <var>img</var> が 100x100 pixel に収まるように resize する。(79)
+	         <li> <span class='mono'>ImageTk</span> モジュールの <span class='mono'>PhotoImage</span>
+	                関数を用いて <var>img</var> を TkImage の <var>tkimg</var> に変換する。(80)
+	         <li> <var>tkimg</var> を貼り付ける Label <var>la</var> を定義して。それを grid する。(81,82)
+	         <li> <var>tkimg</var> が消えないように <var>self.images</var> に加えておく。(83)
+	       </ul>
+	  <li> ループが終わったら、<var>self.listbox</var> の選択したアイテムをクリアしておく。(84)
+       </ul>
+     <li><b>renew</b>    (87--90)<br>
+       イメージの一覧を表示するフレーム <var>self.ff</var> を初期化する。 
+  </ul>
+ <li> if __name__ == '__main__':     (95--98)<br>
+   以下は決まり文句
+  <h2>6. 終わりに</h2>
+  Listbox の使い方をまとめると、
+  <ol>
+    <li> <b>Listbox</b> をつくる。
+    <li> <b>.insert</b> メソッドを使ってアイテムを挿入する。
+    <li> <b>.get</b> メソッド、または <b>.curselection</b> メソッドを使って選択されたアイテムを取り出す。
+      </ol>
+  となります。<p>
+
+    ここで紹介したスクリプトは
+    <a href='tkinter6.lzh'>[download]</a> からダウンロードできます。
+
+  次回は flower_bg.py と flowers.py をもとにして画像ビューアを作ります。次回のプログラムはいろいろな widget を使った
+    少しは実用的なプログラムです。
+    いままで、出てきた widget に加えて、
+    Tk.Entry, Tk.Checkbutton, Tk.Radiobutton, Tk.LabelFrame, Tk.Toplevel, dialog も登場します。
+    
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter5.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. 関数のクラスを使ってクールなコードを書こう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter7.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  7. Widget てんこ盛り画像 Viewer</a></td>
+<td><a rel='download' href="tkinter6.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter6.html&t=Tkinter+%C6%FE%CC%E7%3A+6.+Listbox+%A4%F2%BB%C8%A4%C3%A4%C6%A4%AA%B2%D6%A4%F2%B0%A6%A4%C7%A4%DE%A4%B7%A4%E7%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

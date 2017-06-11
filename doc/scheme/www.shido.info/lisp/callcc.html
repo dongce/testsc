@@ -1,0 +1,376 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, 継続, call/cc">
+<meta name="description" content="call/cc of Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 A-3. 継続についてもう少し </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_calc.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-2. 関数電卓</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_resources.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-4. 文献</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/callcc.html&t=Scheme+%C6%FE%CC%E7+A-2.+%B7%D1%C2%B3%A4%CB%A4%C4%A4%A4%A4%C6%A4%E2%A4%A6%BE%AF%A4%B7' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>Appendix 3. 継続についてもう少し</h1> 
+<hr>
+ 以下の文章は、以前継続について書いたものです。
+皆様の継続の理解に役立てば幸いです。<p>
+
+<h2>1. はじめに </h2>
+Scheme の継続は大変強力だそうです。ただ、理解するのは大変難しく、実は紫藤もよくは理解していません。
+ここでは備忘録を兼ねて継続について詳しく説明しようと思います。<p>
+
+  Scheme は言語体系は小さいのですが、それによってほとんどのプログラミング技法が表現できるように
+  設計されています。他の言語に見られるような便利な機能は無いのですが、その分アルゴリズムを直接
+  記述できるので主に教育用言語として使われています。有名な
+  <a href = "http://www.pearsoned.co.jp/washo/prog/wa_pro20-j.html">
+	 計算機プログラムの構造と解釈</a>に記載されている
+  プログラムは Scheme を用いて書かれています。なお、
+	 実用的には全く用いられないということは無く、
+	 <a href = "http://www.shiro.dreamhost.com/scheme/index-j.html"> Practical Scheme</a>
+	 に事例があります。<p>
+
+		継続を除いて、Scheme 言語そのものを理解することは簡単で、
+		LISP 経験者なら 半日で習得できると思います。
+		<a href = "http://www.sampou.org/scheme/t-y-scheme/t-y-scheme-Z-H-1.html#node_toc_start">
+		  独習 Scheme 三週間</a> は Scheme の分かりやすい入門サイトです。紫藤もここで勉強しました。
+		なお、入門書として
+		<a href = "http://www.amazon.co.jp/exec/obidos/ASIN/0262560992/249-9323695-7306737">
+		  Little Schemer</a> も評判が良いようです。
+
+		また、継続についての詳しい説明は
+		<a href="http://www.shiro.dreamhost.com/scheme/docs/cont-j.html">何でも継続</a>
+		にあります。
+	 継続について悩んだ人は紫藤のほかにかなりいるみたいで、
+		<a href="http://www.google.co.jp/search?&num=ie=UTF-8&oe=UTF-8&hl=ja&lr=lang_ja&q=Scheme%20%E3%81%AE%20%E7%B6%99%E7%B6%9A">
+		  google で検索する</a>とたくさんヒットします。<p>
+
+		  このページのほとんどは上に挙げたページのパクリです。ただ、trace を使って
+		  継続をイメージするというアイデア（というほどのものではありませんが）は
+		  なぜか載っていませんでした。ちなみに、実装によっては trace が無い！こともあります。
+		  紫藤は trace が付いている
+		  <a href="http://www.scheme.com/index.html">Chez Scheme</a> を使いました。
+		
+
+
+<h2>2.  継続の説明 </h2>
+
+継続は”トップレベルに戻るためにある時点からやる必要のある計算”のことです。
+継続は、計算プロセスに普遍的に存在していますが、ほとんどのプログラミング言語や OS では
+明示的に扱われることは無く、利用者が意識することはほとんどありません。そのため、
+ピンとこない方も多いと思います（実は私もその一人です）が、次の様なごく普通の計算でも
+継続は存在します。
+<pre class = "oset">
+>(* (+ 1 2) (- 10 5))       ............. (1)
+</pre>
+(1) の計算で、(+ 1 2) の評価が終わった段階でしなければならない計算は、(+ 1 2) を
+<span class="redtext">[ ]</span> で置き換えて表すと、<br>
+(* <span class="redtext">[ ]</span> (- 10 5))<br>
+です。また、"2" の評価が終わった段階では、<br>
+(* (+ 1 <span class="redtext">[ ]</span>) (- 10 5))<br>
+となります。
+
+Scheme ではこういった"途中の計算" を call-with-current-continuation （略して call/cc)
+というオペレータを使って取り出すことが出来ます。<p>
+
+  継続は、
+  <ol>
+	 <li>大域脱出
+		<li>（通常のループまたは再帰では処理しづらいデータ構造の）再帰的処理
+		  </ol>
+  をあらわすのに使われています。
+
+<h2> 3. call/cc の書式</h2>
+  call/cc の書式は以下の通りです。
+<pre class="oset">
+(call/cc (lambda (cc) [cc を用いて何かをする。]))
+</pre>
+ここで、cc はcall/cc が呼ばれた時点での計算の進行状況です。この値を保存しておくことによって
+将来の任意の時点で計算を再開させることが出来ます。例えば、上の (1) の場合、
+<pre class="samp">
+(define *save* ())
+(* (+ 1 (call/cc (lambda(cc) (set! *save* cc) 2))) (- 10 5))
+</pre>
+として、 cc を *save* に保存すると、(* (+ 1 <span class="redtext">[ ]</span>) (- 10 5))
+（つまり、(lambda(x) (* (+ 1 x) (- 10 5)))　のようなもの）が、
+ *save* に保存されます。
+これ以降 *save* を使って計算が出来ます。
+<pre class="o">
+(*save* 2) => 15
+(*save* 10) => 55
+</pre>
+継続は、トップレベルに戻るためにしなければならない計算ですから、
+トップレベル以外で呼ばれたときは、
+その文脈を無視します。以下の例では 0 で割るという計算を無視しています。
+（これが、単なる関数と違うところです）
+<pre class="o">
+(*save* 5) => 30
+(/ (*save* 5) 0) => 30
+</pre>
+<h2> 4. call/cc を用いた脱出 </h2>
+<!-- いろいろなところで継続を説明するために用いられている例-->
+継続は文脈を無視してトップレベルに戻るので、大域脱出に使うことが出来ます。
+例えば、リストの要素の乗算をしたい場合、0 があったら、即座に計算を打ち切ることが出来ます。
+（この例は継続を説明するためにしばしば用いられます。）
+<pre class="oset">
+(define ls*
+  (lambda (ls)
+    (call/cc
+     (lambda (cc)
+       (if (null? ls)
+           1
+         (let ((x (car ls)))
+           (if (= 0 x)
+               (cc 0)                           ;(2)-a
+             (* x (ls* (cdr ls))))))))))        ;....................(2)
+</pre> 
+(2)-a で cc に 0 を渡しています。cc は call/cc が呼ばれたところまで、
+途中の文脈を無視して一気に脱出するので、ls* が呼ばれたところに即座に 0 が
+返ります。<p>
+  ls* がトップレベル以外から呼ばれても動作します。
+  <a name="return">
+  例えば、
+<pre class = "samp">
+(define ls0 '(0 1 2 3 4 5))
+(+ 100 (ls* ls0)) => 100
+</pre>
+上の例では、cc の値は (+ 100 <span class="redtext">[ ]</span>) となるので、ls* が関数として働いて、(ls* ls0) が
+0 を返したと思って差し支えありません。
+<span class="redtext">関数全体を call/cc で包むという手法は、
+  内部で call/cc を使う関数が、その呼び出し元へ
+値を返すために必要です。（重要）</span>つまり、call/cc を使っている関数を
+普通の関数のように振舞わせたければ、全体を call/cc で囲む必要があるということです。
+
+<h2> 5. 階乗の計算</h2>
+階乗の計算は、継続がソースコード上の構造ではなく、本当に計算の進行状況に関する情報を保持している
+例として用いられます。
+<pre class="oset">
+(define *save* ())
+(define fact
+  (lambda (x)
+    (if (= x 1)
+        (call/cc
+         (lambda (cc)
+           (set! *save* cc)
+           1))
+      (* x (fact (- x 1))))))  ;........................................(3)
+</pre>
+例えば、(fact 3)の場合、(* 3 (* 2 <span class="redtext">[ ]</span>)) が cc の値となります。
+<pre class="samp">
+(fact 3) => 6
+(*save* 1) => 6
+(*save* 2) => 12
+</pre>
+trace をして stack の様子を見てみると分かりやすいと思います。
+<pre class="samp">
+> (fact 3)
+|(fact 3)
+| (fact 2)
+| |(fact 1)
+| |1      ; ここで、これ以降の計算を *save* に保持
+| 2       ; (* 2 <span class="redtext">[ ]</span>)
+|6        ; (* 3 (* 2 <span class="redtext">[ ]</span>))
+6
+</pre>
+<h2> 6. 継続を用いたツリーのトラバース</h2>
+独習 Scheme 三週間 にあるツリーのトラバース関数 (tree-traverser) を説明します。
+この関数は呼ばれるたびにツリー構造の葉を１つずつ前から順番に返す関数を返します。<br>
+使用例：
+<pre class="samp">
+(define tr '((1 2) (3 (4 5))))
+(define p (tree-traverser tr))
+(p) => 1
+(p) => 2
+(p) => 3
+(p) => 4
+(p) => 5
+(p) => ()  ; 最後に () を返す。
+</pre>
+
+この関数の定義は以下の通りです。基本的には
+<a href="http://www.sampou.org/scheme/t-y-scheme/t-y-scheme-Z-H-15.html#node_sec_13.3">
+  独習 Scheme 三週間</a>にある tree->generator と同じですが
+（実は全く同じですが）、
+若干単純化しています。また、継続を表すシンポルに return, continue などの馴染みの単語を
+使うことで、コードを読みやすくしています。継続は直感的に分かりにくいので、分かりやすい単語を
+使うことで敷居が低くなることを期待しています。
+
+<pre class="code">
+<span class="linenumber">01:</span>     (define (make-traverser tree)
+<span class="linenumber">02:</span>       (let ((return ()))                                                        <span class="comment">; 1</span>
+<span class="linenumber">03:</span>         (letrec ((continue                                                      <span class="comment">; 2</span>
+<span class="linenumber">04:</span>     	      (lambda ()
+<span class="linenumber">05:</span>     		(let loop ((tree tree))                                     <span class="comment">; 3</span>
+<span class="linenumber">06:</span>     		  (cond                                                     <span class="comment">; 4</span>
+<span class="linenumber">07:</span>     		   ((null? tree) 'skip)                                     <span class="comment">; 5</span>
+<span class="linenumber">08:</span>     		   ((pair? tree) (loop (car tree)) (loop (cdr tree)))       <span class="comment">; 6</span>
+<span class="linenumber">09:</span>     		   (else                                                    <span class="comment">; 7</span>
+<span class="linenumber">10:</span>     		    (call/cc (lambda (lap-to-go)                            <span class="comment">; 8</span>
+<span class="linenumber">11:</span>     			       (set! continue (lambda () (lap-to-go 'restart)))    <span class="comment">; 9</span>
+<span class="linenumber">12:</span>     			       (return tree))))))                      <span class="comment">;10</span>
+<span class="linenumber">13:</span>     		(return ()))))                                         <span class="comment">;11</span>
+<span class="linenumber">14:</span>             (lambda ()                                                     <span class="comment">;12</span>
+<span class="linenumber">15:</span>               (call/cc (lambda (where-to-go)                               <span class="comment">;13</span>
+<span class="linenumber">16:</span>                          (set! return where-to-go)                         <span class="comment">;14</span>
+<span class="linenumber">17:</span>                          (continue)))))))
+</pre>
+上のコードの説明：
+<table class="sep15">
+  <col width="40">
+  <thead>
+	 <tr><th>脚注</th><th>説明</th></tr>
+	 </thead>
+  <tbody>
+   <tr><td align="right" valign="top">1.</td>
+	  <td> 局所変数 return を宣言。</td></tr>
+   <tr><td align="right" valign="top">2.</td>
+	  <td> continue を letrec を使って宣言。
+		 continue は現状での先頭の葉を返して、
+	  その時点での計算経過を次の continue にセットして停止する手続き。<br>
+		 letrec は let と同様に局所変数を
+		 宣言し、かつ 9. のように
+		 宣言ブロック内で宣言したシンボルを参照することが出来る。
+	</td></tr>
+   <tr><td align="right" valign="top">3.</td>
+	  <td>名前つき let を使って rec を宣言。
+		 名前つき let は Common LISP の labels にほぼ相当する。 </td></tr>
+   <tr><td align="right" valign="top">4.</td>
+	  <td> cond を使って処理を振り分ける。
+	  </td></tr>
+   <tr><td align="right" valign="top">5.</td>
+	  <td> 空リストの時は何もしない。</td></tr>
+   <tr><td align="right" valign="top">6.</td>
+	  <td> リストのときはその car と cdr に対して rec を再帰的に適用。</td></tr>
+   <tr><td align="right" valign="top">7.</td>
+	  <td>葉のときは、</td></tr>
+   <tr><td align="right" valign="top">8.</td>
+	  <td> call/cc を呼び出して、途中経過 so-far を取得し、</td></tr>
+	  	  <tr><td align="right" valign="top">9.</td>
+			 <td> so-far を（次に呼び出す）continue にセットする。
+so-far は、もともとの continue の定義に、その時点での
+				変数、ネストの深さ etc が入ったもの。つまり、<span class="redtext">[ ]</span> を使って表すと、
+<pre class="oset">
+                (lambda ()
+                  (let rec ((tree tree0))  
+                    (cond                  
+                     ((null? tree) ())     
+                     ((pair? tree) (rec (car tree)) (rec (cdr tree)))  
+                     (else                                             
+                      <span class="redtext">[ ]</span>                    
+                  (return ()))))                                       
+</pre>
+が、入っていると想像できる。so-far が呼ばれた時点で (car tree) が葉の時の処理が終わったので、
+次は (rec (cdr tree)) が開始される。<span class="redtext">[ ]</span> の処理が終わったところから計算が開始されるので、
+<span class="redtext">[ ]</span> は埋めなくてもいい。つまり、継続に引数を与えなくてもそのまま手続きとして計算が再開される。
+				
+			 </td></tr>
+			 <tr><td align="right" valign="top">10.</td>
+				<td> そして見つかった葉を呼び出し元に返す。(return tree) は call/cc
+				の内側にある必要がある。もし、外側にあると次の計算が始まらない。</td></tr>
+   <tr><td align="right" valign="top">11.</td>
+	  <td> 全ての葉を調べつくしたら空リストを返す。</td></tr>
+	<tr><td align="right" valign="top">12.</td>
+	  <td>make-traverser が返す traverse 関数。</td></tr>
+   <tr><td align="right" valign="top">13.</td>
+	  <td>まず最初に call/cc を呼び出して、</td></tr>
+   <tr><td align="right" valign="top">14.</td>
+	  <td> 返す場所を return にセットする。see <a href="#return">section 4</a>。</td></tr>
+   <tr><td align="right" valign="top">15.</td>
+	  <td> しかる後に continue を呼び出す。</td></tr>
+	</tbody>
+</table>
+
+make-traverser で作られた関数の動作は、通常の traverse 関数を書いて、それのトレースから
+推測できます。trace の * 印の所で計算がストップし、残りの計算は continue に保持されます。<br>
+通常の traverse 関数：
+<pre class="oset">
+(define tree-traverse
+  (lambda (tree)
+    (cond
+     ((null? tree) `_)
+     ((pair? tree) (tree-traverse (car tree)) (tree-traverse (cdr tree)))
+     (else
+      (write tree)))))
+</pre>
+
+tree が '((1 2) 3) のときの trace。
+<pre class="samp">
+> (tree-traverse '((1 2) 3))
+|(tree-traverse ((1 2) 3))
+| (tree-traverse (1 2))
+| |(tree-traverse 1)           
+1| |#&lt void&gt               ; *
+| (tree-traverse (2))
+| |(tree-traverse 2)           
+2| |&lt void&gt                ; *
+| (tree-traverse ())
+| _
+|(tree-traverse (3))
+| (tree-traverse 3)            
+3| #&lt void&gt                ; *
+|(tree-traverse ())
+|_
+_
+</pre>
+
+
+<h2> 7. おわりに </h2>
+継続は、コードに現れない計算状態を保持したオブジェクトなので、
+自分が何をやっているのか視覚的にイメージするのが困難です。
+このような時、
+通常の動作をする関数を書き、そのトレースから継続の値を推測することによって
+継続がどのように働くかが視覚的に理解できるようになると思います。<p>
+
+
+Scheme は囲碁のような言語で、ルールは非常に単純ですが
+（つまり、言語自体の習得は半日ですみますが、）うまくやれるようになるには
+熟練が必要だと思います。
+特に、継続の理解は難しく、
+  <a href="http://www.shiro.dreamhost.com/scheme/docs/cont-j.html">何でも継続</a>
+  で言われているように禅問答になります。継続はあまりに突飛なアイデアなので、
+  理解するとはどういうことか？という哲学的な思索を我々に強います。<p>
+継続は理解するものではなく、慣れるものなのかもしれません。<br>
+  例えば、
+  <ul>
+<li>自転車が転ばない理由を理解しなくても自転車に乗れるように。
+子供のころ自転車がなぜ転ばないのかを理解しようとしてなかなか
+自転車に乗れなかった様に。
+  <li>足し算の数学的意味についてほとんど知らなくても足し算が出来るように。
+	 また、計算機内部で足し算がどのようなビット処理によって実現されているかを全く考えずに
+	 プログラムが書けるように。我々が足し算を簡単に出来るのはそれについて理解しているからではなく
+	 小学校のころからやらされたのでただ慣れているだけのように。
+		</ul>
+
+  などと、取り留めの無いことを書きましたが、結論としては<br>
+  <b>継続は習うより慣れろ</b><br>
+  でしょう。つまり、”理解するとは慣れることである”となります。
+  
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_calc.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-2. 関数電卓</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_resources.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-4. 文献</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/callcc.html&t=Scheme+%C6%FE%CC%E7+A-2.+%B7%D1%C2%B3%A4%CB%A4%C4%A4%A4%A4%C6%A4%E2%A4%A6%BE%AF%A4%B7' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

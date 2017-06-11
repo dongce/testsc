@@ -1,0 +1,376 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, function">
+<meta name="description" content="Defining Functions on Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> 4. Defining Functions </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme3_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  3. Making Lists</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme5_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>5. Branching</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme4_e.html&t=%28Scheme%29+Defining+Functions' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1>  4. Defining Functions </h1>
+<hr>
+<h2>1. Introduction </h2>
+In the previous chapters, I have explained:
+<ol>
+  <li> How to install MIT-Scheme.
+  <li> How Scheme interpreters evaluate S-expressions.
+  <li> Basic list operations.
+ </ol>
+In this chapter, I will explain how to define your own functions.
+As Scheme is a functional programming language, you construct your programs
+by building up small functions. Thus, understanding
+how to build and combine functions
+is critical to master Scheme.
+<p>
+
+As it is quite inconvenient to define functions on the front end,
+you usually edit codes by an editor and load them to the interpreter.
+  
+<h2>2. How to define simple functions and to load them</h2>
+You use <span class='ttb'>define</span> to bind a symbol to a value.
+You can define any kind of global parameters,
+such as numbers, characters, lists, etc. and functions by this operator.
+<p>
+Let's edit the code shown in [code 1] by any kinds of editor (including Notepad),
+and save it as 'hello.scm' under a directory like 'C:\doc\scheme\'.
+If possible, save under the default directory of MIT-Scheme, which you have defined
+in chapter 1.
+<p>
+
+[code 1] (hello.scm)
+<pre class='code'>
+<span class='comment'>; Hello world as a variable</span>
+(define vhello "Hello world")     <span class='comment'>;1</span>
+
+<span class='comment'>; Hello world as a function</span>
+(define fhello (lambda ()         <span class='comment'>;2</span>
+		 "Hello world"))
+</pre>
+
+Next, give the following command to the Scheme interpreter. 
+<pre class='samp'>
+(cd "C:\\doc\\scheme")
+<span class='response'>;Value 14: #[pathname 14 "c:\\doc\\scheme\\"]</span>
+
+(load "hello.scm")
+<span class='response'>;Loading "hello.scm" -- done</span>
+<span class='response'>;Value: fhello</span>
+</pre>
+By this, <tt>hello.scm</tt> is loaded to the  scheme interpreter.
+If the current directory of the interpreter has been set to the directory where the script is,
+you don't need the first line.
+
+Then give the following command to the interpreter.
+<pre class='samp'>
+vhello
+<span class='response'>;Value 15: "Hello world"</span>
+
+fhello
+<span class='response'>;Value 16: #[compound-procedure 16 fhello]</span>
+
+(fhello)
+<span class='response'>;Value 17: "Hello world"</span>
+</pre>
+
+The <span class='ttb'>define</span> is a operator to declare variables and takes two arguments.
+The operator declares to use the first argument as a global parameter and binds it to the
+second argument.
+Thus, the line at <span class='comment'><tt>;1</tt></span> in [code 1] means that
+it declares a global parameter <tt>vhello</tt> and binds it to "Hello world". <p>
+On the other hand, the line at <span class='comment'><tt>;2</tt></span> declares
+a procedure that returns "Hello world".<br>
+The <span class='ttb'>lambda</span> is a special form to define procedures.
+  The <tt>lambda</tt> takes more than one arguments and the first argument is the list of
+  parameters that the procedure takes as arguments.
+  As  <tt>fhello</tt> takes no argument, the list of the parameters is empty.
+  <p>
+
+Give <tt>vhello</tt> to the interpreter then it returns the value, "Hello world".
+if you give <tt>fhello</tt>, it also returns the value like, <br><var>#[compound-procedure 16 fhello]</var>,<br>
+which means that the Scheme interpreter treats procedures and conventional data type in a same way. 
+    As explained in <a href='scheme3_e.html#cons'>the previous chapter</a>, the Scheme interpreter manipulates all
+    the data by their addresses in the memory space and any kinds of object existing in the memory can be
+    treated in the same way. <br>
+  To call <tt>fhello</tt> as a procedure, you should bracket off the symbol like <tt>(fhello)</tt>.
+Then the interpreter evaluates it and returns "Hello world"
+taking <a href='scheme2_e.html#eval'>steps shown in chapter 2</a>.
+      
+ 
+<h2>3. Defining functions with parameters</h2>
+Put a list of parameters after <tt>lambda</tt> to define functions with parameters.
+Save the code shown in [code 2] as <tt>farg.scm</tt> under the same directory where <tt>hello.scm</tt> is.
+<p>
+[code 2] (farg.scm)
+<pre class='code'>
+<span class='comment'>; hello with name</span>
+(define hello
+  (lambda (name)
+    (string-append "Hello " name "!")))
+
+
+<span class='comment'>; sum of three numbers</span>
+(define sum3
+  (lambda (a b c)
+    (+ a b c)))
+</pre>
+
+After saving it, load the file into the interpreter and call the functions.
+<pre class='samp'>
+(load "farg.scm")
+<span class='response'>;Loading "farg.scm" -- done</span>
+<span class='response'>;Value: sum3</span>
+
+(hello "Lucy")
+<span class='response'>;Value 20: "Hello Lucy!"</span>
+
+(sum3 10 20 30)
+<span class='response'>;Value: 60</span>
+</pre>
+
+<dl>
+  <dt><b>hello</b></dt>
+      <dd> Function <tt>hello</tt> takes one argument (<tt>name</tt>), appends  "Hello ", <tt>name</tt>, and "!"  and
+	returns it.<br>
+	A pre-defined function
+<span class='ttb'>string-append</span> takes arbitrary number of string arguments and returns a appended string.
+</dd>
+  <dt><b>sum3</b></dt>
+      <dd>It takes three arguments and returns the sum of them.</dd>
+</dl>
+
+<h2>4. A short form for function definitions</h2>
+Even, using <tt>lambda</tt> is the orthodox way of defining functions.
+you can use a short form shown in [code 3].
+<p>
+  
+[code 3]
+<pre class='code'>
+<span class='comment'>; hello with name</span>
+(define (hello name)
+  (string-append "Hello " name "!"))
+
+
+<span class='comment'>; sum of three numbers</span>
+(define (sum3 a b c)
+  (+ a b c))
+</pre>
+In this form, functions are defined in the form that they are called.
+[code 2] and [code 3] are identical.
+Some people don't like the short way of defining functions, but I use it
+in this tutorials, because this way makes code shorter.
+
+<h3> Exercise 1</h3>
+Write following functions. They are quite simple but useful.
+<ol>
+<li> A function that add 1 to the argument.
+<li> A function that subtract 1 from the argument.
+</ol>
+
+
+
+<a name='practice'>
+<h3> Exercise 2</h3>
+Let's write a function to calculate flying distances with following steps.
+
+<ol>
+<li> Write a function that convert the unit of angles from degree to radian.<br>
+  180 degree is &pi; radian.
+  &pi; is defined by<br>
+  <tt>(define pi (* 4 (atan 1.0)))</tt><br>
+  
+
+<li> Write a function that calculates a distance of moving at a constant velocity (<var>v<sub>x</sub></var>)
+  in <var>t</var> seconds.
+<li> Write a function that calculates a duration till the object reach the ground that is launched with vertical
+  velocity of <var>v<sub>y</sub></var>.<br> 
+  Ignore air drag and use <tt>9.8 m s<sup>-2</sup></tt> as the value of acceleration of gravity (<i>g</i>). 
+  <br>
+  hint: As the vertical velocity when the object reaches the ground is  <var>-v<sub>y</sub></var>,<br>
+  <tt>2 v<sub>y</sub> = g t</tt> <br>
+  where <tt>t</tt> is the falling duration.
+<li> Write a function that calculates a flying distance of a ball
+thrown with an initial velocity <var>v</var> and an angle <var>theta</var> degree
+  using functions defined in questions 1--3.<br>
+Hint: First, convert degree to radian (say <var>theta1</var>).
+  The horizontal and vertical initial velocities are represented by <br>
+  <var>v</var> <tt>cos</tt>(<var>theta1</var>)
+  and <var>v</var> <tt>sin</tt>(<var>theta1</var>), respectively.
+  The duration of falling can be calculated by the function of the question 3.
+  As horizontal velocity doesn't change, the distance can be calculated using the function of the question 2.
+  
+ <li> Calculate the distance of a ball thrown with a initial velocity of <tt>40 m s<sup>-1</sup></tt>
+  and an angle of 30 degree. It corresponds to the distance of a long cast by a professional baseball player
+   having a strong arm.
+</ol>
+
+<h2>5. About editors</h2>
+I will mention about editors which is convenient to edit Scheme codes. 
+<h3>5.1. Emacs</h3>
+Windows version of Emacs21 can be downloaded from 
+<a href='http://ftp.gnu.org/gnu/emacs/windows/'>http://ftp.gnu.org/gnu/emacs/windows/</a>.
+Download emacs-21.3-bin-i386.tar.gz and unpack it. <p>
+
+You will find an executable named <tt>runemacs.exe</tt> under directory <tt>bin</tt>.
+Double click it to start the editor.
+Even the key mapping is quite different from that of Windows standard,
+  it is reasonably user friendly because it
+ is equipped with a menu bar and mouse control.
+
+You can customize it by editing the configuration file named <tt>.emacs</tt>.
+A Scheme mode is available, which understands pre-defined words and indents code
+  properly by pressing
+   <span class='ttb'>Ctrl-i</span> or <span class='ttb'>TAB</span>. 
+In addition, the editor shows corresponding open parenthesis automatically,
+when a close parenthesis are typed.<p>
+  
+On Windows operation system, emacs cannot call MIT-Scheme interactively.
+You should save the source code and load it by hand.
+On Unix and Linux, on the other hand, emacs can call MIT-Scheme interactively
+  and editing codes can be done interactively.
+
+
+<h3>5.2. Edwin</h3>
+Edwin is an editor equipped with MIT-Scheme. It is like emacs18.
+As there is no menu bar and no mouse control, it is not user friendly very much.
+Only few use this editor and little information is available on the Web.
+However, you can edit your codes interactively using this editor.
+I use this editor to edit Scheme codes on Windows.
+
+<h4> How to use the Edwin</h4>
+  Double click the icon of Edwin to start the  Edwin.
+When Edwin has started, a default buffer named *scheme* appears, which corresponds to the
+*scratch* buffer of emacs.
+You can use *scheme* as a front end of the interpreter. S-expressions are evaluated
+by pressing <span class='ttb'>(Ctrl-x, Ctrl-e)</span>.
+
+<h5> a. Open and close files and terminating the editor</h5>
+Press <span class='ttb'>(Ctrl-x, Ctrl-f)</span>
+to open a file. If you give a file name which does not exist, a new file is created.
+As the initial directory is set to 'C:\', you should change directory before open files.
+<p>
+Press <span class='ttb'>(Ctrl-x, Ctrl-s)</span> to save files and
+  press <span class='ttb'>(Ctrl-x, Ctrl-w)</span> to save files with different names.
+  To exit from editor press <span class='ttb'>(Ctrl-x, Ctrl-c)</span>.
+
+<h5> b. Indenting</h5>
+Press <span class='ttb'>Ctrl-i</span> or <span class='ttb'>TAB</span> to indent.
+
+<h5> c. Cut, copy and paste</h5>
+As you cannot use the mouse, copy(cut)/paste is inconvenient a little bit.
+Do like as follows:
+<ol>
+ <li> First, go to the starting position to be selected region by using arrow keys.
+   Then press <span class='ttb'>Ctrl-SPACE</span>.
+   
+ <li>Then go to the ending position and press <span class='ttb'>Ctrl-w</span> or <span class='ttb'>Alt-w</span>
+   to cut or copy the selected region, respectively.
+ <li> Finally, go to the position where you want paste and press <span class='ttb'>Ctrl-y</span>.
+</ol>
+
+<h5> d. Evaluating S-expressions</h5>
+<ul>
+<li> <span class='ttb'>Alt-z</span> is a key bound to evaluating the S-expression beginning with 
+  <tt>define</tt>. It also bind the symbol and value.
+
+<li><span class='ttb'>Alt-:</span> is a key to evaluate S-expressions at the 
+  mini buffer. This is often used to test functions evaluated by <span class='ttb'>Alt-z</span>.
+
+<li>At *scheme* buffer, any S-expression can be evaluated by
+  <span class='ttb'>(Ctrl-x, Ctrl-e)</span>.
+</ul>
+ See <a href='http://www-swiss.ai.mit.edu/projects/scheme/documentation/user_8.html'>
+   http://www-swiss.ai.mit.edu/projects/scheme/documentation/user_8.html</a>
+and you will get more information about Edwin.
+The same document is attached with the MIT-Scheme you have downloaded.
+
+<h2>6. Summary</h2>
+In this chapter, I mentioned how to define functions.
+A special form <span class='ttb'>define</span> is used to define functions and other global parameters.
+Editing source codes by proper editor (like emacs) and loading them is much convenient than
+defining functions directly on the front end of the interpreter.
+<p>
+In the next chapter, I will mention about branching.
+
+<h3>Answers for exercises</h3>
+<a name='a1'>
+<h4> Answer 1</h4>
+<pre class='code'>
+; 1
+(define (1+ x)
+  (+ x 1))
+
+; 2
+(define (1- x)
+  (- x 1))
+</pre>
+
+<h4> Answer 2</h4>
+Write codes like as follows:
+<pre class='code'>
+<span class='comment'>; definition of pi</span>
+(define pi (* 4 (atan 1.0)))
+
+<span class='comment'>; degree -> radian</span>
+(define (radian deg)
+  (* deg (/ pi 180.0)))
+
+<span class='comment'>; free fall time</span>
+(define (ff-time vy)
+  (/ (* 2.0 vy) 9.8))
+
+<span class='comment'>; horizontal distance </span>
+(define (dx vx t)
+  (* vx t))
+
+<span class='comment'>; distance</span>
+(define (distance v ang)
+  (dx
+   (* v (cos (radian ang)))                     <span class='comment'>; vx</span>
+   (ff-time (* v (sin (radian ang))))))         <span class='comment'>; t</span>
+</pre>
+
+After loading to the interpreter, the distance will be
+calculated by;
+<pre class='samp'>
+(distance 40 30)
+<span class='response'>;Value: 141.39190265868385</span>
+</pre>
+The function returns a reasonable value 141.4 m, which is slightly larger because of
+ignoring air drag.
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme3_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  3. Making Lists</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme5_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>5. Branching</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme4_e.html&t=%28Scheme%29+Defining+Functions' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+

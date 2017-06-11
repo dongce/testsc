@@ -1,0 +1,515 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, 分岐, if 式">
+<meta name="description" content="Scheme における処理の分岐">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 5. 分岐 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme4.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. 関数を定義しよう</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme6.html"><img src='../images/right_arrow.gif' class='arrow' border=0>6. 局所変数</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme5.html&t=Scheme+%C6%FE%CC%E7+5.+%CA%AC%B4%F4' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>  5. 分岐  </h1>
+<hr>
+<h2>1. 初めに </h2>
+前回までで、とりあえず Scheme で関数を定義できるようになりました。
+しかし、前回までの知識では、処理を分岐させることができないので、
+関数電卓の域を出ないものでした。<p>
+今回は処理の分岐について説明します。
+<h2>2. if 式</h2>
+<span class='ttb'>if</span> は処理を２つに分岐させる形式です。
+書式は以下の通りです。
+<pre class='def'>
+(<b>if</b> <var>predicate</var> <var>then_value</var> <var>else_value</var>)
+</pre>
+<var>predicate</var> (述語）が<b>真</b>を返せば、<var>then_value</var> が、
+そうでなければ <var>else_value</var> の値が評価されて括弧の外に出て行きます。
+ここで、<b>真</b>というのは偽 （<span class='ttb'>#f</span> で表される。）
+  以外の値全てです。真の代表値は <span class='ttb'>#t</span> です。<p>
+    
+Scheme では偽を表す <span class='ttb'>#f</span> と、
+  空リストを表す <span class='ttb'>'()</span> は別のものです。
+  一方、Common Lisp では、偽と空リストは同じものとして規定されています。
+ Common Lisp から移ってきた人は両者を混同しないよう注意する必要があります。
+<p>
+
+
+
+  条件を打ち消すときは <span class='ttb'>not</span> 関数を使います。
+  この関数は、引数が <tt>#f</tt> なら <tt>#t</tt> を、
+  それ以外なら <tt>#f</tt> を返します。
+<p>
+  
+<span class='ttb'>if</span> は普通の関数と違い、引数を全て評価することをしません。
+  <var>predicate</var> が真のときは <var>then_value</var> だけを評価し <var>else_value</var> は評価しません。
+  その逆に、<var>predicate</var> が偽のときは <var>else_value</var> だけを評価し、
+  <var>then_value</var> は評価しません。
+  <tt>if</tt> の様にカッコ内のトークンの全てを評価しない手続きを<strong>特殊形式</strong>と呼びます。
+<p>
+例：初項 <var>a0</var>, 公比 <var>r</var>, 項数 <var>n</var> の等比数列の和
+<pre class='code'>
+(define (sum-gp a0 r n)
+  (* a0
+     (if (= r 1)
+	 n
+	 (/ (- 1 (expt r n)) (- 1 r)))))   <span class='comment'>; !!</span>
+</pre>    
+一般に、等比数列の和は、<br>
+<code>a0 * (1 - r<sup>n</sup>) / (1 - r)</code><br>
+で求まります。ただし、公比が 1 のときは、<br><code>a0 * n</code><br> になります。
+<tt>if</tt> が引数全てを評価すると、<tt>r==1</tt> の時も <tt><span class='comment'>; !!</span></tt> の部分が
+評価されて、0 で割るエラーが発生します。
+
+<p>
+<var>else_value</var> は省略することができますが (<a href='#note1'>注1</a>)、
+その場合は <var>predicate</var> が成り立たないとき返る値は規定されていません。
+<var>predicate</var> が成り立たないとき <tt>#f</tt> を返したいときは、<tt>#f</tt> が返ることを明示する必要があります。
+  <p>
+<var>then_value</var>, <var>else_value</var> も値を返す式１つだけを指定できます。
+複数の式を指定したい場合には <span class='ttb'>begin</span> 式でくくる必要があります。
+  今のところは値を返す式だけを説明しているので、<tt>begin</tt>
+  を使う必要はありません。<tt>begin</tt> については代入、I/O のところで
+  説明します。
+
+<a name='note1'>
+<div class='tips'>
+注 1: MzScheme の場合は <tt>else_value</tt> を省略できません。
+</div>
+<h3> 練習問題 1</h3>
+次の関数を作ってください。条件式を作るときは <a href="#predicate">5 節</a>を参考にして下さい。
+<ol>
+ <li> 実数の絶対値をを求める関数
+ <li> 実習の逆数を求める関数。引数が 0 のときは <tt>#f</tt> を返すようにしてください。
+ <li> 整数を ASCII 文字のうち図形文字に変換する関数。
+<a href='http://katsura-kotonoha.sakura.ne.jp/soft/chartype/isgraph.shtml'>図形文字</a>に変換できる整数は 33 &ndash; 126 です。
+   整数を文字に変換するには <span class='ttb'>integer->char</span> 関数を使います。
+   変換できないときは <tt>#f</tt> を返すようにして下さい。
+</ol>
+
+<h2> 3. and と or</h2>
+<span class='ttb'>and</span> と <span class='ttb'>or</span> は条件式を結合するのに使います。
+ただし、Scheme (Lisp) の <tt>and</tt>, <tt>or</tt> は
+真偽値を返すだけではありません。値そのものが返ってきます。<tt>and</tt>,
+<tt>or</tt> を使いこなすと
+コードを短くすることができます。
+<h3> 3.1. and</h3>
+<span class='ttb'>and</span> は任意個の引数をとり、引数を左から評価していき、最初に偽になったところでその値を返し、
+残りの引数は評価しません。最後の引数が評価されたときはその値を返します。
+<pre class='samp'>
+&gt; (and #f 0)
+<span class='response'>#f</span>
+
+&gt; (and 1 2 3)
+<span class='response'>3</span>
+
+&gt; (and 1 2 3 #f)
+<span class='response'>#f</span>
+</pre>
+
+<h3> 3.2. or</h3>
+<span class='ttb'>or</span> は任意個の引数をとり、引数を左から評価していき、
+最初に真（<tt>#f</tt> 以外）になったところでその値を返し、
+残りの引数は評価しません。最後の引数が評価されたときはその値を返します。
+<pre class='samp'>
+&gt; (or #f 0)
+<span class='response'>0</span>
+
+&gt; (or 1 2 3)
+<span class='response'>1</span>
+
+&gt; (or #f 1 2 3)
+<span class='response'>1</span>
+
+&gt; (or #f #f #f)
+<span class='response'>#f</span>
+</pre>
+
+<h3> 練習問題 2</h3>
+次の関数を作ってください。
+<ol>
+  <li> 与えられた３つの実数が全て正ならその積を返す関数
+  <li> 与えられた３つのうちのどれか１つが負ならその積を返す関数。
+</ol>
+
+<h2> 4. cond 式</h2>
+分岐はすぺて <tt>if</tt> 式を用いて表すことができますが、
+分岐が多岐にわたる場合、<tt>if</tt> 式を入れ子にしなければならず、
+コードが読みにくくなります。
+そのような時 <span class='ttb'>cond</span> 式を使うとすっきりと書けます。
+<tt>cond</tt> 式の書式は以下の通りです。
+<pre class='def'>
+(<span class='ttb'>cond</span>
+  (<var>predicate_1</var> <var>clauses_1</var>)
+  (<var>predicate_2</var> <var>clauses_2</var>)
+    ......
+  (<var>predicate_n</var> <var>clauses_n</var>)
+  (<span class='ttb'>else</span>        <var>clauses_else</var>))
+</pre>
+この式では、<var>predicate_1</var> から順番に調べ、一致した条件式のところの節を評価します。
+条件に一致しない節は評価されません。<p>
+<var>clauses_i</var> には複数の式を書くことができ、最後の式の値が返ってきます。
+どの条件も成り立たないときは <var>clauses_else</var> の値が返ってきます。<p>
+<tt>(else <var>clauses_else</var>)</tt> を必ず書く癖をつけると、わかりにくいバグに悩まされることが減ります。
+
+例：市営プールの料金<br>
+Foo 市の市営プールでは年齢によって料金を分けています。
+<ul>
+  <li> 3 才以下、および 65 才以上は無料
+  <li> 4--6 才は 50 円
+  <li> 7--12 才は 100 円
+  <li> 13--15 才は 150 円
+  <li> 16--18 才は 180 円
+  <li> それ以外は 200 円
+</ul>
+市営プールの料金を計算する関数は以下のようになります。
+<pre class='code'>
+(define (fee age)
+  (cond
+   ((or (&lt;= age 3) (&gt;= age 65)) 0)
+   ((&lt;= 4 age 6) 50)
+   ((&lt;= 7 age 12) 100)
+   ((&lt;= 13 age 15) 150)
+   ((&lt;= 16 age 18) 180)
+   (else 200)))
+</pre>
+
+<h3> 練習問題 3</h3>
+次の関数を作ってください。
+<ol>
+  <li>試験の点数に応じて A--D の評価をつけます。点数を引数にとり、評価を返す関数を書いてください。
+    <ol>
+      <li> 80 点以上 A
+      <li> 60 点以上 79 点以下 B
+      <li> 40 点以上 59 点以下 C
+      <li> 40 点未満 D
+    </ol>
+</ol>
+
+<h2>5. 便利な構文: begin, when, unless</h2>
+<h3>5.1. begin</h3>
+
+複数の式を1つにまとめるには begin という特殊形式を使います。
+begin は与えられた式を前から順番に評価していき、最後の式の値を返します。
+<pre class='def'>
+<span class='ttb'>(begin s1 s2 ... s-end)</span>
+
+s1, s2 ... s-end を前から順番に評価し、s-end の値を返す。
+</pre>
+<p>
+例:
+<pre class='code'>
+(define (foo)
+  (begin
+    (display "hello world.")
+    (newline)
+    (display "I love Scheme.")
+    (newline)
+    'done))
+</pre>
+
+"hello world"、 "I love Scheme." が表示されて、値 <tt>done</tt> が返ります。
+<pre class='samp'>
+&gt; (foo)
+<span class='response'>hello world.
+I love Scheme.
+done</span>
+</pre>
+
+<h3>5.2. when</h3>
+<tt>when</tt>  は R<sup>6</sup>RS のライブラリで定義されている構文です。条件を満たさなかった場合を記述する
+必要がないときに使います。
+<p>
+<pre class='def'>
+<span class='ttb'>(when predicate
+    s1
+    s2
+    ...
+    s-end )</span>
+
+predicate が成り立つとき、s1, s2 ... s-end を順番に評価し、s-end の値を返します。
+</pre>
+
+<p>
+例:
+<pre class='code'>
+(define (foo fine)
+  (when fine
+    (display "hello world.")
+    (newline)
+    (display "It is fine, today.")
+    (newline)
+    'done))
+</pre>
+
+<pre class='samp'>
+&gt; (foo #t)
+<span class='response'>hello world.
+It is fine, today.
+done</span>
+</pre>
+
+<h3>5.3. unless</h3>
+
+<tt>unless</tt>  は R<sup>6</sup>RS のライブラリで定義されている構文です。条件を満たした場合を記述する
+必要がないときに使います。
+<p>
+<pre class='def'>
+<span class='ttb'>(unless predicate
+    s1
+    s2
+    ...
+    s-end )</span>
+
+predicate が成りたたないとき、s1, s2 ... s-end を順番に評価し、s-end の値を返します。
+</pre>
+例:
+<pre class='code'>
+(define (foo cold)
+  (unless cold
+    (display "hello world.")
+    (newline)
+    (display "It is not cold, today.")
+    (newline)
+    'done))
+</pre>
+
+<pre class='samp'>
+&gt; (foo #f)
+<span class='response'>hello world.
+It is not cold, today.
+done</span>
+</pre>
+
+
+
+<a name='#predicate'>
+<h2>6. 述語を作る関数</h2>
+いくつかの述語を作る関数を紹介しておきます。
+Scheme の真偽判定関数はほとんど '?' で終わる名前を持っています。
+<h3>6.1. eq?, eqv?, equal?</h3>
+<span class='ttb'>eq?</span>, <span class='ttb'>eqv?</span>, <span class='ttb'>equal?</span>
+はオブジェクトが等しいか調べるときの基本的な関数です。
+以下に示すような違いがあります。
+<dl>
+  <dt><span class='ttb'>eq?</span></dt>
+      <dd>2つの引数をとり、２つのオブジェクトのアドレスを比較する。アドレスが等しければ真、
+そうでなければ偽。下の例では、str のアドレスは自分自身のアドレスと等しいので真、一方、"hello" と "hello" は
+別のアドレスに記憶されるので偽。
+数値の比較では MIT-Scheme では同じ数値は真になるが、R<sup>5</sup>RS では規定されていないので、
+互換性を考えて用いないのが無難です。数値の比較には <span class='ttb'>eqv?</span> か
+	<span class='ttb'>=</span> を用います。
+<pre class='samp'>
+&gt; (define str "hello")
+&gt; (eq? str str)
+<span class='response'>#t</span>
+&gt; (eq? "hello" "hello")
+<span class='response'>#f</span>  
+
+<span class='comment'>;;; 数値の比較は処理系依存</span>
+&gt; (eq? 1 1)
+<span class='response'>#t</span>
+
+&gt; (eq? 1.0 1.0)
+<span class='response'>#f</span>
+</pre></dd>
+  <dt><span class='ttb'>eqv?</span></dt>
+      <dd>2つの引数をとり、２つのオブジェクトの(アドレスに書かれている）データ型と値を比較する。データ型と値が等しければ真、
+そうでなければ偽。文字列や lambda 式の比較は処理系依存。
+文字列では、最初のアドレスに入っている値はその文字列そのものではないので、真になる保証はない (多くの処理系で偽になる)。
+リストの場合も、最初のアドレスに入っているのはコンスセルで、一般に、cdr部には次のコンスセルへのアドレス
+が入っている（そしれそれは、ほとんどの場合異なる）ので偽になる。
+<pre class='samp'>
+&gt; (eqv? 1.0 1.0)
+<span class='response'>#t</span>
+&gt; (eqv? 1 1.0)
+<span class='response'>#f</span>
+
+<span class='comment'>;;; リストの比較では偽になる</span>
+&gt; (eqv? (list 1 2 3) (list 1 2 3))
+<span class='response'>#f</span>
+
+<span class='comment'>;;; 文字列の比較は処理系依存 (文字列の比較には <tt>equal?</tt> または <tt>string=?</tt> を使うべき )</span>
+&gt; (eqv? "hello" "hello")
+<span class='response'>#f</span>
+
+<span class='comment'>;;; 以下の例は処理系依存</span>
+&gt; (eqv? (lambda(x) x) (lambda (x) x))
+<span class='response'>#f</span>
+</pre></dd>
+  <dt><span class='ttb'>equal?</span></dt>
+      <dd>リストや文字列を比較するときに用います。
+<pre class='samp'>
+&gt; (equal? (list 1 2 3) (list 1 2 3))
+<span class='response'>#t</span>
+
+&gt; (equal? "hello" "hello")
+<span class='response'>#t</span>
+</pre></dd>
+</dl>
+
+
+<h3>6.2. データ型識別関数</h3>
+以下に主なデータ型識別関数を挙げます。
+  すべて、1つの引数をとります。
+  <dl>
+  <dt><span class='ttb'>pair?</span></dt>
+      <dd> コンスセルを含むオブジェクトの場合は真</dd>
+  <dt><span class='ttb'>list?</span></dt>
+      <dd> リストの場合は真。<tt>'()</tt> はリストであるが、pair では無いことに注意。</dd>
+  <dt><span class='ttb'>null?</span></dt>
+      <dd> <tt>'()</tt> の場合は真</dd>
+  <dt><span class='ttb'>symbol?</span></dt>
+      <dd> シンボルの場合は真</dd>
+  <dt><span class='ttb'>char?</span></dt>
+      <dd> 文字の場合は真</dd>
+  <dt><span class='ttb'>string?</span></dt>
+      <dd> 文字列の場合は真</dd>
+  <dt><span class='ttb'>number?</span></dt>
+      <dd> 数値の場合は真</dd>
+  <dt><span class='ttb'>complex?</span></dt>
+      <dd> 複素数の場合は真</dd>
+  <dt><span class='ttb'>real?</span></dt>
+      <dd> 実数の場合は真</dd>
+  <dt><span class='ttb'>rational?</span></dt>
+      <dd> 有理数の場合は真</dd>
+  <dt><span class='ttb'>integer?</span></dt>
+      <dd> 整数の場合は真</dd>
+  <dt><span class='ttb'>exact?</span></dt>
+      <dd> 浮動小数点以外は真</dd>
+  <dt><span class='ttb'>inexact?</span></dt>
+      <dd> 浮動小数点のとき真</dd>
+</dl>
+
+<h3>6.3. 数値比較関数</h3>
+<dl>
+  <dt><span class='ttb'>=, &lt;, &gt;, &lt;=, &gt;=</span></dt>
+      <dd> 任意個の引数をとり、引数の間で、関数で示された関係が成り立っていれば真
+<pre class='samp'>
+&gt; (= 1 1 1.0)
+<span class='response'>#t</span>
+
+&gt; (&lt; 1 2 3)
+<span class='response'>#t</span>
+&gt; (&lt; 1)
+<span class='response'>#t</span>
+&gt; (&lt;)
+<span class='response'>#t</span>
+
+&gt; (= 2 2 2)
+<span class='response'>#t</span>
+
+&gt; (&lt; 2 3 3.1)
+<span class='response'>#t</span>
+
+&gt; (&gt; 4 1 -0.2)
+<span class='response'>#t</span>
+
+&gt; (&lt;= 1 1 1.1)
+<span class='response'>#t</span>
+
+&gt; (&gt;= 2 1 1.0)
+<span class='response'>#t</span>
+
+&gt; (&lt; 3 4 3.9)
+<span class='response'>#f</span>
+</pre></dd>
+  <dt><span class='ttb'>odd?, even?, positive?, negative?, zero?</span></dt>
+      <dd> １つの引数をとり、関数名で表される性質を満たしていれば真</dd>
+</dl>
+
+<h3>6.4. 文字比較関数</h3>
+文字比較関数には <span class='ttb'>char=?</span>, <span class='ttb'>char&lt;?</span>,
+  <span class='ttb'>char&gt;?</span>, <span class='ttb'>char&lt;=?</span>, <span class='ttb'>char&gt;=?</span> があります。
+詳しくは <a href='http://practical-scheme.net/wiliki/wiliki.cgi?R6RS%3a%E7%BF%BB%E8%A8%B3%3aR6RS%3a11.11%20Characters'>
+   R<sup>6</sup>RS </a>を参照してください。
+
+  
+<h3>6.5. 文字列比較関数</h3>
+文字列比較には <span class='ttb'>string=?</span>, <span class='ttb'>string-ci=?</span> などがあります。
+詳しくは <a href='http://practical-scheme.net/wiliki/wiliki.cgi?R6RS%3a%E7%BF%BB%E8%A8%B3%3aR6RS%3a11.12%20Strings'>
+   R<sup>6</sup>RS </a>を参照してください。
+
+<h2>7. 終わりに</h2>
+今回は分岐について説明しました。分岐には <span class='ttb'>if</span> または <span class='ttb'>cond</span> 式を使います。
+着実に本格的なプログラムに近づいてきました。<p>
+次回は局所変数について述べます。
+
+<h3>練習問題の解答</h3>
+
+<h4>練習問題 1</h4>
+
+<pre class='code'>
+; 1
+(define (my-abs n)
+  (* n
+     (if (positive? n) 1 -1)))
+     
+; 2     
+(define (inv n)
+  (if (not (zero? n))
+      (/ n)))
+
+; 3
+(define (i2a n)
+  (if (&lt;= 33 n 126)
+      (integer-&gt;char n)))
+</pre>
+
+<h4>練習問題 2</h4>
+<pre class='code'>
+; 1
+(define (pro3and a b c)
+  (and (positive? a)
+       (positive? b)
+       (positive? c)
+       (* a b c)))
+
+; 2
+(define (pro3or a b c)
+  (if (or (negative? a)
+	  (negative? b)
+	  (negative? c))
+      (* a b c)))
+</pre>
+
+<h4>練習問題 3</h4>
+<pre class='code'>
+(define (score n)
+  (cond
+   ((&gt;= n 80) 'A)
+   ((&lt;= 60 n 79) 'B)
+   ((&lt;= 40 n 59) 'C)
+   (else 'D)))
+</pre>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme4.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. 関数を定義しよう</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme6.html"><img src='../images/right_arrow.gif' class='arrow' border=0>6. 局所変数</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme5.html&t=Scheme+%C6%FE%CC%E7+5.+%CA%AC%B4%F4' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+
+

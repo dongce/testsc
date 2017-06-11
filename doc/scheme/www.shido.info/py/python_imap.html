@@ -1,0 +1,429 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, IMAP imaplib">
+<meta name="description" content="how to use the imaplib module">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>imaplib と email ライブラリーを使ったメールの処理</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="python_calc.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python_imap.html&t=imaplib%20%A4%C8%20email%20%A5%E9%A5%A4%A5%D6%A5%E9%A5%EA%A1%BC%A4%F2%BB%C8%A4%C3%A4%BF%A5%E1%A1%BC%A5%EB%A4%CE%BD%E8%CD%FD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+ <h1>imaplib と email ライブラリーを使ったメールの処理</h1> 
+<hr>
+<h2>1. 初めに</h2>
+
+imaplib を使ってサーバーからメールを取得し、それを解析する方法について解説します。
+e-mail の解析には、email ライブラリにある関数を使うと簡単にできます。
+<p>
+紫藤は、領収書のない支出の記録と、体重の記録に e-mail を使っています。
+以下にそれらのスクリプトを例に挙げながら、imaplib と email ライブラリのユーティリティを
+簡単に解説します。
+
+<h2>2. imaplib の使い方</h2>
+
+imaplib を使ってメールをサーバーから取得するには以下の手順で行います。
+
+<ol>
+<li>サーバーを指定して IMAP4 (または IMAP_SSL) オブジェクトを作成する。
+<li>サーバーにログインする。
+<li>メールボックスを指定する。('INBOX', 'INBOX.important' など)
+<li>条件を指定し、メールの番号のリストを取得する。
+<li>番号を指定し、メールを取得する。
+</ol>
+
+以下が、対話モードで実行したときの例です。
+
+<pre class='samp'>
+Python 3.2.2 (default, Sep  4 2011, 09:51:08) [MSC v.1500 32 bit (Intel)] on win
+32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import imaplib
+>>> <b>c=imaplib.IMAP4_SSL('gmail.com')</b> <span class='comment'>(オブジェクトの作成)</span>
+>>> <b>c.login('jhon_smith', '__hello-world__')</b>  <span class='comment'>(ログイン)</span>
+('OK', [b'[CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE SORT
+SORT=DISPLAY THREAD=REFERENCES THREAD=REFS MULTIAPPEND UNSELECT IDLE CHILDREN NA
+MESPACE UIDPLUS LIST-EXTENDED I18NLEVEL=1 CONDSTORE QRESYNC ESEARCH ESORT SEARCH
+RES WITHIN CONTEXT=SEARCH LIST-STATUS] Logged in'])
+>>> <b>c.select('INBOX')</b>   <span class='comment'>(メールボックスの選択)</span>
+('OK', [b'1106'])
+>>> <b>c.search(None, '(SENTON "10-Nov-2011")')</b>  <span class='comment'>(メールの検索。ここでは 10-Nov-2011 に受信したメールを検索している。)</span>
+('OK', [b'1102 1103 1104 1105'])
+>>> <b>c.fetch(b'1102', '(RFC822.HEADER)')</b> <span class='comment'>(1102 の番号のメールを取得)</span>
+('OK', [(b'1102 (RFC822.HEADER {1106}', b'Return-Path: &lt;20111110020231989c6dfa88
+e44e28b208f5d27dad271b@bounces.amazon.com>\r\nX-Original-To: jhon_smith@gmail.com
+\r\nDelivered-To: jhon_smith@gmail.com\r\nReceived: from smtp-out-188-18.amazon.c
+om (smtp-out-188-18.amazon.com [207.171.188.18])\r\n\tby gmail.com (Postfix
+) with ESMTP id 8E231694048\r\n\tfor &lt;jhon_smith@gmail.com>; Thu, 10 Nov 2011 11:
+02:42 +0900 (JST)\r\nDate: Thu, 10 Nov 2011 02:02:39 +0000 (UTC)\r\nFrom: "Amazo
+n.co.jp" &lt;ship-confirm@amazon.co.jp>\r\nReply-To: "ship-confirm@amazon.co.jp" &lt;s
+hip-confirm@amazon.co.jp>\r\nTo: "jhon_smith@gmail.com" &lt;jhon_smith@gmail.com>\r\n
+Message-ID: &lt;urn.correios.msg.20111110020231989c6dfa88e44e28b208f5d27dad271b@132
+0890559990.rte-svc-fe-31001.sea31.amazon.com>\r\nSubject: =?ISO-2022-JP?Q?Amazon
+.co.jp_=1B$B$4CmJ8$NH/Aw=1B(B_(503-7809728-0738205)?=\r\nMIME-Version: 1.0\r\nCo
+ntent-Type: text/plain; charset=ISO-2022-JP\r\nContent-Transfer-Encoding: 7bit\r
+\nBounces-to: 20111110020231989c6dfa88e44e28b208f5d27dad271b@bounces.amazon.com\
+r\nX-AMAZON-MAIL-RELAY-TYPE: notification\r\nX-AMAZON-RTE-VERSION: 2.0\r\nX-Bogo
+sity: Ham, tests=bogofilter, spamicity=0.000000, version=1.0.2\r\n\r\n'), b')'])
+
+>>> <b>c.close()</b>  <span class='comment'>(クローズ)</span>
+('OK', [b'Close completed.'])
+>>> <b>c.logout()</b>  <span class='comment'>(ログアウト)</span>
+('BYE', [b'Logging out'])
+</pre>
+
+メールの検索は search() メソッドで行います。
+このメソッドの使い方は <a href='http://docs.python.org/release/3.2/library/imaplib.html'>20.13. imaplib - IMAP4 protocol client</a>、
+また IMAP4 の検索条件は <a href='http://www.atmarkit.co.jp/fnetwork/rensai/netpro09/imap4-searchoption.html'>IMAP4のSEARCH条件の一覧</a> を見てください。
+<p>
+メールの取得は fetch() メソッドで行います。
+引数に、メールの番号と、取得する情報を指定します。
+取得する情報については、<a href='http://www.atmarkit.co.jp/fnetwork/rensai/netpro09/imap4-fetch.html'>
+IMAP4のFETCHオプションの一覧</a> を参照してください。
+
+<h2>3. メールを解析するためのユーティリティ</h2>
+
+<h3>3.1. email.parser</h3>
+
+以下は email を解析するためのクラスです。
+
+<dl>
+  <dt><b>HeaderParser</b></dt>
+      <dd>ヘッダーのみを解析するには このクラスを使います。parsestr() メソッドで文字列を解析し、デフォルトで email.message.Message オブジェクトを生成します。</dd>
+  <dt><b>BytesParser</b></dt>
+      <dd>メール全体を解析するにはこのクラスを使います。parsebytes() メソッドでバイト列を解析し、デフォルトで email.message.Message オブジェクトを生成します。(Python 3.2 から)</dd>
+</dl>
+email.message.Message については <a href='http://docs.python.org/release/3.2/library/email.message.html#email.message.Message'>
+18.1.1. email: Representing an email message</a> を見てください。このオブジェクトにはヘッダ情報が辞書として登録されているので、
+ヘッダ情報の取り扱いが容易になります。
+
+<h3>3.2. MIME フォーマットのヘッダの解析</h3>
+MIME フォーマットのヘッダを解析するには email.header.decode_header() 関数を用います。
+この関数は (decoded_string, charset) の対からなるリストを返すので、文字列全体を返すためには
+次のような関数を定義します。
+
+<pre class='code'>
+def decode_mime_header(s0):
+    return ''.join([str(s,c) if c else s for s,c in  email.header.decode_header(s0)])
+</pre>
+
+<h3>3.3. Date 文字列の解析</h3>
+メールヘッダの Date フィールドの文字列を解析し、time.mktime() の引数として渡せる9要素のタプルを
+返します。
+<pre class='samp'>
+>>> from email.utils import parsedate
+>>> parsedate('Sun, 13 Nov 2011 00:24:16 +0900 (JST)')
+(2011, 11, 13, 0, 24, 16, 0, 1, -1)
+>>>
+</pre>
+
+<h3>文献</h3>
+個々であげた機能はほんの一例です。他にもいろいろな機能がありますので、
+詳しくは Python3.x のドキュメントを見てください。
+<ul>
+<li><a href='http://docs.python.org/py3k/library/imaplib.html'>Python v3.2.2 documentation >> The Python Standard Library >> 20.13. imaplib - IMAP4 protocol client</a>
+<li><a href='http://docs.python.org/py3k/library/email.html'>Python v3.2.2 documentation >> The Python Standard Library >>18.1. email - An email and MIME handling package</a>
+</ul>
+
+<h2>4. 例</h2>
+
+
+<br>
+以下に、体重や経費の記録の集計、加工するスクリプトを例に示します。
+
+<h3>4.1. 体重を記録するスクリプト</h3>
+紫藤は、専用のアドレスにメールを送信することで体重を記録しています。
+Subject に体重と体脂肪率をスペースで区切って書いて  (例えば "73.3 24.1") それを送信して、日々の体重を記録しています。
+<br>
+以下のスクリプトは記録した体重のデータを表にまとめるためのスクリプトです。
+<br>
+以下のような処理をします。<br>
+<ol>
+<li>体重記録用メールアドレス (例えば jhon_smith_weight@gmail.com) の メールボックス (例えば INOBX) を検索し、
+体重の記録者 (例えば jhon_smith@gmail.com ) が送信元で、未読のメールを探します。
+
+<li>それらのメールから体重のデータを読み、体重の変動を記録したファイル (例えば weight.dat) に送信時刻と体重を書き加えます。
+その際、読み取ったメールには既読のマークを付けます。
+weight.dat の書式は、日付、エポック秒、体重 (kg)、体脂肪率 (%) です。
+エポック秒はグラフの横軸に使います。
+
+</ol>
+
+
+メモ：
+<ul>
+<li> 14--33 行目の fetch_headers() がサーバーから該当するメールを取得する関数です
+<li> 20 行目で未読かつ、jhon_smith@gmail.com からのメールを検索しています。data[0] にメールの番号を列挙した文字列が代入されます。
+<li> 24-26 行目で与えられた番号のメールを読み取って、それを email.Message オブジェクトにします。その際、読んだメールを既読にします (26 行目)。
+<li> 35--53 行目の extract_weight_data() が、weight.dat に体重のデータを追加書き出しする関数です。
+<li> 39--49 の wconv() が、Message オブジェクトを weight.dat に書き出すための文字列に変換するための関数です。
+日付、エポック秒、体重、体脂肪率をスペースで区切って書き出します。サブジェクトが 体重、体脂肪率のデータでない場合 (37 行目の正規表現にマッチしない場合)
+は先頭に '#' を付けてコメント行であることを表します。
+<li> 41 行目で MIME フォーマットの文字列をデーコードして、通常の文字列を得ます。
+</ul>
+
+
+<pre class='code'>
+<span class="linenumber">01:</span>     #! /usr/bin/python3
+<span class="linenumber">02:</span>     import imaplib, email.parser, email.header, email.utils, time, re
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     HOST='mail.gmail.com'
+<span class="linenumber">05:</span>     USER='jhon_smith_weight'
+<span class="linenumber">06:</span>     PW='__hello-world__'
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     MBOX='INBOX'
+<span class="linenumber">09:</span>     FROM_EMAIL='jhon_smith@gmail.com'
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     #FOUT='/home/jhon/weight/weight.dat'
+<span class="linenumber">12:</span>     FOUT='weight.dat'
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     def fetch_headers(host, user, passwd, mbox, _from):
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>         con = imaplib.IMAP4_SSL(host)
+<span class="linenumber">17:</span>         con.login(user,passwd)
+<span class="linenumber">18:</span>         con.select(mbox)
+<span class="linenumber">19:</span>         p=email.parser.HeaderParser()
+<span class="linenumber">20:</span>         typ, data = con.search(None, 'UNSEEN', '(FROM "{0}")'.format(_from))
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>         if not data[0]: return
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>         def _parse(num):
+<span class="linenumber">25:</span>             typ, data = con.fetch(num, '(RFC822)')
+<span class="linenumber">26:</span>             con.store(num, '+FLAGS', '\\Seen')
+<span class="linenumber">27:</span>             return p.parsestr(str(data[0][1], 'ascii'))
+<span class="linenumber">28:</span>         
+<span class="linenumber">29:</span>         ls = [ _parse(num) for num in data[0].split() ]
+<span class="linenumber">30:</span>         con.expunge()
+<span class="linenumber">31:</span>         con.close()
+<span class="linenumber">32:</span>         con.logout()
+<span class="linenumber">33:</span>         return ls
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>     def extract_weight_data(fout, ls0):
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>         re_d = re.compile(r'^\d{2}(\.\d)? +\d{2}(\.\d)?$')
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>         def wconv(e):
+<span class="linenumber">40:</span>             dt = email.utils.parsedate(e['Date'])
+<span class="linenumber">41:</span>             dat=''.join([str(s,c) if c else s for s,c in  email.header.decode_header(e['Subject'])])
+<span class="linenumber">42:</span>             return "{flag}{year}/{month}/{date} {sec} {dat}\n".format( \
+<span class="linenumber">43:</span>                          flag='' if re_d.match(dat) else '# ', \
+<span class="linenumber">44:</span>                          year=dt[0], \
+<span class="linenumber">45:</span>                          month=dt[1], \
+<span class="linenumber">46:</span>                          date=dt[2], \
+<span class="linenumber">47:</span>                          sec=time.mktime(dt), \
+<span class="linenumber">48:</span>                          dat=dat
+<span class="linenumber">49:</span>                          )
+<span class="linenumber">50:</span>         
+<span class="linenumber">51:</span>         if ls0:
+<span class="linenumber">52:</span>             with open(fout, 'a', encoding='ascii') as f:
+<span class="linenumber">53:</span>                 f.write(''.join([wconv(e) for e in ls0]))
+<span class="linenumber">54:</span>     
+<span class="linenumber">55:</span>     
+<span class="linenumber">56:</span>     
+<span class="linenumber">57:</span>     
+<span class="linenumber">58:</span>     if __name__=='__main__':
+<span class="linenumber">59:</span>         extract_weight_data(FOUT,  fetch_headers(HOST, USER, PW, MBOX, FROM_EMAIL))
+</pre>
+
+以下が集計したデータの例です。
+
+<pre class='samp'>
+#date, sec, weight(kg), fat contents(%)
+2011/11/5 1320446330.0 72.8 23.2
+2011/11/6 1320530436.0 73.7 23.8
+2011/11/7 1320616449.0 74.0 23.6
+2011/11/8 1320701737.0 73.3 23.8
+2011/11/9 1320789021.0 73.5 23.3
+2011/11/10 1320875695.0 72.3 23.3
+2011/11/11 1320962043.0 73.0 23.6
+2011/11/12 1321048826.0 71.8 23.6
+2011/11/13 1321134392.0 71.8 23.2
+2011/11/14 1321220334.0 71.5 23.1
+2011/11/15 1321306494.0 72.1 23.1
+</pre>
+
+
+
+<h3>4.2. 領収書のない経費を記録するスクリプト</h3>
+
+紫藤は領収書のない経費 (例えば自動販売機で購入した飲料など) を記録用アドレスにメールを送信することによって管理しています。
+
+Subject には金額と用途をスペースで区切って書きます。
+
+毎月 1日に cron で以下のスクリプトを走らせて、前月の領収書がない経費の合計を計算します。
+
+処理は以下のとおりです。
+<ol>
+<li>先月1日と今月1日の日付を取得する。
+<li>jhon_smith_expence@gmail.com の INBOX を検索し、jhon_smith@gmail.com から先月中に送られてきたメールを検索する。
+<li> レポートファイルにヒットしたメールのそれぞれの Message-Id, Date, Subject 及び先月の合計金額を出力する。
+</ol>
+
+メモ：
+<ul>
+<li>基本的には体重のデータを取得するスクリプトと同じ。
+<li>30--33 行目で 先月、経費の記録者 (john_smith@gmail.com) から送られてきたメールの一覧を取得
+</ul>
+
+<pre class='code'
+<span class="linenumber">01:</span>     #! /usr/bin/python3
+<span class="linenumber">02:</span>     import imaplib, email.parser, email.header, email.utils, re, datetime, os.path
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     HOST='mail.gmail.com'
+<span class="linenumber">05:</span>     USER='jhon_smith_expence'
+<span class="linenumber">06:</span>     PW='__hello-world__'
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     MBOX='INBOX'
+<span class="linenumber">09:</span>     FROM_EMAIL='jhon_smith@gmail.com'
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     OUTDIR=''
+<span class="linenumber">12:</span>     #OUTDIR='/home/jhon/expence/'
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     def this_and_last_month():
+<span class="linenumber">17:</span>         dt = datetime.date.today()
+<span class="linenumber">18:</span>         y, m =dt.year, dt.month
+<span class="linenumber">19:</span>         y_last, m_last = (y-1, 12) if m==1 else (y, m-1)
+<span class="linenumber">20:</span>         return datetime.date(y,m,1), datetime.date(y_last, m_last, 1)
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>     def fetch_headers(host, user, passwd, mbox, _from, since_date, before_date):
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>         con = imaplib.IMAP4_SSL(host)
+<span class="linenumber">26:</span>         con.login(user,passwd)
+<span class="linenumber">27:</span>         con.select(mbox)
+<span class="linenumber">28:</span>         p=email.parser.HeaderParser()
+<span class="linenumber">29:</span>     
+<span class="linenumber">30:</span>         typ, data = con.search(None, \
+<span class="linenumber">31:</span>                              '(FROM "{0}")'.format(_from),                       \
+<span class="linenumber">32:</span>                               since_date.strftime('(SENTSINCE "1-%b-%Y")'),      \
+<span class="linenumber">33:</span>                               before_date.strftime('(SENTBEFORE "1-%b-%Y")'))
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>         if not data[0]: return
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>         def _parse(num):
+<span class="linenumber">38:</span>             typ, data = con.fetch(num, '(RFC822.HEADER)')
+<span class="linenumber">39:</span>             con.store(num, '+FLAGS', '\\Seen')
+<span class="linenumber">40:</span>             return p.parsestr(str(data[0][1], 'ascii'))
+<span class="linenumber">41:</span>         
+<span class="linenumber">42:</span>         ls = [ _parse(num) for num in data[0].split() ]
+<span class="linenumber">43:</span>         con.expunge()
+<span class="linenumber">44:</span>         con.close()
+<span class="linenumber">45:</span>         con.logout()
+<span class="linenumber">46:</span>         return ls
+<span class="linenumber">47:</span>     
+<span class="linenumber">48:</span>     def decode_mime_header(s0):
+<span class="linenumber">49:</span>         return ''.join([str(s,c) if c else s for s,c in  email.header.decode_header(s0)])
+<span class="linenumber">50:</span>     
+<span class="linenumber">51:</span>     def calc_total(ls):
+<span class="linenumber">52:</span>         ls1=[decode_mime_header(e['Subject']).split()[0] for e in ls]
+<span class="linenumber">53:</span>         return sum([int(x) for x in ls1 if x.isdigit()])
+<span class="linenumber">54:</span>     
+<span class="linenumber">55:</span>     
+<span class="linenumber">56:</span>     
+<span class="linenumber">57:</span>     
+<span class="linenumber">58:</span>     def write_keihi(since_date,ls):
+<span class="linenumber">59:</span>     
+<span class="linenumber">60:</span>         def _each(e):
+<span class="linenumber">61:</span>             return '\n'.join(['{0}: {1}'.format(x, decode_mime_header(e[x])) for x \
+<span class="linenumber">62:</span>               in  ['Message-Id', 'Date', 'Subject']])
+<span class="linenumber">63:</span>     
+<span class="linenumber">64:</span>         fout = os.path.join(OUTDIR, since_date.strftime('keihi%y%m.txt'))
+<span class="linenumber">65:</span>         with open(fout, 'w') as f:
+<span class="linenumber">66:</span>             f.write(since_date.strftime('payment for miscs in %b %Y\n\n'))
+<span class="linenumber">67:</span>             f.write('\n\n'.join([_each(e) for e in ls]))
+<span class="linenumber">68:</span>             f.write('\n\n\n---------------------------\ntotal: {0}\n'.format(calc_total(ls)))
+<span class="linenumber">69:</span>     
+<span class="linenumber">70:</span>     
+<span class="linenumber">71:</span>     if __name__=='__main__':
+<span class="linenumber">72:</span>         before_date, since_date = this_and_last_month()
+<span class="linenumber">73:</span>         ls=fetch_headers(HOST, USER, PW, MBOX, FROM_EMAIL, since_date, before_date)
+<span class="linenumber">74:</span>         if ls:
+<span class="linenumber">75:</span>             write_keihi(since_date, ls)
+</pre>
+
+
+以下が出力ファイルの例です。
+
+<pre class='samp'>
+payment for miscs in Sep 2011
+
+
+Message-Id: <20110901060053.924E5694049@gmail.com>
+Date: Thu, 01 Sep 2011 15:00:51 +0900
+Subject: 1000 昼食
+
+
+Message-Id: <20110906043215.CA87F694049@gmail.com>
+Date: Tue, 06 Sep 2011 13:32:14 +0900
+Subject: 1000 昼食
+
+
+Message-Id: <20110928041038.1EB44694049@gmail.com>
+Date: Wed, 28 Sep 2011 13:10:35 +0900
+Subject: 800 昼食
+
+
+Message-Id: <20110926224824.06949694049@gmail.com>
+Date: Tue, 27 Sep 2011 07:48:21 +0900
+Subject: 800 昼食
+
+
+Message-Id: <20110924041729.89CD4694049@gmail.com>
+Date: Sat, 24 Sep 2011 13:17:27 +0900
+Subject: 130 コーラ
+
+
+Message-Id: <20110923042115.17A45694049@gmail.com>
+Date: Fri, 23 Sep 2011 13:21:13 +0900
+Subject: 220 切符
+
+
+
+-----------------------------
+total: 5000
+</pre>
+
+
+
+<h2>4. 終わりに</h2>
+
+専用のメールアドレスにデータを送信するという方法は、出先で、携帯電話やスマートフォンを使ってデータを入力しサーバーに送信する簡便な方法です。
+日付や、送信者は自動で入力されるので、ユーザは必要最小限のデータを入力するだけですみます。<p>
+また、ごく簡単なスクリプトでデータの集計や加工ができます。<p>
+さらに、http を使ったデータの送信と比較して、
+web ページや専用クライアントを作成する必要もなく、認証もメール送信サーバーの認証機能が使えるので、
+準備に手間がかからず、気軽に始められます。
+
+
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="python_calc.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python_imap.html&t=imaplib%20%A4%C8%20email%20%A5%E9%A5%A4%A5%D6%A5%E9%A5%EA%A1%BC%A4%F2%BB%C8%A4%C3%A4%BF%A5%E1%A1%BC%A5%EB%A4%CE%BD%E8%CD%FD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

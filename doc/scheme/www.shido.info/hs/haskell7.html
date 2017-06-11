@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell, defing data types">
+<meta name="description" content="how to define your own data type on Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>How to define your own data type on Haskell</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell6.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. Haskell で最小二乗法</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell8.html"><img src='../images/right_arrow.gif' class='arrow' border=0>8. Monad</a></td>
+<td><a rel=download href="hs7.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell7.html&t=How+to+define+your+own+data+type+on+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>7. 自前の data と class</h1> 
+<hr>
+ <!---------------------------------------------------->
+この文書では自前の data と class を定義する方法について述べます。
+ 
+<h2> 1. 最も単純なデータ型</h2>
+じゃんけんをする簡単なプログラムを書くことを考えます。<br>
+そのために、データ型 <span class="mono">Jannkenn</span> を下のコードのように定義します。
+<span class="mono">Jannkenn には
+Guu, Choki, Paa</span> の３つのデータ
+（正確には引数を取らない 3 つのデータ生成関数）があります。
+データの定義はキーワード <span class="mono">data</span> ではじめます。
+また、複数の生成関数は <span class="mono">'|'</span> で区切ります。
+データ名、生成関数名は大文字ではじめます。<p>
+  
+<pre class="code">
+data Jannkenn = Guu          
+              | Choki        
+              | Paa          
+</pre>
+<h2> 2. class について</h2>
+  ついでに、表示の仕方と等しいという関係 <span class="mono">(==)</span> を定義しておきましょう。
+  Haskell ではこれらのことは <span class="mono">Show class, Eq class</span> を用いて行います。<p>
+
+	 Haskell の class はオブジェクト指向で云うところの
+	 <a href="http://sumim.no-ip.com:8080/wiki/608">総称関数</a>
+	 <a href="http://www.answers.com/generic%20function">(generic function)</a>の組にほぼ相当します。
+	 <a href="http://www.python.jp/pub/doc_jp/ref/specialnames.html">
+		Python の特殊メソッド</a>に相当するといったほうが分かりやすいかもしれません。<p>
+		  
+	 <span class="mono">show</span> という関数は <span class="mono">Show class</span> に属する（総称）関数で、
+		  それのインスタンス（総称関数モデルで云うところのメソッド）
+	 をある <span class="mono">data</span> 型について定義することによって、
+	 その <span class="mono">data</span> を表示する方法が定義されます。<br>
+		  例えば、<span class="mono">data Jannkenn における show の instance</span> は次のように定義します。
+		
+<pre class="code">
+instance Show Jannkenn where
+  show Guu = "Guu"
+  show Choki = "Choki"
+  show Paa = "Paa"
+</pre>
+
+同様に、<span class="mono">(==) は Eq class</span> に属する総称関数で、
+<span class="mono">data Jannkenn</span> については次のように定義します。
+<pre class="code">
+instance Eq Jannkenn where
+  Guu == Guu = True
+  Paa == Paa = True
+  Choki == Choki = True
+  _ == _ = False
+</pre>
+<p>
+実はこれはかなり当たり前です。このような当たり前のことは
+ <span class="mono"><span class="bluetext">deriving</span></span> を使うと処理系がやってくれます。<br>
+つまり、はじめのデータの定義で、次のようにしておけば、
+Show や Eq を自分で定義する必要はありません。
+<pre class="code">
+data Jannkenn = Guu          
+              | Choki        
+              | Paa          
+      deriving (Eq, Show)
+</pre>
+<p>
+  なお、
+<a href="hs7.lzh">付録</a>にじゃんけんをするプログラム jannkenn.hs が付いていますので遊んでみてください。
+
+<h2> 3. 複合的なデータ型</h2>
+<span class="mono">data Jannkenn</span> はそれ自体で完結したものでした。
+この節では、あるデータ型から別のデータ型を作る場合について
+述べます。<br>
+例として <span class="mono">Vector</span> 型を定義してみます。
+(コードは下に示します。）
+<p>
+まず、<span class="mono"><span class="bluetext">data a</span></span> からなる
+  <span class="mono"><span class="bluetext">data Vector a</span></span> を
+  <span class="mono"><span class="bluetext">a</span> のリスト <span class="bluetext">[a]</span>
+  に <span class="bluetext">constructor Vec</span></span> を
+作用させて作ります。（１行目）<p>
+
+  <span class="mono">class Show の instance</span> の作り方が <span class="mono">Jannkenn</span>
+  の場合と少し異なっています。
+  <span class="mono">data Vector</span> の表示方法を定義するには、
+  元になる <span class="mono">data a</span> の表示方法が
+  定義されている必要があるので、６行目のように書きます。
+  意味は、<span class="mono"><span class="bluetext">"data a が class Show の instance であれば、
+  Vector a は class Show の instance である。"</span></span>
+  です。ここでは、先頭に <span class="mono">'V' を表示することで Vector</span> を表すようにします。<p>
+	 <span class="mono">class Eq の instance</span> も同様にして作ります。<p>
+		<span class="mono">class Num</span> は演算を定義しています。Haskell はデータ型にうるさいので、
+		演算の前後で型が同じになる必要があります。つまり、内積は 'v1 * v2'
+		のように定義できません。<br>
+		ここでは、 <span class="mono">(+), (-), negate</span> を定義しています。<p>
+		  内積と長さはそれぞれ 15--17, 19--21 行目のように定義します。
+
+<pre class="code">
+<span class="linenumber">01:</span>     data Vector a = Vec [a] 
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     instance Show a =&gt; Show (Vector a) where
+<span class="linenumber">04:</span>         show (Vec xs) = 'V' : show xs
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     instance Eq a =&gt; Eq (Vector a) where
+<span class="linenumber">07:</span>         Vec xs == Vec ys = xs == ys
+<span class="linenumber">08:</span>          
+<span class="linenumber">09:</span>     <span class="comment">--    Num((+), (-), (*), negate, abs, signum, fromInteger),</span>
+<span class="linenumber">10:</span>     instance Num a =&gt; Num (Vector a) where
+<span class="linenumber">11:</span>          Vec xs + Vec ys = Vec $ zipWith (+) xs ys
+<span class="linenumber">12:</span>          Vec xs - Vec ys = Vec $ zipWith (-) xs ys
+<span class="linenumber">13:</span>          negate (Vec xs) = Vec $ map negate xs
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment">-- inner product</span>
+<span class="linenumber">16:</span>     ipro :: (Num a) =&gt; Vector a -&gt; Vector a -&gt; a
+<span class="linenumber">17:</span>     ipro (Vec xs) (Vec ys) = sum $ zipWith (*) xs ys
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     <span class="comment">-- length of vector</span>
+<span class="linenumber">20:</span>     vabs :: Vector Double -&gt; Double
+<span class="linenumber">21:</span>     vabs (Vec xs) = sqrt $ sum $ map (^2) xs
+</pre>
+<pre class="samp">
+Mydat&gt; Vec [1,2,3] + Vec [4,5,6]
+V[5,7,9]
+</pre>
+
+ <h2> 4. 再帰的なデータ型の定義</h2>
+<span class="mono">data</span> は再帰的に定義することも出来ます。
+ 例えば、List は次のように再帰的に定義されています。
+
+<pre class="code">
+data  [a]  =  [] | a : [a]  deriving (Eq, Ord)
+</pre>
+
+ここでは、お決まりの二分木を定義してみます。
+まず、1--3 行目で、<span class="mono">data BST</span> (binary state tree) は
+<span class="mono">Eot</span> (End of tree, 終端）
+か <span class="mono">Node</span> (節）だと定義します。
+<span class="mono">Node</span> は、挿入位置を決める整数のラベル、値、左右の BST からなっています。
+<span class="mono">BST</span> をそのまま表示すると見にくいので、連想配列にしてから表示します。
+（5--7 行目）<br>
+以下に関数定義を示します。<br>
+<table border=1, class="mono">
+   <tr>
+      <th>行</th>
+      <th>関数</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>10--15</td>
+      <td>bst_find bst key</td>
+      <td> bst のなかから key をもつレコードを探します。</td>
+   </tr>
+   <tr>
+      <td>18--23</td>
+      <td>bst_insert bst (key, val)</td>
+      <td> bst に (key, val) のレコードを挿入します。</td>
+   </tr>
+   <tr>
+      <td>26--28</td>
+      <td>bst_map f bst</td>
+      <td>各レコードを f で変換し、全体を連想リストにして返します。</td>
+   </tr>
+   <tr>
+      <td>31-32</td>
+      <td>bst2alist</td>
+      <td> = bst_map id</td>
+   </tr>
+</table>
+テストデータ bst1 を 35--36 行目で定義しています。<p>
+[code 4.a]
+<pre class="code">
+<span class="linenumber">01:</span>     data BST a = Eot
+<span class="linenumber">02:</span>                | Node Int a (BST a) (BST a) <span class="comment">-- key, val, left, right</span>
+<span class="linenumber">03:</span>      deriving Eq
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     instance Show a =&gt; Show (BST a) where
+<span class="linenumber">06:</span>         show Eot = "Null"
+<span class="linenumber">07:</span>         show node = "BST" ++ (show $ bst2alist node)
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     <span class="comment">-- find a record in a BST</span>
+<span class="linenumber">10:</span>     bst_find :: BST a -&gt; Int -&gt; Maybe (Int, a)
+<span class="linenumber">11:</span>     bst_find Eot _ = Nothing
+<span class="linenumber">12:</span>     bst_find (Node key0 val0 left right) key
+<span class="linenumber">13:</span>         | key0 == key = Just (key0, val0)
+<span class="linenumber">14:</span>         | key0 &lt; key  = bst_find right key
+<span class="linenumber">15:</span>         | otherwise   = bst_find left  key
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>     <span class="comment">-- insert a record into a BST</span>
+<span class="linenumber">18:</span>     bst_insert :: BST a -&gt; (Int, a) -&gt; BST a
+<span class="linenumber">19:</span>     bst_insert Eot (key, val) = Node key val Eot Eot
+<span class="linenumber">20:</span>     bst_insert (Node key0 val0 left right) (key, val) 
+<span class="linenumber">21:</span>         | key0 == key = Node key0 val left right                             <span class="comment">-- if same key value, replace val</span>
+<span class="linenumber">22:</span>         | key0 &lt; key  = Node key0 val0 left (bst_insert right (key, val))
+<span class="linenumber">23:</span>         | otherwise   = Node key0 val0 (bst_insert left  (key, val)) right
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>     <span class="comment">-- traverse</span>
+<span class="linenumber">26:</span>     bst_map :: (a -> b) -> BST a -> [(Int,b)]
+<span class="linenumber">27:</span>     bst_map _ Eot = []
+<span class="linenumber">28:</span>     bst_map f (Node key val left right) = bst_map f left ++ (key, f val) : bst_map f right
+<span class="linenumber">29:</span>     
+<span class="linenumber">30:</span>     <span class="comment">-- convert to an association list</span>
+<span class="linenumber">31:</span>     bst2alist :: BST a -&gt; [(Int, a)]
+<span class="linenumber">32:</span>     bst2alist  = bst_map id
+<span class="linenumber">33:</span>     
+<span class="linenumber">34:</span>     <span class="comment">-- test data</span>
+<span class="linenumber">35:</span>     bst1 = foldl bst_insert Eot [(5, "five"), (6,"six"), (4,"four"),
+<span class="linenumber">36:</span>                                   (3, "three"), (7, "seven"), (1,"One"), (10, "ten") ]
+</pre>                   
+
+
+<h2> 5. 名前付きフィールド</h2>
+<span class="mono">data</span> のフィールドが多くなるとどれが何を意味するのか混乱しやすくなります。
+また、１つのフィールドを変更する場合にも変化しない残りのフィールドを
+全て列挙する必要があります。<p>
+  そのような不便を避けるため、名前付きフィールドが用意されています。
+4 節の Node には 4 個のフィールドがあるので、名前付きフィールドの例として
+[code 4.a] を名前付きフィールドを用いて書き直してみました ([code 5.a])。
+  フィールドの数が増えると効果はもっと顕著でしょう。<p>
+[code 5.a]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">-- Binary state tree</span>
+<span class="linenumber">02:</span>     data BST a = Eot
+<span class="linenumber">03:</span>                | Node {
+<span class="linenumber">04:</span>                         node_key :: Int,
+<span class="linenumber">05:</span>                         node_val ::  a,
+<span class="linenumber">06:</span>                         node_left :: BST a,
+<span class="linenumber">07:</span>                         node_right :: BST a
+<span class="linenumber">08:</span>                       }
+<span class="linenumber">09:</span>      deriving Eq
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     instance Show a =&gt; Show (BST a) where
+<span class="linenumber">12:</span>         show Eot = "Null"
+<span class="linenumber">13:</span>         show node = "BST" ++ (show $ bst2alist node)
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment">-- find a record in a BST</span>
+<span class="linenumber">16:</span>     bst_find :: BST a -&gt; Int -&gt; Maybe (Int, a)
+<span class="linenumber">17:</span>     bst_find Eot _ = Nothing
+<span class="linenumber">18:</span>     bst_find node key
+<span class="linenumber">19:</span>         | key0 == key = Just (key0, node_val node)
+<span class="linenumber">20:</span>         | key0 &lt; key  = bst_find (node_right node) key
+<span class="linenumber">21:</span>         | otherwise   = bst_find (node_left node)  key
+<span class="linenumber">22:</span>      where key0 = node_key node
+<span class="linenumber">23:</span>            
+<span class="linenumber">24:</span>     <span class="comment">-- insert a record into a BST</span>
+<span class="linenumber">25:</span>     bst_insert :: BST a -&gt; (Int, a) -&gt; BST a
+<span class="linenumber">26:</span>     bst_insert Eot (key, val) = Node{
+<span class="linenumber">27:</span>                                       node_key = key,
+<span class="linenumber">28:</span>                                       node_val = val,
+<span class="linenumber">29:</span>                                       node_left = Eot,
+<span class="linenumber">30:</span>                                       node_right =  Eot
+<span class="linenumber">31:</span>                                     }
+<span class="linenumber">32:</span>     bst_insert node (key, val) 
+<span class="linenumber">33:</span>         | key0 == key = node                                        <span class="comment">-- if same key value, replace val</span>
+<span class="linenumber">34:</span>         | key0 &lt; key  = node{node_right = bst_insert right0 (key, val)}
+<span class="linenumber">35:</span>         | otherwise   = node{node_left = bst_insert left0  (key, val)}
+<span class="linenumber">36:</span>      where key0 = node_key node
+<span class="linenumber">37:</span>            left0 = node_left node
+<span class="linenumber">38:</span>            right0 = node_right node
+<span class="linenumber">39:</span>            
+<span class="linenumber">40:</span>     <span class="comment">-- traverse</span>
+<span class="linenumber">41:</span>     bst_map :: (a -&gt; b) -&gt; BST a -&gt; [(Int,b)]
+<span class="linenumber">42:</span>     bst_map _ Eot = []
+<span class="linenumber">43:</span>     bst_map f node = bst_map f (node_left node) ++
+<span class="linenumber">44:</span>                      (node_key node, f (node_val node)) : bst_map f (node_right node)
+<span class="linenumber">45:</span>     
+<span class="linenumber">46:</span>     <span class="comment">-- convert to an association list</span>
+<span class="linenumber">47:</span>     bst2alist :: BST a -&gt; [(Int, a)]
+<span class="linenumber">48:</span>     bst2alist  = bst_map id
+<span class="linenumber">49:</span>     
+<span class="linenumber">50:</span>     <span class="comment">-- test data</span>
+<span class="linenumber">51:</span>     bst1 = foldl bst_insert Eot [(5, "five"), (6,"six"), (4,"four"),
+<span class="linenumber">52:</span>                                   (3, "three"), (7, "seven"), (1,"One"), (10, "ten") ]
+</pre>
+
+
+
+実行例
+<pre class="samp">
+Mydat&gt; bst1
+BST[(1,"One"),(3,"three"),(4,"four"),(5,"five"),(6,"six"),(7,"seven"),(10,"ten")]
+Mydat&gt; bst_insert bst1 (2, "two")
+BST[(1,"One"),(2,"two"),(3,"three"),(4,"four"),(5,"five"),(6,"six"),(7,"seven"),(10,"ten")]
+Mydat&gt; bst_find bst1 7
+Just (7,"seven")
+Mydat&gt; bst_find bst1 11
+Nothing
+</pre>
+
+<h2> 6. 自前の class を作る</h2>
+2 節で述べたように <span class="mono">class</span> は総称関数の集合です。<p>
+
+  簡単な例として面積を表す <span class="mono">class Area</span> を定義してみます。
+  面積を求めるためには、対象となる図形を定義する必要があります。
+  ここでは、円、長方形を定義しましょう。<p>
+	 コードは次のようになります。<br>
+	 まず、1--2 行目で <span class="mono">class Area</span> を定義します。
+	 この <span class="mono">class</span> には <span class="mono">area</span> という総称関数があります。<br>
+	 つぎに、円、長方形を定義し、その面積の求め方を定義します。
+	 （4--12 行目)
+<pre class="code">
+<span class="linenumber">01:</span>     class Area a where
+<span class="linenumber">02:</span>         area :: a -&gt; Double
+<span class="linenumber">03:</span>     <span class="comment">--</span>
+<span class="linenumber">04:</span>     data Circle = Circle Double
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     instance Area Circle where
+<span class="linenumber">07:</span>         area (Circle r) = pi * r * r
+<span class="linenumber">08:</span>     <span class="comment">--</span>
+<span class="linenumber">09:</span>     data Rectangular = Rectangular Double Double
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     instance Area Rectangular where
+<span class="linenumber">12:</span>         area (Rectangular w h) = w * h
+</pre>
+ちなみに、<span class="mono">data a</span> を <span class="mono">Double</span>
+に変えるものなら何でも <span class="mono">area</span> として定義することが可能で、
+物理的な意味を考慮する必要はありません。
+例えば、List の <span class="mono">area</span> を以下のように定義することが出来ます。
+（なんの役に立つかは知りませんが。。）
+<pre class="code">
+instance Area [a] where
+    area xs = fromIntegral $ length xs
+</pre>
+<h2> 7. 終わりに</h2>
+<span class="mono">data</span> と <span class="mono">class</span> の定義の方法を簡単に述べてみました。
+ここに挙げたコードは <a href="hs7.lzh"> hs7.lzh</a> の中にある、jannkenn.hs と mydat.hs
+にあります。気が向いたらダウンロードして遊んでみてください。
+<p>
+  より詳しい情報は <a href="http://www.isi.edu/~hdaume/htut/">
+	 Yet Another Haskell Tutorial</a> にあります。
+ <hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell6.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. Haskell で最小二乗法</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell8.html"><img src='../images/right_arrow.gif' class='arrow' border=0>8. Monad</a></td>
+<td><a rel=download href="hs7.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell7.html&t=How+to+define+your+own+data+type+on+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>

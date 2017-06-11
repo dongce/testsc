@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, 文字, 文字列, character, string">
+<meta name="description" content="Scheme の文字と文字列">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 11. 文字、文字列 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_asg.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  10. 代入</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_sym.html"><img src='../images/right_arrow.gif' class='arrow' border=0>12. シンボル型</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_cs.html&t=Scheme+%C6%FE%CC%E7+11.+%CA%B8%BB%FA%A1%A2%CA%B8%BB%FA%CE%F3' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 11. 文字、文字列   </h1>
+<hr>
+<h2>1. 初めに </h2>
+今までは主にScheme (Lisp) の考え方について説明しましたが、
+データ型については数値とリストを除いて説明していないので、今回から数回にわけて個別のデータ型について説明
+していこうと思います。<p>
+
+今回は手始めに文字と文字列について説明します。
+
+ここでの説明は多くの処理系がサポートする R<sup>5</sup>RS に限っています。
+<p>
+<a href='http://srfi.schemers.org/srfi-13/srfi-13.html'>SRFI</a> や
+<a href='http://www.r6rs.org/final/html/r6rs-lib/r6rs-lib-Z-H-2.html#node_sec_1.2'> R<sup>6</sup>RS </a>で文字列処理は大幅に拡張されています。
+また、R<sup>6</sup>RS では Unicode もサポートされています。
+実際にプログラムを書く際には上に挙げたリンクを参照してください。
+
+
+<h2>2. 文字</h2>
+リテラルとして文字そのものを表すときは文字の前に <strong>#\</strong> をつけます。
+例えば、<u>a</u> と言う文字を表すときは <u>#\a</u> と書きます。スペース、タブ、ラインフィードやリターンを表すときは
+#\Space, #\Tab, #\Linefeed, #\Return というように文字の名称で表します。
+
+R<sup>5</sup>RS で規定されている文字に関する関数には以下のものがあります。
+<dl>
+  <dt><span class='ttb'>(char? <var>obj</var>)</span></dt>
+      <dd> <var>obj</var> が文字なら真を返します。</dd>
+  <dt><span class='ttb'>(char=? <var>c1</var> <var>c2</var>)</span></dt>
+      <dd> <var>c1</var> と <var>c2</var> が等しい文字のとき真を返します。</dd>
+  <dt><span class='ttb'>(char-&gt;integer <var>c</var>)</span></dt>
+      <dd> <var>c</var> を整数（コード）に変換します。<br>
+例：(char-&gt;integer #\a) &rArr; 97</dd>
+  <dt><span class='ttb'>(integer-&gt;char <var>n</var>)</span></dt>
+      <dd> 整数を文字に変換します。</dd>
+  <dt><span class='ttb'>(char&lt;? <var>c1</var> <var>c2</var>),
+    <br>(char&lt;=? <var>c1</var>, <var>c2</var>), <br>(char&gt; <var>c1</var> <var>c2</var>),
+    <br>(char&gt;= <var>c1</var> <var>c2</var>)</span></dt>
+      <dd>
+文字の大小を比較します。実際には、文字を整数に直してその大小を比較します。<br>つまり、
+<tt>(char&lt;? <var>c1</var> <var>c2</var>)</tt> は
+<tt>(&lt; (char-&gt;integer <var>c1</var>) (char-&gt;integer <var>c2</var>)) </tt>と等価です。</dd>
+  <dt><span class='ttb'>(char-ci=? <var>c1</var> <var>c2</var>), <br>(char-ci&lt;? <var>c1</var> <var>c2</var>), <br>(char-ci&lt;=? <var>c1</var> <var>c2</var>), <br>(char-ci&gt;? <var>c1</var> <var>c2</var>), <br>(char-ci&gt;=? <var>c1</var> <var>c2</var>)</span></dt>
+      <dd>
+ 大文字と小文字を区別しないで文字を比較します。</dd>
+  <dt><span class='ttb'>(char-alphabetic? <var>c</var>), <br>(char-numeric? <var>c</var>), <br>(char-whitespace? <var>c</var>), <br>(char-upper-case? <var>c</var>), <br>(char-lower-case? <var>c</var>)</span></dt>
+      <dd>
+それぞれ、<var>c</var> が、アルファベット、数字、空白文字、大文字、小文字のとき真を返します。</dd>
+  <dt><span class='ttb'>(char-upcase <var>c</var>), <br>(char-downcase <var>c</var>)</span></dt>
+      <dd> それぞれ、<var>c</var> が小文字（大文字）なら
+対応する大文字（小文字）を返します。それ以外のときは <var>c</var> をそのまま返します。</dd>
+</dl>
+
+<h2>3. 文字列</h2>
+文字列は他の多くの言語と同じようにダブルクォーテンションでくくります。つまり、文字列 abc を
+表すには "abc" と書きます。<p>
+  以下に文字列に関する R<sup>5</sup>RS で定義されている主な関数を挙げます。
+
+<dl>
+  <dt><span class='ttb'>(string? <var>s</var>)</span></dt>
+      <dd> s が文字列なら真を返します。</dd>
+  <dt><span class='ttb'>(make-string <var>n</var> <var>c</var>)</span></dt>
+      <dd> 文字 <var>c</var> からなる <var>n</var> 文字の文字列を返します。 <var>c</var> は省略可能。</dd>
+  <dt><span class='ttb'>(string-length <var>s</var>)</span></dt>
+      <dd> 文字列 <var>s</var> の長さを返します。</dd>
+  <dt><span class='ttb'>(string=? <var>s1</var> <var>s2</var>)</span></dt>
+      <dd> 文字列 <var>s1</var>, <var>s2</var> が等しいとき真を返します。</dd>
+  <dt><span class='ttb'>(string-ref <var>s</var> <var>idx</var>)</span></dt>
+      <dd> 文字列 <var>s</var> の <var>idx</var> 番目の文字を返します。<var>idx</var> は 0 から数えます。</dd>
+  <dt><span class='ttb'>(string-set! <var>s</var> <var>idx</var> <var>c</var>)</span></dt>
+      <dd> 文字列 <var>s</var> の <var>idx</var> 番目の文字を <var>c</var> にします。</dd>
+  <dt><span class='ttb'>(substring <var>s</var> <var>start</var> <var>end</var>)</span></dt>
+      <dd> 文字列 <var>s</var> の <var>start</var> 番目から <var>(end</var>-1) 番目の文字からなる文字列を返します。<br>
+  <tt>(substring "abcdefg" 1 4) &rArr; "bcd"</tt></dd>
+  <dt><span class='ttb'>(string-append <var>s1 s2 ...</var>)</span></dt>
+      <dd> 文字列 <var>s1, s2 ...</var> を連結します。</dd>
+  <dt><span class='ttb'>(string-&gt;list <var>s</var>)</span></dt>
+      <dd> 文字列 <var>s</var> を文字のリストに変換します。</dd>
+  <dt><span class='ttb'>(list-&gt;string <var>ls</var>)</span></dt>
+      <dd> 文字のリスト <var>ls</var> を文字列に変換します。</dd>
+  <dt><span class='ttb'>(string-copy <var>s</var>)</span></dt>
+      <dd> 文字列 <var>s</var> をコピーします。</dd>
+</dl>
+<h3> 練習問題 </h3>
+単語の初めを大文字にする関数 <tt>title-style</tt> を書いてください。
+<br>
+(R<sup>6</sup>RS には <tt>string-titlecase</tt> という関数があるので、自分で書く必要はありません。)
+<pre class='samp'>
+&gt; (title-style "yet another scheme tutorial")
+<span class='response'>"Yet Another Scheme Tutorial"</span>
+</pre>
+
+<h2>4. 終わりに</h2>
+今回は R<sup>5</sup>RS の範囲で文字と文字列について説明しました。
+実際にプログラムを書く際には <a href='http://srfi.schemers.org/srfi-13/srfi-13.html'>SRFI</a> や
+<a href='http://www.r6rs.org/final/html/r6rs-lib/r6rs-lib-Z-H-2.html#node_sec_1.2'> R<sup>6</sup>RS </a>
+も参照してください。
+<p>
+  次回はシンボル型について説明します。シンボル型は Lisp/Scheme に特徴的な
+  データ型で、これを使うと、テキスト処理が高速に行えます。
+
+
+
+<h3>練習問題の解答</h3>
+文字列を一度リストに変換してから処理して、また文字列に戻します。
+
+<pre class='code'>
+(define (identity x) x)
+
+(define (title-style str)
+  (let loop ((ls (string-&gt;list str))
+	     (w #t)
+	     (acc '()))
+    (if (null? ls)
+	(list-&gt;string (reverse acc))
+	(let ((c (car ls)))
+	  (loop (cdr ls)
+		(char-whitespace? c)
+		(cons ((if w char-upcase identity) c) acc))))))
+</pre>
+
+
+
+<pre class='samp'>
+&gt; (title-style "the cathedral and the bazaar")
+<span class='response'>"The Cathedral And The Bazaar"</span>
+</pre>
+
+<hr>
+
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_asg.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  10. 代入</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_sym.html"><img src='../images/right_arrow.gif' class='arrow' border=0>12. シンボル型</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_cs.html&t=Scheme+%C6%FE%CC%E7+11.+%CA%B8%BB%FA%A1%A2%CA%B8%BB%FA%CE%F3' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+</body>
+</html>
+
+

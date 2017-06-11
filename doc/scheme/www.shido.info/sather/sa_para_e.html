@@ -1,0 +1,658 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, parameterized class">
+<meta name="description" content="Parameterized Classes of Sather">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 8. Parameterized Classes</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_abst_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. Abstract Classes</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0></a>
+  <a rel=up href="index_e.html">Try Sather</a></td>
+
+<td><a rel=next href="sa_op_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+9. Operators</a></td>
+
+<td><a rel=download href="sa_para.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_para_e.html&t=%28Try+Sather%29+8%2E+Parameterized+Classes'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 8. Parameterized Classes</h1>
+<hr>
+
+<h2>1. Introduction</h2>
+I will explain the parameterized classes in this chapter.
+The class needs a parameter (or parameters) to  declare the data type.
+For example, 
+<tt>ARRAY{INT}</tt> declares an array of integers.
+Flexible data types can be made by using 
+an abstract class as a parameter.
+For instance, <tt>ARRAY{$OB}</tt> is an array for any kind of objects. 
+
+
+<h2>2. Quick look at the parameterized classes</h2>
+The parameterized classes are mainly used as containers like
+<tt>ARRAY{INT}</tt> and <tt>MAP{INT, STR}</tt>.
+Thus you should declare following two things to use a parameterized class:
+<ul>
+<li>Objects to be stored
+<li>How to store these
+</ul>
+Most of parameterized classes are the subclass of 
+<tt>$ELT</tt>, <tt>$ELT{ETP}</tt>, and <tt>$CONTAINER{ETP}</tt> and have methods defined in these abstract classes (Table 1).
+<p>
+<center>
+Table 1: Methods defined in <tt>$ELT</tt>, <tt>$ELT{ETP}</tt>, and <tt>$CONTAINER{ETP}</tt>.
+<table border=1>
+   <tr>
+      <th>Method</th>
+      <th>Explanation</th>
+   </tr>
+   <tr>
+      <td><tt>elt!</tt></td>
+      <td>It is an iterator defined in <tt>$ELT</tt> and <tt>$ELT{ETP}</tt>. 
+It returns an element stored in a container one by one.</td>
+   </tr>
+   <tr>
+      <td><tt>copy</tt></td>
+      <td>It returns a copy of  <tt>self</tt>, which is defined in the <tt>$CONTAINER</tt> class.</td>
+   </tr>
+   <tr>
+      <td><tt>has(e: ETP)</tt></td>
+      <td>It returns true if <tt>self</tt> contains <tt>e</tt>.</td>
+   </tr>
+   <tr>
+      <td><tt>size</tt></td>
+      <td>It returns the number of elements. </td>
+   </tr>
+</table>
+</center>
+<h3>2.1. The typecase operator</h3>
+You need the operator <tt>typecase</tt> when you want to branch the operation according to the data type
+as the parameterized classes can contain almost everything if you use <tt>$OB</tt> or <tt>$STR</tt> as a parameter.
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple typecase program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        main is
+<span class="linenumber">06:</span>           a:ARRAY{$STR}:=#(|1, 2.12, 3.14159d, "Hello", #INTI(1000000), 'c'|);  <span class="comment">-- defining an array that contains six objects which have $STR method</span>
+<span class="linenumber">07:</span>           s:STR;                                                                <span class="comment">-- Any object having .str method can be stored in the array.</span>
+<span class="linenumber">08:</span>           loop
+<span class="linenumber">09:</span>     	 i:$STR:=a.elt!;                         <span class="comment">-- picking up an object from the array</span>
+<span class="linenumber">10:</span>     	 typecase i                              <span class="comment">-- and change the procedure according to the data type</span>
+<span class="linenumber">11:</span>     	 when INT then
+<span class="linenumber">12:</span>     	    s:="INT: "; 
+<span class="linenumber">13:</span>     	 when FLT then
+<span class="linenumber">14:</span>     	    s:="FLT: ";
+<span class="linenumber">15:</span>     	 when FLTD then
+<span class="linenumber">16:</span>     	    s:="FLTD: ";
+<span class="linenumber">17:</span>     	 when INTI then
+<span class="linenumber">18:</span>     	    s:="INTI: ";
+<span class="linenumber">19:</span>     	 when STR then
+<span class="linenumber">20:</span>     	    s:="STR: ";
+<span class="linenumber">21:</span>     	 else
+<span class="linenumber">22:</span>     	    s:="Other: ";
+<span class="linenumber">23:</span>     	 end;
+<span class="linenumber">24:</span>     	 #OUT + "a[" + a.ind! +"] = " + s + i.str + "\n";
+<span class="linenumber">25:</span>           end;
+<span class="linenumber">26:</span>        end;
+<span class="linenumber">27:</span>     end;
+</pre>
+
+
+<pre class='samp'>
+$ sacomp typecase.sa -o typecase
+$ ./typecase
+a[0] = INT: 1
+a[1] = FLT: 2.12
+a[2] = FLTD: 3.14159
+a[3] = STR: Hello
+a[4] = INTI: 100000000
+a[5] = Other: c
+</pre>
+<h2> 3. The Array{T} classes</h2>
+
+I will explain first about the Array{T} classes which is used most frequently.
+
+<h3>3.1. Constructing the instances (create, create_from)</h3>
+The ARRAY{T} class has three <tt>create</tt>s (the constructors) taking
+no argument, one nonnegative integer, and the array of literals as an argument.
+
+<pre class='code'>
+a0:ARRAY{INT}=#(|1,2,3|);  <span class='comment'>-- a0[0]=1, a0[1]=2, a0[2]=3</span>
+a1:ARRAY{INT}=#(3);        <span class='comment'>-- making an array for three INT's</span>
+a2::=#ARRAY{INT};          <span class='comment'>-- making an array for zero INT's</span>
+</pre>
+
+The <tt>create_from(e: $ELT{T}):SAME</tt> constructor is also defined to create an instance of ARRAY{T}
+from that of other 
+$ELT{T} classes. 
+<h3>3.2. Frequently used methods</h3>
+Table 2 shows frequently used methods defined in the ARRAY{T} classes.
+I will explain in the next chapter about methods that takes functions as parameters.
+As indicated in Table 2, methods of parameterized classes are influenced by Common Lisp.
+See 
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/short-ARRAY%7B_%7D.html'>
+Sather Class Index: ARRAY{T}</a> for complete information (Table 2 just shows a fraction.).
+<p>
+<center>
+Table 2: Frequently used methods in the ARRAY{T} class.
+<table border=1>
+   <tr>
+      <th>methods</th>
+      <th>explanation</th>
+   </tr>
+   <tr>
+      <td><tt>append</tt></td>
+      <td>It appends arrays. It takes one to three arguments.</td>
+   </tr>
+   <tr>
+      <td><tt>binary_search(e:T)</tt></td>
+      <td>It returns the index of <tt>e</tt> from a sorted array.</td>
+   </tr>
+   <tr>
+      <td><tt>copy</tt></td>
+      <td>It copies <tt>self</tt>. It takes variety of arguments.</td>
+   </tr>
+   <tr>
+      <td><tt>count(e:T)</tt></td>
+      <td>It return the number of <tt>e</tt>.</td>
+   </tr>
+   <tr>
+      <td><tt>has(e:T)</tt></td>
+      <td>It returns true if the array contains <tt>e</tt>.</td>
+   </tr>
+   <tr>
+      <td><tt>remove(e:T)</tt></td>
+      <td>It removes <tt>e</tt> from the array and returns the resulting array.</td>
+   </tr>
+   <tr>
+      <td><tt>remove_duplicates</tt></td>
+      <td>It removes duplicates and return the resulting array.</td>
+   </tr>
+   <tr>
+      <td><tt>reverse</tt></td>
+      <td>It returns the reverse-order array.</td>
+   </tr>
+   <tr>
+      <td><tt>size</tt></td>
+      <td>It returns the size of array.</td>
+   </tr>
+   <tr>
+      <td><tt>sort</tt></td>
+      <td>It sorts the array.</td>
+   </tr>
+   <tr>
+      <td><tt>str</tt></td>
+      <td>It converts the array to a string.</td>
+   </tr>
+   <tr>
+      <td><tt>elt!</tt></td>
+      <td>It returns an array element one by one.</td>
+   </tr>
+   <tr>
+      <td><tt>ind!</tt></td>
+      <td>It returns the index one by one.</td>
+   </tr>
+   <tr>
+      <td><tt>set!(e:T)</tt></td>
+      <td>It assigns a value to the element one by one.</td>
+   </tr>
+</table>
+</center>
+
+<h2>4. TUP</h2>
+The <tt>TUP</tt> is to lump objects with different data type together.
+Up to four objects can be lumped.
+The elements should belong to the subclass of $HASH.
+You can access the elements by methods <tt>t1</tt>, <tt>t2</tt>, <tt>t3</tt>, and <tt>t4</tt>.
+The <tt>TUP</tt> is used by the <tt>MAP</tt> class and 
+is convenient to define functions that return plural values. 
+
+Even functions of Sather can return values using arguments like those of C languages,
+using <tt>TUP</tt> is better to return plural values.
+<p>
+Example: <tt>tup.sa</tt>, in which the attributes of people are stored by <tt>TUP{INT, STR, CHAR, INT}</tt>.
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple TUP program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        shared id:INT:=0;
+<span class="linenumber">06:</span>        make_person(name:STR, sex:CHAR, age:INT):TUP{INT, STR, CHAR, INT} is
+<span class="linenumber">07:</span>           id:= id+1;
+<span class="linenumber">08:</span>           return #(id, name, sex, age);
+<span class="linenumber">09:</span>        end;
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>        person_id(p:TUP{INT,STR,CHAR,INT}):INT is
+<span class="linenumber">12:</span>           return p.t1;
+<span class="linenumber">13:</span>        end;
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>        person_name(p:TUP{INT,STR,CHAR,INT}):STR is
+<span class="linenumber">16:</span>           return p.t2;
+<span class="linenumber">17:</span>        end;
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>        person_sex(p:TUP{INT,STR,CHAR,INT}):STR is
+<span class="linenumber">20:</span>           if p.t3 = 'm' then return "male";
+<span class="linenumber">21:</span>           else return "female";
+<span class="linenumber">22:</span>           end;
+<span class="linenumber">23:</span>        end;
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>        person_age(p:TUP{INT,STR,CHAR,INT}):INT is
+<span class="linenumber">26:</span>           return p.t4;
+<span class="linenumber">27:</span>        end;
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>        show_person(p:TUP{INT,STR,CHAR,INT}):STR is
+<span class="linenumber">30:</span>           return "ID: " + person_id(p).str + 
+<span class="linenumber">31:</span>     	    "\nNAME: " + person_name(p) + 
+<span class="linenumber">32:</span>     	    "\nSEX: " + person_sex(p) + 
+<span class="linenumber">33:</span>     	    "\nAGE: " + person_age(p).str + "\n\n";
+<span class="linenumber">34:</span>        end;
+<span class="linenumber">35:</span>     
+<span class="linenumber">36:</span>        main is
+<span class="linenumber">37:</span>           #OUT + "TUP test using person properties.\n\n";
+<span class="linenumber">38:</span>           a:ARRAY{TUP{INT,STR,CHAR,INT}}:=#(|make_person("John Smith", 'm', 50), make_person("Mary McCarthy", 'f', 25)|);
+<span class="linenumber">39:</span>           loop
+<span class="linenumber">40:</span>     	 #OUT + show_person(a.elt!);
+<span class="linenumber">41:</span>           end;
+<span class="linenumber">42:</span>        end;
+<span class="linenumber">43:</span>     end;
+</pre>
+
+<pre class='samp'>
+$ sacomp tup.sa -o tup
+$ ./tup
+TUP test using person properties.
+
+ID: 1
+NAME: John Smith
+SEX: male
+AGE: 50
+
+ID: 2
+NAME: Mary McCarthy
+SEX: female
+AGE: 25
+</pre>
+
+In fact defining <tt>PERSON</tt> class is better, I use <tt>TUP</tt> just for example.
+
+
+<h2> 5. MAP{T1, T2}</h2>
+The MAP{T1, T2} class is hash table.
+See
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/short-MAP%7B_,_%7D.html'>
+Sather Class Index: MAP</a>
+for detailed information.
+As readers are expected to be familiar with hash tables, I just show a word count program.
+
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- swc.sa: a simple words counts program written in sather</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        const nonword_chars:STR:=" \t\n\r.,\"\\\`\':;?!()/-";  <span class="comment">-- These characters are removed from the word if they are at the end (\W).</span>
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>        <span class="comment">-- check if the character is a word character.</span>
+<span class="linenumber">08:</span>        is_wordchar(c:CHAR):BOOL is
+<span class="linenumber">09:</span>           return ~nonword_chars.contains(c);               <span class="comment">-- return true if not \W</span>
+<span class="linenumber">10:</span>        end;
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>        <span class="comment">-- truncating non_word characters from the head or tail of the word.</span>
+<span class="linenumber">13:</span>        w_truncate(w:STR, headp:BOOL):STR is               
+<span class="linenumber">14:</span>           idx,begin,num:INT;
+<span class="linenumber">15:</span>           num:=w.size-1;
+<span class="linenumber">16:</span>           if headp then 
+<span class="linenumber">17:</span>     	 idx:=0;
+<span class="linenumber">18:</span>     	 begin:=1;
+<span class="linenumber">19:</span>           else 
+<span class="linenumber">20:</span>     	 idx:=num;
+<span class="linenumber">21:</span>     	 begin:=0;
+<span class="linenumber">22:</span>           end;
+<span class="linenumber">23:</span>           if  w.size=0 or is_wordchar(w.char(idx))  then  
+<span class="linenumber">24:</span>     	 return w;
+<span class="linenumber">25:</span>           else
+<span class="linenumber">26:</span>     	 return w_truncate(w.substring(begin,num), headp);
+<span class="linenumber">27:</span>           end;
+<span class="linenumber">28:</span>        end;
+<span class="linenumber">29:</span>     
+<span class="linenumber">30:</span>        <span class="comment">-- modifying the word to add to the hash table</span>
+<span class="linenumber">31:</span>        w_modify(w:STR):STR is                             
+<span class="linenumber">32:</span>           return w_truncate(w_truncate(w, false), true).lower;
+<span class="linenumber">33:</span>        end;
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>        <span class="comment">-- making a word count hash table</span>
+<span class="linenumber">36:</span>        make_hash(f:FILE):MAP{STR, INT} is                  
+<span class="linenumber">37:</span>           hash::=#MAP{STR,INT};
+<span class="linenumber">38:</span>           line,w:STR;
+<span class="linenumber">39:</span>           loop
+<span class="linenumber">40:</span>     	 until!(f.eof);
+<span class="linenumber">41:</span>     	 line:=f.get_str + " ";                        <span class="comment">-- Adding Space to pick up the last word of the line using split!</span>
+<span class="linenumber">42:</span>     	 loop
+<span class="linenumber">43:</span>     	    w:=w_modify(line.split!(' '));
+<span class="linenumber">44:</span>     	    if w.size &gt; 0 then
+<span class="linenumber">45:</span>     	       if hash.has_ind(w) then
+<span class="linenumber">46:</span>     		  hash[w]:=hash[w]+1;
+<span class="linenumber">47:</span>     	       else
+<span class="linenumber">48:</span>     		  hash[w]:=1;
+<span class="linenumber">49:</span>     	       end;
+<span class="linenumber">50:</span>     	    end;
+<span class="linenumber">51:</span>     	 end;
+<span class="linenumber">52:</span>           end;
+<span class="linenumber">53:</span>           return hash;
+<span class="linenumber">54:</span>        end;
+<span class="linenumber">55:</span>     
+<span class="linenumber">56:</span>        <span class="comment">-- getting the sorted array of the keys of the hash table</span>
+<span class="linenumber">57:</span>        get_sorted_key(wc:MAP{STR,INT}):ARRAY{STR} is 
+<span class="linenumber">58:</span>           a:ARRAY{STR}:=#(wc.size);                    
+<span class="linenumber">59:</span>           loop                                         
+<span class="linenumber">60:</span>     	 a.set!(wc.ind!);
+<span class="linenumber">61:</span>           end;
+<span class="linenumber">62:</span>           return a.sort;
+<span class="linenumber">63:</span>        end;
+<span class="linenumber">64:</span>     
+<span class="linenumber">65:</span>        <span class="comment">-- showing the result of word count, sorted by word.</span>
+<span class="linenumber">66:</span>        show_result(wc:MAP{STR,INT}) is                  
+<span class="linenumber">67:</span>           w:STR;
+<span class="linenumber">68:</span>           loop
+<span class="linenumber">69:</span>     	 w:=get_sorted_key(wc).elt!;
+<span class="linenumber">70:</span>     	 #OUT + w + "\t" + wc[w] + "\n";
+<span class="linenumber">71:</span>           end;
+<span class="linenumber">72:</span>        end;
+<span class="linenumber">73:</span>     
+<span class="linenumber">74:</span>        <span class="comment">-- practical main function, counting word in a file</span>
+<span class="linenumber">75:</span>        count_words(filename:STR) is                    
+<span class="linenumber">76:</span>           f::=FILE::open_for_read(filename);
+<span class="linenumber">77:</span>           if f.error then
+<span class="linenumber">78:</span>     	 #ERR + "Cannot open " + filename + "\n";
+<span class="linenumber">79:</span>           else
+<span class="linenumber">80:</span>     	 show_result(make_hash(f));  
+<span class="linenumber">81:</span>     	 f.close;
+<span class="linenumber">82:</span>           end;
+<span class="linenumber">83:</span>        end;
+<span class="linenumber">84:</span>     
+<span class="linenumber">85:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">86:</span>           if (av.size = 2) then
+<span class="linenumber">87:</span>     	 count_words(av[1]);
+<span class="linenumber">88:</span>           else
+<span class="linenumber">89:</span>     	 #ERR + "Usage: scw FILENAME\n";
+<span class="linenumber">90:</span>           end;
+<span class="linenumber">91:</span>        end;
+<span class="linenumber">92:</span>     end; <span class="comment">-- MAIN</span>
+</pre>
+
+<h3>Notes</h3>
+<dl>
+<dt><b>Tricky behavior of</b> <span class='ttb'>STR::split!(c:CHAR)</span></dt>
+<dd>
+The behavior of this method is somehow tricky.
+For instance,<br>
+"This is a pen.".split!(' ')
+<br>
+returns 
+"This ", "is ", "a " one by one. But it does never return "pen." ¡ª¡ª
+If you need the last word, you have to add a space at the end.<br>
+
+("This is a pen." + " ").split!(' ')
+<br>
+returns "pen. " at the end.
+Mind that the separation character attaches at the end of words. <br><br>
+</dd>
+
+<dt><b>The Online Sather Code Browser does not follow the reality.</b></dt>
+<dd>
+There is a substantial difference between what is written in
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+The Online Sather Code Browser</a>
+and real behavior of Sather.
+In such cases, check codes under
+ <tt>$SATHERHOME/Library</tt>.
+</dd>
+</dl> 
+
+<h2>6. LIST{T}</h2>
+The <tt>LIST{T}</tt> is similar to <tt>ARRAY{T}</tt>. 
+But more flexible than <tt>ARRAY</tt>.
+See <a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/shortflat-LIST%7B_%7D.html'>
+Online Code Browser: LIST</a> or source codes
+for detailed information.
+<p>
+Here is a breadth first search (BFS) program as an example of LIST{T}.
+BFS takes a path so far from the queue, then  adds the adjacent nodes of the last node if  not visited yet.
+Finally it adds the resulting paths at the end of the queue.
+The following code (<tt>bfs.sa</tt>) returns the shortest path from the start to the goal in Figure 1.
+
+<center>
+<img src='gr.png'><p>
+Figure 1: A graph used in <tt>bfs.sa</tt>
+</center>
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- bfs.sa: a simple breadth fast search</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        const gr:ARRAY{ARRAY{INT}}:=| |1,2,3|, |4|, |4,5|, |6|, |0|, |6,7|, |8|, |3|, |5| |;  <span class="comment">-- ARRAY{ARRAY{INT}} expression of the graph shown in Fig. 1</span>
+<span class="linenumber">06:</span>        attr goal:INT;          
+<span class="linenumber">07:</span>        attr queue:LIST{LIST{INT}};  <span class="comment">-- list of searched paths so far</span>
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>        bfs is                                   
+<span class="linenumber">10:</span>           if queue.size=0 then
+<span class="linenumber">11:</span>     	 #OUT + "Can not find the path\n";  <span class="comment">-- if no queue, warn</span>
+<span class="linenumber">12:</span>     	 UNIX::exit(1);                     <span class="comment">-- and exit</span>
+<span class="linenumber">13:</span>           end;
+<span class="linenumber">14:</span>           path:LIST{INT}:=queue[0];             <span class="comment">-- take the first item of the queue</span>
+<span class="linenumber">15:</span>           queue.remove_index(0);                <span class="comment">-- delete the first item</span>
+<span class="linenumber">16:</span>           next_nodes:ARRAY{INT}:=gr[path[path.size-1]];  <span class="comment">-- get the array of adjacent node from the last node (path[path.size-1]) </span>
+<span class="linenumber">17:</span>           node:INT;
+<span class="linenumber">18:</span>           loop
+<span class="linenumber">19:</span>     	 node:=next_nodes.elt!;             <span class="comment">-- search the next node one by one</span>
+<span class="linenumber">20:</span>     	 if node=goal then                  <span class="comment">-- if it is the goal,</span>
+<span class="linenumber">21:</span>     	    #OUT + "found: " + path.append(goal) + "\n";  <span class="comment">-- show the path from the start to the goal.</span>
+<span class="linenumber">22:</span>     	    UNIX::exit(0);
+<span class="linenumber">23:</span>     	 elsif ~path.has(node) then         <span class="comment">-- if not visited yet,</span>
+<span class="linenumber">24:</span>     	    queue.append(path.append(node));  <span class="comment">-- add the node at the end of the path so far then add the path to the end of the queue</span>
+<span class="linenumber">25:</span>     	 end;
+<span class="linenumber">26:</span>           end;
+<span class="linenumber">27:</span>           bfs;                    <span class="comment">-- call bfs recursively</span>
+<span class="linenumber">28:</span>        end;
+<span class="linenumber">29:</span>     	 
+<span class="linenumber">30:</span>        main(av:ARRAY{STR}) is
+<span class="linenumber">31:</span>           if av.size=3 then                            <span class="comment">-- check the number of arguments</span>
+<span class="linenumber">32:</span>     	 goal:=av[2].cursor.get_int;               <span class="comment">-- the 2nd argument is the goal</span>
+<span class="linenumber">33:</span>     	 queue:=#;                                 <span class="comment">-- initialize the queue</span>
+<span class="linenumber">34:</span>     	 queue.append(#(|av[1].cursor.get_int|));  <span class="comment">-- add the start point to the queue</span>
+<span class="linenumber">35:</span>     	 bfs;                                      <span class="comment">-- do bfs</span>
+<span class="linenumber">36:</span>           else
+<span class="linenumber">37:</span>     	 #ERR + "Usage: bfs START GOAL\n";
+<span class="linenumber">38:</span>           end;
+<span class="linenumber">39:</span>        end;
+<span class="linenumber">40:</span>     end;
+</pre>
+
+<pre class='samp'>
+$ sacomp bfs.sa -o bfs
+$ ./bfs 1 7                   <span class='comment'>-- search a path from node 1 to node 7 </span>
+found: {1,4,0,2,5,7}
+</pre>
+
+
+<h2>7. FLIST{T}</h2>
+The <tt>FLIST{T}</tt> is comparable to the lists of LISP.
+This data type is convenient to implement stacks.
+See <a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/shortflat-FLIST%7B_%7D.html'>
+Online Code Browser: FLIST</a> for more information.
+<p>
+Here is a program of a reverse polish calculator as an example of a stack.
+Only four arithmetic operations are implemented for simplicity. 
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- calc.sa: a simple reverse polish calculator</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        const op:STR:="+-*/";
+<span class="linenumber">06:</span>        const re:REGEXP:=REGEXP::regexp("^[+\\-]?[0-9]+\\.?[0-9]*$", false);  <span class="comment">-- regular expression of numbers</span>
+<span class="linenumber">07:</span>        shared stack:FLIST{FLTD}:=FLIST{FLTD}::create;                        <span class="comment">-- a stack of FLTD</span>
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>        operatorp(word:STR):BOOL is
+<span class="linenumber">10:</span>           return  (word.size = 1 and op.contains(word.char(0)));
+<span class="linenumber">11:</span>        end;
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>        numberp(word:STR):BOOL is
+<span class="linenumber">14:</span>           return re.match(word);
+<span class="linenumber">15:</span>        end;
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>        calculate(word:STR) is              <span class="comment">-- take two items from the stack</span>
+<span class="linenumber">18:</span>           c:CHAR:=word.char(0);
+<span class="linenumber">19:</span>           f1,f2, fr:FLTD;
+<span class="linenumber">20:</span>           f2:=stack.pop;
+<span class="linenumber">21:</span>           f1:=stack.pop;
+<span class="linenumber">22:</span>           case c                           <span class="comment">-- then operate</span>
+<span class="linenumber">23:</span>           when '+' then fr := f1+f2;
+<span class="linenumber">24:</span>           when '-' then fr := f1-f2;
+<span class="linenumber">25:</span>           when '*' then fr := f1*f2;
+<span class="linenumber">26:</span>           when '/' then fr := f1/f2;
+<span class="linenumber">27:</span>           else #ERR + "The operator is not supported.\n";
+<span class="linenumber">28:</span>           end;
+<span class="linenumber">29:</span>           stack:=stack.push(fr);           <span class="comment">-- then push the result to the stack</span>
+<span class="linenumber">30:</span>        end;
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>        push_to_stack(word:STR) is
+<span class="linenumber">33:</span>           stack:=stack.push(word.cursor.get_fltd);      
+<span class="linenumber">34:</span>        end;
+<span class="linenumber">35:</span>     
+<span class="linenumber">36:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">37:</span>           line, word:STR;
+<span class="linenumber">38:</span>           loop
+<span class="linenumber">39:</span>     	 #OUT + "&gt; ";
+<span class="linenumber">40:</span>     	 if ~void(stack) then 
+<span class="linenumber">41:</span>     	    #OUT  + stack[0] + " ";
+<span class="linenumber">42:</span>     	 end;
+<span class="linenumber">43:</span>     	 line:=#IN.get_str;
+<span class="linenumber">44:</span>     	 if line.size = 0 then break!; end;      <span class="comment">-- terminate if no input</span>
+<span class="linenumber">45:</span>     	 line := line + " ";
+<span class="linenumber">46:</span>     	 loop 
+<span class="linenumber">47:</span>     	    word := line.split!(' ');
+<span class="linenumber">48:</span>     	    word := word.head(word.size-1);
+<span class="linenumber">49:</span>     	    if operatorp(word) then calculate(word);
+<span class="linenumber">50:</span>     	    elsif numberp(word) then  push_to_stack(word);
+<span class="linenumber">51:</span>     	    end;
+<span class="linenumber">52:</span>     	 end;
+<span class="linenumber">53:</span>           end;
+<span class="linenumber">54:</span>        end;
+<span class="linenumber">55:</span>     end;
+</pre>
+
+<pre class='samp'>
+$ sacomp calc.sa -o calc
+$ ./calc
+> 1 8 + 3.7 0.7 - /             <span class='comment'>-- (1 + 8) / (3.7 - 0.7)</span>
+> 3 0.01 *                      <span class='comment'>-- you can continue calculation from the last result</span>
+> 0.03 
+</pre>
+
+<h3>Notes</h3>
+<dl>
+<dt><b>Regular expression</b></dt>
+<dd>
+A regular expression object are created by making an instance of REGEXP class
+using <tt>REGEXP::regexp</tt> constructor.
+The first argument of the constructor is a regular expression of POSIX system.
+and the second is a flag (true or false) for case-insensitive. 
+<tt>REGEXP::match</tt> is used to match.
+See
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/lined-regexp.sa.gen.html#Line120'>
+regexp.sa</a>
+for detailed information.
+</dd></dl>
+<h2>8. Other parameterized classes</h2>
+As the parameterized classes is one of the characteristics of Sather, 
+many kinds of them are available.
+Table 2 shows some of them.
+<p>
+
+<center>
+Table 2: Frequently used parameterized classes.
+<table border=1>
+   <tr>
+      <th>Class</th>
+      <th>Explanation</th>
+   </tr>
+   <tr>
+      <td>ARRAY2{}</td>
+      <td>2 dimensional array</td>
+   </tr>
+   <tr>
+      <td>ARRAY3{}</td>
+      <td>3 dimensional array</td>
+   </tr>
+   <tr>
+      <td>BAG{}</td>
+      <td>bag. store items with no order, allowing duplication</td>
+   </tr>
+   <tr>
+      <td>QUEUE{}</td>
+      <td>queue. In fact, <tt>bfs.sa</tt> gets shorter using this class.</td>
+   </tr>
+   <tr>
+      <td>STACK{}</td>
+      <td>stack. <tt>calc.sa</tt> gets shorter with this class.</td>
+   </tr>
+   <tr>
+      <td>SET{}</td>
+      <td>set. methods like <tt>union</tt> and <tt>intersection</tt> are defined.</td>
+   </tr>
+</table>
+</center>
+<h2>9. Summary</h2>
+I have explained on the parameterized classes in this chapter.
+You can download the source codes shown in this chapter from 
+<a href='sa_para.tar.bz2'>here</a>.
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_abst_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. Abstract Classes</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0></a>
+  <a rel=up href="index_e.html">Try Sather</a></td>
+
+<td><a rel=next href="sa_op_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+9. Operators</a></td>
+
+<td><a rel=download href="sa_para.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_para_e.html&t=%28Try+Sather%29+8%2E+Parameterized+Classes'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body></html>

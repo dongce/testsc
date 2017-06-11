@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="demostrations of Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter での日本語の取り扱い </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter_a1.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-1. Widget に画像を張り込む</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="python6.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  A-3. Tkinter のデモ スクリプト</a></td>
+<!-- <td><a rel='download' href="tkinter12.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter_a2.html&t=Tkinter+%A4%C7%A4%CE%C6%FC%CB%DC%B8%EC%A4%CE%BC%E8%A4%EA%B0%B7%A4%A4' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>Appnedix 2. Tkinter での日本語の取り扱い</h1> 
+<hr>
+
+<span class='important'>text</span>
+  属性のある Widget には日本語を書くことができます。coding を <em>shift_jis</em> または <em>euc-jp</em> にし、
+日本語の文字列リテラルの前に <em>u</em> をつければ日本語が表示されます。<p>
+  つまり、
+  <ol>
+  <li>ソースコードの２行目に  <span class='important'># -*- coding: shift_jis -*-</span>
+    と書く。（または <span class='comment'># -*- coding: euc-jp -*-</span> ）
+    <li>日本語のリテラルの前に <b>u</b> をつける。例えば、
+      <span class="string">u"日本語のひらがな、カタカナ、漢字"</span>
+     </ol>
+
+
+  もしうまくいかない場合は指定したコードでプログラムが保存されているかどうか、
+  'Python Unicode Codecs collection' がインストール
+  されているかどうかを調べてみてください。
+  例を以下に示します。<p>
+
+<a name="Sobaya">
+<h2>1. 日本語の Label, Button, Listbox</h3>
+上で述べた処理を行った、日本語を表示するスクリプトです。
+<a href='sobaya_py.txt'>sobaya.py</a>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     sobayas.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     日本語のテスト, Use Japanese with Tkinter
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     June 28, 2005
+<span class="linenumber">09:</span>     """</span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     import Tkinter as Tk
+<span class="linenumber">13:</span>     import sys
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     MENU = [u"天丼", u"カツ丼", u"うな重", u"親子丼",  u"盛りそば", u"掛けそば", u"鍋焼きうどん",  
+<span class="linenumber">16:</span>             u"月見うどん", u"きつねうどん", u"狸うどん", u"素うどん", u"山菜そば", u"ととろそば",
+<span class="linenumber">17:</span>             u"鴨せいろ", u"天せいろ"]
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>     class ScrolledListbox(Tk.Listbox):
+<span class="linenumber">22:</span>         <span class="string">""" Listbox with vertical scroll bar """</span>
+<span class="linenumber">23:</span>         
+<span class="linenumber">24:</span>         def __init__(self, master, **key):
+<span class="linenumber">25:</span>             self.frame = Tk.Frame(master)
+<span class="linenumber">26:</span>             self.yscroll = Tk.Scrollbar (self.frame, orient=Tk.VERTICAL)
+<span class="linenumber">27:</span>             self.yscroll.pack(side=Tk.RIGHT, fill=Tk.Y, expand=1)
+<span class="linenumber">28:</span>             key['yscrollcommand']=self.yscroll.set
+<span class="linenumber">29:</span>             Tk.Listbox.__init__(self, self.frame, **key)
+<span class="linenumber">30:</span>             self.pack(side=Tk.LEFT, fill=Tk.BOTH, expand=1)
+<span class="linenumber">31:</span>             self.yscroll.config(command=self.yview)
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>             <span class="comment"># Copy geometry methods of self.frame </span>
+<span class="linenumber">34:</span>             for m in (Tk.Pack.__dict__.keys() + Tk.Grid.__dict__.keys() + Tk.Place.__dict__.keys()):
+<span class="linenumber">35:</span>                 m[0] == '_' or m == 'config' or m == 'configure' or \
+<span class="linenumber">36:</span>                     setattr(self, m, getattr(self.frame, m))
+<span class="linenumber">37:</span>     
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>     
+<span class="linenumber">41:</span>     class Frame(Tk.Frame):
+<span class="linenumber">42:</span>         
+<span class="linenumber">43:</span>         def __init__(self, master=None):
+<span class="linenumber">44:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">45:</span>             self.master.title(u"Tk そば屋")
+<span class="linenumber">46:</span>             intro = Tk.Label(self, font=('Helvetica', '12'),  justify=Tk.LEFT, wraplength='10c', width=40, 
+<span class="linenumber">47:</span>                              text = u"いらっしゃい、ご注文は？\n（マウス左ダブルクリックで注文してください）")
+<span class="linenumber">48:</span>             intro.pack()
+<span class="linenumber">49:</span>             f = Tk.Frame(self, bd=3, relief=Tk.RIDGE)
+<span class="linenumber">50:</span>             f.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">51:</span>             
+<span class="linenumber">52:</span>             self.listbox = ScrolledListbox(f, font=('Helvetica', '10'))
+<span class="linenumber">53:</span>             self.listbox.grid(row=0, column=0, rowspan=2, padx=5, pady=5, sticky=Tk.N+Tk.S)
+<span class="linenumber">54:</span>             self.listbox.bind("&lt;Double-Button-1&gt;", self.select_menu)
+<span class="linenumber">55:</span>             self.listbox.insert(Tk.END, *MENU)
+<span class="linenumber">56:</span>     
+<span class="linenumber">57:</span>             self.echo = Tk.StringVar()
+<span class="linenumber">58:</span>             lecho = Tk.Label(f, textvariable=self.echo, font=('Helvetica', '18', 'bold'), fg='<span class="comment">#CC0000', width=20)</span>
+<span class="linenumber">59:</span>             lecho.grid(row=0, column=1, sticky=Tk.E + Tk.W)
+<span class="linenumber">60:</span>     
+<span class="linenumber">61:</span>             b = Tk.Button(f, text=u"まいどあり", font=('Helvetica', '14', 'bold'), fg='<span class="comment">#000066', command = sys.exit)</span>
+<span class="linenumber">62:</span>             b.grid(row=1, column=1)
+<span class="linenumber">63:</span>     
+<span class="linenumber">64:</span>         def select_menu(self, event):
+<span class="linenumber">65:</span>             i = self.listbox.index(Tk.ACTIVE)
+<span class="linenumber">66:</span>             self.echo.set(MENU[i] + u" 一丁！")
+<span class="linenumber">67:</span>         
+<span class="linenumber">68:</span>                 
+<span class="linenumber">69:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">70:</span>     
+<span class="linenumber">71:</span>     if __name__ == '__main__':
+<span class="linenumber">72:</span>         f = Frame()
+<span class="linenumber">73:</span>         f.pack()
+<span class="linenumber">74:</span>         f.mainloop()
+</pre>
+
+下のような Window が表示されると思います。<p>
+<center><img src='sobaya.jpg'></center><p>
+
+<a name="Jentry">
+<h2>2. Entry で取得した文字列を日本語で表示する。</h3>
+ラベルなどと、同様の処理を行えば、Entry から取得した日本語文字列も表示できます。<p>
+<a href='jentry_py.txt'>jentry.py</a>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     jentry.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     japanese entry
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     June 30, 2005
+<span class="linenumber">09:</span>     """</span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     import Tkinter as Tk
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     FONT = ('Helvetica', '12')
+<span class="linenumber">16:</span>     WIDTH = 30
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     class Frame(Tk.Frame):
+<span class="linenumber">19:</span>         
+<span class="linenumber">20:</span>         def __init__(self, master=None):
+<span class="linenumber">21:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">22:</span>             l_name = Tk.Label(self, font=FONT, text=u"お名前")
+<span class="linenumber">23:</span>             l_address  = Tk.Label(self, font=FONT, text=u"ご住所")
+<span class="linenumber">24:</span>             self.s1 = Tk.StringVar()
+<span class="linenumber">25:</span>             self.s2 = Tk.StringVar()
+<span class="linenumber">26:</span>             self.s3 = Tk.StringVar()
+<span class="linenumber">27:</span>             e1 = Tk.Entry(self, textvariable = self.s1, width=WIDTH, font=FONT)
+<span class="linenumber">28:</span>             e2 = Tk.Entry(self, textvariable = self.s2, width=WIDTH, font=FONT)
+<span class="linenumber">29:</span>             e3 = Tk.Entry(self, textvariable = self.s3, width=WIDTH, font=FONT)
+<span class="linenumber">30:</span>             self.bind_class("Entry", '&lt;Return&gt;', self.make_echo)
+<span class="linenumber">31:</span>             
+<span class="linenumber">32:</span>             self.s = Tk.StringVar()
+<span class="linenumber">33:</span>             l_echo = Tk.Label(self, font=FONT, textvariable = self.s, anchor=Tk.W, justify=Tk.LEFT)
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>             l_name.grid(row=0, column=0, padx=5, pady=2)
+<span class="linenumber">36:</span>             l_address.grid(row=1, column=0, padx=5, pady=2)
+<span class="linenumber">37:</span>             e1.grid(row=0, column=1, padx=5, pady=2)
+<span class="linenumber">38:</span>             e2.grid(row=1, column=1, padx=5, pady=2)
+<span class="linenumber">39:</span>             e3.grid(row=2, column=1, padx=5, pady=2)
+<span class="linenumber">40:</span>             l_echo.grid(row=3, column=0, columnspan=2, padx=30, pady=10, sticky=Tk.W + Tk.E)
+<span class="linenumber">41:</span>     
+<span class="linenumber">42:</span>     
+<span class="linenumber">43:</span>         def make_echo(self, event):
+<span class="linenumber">44:</span>             self.s.set(u'お名前：\t%s\nご住所：\t%s\n\t%s\n' % (self.s1.get(), self.s2.get(), self.s3.get()))
+<span class="linenumber">45:</span>         
+<span class="linenumber">46:</span>                 
+<span class="linenumber">47:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">48:</span>     
+<span class="linenumber">49:</span>     if __name__ == '__main__':
+<span class="linenumber">50:</span>         f = Frame()
+<span class="linenumber">51:</span>         f.pack()
+<span class="linenumber">52:</span>         f.mainloop()
+</pre>
+下のような Window が表示されると思います。<p>
+<center><img src='jentry.jpg'></center><p>
+
+<a name='JIO'>
+<h2>3. 日本語のファイルのIO</h3>
+ファイルを読み込むときに、<em>.decode</em>, 書き出すときに <em>.encode</em> メソッドを
+使うと日本語が書かれたファイルの IO ができます。<p>
+簡易日本語エディタ <a href='jmemo_py.txt'>jmemo.py</a>
+  の 80 行目(読み込み）と 87 行目(書きだし）を参考にしてください。jmemo.py を実行するとこのような Window が生成します。<p>
+<center><img src='jmemo.png'></center><p>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter_a1.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-1. Widget に画像を張り込む</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="python6.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  A-3. Tkinter のデモ スクリプト</a></td>
+<!-- <td><a rel='download' href="tkinter12.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter_a2.html&t=Tkinter+%A4%C7%A4%CE%C6%FC%CB%DC%B8%EC%A4%CE%BC%E8%A4%EA%B0%B7%A4%A4' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

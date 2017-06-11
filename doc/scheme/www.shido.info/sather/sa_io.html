@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!----
+-- $Id: sa_io.html,v 1.4 2006/06/16 07:33:49 takafumi Exp $
+--->
+
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, IO">
+<meta name="description" content="Sather の IO について">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 6. IO  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_class.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. クラス定義</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_abst.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+7. 抽象クラス</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_io.html&t=Sather%3A%20IO' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 6. IO </h1>
+<hr>
+
+<h2>1. はじめに</h2>
+今回は入出力について説明します。
+<br>
+Sather の IO の機能は意外と豊富で、十分実用的なプログラムを書くことができます。
+
+<h2>2. 標準出力, 標準エラー出力, 標準入力</h2>
+
+<h3>2.1. 標準出力</h3>
+今まで何度か見てきたように、標準出力は <em>#OUT</em> で作り、'+’に続けて出力したいオブジェクトを書きます。
+オブジェクトは文字列への変換方法が定義されているものなら何でも出力できます。
+<br>
+例：
+<pre class='code'>
+a:INT:=1;
+b:INT:=2;
+#OUT + a + " + " + b + " = " + (a+b) + "\n";    -- 1 + 2 = 3
+</pre>
+
+<h3>2.2. 標準エラー出力</h3>
+<em>#ERR</em> で作ります。それ以外は標準出力と同じです。標準出力がリダイレクトされても、
+モニターに出力されます。
+
+<h3>2.3. 標準入力</h3>
+<em>#IN</em> で作ります。<br>
+以下のようなメソッドがあります。
+<table border=1>
+   <tr>
+      <th>関数</th>
+      <th>帰り値の型</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>eof</td>
+      <td>BOOL</td>
+      <td>入力の終わりなら true を返します。</td>
+   </tr>
+   <tr>
+      <td>get_char</td>
+      <td>INT</td>
+      <td>一文字読み込んで、それを整数として返します。</td>
+   </tr>
+   <tr>
+      <td>get_str</td>
+      <td>STR</td>
+      <td>行末まで読み込みます。改行文字は含めません。</td>
+   </tr>
+</table>
+<p>
+例：ユーザーの入力を 2--5 回繰り返えして出力するプログラム。
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple stdin -&gt; stdout program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">05:</span>           i:INT:=0;
+<span class="linenumber">06:</span>           s:STR;
+<span class="linenumber">07:</span>           loop
+<span class="linenumber">08:</span>     	 #OUT + "&gt;";
+<span class="linenumber">09:</span>     	 s:=#IN.get_str;
+<span class="linenumber">10:</span>     	 if s = "" then break!; end;
+<span class="linenumber">11:</span>     	 #OUT + (s+" ").repeat(i+2) + "\n";
+<span class="linenumber">12:</span>     	 i := (i+1)%4;
+<span class="linenumber">13:</span>           end;
+<span class="linenumber">14:</span>        end;
+<span class="linenumber">15:</span>     end;  <span class="comment">-- end of MAIN</span>
+</pre>
+
+<pre class='samp'>
+takafumi@linux:~/doc/monthly/06-06/sather$ sacomp inout.sa -o inout
+takafumi@linux:~/doc/monthly/06-06/sather$ ./inout
+>hello
+hello hello 
+>how are you?
+how are you? how are you? how are you? 
+>enjoy!
+enjoy! enjoy! enjoy! enjoy! 
+>have a nice day!
+have a nice day! have a nice day! have a nice day! have a nice day! have a nice day! 
+>see you tomorrow.
+see you tomorrow. see you tomorrow. 
+>
+takafumi@linux:~/doc/monthly/06-06/sather$ 
+</pre>
+<h2>3. ファイル入出力</h2>
+ファイル入出力に関するメソッドは class FILE に定義されています。
+下の表に主なものを挙げておきます。<br>
+詳しくは
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/shortflat-FILE.html'>
+The Online Sather Code Browser</a> をみてください。<p>
+
+
+表：FILE クラスの主なコンストラクターおよびメソッド
+<table border=1>
+   <tr>
+      <th>コンストラクター、メソッド</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>open_for_read(nm:STR):SAME</td>
+      <td> 名前 <tt>nm</tt> のファイルを読み込み用に開きます。</td>
+   </tr>
+   <tr>
+      <td>open_for_write(nm:STR):SAME</td>
+      <td> 名前 <tt>nm</tt> のファイルを書き込み用に開きます。</td>
+   </tr>
+   <tr>
+      <td>open_for_append(nm:STR):SAME</td>
+      <td> 名前 <tt>nm</tt> のファイルを追加書き込み用に開きます。</td>
+   </tr>
+   <tr>
+      <td>temp_file:SAME</td>
+      <td> 書き込み用に一時ファイルを作ります。プログラムの終了後自動的に削除されます。</td>
+   </tr>
+   <tr>
+      <td>stdin:SAME</td>
+      <td> 標準入力としてファイルを開きます。</td>
+   </tr>
+   <tr>
+      <td>stdout:SAME</td>
+      <td> 標準出力としてファイルを開きます。</td>
+   </tr>
+   <tr>
+      <td>stderr:SAME</td>
+      <td> 標準エラー出力としてファイルを開きます。</td>
+   </tr>
+   <tr>
+      <td>close</td>
+      <td> ファイルを閉じます。</td>
+   </tr>
+   <tr>
+      <td>str:STR</td>
+      <td> ファイルの内容を文字列で返します。</td>
+   </tr>
+   <tr>
+      <td>get_str:STR</td>
+      <td> ファイルから1行読み込みます。改行文字も含まれます。</td>
+   </tr>
+   <tr>
+      <td>get_char:CHAR</td>
+      <td> ファイルから一文字読み込みます。</td>
+   </tr>
+   <tr>
+      <td>plus (+)</td>
+      <td> ファイルにオブジェクトを書き出します。<tt>fp + obj</tt> のように書くことができます。</td>
+   </tr>
+   <tr>
+      <td>flush</td>
+      <td> バッファをファイルに書き出します。</td>
+   </tr>
+   <tr>
+      <td>eof:BOOL</td>
+      <td> ファイルの終端なら <tt>true</tt> を返します。</td>
+   </tr>
+   <tr>
+      <td>error:BOOL</td>
+      <td> ファイルを開けないなどのエラーが発生していれば <tt>true</tt> を返します。</td>
+   </tr>
+</table>
+<p>
+例として、Sather で書いた cp (scp.sa) と cat (scat.sa) を挙げておきます。<p>
+
+<b>scp.sa</b>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- scp.sa: a simple cp program written in sather</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">06:</span>           if (av.size = 3) then
+<span class="linenumber">07:</span>     	 f0:FILE:=FILE::open_for_read(av[1]);       <span class='comment'>-- av[1] を f0 として開く</span>
+<span class="linenumber">08:</span>     	 if f0.error then
+<span class="linenumber">09:</span>     	    #ERR + "Can not open " + av[1] + "\n";  <span class='comment'>-- 開けなかったらその旨を表示</span>
+<span class="linenumber">10:</span>     	 else
+<span class="linenumber">11:</span>     	    f1:FILE:=FILE::open_for_write(av[2]);
+<span class="linenumber">12:</span>     	    f1 + f0.str;                            <span class='comment'>-- f0 の内容を f1 に書き出す。</span>
+<span class="linenumber">13:</span>     	    f0.close;
+<span class="linenumber">14:</span>     	    f1.close;
+<span class="linenumber">15:</span>     	 end;
+<span class="linenumber">16:</span>           else
+<span class="linenumber">17:</span>     	 #ERR + "Usage: scp [from] [to]\n";
+<span class="linenumber">18:</span>           end;
+<span class="linenumber">19:</span>        end;
+<span class="linenumber">20:</span>     end;  <span class="comment">-- end of MAIN</span>
+</pre>
+
+<b>scat.sa</b>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- scat.sa: a simple cat program written in sather</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        show_file_contents(f:FILE) 
+<span class="linenumber">06:</span>           pre ~f.error
+<span class="linenumber">07:</span>        is
+<span class="linenumber">08:</span>           loop
+<span class="linenumber">09:</span>     	 until!(f.eof);                    <span class="comment">-- check if it reaches the end of file</span>
+<span class="linenumber">10:</span>     	 #OUT + f.get_str;                 <span class="comment">-- getting one line</span>
+<span class="linenumber">11:</span>           end;
+<span class="linenumber">12:</span>        end;
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">15:</span>           if (av.size = 1) then
+<span class="linenumber">16:</span>     	 show_file_contents(FILE::stdin);
+<span class="linenumber">17:</span>           else
+<span class="linenumber">18:</span>     	 i:INT;
+<span class="linenumber">19:</span>     	 f:FILE;
+<span class="linenumber">20:</span>     	 loop
+<span class="linenumber">21:</span>     	    i:=1.upto!(av.size-1);
+<span class="linenumber">22:</span>     	    if av[i] ="-" then
+<span class="linenumber">23:</span>     	       f:=FILE::stdin;
+<span class="linenumber">24:</span>     	    else
+<span class="linenumber">25:</span>     	       f:=FILE::open_for_read(av[i]);
+<span class="linenumber">26:</span>     	    end;
+<span class="linenumber">27:</span>     	    if f.error then
+<span class="linenumber">28:</span>     	       #ERR + "Can not open " + av[i] + "\n";
+<span class="linenumber">29:</span>     	       break!;
+<span class="linenumber">30:</span>     	    else
+<span class="linenumber">31:</span>     	       show_file_contents(f);
+<span class="linenumber">32:</span>     	       f.close;
+<span class="linenumber">33:</span>     	    end;
+<span class="linenumber">34:</span>     	 end;
+<span class="linenumber">35:</span>           end;
+<span class="linenumber">36:</span>        end;
+<span class="linenumber">37:</span>     end;  <span class="comment">-- end of MAIN</span>
+</pre>
+
+<h2>4. フォーマット</h2>
+いろいろな方法がありますが、FMT クラスを使うのが簡単でしょう。
+このクラスは、書式文字列とオブジェクト（複数指定可）を引数に取り、フォーマットされた文字列を返します。
+書式文字列としては、Sather 独自の指定方法と C 言語と同じものが使えます。また、両者を混在させることができます。
+C の書式が使えるのは STR, INT, FLT だけなので、そのほかのデータ型には sather 方式を使う必要があります。
+<p>
+<ul>
+<li>#FMT は 10 個までのオブジェクトをフォーマットして文字列に変えます。
+<li>FMT::format(format_string:STR, objs:ARRAY{$FMT}) は任意の個数のオブジェクトをフォーマットします。<br>
+$FMT メソッドが定義されているオブジェクトは配列に加えることができます。
+</ul>
+  Sather 形式について詳しくは 
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/Format/format.html'>
+Formatting output with Sather</a> をみてください。
+
+<p>
+
+例：
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- fmt.sa: a simple cp program written in sather</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">06:</span>           #OUT + #FMT("%d %06d %X %06X %x %o %06o\n", 255, 255, 255, 255, 255, 255, 255); <span class="comment">-- up to ten items</span>
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>           <span class="comment">-- FMT::format takes ARRAY{$FMT} as the second arguement</span>
+<span class="linenumber">09:</span>           <span class="comment">-- sather and C format notation can be mixed</span>
+<span class="linenumber">10:</span>           #OUT + FMT::format("&lt;&gt;: %02d &lt;&gt; &lt;#.#######e##&gt;\n", |"hello", 1, 2.0, FLTD::pi|);  
+<span class="linenumber">11:</span>        end;
+<span class="linenumber">12:</span>     end;  <span class="comment">-- end of MAIN</span>
+</pre>
+
+<pre class='samp'>
+takafumi@linux:~/doc/monthly/06-06/sather$ sacomp fmt.sa -o fmt
+takafumi@linux:~/doc/monthly/06-06/sather$ ./fmt
+255 000255 FF 0000FF ff 377 000377
+hello: 01 2.0 3.1415930e00
+</pre>
+
+<h2> 5. 終わりに</h2>
+IO に関しては実はいろいろな方法があるのですが、全てを書くとかえって読者が混乱すると思ったので、取捨選択して書きました。<br>
+詳しくは
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+The Online Sather Code Browser</a>
+をみてください。<p>
+次回からは Sather のクラスシステムについてさらに詳しく説明します。
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_class.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. クラス定義</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_abst.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+7. 抽象クラス</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_io.html&t=Sather%3A%20IO' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+</body></html>
+    
+
+
+
+

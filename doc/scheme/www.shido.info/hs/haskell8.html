@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell, monad">
+<meta name="description" content="how to use monad in Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>Easy Monad</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell7.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. 自前の data と class</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell9.html"><img src='../images/right_arrow.gif' class='arrow' border=0>9. 探索</a></td>
+<td><a rel=download href="easy_monad.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell8.html&t=Easy+Monad' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>8. Monad</h1> 
+<hr>
+ <!---------------------------------------------------->
+この文書では Monad について述べます。Monad は成功しないかも知れない
+ 計算を組み合わせる手法で、探索、IO、構文解析 などに使われます。<p>
+
+	Monad は実はそれほど難しい概念ではありません。
+	"Haskell は Monad を使って参照透明性をおかすことなく IO を実現している。"
+	といううたい文句や、"Monad を理解するのは難しいかもしれない" などという脅し
+	を気にしないで、<a href="http://www.haskell.org/onlinelibrary/">Haskell 98</a>
+	にある定義を見れば分かりやすいと思います。<p>
+
+	  上級 Haskeller は Monad を駆使して難しいことをやりますが、
+	  それは Monad が難しいのではなく、彼らのやっていることが難しいだけです。
+	  つまり、Monad を使うと難しいことが出来るが、Monad そのものが難しいわけではない
+	  ということです。
+
+<h2> 1. Monad は class</h2>
+  Haskell 98 では Monad というのは class （つまり総称関数のセット）として定義されています。
+  たまに、"List は Monad" というようなフレーズを見かけますが、
+  正確には、"List は Monad の instance である。"、"List には Monad がある" または、
+"Monad の instance が List ([a]) という data で定義されている" ということになります。
+  従って、<span class="important">class Monad で定義されている総称関数は data 型によって違う動作をする</span>
+  ことになります。<span class="mono">show</span>
+や <span class="mono">(==)</span> のような分かりやすい総称関数だと data 型によって違う動作をしても
+  気になりませんが、見慣れない Monad の総称関数が data 型ごとに動作が違うと混乱するかもしれません。
+  そのような時は落ち着いて、Haskell 98 を見てみるのが良いと思います。<p>
+
+	 それでは、class Monad の定義を見てみましょう。次のようになっています。<p>
+		[code 1]
+	 <pre class="code">
+<span class="comment">-- in predefined types and class</span>
+class  Monad m  where
+    (&gt;&gt;=)   :: m a -> (a -> m b) -> m b
+    (&gt;&gt;)    :: m a -> m b -> m b
+    return  :: a -> m a
+    fail    :: String -> m a
+
+    m &gt;&gt; k  =  m &gt;&gt;= \_ -> k
+    fail s  = error s
+</pre>
+
+[code 1] から class Monad には 4 つの総称関数 <span class="mono"><span class="bluetextbold">
+  (&gt;&gt;=), (&gt;&gt;), return, fail</span></span> が
+あることが分かります。また、
+"class  Monad m  where" とか "m a" だとか "m b" といった記述が
+あるので、
+これらの総称関数は Maybe, List, IO などの何か複合的 data 型に関するものだと
+いうこと、さらに、raturn とか fail という単語がみえるので、失敗するかもしれない
+計算に関わっているということが分かります。<p>
+  さらに、
+  <pre class="o">
+    (&gt;&gt;=)   :: m a -> (a -> m b) -> m b
+</pre>
+  から、<span class="mono">(&gt;&gt;=)</span> は引数として、
+  <ol class="mono">
+  <li>複合型 data 'm a' と、
+	 <li>a から複合型 data 'm b' を作る関数
+		</ol>をとり、
+  複合型 <span class="mono">data m b</span> を返す高階関数であることがわかります。
+  <p>
+	 そして、<span class="mono">(&gt;&gt;)</span> は、
+	 <pre class="o">
+    m >> k  =  m >>= \_ -> k
+</pre>
+	 から、m の値を捨てて、k を呼び出す関数であることが分かります。
+	 (Lisp の progn に似ています。)<p>
+
+		以上のことから、Monad というのは失敗するかもしれない計算をつなぎ合わせる
+		総称関数群であることが分かります。
+
+<h2>2. Maybe の Monad</h2>
+これまでの話は抽象的過ぎて分かりにくいので、
+簡単な例を挙げて説明したいと思います。
+Monad のうちで一番簡単なのは
+Maybe の Monad で、以下のように定義されています。<p>
+  [code 2]
+<pre class="code">
+<span class="comment">-- in standard-prelude</span>
+instance  Monad Maybe  where
+    (Just x) &gt;&gt;= k   =  k x
+    Nothing  &gt;&gt;= k   =  Nothing
+    return           =  Just
+    fail s           =  Nothing
+</pre>
+つまり、以下のようになります。
+<ol>
+<li> <span class="mono">Just x</span> を次の計算 <span class="mono">k</span> に渡すと
+  <span class="mono">k x</span> になる。
+  （つまり、<span class="mono">Just</span> を剥ぎ取って次の計算に渡す。）
+  <li> <span class="mono">Nothing</span>
+	 は次の計算へ行っても <span class="mono">Nothing</span> である。
+	 <li> <span class="mono">return</span> は <span class="mono">Just</span> である。
+		<li> <span class="mono">fail s</span> は <span class="mono">Nothing</span> である。
+		  </ol>
+<h3> 例: 文字列を整数に変換</h3>
+文字列を整数に変換することを考えましょう。まず、
+１文字ずつ読み込む関数 <span class="mono">s2i</span> を定義しましょう。 
+   <span class="mono">s2i</span> は
+	文字列から先頭の１文字を読み込んで、整数に変える関数です（[code 3] 10--13 行目）。 
+<span class="mono">s2i</span> は整数と文字列の tuple を引数に取り、[example 1] のような動作をします。<p>
+
+[example 1]
+<pre class="samp">
+<span class="linenumber">01:</span>     EasyMonad&gt; s2i (0,"12345")
+<span class="linenumber">02:</span>     Just (1,"2345")
+<span class="linenumber">03:</span>     EasyMonad&gt; s2i (1, "2345")
+<span class="linenumber">04:</span>     Just (12,"345")
+</pre>
+  
+[code 3]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">-- easy_monad.hs</span>
+<span class="linenumber">02:</span>     <span class="comment">-- a small script for haskell8.html</span>
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     module EasyMonad where
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     import Char
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     <span class="comment">--- Let's convert a String to Int if the String is [0-9]+</span>
+<span class="linenumber">09:</span>     <span class="comment">-- s2i is a (reading one character) function</span>
+<span class="linenumber">10:</span>     s2i :: (Int, String) -&gt; Maybe (Int, String)
+<span class="linenumber">11:</span>     s2i (i, "") = Just (i, "")
+<span class="linenumber">12:</span>     s2i (i, c:cs) | isDigit c = Just (i*10 + ord c - ord '0', cs)
+<span class="linenumber">13:</span>                   | otherwise = Nothing
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment">-- same as s2i, written in Monadic term</span>
+<span class="linenumber">16:</span>     s2i' :: (Int, String) -&gt; Maybe (Int, String)
+<span class="linenumber">17:</span>     s2i' (i, "") = return (i, "")
+<span class="linenumber">18:</span>     s2i' (i, c:cs) | isDigit c = return (i*10 + ord c - ord '0', cs)
+<span class="linenumber">19:</span>                    | otherwise = fail "The char is not Digit"
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>     <span class="comment">-- whole function to convert string to Maybe Int</span>
+<span class="linenumber">22:</span>     str2int :: String -&gt; Maybe Int
+<span class="linenumber">23:</span>     str2int "" = Nothing
+<span class="linenumber">24:</span>     str2int str = iter (0, str)
+<span class="linenumber">25:</span>      where iter (i, "") = Just i
+<span class="linenumber">26:</span>            iter (i, cs) = let p = s2i (i, cs)
+<span class="linenumber">27:</span>                           in if p == Nothing
+<span class="linenumber">28:</span>                                  then Nothing
+<span class="linenumber">29:</span>                                  else p &gt;&gt;= iter
+</pre>
+
+このコードは付録の <a href="easy_monad.lzh">easy_monad.hs</a>
+に入っているので、それを hugs などの対話的な処理系で
+ load し、[example 2] のようにして遊んでみてください。
+文字列が読み込まれていく様子と<span class="mono">(&gt;&gt;=)</span> の使い方が分かると思います。<p>
+  [example 2]
+<pre class="samp">
+EasyMonad&gt; s2i (0, "123")     <span class="comment">-- read one</span>
+Just (1,"23")
+EasyMonad&gt; s2i (0, "123") &gt;&gt;= s2i             <span class="comment">-- read two</span>
+Just (12,"3")
+EasyMonad&gt; s2i (0, "123") &gt;&gt;= s2i &gt;&gt;= s2i     <span class="comment">-- read three</span>
+Just (123,"")
+EasyMonad&gt; s2i (0, "12a") &gt;&gt;= s2i &gt;&gt;= s2i     <span class="comment">-- I cannot convert "12a" into an Int</span>
+Nothing
+EasyMonad&gt; s2i (0, "abc") &gt;&gt;= s2i &gt;&gt;= s2i     <span class="comment">-- I cannot convert "abc" into an Int, either</span>
+Nothing
+</pre>
+  <span class="mono">s2i'</span> (code 1, 16--19 行目） は <span class="mono">s2i</span>
+  を Monad 用語で書き換えたものです。全く同様に動作します。<p>
+
+	 <span class="mono">str2int</span> (code 1, 22--29 行目）は <span class="mono">s2i</span>
+	 を用いて String を Maybe Int に変換する
+	 関数です。
+<pre class="samp">
+EasyMonad&gt; str2int "12345"
+Just 12345
+EasyMonad&gt; str2int "12+345"
+Nothing
+</pre>
+この例から Monad 自体はそんなに難しくないことがお解かりいただけたと思います。
+<h2> 3. Monad 則</h2>
+計算をスムーズにつなげるために、Monad で定義される総称関数は３つの Monad 則を満たさなければなりません。
+既存の Monad は全てこの条件を満たしています。３番目の規則は、下に示す計算の結合則を保証するものです。
+<pre class="code">
+       c1 &gt;&gt;= c2 &gt;&gt;= c3
+&hArr;     (c1 &gt;&gt;= c2) &gt;&gt;= c3
+&hArr;     c1 &gt;&gt;= (c2 &gt;&gt;= c3) <span class='comment'> (注 1)</span> 
+</pre>
+<small>注 1: 上のは概念的に書いたもの。Haskell のコードとして書くと 
+<span style='background-color:beige'>
+<span class='mono'>c1 >>= (\x -> c2 x >>= c3) </span></span>。</small>
+<p>
+自前の Monad を作るときは Monad 則を満たすようにして下さい。<p>
+[Monad 則]
+<pre class="def">
+return a &gt;&gt;= k = k a
+m &gt;&gt;= return = m
+m &gt;&gt;= (\x -&gt; k x &gt;&gt;= h) = (m &gt;&gt;= k) &gt;&gt;= h
+</pre>
+試しに Maybe の Monad が Monad 則を満たしていることを確認してみましょう。
+<pre class="code">
+<span class="comment">-- Law 1</span>
+return x &gt;&gt;= k   &rArr;   Just x  &gt;&gt;= k   &rArr;    k x
+
+<span class="comment">-- Law 2</span>
+Just x &gt;&gt;= return    &rArr;    return x      &rArr;        Just x
+
+<span class="comment">-- Law 3</span>
+Just y &gt;&gt;= (\x -&gt; k x &gt;&gt;= h)   
+ &rArr;       (\x -&gt; k x &gt;&gt;= h) y                  
+ &rArr;        k y &gt;&gt;= h
+ &rArr;       (Just y &gt;&gt;= k) &gt;&gt;= h  
+</pre>
+
+<h2> 4. IO の Monad</h2>
+Haskell では、IO の結果として得られる値は、<span class="bluetext">IO a</span> という
+型を持ち、a とは区別されます。こうすると、IO の結果を、直接は、関数の引数にすることが
+出来ないので、本体の関数部分の参照透明性が保持されます。<p>
+
+  IO の結果を関数に渡すため IO の Monad が定義されています。
+  <span style="font-family:monospace">'...'</span> の部分は実装に依存します。
+<pre class="code">
+instance Monad IO where
+   (>>=)  = ...
+   return = ...
+   fail s = ioError (userError s)
+</pre>
+
+<h2> 5. do 記法</h2>
+<span class="mono">do</span> 記法は <span class="mono">(&gt;&gt;=), (&gt;&gt;)</span>
+を使った通常の記法の構文糖衣です。
+<span class="mono">do</span> 記法を用いると手続き言語風になるので
+IO などを記述するときは分かりやすくなります。<br>
+以下に <span class="mono">do</span> 記法を通常の記法に翻訳する規則を示します。
+<table border=1, class="mono">
+   <tr>
+      <th>翻訳前</th>
+      <th>翻訳後</th>
+   </tr>
+   <tr>
+      <td>do{foo}</td>
+      <td>foo</td>
+   </tr>
+   <tr>
+      <td>do{foo; bazs}</td>
+      <td>foo &gt;&gt; do{bazs}</td>
+   </tr>
+   <tr>
+      <td>do{let hoge; bazs}</td>
+      <td>let hoge in do{bazs}</td>
+   </tr>
+   <tr>
+      <td>do{ p &lt;- foo; bazs}</td>
+      <td>let ok p = do{bazs} ; ok _ = fail "..." in foo &gt;&gt;= ok</td>
+   </tr>
+</table>
+<p>
+４番目の翻訳規則は <span style="font-family: monospace">fail</span> を考慮しているため一見すると分かりにくくなっていますが、
+基本的には以下の式と同等です。<br>
+[翻訳規則 4']
+<pre class="o">
+do{ p &lt;- foo; bazs} &rArr; foo &gt;&gt;= (\ p -&gt do{bazs})
+</pre>
+<p>
+以下に通常の記法と do 記法を用いたエコープログラムを示します。
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">-- simple echo</span>
+<span class="linenumber">02:</span>     <span class="comment">-- do notation</span>
+<span class="linenumber">03:</span>     my_echo :: IO()
+<span class="linenumber">04:</span>     my_echo = do putStrLn "Enter something."
+<span class="linenumber">05:</span>                  str &lt;- getLine
+<span class="linenumber">06:</span>                  putStrLn $ "You have entered: " ++ str
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     <span class="comment">-- conventional notation</span>
+<span class="linenumber">09:</span>     my_echo' :: IO()
+<span class="linenumber">10:</span>     my_echo' = putStrLn "Enter something." &gt;&gt;
+<span class="linenumber">11:</span>                getLine &gt;&gt;= (\str -&gt; putStrLn $ "You have entered: " ++ str)
+</pre>
+<h2> 6. List の Monad</h2>
+List の Monad は以下のように定義されています。
+<pre class="code">
+instance  Monad []  where
+    m &gt;&gt;= k          = concat (map k m)
+    return x         = [x]
+    fail s           = []
+</pre>
+<span class="mono">(&gt;&gt;=)</span> が Maybe 型とだいぶ異なっています。
+List における <span class="mono">(&gt;&gt;=)</span> は、リストの要素全てに <span class="mono">k</span>
+を作用させ、
+それを <span class="mono">concat</span> でつなぎ合わせるということです。
+また、<span style="font-family: monospace">return</span> はリストを作ること、
+<span style="font-family: monospace">fail</span> は空リストです。<p>
+  以下にリストの要素のうち奇数を選んでそれを <span class="mono">c</span> 倍する関数を
+  <ol>
+<li> 通常の書き方 (<span style="font-family: monospace">mul_odd1</span>, 4--7 行目）
+  <li> Monad 用語を使った書き方 (<span style="font-family: monospace">mul_odd2</span>, 10--13 行目）
+	 <li> 内包表現を使った書き方 (<span style="font-family: monospace">mul_odd3</span>, 16--17 行目）
+		</ol>
+  で書いてみました、これらの関数の比較から、内包表現は
+  List の Monad の構文糖衣であることが分かります。
+
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">--- Monad at List</span>
+<span class="linenumber">02:</span>     <span class="comment">--- if odd then (*c) else fail</span>
+<span class="linenumber">03:</span>     <span class="comment">--- list notation</span>
+<span class="linenumber">04:</span>     mul_odd1 :: Int -&gt; [Int] -&gt; [Int]
+<span class="linenumber">05:</span>     mul_odd1 c xs = xs &gt;&gt;= (\x -&gt; if odd x
+<span class="linenumber">06:</span>                                       then [x*c]
+<span class="linenumber">07:</span>                                       else [])
+<span class="linenumber">08:</span>                                       
+<span class="linenumber">09:</span>     <span class="comment">--- monadic notation</span>
+<span class="linenumber">10:</span>     mul_odd2 :: Int -&gt; [Int] -&gt; [Int]
+<span class="linenumber">11:</span>     mul_odd2 c xs = xs &gt;&gt;= (\x -&gt; if odd x
+<span class="linenumber">12:</span>                                       then return (x*c)
+<span class="linenumber">13:</span>                                       else fail "I like odd.")
+<span class="linenumber">14:</span>                                       
+<span class="linenumber">15:</span>     <span class="comment">---  internal capsule</span>
+<span class="linenumber">16:</span>     mul_odd3 :: Int -&gt; [Int] -&gt; [Int]
+<span class="linenumber">17:</span>     mul_odd3 c xs = [x*c | x &lt;- xs, odd x]
+</pre>
+<pre class="samp">
+EasyMonad&gt; mul_odd2 10 [1,2,3,4,5]
+[10,30,50]
+</pre>
+<h2> 7. mapM と mapM_</h2>
+
+<span class="mono">map</span> と Monad を組み合わせると便利なことがあります。
+<span class="mono">mapM</span> は <span class="mono">map</span>
+と <span class="mono">(&gt;&gt;=)</span>
+を、<span class="mono">mapM_</span> は <span class="mono">map</span>
+と <span class="mono">(&gt;&gt;)</span> を
+組み合わせたものです。<br>
+<span class="mono">mapM_</span> はリストの要素に１引数の関数 f を作用させ、値は返しません。
+一方、<span class="mono">mapM</span> はリストの要素に f を作用させ、全ての要素について
+<span class="mono">return</span> を返したら、返ってきた値のリストを返します。
+一方、１つでも <span class="mono">fail</span> があると全体も <span class="mono">fail</span> を返します。
+定義と、例を示します。<p>
+  [定義]
+<pre class="code">
+sequence       :: Monad m =&gt; [m a] -&gt; m [a] 
+sequence       =  foldr mcons (return [])
+                    where mcons p q = p &gt;&gt;= \x -&gt; q &gt;&gt;= \y -&gt; return (x:y)
+
+sequence_      :: Monad m =&gt; [m a] -&gt; m () 
+sequence_      =  foldr (&gt;&gt;) (return ())
+
+<span class="comment">-- The xxxM functions take list arguments, but lift the function or
+-- list element to a monad type</span>
+
+mapM             :: Monad m =&gt; (a -&gt; m b) -&gt; [a] -&gt; m [b]
+mapM f as        =  sequence (map f as)
+
+mapM_            :: Monad m =&gt; (a -&gt; m b) -&gt; [a] -&gt; m ()
+mapM_ f as       =  sequence_ (map f as)
+</pre>
+[例]
+<pre class="code">
+foo :: [Int] ->IO()
+foo = mapM_ print
+<span class="comment">{-
+foo [1,2,3] &rArr; sequence_ $ map print [1,2,3]
+            &rArr; sequence_ [(print 1), (print 2), (print 3)]
+            &rArr; print 1 >> print 2 >> print 3
+-}</span>
+
+baz :: [Double] -> Maybe [Double]
+baz xs = mapM  bar xs
+ where bar x = if x > 0
+                   then return (sqrt x)
+                   else fail "I like positive."
+
+<span class="comment">{-
+baz [1,4,9] &rArr; sequence [Just 1.0, Just 2.0, Just 3.0]
+            &rArr; Just [1.0, 2.0, 3.0]
+
+baz [1,-4,9] &rArr; sequence [Just 1.0, Nothing, Just 3.0]
+            &rArr; Nothing
+-}</span>
+</pre>
+<h2> 8. 終わりに</h2>
+Monad については
+<a href="http://www.nomaware.com/monads/html/">All about Monad</a>
+（<a href="http://www.sampou.org/haskell/a-a-monads/html/index.html">日本語訳</a>）
+に詳しく書いてあります。
+また、
+<a href="http://www.haskell.org/bookshelf/index.html#monads">
+haskell.org
+</a>
+に Web 上の Monad の解説記事の一覧があります。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell7.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. 自前の data と class</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell9.html"><img src='../images/right_arrow.gif' class='arrow' border=0>9. 探索</a></td>
+<td><a rel=download href="easy_monad.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell8.html&t=Easy+Monad' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>

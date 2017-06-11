@@ -1,0 +1,56 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="spam e-mail">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 自分が差出人のスパムが送られてくる </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc7&t=%BC%AB%CA%AC%A4%AC%BA%B9%BD%D0%BF%CD%A4%CE%A5%B9%A5%D1%A5%E0%A4%AC%C1%F7%A4%E9%A4%EC%A4%C6%A4%AF%A4%EB"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>自分が差出人のスパムが送られてくる</h1>
+<hr>
+Jul 27, 2005
+<p>
+最近、<b>自分が差出人のスパムが送られてくる</b>様になりました。
+どうやら、スパイウェアでパスワードを取られたようです。<p>
+そこで、フリーのスパイウェア対策ソフトを google で探したところ、
+ <a href="http://www.spybot.info/en/index.html">Sypbot</a> が見つかりました。
+早速ダウンロードして試してみると、なんと 14 個のスパイウェアに感染していました。
+恐ろしいことです。
+<p>
+また、e-mail のパスワードも頻繁に変えることにしました。
+以下は、自動的にパスワードを作ってくれる Lisp スクリプトです。
+n 文字のパスワードを作ってくれます。これを使って毎日 e-mail のパスワードを変更するようにしました。
+<p>
+<pre>
+(defun sche-make-pw (n)
+  (let (pw)
+    (dotimes (i n)
+      (push (code-char (+ 32 (random 95))) pw))
+    (concatenate "string pw)))
+</pre>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc7&t=%BC%AB%CA%AC%A4%AC%BA%B9%BD%D0%BF%CD%A4%CE%A5%B9%A5%D1%A5%E0%A4%AC%C1%F7%A4%E9%A4%EC%A4%C6%A4%AF%A4%EB"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

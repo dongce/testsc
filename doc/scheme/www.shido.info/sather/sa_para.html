@@ -1,0 +1,637 @@
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, parameterized class">
+<meta name="description" content="Sather のパラメータ付クラス">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 8. パラメター付クラス  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_abst.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. 抽象クラス</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0></a>
+  <a rel=up href="index.html">Sather を試そう</a></td>
+
+<td><a rel=next href="sa_op.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+9. オペレーター</a></td>
+
+<td><a rel=download href="sa_para.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_para.html&t=Sather%3A+%A5%D1%A5%E9%A5%E1%A5%BF%A1%BC%C9%D5%A5%AF%A5%E9%A5%B9' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 8. パラメター付クラス </h1>
+<hr>
+
+<!------------------------------------------
+- 
+- 準備中です。<br>
+- しばらくお待ちください。<p>
+- <img src='../images/under_construction.gif'>
+------------------------------------------->
+
+<h2>1. はじめに</h2>
+今回はパラメータ付クラスについて説明します。パラメータクラスは
+<tt>ARRAY{INT}</tt> のように <tt>class_name{parameter}</tt> というように
+パラメータを明示的に書きます。抽象クラスもパラメータになれるので、非常に柔軟な
+データ構造を作ることができます。<br>
+たとえば、<tt>ARRAY{$OB}</tt> とすれば、何でも配列に格納できます。
+
+
+<h2>2．パラメータ付クラスの概要</h2>
+パラメータ付クラスは ARRAY{INT}、MAP{INT, STR} のように、主に入れものとして使われており、
+何をどのように格納するのかを定義します。
+多くのパラメータ付クラスは 抽象クラス $ELT, $ELT{ETP}, $CONTAINER{ETP} のサブクラスであり、
+それらで定義されたメソッド（表1）を持ちます。
+<p>
+<center>
+表1: $ELT, $ELT{ETP}, $CONTAINER{ETP} で定義されているメソッド
+<table border=1>
+   <tr>
+      <th>メソッド</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>elt!</td>
+      <td> $ELT および $ELT{ETP} クラスで定義されているイテレーターで、入れものクラスの要素を順番に返します。</td>
+   </tr>
+   <tr>
+      <td>copy</td>
+      <td> self をコピーして返します。$CONTAINER クラスで定義されています。</td>
+   </tr>
+   <tr>
+      <td>has(e: ETP)</td>
+      <td> self が e を含めば true を返します。</td>
+   </tr>
+   <tr>
+      <td>size</td>
+      <td>要素の数を返します。</td>
+   </tr>
+</table>
+</center>
+<h3>2.1. typecase 演算子</h3>
+クラスの種類によって処理を振り分けるときに使います。Sather のパラメータ付クラスはパラメータに $OB や $STR を指定すれば
+ほぼ何でも格納することができるので、
+この演算子が必要な場面がしばしばあります。
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple typecase program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        main is
+<span class="linenumber">06:</span>           a:ARRAY{$STR}:=#(|1, 2.12, 3.14159d, "Hello", #INTI(1000000), 'c'|);  <span class="comment">-- 文字列に変換できる要素 ６個からなる配列 a を定義</span>
+<span class="linenumber">07:</span>           s:STR;                                                                <span class="comment">-- .str が定義されていれば何でもこの配列に格納することができる。</span>
+<span class="linenumber">08:</span>           loop
+<span class="linenumber">09:</span>     	 i:$STR:=a.elt!;                         <span class="comment">-- a の要素を取り出して</span>
+<span class="linenumber">10:</span>     	 typecase i                              <span class="comment">-- データ型によって処理を振り分ける。</span>
+<span class="linenumber">11:</span>     	 when INT then
+<span class="linenumber">12:</span>     	    s:="INT: "; 
+<span class="linenumber">13:</span>     	 when FLT then
+<span class="linenumber">14:</span>     	    s:="FLT: ";
+<span class="linenumber">15:</span>     	 when FLTD then
+<span class="linenumber">16:</span>     	    s:="FLTD: ";
+<span class="linenumber">17:</span>     	 when INTI then
+<span class="linenumber">18:</span>     	    s:="INTI: ";
+<span class="linenumber">19:</span>     	 when STR then
+<span class="linenumber">20:</span>     	    s:="STR: ";
+<span class="linenumber">21:</span>     	 else
+<span class="linenumber">22:</span>     	    s:="Other: ";
+<span class="linenumber">23:</span>     	 end;
+<span class="linenumber">24:</span>     	 #OUT + "a[" + a.ind! +"] = " + s + i.str + "\n";
+<span class="linenumber">25:</span>           end;
+<span class="linenumber">26:</span>        end;
+<span class="linenumber">27:</span>     end;
+</pre>
+
+
+<pre class='samp'>
+$ sacomp typecase.sa -o typecase
+$ ./typecase
+a[0] = INT: 1
+a[1] = FLT: 2.12
+a[2] = FLTD: 3.14159
+a[3] = STR: Hello
+a[4] = INTI: 100000000
+a[5] = Other: c
+</pre>
+<h2> 3. Array{T} クラス</h2>
+
+パラメータ付クラスの最もよく使われる型としてまず Array クラスについて説明します。
+
+<h3>3.1. インスタンスの生成 (create, create_from)</h3>
+ARRAY{T} クラスの create は引数無しのものと、引数に正の整数を取るものと、配列リテラルを取るものの3種類が定義されています。
+<pre class='code'>
+a0:ARRAY{INT}=#(|1,2,3|);  <span class='comment'>-- a0[0]=1, a0[1]=2, a0[2]=3</span>
+a1:ARRAY{INT}=#(3);        <span class='comment'>-- INT 3 個分のメモリー領域を確保した配列を生成</span>
+a2::=#ARRAY{INT};          <span class='comment'>-- INT 0 個分のメモリー領域を確保した配列を生成</span>
+</pre>
+
+また、他の $ELT{T} クラスから ARRAY{T} クラスのインスタンスを生成する <tt>create_from(e: $ELT{T}):SAME</tt> もあります。
+<h3>3.2. 主なメソッド</h3>
+ARRAY{T} クラスの主なメソッドを表２に挙げます。
+引数に関数を取るメソッドについては次章で説明します。
+表２をみるとわかるように Common Lisp の影響をかなり受けています。
+表２はごく１部を挙げただけですので、詳しくは
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/short-ARRAY%7B_%7D.html'>
+Sather Class Index: ARRAY{T}</a> をみてください。
+<p>
+<center>
+表2: ARRAY{T} クラスの主なメソッド
+<table border=1>
+   <tr>
+      <th>メソッド</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>append</td>
+      <td>配列を結合します。引数が１個から３個のものがあります。</td>
+   </tr>
+   <tr>
+      <td>binary_search(e:T)</td>
+      <td>ソート済みの配列から e を探して、そのインデックスを返します。</td>
+   </tr>
+   <tr>
+      <td>copy</td>
+      <td>self をコピーします。いろいろな引数をとるものがあります。</td>
+   </tr>
+   <tr>
+      <td>count(e:T)</td>
+      <td> e の数を返します。</td>
+   </tr>
+   <tr>
+      <td>has(e:T)</td>
+      <td> e があったら true を返します。</td>
+   </tr>
+   <tr>
+      <td>remove(e:T)</td>
+      <td> e を取り除いた配列を返します。</td>
+   </tr>
+   <tr>
+      <td>remove_duplicates</td>
+      <td> 重複を取り除いた配列を返します。</td>
+   </tr>
+   <tr>
+      <td>reverse</td>
+      <td>要素の順番を逆にした配列を返します。</td>
+   </tr>
+   <tr>
+      <td>size</td>
+      <td>要素の数を返します。</td>
+   </tr>
+   <tr>
+      <td>sort</td>
+      <td>ソートします。</td>
+   </tr>
+   <tr>
+      <td>str</td>
+      <td>文字列に変換します。</td>
+   </tr>
+   <tr>
+      <td>elt!</td>
+      <td>要素を１つずつ取り出します。</td>
+   </tr>
+   <tr>
+      <td>ind!</td>
+      <td>インデックスを１つずつ取り出します。</td>
+   </tr>
+   <tr>
+      <td>set!(e:T)</td>
+      <td>配列のはじめから代入していきます。</td>
+   </tr>
+</table>
+</center>
+
+<h2>4. TUP</h2>
+型の違う要素をひとまとめにするときに使います。
+４つまでの要素を一まとめにできます。TUP の要素は $HASH のサブクラスである必要があります。
+TUP クラスは次の節で述べる MAP クラスでも使われますし、また、複数の値を返す関数を定義するときに便利です。
+TUP クラスの要素は t1,t2,t3,t4 でアクセスできます。<p>
+
+実は、Sather の関数は C 言語の関数と同じように引数を使って値を返すこともできるのですが、
+TUP を使って複数の値を返すほうがバグが少なくなるでしょう。
+<p>
+例：tup.sa。 人物の属性を TUP{INT, STR, CHAR, INT} で表す。
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple TUP program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        shared id:INT:=0;
+<span class="linenumber">06:</span>        make_person(name:STR, sex:CHAR, age:INT):TUP{INT, STR, CHAR, INT} is
+<span class="linenumber">07:</span>           id:= id+1;
+<span class="linenumber">08:</span>           return #(id, name, sex, age);
+<span class="linenumber">09:</span>        end;
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>        person_id(p:TUP{INT,STR,CHAR,INT}):INT is
+<span class="linenumber">12:</span>           return p.t1;
+<span class="linenumber">13:</span>        end;
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>        person_name(p:TUP{INT,STR,CHAR,INT}):STR is
+<span class="linenumber">16:</span>           return p.t2;
+<span class="linenumber">17:</span>        end;
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>        person_sex(p:TUP{INT,STR,CHAR,INT}):STR is
+<span class="linenumber">20:</span>           if p.t3 = 'm' then return "male";
+<span class="linenumber">21:</span>           else return "female";
+<span class="linenumber">22:</span>           end;
+<span class="linenumber">23:</span>        end;
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>        person_age(p:TUP{INT,STR,CHAR,INT}):INT is
+<span class="linenumber">26:</span>           return p.t4;
+<span class="linenumber">27:</span>        end;
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>        show_person(p:TUP{INT,STR,CHAR,INT}):STR is
+<span class="linenumber">30:</span>           return "ID: " + person_id(p).str + 
+<span class="linenumber">31:</span>     	    "\nNAME: " + person_name(p) + 
+<span class="linenumber">32:</span>     	    "\nSEX: " + person_sex(p) + 
+<span class="linenumber">33:</span>     	    "\nAGE: " + person_age(p).str + "\n\n";
+<span class="linenumber">34:</span>        end;
+<span class="linenumber">35:</span>     
+<span class="linenumber">36:</span>        main is
+<span class="linenumber">37:</span>           #OUT + "TUP test using person properties.\n\n";
+<span class="linenumber">38:</span>           a:ARRAY{TUP{INT,STR,CHAR,INT}}:=#(|make_person("Jhon Smith", 'm', 50), make_person("Mary McCarthy", 'f', 25)|);
+<span class="linenumber">39:</span>           loop
+<span class="linenumber">40:</span>     	 #OUT + show_person(a.elt!);
+<span class="linenumber">41:</span>           end;
+<span class="linenumber">42:</span>        end;
+<span class="linenumber">43:</span>     end;
+</pre>
+
+<pre class='samp'>
+$ sacomp tup.sa -o tup
+$ ./tup
+TUP test using person properties.
+
+ID: 1
+NAME: Jhon Smith
+SEX: male
+AGE: 50
+
+ID: 2
+NAME: Mary McCarthy
+SEX: female
+AGE: 25
+</pre>
+
+上の例は、本当は PERSON クラスを定義したほうがよいのでしょうが、TUP の例を示すため、強引に TUP{INT,STR,CHAR,INT} を使いました。
+
+<h2> 5. MAP{T1, T2}</h2>
+いわゆるハッシュ表です。
+詳しい内容は <a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/short-MAP%7B_,_%7D.html'>
+Sather Class Index: MAP</a>
+に譲って、お決まりの単語カウントプログラムを書いてみました。
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- swc.sa: a simple words counts program written in sather</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        const nonword_chars:STR:=" \t\n\r.,\"\\\`\':;?!()/-";  <span class="comment">-- 両端にあるとき単語に含めない文字</span>
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>        <span class="comment">-- check if the character is a word character.</span>
+<span class="linenumber">08:</span>        is_wordchar(c:CHAR):BOOL is
+<span class="linenumber">09:</span>           return ~nonword_chars.contains(c);               <span class="comment">-- 両端にあるとき単語に含めない文字でなければ true を返す。</span>
+<span class="linenumber">10:</span>        end;
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>        <span class="comment">-- truncating non_word characters from the head or tail of the word.</span>
+<span class="linenumber">13:</span>        w_truncate(w:STR, headp:BOOL):STR is                <span class="comment">-- 単語の両端から単語に含めない文字列を削る。</span>
+<span class="linenumber">14:</span>           idx,begin,num:INT;
+<span class="linenumber">15:</span>           num:=w.size-1;
+<span class="linenumber">16:</span>           if headp then 
+<span class="linenumber">17:</span>     	 idx:=0;
+<span class="linenumber">18:</span>     	 begin:=1;
+<span class="linenumber">19:</span>           else 
+<span class="linenumber">20:</span>     	 idx:=num;
+<span class="linenumber">21:</span>     	 begin:=0;
+<span class="linenumber">22:</span>           end;
+<span class="linenumber">23:</span>           if  w.size=0 or is_wordchar(w.char(idx))  then  
+<span class="linenumber">24:</span>     	 return w;
+<span class="linenumber">25:</span>           else
+<span class="linenumber">26:</span>     	 return w_truncate(w.substring(begin,num), headp);
+<span class="linenumber">27:</span>           end;
+<span class="linenumber">28:</span>        end;
+<span class="linenumber">29:</span>     
+<span class="linenumber">30:</span>        <span class="comment">-- modifing the word to add to the hash table</span>
+<span class="linenumber">31:</span>        w_modify(w:STR):STR is                             <span class="comment">-- 両端を削った後小文字に変換</span>
+<span class="linenumber">32:</span>           return w_truncate(w_truncate(w, false), true).lower;
+<span class="linenumber">33:</span>        end;
+<span class="linenumber">34:</span>     
+<span class="linenumber">35:</span>        <span class="comment">-- making a word count hash table</span>
+<span class="linenumber">36:</span>        make_hash(f:FILE):MAP{STR, INT} is                  <span class="comment">-- (単語, 出現回数) のハッシュ表を作る。</span>
+<span class="linenumber">37:</span>           hash::=#MAP{STR,INT};
+<span class="linenumber">38:</span>           line,w:STR;
+<span class="linenumber">39:</span>           loop
+<span class="linenumber">40:</span>     	 until!(f.eof);
+<span class="linenumber">41:</span>     	 line:=f.get_str + " ";                        <span class="comment">-- 最後に Space 文字を足さないと行の最後の単語が split! でかからない。</span>
+<span class="linenumber">42:</span>     	 loop
+<span class="linenumber">43:</span>     	    w:=w_modify(line.split!(' '));
+<span class="linenumber">44:</span>     	    if w.size &gt; 0 then
+<span class="linenumber">45:</span>     	       if hash.has_ind(w) then
+<span class="linenumber">46:</span>     		  hash[w]:=hash[w]+1;
+<span class="linenumber">47:</span>     	       else
+<span class="linenumber">48:</span>     		  hash[w]:=1;
+<span class="linenumber">49:</span>     	       end;
+<span class="linenumber">50:</span>     	    end;
+<span class="linenumber">51:</span>     	 end;
+<span class="linenumber">52:</span>           end;
+<span class="linenumber">53:</span>           return hash;
+<span class="linenumber">54:</span>        end;
+<span class="linenumber">55:</span>     
+<span class="linenumber">56:</span>        <span class="comment">-- getting the sorted array of the keys of the hash table</span>
+<span class="linenumber">57:</span>        get_sorted_key(wc:MAP{STR,INT}):ARRAY{STR} is   <span class="comment">-- ハッシュ表のキー（単語)を配列に書き出しソートして返す。</span>
+<span class="linenumber">58:</span>           a:ARRAY{STR}:=#(wc.size);                    <span class="comment">-- この操作は出現回数をアルファベット順にソートして表示するために行う。</span>
+<span class="linenumber">59:</span>           loop                                         <span class="comment">-- オンラインドキュメントに載っているinds というメソッドは実際は無い。</span>
+<span class="linenumber">60:</span>     	 a.set!(wc.ind!);
+<span class="linenumber">61:</span>           end;
+<span class="linenumber">62:</span>           return a.sort;
+<span class="linenumber">63:</span>        end;
+<span class="linenumber">64:</span>     
+<span class="linenumber">65:</span>        <span class="comment">-- showing the result of word count, sorted by word.</span>
+<span class="linenumber">66:</span>        show_resul(wc:MAP{STR,INT}) is                       <span class="comment">-- 結果の表示</span>
+<span class="linenumber">67:</span>           w:STR;
+<span class="linenumber">68:</span>           loop
+<span class="linenumber">69:</span>     	 w:=get_sorted_key(wc).elt!;
+<span class="linenumber">70:</span>     	 #OUT + w + "\t" + wc[w] + "\n";
+<span class="linenumber">71:</span>           end;
+<span class="linenumber">72:</span>        end;
+<span class="linenumber">73:</span>     
+<span class="linenumber">74:</span>        <span class="comment">-- practical main function, counting word in a file</span>
+<span class="linenumber">75:</span>        count_words(filename:STR) is                        <span class="comment">-- 実質的なメイン関数</span>
+<span class="linenumber">76:</span>           f::=FILE::open_for_read(filename);
+<span class="linenumber">77:</span>           if f.error then
+<span class="linenumber">78:</span>     	 #ERR + "Cannot open " + filename + "\n";
+<span class="linenumber">79:</span>           else
+<span class="linenumber">80:</span>     	 show_resul(make_hash(f));  <span class="comment">-- ファイルが開けたらハッシュ表を作ってそれを表示する。</span>
+<span class="linenumber">81:</span>     	 f.close;
+<span class="linenumber">82:</span>           end;
+<span class="linenumber">83:</span>        end;
+<span class="linenumber">84:</span>     
+<span class="linenumber">85:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">86:</span>           if (av.size = 2) then
+<span class="linenumber">87:</span>     	 count_words(av[1]);
+<span class="linenumber">88:</span>           else
+<span class="linenumber">89:</span>     	 #ERR + "Usage: scw FILENAME\n";
+<span class="linenumber">90:</span>           end;
+<span class="linenumber">91:</span>        end;
+<span class="linenumber">92:</span>     end; <span class="comment">-- MAIN</span>
+</pre>
+
+<h3>ノート(1)：<tt>STR::split!(c:CHAR)</tt> について</h3>
+この関数の動作は普通に予想するものと違うので注意が必要です。
+例えば、<br>
+"This is a pen.".split!(' ')
+<br>
+は
+"This ", "is ", "a " を順番に返します。<strong>"pen." は返ってきません</strong>！！
+"pen." を返すためには最後にスペースを入れる必要があります。つまり、<br>
+("This is a pen." + " ").split!(' ')
+<br>
+とすると "pen. " が帰ってきます。
+<strong>返ってくる文字列の最後には区切り文字がついて</strong>いることにも注意してください。
+
+<h3>ノート(2): The Online Sather Code Browser と実際のコードとの不一致について</h3>
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+The Online Sather Code Browser</a>
+と実際の Sather 処理系とは若干の不一致が見られます。
+Online Code Browser に書いてある通りにやってうまくいかない場合は
+ $SATHERHOME/Library 以下のコードを調べてみてください。
+
+<h2>6. LIST{T}</h2>
+ARRAY とほぼ同じですが、 ARRAY より柔軟に要素を付け加えたり削除したりできます。
+待ち行列 (Queue) などに用いられます。
+詳しくは <a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/shortflat-LIST%7B_%7D.html'>
+Online Code Browser: LIST</a> またはソースファイルをご覧ください。
+<p>
+
+例として、幅優先探索 (BFS) のプログラムを示します。BFS ではキューの先頭から探索の途中結果を取り出して、そこから一段深く探索を行い、
+その結果をキューの末尾に加えていくことで探索を行います。下のコード (bfs.sa) は図 1 に示すグラフのスタートからゴールまでの最短経路を返します。
+<center>
+<img src='gr.png'><p>
+図１： bfs.sa で使用したグラフ。
+</center>
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- bfs.sa: a simple breadth fast search</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        const gr:ARRAY{ARRAY{INT}}:=| |1,2,3|, |4|, |4,5|, |6|, |0|, |6,7|, |8|, |3|, |5| |;  <span class="comment">-- 図１のグラフを ARRAY{ARRAY{INT}} で表現したもの。</span>
+<span class="linenumber">06:</span>        attr goal:INT;          <span class="comment">-- ゴール</span>
+<span class="linenumber">07:</span>        attr queue:LIST{LIST{INT}};  <span class="comment">-- 探索待ち行列。LIST{LIST{INT}} で表現。</span>
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>        bfs is                                   <span class="comment">-- 幅優先探索を行うメソッド。</span>
+<span class="linenumber">10:</span>           if queue.size=0 then
+<span class="linenumber">11:</span>     	 #OUT + "Can not find the path\n";  <span class="comment">-- 待ち行列が無くなったらその旨を表示して、</span>
+<span class="linenumber">12:</span>     	 UNIX::exit(1);                     <span class="comment">-- 終了。</span>
+<span class="linenumber">13:</span>           end;
+<span class="linenumber">14:</span>           path:LIST{INT}:=queue[0];             <span class="comment">-- 待ち行列の最初の要素（経路）を取り出す。</span>
+<span class="linenumber">15:</span>           queue.remove_index(0);                <span class="comment">-- 待ち行列の最初の要素を削除</span>
+<span class="linenumber">16:</span>           next_nodes:ARRAY{INT}:=gr[path[path.size-1]];  <span class="comment">-- 今いる場所 (path[path.size-1]) から行ける場所の配列を取得</span>
+<span class="linenumber">17:</span>           node:INT;
+<span class="linenumber">18:</span>           loop
+<span class="linenumber">19:</span>     	 node:=next_nodes.elt!;             <span class="comment">-- 次に行ける場所をを順番に調べる。</span>
+<span class="linenumber">20:</span>     	 if node=goal then                  <span class="comment">-- もしゴールだったら</span>
+<span class="linenumber">21:</span>     	    #OUT + "found: " + path.append(goal) + "\n";  <span class="comment">-- スタートからゴールまでの経路を示して終了。</span>
+<span class="linenumber">22:</span>     	    UNIX::exit(0);
+<span class="linenumber">23:</span>     	 elsif ~path.has(node) then         <span class="comment">-- もし、まだ訪れていない場所だったら、</span>
+<span class="linenumber">24:</span>     	    queue.append(path.append(node));  <span class="comment">-- その場所を今までの経路 (path) の末尾に付け加えて、それを待ち行列の末尾に加える。</span>
+<span class="linenumber">25:</span>     	 end;
+<span class="linenumber">26:</span>           end;
+<span class="linenumber">27:</span>           bfs;                    <span class="comment">-- 再帰的に bfs を呼び出す。</span>
+<span class="linenumber">28:</span>        end;
+<span class="linenumber">29:</span>     	 
+<span class="linenumber">30:</span>        main(av:ARRAY{STR}) is
+<span class="linenumber">31:</span>           if av.size=3 then                            <span class="comment">-- 引数が２個だったら、</span>
+<span class="linenumber">32:</span>     	 goal:=av[2].cursor.get_int;               <span class="comment">-- ２番目の引数をゴールにセット</span>
+<span class="linenumber">33:</span>     	 queue:=#;                                 <span class="comment">-- 待ち行列を初期化</span>
+<span class="linenumber">34:</span>     	 queue.append(#(|av[1].cursor.get_int|));  <span class="comment">-- 待ち行列にスタート地点を追加</span>
+<span class="linenumber">35:</span>     	 bfs;                                      <span class="comment">-- 幅優先探索を実行</span>
+<span class="linenumber">36:</span>           else
+<span class="linenumber">37:</span>     	 #ERR + "Usage: bfs START GOAL\n";
+<span class="linenumber">38:</span>           end;
+<span class="linenumber">39:</span>        end;
+<span class="linenumber">40:</span>     end;
+</pre>
+
+<pre class='samp'>
+$ sacomp bfs.sa -o bfs
+$ ./bfs 1 7                   <span class='comment'>-- 1 から 7 までの経路を探索</span>
+found: {1,4,0,2,5,7}
+</pre>
+
+
+<h2>7. FLIST{T}</h2>
+LISP の リストのように、先頭に要素を付け加えたり、先頭から要素を削除するのが容易なリストです。
+スタックに用いられます。
+詳しくは <a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/shortflat-FLIST%7B_%7D.html'>
+Online Code Browser: FLIST</a> またはソースファイルをご覧ください。
+<p>
+スタックを使ったプログラムの定番として、逆ポーランド語法の電卓を作ってみました。
+逆ポーランド語法の電卓は括弧を使わないで複雑な計算ができるので慣れれば便利です。
+ここでは簡単のため四則演算だけを実装します。
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- calc.sa: a simple reverse polish calculator</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        const op:STR:="+-*/";
+<span class="linenumber">06:</span>        const re:REGEXP:=REGEXP::regexp("^[+\\-]?[0-9]+\\.?[0-9]*$", false);  <span class="comment">-- 数字の正規表現</span>
+<span class="linenumber">07:</span>        shared stack:FLIST{FLTD}:=FLIST{FLTD}::create;                        <span class="comment">-- FLTD を積むスタック</span>
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>        operatorp(word:STR):BOOL is
+<span class="linenumber">10:</span>           return  (word.size = 1 and op.contains(word.char(0)));
+<span class="linenumber">11:</span>        end;
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>        numberp(word:STR):BOOL is
+<span class="linenumber">14:</span>           return re.match(word);
+<span class="linenumber">15:</span>        end;
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>        calculate(word:STR) is              <span class="comment">-- スタックから上の２つを取り出して、</span>
+<span class="linenumber">18:</span>           c:CHAR:=word.char(0);
+<span class="linenumber">19:</span>           f1,f2, fr:FLTD;
+<span class="linenumber">20:</span>           f2:=stack.pop;
+<span class="linenumber">21:</span>           f1:=stack.pop;
+<span class="linenumber">22:</span>           case c                           <span class="comment">-- それらの数の四則演算を行い、</span>
+<span class="linenumber">23:</span>           when '+' then fr := f1+f2;
+<span class="linenumber">24:</span>           when '-' then fr := f1-f2;
+<span class="linenumber">25:</span>           when '*' then fr := f1*f2;
+<span class="linenumber">26:</span>           when '/' then fr := f1/f2;
+<span class="linenumber">27:</span>           else #ERR + "The operature is not supoorted.\n";
+<span class="linenumber">28:</span>           end;
+<span class="linenumber">29:</span>           stack:=stack.push(fr);           <span class="comment">-- 結果をスタックに積む</span>
+<span class="linenumber">30:</span>        end;
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>        push_to_stack(word:STR) is
+<span class="linenumber">33:</span>           stack:=stack.push(word.cursor.get_fltd);      
+<span class="linenumber">34:</span>        end;
+<span class="linenumber">35:</span>     
+<span class="linenumber">36:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">37:</span>           line, word:STR;
+<span class="linenumber">38:</span>           loop
+<span class="linenumber">39:</span>     	 #OUT + "&gt; ";
+<span class="linenumber">40:</span>     	 if ~void(stack) then 
+<span class="linenumber">41:</span>     	    #OUT  + stack[0] + " ";
+<span class="linenumber">42:</span>     	 end;
+<span class="linenumber">43:</span>     	 line:=#IN.get_str;
+<span class="linenumber">44:</span>     	 if line.size = 0 then break!; end;      <span class="comment">-- 何も入力しないでリターンしたときはプログラムを終了</span>
+<span class="linenumber">45:</span>     	 line := line + " ";
+<span class="linenumber">46:</span>     	 loop 
+<span class="linenumber">47:</span>     	    word := line.split!(' ');
+<span class="linenumber">48:</span>     	    word := word.head(word.size-1);
+<span class="linenumber">49:</span>     	    if operatorp(word) then calculate(word);
+<span class="linenumber">50:</span>     	    elsif numberp(word) then  push_to_stack(word);
+<span class="linenumber">51:</span>     	    end;
+<span class="linenumber">52:</span>     	 end;
+<span class="linenumber">53:</span>           end;
+<span class="linenumber">54:</span>        end;
+<span class="linenumber">55:</span>     end;
+</pre>
+
+<pre class='samp'>
+$ sacomp calc.sa -o calc
+$ ./calc
+> 1 8 + 3.7 0.7 - /             <span class='comment'>-- (1 + 8) / (3.7 - 0.7)</span>
+> 3 0.01 *                      <span class='comment'>-- 前の計算の結果に続けて計算ができる。</span>
+> 0.03 
+</pre>
+
+<h3>ノート：正規表現</h3>
+正規表現オブジェクトは REGEXP クラスのインスタンスを作ることによって生成します。
+REGEXP::regexp コンストラクターを使えば
+POSIX の正規表現の標準の書式で正規表現オブジェクトを生成できます。
+REGEXP::regexp の２つ目の引数が true の時は大文字と小文字を区別しません。
+マッチしたかどうか調べるには REGEXP::match メソッドを使います。
+詳しくは
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/lined-regexp.sa.gen.html#Line120'>
+regexp.sa</a>
+をみてください。
+
+<h2>8. その他のパラメータ付クラス</h2>
+パラメータ付クラスは Sather の特徴の１つなので、いろいろな種類があります。
+表 2 に主なものを挙げておきます。<p>
+
+<center>
+表 2：主なパラメータ付クラス
+<table border=1>
+   <tr>
+      <th>クラス</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>ARRAY2{}</td>
+      <td>２次元配列。</td>
+   </tr>
+   <tr>
+      <td>ARRAY3{}</td>
+      <td>３次元配列。</td>
+   </tr>
+   <tr>
+      <td>BAG{}</td>
+      <td>袋、要素を順番付けずに格納。同じ要素を複数格納できる。</td>
+   </tr>
+   <tr>
+      <td>QUEUE{}</td>
+      <td>待ち行列。実は bfs.sa はこのクラスを使ったほうがすっきり書ける。</td>
+   </tr>
+   <tr>
+      <td>STACK{}</td>
+      <td>スタック。実は calc.sa はこのクラスを使ったほうがすっきり書ける。</td>
+   </tr>
+   <tr>
+      <td>SET{}</td>
+      <td>集合。union や intesection などの集合用の演算ができる。</td>
+   </tr>
+</table>
+</center>
+<h2>9. 終わりに</h2>
+今回はパラメータ付クラスについて概説しました。
+このページで示したプログラムのソースは<a href='sa_para.tar.bz2'>付録</a>につけておきますので遊んでみてください。
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_abst.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  7. 抽象クラス</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0></a>
+  <a rel=up href="index.html">Sather を試そう</a></td>
+
+<td><a rel=next href="sa_op.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+9. オペレーター</a></td>
+
+<td><a rel=download href="sa_para.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_para.html&t=Sather%3A+%A5%D1%A5%E9%A5%E1%A5%BF%A1%BC%C9%D5%A5%AF%A5%E9%A5%B9' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+</body></html>
+    
+
+
+
+

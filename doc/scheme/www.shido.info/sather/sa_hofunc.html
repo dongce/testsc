@@ -1,0 +1,383 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!----
+-- $Id: sa_hofunc.html,v 1.4 2006/06/27 22:39:12 takafumi Exp $
+--->
+
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, closure, higher order function">
+<meta name="description" content="Sather の closure について">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 11. データとしての手続き</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_immutable.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  10. 変更不能クラス</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_except.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+12. 例外</a></td>
+
+<td><a rel=download href="sa_hofunc.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_hofunc.html&t=Sather%3A+%BC%EA%C2%B3%A4%AD' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 11. データとしての手続き</h1>
+<hr>
+
+<!------------------------------------------
+- 準備中です。<br>
+- しばらくお待ちください。<p>
+- <img src='../images/under_construction.gif'>
+------------------------------------------->
+
+<h2>1. はじめに</h2>
+Sather は手続きをデータとして取り扱うことができます。つまり、メソッドの引数として渡したり、
+手続きを返すメソッドを書くことができます。データとして扱える手続きのことをここではクロージャと呼ぶことにします。
+クロージャーは MAP 型の値にもなれます。<p>
+
+Sather のクロージャには通常の手続き (ROUT 型) とイテレーター(ITER 型) の２種類があります。
+
+<h2>2. クロージャの使い方</h2>
+簡単な例を挙げて説明します。
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- rout.sa</span>
+<span class="linenumber">02:</span>     <span class="comment">-- simple examples for ROUT and ITER</span>
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     class MAIN is
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     <span class="comment">-- helper function to treat TUP{INT,INT}</span>
+<span class="linenumber">07:</span>        aux(tu:TUP{INT, INT}):INT is
+<span class="linenumber">08:</span>           return tu.t1 + tu.t2;
+<span class="linenumber">09:</span>        end;
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     <span class="comment">-- print function</span>
+<span class="linenumber">12:</span>        print(obj:$STR, sep:STR) is
+<span class="linenumber">13:</span>           #OUT + obj + sep;
+<span class="linenumber">14:</span>        end;
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>        
+<span class="linenumber">17:</span>        main is
+<span class="linenumber">18:</span>     <span class="comment">-- declaring closures</span>
+<span class="linenumber">19:</span>           csqrt:ROUT{FLT}:FLT;
+<span class="linenumber">20:</span>           cpow:ROUT{FLT,FLT}:FLT;
+<span class="linenumber">21:</span>           ccomp:ROUT{TUP{INT,INT}}:INT;
+<span class="linenumber">22:</span>           istep:ITER{once INT,once INT,once INT}:INT;
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>     <span class="comment">-- assigning closures</span>
+<span class="linenumber">25:</span>           csqrt:=bind(_.sqrt);
+<span class="linenumber">26:</span>           cpow:=bind(_.pow(_));
+<span class="linenumber">27:</span>           ccomp:=bind(aux(_));
+<span class="linenumber">28:</span>           istep:=bind(_.step!(_,_));
+<span class="linenumber">29:</span>     
+<span class="linenumber">30:</span>     <span class="comment">-- calling closures</span>
+<span class="linenumber">31:</span>           print(csqrt.call(2.0), "\n");                      <span class="comment">-- 1.414....</span>
+<span class="linenumber">32:</span>           print(cpow.call(0.99999, 300.0), "\n");            <span class="comment">-- 0.997</span>
+<span class="linenumber">33:</span>           print(ccomp.call(#TUP{INT,INT}(1,2)), "\n");       <span class="comment">-- 3</span>
+<span class="linenumber">34:</span>           loop
+<span class="linenumber">35:</span>     	 print(istep.call!(1,5,3), " ");                 <span class="comment">-- 1 4 7 10 13</span>
+<span class="linenumber">36:</span>           end;
+<span class="linenumber">37:</span>           #OUT + "\n";
+<span class="linenumber">38:</span>        end;
+<span class="linenumber">39:</span>     end;
+</pre>
+
+<table border=1>
+   <tr>
+      <th width=60>行</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td align="center">19 &mdash; 22</td>
+      <td>クロージャーは引数と返り値を使って宣言します。</td>
+   </tr>
+   <tr>
+      <td align="center">25 &mdash; 28</td>
+      <td>手続きの代入は <tt>bind</tt> を使って行います。bind の中の '_' は引数に対応します。
+あまり複雑な手続きは bind を使って書けないので、別にメソッドを用意して、bind でそれを呼び出すようにします。</td>
+   </tr>
+   <tr>
+      <td align="center">31 &mdash; 37</td>
+      <td>ROUT 型クロージャを呼び出すときは <tt>call</tt> メソッドを、
+          ITER 型クロージャを呼び出すときは <tt>call!</tt> を使います。</td>
+   </tr>
+</table>
+<p>
+上のコードでは説明のため宣言と代入を分けて書きましたが、一般には次のように同時に行うことが多いです。
+<pre class='code'>
+cpow:ROUT{FLT,FLT}:FLT:=bind(_.pow(_));
+</pre>
+
+<pre class='samp'>
+$ sacomp rout.sa -o rout
+$ ./rout
+1.41421
+0.997
+3
+1 4 7 10 13 
+</pre>
+<h2>3. 手続きを引数にとるメソッド</h2>
+パラメータ付クラスのほとんどに手続きを引数にとるメソッドが定義されています。
+ARRAY 型では手続きを引数にとるフィルターリング、マッピング、フォルディング、ソーティングが定義されています。
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- horder.sa</span>
+<span class="linenumber">02:</span>     <span class="comment">-- examples for higher order functions for ARRAY{INT}</span>
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     class MAIN is
+<span class="linenumber">05:</span>        const iarr:ARRAY{INT}:=|0,9,2,7,3,4,1,5,8,6|; 
+<span class="linenumber">06:</span>        
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     <span class="comment">-- print function</span>
+<span class="linenumber">09:</span>        print(obj:$STR, sep:STR) is
+<span class="linenumber">10:</span>           #OUT + obj + sep;
+<span class="linenumber">11:</span>        end;
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     <span class="comment">-- filtering</span>
+<span class="linenumber">15:</span>        select_even:ARRAY{INT} is
+<span class="linenumber">16:</span>           return iarr.remove_if(bind(_.is_odd));
+<span class="linenumber">17:</span>        end;
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     <span class="comment">-- mapping</span>
+<span class="linenumber">20:</span>        sq:ARRAY{INT} is
+<span class="linenumber">21:</span>           a:ARRAY{INT};
+<span class="linenumber">22:</span>           a:=iarr.copy;
+<span class="linenumber">23:</span>           a.map(bind(_.pow(2)));
+<span class="linenumber">24:</span>           return a;
+<span class="linenumber">25:</span>        end;
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>     <span class="comment">-- folding</span>
+<span class="linenumber">28:</span>        sum:INT is
+<span class="linenumber">29:</span>           return iarr.reduce(bind(_.plus(_)));
+<span class="linenumber">30:</span>        end;
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>     <span class="comment">-- a helper function for order_by_desc</span>
+<span class="linenumber">33:</span>        gt(i,j:INT):BOOL is
+<span class="linenumber">34:</span>           return i &gt; j;
+<span class="linenumber">35:</span>        end;
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>     <span class="comment">-- sorting</span>
+<span class="linenumber">38:</span>        order_by_desc:ARRAY{INT} is
+<span class="linenumber">39:</span>           a:ARRAY{INT};
+<span class="linenumber">40:</span>           a:=iarr.copy;
+<span class="linenumber">41:</span>           a.insertion_sort_by(bind(gt(_,_)));
+<span class="linenumber">42:</span>           return a;
+<span class="linenumber">43:</span>        end;
+<span class="linenumber">44:</span>     
+<span class="linenumber">45:</span>     
+<span class="linenumber">46:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">47:</span>           print(select_even, "\n");
+<span class="linenumber">48:</span>           print(sq, "\n");
+<span class="linenumber">49:</span>           print(sum, "\n");
+<span class="linenumber">50:</span>           print(order_by_desc, "\n");
+<span class="linenumber">51:</span>        end;
+<span class="linenumber">52:</span>     end;
+</pre>
+
+<pre class='samp'>
+$ sacomp horder.sa -o horder
+$ ./horder
+{0,2,4,8,6}
+{0,81,4,49,9,16,1,25,64,36}
+45
+{9,8,7,6,5,4,3,2,1,0}
+</pre>
+
+<a name='rpcalc'>
+<h2>4. 実用的（？）なプログラム：逆ポーランド語法電卓の改良</h2>
+<a href='sa_para.html'>前回</a>取り上げた逆ポーランド語法電卓を ROUT 型を使って書き換えてみました。
+MAP{STR, ROUT} と OPERATORS クラスを定義することによって少しスマートに書くことができます。
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- rpcalc.sa: a simple reverse polish calculator, second version</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class OPERATORS is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        attr biop:MAP{STR,ROUT{FLTD,FLTD}:FLTD};  <span class="comment">-- MAP of binary operators</span>
+<span class="linenumber">06:</span>        attr unop:MAP{STR,ROUT{FLTD}:FLTD};      <span class="comment">-- unary operators</span>
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>        create:SAME is
+<span class="linenumber">09:</span>           return new.init;
+<span class="linenumber">10:</span>        end;
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>        init:SAME is
+<span class="linenumber">13:</span>           init_biop;
+<span class="linenumber">14:</span>           init_unop;
+<span class="linenumber">15:</span>           return self;
+<span class="linenumber">16:</span>        end;
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>        init_biop is          <span class="comment">-- 二項演算子をハッシュ表に加える。</span>
+<span class="linenumber">19:</span>           biop:=#;
+<span class="linenumber">20:</span>           biop["+"]:=bind(_.plus(_));
+<span class="linenumber">21:</span>           biop["-"]:=bind(_.minus(_));
+<span class="linenumber">22:</span>           biop["*"]:=bind(_.times(_));
+<span class="linenumber">23:</span>           biop["/"]:=bind(_.div(_));
+<span class="linenumber">24:</span>           biop["^"]:=bind(_.pow(_));
+<span class="linenumber">25:</span>        end;
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>        init_unop is         <span class="comment">-- 単項演算子をハッシュ表に加える。必要があればもっと加えることもできる。</span>
+<span class="linenumber">28:</span>           unop:=#;
+<span class="linenumber">29:</span>           unop["exp"] := bind(_.exp);
+<span class="linenumber">30:</span>           unop["log"] := bind(_.log);
+<span class="linenumber">31:</span>           unop["sin"] := bind(_.sin);
+<span class="linenumber">32:</span>           unop["cos"] := bind(_.cos);
+<span class="linenumber">33:</span>           unop["tan"] := bind(_.tan);
+<span class="linenumber">34:</span>           unop["asin"]:= bind(_.asin);
+<span class="linenumber">35:</span>           unop["acos"]:= bind(_.acos);
+<span class="linenumber">36:</span>           unop["atan"]:= bind(_.atan);
+<span class="linenumber">37:</span>        end;
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>        is_operator(s:STR):BOOL is      <span class="comment">-- 演算子？</span>
+<span class="linenumber">40:</span>           return is_biop(s) or is_unop(s);
+<span class="linenumber">41:</span>        end;
+<span class="linenumber">42:</span>     
+<span class="linenumber">43:</span>        is_biop(s:STR):BOOL is          <span class="comment">-- 二項演算子？</span>
+<span class="linenumber">44:</span>           return biop.has_ind(s);
+<span class="linenumber">45:</span>        end;
+<span class="linenumber">46:</span>     
+<span class="linenumber">47:</span>        is_unop(s:STR):BOOL is          <span class="comment">-- 単項演算子？</span>
+<span class="linenumber">48:</span>           return unop.has_ind(s);
+<span class="linenumber">49:</span>        end;
+<span class="linenumber">50:</span>     
+<span class="linenumber">51:</span>        apply(s:STR, a:FLTD):FLTD is    <span class="comment">-- 単項演算子を使って計算する。</span>
+<span class="linenumber">52:</span>           return unop[s].call(a);      <span class="comment">-- apply("log", 3.3) のように使う。</span>
+<span class="linenumber">53:</span>        end;
+<span class="linenumber">54:</span>     
+<span class="linenumber">55:</span>        apply(s:STR, a,b:FLTD):FLTD is  <span class="comment">-- 二項演算子を使って計算する。</span>
+<span class="linenumber">56:</span>           return biop[s].call(a,b);    <span class="comment">-- apply("+", 1.1, 2.3) のように使う。</span>
+<span class="linenumber">57:</span>        end;                            <span class="comment">-- 引数が違えば同じ名前のメソッドを定義できる。</span>
+<span class="linenumber">58:</span>     
+<span class="linenumber">59:</span>     end;  <span class="comment">--OPERATORS</span>
+<span class="linenumber">60:</span>     
+<span class="linenumber">61:</span>     
+<span class="linenumber">62:</span>     
+<span class="linenumber">63:</span>     class MAIN is
+<span class="linenumber">64:</span>     
+<span class="linenumber">65:</span>        const re:REGEXP:=REGEXP::regexp("^[+\\-]?[0-9]+\\.?[0-9]*$", false);  <span class="comment">-- 実数かどうかチェックする正規表現</span>
+<span class="linenumber">66:</span>        attr stack:STACK{FLTD};
+<span class="linenumber">67:</span>        attr op:OPERATORS;
+<span class="linenumber">68:</span>     
+<span class="linenumber">69:</span>        is_number(word:STR):BOOL is  <span class="comment">-- 実数？</span>
+<span class="linenumber">70:</span>           return re.match(word);
+<span class="linenumber">71:</span>        end;
+<span class="linenumber">72:</span>     
+<span class="linenumber">73:</span>        bicalc(word:STR) is          <span class="comment">-- 二項演算子を使って計算する。</span>
+<span class="linenumber">74:</span>           f1,f2 :FLTD;              <span class="comment">-- スタックから２回 pop して、計算結果を push する。</span>
+<span class="linenumber">75:</span>           f2:=stack.pop;
+<span class="linenumber">76:</span>           f1:=stack.pop;
+<span class="linenumber">77:</span>           stack.push(op.apply(word,f1,f2));
+<span class="linenumber">78:</span>        end;
+<span class="linenumber">79:</span>     
+<span class="linenumber">80:</span>        push_to_stack(word:STR) is           <span class="comment">-- 実数をスタックに積む</span>
+<span class="linenumber">81:</span>           stack.push(word.cursor.get_fltd);      
+<span class="linenumber">82:</span>        end;
+<span class="linenumber">83:</span>     
+<span class="linenumber">84:</span>        clear_stack is                      <span class="comment">-- スタックを空にする。</span>
+<span class="linenumber">85:</span>           a:FLTD;
+<span class="linenumber">86:</span>           loop
+<span class="linenumber">87:</span>     	 while!(~stack.is_empty);
+<span class="linenumber">88:</span>     	 a:=stack.pop;
+<span class="linenumber">89:</span>           end;
+<span class="linenumber">90:</span>        end;
+<span class="linenumber">91:</span>     
+<span class="linenumber">92:</span>        show_stack:STR is                    <span class="comment">-- スタックを文字列に変換</span>
+<span class="linenumber">93:</span>           s:STR:="&gt; ";
+<span class="linenumber">94:</span>           loop
+<span class="linenumber">95:</span>     	 s:= s + stack.reverse_elt!.str + " ";
+<span class="linenumber">96:</span>           end;
+<span class="linenumber">97:</span>           return s;
+<span class="linenumber">98:</span>        end;
+<span class="linenumber">99:</span>     
+<span class="linenumber">100:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">101:</span>           line, word:STR;
+<span class="linenumber">102:</span>           stack:=#;
+<span class="linenumber">103:</span>           op:=#;                          <span class="comment">-- OPERATORS クラスのインスタンスを作る。</span>
+<span class="linenumber">104:</span>           loop
+<span class="linenumber">105:</span>     	 #OUT + show_stack;
+<span class="linenumber">106:</span>     	 line:=#IN.get_str + " ";
+<span class="linenumber">107:</span>     	 loop 
+<span class="linenumber">108:</span>     	    word := line.split!(' ');
+<span class="linenumber">109:</span>     	    word := word.head(word.size-1);
+<span class="linenumber">110:</span>     	    if op.is_unop(word) then stack.push(op.apply(word, stack.pop)); <span class="comment">-- 単項演算子ならスタックから pop して計算結果を push する。</span>
+<span class="linenumber">111:</span>     	    elsif op.is_biop(word) then bicalc(word); <span class="comment">-- 二項演算子なら bicalc を呼ぶ。</span>
+<span class="linenumber">112:</span>     	    elsif is_number(word) then  push_to_stack(word); <span class="comment">-- 実数ならスタックに積む。</span>
+<span class="linenumber">113:</span>     	    elsif word="clear" then clear_stack;   <span class="comment">-- "clear" ならスタックを空にする。</span>
+<span class="linenumber">114:</span>     	    elsif word="end" then UNIX::exit(0);   <span class="comment">-- "end" なら終了。</span>
+<span class="linenumber">115:</span>     	    end;
+<span class="linenumber">116:</span>     	 end;
+<span class="linenumber">117:</span>           end;
+<span class="linenumber">118:</span>        end;
+<span class="linenumber">119:</span>     end;
+</pre>
+
+<pre class='samp'>
+$ sacomp rpcalc.sa -o rpcalc
+$ ./rpcalc                          <span class='comment'>-- <b>bold</b> は入力</span>
+> <b>2.2 0.8 + 4.7 1.7 - *</b>      <span class='comment'>-- (2.2 + 0.8) * (4.7 - 1.7)</span>
+> 9 <b>0.5 ^</b>                      <span class='comment'>-- 9 ^ 0.5</span>
+> 3 <b>sin</b>                        <span class='comment'>-- sin(3)</span>
+> 0.14112 <b>asin</b>                 <span class='comment'>-- asin(0.14112)</span>
+> 0.141593 <b>10 2 ^</b>              <span class='comment'>-- 0.141593 (10 ^ 2)</span>
+> 0.141593 100 <b>*</b>               <span class='comment'>-- 0.141593 * 100</span>
+> 14.1593 <b>end</b>
+$
+</pre>
+
+<h2> 5. 終わりに</h2>
+Sather は関数型言語の特徴を取り入れて、手続きをデータとして取り扱うことができます。
+これによって、抽象化の高いコードを書くことが可能になり、コードの使い回しが促進されます。
+<p>
+ここに示したコードは<a href='sa_hofunc.tar.bz2'>付録</a>につけておいたので遊んでみてください。
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_immutable.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  10. 変更不能クラス</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_except.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+12. 例外</a></td>
+
+<td><a rel=download href="sa_hofunc.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_hofunc.html&t=Sather%3A+%BC%EA%C2%B3%A4%AD' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+</body></html>
+    
+
+
+
+

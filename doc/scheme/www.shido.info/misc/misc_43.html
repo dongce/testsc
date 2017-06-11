@@ -1,0 +1,100 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="Android mail ">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 専用アカウントにメールを送ることによって 日誌 を付ける </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc43&t=%C0%EC%CD%D1%A5%A2%A5%AB%A5%A6%A5%F3%A5%C8%A4%CB%A5%E1%A1%BC%A5%EB%A4%F2%C1%F7%A4%EB%A4%B3%A4%C8%A4%CB%A4%E8%A4%C3%A4%C6+%C6%FC%BB%EF+%A4%F2%C9%D5%A4%B1%A4%EB"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>専用アカウントにメールを送ることによって 日誌 を付ける</h1>
+<hr>
+Jan 15, 2012
+<p>
+
+
+<h2>はじめに</h2>
+あけましておめでとうございます。<br>
+今年から日誌をつけるようにしました。
+日誌を付けると行動を振り返ることができるようになり、時間の有効利用につながると期待されます。<p>
+
+日誌専用のアカウントを自宅サーバに作り、
+そこにメールを送信することで日誌をつけています。
+<br>
+こうすると、複数の端末を使って日誌を付けられるという利点があります。
+紫藤は、短い記事はスマートフォンなどの携帯端末から、
+長い文章は PC などのキーボードつき端末から送っています。
+<br>
+Google Doc などの web サービスを利用する方法もありますが、意外と不便です。
+メールを使えば、時刻は自動で挿入されるほか、画像などのファイルを添付することができます。
+twitter を使うという手もありますが、公開する気はないので使いませんでした。
+<p>
+日誌の作成手順は以下のとおりです。
+<ol>
+<li>日誌専用アカウントにメールを送って記録する。
+<li>日付が変わると、メールを HTML に変換する スクリプトが実行される。
+<li> 翌朝、日誌をチェックして必要に応じて加筆、訂正する。その際、google calender にも行動記録を記載する。
+</ol>
+
+メールを使った日誌の作成では、メールを送信した時刻は残りますが、いつからいつまでという時間幅の情報がもれがちなので、
+忘れないうちに google カレンダーにも記載しています。
+なお、google calendar に行動記録を記載するのは <a href='http://www.447blog.com/2011/02/googleframes.html'>447Blog</a>を参考にしました。
+
+<h2>日誌作成補助 アプリ、サービス</h2>
+専用アカウントにメールを送ると言う方法は結構便利で、いろいろな技が使えます。
+<h3>メール配信サービス</h3>
+各種メール配信サービスを利用すれば、自分の行動のほかに、周りの状況をあわせて記録することが簡単にできます。
+紫藤は以下の2つのサービスを利用しています。
+
+<dl>
+  <dt><b><a href='http://bulknews.net/'>Bulknews</a></b></dt>
+      <dd>無料のニュースメール配信サービス, asahi.com などを読むことができる</dd>
+  <dt><b><a href='http://10key.info/'>晴れるや</a></b></dt>
+      <dd>無料の天気メール配信サービス</dd>
+</dl>
+
+<h3>Android アプリ</h3>
+
+位置情報を取得するアプリを使っています。
+
+<dl>
+  <dt><b><a href='https://market.android.com/details?id=android.gpsmail&hl=ja'>GPSMail</a></b></dt>
+      <dd>現在位置を一定の時間間隔で指定したメールアドレスに送信するアプリです。</dd>
+  <dt><b><a href='http://roomfour0four.com/?page_id=39'>Inserty</a></b></dt>
+      <dd>位置や時間を含む定型文をクリップボードにコピーするツールです。メールなどに簡単に現在位置を挿入できます。</dd>
+</dl>
+
+<h2>例</h2>
+
+<a href='diary_example.html'>この</a>ような日誌ができます。(位置情報は最寄の駅のものに変えてあります。)
+<br>
+メールを HTML に変換するスクリプトについては後で書きます。
+
+
+<h2>終わりに</h2>
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc43&t=%C0%EC%CD%D1%A5%A2%A5%AB%A5%A6%A5%F3%A5%C8%A4%CB%A5%E1%A1%BC%A5%EB%A4%F2%C1%F7%A4%EB%A4%B3%A4%C8%A4%CB%A4%E8%A4%C3%A4%C6+%C6%FC%BB%EF+%A4%F2%C9%D5%A4%B1%A4%EB"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

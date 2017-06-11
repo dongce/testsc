@@ -1,0 +1,319 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!----
+-- $Id: sa_except.html,v 1.2 2006/05/19 21:15:23 takafumi Exp $
+--->
+
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, exception">
+<meta name="description" content="Sather の例外について説明しています。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 12. 例外  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_hofunc.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  11. データとしての手続き</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_safety.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+13. 契約プログラミング</a></td>
+
+<td><a rel=download href="rpcalcf.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_except.html&t=Sather%3A%20%CE%E3%B3%B0' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 12. 例外 </h1>
+<hr>
+
+<!------------------------------------------
+- 準備中です。<br>
+- しばらくお待ちください。<p>
+- <img src='../images/under_construction.gif'>
+------------------------------------------->
+
+<h2>1. 初めに</h2>
+今回は Sather の例外処理について述べます。<p>
+Sather の例外は他の言語に比べれば "構造化" されているといえます。
+
+<h2>2. 例外の発生と補足</h2>
+Sather の例外は <tt>raise</tt> で発生させ、<tt>protect</tt> で捕捉します。<tt>raise</tt> は実行時に <tt>protect</tt> の
+内側になければなりません。raise が呼び出されると例外インスタンス exception が生成し、それが protect で捕捉されます。
+exception の型によって処理を分けます。
+
+簡単な例を挙げて説明しましょう。先の逆ポーランド記法電卓で、式をファイルから読み取ることにします。
+そして、以下のような例外が発生するようにします。
+<ul>
+<li> COMMANDLINE_EXC: 引数（の数）が正しくない。
+<li> OPEN_FILE_EXC: ファイルが開けない。
+<li> PARSE_EXC: 計算式が正しくない。
+</ul>
+これらの例外クラスは自分で定義する必要があります。
+
+<p>
+[code 1]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- rpcalcf.sa: a simple reverse polish calculator, third version</span>
+<span class="linenumber">02:</span>     <span class="comment">-- include exception handling</span>
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     class COMMANDLINE_EXC &lt; $STR is                <span class="comment">-- コマンドラインの例外を定義</span>
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>        readonly attr str:STR;
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>        create:SAME is
+<span class="linenumber">09:</span>           res:SAME:=new;
+<span class="linenumber">10:</span>           res.str:= "Invalid command line.\n";
+<span class="linenumber">11:</span>           return res;
+<span class="linenumber">12:</span>        end;
+<span class="linenumber">13:</span>     end;
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     class OPEN_FILE_EXC &lt; $STR is                <span class="comment">-- ファイルが開けないときの例外を定義</span>
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>        readonly attr str:STR;
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>        create(fname:STR):SAME is
+<span class="linenumber">20:</span>           res:SAME:=new;
+<span class="linenumber">21:</span>           res.str:= "Cannot open " + fname + ".\n";
+<span class="linenumber">22:</span>           return res;
+<span class="linenumber">23:</span>        end;
+<span class="linenumber">24:</span>     end;
+<span class="linenumber">25:</span>     
+<span class="linenumber">26:</span>     class PARSE_EXC &lt; $STR is                    <span class="comment">-- 計算式がおかしいときの例外を定義</span>
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>        readonly attr str:STR;
+<span class="linenumber">29:</span>     
+<span class="linenumber">30:</span>        create(s:STR):SAME is
+<span class="linenumber">31:</span>           res:SAME:=new;
+<span class="linenumber">32:</span>           res.str:= s + "\n";
+<span class="linenumber">33:</span>           return res;
+<span class="linenumber">34:</span>        end;
+<span class="linenumber">35:</span>     end;
+<span class="linenumber">36:</span>      
+<span class="linenumber">37:</span>     
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>     class OPERATORS is                            <span class="comment">-- オペレータを定義 rpcalc.sa と同じ</span>
+<span class="linenumber">40:</span>     
+<span class="linenumber">41:</span>        attr biop:MAP{STR,ROUT{FLTD,FLTD}:FLTD};  <span class="comment">-- MAP of binary operators</span>
+<span class="linenumber">42:</span>        attr unop:MAP{STR,ROUT{FLTD}:FLTD};      <span class="comment">-- unary operators</span>
+<span class="linenumber">43:</span>     
+<span class="linenumber">44:</span>        create:SAME is
+<span class="linenumber">45:</span>           return new.init;
+<span class="linenumber">46:</span>        end;
+<span class="linenumber">47:</span>     
+<span class="linenumber">48:</span>        init:SAME is
+<span class="linenumber">49:</span>           init_biop;
+<span class="linenumber">50:</span>           init_unop;
+<span class="linenumber">51:</span>           return self;
+<span class="linenumber">52:</span>        end;
+<span class="linenumber">53:</span>     
+<span class="linenumber">54:</span>        init_biop is
+<span class="linenumber">55:</span>           biop:=#;
+<span class="linenumber">56:</span>           biop["+"]:=bind(_.plus(_));
+<span class="linenumber">57:</span>           biop["-"]:=bind(_.minus(_));
+<span class="linenumber">58:</span>           biop["*"]:=bind(_.times(_));
+<span class="linenumber">59:</span>           biop["/"]:=bind(_.div(_));
+<span class="linenumber">60:</span>           biop["^"]:=bind(_.pow(_));
+<span class="linenumber">61:</span>        end;
+<span class="linenumber">62:</span>     
+<span class="linenumber">63:</span>        init_unop is
+<span class="linenumber">64:</span>           unop:=#;
+<span class="linenumber">65:</span>           unop["exp"] := bind(_.exp);
+<span class="linenumber">66:</span>           unop["log"] := bind(_.log);
+<span class="linenumber">67:</span>           unop["sin"] := bind(_.sin);
+<span class="linenumber">68:</span>           unop["cos"] := bind(_.cos);
+<span class="linenumber">69:</span>           unop["tan"] := bind(_.tan);
+<span class="linenumber">70:</span>           unop["asin"]:= bind(_.asin);
+<span class="linenumber">71:</span>           unop["acos"]:= bind(_.acos);
+<span class="linenumber">72:</span>           unop["atan"]:= bind(_.atan);
+<span class="linenumber">73:</span>        end;
+<span class="linenumber">74:</span>     
+<span class="linenumber">75:</span>        is_operator(s:STR):BOOL is
+<span class="linenumber">76:</span>           return is_biop(s) or is_unop(s);
+<span class="linenumber">77:</span>        end;
+<span class="linenumber">78:</span>     
+<span class="linenumber">79:</span>        is_biop(s:STR):BOOL is
+<span class="linenumber">80:</span>           return biop.has_ind(s);
+<span class="linenumber">81:</span>        end;
+<span class="linenumber">82:</span>     
+<span class="linenumber">83:</span>        is_unop(s:STR):BOOL is
+<span class="linenumber">84:</span>           return unop.has_ind(s);
+<span class="linenumber">85:</span>        end;
+<span class="linenumber">86:</span>     
+<span class="linenumber">87:</span>        apply(s:STR, a:FLTD):FLTD is
+<span class="linenumber">88:</span>           return unop[s].call(a);
+<span class="linenumber">89:</span>        end;
+<span class="linenumber">90:</span>     
+<span class="linenumber">91:</span>        apply(s:STR, a,b:FLTD):FLTD is
+<span class="linenumber">92:</span>           return biop[s].call(a,b);
+<span class="linenumber">93:</span>        end;
+<span class="linenumber">94:</span>     
+<span class="linenumber">95:</span>     end;  <span class="comment">--OPERATORS</span>
+<span class="linenumber">96:</span>     
+<span class="linenumber">97:</span>     class CALCULATOR is                 <span class="comment">-- 計算機クラスを定義</span>
+<span class="linenumber">98:</span>     
+<span class="linenumber">99:</span>        const re:REGEXP:=REGEXP::regexp("^[+\\-]?[0-9]+\\.?[0-9]*$", false);
+<span class="linenumber">100:</span>        attr stack:STACK{FLTD};
+<span class="linenumber">101:</span>        attr str_queue:QUEUE{STR};
+<span class="linenumber">102:</span>        attr op:OPERATORS;
+<span class="linenumber">103:</span>     
+<span class="linenumber">104:</span>        create(fname:STR):SAME is
+<span class="linenumber">105:</span>           res:SAME:=new;
+<span class="linenumber">106:</span>           res.str_queue:=readfile(fname);
+<span class="linenumber">107:</span>           res.stack:=#;
+<span class="linenumber">108:</span>           res.op:=#;
+<span class="linenumber">109:</span>           return res;
+<span class="linenumber">110:</span>        end;
+<span class="linenumber">111:</span>     
+<span class="linenumber">112:</span>        readfile(fname:STR):QUEUE{STR} is   <span class="comment">-- 入力ファイルを読み込んで QUEUE{STR} を返す。</span>
+<span class="linenumber">113:</span>           q:QUEUE{STR}:=#;
+<span class="linenumber">114:</span>           line, word,contents:STR;
+<span class="linenumber">115:</span>           f:FILE:=FILE::open_for_read(fname);
+<span class="linenumber">116:</span>           if f.error then raise #OPEN_FILE_EXC(fname); end;
+<span class="linenumber">117:</span>           contents:=f.str;
+<span class="linenumber">118:</span>           f.close;
+<span class="linenumber">119:</span>           if contents[contents.size-1]/='\n' then contents := contents + '\n'; end;
+<span class="linenumber">120:</span>           loop
+<span class="linenumber">121:</span>     	 line:=contents.split!('\n');
+<span class="linenumber">122:</span>     	 line:=line.head(line.size-1) + " ";
+<span class="linenumber">123:</span>     	 loop
+<span class="linenumber">124:</span>     	    word:=line.split!(' ');
+<span class="linenumber">125:</span>     	    word:=word.head(word.size-1);
+<span class="linenumber">126:</span>     	    if word.size &gt; 0 then
+<span class="linenumber">127:</span>     	       q.enq(word);
+<span class="linenumber">128:</span>     	    end;
+<span class="linenumber">129:</span>     	 end;
+<span class="linenumber">130:</span>           end;
+<span class="linenumber">131:</span>           return q;
+<span class="linenumber">132:</span>        end;
+<span class="linenumber">133:</span>     
+<span class="linenumber">134:</span>        is_number(word:STR):BOOL is
+<span class="linenumber">135:</span>           return re.match(word);
+<span class="linenumber">136:</span>        end;
+<span class="linenumber">137:</span>     
+<span class="linenumber">138:</span>        uncalc(word:STR) is
+<span class="linenumber">139:</span>           if stack.is_empty then raise #PARSE_EXC("no enough stack for unary op."); end;
+<span class="linenumber">140:</span>           stack.push(op.apply(word, stack.pop)); 
+<span class="linenumber">141:</span>        end;
+<span class="linenumber">142:</span>     
+<span class="linenumber">143:</span>        bicalc(word:STR) is
+<span class="linenumber">144:</span>           if stack.size &lt; 2 then raise #PARSE_EXC("no enough stack for binary op."); end;
+<span class="linenumber">145:</span>           f1,f2 :FLTD;
+<span class="linenumber">146:</span>           f2:=stack.pop;
+<span class="linenumber">147:</span>           f1:=stack.pop;
+<span class="linenumber">148:</span>           stack.push(op.apply(word,f1,f2));
+<span class="linenumber">149:</span>        end;
+<span class="linenumber">150:</span>     
+<span class="linenumber">151:</span>        push_to_stack(word:STR) is
+<span class="linenumber">152:</span>           stack.push(word.cursor.get_fltd);      
+<span class="linenumber">153:</span>        end;
+<span class="linenumber">154:</span>     
+<span class="linenumber">155:</span>        run is                         <span class="comment">-- str_queue に基づいて計算をする。</span>
+<span class="linenumber">156:</span>           word:STR;
+<span class="linenumber">157:</span>           loop 
+<span class="linenumber">158:</span>     	 word := str_queue.elt!;
+<span class="linenumber">159:</span>     	 if op.is_unop(word) then uncalc(word); 
+<span class="linenumber">160:</span>     	 elsif op.is_biop(word) then bicalc(word);
+<span class="linenumber">161:</span>     	 elsif is_number(word) then  push_to_stack(word);
+<span class="linenumber">162:</span>     	 else raise #PARSE_EXC("\"" + word + "\" is not operator nor number.");  <span class="comment">-- 解釈できないトークンがあったら例外を発生</span>
+<span class="linenumber">163:</span>     	 end;
+<span class="linenumber">164:</span>           end;
+<span class="linenumber">165:</span>     
+<span class="linenumber">166:</span>           if stack.size/=1 then raise #PARSE_EXC("stack is not finished at the end."); end;  <span class="comment">-- 最後に stack.size = 1 になっていなければ例外を発生</span>
+<span class="linenumber">167:</span>           #OUT + stack.top +"\n";
+<span class="linenumber">168:</span>        end;
+<span class="linenumber">169:</span>     end;  <span class="comment">-- CALCULATOR</span>
+<span class="linenumber">170:</span>     
+<span class="linenumber">171:</span>     
+<span class="linenumber">172:</span>     class MAIN is
+<span class="linenumber">173:</span>     
+<span class="linenumber">174:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">175:</span>           protect                      <span class="comment">-- 例外を発生しうるルーチンを protect で囲む</span>
+<span class="linenumber">176:</span>     	 if av.size/=2 then raise #COMMANDLINE_EXC; end;
+<span class="linenumber">177:</span>     	 calc:CALCULATOR:=#(av[1]);
+<span class="linenumber">178:</span>     	 calc.run;
+<span class="linenumber">179:</span>     	                           <span class="comment">-- 例外の種類によって処理を分ける。</span>
+<span class="linenumber">180:</span>           when COMMANDLINE_EXC then
+<span class="linenumber">181:</span>     	 #ERR + exception;         <span class="comment">-- 例外のインスタンス名は exception</span>
+<span class="linenumber">182:</span>     	 UNIX::exit(1);
+<span class="linenumber">183:</span>           when OPEN_FILE_EXC then
+<span class="linenumber">184:</span>     	 #ERR + exception;
+<span class="linenumber">185:</span>     	 UNIX::exit(2);
+<span class="linenumber">186:</span>           when PARSE_EXC then
+<span class="linenumber">187:</span>     	 #ERR + exception;
+<span class="linenumber">188:</span>     	 UNIX::exit(3);
+<span class="linenumber">189:</span>           else
+<span class="linenumber">190:</span>     	 #ERR + "Unnkown exception.\n";
+<span class="linenumber">191:</span>     	 UNIX::exit(4);
+<span class="linenumber">192:</span>           end;
+<span class="linenumber">193:</span>        end;
+<span class="linenumber">194:</span>     end;
+</pre>
+
+
+次のような入力ファイル (rpcalf.inp) を作って実行すると例外が捕捉されます。
+<pre class='code'>
+17 4 %
+3.3 0.7 +
+/
+</pre>
+
+<pre class='samp'>
+$ sacomp rpcalcf.sa -o rpcalcf
+$ ./rpcalcf rpcalcf.inp
+"%" is not operator nor number.
+</pre>
+
+<h2>3. 終わりに</h2>
+今回は例を挙げて例外処理について説明しました。<p>
+例によって<a href='rpcalcf.tar.bz2'>付録</a>にコードをつけておきますので、気が向いたら遊んでみてください。
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_hofunc.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  11. データとしての手続き</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_safety.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+13. 契約プログラミング</a></td>
+
+<td><a rel=download href="rpcalcf.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_except.html&t=Sather%3A%20%CE%E3%B3%B0' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+</body></html>
+    
+
+
+
+

@@ -1,0 +1,511 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell, linear least square fitting">
+<meta name="description" content="a simple program for linear least square fitting using Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> linear fitting using Haskell </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell5.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. 入出力</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell7.html"><img src='../images/right_arrow.gif' class='arrow' border=0>7. 自前の data と class</a></td>
+<td><a rel=download href="lfit.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell6.html&t=linear+fitting+using+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>6. Haskell で最小二乗法</h1> 
+<hr>
+ <!---------------------------------------------------->
+前回までの知識で普通のプログラムを書くことが出来るようになったので、
+ 今回は復習を兼ねて線形最小二乗法のプログラムを書いてみました。
+ 
+<h2> 1. 線形最小二乗法のおさらい</h2>
+線形最小二乗法をごく簡単におさらいします。
+ちゃんと知りたい人は google などで検索してください。<p>
+
+  (x,y) の測定値の対を N 回測定したとします。ここで、x の値は正確で
+  y の値にだけ誤差が含まれているとします。このデータを<br>
+  <span class="mono">
+	 y = c<sub>0</sub> + c<sub>1</sub> x + c<sub>2</sub> x<sup>2</sup> ...+ c<sub>D</sub> x<sup>D</sup></span><br>
+  という <span class="mono">D</span> 次の線形多項式でフィットし、
+  係数<br> <span class="mono">c<sub>0</sub>, c<sub>1</sub>, c<sub>2</sub> .... c<sub>D</sub></span><br>
+  を求めることを考えます。測定
+  データの <span class="mono">y</span> の値は <span class="mono">x</span>
+  の値と係数の組 <span class="mono">(c<sub>0</sub>, c<sub>1</sub>, c<sub>2</sub> .... c<sub>D</sub>)</span>
+  を用いて (1) 式の様に表されます。<p>
+  <center><img src="h6f1.png"></center><p>
+  (1) 式を変形して (2) 式を得ます。<p>
+  <center><img src="h6f2a.png"></center><p>
+ここで、<span class="mono">M<sub>E</sub></span> を以下のように定義します。<p>
+  <center><img src="h6fe.png"></center><p>
+  
+従って、係数の組は M<sub>E</sub> の逆行列を計算することによって求めることが出来ます（ (3) 式）。<p>
+<center><img src="h6f3.png"></center><p>
+
+  <p>
+	 さて、プログラム上では逆行列をあらわに求めることはしないで、いわゆる
+	 <a href="http://www.asahi-net.or.jp/~uc3k-ymd/Lesson/Section03/SweepOut.html">
+		掃き出し法</a>で係数の組を求めます。
+	 この方が、逆行列を求めるより計算が速くなります。
+  
+ <h2> 2. 線形最小二乗法を行う Haskell プログラム lfit.hs</h2>
+<span class="parm">dat_file</span> からデータを読み込み <span class="parm">n</span> 次の
+フィティングを行うときの処理の流れは以下の通りです。
+ <ol>
+<li> 0.0 が <span class="parm">(3n+2)</span> 個 並んだリスト <span class="parm">ls0</span>  を用意する。
+<li> データを１行読み込む
+  <li> 読み込んだ行がコメント行なら次の行にスキップ
+	 <li>  <a name="ls1">読み込んだ行から x, y の値を読み込み、リスト
+		<span class="parm">ls1</span> = <span class="mono">[1.0, x, x<sup>2</sup> .. x<sup>2n</sup>, y, xy,...x<sup>n</sup>y]</span>
+		を作る。
+		<li> <a name="update_ls"><span class="parm">ls0</span>
+		  =: zipWith (+) <span class="parm">ls0</span> <span class="parm">ls1</span><br>
+		  とし、値を加えていく。
+		  <li> <span class="parm">dat_file</span> を読み終わったら
+			 <span class="parm">ls0</span> から組 M<sub>E</sub> を作る。<br>
+			 <a name="ls_sum">note: <span class="parm">dat_file</span> を読み終えた時点で
+				<span class="parm">ls0</span> は
+			 <span class="parm">ls_sum</span> <span class="mono">=
+			 [n, &sum;x, &sum;x<sup>2</sup>,..&sum;x<sup>2n</sup>, &sum;y, &sum;xy,..&sum;x<sup>n</sup>y]</span>
+			 になる。
+			 <li> M<sub>E</sub> を掃き出して係数の組を求める。
+				<li>係数の組を表示する。
+				  </ol>
+
+
+ 以下に線形最小二乗法を行う Haskell プログラムのコードを示します。
+ <pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">------------------------------------------------</span>
+<span class="linenumber">02:</span>     <span class="comment">-- Linear least square fitting for X-Y data</span>
+<span class="linenumber">03:</span>     <span class="comment">-- Usage: lfit [fitting order] [data file name]</span>
+<span class="linenumber">04:</span>     <span class="comment">--</span>
+<span class="linenumber">05:</span>     <span class="comment">-- data file format should be 'gnuplot' format</span>
+<span class="linenumber">06:</span>     <span class="comment">--</span>
+<span class="linenumber">07:</span>     <span class="comment">--                        by T.Shido</span>
+<span class="linenumber">08:</span>     <span class="comment">--                        shido_takafumi@ybb.ne.jp</span>
+<span class="linenumber">09:</span>     <span class="comment">--------------------------------------------------</span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     module Main where
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     import IO
+<span class="linenumber">14:</span>     import System
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     <span class="comment">-- reading and fitting data </span>
+<span class="linenumber">17:</span>     fit :: Int -&gt; String -&gt; IO()
+<span class="linenumber">18:</span>     fit n infname = bracket (openFile infname ReadMode)
+<span class="linenumber">19:</span>                             hClose
+<span class="linenumber">20:</span>                             (\h -&gt; do hSetBuffering h LineBuffering
+<span class="linenumber">21:</span>                                       ls_sum &lt;- read_dat h (take (2+3*n) [0.0,0.0..])
+<span class="linenumber">22:</span>                                       print $ map last $ sweep $ make_emat n ls_sum)
+<span class="linenumber">23:</span>     <span class="comment">--                      </span>
+<span class="linenumber">24:</span>      where read_dat h ls = do term &lt;- hIsEOF h
+<span class="linenumber">25:</span>                               if term
+<span class="linenumber">26:</span>                                   then return ls
+<span class="linenumber">27:</span>                                   else do line &lt;- hGetLine h
+<span class="linenumber">28:</span>                                           read_dat h (
+<span class="linenumber">29:</span>                                                        if (head line) == '#' || line ==[]
+<span class="linenumber">30:</span>                                                            then ls
+<span class="linenumber">31:</span>                                                            else zipWith (+) ls (make_xy line))
+<span class="linenumber">32:</span>     <span class="comment">--</span>
+<span class="linenumber">33:</span>            make_xy str = take (2*n+1) lx ++ (map (*y) $ take (n+1) lx)
+<span class="linenumber">34:</span>             where
+<span class="linenumber">35:</span>                 xy = map read $ words str
+<span class="linenumber">36:</span>                 x  = xy !! 0
+<span class="linenumber">37:</span>                 y  = xy !! 1
+<span class="linenumber">38:</span>                 lx = 1.0 : map (*x) lx   
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>     <span class="comment">-- making an error matrix</span>
+<span class="linenumber">41:</span>     make_emat :: Int -&gt; [Double] -&gt; [[Double]]
+<span class="linenumber">42:</span>     make_emat n dl = map make_line [0,1..n]
+<span class="linenumber">43:</span>      where
+<span class="linenumber">44:</span>          make_line i = (take (n+1) (drop i dl)) ++ [dl !! (i + 2*n + 1)]
+<span class="linenumber">45:</span>     
+<span class="linenumber">46:</span>     <span class="comment">-- sweep a matrix</span>
+<span class="linenumber">47:</span>     sweep :: [[Double]] -&gt; [[Double]]
+<span class="linenumber">48:</span>     sweep mat = sweep' (length mat) 0 mat
+<span class="linenumber">49:</span>     
+<span class="linenumber">50:</span>     sweep' :: Int -&gt; Int -&gt; [[Double]] -&gt; [[Double]]
+<span class="linenumber">51:</span>     sweep' n i mat | i==n = mat
+<span class="linenumber">52:</span>                    | otherwise = sweep' n (i+1) mat_next
+<span class="linenumber">53:</span>      where a_i    = mat !! i
+<span class="linenumber">54:</span>            a_ii   = a_i !! i
+<span class="linenumber">55:</span>            v_c    = (take i [0.0,0.0..]) ++ (1.0 : map (/ a_ii)  (drop (i+1) a_i))
+<span class="linenumber">56:</span>            mat_next = zipWith sweep_line [0,1..(n-1)] mat
+<span class="linenumber">57:</span>            sweep_line  j ls | i==j      = v_c
+<span class="linenumber">58:</span>                             | otherwise = take i ls ++
+<span class="linenumber">59:</span>                                           (0.0 : (zipWith (\ x y -&gt;  x - a_ki * y) 
+<span class="linenumber">60:</span>                                                   (drop (i+1) ls) (drop (i+1) v_c)))
+<span class="linenumber">61:</span>                                              where a_ki = ls !! i
+<span class="linenumber">62:</span>                                               
+<span class="linenumber">63:</span>     main :: IO ()
+<span class="linenumber">64:</span>     main = do args  &lt;- getArgs
+<span class="linenumber">65:</span>               fit (read $ head args) (args !! 1)
+</pre>
+<table border=1, class="mono">
+   <tr>
+      <th>行</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>18</td>
+      <td>データファイルを読み込んで、最小二乗法を行う関数 fit を定義。引数は
+          フィテッィングの次数 n とデータファイル名 infname</td>
+   </tr>
+   <tr>
+      <td>18</td>
+      <td>bracket を使って、ファイルの処理方法を詳しく記述する。<br>
+readFile を使って全部まとめて読み込んだ方が簡単だが、
+巨大なデータファイルにも対応できるよう一行ずつ読み込むようにする。</td>
+   </tr>
+   <tr>
+      <td>18</td>
+      <td> ReadMode でファイルを開く</td>
+   </tr>
+   <tr>
+      <td>20</td>
+      <td> IO バッファを LineBuffer にする。１行ずつ読み込むので、このサイズで十分。</td>
+   </tr>
+   <tr>
+      <td>21</td>
+      <td> read_dat を用いて <a href="#ls_sum">ls_sum</a> を求める。read_dat の定義は
+      24--30 行にある。<br> take (2+3*n) [0.0,0.0..]<br>
+		で、0.0 が (2+3*n) 個並んだリストが得られる。</td>
+   </tr>
+   <tr>
+      <td>22</td>
+      <td> ls_sum から組 M<sub>E</sub> を作り (make_emat n)、掃き出して (sweep)、各行の最後の要素をとり、
+それを表示する。（プログラムはここでおしまい。）<br>
+make_emat と sweep の定義はそれぞれ 41--44, 47--61 行にある。</td>
+   </tr>
+   <tr>
+      <td>24</td>
+      <td> read_dat の定義：ファイルハンドル (h) と Double のリスト (ls) を引数に取る。</td>
+   </tr>
+   <tr>
+      <td>24</td>
+      <td> hIsEOF h で、ファイルが終わっているか調べる。これは IO Bool なので、 Bool に
+変換するため &lt;- を使う。</td>
+   </tr>
+   <tr>
+      <td>25</td>
+      <td> もし、ファイルが終わりなら、</td>
+   </tr>
+   <tr>
+      <td>26</td>
+      <td> ls を返す。</td>
+   </tr>
+   <tr>
+      <td>27</td>
+      <td> そうでなければ１行読み込んで、</td>
+   </tr>
+   <tr>
+      <td>28</td>
+      <td> read_dat h を繰り返す。</td>
+   </tr>
+   <tr>
+      <td>29</td>
+      <td> もし、読み込んだ行がコメントなら、</td>
+   </tr>
+   <tr>
+      <td>30</td>
+      <td> 次の read_dat で ls をそのまま使う。</td>
+   </tr>
+   <tr>
+      <td>31</td>
+      <td> そうでなければ、読み込んだ行を make_xy (33--41 行）を使って、<a href="#ls1">ls1</a> をつくり、
+ls と ls1 のそれぞれの要素を足したものを次の read_dat で使う。(<a href="#update_ls">ここ</a>を参照)<br>
+		  zipWith fun ls1 ls2 <br>は<br>
+		  map ( \ (e1, e2) -> fun e1 e2) $ zip ls1 ls2 <br>
+		  と同じ。便利な記法で以下しばしば登場。
+		</td>
+   </tr>
+   <tr>
+      <td>33</td>
+      <td> make_xy の定義。<br>
+		  take (2*n+1) lx は [1.0, x, x^2.. x^(2*n)]<br>
+		  map (*y) $ take (n+1) lx は [y, x*y.... x^n * y]。</td>
+   </tr>
+   <tr>
+      <td>35</td>
+      <td> str を単語に分割してそれぞれを数に変換</td>
+   </tr>
+   <tr>
+      <td>36</td>
+      <td> その最初の要素が x</td>
+   </tr>
+   <tr>
+      <td>37</td>
+      <td> ２番目の要素が y</td>
+   </tr>
+   <tr>
+      <td>38</td>
+      <td> lx は [1.0, x, x<sup>2</sup>,... ] 。<a href="haskell1.html#series">ここ</a>を参照。</td>
+   </tr>
+   <tr>
+      <td>41</td>
+      <td> ls_sum から M<sub>E</sub> を作る。適当に切り取ってつなぎかえるだけ。</td>
+   </tr>
+   <tr>
+      <td>47</td>
+      <td> 掃き出し方を行う関数 sweep の定義</td>
+   </tr>
+   <tr>
+      <td>48</td>
+      <td> sweep は 末尾再帰関数 sweep' を呼び出す。</td>
+   </tr>
+   <tr>
+      <td>50</td>
+      <td> sweep' の定義</td>
+   </tr>
+   <tr>
+      <td>51</td>
+      <td> 終わったら （i==n なら）掃き出しが済んだ行列 mat を返す。</td>
+   </tr>
+   <tr>
+      <td>52</td>
+      <td> そうでなければ次の行に移って掃き出しを続ける。今回掃き出された行列を mat_next として
+次回の引数にする。</td>
+   </tr>
+   <tr>
+      <td>53</td>
+      <td> 61 行目まで mat_next の求め方</td>
+   </tr>
+   <tr>
+      <td>53</td>
+      <td> まず、mat の i 行目を a_i とする。</td>
+   </tr>
+   <tr>
+      <td>54</td>
+      <td> mat の i 行目、i 列目の要素を a_ii とする。</td>
+   </tr>
+   <tr>
+      <td>54</td>
+      <td> a_i の各要素を a_ii で割ったものを v_c とする。掃き出しをしているので、(i-1) 番目の要素は 0.0
+になっている。また、i 番目は定義より 1.0 になる。</td>
+   </tr>
+   <tr>
+      <td>55</td>
+      <td> mat_mext は mat の各行に sweep_line を作用させたもの。
+ちなみに (zip [0,1..(n-1)] mat) としているのは mat の行に行番号を振るため。</td>
+   </tr>
+   <tr>
+      <td>57</td>
+      <td> 61 行目まで sweep_line の定義</td>
+   </tr>
+   <tr>
+      <td>57</td>
+      <td> i 行目は v_c を使う。</td>
+   </tr>
+   <tr>
+      <td>58</td>
+      <td> それ以外は (j, i) の要素が 0.0 になるようにする。<br>
+つまり、 v_c の各要素に mat[j][i] の値を掛け、それを mat[j] の各要素
+から引く。<br>
+<span class="bluetext">take i ls ++ (0.0 : map ...</span>
+などとしているのは分かりきった値を再度計算しないため。</td>
+   </tr>
+   <tr>
+      <td>63</td>
+      <td> いよいよ main</td>
+   </tr>
+   <tr>
+      <td>64</td>
+      <td> コマンドラインの引数を取ってくる。</td>
+   </tr>
+   <tr>
+      <td>65</td>
+      <td> それに基づいて fit を実行する。</td>
+   </tr>
+</table>
+<p>
+  いかがでしょうか？<br>
+  IO に随分手間がかかり、
+  実際の処理は手短に書けていることが分かると思います。
+  特に <span class="mono">sweep</span> は教科書に載っている定義そのままです。<br>
+  データ処理部分は
+関数の
+パイプラインがくめるので（22 行目）、すっきりと書けます。
+  この初歩的な例からも、Haskell は
+  <span class="important">少ない IO と高度な処理</span>をする課題に
+  適しているといえます。
+<p>
+  <b>To do</b>:<br>
+表示形式を見やすくする、係数の誤差を求めるなど
+改良したほうがよい点あります。
+興味のある人は試してください。
+  （解答例は
+  <a href="haskell11.html#multifile-compile">ここ</a>
+  にあります。）
+
+ <h2> 3. コンパイルと実行</h2>
+GHC を使って次のようにコンパイルします。
+<pre class="samp">
+D:\doc\05-03\haskell&gt;ghc -O lfit.hs -o lfit.exe
+</pre>
+このようにすると一度 C 言語のソースコードを作成した後 gcc を使ってコンパイルされます。
+--make を使ってコンパイルしたときより
+実行ファイルの形式が小さくなり、かつ速度が速くなることが期待されると云われています。
+<p>
+ データファイル <span class="bluetext">a.dat</span> を
+  <span class="bluetext">2</span> 次でフィットするときは以下のようにします。<br>
+  係数が 0 次から順に表示されます。
+<pre class="samp">
+D:\doc\05-03\haskell&gt;lfit 2 a.dat
+[2.531727598665171,-0.5005644499197017,-2.9990377224373487e-2]
+</pre>
+
+ <h2> 4. おまけ：テストデータを作る Haskell プログラム dat.hs</h2>
+ついでにテストデータを作る Haskell プログラムも示します。
+ 乱数を使うとき参考にしてください。
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">-----------------------------------------------------</span>
+<span class="linenumber">02:</span>     <span class="comment">-- making test data for lfit.hs</span>
+<span class="linenumber">03:</span>     <span class="comment">-- making a list of random numbers</span>
+<span class="linenumber">04:</span>     <span class="comment">-- usage:</span>
+<span class="linenumber">05:</span>     <span class="comment">--  dat [output_file_name] c0 c1 ... cn</span>
+<span class="linenumber">06:</span>     <span class="comment">--</span>
+<span class="linenumber">07:</span>     <span class="comment">-- by T.Shido (shido_takafumi@ybb.ne.jp)</span>
+<span class="linenumber">08:</span>     <span class="comment">-----------------------------------------------------</span>
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     module Main where
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     import Random
+<span class="linenumber">13:</span>     import Time
+<span class="linenumber">14:</span>     import System
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     <span class="comment">-- making a seed for randomR</span>
+<span class="linenumber">17:</span>     the_sec :: IO Int
+<span class="linenumber">18:</span>     the_sec = do tm &lt;- getClockTime
+<span class="linenumber">19:</span>                  return $ sum $ zipWith (*)
+<span class="linenumber">20:</span>                                   (map read $ split_str ':' ((words $ show tm) !! 3))
+<span class="linenumber">21:</span>                                   [3600,60,1]
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>     <span class="comment">-- split a string</span>
+<span class="linenumber">24:</span>     split_str :: Char -&gt; String -&gt; [String]
+<span class="linenumber">25:</span>     split_str _ [] = []
+<span class="linenumber">26:</span>     split_str c str = w : split_str c (case rest of{"" -&gt; ""; _ -&gt; tail rest})
+<span class="linenumber">27:</span>      where (w, rest) = break (==c) str
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>     <span class="comment">-- making a list of 'n' random numbers with in a range 'range'</span>
+<span class="linenumber">30:</span>     randR :: Int -&gt; (Double, Double) -&gt; IO [Double]
+<span class="linenumber">31:</span>     randR n range = do seed &lt;- the_sec
+<span class="linenumber">32:</span>                        setStdGen (mkStdGen seed)
+<span class="linenumber">33:</span>                        g &lt;- getStdGen
+<span class="linenumber">34:</span>                        return $ take n $ randomRs range g
+<span class="linenumber">35:</span>     
+<span class="linenumber">36:</span>     <span class="comment">-- calculating y value at x</span>
+<span class="linenumber">37:</span>     calc_y lcoef x rd = foldl (+) rd  $ zipWith (*) lcoef lx
+<span class="linenumber">38:</span>      where lx = 1.0 : map (*x) lx
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>     <span class="comment">-- making a string like "y = randomR(-1.0 -- 1.0) + c0 + c1*x + c2*x**2 ...."</span>
+<span class="linenumber">41:</span>     sform lcoef = foldl (++) "y = randomR(-1.0 <span class="comment">-- 1.0)"  $ zipWith sform' [0,1..] lcoef</span>
+<span class="linenumber">42:</span>      where sform' i c = let sc = " + " ++ show c
+<span class="linenumber">43:</span>                         in case i of
+<span class="linenumber">44:</span>                             0 -&gt; sc
+<span class="linenumber">45:</span>                             1 -&gt; sc ++ " * x"
+<span class="linenumber">46:</span>                             _ -&gt; sc ++ " * x**" ++ (show i)
+<span class="linenumber">47:</span>      
+<span class="linenumber">48:</span>     main = do  av &lt;- getArgs
+<span class="linenumber">49:</span>                lrnd &lt;- randR 100 (-1.0, 1.0)
+<span class="linenumber">50:</span>                let coef = map read $ tail av
+<span class="linenumber">51:</span>                writeFile (head av) $
+<span class="linenumber">52:</span>                    foldl (++)
+<span class="linenumber">53:</span>                          ("# A sample data for lfit.hs \n# made by dat.hs\n# " ++
+<span class="linenumber">54:</span>                                       (sform coef) ++ "\n#\n")
+<span class="linenumber">55:</span>                          (zipWith (\ x r -&gt; (show x) ++ " " ++ (show $ calc_y coef x r) ++ "\n") 
+<span class="linenumber">56:</span>                              [0,1..99] lrnd)
+</pre>
+<table border=1, class="mono">
+   <tr>
+      <th>行</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>17--21</td>
+      <td> 今日の始まりからの秒数を数えます。</td>
+   </tr>
+   <tr>
+      <td>24--27</td>
+      <td> 文字列 str を 文字 c を区切りとして分割します。</td>
+   </tr>
+   <tr>
+      <td>30--34</td>
+      <td> range の範囲の Double の乱数 n 個からなるリストを返します。</td>
+   </tr>
+   <tr>
+      <td>37--38</td>
+      <td> 係数の組 lcoef と x, 乱数 rd とから y の値を計算します。</td>
+   </tr>
+   <tr>
+      <td>41--46</td>
+      <td> "y = randomR(-1.0--1.0) + c0 + c1 x + c2 x**2 ..... + cn x**n"
+という文字列を返します。</td>
+   </tr>
+   <tr>
+      <td>48--56</td>
+      <td> av!!0  に、header と x = 0.0 -- 99.0 の x と y の値を出力します。</td>
+   </tr>
+</table>
+<p>
+Haskell は純粋な関数型言語なので、そのつど乱数を作るより、あらかじめ乱数のリストを
+作って、そこから乱数を取り出すほうが便利でしょう。<br>
+Haskell で乱数を使う手順は以下の通りです。
+<ol>
+<li> 時刻などの繰り返されない値に基づいて乱数の種を作る。
+<pre class="code">
+setStdGen (mkStdGen seed)
+g &lt;- getStdGen
+</pre>
+ここで、<span class="mono">seed</span> は繰り返さない値。<span class="mono">g は seed</span>
+を基にした乱数の種です。
+  <li> <span class="mono">randoms または randomRs</span> で乱数の無限リストを作る。
+<pre class="code">
+<span class="comment">-- random Int, the range is the same as that of Int</span>
+random_Int = randoms g
+
+<span class="comment">-- random in a range, the range is defined by (lower_limit, upper_limit)</span>
+random_Range = randomRs (lower_limit, upper_limit) g
+</pre>
+</ol>
+<p>
+  dat.hs とコンパイルと使用法は以下の通りです。
+<pre class="samp">
+D:\doc\05-03\haskell&gt;ghc -O dat.hs -o dat.exe
+
+<span class="comment">-- y = 2.5 + (-0.5)*x + (-0.03)*x**2 + random(-1.0 -- 1.0) を満たす x, y データを作り
+-- それを a.dat に保存する。</span>
+D:\doc\05-03\haskell&gt;dat a.dat 2.5 -0.5 -0.03
+</pre>
+<h2> 5. 終わりに</h2>
+Haskell を使って実用的？なプログラムを書いてみました。
+ご参考になりましたら幸いです。<p>
+
+<a href ="lfit.lzh">lfit.lzh</a> は lfit.hs, dat.hs, a.dat を圧縮したものです。
+気が向いたらダウンロードして遊んでみてください。
+
+
+ <hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell5.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. 入出力</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell7.html"><img src='../images/right_arrow.gif' class='arrow' border=0>7. 自前の data と class</a></td>
+<td><a rel=download href="lfit.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell6.html&t=linear+fitting+using+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>

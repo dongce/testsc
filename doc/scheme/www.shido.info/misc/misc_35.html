@@ -1,0 +1,347 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="Ruby 関数電卓">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 関数電卓 Ruby 版 </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc35&t=%B4%D8%BF%F4%C5%C5%C2%EE+Ruby+%C8%C7"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>関数電卓 Ruby 版</h1>
+<hr>
+May 05, 2008
+<p>
+
+<a href='../lisp/scheme_calc.html'>Scheme 版</a>, 
+<a href='../py/python_calc.html'>Python 版</a>, 
+<a href='../misc/misc.php?id=34'>JavaScript 版</a>
+に続いて今回は Ruby 版です。
+
+基本的に Python 版と同じです。
+起動時の引数がない場合は対話モードで、
+ファイル名を引数に与えると、そのファイルを開いて
+1行ずつ計算していきます。
+<p>
+紫藤は Python に慣れているので Python の方が書きやすかったです。
+Ruby は
+<ul>
+<li> Python の <tt>enumerate</tt> に相当する関数がないのが不便
+<li> <tt>then</tt> や <tt>end</tt> のブロックを作る予約語が目障り
+    (なぜ括弧ではいけないのか？)
+<li> 文字列の取り扱いがいまいち不便
+</ul>
+と感じました。
+
+<p>
+興味のある人は<a href='calc_rb.lzh'>ダウンロード</a>して遊んでみてください。
+また、いけてないところが多々あると思いますので、ご指摘いただけたら幸いです。
+<p>
+[calc.rb]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#! ruby</span>
+<span class="linenumber">002:</span>   <span class="comment"># calculator, ruby version </span>
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   P_CST=6
+<span class="linenumber">007:</span>   P_LHB=5
+<span class="linenumber">008:</span>   P_FUN=4
+<span class="linenumber">009:</span>   P_POW=3
+<span class="linenumber">010:</span>   P_UPM=2
+<span class="linenumber">011:</span>   P_MD=1
+<span class="linenumber">012:</span>   P_BPM=0
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   
+<span class="linenumber">015:</span>   
+<span class="linenumber">016:</span>   
+<span class="linenumber">017:</span>   class Operator
+<span class="linenumber">018:</span>       
+<span class="linenumber">019:</span>     def initialize(name, fun, priority)
+<span class="linenumber">020:</span>       @name=name
+<span class="linenumber">021:</span>       @fun=fun
+<span class="linenumber">022:</span>       @priority=priority
+<span class="linenumber">023:</span>     end
+<span class="linenumber">024:</span>       
+<span class="linenumber">025:</span>     def to_s
+<span class="linenumber">026:</span>       return @name 
+<span class="linenumber">027:</span>     end
+<span class="linenumber">028:</span>       
+<span class="linenumber">029:</span>     def call(x=nil, y=nil)
+<span class="linenumber">030:</span>       if self.is_constant then return @fun
+<span class="linenumber">031:</span>       elsif self.is_unary or self.is_lhb then return @fun.call(x)
+<span class="linenumber">032:</span>       elsif self.is_binary then return @fun.call(x,y)
+<span class="linenumber">033:</span>       end
+<span class="linenumber">034:</span>     end
+<span class="linenumber">035:</span>       
+<span class="linenumber">036:</span>     def &gt;(other)
+<span class="linenumber">037:</span>       return (other==nil or @priority &gt; other.priority or (self.is_reverse and @priority==other.priority))
+<span class="linenumber">038:</span>     end
+<span class="linenumber">039:</span>   
+<span class="linenumber">040:</span>     def priority
+<span class="linenumber">041:</span>       return @priority
+<span class="linenumber">042:</span>     end
+<span class="linenumber">043:</span>       
+<span class="linenumber">044:</span>     def is_constant
+<span class="linenumber">045:</span>       return @priority==P_CST
+<span class="linenumber">046:</span>     end
+<span class="linenumber">047:</span>   
+<span class="linenumber">048:</span>     def is_lhb
+<span class="linenumber">049:</span>       return @priority==P_LHB
+<span class="linenumber">050:</span>     end
+<span class="linenumber">051:</span>   
+<span class="linenumber">052:</span>     def is_func
+<span class="linenumber">053:</span>       return @priority==P_FUN
+<span class="linenumber">054:</span>     end
+<span class="linenumber">055:</span>   
+<span class="linenumber">056:</span>     def is_unary
+<span class="linenumber">057:</span>       return (@priority == P_FUN or @priority == P_UPM)
+<span class="linenumber">058:</span>     end
+<span class="linenumber">059:</span>   
+<span class="linenumber">060:</span>     def is_upm
+<span class="linenumber">061:</span>       return @priority == P_UPM
+<span class="linenumber">062:</span>     end
+<span class="linenumber">063:</span>       
+<span class="linenumber">064:</span>     def is_binary
+<span class="linenumber">065:</span>       return (@priority == P_MD or @priority == P_BPM or @priority == P_POW)
+<span class="linenumber">066:</span>     end
+<span class="linenumber">067:</span>     
+<span class="linenumber">068:</span>     def is_reverse
+<span class="linenumber">069:</span>       return (@priority == P_FUN or @priority == P_UPM or @priority == P_POW)
+<span class="linenumber">070:</span>     end
+<span class="linenumber">071:</span>   end
+<span class="linenumber">072:</span>   
+<span class="linenumber">073:</span>   
+<span class="linenumber">074:</span>   def fact(n)
+<span class="linenumber">075:</span>     if not n.is_a?(Integer) then 
+<span class="linenumber">076:</span>       raise "fact needs integer"
+<span class="linenumber">077:</span>     end
+<span class="linenumber">078:</span>     if n &lt; 0 then
+<span class="linenumber">079:</span>       raise "fact needs positive number"
+<span class="linenumber">080:</span>     end  
+<span class="linenumber">081:</span>     if n==0 then return 1
+<span class="linenumber">082:</span>     else
+<span class="linenumber">083:</span>       j=1
+<span class="linenumber">084:</span>       for i in 1 .. n
+<span class="linenumber">085:</span>         j*=i
+<span class="linenumber">086:</span>       end
+<span class="linenumber">087:</span>       return j
+<span class="linenumber">088:</span>     end
+<span class="linenumber">089:</span>   end
+<span class="linenumber">090:</span>   
+<span class="linenumber">091:</span>   def permutation(m,n)
+<span class="linenumber">092:</span>     if not ( n.is_a?(Integer) and m.is_a?(Integer) ) then 
+<span class="linenumber">093:</span>       raise "P needs integer"
+<span class="linenumber">094:</span>     end
+<span class="linenumber">095:</span>       
+<span class="linenumber">096:</span>     if n&gt;m then
+<span class="linenumber">097:</span>       raise "LHS should be larger or equal to RHS"
+<span class="linenumber">098:</span>     end    
+<span class="linenumber">099:</span>   
+<span class="linenumber">100:</span>     return fact(m)/fact(m-n)
+<span class="linenumber">101:</span>   end
+<span class="linenumber">102:</span>   
+<span class="linenumber">103:</span>   
+<span class="linenumber">104:</span>   def combination(m,n)
+<span class="linenumber">105:</span>     if not ( n.is_a?(Integer) and m.is_a?(Integer) ) then 
+<span class="linenumber">106:</span>       raise "C needs integer"
+<span class="linenumber">107:</span>     end
+<span class="linenumber">108:</span>   
+<span class="linenumber">109:</span>     return permutation(m,n)/fact(n)
+<span class="linenumber">110:</span>   end
+<span class="linenumber">111:</span>   
+<span class="linenumber">112:</span>   
+<span class="linenumber">113:</span>   L_OP=[
+<span class="linenumber">114:</span>         Operator.new('@+', lambda{|x| +x}, P_UPM),
+<span class="linenumber">115:</span>         Operator.new('@-', lambda{|x| -x}, P_UPM),
+<span class="linenumber">116:</span>         Operator.new('+', lambda{|x,y| x+y}, P_BPM),
+<span class="linenumber">117:</span>         Operator.new('-', lambda{|x,y| x-y}, P_BPM),
+<span class="linenumber">118:</span>         Operator.new('*', lambda{|x,y| x*y}, P_MD),
+<span class="linenumber">119:</span>         Operator.new('/', lambda{|x,y| x/y}, P_MD), 
+<span class="linenumber">120:</span>         Operator.new('%', lambda{|x,y| x%y}, P_MD),
+<span class="linenumber">121:</span>         Operator.new('**', lambda{|x,y| x**y}, P_POW),
+<span class="linenumber">122:</span>         Operator.new('^', lambda{|x,y| x**y}, P_POW),
+<span class="linenumber">123:</span>         Operator.new('exp', lambda{|x| Math.exp(x)}, P_FUN),
+<span class="linenumber">124:</span>         Operator.new('log', lambda{|x| Math.log(x)}, P_FUN),
+<span class="linenumber">125:</span>         Operator.new('log10', lambda{|x| Math.log10(x)}, P_FUN),
+<span class="linenumber">126:</span>         Operator.new('sqrt', lambda{|x| Math.sqrt(x)}, P_FUN),
+<span class="linenumber">127:</span>         Operator.new('sin', lambda{|x| Math.sin(x)}, P_FUN),        
+<span class="linenumber">128:</span>         Operator.new('cos', lambda{|x| Math.cos(x)}, P_FUN),
+<span class="linenumber">129:</span>         Operator.new('tan', lambda{|x| Math.tan(x)}, P_FUN),                
+<span class="linenumber">130:</span>         Operator.new('asin', lambda{|x| Math.asin(x)}, P_FUN),                
+<span class="linenumber">131:</span>         Operator.new('acos', lambda{|x| Math.acos(x)}, P_FUN),
+<span class="linenumber">132:</span>         Operator.new('atan', lambda{|x| Math.atan(x)}, P_FUN),
+<span class="linenumber">133:</span>         Operator.new('pi', Math::PI, P_CST),
+<span class="linenumber">134:</span>         Operator.new('e', Math::E, P_CST),
+<span class="linenumber">135:</span>         Operator.new('!', lambda{|x| fact(x)}, P_LHB),
+<span class="linenumber">136:</span>         Operator.new('P', lambda{|x,y| permutation(x,y)}, P_POW),
+<span class="linenumber">137:</span>         Operator.new('C', lambda{|x,y| combination(x,y)}, P_POW),
+<span class="linenumber">138:</span>       ]
+<span class="linenumber">139:</span>   
+<span class="linenumber">140:</span>   H_OP=Hash.new 
+<span class="linenumber">141:</span>   L_OP.each{|op| H_OP[op.to_s] = op}
+<span class="linenumber">142:</span>   
+<span class="linenumber">143:</span>   
+<span class="linenumber">144:</span>   $r_fe=Regexp.new(
+<span class="linenumber">145:</span>           '^(?:(\()|(\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)|(' +
+<span class="linenumber">146:</span>           L_OP.delete_if{|op|
+<span class="linenumber">147:</span>                      op.is_upm
+<span class="linenumber">148:</span>                    }.map{|op| 
+<span class="linenumber">149:</span>                      op.to_s
+<span class="linenumber">150:</span>                    }.sort{|x,y|
+<span class="linenumber">151:</span>                      y.length &lt;=&gt; x.length
+<span class="linenumber">152:</span>                    }.map{|s|
+<span class="linenumber">153:</span>                      s.split('').map{|c| c.match(/w/) ? c : ('\' + c)}.join('') +
+<span class="linenumber">154:</span>                      (H_OP[s].is_constant ? '(?=\W|$)' : H_OP[s].is_func ? '(?=\s|\()' : '')
+<span class="linenumber">155:</span>                    }.join('|') +
+<span class="linenumber">156:</span>                   '))')
+<span class="linenumber">157:</span>   
+<span class="linenumber">158:</span>    
+<span class="linenumber">159:</span>   
+<span class="linenumber">160:</span>   def find_close(s)
+<span class="linenumber">161:</span>     pos=0
+<span class="linenumber">162:</span>     count=0
+<span class="linenumber">163:</span>     s.each_byte{|c|
+<span class="linenumber">164:</span>       count += (c==40 ? 1 : c==41 ? -1 : 0) <span class="comment"># ( -&gt; 40, ) -&gt; 41</span>
+<span class="linenumber">165:</span>       if (pos &gt; 0 and count==0) then
+<span class="linenumber">166:</span>         return pos 
+<span class="linenumber">167:</span>       end
+<span class="linenumber">168:</span>       pos+=1
+<span class="linenumber">169:</span>     }
+<span class="linenumber">170:</span>     return -1
+<span class="linenumber">171:</span>   end
+<span class="linenumber">172:</span>   
+<span class="linenumber">173:</span>   
+<span class="linenumber">174:</span>   
+<span class="linenumber">175:</span>   def read_input(s0, ls=[])
+<span class="linenumber">176:</span>   
+<span class="linenumber">177:</span>     s0.strip!
+<span class="linenumber">178:</span>   
+<span class="linenumber">179:</span>     if s0.length==0 then
+<span class="linenumber">180:</span>       return ls
+<span class="linenumber">181:</span>     end
+<span class="linenumber">182:</span>   
+<span class="linenumber">183:</span>     m=$r_fe.match(s0)
+<span class="linenumber">184:</span>     if not m then 
+<span class="linenumber">185:</span>       raise "cannot parse input"
+<span class="linenumber">186:</span>     end
+<span class="linenumber">187:</span>   
+<span class="linenumber">188:</span>     if m[1] then
+<span class="linenumber">189:</span>       j=find_close(s0)
+<span class="linenumber">190:</span>       read_input(s0[j+1, s0.length], ls &lt;&lt; read_input(s0[1, j-1]))
+<span class="linenumber">191:</span>     elsif m[2] then
+<span class="linenumber">192:</span>       read_input(s0[m.end(2), s0.length], ls &lt;&lt; (m[2].match(/^d+$/) ? m[2].to_i : m[2].to_f))
+<span class="linenumber">193:</span>     elsif m[3] then
+<span class="linenumber">194:</span>       read_input(s0[m.end(3), s0.length], 
+<span class="linenumber">195:</span>                  ls &lt;&lt; H_OP[ 
+<span class="linenumber">196:</span>                             ((m[3]=='+' or m[3]=='-') and 
+<span class="linenumber">197:</span>                             (ls.length==0 or ls[-1].class== Operator)) ?
+<span class="linenumber">198:</span>                             '@' + m[3] : m[3]
+<span class="linenumber">199:</span>                            ])
+<span class="linenumber">200:</span>     end
+<span class="linenumber">201:</span>   end
+<span class="linenumber">202:</span>   
+<span class="linenumber">203:</span>   
+<span class="linenumber">204:</span>   def operator_position(ls)
+<span class="linenumber">205:</span>     max_operator=nil
+<span class="linenumber">206:</span>     j=-1
+<span class="linenumber">207:</span>     ls.each_index{|i|
+<span class="linenumber">208:</span>       obj=ls[i]
+<span class="linenumber">209:</span>       if (obj.class==Operator and obj&gt;max_operator) then
+<span class="linenumber">210:</span>         max_operator=obj
+<span class="linenumber">211:</span>         j=i
+<span class="linenumber">212:</span>       end
+<span class="linenumber">213:</span>     }
+<span class="linenumber">214:</span>     return j 
+<span class="linenumber">215:</span>   end
+<span class="linenumber">216:</span>   
+<span class="linenumber">217:</span>   
+<span class="linenumber">218:</span>   def fappend(ls, val, pos1, pos2)
+<span class="linenumber">219:</span>     return (ls[0, pos1] &lt;&lt; val) + ls[pos2, ls.length]
+<span class="linenumber">220:</span>   end
+<span class="linenumber">221:</span>   
+<span class="linenumber">222:</span>   
+<span class="linenumber">223:</span>   def is_number(ls)
+<span class="linenumber">224:</span>     return (ls.class==Float or ls.is_a?(Integer))
+<span class="linenumber">225:</span>   end
+<span class="linenumber">226:</span>   
+<span class="linenumber">227:</span>   
+<span class="linenumber">228:</span>   def eval_formula(ls)
+<span class="linenumber">229:</span>     if is_number(ls) then 
+<span class="linenumber">230:</span>       return ls
+<span class="linenumber">231:</span>     elsif ls.class==Operator and ls.is_constant then
+<span class="linenumber">232:</span>       return ls.call
+<span class="linenumber">233:</span>     elsif ls.length==1 then 
+<span class="linenumber">234:</span>       return eval_formula(ls[0])
+<span class="linenumber">235:</span>     else
+<span class="linenumber">236:</span>       pos = operator_position(ls)
+<span class="linenumber">237:</span>       op = ls[pos]
+<span class="linenumber">238:</span>       if op.is_constant then
+<span class="linenumber">239:</span>         return eval_formula(fappend(ls, op.call, pos, pos+1))
+<span class="linenumber">240:</span>       elsif op.is_unary and pos &lt; ls.length - 1 then
+<span class="linenumber">241:</span>         return eval_formula(fappend(ls,  op.call(eval_formula(ls[pos+1])), pos, pos+2)) 
+<span class="linenumber">242:</span>       elsif op.is_lhb and pos &gt; 0 then
+<span class="linenumber">243:</span>         return eval_formula(fappend(ls, op.call(eval_formula(ls[pos-1])), pos-1, pos+1)) 
+<span class="linenumber">244:</span>       elsif op.is_binary and 0 &lt; pos and pos &lt; ls.length - 1 then
+<span class="linenumber">245:</span>         return eval_formula(fappend(ls, op.call(eval_formula(ls[pos-1]), eval_formula(ls[pos+1])), pos-1, pos+2)) 
+<span class="linenumber">246:</span>       else
+<span class="linenumber">247:</span>         raise "invalid formula"
+<span class="linenumber">248:</span>       end
+<span class="linenumber">249:</span>     end
+<span class="linenumber">250:</span>   end
+<span class="linenumber">251:</span>   
+<span class="linenumber">252:</span>   
+<span class="linenumber">253:</span>   <span class="comment">#------</span>
+<span class="linenumber">254:</span>   
+<span class="linenumber">255:</span>   interactive= (ARGV.length==0)
+<span class="linenumber">256:</span>   
+<span class="linenumber">257:</span>   if interactive then
+<span class="linenumber">258:</span>     print "avairable opereters and constants are:
+"
+<span class="linenumber">259:</span>     print L_OP.delete_if{|op| op.is_upm}.map{|op| op.to_s}.join(', ')
+<span class="linenumber">260:</span>     print "
+"
+<span class="linenumber">261:</span>   end
+<span class="linenumber">262:</span>   
+<span class="linenumber">263:</span>   while 1
+<span class="linenumber">264:</span>     if interactive then print '&gt; ' end
+<span class="linenumber">265:</span>     s=gets
+<span class="linenumber">266:</span>     if not s then break end
+<span class="linenumber">267:</span>     s.chomp!
+<span class="linenumber">268:</span>     if s.length&gt;0 then
+<span class="linenumber">269:</span>       if (interactive and s=='q') then break end
+<span class="linenumber">270:</span>       begin
+<span class="linenumber">271:</span>         p eval_formula(read_input(s))
+<span class="linenumber">272:</span>       rescue =&gt; em
+<span class="linenumber">273:</span>         p em
+<span class="linenumber">274:</span>       end
+<span class="linenumber">275:</span>     else
+<span class="linenumber">276:</span>       print "
+"
+<span class="linenumber">277:</span>     end
+<span class="linenumber">278:</span>   end  
+</pre>     
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc35&t=%B4%D8%BF%F4%C5%C5%C2%EE+Ruby+%C8%C7"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

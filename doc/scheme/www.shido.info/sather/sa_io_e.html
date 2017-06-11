@@ -1,0 +1,335 @@
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, IO">
+<meta name="description" content="On the IO of Sather">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 6. IO  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_class_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. Class</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Try Sather</a></td>
+
+<td><a rel=next href="sa_abst_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+7. Abstract Classes</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_io_e.html&t=%28Try+Sather%29+6%2E+IO'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 6. IO </h1>
+<hr>
+
+<h2>1. Introduction</h2>
+I am explaining IO of Sather in this section. 
+<br>
+Sather has various functions of IO, which makes it easy to write practical applications.
+
+<h2>2. Standard output, standard error output, and standard input</h2>
+
+<h3>2.1. Standard output</h3>
+As shown previously, the standard output is created by <tt>#OUT</tt> followed by the operator <q>+</q> and 
+an object which has a method to convert into a string. Pears of <q>+</q> and <i>object</i> can be chained.
+<br>
+Example:
+<pre class='code'>
+a:INT:=1;
+b:INT:=2;
+#OUT + a + " + " + b + " = " + (a+b) + "\n";    -- 1 + 2 = 3
+</pre>
+
+<h3>2.2. Standard error output</h3>
+It is created by <tt>#ERR</tt>. The property is same as that of standard output.
+
+<h3>2.3. Standard input</h3>
+It is created by <tt>#IN</tt>.<br>
+It has following methods.
+<table border=1>
+   <tr>
+      <th>Name</th>
+      <th>Return type</th>
+      <th>Explanation</th>
+   </tr>
+   <tr>
+      <td>eof</td>
+      <td>BOOL</td>
+      <td>It returns true at the end of the input.</td>
+   </tr>
+   <tr>
+      <td>get_char</td>
+      <td>INT</td>
+      <td>It reads one character and returns it as integer.</td>
+   </tr>
+   <tr>
+      <td>get_str</td>
+      <td>STR</td>
+      <td>It reads a string till it meets the end of line. The return value does not contain the LF character.</td> 
+   </tr>
+</table>
+<p>
+Example: A simple program that output the user input several times.
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple stdin -&gt; stdout program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">05:</span>           i:INT:=0;
+<span class="linenumber">06:</span>           s:STR;
+<span class="linenumber">07:</span>           loop
+<span class="linenumber">08:</span>     	 #OUT + "&gt;";
+<span class="linenumber">09:</span>     	 s:=#IN.get_str;
+<span class="linenumber">10:</span>     	 if s = "" then break!; end;
+<span class="linenumber">11:</span>     	 #OUT + (s+" ").repeat(i+2) + "\n";
+<span class="linenumber">12:</span>     	 i := (i+1)%4;
+<span class="linenumber">13:</span>           end;
+<span class="linenumber">14:</span>        end;
+<span class="linenumber">15:</span>     end;  <span class="comment">-- end of MAIN</span>
+</pre>
+
+<pre class='samp'>
+takafumi@linux:~/doc/monthly/06-06/sather$ sacomp inout.sa -o inout
+takafumi@linux:~/doc/monthly/06-06/sather$ ./inout
+&gt;hello
+hello hello 
+&gt;how are you?
+how are you? how are you? how are you? 
+&gt;enjoy!
+enjoy! enjoy! enjoy! enjoy! 
+&gt;have a nice day!
+have a nice day! have a nice day! have a nice day! have a nice day! have a nice day! 
+&gt;see you tomorrow.
+see you tomorrow. see you tomorrow. 
+&gt;
+takafumi@linux:~/doc/monthly/06-06/sather$ 
+</pre>
+<h2>3. File input and output</h2>
+Method about file input and output are defined in the class <tt>FILE</tt>. 
+Following table shows frequently used methods. <br>
+See
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/shortflat-FILE.html'>
+The Online Sather Code Browser</a> for detailed information.<p>
+
+
+Table: Frequently used constructors and methods in the FILE class
+<table border=1>
+   <tr>
+      <th>Name</th>
+      <th>Explanation</th>
+   </tr>
+   <tr>
+      <td><tt>open_for_read(nm:STR):SAME</tt></td>
+      <td> It opens a file named <tt>nm</tt> to read.</td>
+   </tr>
+   <tr>
+      <td><tt>open_for_write(nm:STR):SAME</tt></td>
+      <td> It opens a file named <tt>nm</tt> to write.</td>
+   </tr>
+   <tr>
+      <td><tt>open_for_append(nm:STR):SAME</tt></td>
+      <td> It opens a file named <tt>nm</tt> to append.</td>
+   </tr>
+   <tr>
+      <td><tt>temp_file:SAME</tt></td>
+      <td> It creates a temporary file to write. The file is deleted automatically when the program terminates.</td>
+   </tr>
+   <tr>
+      <td><tt>stdin:SAME</tt></td>
+      <td> It opens a file as standard input.</td>
+   </tr>
+   <tr>
+      <td><tt>stdout:SAME</tt></td>
+      <td> It opens a file as standard output.</td>
+   </tr>
+   <tr>
+      <td><tt>stderr:SAME</tt></td>
+      <td> It opens a file as standard error output.</td>
+   </tr>
+   <tr>
+      <td><tt>close</tt></td>
+      <td> It closes a file.</td>
+   </tr>
+   <tr>
+      <td><tt>str:STR</tt></td>
+      <td> It returns the file contents as a string.</td>
+   </tr>
+   <tr>
+      <td><tt>get_str:STR</tt></td>
+      <td>It reads one line (including LF) from the file.</td>
+   </tr>
+   <tr>
+      <td><tt>get_char:CHAR</tt></td>
+      <td>It reads one character from the file.</td>
+   </tr>
+   <tr>
+      <td><tt>plus (+)</tt></td>
+      <td> It writes an object to the file. You can write like  <tt>fp + <i>obj</i></tt>.</td>
+   </tr>
+   <tr>
+      <td><tt>flush</tt></td>
+      <td>It flushes buffer to the file.</td>
+   </tr>
+   <tr>
+      <td><tt>eof:BOOL</tt></td>
+      <td>The method returns true if it is the end of file.</td>
+   </tr>
+   <tr>
+      <td><tt>error:BOOL</tt></td>
+      <td>If an error occurs, it returns true.</td>
+   </tr>
+</table>
+<p>
+Following shows a <q>cp</q> (scp.sa) and <q>cat</q> (scat.sa) programs written in Sather.<p>
+
+<b>scp.sa</b>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- scp.sa: a simple cp program written in sather</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">06:</span>           if (av.size = 3) then
+<span class="linenumber">07:</span>     	 f0:FILE:=FILE::open_for_read(av[1]);       <span class='comment'>-- open av[1] as f0</span>
+<span class="linenumber">08:</span>     	 if f0.error then
+<span class="linenumber">09:</span>     	    #ERR + "Can not open " + av[1] + "\n";  <span class='comment'>-- warn if fail</span>
+<span class="linenumber">10:</span>     	 else
+<span class="linenumber">11:</span>     	    f1:FILE:=FILE::open_for_write(av[2]);
+<span class="linenumber">12:</span>     	    f1 + f0.str;                            <span class='comment'>-- wrote contents of f0 to f1.</span>
+<span class="linenumber">13:</span>     	    f0.close;
+<span class="linenumber">14:</span>     	    f1.close;
+<span class="linenumber">15:</span>     	 end;
+<span class="linenumber">16:</span>           else
+<span class="linenumber">17:</span>     	 #ERR + "Usage: scp [from] [to]\n";
+<span class="linenumber">18:</span>           end;
+<span class="linenumber">19:</span>        end;
+<span class="linenumber">20:</span>     end;  <span class="comment">-- end of MAIN</span>
+</pre>
+
+<b>scat.sa</b>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- scat.sa: a simple cat program written in sather</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        show_file_contents(f:FILE) 
+<span class="linenumber">06:</span>           pre ~f.error
+<span class="linenumber">07:</span>        is
+<span class="linenumber">08:</span>           loop
+<span class="linenumber">09:</span>     	 until!(f.eof);                    <span class="comment">-- check if it reaches the end of file</span>
+<span class="linenumber">10:</span>     	 #OUT + f.get_str;                 <span class="comment">-- getting one line</span>
+<span class="linenumber">11:</span>           end;
+<span class="linenumber">12:</span>        end;
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">15:</span>           if (av.size = 1) then
+<span class="linenumber">16:</span>     	 show_file_contents(FILE::stdin);
+<span class="linenumber">17:</span>           else
+<span class="linenumber">18:</span>     	 i:INT;
+<span class="linenumber">19:</span>     	 f:FILE;
+<span class="linenumber">20:</span>     	 loop
+<span class="linenumber">21:</span>     	    i:=1.upto!(av.size-1);
+<span class="linenumber">22:</span>     	    if av[i] ="-" then
+<span class="linenumber">23:</span>     	       f:=FILE::stdin;
+<span class="linenumber">24:</span>     	    else
+<span class="linenumber">25:</span>     	       f:=FILE::open_for_read(av[i]);
+<span class="linenumber">26:</span>     	    end;
+<span class="linenumber">27:</span>     	    if f.error then
+<span class="linenumber">28:</span>     	       #ERR + "Can not open " + av[i] + "\n";
+<span class="linenumber">29:</span>     	       break!;
+<span class="linenumber">30:</span>     	    else
+<span class="linenumber">31:</span>     	       show_file_contents(f);
+<span class="linenumber">32:</span>     	       f.close;
+<span class="linenumber">33:</span>     	    end;
+<span class="linenumber">34:</span>     	 end;
+<span class="linenumber">35:</span>           end;
+<span class="linenumber">36:</span>        end;
+<span class="linenumber">37:</span>     end;  <span class="comment">-- end of MAIN</span>
+</pre>
+
+<h2>4. Formating</h2>
+Using the FMT class is most convenient, while several ways are available.
+This class takes a format string and objects and returns a formatted string.
+For the format string, you can use C language compatible way, as well as Sather's specific.
+Even you can mix them.
+The C compatible way is available, however, only for the <tt>STR</tt>, <tt>INT</tt>, and <tt>FLT</tt> classes.
+<p>
+<ul>
+<li><tt>#FMT</tt> formats up to 10 objects and convert it to a formatted string.
+<li><tt>FMT::format(format_string:STR, objs:ARRAY{$FMT})</tt> formats arbitrary number of objects that have the 
+$FMT method.
+</ul>
+  See
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/Format/format.html'>
+Formatting output with Sather</a> 
+for the Sather specific way.
+<p>
+
+Example:
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- fmt.sa: a simple cp program written in sather</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">06:</span>           #OUT + #FMT("%d %06d %X %06X %x %o %06o\n", 255, 255, 255, 255, 255, 255, 255); <span class="comment">-- up to ten items</span>
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>           <span class="comment">-- FMT::format takes ARRAY{$FMT} as the second argument</span>
+<span class="linenumber">09:</span>           <span class="comment">-- sather and C format notation can be mixed</span>
+<span class="linenumber">10:</span>           #OUT + FMT::format("&lt;&gt;: %02d &lt;&gt; &lt;#.#######e##&gt;\n", |"hello", 1, 2.0, FLTD::pi|);  
+<span class="linenumber">11:</span>        end;
+<span class="linenumber">12:</span>     end;  <span class="comment">-- end of MAIN</span>
+</pre>
+
+<pre class='samp'>
+$ sacomp fmt.sa -o fmt
+$ ./fmt
+255 000255 FF 0000FF ff 377 000377
+hello: 01 2.0 3.1415930e00
+</pre>
+
+<h2> 5. Summary</h2>
+I have selected a simple way to explain IO of Sather as there are many ways, which may confuse you.<br>
+
+See
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+The Online Sather Code Browser</a>
+for detailed information.<p>
+I will explain about the Sather class system in detail in the following two sections. 
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_class_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. Class</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+Try Sather</a></td>
+
+<td><a rel=next href="sa_abst_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+7. Abstract Classes</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_io_e.html&t=%28Try+Sather%29+6%2E+IO'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body></html>
+    

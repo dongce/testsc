@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="demostrations of Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Widget に画像を貼る </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter12.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  12. Tk.Text の使い方</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter_a2.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  A-2. Tkinter での日本語の取り扱い</a></td>
+<!-- <td><a rel='download' href="tkinter12.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter_a1.html&t=Widget+%A4%CB%B2%E8%C1%FC%A4%F2%C5%BD%A4%EB' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>Appnedix 1. Widget に画像を張り込む</h1> 
+<hr>
+
+Label や Button などの、<span class='important'>image</span>
+ または <span class='important'>bitmap</span> 属性のある Widget には画像を貼り付けることができます。<p>
+ Tkinter モジュールだけだと貼り付けられるのは GIF, PPM, X bitmap の３種類だけですが、
+ Python Imaging Library (PIL) を使うとほとんど全ての画像を貼り付けることができます。<p>
+ 
+X bitmap を使うことはあまりなく、便利なのは GIF でしょう。
+ 
+<h2>1. 画像ファイル (*.gif, *.ppm) の貼り付け</h2>
+Tk.PhotoImage を使うことによって、
+Tk標準のPPM(Pbmplus Portable Pixmap) とGIF(CompuServe Graphics Interchange)
+フォーマットの画像ファイルを読んで表示することができます。</p>
+例えば、次のようにして使います。<p>
+[code 1](<a href='label_gif_py.txt'>label_gif.py</a>)<br>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     import Tkinter as Tk
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     CLOCK = 'meza-bl-2.gif'
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     class Frame(Tk.Frame):
+<span class="linenumber">08:</span>         def __init__(self, master=None):
+<span class="linenumber">09:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">10:</span>             self.img = Tk.PhotoImage(file=CLOCK)
+<span class="linenumber">11:</span>             il = Tk.Label(self, image=self.img)
+<span class="linenumber">12:</span>             il.pack()
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     if __name__ == '__main__':
+<span class="linenumber">16:</span>         f = Frame()
+<span class="linenumber">17:</span>         f.pack()
+<span class="linenumber">18:</span>         f.mainloop()
+</pre>
+まず、Tk.PhotoImage 関数で、イメージを読み取り、それを、 <span class='mono'>self.img</span> に代入します。
+イメージは、必ずインスタンス変数に代入する必要があります。そうしないと、関数を抜けたとたん変数のメモリーが
+回収され、イメージが消えてしまうからです。それに対し、widget は、配置 (pack, grid, place) してしまえば
+消えることはないので、それを表す変数は一時的な変数でも差し支えありません。
+
+<h2>2. その他の画像ファイル (*.jpg, *.png, etc) の貼り付け</h2>
+<a href='http://www.pythonware.com/products/pil/'>Python Imaging Library (PIL)</a>
+を利用すると 30 種類以上のイメージを使うことができます。
+また、さまざまな画像の加工ができます。<p>
+[code 2](<a href='label_png_py.txt'>label_png.py</a>)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     import Tkinter as Tk
+<span class="linenumber">04:</span>     from PIL import Image, ImageTk
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     CLOCK = 'meza-bl-2.png'
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     class Frame(Tk.Frame):
+<span class="linenumber">09:</span>         def __init__(self, master=None):
+<span class="linenumber">10:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">11:</span>             image = Image.open(CLOCK)
+<span class="linenumber">12:</span>             self.img = ImageTk.PhotoImage(image)
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>             il = Tk.Label(self, image=self.img)
+<span class="linenumber">16:</span>             il.pack()
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     if __name__ == '__main__':
+<span class="linenumber">20:</span>         f = Frame()
+<span class="linenumber">21:</span>         f.pack()
+<span class="linenumber">22:</span>         f.mainloop()
+</pre>
+
+[code 1], [code 2] ともに右に示す window を表示します。<img src='clock.jpg'><br>
+<a href='meza-bl-2.gif'>meza-bl-2.gif</a>, <a href='meza-bl-2.png'>meza-bl-2.png</a>を
+ダウンロードして試してみてください。
+
+<h2>3. Tk に含まれている bitmap の貼り付け方</h2>
+Tk の built-in ビットマップは Tk.Label の 'bitmap' オプションで、貼り付けることができます。
+また、X bitmap フォーマットのファイルはファイル名の最初に '@' をつけることで読み込むことができます。
+詳しくは <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/bitmaps.html'>
+  Tkinter reference: 4.7. Bitmaps</a>
+を見てください。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter12.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  12. Tk.Text の使い方</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter_a2.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  A-2. Tkinter での日本語の取り扱い</a></td>
+<!-- <td><a rel='download' href="tkinter12.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter_a1.html&t=Widget+%A4%CB%B2%E8%C1%FC%A4%F2%C5%BD%A4%EB' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

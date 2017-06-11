@@ -1,0 +1,439 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, repetition, iteration, recursion">
+<meta name="description" content="Repetition on Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>7. Repetition</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme6_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. Local Variables</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme8_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>8. Higher Order Functions</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme7_e.html&t=%28Scheme%29+Repetition' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+
+<h1>7. Repetition   </h1>
+<hr>
+<h2>1. Introduction </h2>
+I will explain about repetition in this chapter.
+By using repetition, you will be able to write 'ordinary' programs.
+Even <span class='ttb'>do</span> expression is available,
+recursion is often used for repetition in Scheme.
+
+<h2>2. Recursion</h2>
+A recursive function is a function that calls itself in its definition.
+Even it may sound strange, it is a usual way for looping.
+If you have an analogy comparing functions to machines, recursion makes no sense.
+As the function is, however, a procedure, it makes sense to call itself.  
+For instance, let's consider literature survey. You may need to read the literatures (<i>cited-1</i>)
+that are cited in the literature you are reading now. Again, you may need to read other literatures
+cited in the <i>cited-1</i>. Thus, literature survey is a recursive process and you can repeat surveying
+until satisfying a certain condition (say, you are tired). Thus, an analogy that compares functions in programming languages to
+some kind of human activities (say, literature survey) is useful to understand recursive functions.
+<p>
+
+Calculating factorial is often used to explain recursion.
+<p>
+[code 1] Function <tt>fact</tt> that calculates factorials.
+<pre class='code'>
+(define (fact n)
+  (if (= n 1)
+      1
+      (* n (fact (- n 1)))))
+</pre>
+(fact 5) is calculated like as follows:
+<pre class='samp'>
+(fact 5)
+&rArr; 5 * (fact 4)
+&rArr; 5 * 4 * (fact 3)
+&rArr; 5 * 4 * 3 * (fact 2)
+&rArr; 5 * 4 * 3 * 2 * (fact 1)
+&rArr; 5 * 4 * 3 * 2 * 1
+&rArr; 5 * 4 * 3 * 2
+&rArr; 5 * 4 * 6
+&rArr; 5 * 24
+&rArr; 120
+</pre>
+
+<tt>(fact 5)</tt> calls <tt>(fact 4)</tt>, <tt>(fact 4)</tt> calls <tt>(fact 3)</tt>,
+then finally  <tt>(fact 1)</tt> is called.
+<tt>(fact 5)</tt>, <tt>(fact 4)</tt> ,.., and <tt>(fact 1)</tt> are allocated at different memory spaces
+and <tt>(fact i)</tt> stays there until <tt>(fact (- i 1))</tt> returns a value,
+which wastes the memory space and takes more calculation time because of the overhead
+of function call.
+<p>
+However, recursive functions can express repetition in a simple manner.
+Further as lists are defined recursively, lists and recursive functions fit together.
+For instance, a function that makes all list items twice is defined like as follows.
+The function should return an empty list if the argument is an empty list to terminate
+the calculation.
+  
+<pre class='code'>
+(define (list*2 ls)
+  (if (null? ls)
+      '()
+      (cons (* 2 (car ls))
+	    (list*2 (cdr ls)))))
+</pre>
+<a name='p1'>
+<h3> Exercise 1</h3>
+Write following functions using recursion. 
+<ol>
+  <li> A function that counts the number of list items, <tt>my-length</tt>.
+    (Function <tt>length</tt> is pre-defined.)
+  <li> A function that summarizes numbers in a list.
+  <li> A function that takes a list (<var>ls</var>) and an object (<var>x</var>) as arguments and returns a list
+    removing <var>x</var> from <var>ls</var>.
+  <li> A function that takes a list (<var>ls</var>)
+    and and an object (<var>x</var>) and returns the first position of <var>x</var> in <var>ls</var>.
+    The position is counted from 0. If <var>x</var> is not found in <var>ls</var>, the function 
+    returns <tt>#f</tt>.
+</ol>
+<h2>3. Tail Recursive</h2>
+Ordinary recursive function is not efficient because of wasting memory and function call overhead.
+On the contrary, tail recursive functions include the result as argument and returns it directory
+when the calculation finishes.
+Especially, as Scheme specification requires conversion of a tail recursive to a loop, there is no
+function call overhead.<p>
+[code 2] shows a tail recursive version of function <tt>fact</tt> shown in [code 1].
+<p>
+[code 2] <tt>fact-tail</tt>, tail recursive version of <tt>fact</tt>
+<pre class='code'>
+(define (fact-tail n)
+  (fact-rec n n))
+
+(define (fact-rec n p)
+  (if (= n 1)
+      p
+      (let ((m (- n 1)))
+	(fact-rec m (* p m)))))
+</pre>
+<tt>fact-tail</tt> calculates factorial like as follows:
+<pre class='samp'>
+(fact-tail 5)
+&rArr; (fact-rec 5 5)
+&rArr; (fact-rec 4 20)
+&rArr; (fact-rec 3 60)
+&rArr; (fact-rec 2 120)
+&rArr; (fact-rec 1 120)
+&rArr; 120
+</pre>
+As <tt>fact-rec</tt> does not wait the result of other functions, it disappears from the memory space
+when it finishes. The calculation proceeds by changing argument of <tt>fact-rec</tt>, which is
+basically the same as loop. As mentioned previously, as Scheme convert a tail recursive to a loop,
+Scheme can do repetition without syntax for looping.
+
+<a name='p2'>
+<h3> Exercise 2</h3>
+Write following functions using tail recursive. 
+<ol>
+  <li> <tt>my-reverse</tt> that reverse the order of list items. (Function reverse is pre-defined.)
+  <li> Summarizing items of a list consisting of numbers. 
+  <li> Converting a string that represents a positive integer to the corresponding integer,
+    i.e. "1232" &rarr; 1232.
+    Input error check is not required.<br>
+    Hint:
+    <ol>
+       <li>Character to number conversion is done by subtracting 48 from the ASCII  codes of characters #\0 ... #\9.
+        Function <tt>char-&gt;integer</tt> is available to get the ASCII code of a character.
+       <li> Function <tt>string-&gt;list</tt> is available to convert string to a list of characters.
+    </ol>
+</ol>
+
+
+<h2>4. Named let</h2>
+The <b>named <tt>let</tt></b> is available to express loop.
+[code 3] shows a function <tt>fact-let</tt> that calculates factorials using named let.
+The <tt>fact-let</tt> uses a named let expression (<var>loop</var>),
+instead of <tt>fact-rec</tt> shown in [code 2].
+First it initializes parameters (<var>n1</var>, <var>p</var>) with <var>n</var>
+at the line marked with <span class='comment'>; 1</span>.
+These parameters are updated at the line marked with <span class='comment'>; 2</span>
+after each cycle:
+Subtracting <var>n1</var> by one and multiplying <var>p</var> by <tt>(n1-1)</tt> <p>
+  A named let is a conventional way to express loops in  Scheme.<p>
+
+[code 3]
+<pre class='code'>
+(define (fact-let n)
+  (let loop((n1 n) (p n))           <span class='comment'>; 1</span>
+    (if (= n1 1)                    
+	p
+	(let ((m (- n1 1)))
+	  (loop m (* p m))))))      <span class='comment'>; 2</span>
+</pre>
+
+<h3> Exercise 3</h3>
+Write followings by using named let.
+<ol>
+  <li>Questions 3 and 4 of <a href='#p1'>exercise 1</a>.
+  <li>The function of <a href='#p2'>exercise 2</a>.
+  <li>The function <tt>range</tt> that returns a list of numbers from 0 to <var>n</var> (not including <var>n</var>).
+</ol>
+<h2>5. letrec </h2>
+While it is similar to the named <tt>let</tt>,
+a name defined by <tt>letrec</tt> can refer itself in its definition.
+The <tt>letrec</tt> syntax is used to define complicated recursive functions.
+[code 4] shows a <tt>letrec</tt> version of <tt>fact</tt>.
+<p>
+[code 4]
+<pre class='code'>
+(define (fact-letrec n)
+  (letrec ((iter (lambda (n1 p)
+		   (if (= n1 1)
+		       p
+		       (let ((m (- n1 1)))
+			 (iter m (* p m)))))))     <span class='comment'>; *</span>
+    (iter n n)))
+</pre>
+As shown at the line of <span class='comment'>; *</span>,
+the local variable  <var>iter</var> can refer itself in the definition of <var>iter</var>.
+Syntax <tt>letrec</tt> is a conventional way to define local functions.
+
+<h3> Exercise 4</h3>
+Write <tt>letrec</tt> version of <a href='#p2'>exercise 2</a>.
+
+<h2>5. do expression</h2>
+Syntax <span class='ttb'>do</span> is available for repetition, even it is not used frequently.
+The format is like as follows:
+<pre class='def'?>
+(<span class='ttb'>do</span> <var>binds</var> (<var>predicate</var> <var>value</var>)
+    <var>body</var>)
+</pre>
+Variables are bound in the <var>binds</var> part, if the  <var>predicate</var> is true, it escapes from
+the loop and returns the <var>value</var>, otherwise the looping continues.<p>
+The format of the <var>binds</var> part is like as follows:
+<pre class='def'>
+[<var>binds</var>] &rarr; ((p1 i1 u1) (p2 i2 u2) ... )
+</pre>
+Variables <tt>p1</tt>, <tt>p2</tt> ... are initialized with <tt>i1</tt>, <tt>i2</tt> ... and updated
+with <tt>u1</tt>, <tt>u2</tt> ... after each cycle.<p>
+[code 5] shows <tt>do</tt> version of <tt>fact</tt>.<p>
+[code 5]
+<pre class='code'>
+(define (fact-do n)
+  (do ((n1 n (- n1 1)) (p n (* p (- n1 1)))) ((= n1 1) p)))
+</pre>
+The variables  <var>n1</var> and <var>p</var> are initialized with <var>n</var> and <var>n</var>
+and subtracted by one and multiplying by  <tt>(n1 - 1)</tt> after each cycle, respectively.
+The function returns <var>p</var> when <var>n1</var> becomes one.<p>
+  
+I feel <tt>do</tt> is rather complicated than named <tt>let</tt>.
+
+<h3> Exercise 5</h3>
+Write a <tt>do</tt> version of <a href='#p2'>exercise 2</a>.
+
+<h2>6. Summary</h2>
+Now you can write ordinary programs using technique I have explained.<p>
+Usually <span class='ttb'>named let</span> is used for simple loops.
+On the other hand, <span class='ttb'>letrec</span> is used for complicated
+recursive local functions.
+<p>
+I will explain higher order functions in the next chapter.
+Higher order functions makes your code more Scheme like.
+<h3>Answers for Exercises</h3>
+
+<h4>Answer 1</h4>
+
+<pre class='code'>
+; 1
+(define (my-length ls)
+  (if (null? ls)
+      0
+      (+ 1 (my-length (cdr ls)))))
+
+; 2
+(define (my-sum ls)
+  (if (null? ls)
+      0
+      (+ (car ls) (my-sum (cdr ls)))))
+
+; 3
+(define (remove x ls)
+  (if (null? ls)
+      '()
+      (let ((h (car ls)))
+        ((if (eqv? x h)
+            (lambda (y) y)
+            (lambda (y) (cons h y)))
+         (remove x (cdr ls))))))
+        
+; 4
+(define (position x ls)
+  (position-aux x ls 0))
+
+(define (position-aux x ls i)
+  (cond
+   ((null? ls) #f)
+   ((eqv? x (car ls)) i)
+   (else (position-aux x (cdr ls) (1+ i)))))
+
+</pre>
+
+<h4>Answer 2</h4>
+<pre class='code'>
+; 1
+(define (my-reverse ls)
+  (my-reverse-rec ls ()))
+
+(define (my-reverse-rec ls0 ls1)
+  (if (null? ls0)
+      ls1
+      (my-reverse-rec (cdr ls0) (cons (car ls0) ls1))))
+
+;-------------------
+; 2
+(define (my-sum-tail ls)
+  (my-sum-rec ls 0))
+
+(define (my-sum-rec ls n)
+  (if (null? ls)
+      n
+      (my-sum-rec (cdr ls) (+ n (car ls)))))
+
+;--------------------
+; 3
+(define (my-string-&gt;integer str)
+  (char2int (string-&gt;list str) 0))
+
+(define (char2int ls n)
+  (if (null? ls)
+      n
+      (char2int (cdr ls) 
+		(+ (- (char-&gt;integer (car ls)) 48)
+		   (* n 10)))))
+</pre>
+
+<a name='a3'>
+<h4>Answer 3</h4>
+<pre class='code'>
+; 1
+(define (remove x ls)
+  (let loop((ls0 ls) (ls1 ()))
+    (if (null? ls0) 
+	(reverse ls1)
+	(loop
+	 (cdr ls0)
+          (if (eqv? x (car ls0))
+              ls1
+            (cons (car ls0) ls1))))))
+
+; 2
+(define (position x ls)
+  (let loop((ls0 ls) (i 0))
+    (cond
+     ((null? ls0) #f)
+     ((eqv? x (car ls0)) i)
+     (else (loop (cdr ls0) (1+ i))))))
+
+; 3
+(define (my-reverse-let ls)
+  (let loop((ls0 ls) (ls1 ()))
+    (if (null? ls0)
+	ls1
+	(loop (cdr ls0) (cons (car ls0) ls1)))))
+
+; 4
+(define (my-sum-let ls)
+  (let loop((ls0 ls) (n 0))
+    (if (null? ls0)
+	n
+	(loop (cdr ls0) (+ (car ls0) n)))))
+
+; 5
+(define (my-string-&gt;integer-let str)
+  (let loop((ls0 (string-&gt;list str)) (n 0))
+    (if (null? ls0)
+	n
+	(loop (cdr ls0)
+	      (+ (- (char-&gt;integer (car ls0)) 48)
+		 (* n 10))))))
+
+; 6
+(define (range n)
+  (let loop((i 0) (ls1 ()))
+    (if (= i n)
+        (reverse ls1)
+      (loop (1+ i) (cons i ls1)))))
+
+</pre>
+
+<h4>Answer 4</h4>
+<pre class='code'>
+; 1
+(define (my-reverse-letrec ls)
+  (letrec ((iter (lambda (ls0 ls1)
+		   (if (null? ls0)
+		       ls1
+		       (iter (cdr ls0) (cons (car ls0) ls1))))))
+    (iter ls ())))
+
+; 2
+(define (my-sum-letrec ls)
+  (letrec ((iter (lambda (ls0 n)
+		   (if (null? ls0)
+		       n
+		       (iter (cdr ls0) (+ (car ls0) n))))))
+    (iter ls 0)))
+
+; 3
+(define (my-string-&gt;integer-letrec str)
+  (letrec ((iter (lambda (ls0 n)
+		   (if (null? ls0)
+		       n
+		       (iter (cdr ls0)
+			     (+ (- (char-&gt;integer (car ls0)) 48)
+				(* n 10)))))))
+    (iter (string-&gt;list str) 0)))
+</pre>
+
+<h4>Answer 5</h4>
+<pre class='code'>
+; 1
+(define (my-reverse-do ls)
+  (do ((ls0 ls (cdr ls0)) (ls1 () (cons (car ls0) ls1)))
+      ((null? ls0) ls1)))
+
+; 2
+(define (my-sum-do ls)
+  (do ((ls0 ls (cdr ls0)) (n 0 (+ n (car ls0))))
+      ((null? ls0) n)))
+
+; 3
+(define (my-string-&gt;integer-do str)
+  (do ((ls0 (string-&gt;list str) (cdr ls0))
+       (n 0 (+ (- (char-&gt;integer (car ls0)) 48) 
+	       (* n 10))))
+      ((null? ls0) n)))
+</pre>
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme6_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. Local Variables</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme8_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>8. Higher Order Functions</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme7_e.html&t=%28Scheme%29+Repetition' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+
+

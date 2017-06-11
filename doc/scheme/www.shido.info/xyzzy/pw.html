@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="xyzzy, パスワード, ccrypt">
+<meta name="description" content="xyzzy を用いたパスワード管理です">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+  <link rel ="home" href="http://www.shido.info/index.php">
+<title> xyzzy を用いたパスワード管理</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="pw.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> 
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/pw.html&t=xyzzy+%A4%F2%CD%D1%A4%A4%A4%BF%A5%D1%A5%B9%A5%EF%A1%BC%A5%C9%B4%C9%CD%FD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>xyzzy を用いたパスワード管理</h1>
+<hr>
+<h2>1. はじめに </h2>
+xyzzy を用いたパスワード管理について述べます。<p>
+
+パスワードを覚えておこうとすると、
+<ul>
+<li> 強度の低いパスワードになりがちで、総当り攻撃に脆弱である。
+<li> 多くのマシンやサイトで同じパスワードを使用しがちであるので、芋づる式にクラックされる危険がある。
+</ul>
+
+といった問題が生じます。<br>
+そこで、紫藤は原則としてマシンやサイトごとに異なるパスワードを使用し、
+暗号化したファイルにそれらを書き留めています。こうすれば、上に挙げた2つの欠点はなくなり、
+紙に書き留めた場合のように盗み見られる危険もありません。
+<p>
+この方法でパスワードを管理するには、
+<ul>
+<li> 強度が強く、かつタイプしやすいパスワードを自動生成するスクリプト
+<li> 暗号化ファイルを取り扱うスクリプト
+</ul>
+が必要です。
+xyzzy-lisp でそのようなスクリプトを書いてみたので、紹介します。
+
+
+<h2>2.  インストールと設定 </h2>
+<h3> 2.1. インストール</h3>
+インストールの手順は以下の通りです。
+<ol>
+<li><a href="pw.lzh"><span class="mono">pw.lzh</span></a> を解凍すると
+以下のディレクトリやファイルが生成します。これらのファイルの説明は表1を見てください。
+<pre>
+/ccrypt-1.7.cygwin-i386  -- ccrypt.exe
+                         -- cygwin1.dll
+                         -- その他
+
+/xyzzy                   -- pw.cpt
+                         -- stat-spell.dat
+                         -- /site-lisp               -- pw.l
+                                                     -- pw.lc
+</pre>
+
+<li> <span class="mono">ccrypt.exe, cygwin1.dll</span> を <span class="mono">PATH</span> の通ったディレクトリにコピーする。
+<li> <span class="mono">pw.cpt, stat-spell.dat</span> を <span class="mono">xyzzy.exe</span> のあるディレクトリにコピーする。
+<li> <span class="mono">pw.l, pw.lc</span> を /site-lisp にコピーし、ダンプファイルを再作成する。
+<li> <span class="mono">.xyzzy</span> に以下の行を追加する。
+<pre class='code'>
+(in-package "editor")
+(autoload 'open-pw "pw" t)
+(autoload 'make-pw "pw" t)
+
+(in-package "user")
+(import '(ed::make-pw ed::open-pw ed::save-pw ed::*pw-file* ed::*crypt-app* ed::make-ss ed::*spell-dat*))
+</pre>
+</ol>
+<p>
+<center>
+表1：ファイルの説明
+<table border=1>
+   <tr>
+      <th>ファイル</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>ccrypt.exe</td>
+      <td> Peter Selinger 作の暗号化プログラムです。アルゴリズムとして
+ <a href='http://en.wikipedia.org/wiki/Advanced_Encryption_Standard'>AES</a> を使用しています。
+      <br>詳しくは <a href='http://ccrypt.sourceforge.net/'>http://ccrypt.sourceforge.net/</a> をみてください。</td>
+   </tr>
+   <tr>
+      <td>cygwin1.dll</td>
+      <td> ccrypt.exe などの UNIX 由来のプログラムを Win32 で動かすための DLL です。</td>
+   </tr>
+   <tr>
+      <td>pw.cpt</td>
+      <td> パスワードファイルの雛形です。復号鍵は 'qwerty' です。</td>
+   </tr>
+   <tr>
+      <td>stat-spell.dat</td>
+      <td> <a href='http://www.gutenberg.org/etext/11'>不思議の国のアリス</a> から作成した連続する2文字の頻度データです。</td>
+   </tr>
+   <tr>
+      <td>pw.l</td>
+      <td>スクリプトのソースです。</td>
+   </tr>
+   <tr>
+      <td>pw.lc</td>
+      <td>pw.l をバイトコンパイルしたものです。</td>
+   </tr>
+</table>
+</center>
+
+<h3> 2.2. 設定</h3>
+このスクリプトは、頻度データ (*spell-dat*)、暗号化されたパスワードファイル (*pw-file*)を使用します。
+<span class='mono'>pw.l</span> の冒頭にグローバルパラメターのリストがありますので、そこをいじるか、
+<span class='mono'>.xyzzy</span> に記述して、頻度データとパスワードファイルを好みの名前に変えてください。
+
+<h2> 3. 使い方 </h2>
+<h3> 3.1. パスワードの作成</h3>
+<span class='mono'>M-x make-pw</span>
+と入力すると、下に示すように、頻度データを基にそれらしいパスワードが 10 個作られます。
+その中から気に入ったものを選んで使います。
+<pre class='samp'>
+ 1: "shee v)358"
+ 2: "W)g,-pEv.660"
+ 3: "m,s_t, S,223"
+ 4: "sAtoPt)482"
+ 5: "ioN Te?h_321"
+ 6: "aveaNg@486"
+ 7: "wsou_mp)462"
+ 8: "Hit oLeR_551"
+ 9: "ng_stth?275"
+10: "inckY@tH_218"
+</pre>
+パスワード生成のアルゴリズムは<a href='http://www.shido.info/lisp/scheme_ah.html'>
+(もうひとつの Scheme 入門) 13. 連想リスト、ハッシュ表</a>
+に書いたものとほとんど同じです。
+
+<h3>3.2. 暗号化されたパスワードファイルを開く</h3>
+<span class='mono'>M-x open-pw</span> と入力すると復号鍵を聞いてきます。
+復号鍵を入力するとパスワードファイルが開きます。
+<p>
+初期値は 'qwerty' なので、それを入力すると雛形が *Passwd* というバッファに開きます。
+
+<h3>3.3. 開いたパスワードファイルを編集して保存する</h3>
+*Passwd* バッファを編集して、<span class='mono'>M-x save-pw</span> と入力すると、
+復号鍵を2回聞かれます。両者が一致するとパスワードファイルが更新され、バッファは閉じます。
+パスワードファイルの復号鍵は忘れないようにしましょう。忘れると中身が見れなくなります。
+
+<h3>3.4. 頻度データの作成</h3>
+頻度データの作成は以下のようにします。
+<ol>
+<li> *scratch* バッファに行く。
+<li><span class='mono'>(load-library "pw")</span> とタイプして Ctrl-j を押す。<br>
+すると <span class='mono'>pw.lc</span> がロードされる。<span class='mono'>pw.lc</span> を直前に
+ロードしたほうがなぜか実行時間が短くて済む。
+<li>(make-ss <var>filename</var>) と入力して Ctrl-j。<br>
+例えば、<span class='mono'>(make-ss "C:/doc/alice30.txt")</span>
+</ol>
+<h2>4. 終わりに</h2>
+これで、サイトやマシンごとに違うパスワードを使うことが簡単になり。本人は、快適に使っています。
+必要なファイル一式は<a href='pw.lzh'>ここ</a>に置いておきますので気に入ったら使ってみてください。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="pw.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> 
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/pw.html&t=xyzzy+%A4%F2%CD%D1%A4%A4%A4%BF%A5%D1%A5%B9%A5%EF%A1%BC%A5%C9%B4%C9%CD%FD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

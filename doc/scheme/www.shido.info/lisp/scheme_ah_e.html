@@ -1,0 +1,433 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, association list, hash table">
+<meta name="description" content="Association of Scheme: association lists and hash tables">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>13. Association Lists and Hash Tables</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_sym_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  12. Symbols</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_vec_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>14. Vectors and Structures</a></td>
+<td><a rel=download href="scheme_ah.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_ah_e.html&t=%28Scheme%29+Association+Lists+and+Hash+Tables' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1>13. Association Lists and Hash Tables </h1><a name="alist">
+
+<h2>1. Introduction</h2>
+In this chapter, 
+I will explain association lists and hash tables which are data types to represent associations.
+Associated data are pairs of keys and values and 
+the value is defined by the key uniquely.
+Table 1 shows pairs of books and authors.
+Authors can be defined by books, while books cannot be defined by authors because 
+a same author writes several books.
+In the Table 1, as P. Graham and L. Carroll wrote two books, their book cannot be defined
+by their name.
+
+
+<center>
+ Table 1: Authors and books.
+<table border=1>
+   <tr>
+      <th>Author</th>
+      <th>Book</th>
+   </tr>
+   <tr>
+      <td>P. Graham</td>
+      <td>On Lisp</td>
+   </tr>
+   <tr>
+      <td>P. Graham</td>
+      <td>ANSI Common Lisp</td>
+   </tr>
+   <tr>
+      <td>E. S. Raymond</td>
+      <td>The Cathedral and the Bazaar</td>
+   </tr>
+   <tr>
+      <td>K. Dybvig</td>
+      <td>The Scheme Programming Language</td>
+   </tr>
+   <tr>
+      <td>F. P. Brooks, Jr.</td>
+      <td>The Mythical Man-Month</td>
+   </tr>
+   <tr>
+      <td>L. Carroll</td>
+      <td>Alice's Adventures in Wonderland</td>
+   </tr>
+   <tr>
+      <td>L. Carroll</td>
+      <td>Through the Looking-Glass, and What Alice Found There</td>
+   </tr>
+</table>
+</center>
+
+<p>
+The association lists are available in all Scheme implementations as it is defined in the R<sup>5</sup>RS.
+But the search using the association lists is slow (order of <i>O(n)</i>).
+Using hash tables is  better in speed (order of <i>O(1)</i>), but it is not defined in the  R<sup>5</sup>RS
+and it is implementation dependent.
+The MIT-Scheme has one. If your favorite implementation doesn't, you can define one by yourself 
+(see <a href='http://www.math.grin.edu/~stone/events/scheme-workshop/hash-tables.html'>
+http://www.math.grin.edu/~stone/events/scheme-workshop/hash-tables.html
+</a>).
+
+
+<h2>2. Association Lists</h2>
+
+The association list is a list consisting of pairs and it is a basic data type to represent
+association.
+Symbols, characters, and numbers are often used as keys because they can be compared using
+fast comparison functions such as <tt>eq?</tt> or <tt>eqv?</tt>.
+Strings should be converted to symbols before used as keys for better performance.
+<p>
+
+
+Followings are examples of association lists.
+Association lists should  consist of either dot-pairs or ordinal lists. 
+<pre class='samp'>
+'((hi . 3) (everybody . 5) (nice . 3) (to . 10) (meet . 4) (you . 8))
+'((1 2 3) (4 5 6) (7 8 9))
+</pre>
+<p>
+  Functions 
+  <span class='ttb'>assq</span>, <span class='ttb'>assv</span>, and <span class='ttb'>assoc</span> 
+are to search an item from an association list.
+These functions search the association list from the beginning step by step.
+They return the pair whose car is equal to the given key if they find.
+If not the functions return #f.
+The functions use <tt>eq?</tt>, <tt>eqv?</tt>, and <tt>equal?</tt> to compare keys, respectively,
+which means that function <tt>assq</tt> is the fastest and <tt>assoc</tt> the slowest.
+This shows that strings, vectors, and lists should be converted to symbols or numbers (if possible)
+to improve the performance.
+<p>
+In general <a href='#hash'>hash tables</a> are better to search from mass of data.
+<p>
+    
+Followings show examples of search from association lists.
+
+<pre class='samp'>
+(define wc '((hi . 3) (everybody . 5) (nice . 3) (to . 10) (meet . 4) (you . 8)))
+&rArr; wc
+
+(assq 'hi wc)
+&rArr;  (hi . 3)
+
+(assq 'you wc)
+&rArr;  (you . 8)
+
+(assq 'i wc)
+&rArr;  ()
+
+
+(define n '((1 2 3) (4 5 6) (7 8 9)))
+&rArr;  n
+
+(assv 1 n)
+&rArr;  (1 2 3)
+
+(assv 8 n)
+&rArr;  ()
+</pre>
+
+<a name='hash'>
+<h2>3. Hash Tables</h2>
+<a href='http://en.wikipedia.org/wiki/Hash-table'>Hash tables</a>
+are data type that convert keys to integers by a hash function and
+that store values at the addresses indicated by the integers.
+When the table is uncrowded enough, searching, inserting, and updating can be done
+in the order of <i>O(1)</i>.
+Following shows some basic functions about hash tables defined in the MIT-Scheme.
+See <a href='http://www.swiss.ai.mit.edu/projects/scheme/documentation/scheme_12.html#SEC119'>
+  MIT-Scheme Manual</a> for detailed information.
+
+<dl>
+  <dt><span class='ttb'>(make-eq-hash-table <var>size</var>)</span>,<br>
+    <span class='ttb'>(make-eqv-hash-table <var>size</var>)</span>,<br>
+      <span class='ttb'>(make-equal-hash-table <var>size</var>)</span>,<br>
+	<span class='ttb'>(make-string-hash-table <var>size</var>)</span></dt>
+      <dd>
+These functions create a hash table. They use
+	<tt>eq?</tt>, <tt>eqv?</tt>, <tt>equal?</tt>, and <tt>string=?</tt> to compare keys,
+        respectively.
+          The initial size of the hash table (<var>size</var>) can be specified (optional). 
+     The  <tt>eq-hash-table</tt> is the fastest because it just compares addresses of keys.
+      The <tt>equal-hash-table</tt> and <tt>string-hash-table</tt> are slower because their keys are sequence.</dd>
+  <dt><span class='ttb'>(hash-table/put! <var>hash-table</var> <var>key</var> <var>datum</var>)</span></dt>
+      <dd> It sets the value associated with the <var>key</var> in the <var>hash-table</var> to the  <var>datum</var>.
+      </dd>
+  <dt><span class='ttb'>(hash-table/get <var>hash-table</var> <var>key</var> <var>default</var>)</span></dt>
+      <dd> It returns the associated value with the <var>key</var> in the <var>hash-table</var>.
+      If the <var>key</var> is not in the <var>hash-table</var>, it returns the <var>default</var>.
+    </dd>
+  <dt><span class='ttb'>(hash-table->alist <var>hash-table</var>)</span></dt>
+      <dd>It converts the <var>hash-table</var> to an association list.</dd>
+</dl>
+<a name='pw'>
+<h2> 4. Making Passwords</h2>
+Let's write a password creating program as an example of association lists and hash tables.
+<p>
+Passwords taken from a dictionary can be broken easily and on the other hand, totally random passwords
+are extremely difficult to remember and input.
+The program creates ten passwords with partially possible spelling.
+Password should be changed as frequent as possible, but I am lazy to make passwords by myself.
+Using this program, I can change the password easily.
+<p>
+
+The program consists of two part.
+One is to create the data of frequency of successive characters (stat-spell.scm)
+ and the other to make passwords based on the data (make-pw.scm).
+
+<h3>4.1. stat-spell.scm</h3>
+This program reads English sentences and 
+associates characters with the frequency of the following characters.
+The data is stored as a hash table and converted to an associated list to be
+output to a file (stat-spell.dat) at the end.
+[code 1] shows the source code.<p>
+
+<p>
+[code 1]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; make an alist of probable spelling from a given English text</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     (define (skip-char? c)
+<span class="linenumber">04:</span>       (or (not (char-graphic? c)) (memv c '(#\: #\; #\' #\" #\`))))
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     (define (ss-make-alist c alist)
+<span class="linenumber">07:</span>       (let ((p (assv c alist)))
+<span class="linenumber">08:</span>         (if p
+<span class="linenumber">09:</span>             (begin
+<span class="linenumber">10:</span>              (set-cdr! p (1+ (cdr p)))
+<span class="linenumber">11:</span>              alist)
+<span class="linenumber">12:</span>           (cons (cons c 1) alist))))
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     (define (ss-make-dat filename)
+<span class="linenumber">15:</span>       (let ((char-hash (make-eqv-hash-table)))
+<span class="linenumber">16:</span>         (with-input-from-file filename
+<span class="linenumber">17:</span>           (lambda ()
+<span class="linenumber">18:</span>     	(let loop ((c #\Space))
+<span class="linenumber">19:</span>     	  (let ((c1 (read-char)))
+<span class="linenumber">20:</span>                      (if (not (eof-object? c1))
+<span class="linenumber">21:</span>                          (if (skip-char? c1)
+<span class="linenumber">22:</span>                              (loop c)
+<span class="linenumber">23:</span>                              (let ((c1 (char-downcase c1)))
+<span class="linenumber">24:</span>     			   (hash-table/put! char-hash c
+<span class="linenumber">25:</span>     					    (ss-make-alist c1 (hash-table/get char-hash c '())))
+<span class="linenumber">26:</span>     			   (loop c1))))))))
+<span class="linenumber">27:</span>         (with-output-to-file "stat-spell.dat"
+<span class="linenumber">28:</span>           (lambda ()
+<span class="linenumber">29:</span>     	(display "(define *stat-spell* \'(")
+<span class="linenumber">30:</span>     	(newline)
+<span class="linenumber">31:</span>     	(let loop ((alst (sort (hash-table->alist char-hash) 
+<span class="linenumber">32:</span>     			       (lambda (x y) (char<? (car x) (car y))))))
+<span class="linenumber">33:</span>     	  (if (pair? alst)
+<span class="linenumber">34:</span>     	      (begin
+<span class="linenumber">35:</span>     		(write (car alst))
+<span class="linenumber">36:</span>     		(newline)
+<span class="linenumber">37:</span>     		(loop (cdr alst)))))
+<span class="linenumber">38:</span>             (display "))")
+<span class="linenumber">39:</span>             (newline)))))
+</pre> 
+
+<dl>
+  <dt><span class='ttb'>(skip-char? <var>c</var>)</span></dt>
+      <dd>It returns <tt>#t</tt> if <var>c</var> is not a graphic character or <var>c</var> is <tt>#\:</tt>, <tt>#\;</tt>, <tt>#\'</tt>, or <tt>#\"</tt>.
+These characters are skipped when the text is read.
+</dd>
+  <dt><span class='ttb'>(ss-make-alist <var>c</var> <var>alist</var>)</span></dt>
+      <dd> It takes two arguments; 
+       the association list of frequency of character (<var>alist</var>) and a character (<var>c</var>).
+       If the <var>c</var> is in the <var>alist</var>, it increments the cdr part of the pair.
+       If not, it returns <br>
+	<tt>(cons (cons <var>c</var> 1) <var>alist</var>)</tt>.
+       This function uses <tt>set-cdr!</tt>.
+     </dd>
+  <dt><span class='ttb'>(ss-make-dat <var>filename</var>)</span></dt>
+      <dd> It reads characters from the file named <var>filename</var> and
+           associates the characters with the association list of frequency of the following characters.
+           It stores the result to a file <a href='stat-spell.dat'>stat-spell.dat</a> as an association list.
+           On lines 34 and 35, it updates the association list of frequency stored in the hash table.
+           The final data stored in the <tt>stat-spell.dat</tt> is an association list of association lists.
+           For instance,
+<pre>
+(#\v (#\y . 1) (#\a . 3) (#\o . 7) (#\e . 51) (#\i . 15))
+</pre>
+indicates that #\y, #\a, #\o, #\e, and #\i follow #\v for 1, 3, 7, 51, and 15 times, respectively.
+</dd>
+</dl>
+<h3>4.2. make-pw.scm</h3>
+It creates ten passwords based on the <tt>stat-spell.dat</tt>.
+The procedure is as follows:
+<ol>
+<li> Creating lists of strings consisting of 9 &ndash; 13 characters randomly selected based on the frequency data.
+    The character <tt>#\Space</tt> is added at the end of the list.
+<li> Adding a random number in a range of 00 &ndash; 99 at the end of the list of randomly selected characters.
+<li> Converting <tt>#\Space to <tt>#\-</tt>, <tt>#\_</tt>, <tt>#\/</tt>,  <tt>#\Space</tt>,  <tt>#\.</tt>, 
+     or  <tt>#\,</tt> randomly.
+<li> Capitalizing  30% of alphabetic characters randomly. 
+</ol>
+[code 2] shows the source. The function <tt>random</tt> is not defined in the  R<sup>5</sup>RS.
+(So it is implementation depending.)<p>
+[code 2]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; make password from the alist of probable spelling</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     (load "stat-spell.dat") <span class="comment">; *stat-spell* (alist for following characters) is in.</span>
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     (define (alist->hash al mode)
+<span class="linenumber">06:</span>       (let ((h (case mode
+<span class="linenumber">07:</span>                  ((eq) (make-eq-hash-table))
+<span class="linenumber">08:</span>                  ((eqv) (make-eqv-hash-table))
+<span class="linenumber">09:</span>                  ((equal) (make-equal-hash-table))
+<span class="linenumber">10:</span>                  ((string) (make-string-hash-table)))))
+<span class="linenumber">11:</span>         (for-each (lambda (p)
+<span class="linenumber">12:</span>                     (hash-table/put! h (car p) (cdr p)))
+<span class="linenumber">13:</span>                   al)
+<span class="linenumber">14:</span>         h))
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     (define *stat-spell-hash* (alist->hash *stat-spell* 'eqv))
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     (define (pw-random-select vec)
+<span class="linenumber">19:</span>       (vector-ref vec (random (vector-length vec))))
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>     (define (random00)
+<span class="linenumber">22:</span>       (let loop ((i 0) (acc '()))
+<span class="linenumber">23:</span>         (if (= i 2)
+<span class="linenumber">24:</span>             (list->string acc)
+<span class="linenumber">25:</span>           (loop (1+ i) (cons (pw-random-select '#(#\0 #\1 #\2 #\3 #\4 #\5 #\6 #\7 #\8 #\9)) acc)))))
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>     (define (occasional-upcase c)
+<span class="linenumber">28:</span>       (if (&lt; (random 10) 3)
+<span class="linenumber">29:</span>           (char-upcase c)
+<span class="linenumber">30:</span>         c))
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>     (define (pw-enhance ls)
+<span class="linenumber">33:</span>       (list->string
+<span class="linenumber">34:</span>        (map (lambda (c)
+<span class="linenumber">35:</span>               (cond
+<span class="linenumber">36:</span>                ((char=? c #\Space)
+<span class="linenumber">37:</span>                 (pw-random-select  '#(#\- #\_ #\/  #\Space  #\. #\, #\@ #\? #\( #\))))
+<span class="linenumber">38:</span>                ((char-alphabetic? c)
+<span class="linenumber">39:</span>                 (occasional-upcase c))
+<span class="linenumber">40:</span>                (else c)))
+<span class="linenumber">41:</span>             (cdr (reverse! ls)))))
+<span class="linenumber">42:</span>         
+<span class="linenumber">43:</span>     
+<span class="linenumber">44:</span>     (define (random-following alist)
+<span class="linenumber">45:</span>       (let ((n (random (apply + (map cdr alist)))))
+<span class="linenumber">46:</span>         (let loop ((j 0) (alist alist))
+<span class="linenumber">47:</span>           (if (pair? alist)
+<span class="linenumber">48:</span>     	  (let* ((pair (car alist))
+<span class="linenumber">49:</span>     		 (k (+ j (cdr pair))))
+<span class="linenumber">50:</span>     	    (if (&gt; k n)
+<span class="linenumber">51:</span>     		(car pair)
+<span class="linenumber">52:</span>     		(loop k (cdr alist))))))))
+<span class="linenumber">53:</span>     
+<span class="linenumber">54:</span>     (define (make-pw h n)
+<span class="linenumber">55:</span>       (let loop ((i 0) (c #\Space) (acc '()))
+<span class="linenumber">56:</span>         (if (= i n)
+<span class="linenumber">57:</span>             (string-append
+<span class="linenumber">58:</span>              (pw-enhance (cons #\Space (cons c acc)))
+<span class="linenumber">59:</span>              (random00))
+<span class="linenumber">60:</span>           (loop (1+ i)
+<span class="linenumber">61:</span>             (random-following (hash-table/get h c '((#\Space . 1))))
+<span class="linenumber">62:</span>             (cons c acc)))))
+<span class="linenumber">63:</span>         
+<span class="linenumber">64:</span>     (define (pw-candidates)
+<span class="linenumber">65:</span>       (let loop ((i 0))
+<span class="linenumber">66:</span>         (if (&lt; i 10)
+<span class="linenumber">67:</span>             (begin
+<span class="linenumber">68:</span>              (display i)
+<span class="linenumber">69:</span>              (display ": ")
+<span class="linenumber">70:</span>              (write (make-pw *stat-spell-hash* (+ 9 (random 4))))
+<span class="linenumber">71:</span>              (newline)
+<span class="linenumber">72:</span>              (loop (1+ i)))
+<span class="linenumber">73:</span>           'done)))
+</pre>
+
+<dl>
+  <dt><span class='ttb'>(alist->hash <var>al</var> <var>mode</var>)</span></dt>
+      <dd> Converting an association list (<var>al</var>) to a hash table with <var>mode</var>.</dd>
+  <dt><span class='ttb'>(pw-random-select <var>vec</var>)</span></dt>
+      <dd> Selecting the item randomly from a vector (<var>vec</var>). Vectors will be explained in the following chapter.
+      Vectors suit for random access rather than lists.</dd>
+  <dt><span class='ttb'>(random00)</span></dt>
+      <dd> Creating a string "00" &mdash; "99" randomly.</dd>
+  <dt><span class='ttb'>(occasional-upcase <var>c</var>)</span></dt>
+      <dd> Capitalizing 30% of <var>c</var> randomly.</dd>
+  <dt><span class='ttb'>(pw-enhance <var>ls</var>)</span></dt>
+      <dd> Making a password stronger by processing a list of characters (<var>ls</var>).</dd>
+  <dt><span class='ttb'>(random-following <var>alist</var>)</span></dt>
+      <dd>Selecting a character randomly from a association list  (<var>alist</var>) based on the frequency.</dd>
+  <dt><span class='ttb'>(make-pw <var>h</var> <var>n</var>)</span></dt>
+      <dd>Creating a password consisting of (<var>n+3</var>) characters using the hash table (<var>h</var>).
+          The password ends with random two digits.
+      </dd>
+  <dt><span class='ttb'>(pw-candidates)</span></dt>
+      <dd>Creating ten passwords consisting of  12 &ndash; 15 characters.</dd>
+</dl>
+Following shows how to use the program.
+Ten  passwords are created.
+
+The <tt>stat-spell</tt> is required only once.  Load <tt>make-pw</tt> and execute
+<tt>(pw-candidate)</tt> to create passwords.
+<pre class='samp'>
+(compile-file "stat-spell.scm")
+(compile-file "make-pw.scm")
+(load "stat-spell")
+(load "make-pw")
+
+;;; creating spelling data according to sicp_foreword.txt
+(ss-make-dat "sicp_foreword.txt")
+
+;;; making ten passwords using the spelling data.
+(pw-candidates)
+<span class='response'>
+0: "TH-haVEMis/t/19"
+1: "MoghaTrad_-Z.82"
+2: "seatSk-nev 64"
+3: "wIE t incar,92"
+4: "&lt;bIcoMpure,e/48"
+5: "d_t,ustampRE.48"
+6: "wiN,O/LEx.90"
+7: "OfU-D wogr/29"
+8: "d the.ole_95"
+9: "tippRiooU,77"
+;Value done
+</span>
+</pre>
+<h2>5. Summary</h2>
+You can download the password creating program from <a href="scheme_ah.zip">here </a>.<p>
+I will explain about vectors in the next chapter.
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_sym_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  12. Symbols</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_vec_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>14. Vectors and Structures</a></td>
+<td><a rel=download href="scheme_ah.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_ah_e.html&t=%28Scheme%29+Association+Lists+and+Hash+Tables' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>

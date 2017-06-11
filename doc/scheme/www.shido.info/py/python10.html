@@ -1,0 +1,481 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python 2.5, new feature">
+<meta name="description" content="What's new in Python 2.5">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Python 2.5 の新機能 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+
+<!------------------------------------------
+- <td><a rel='download' href="python9.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+------------------------------------------->
+<td><a href='../gb/write_guestbook.php?ref=py/python10.html&t=Python+2.5+%A4%CE%BF%B7%B5%A1%C7%BD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+ <h1>Python 2.5 の新機能 </h1> 
+<hr>
+<h2>1. 初めに</h2>
+2006 年 9 月 19 日に Python 2.5 がリリースされました。このバージョンではかなりいろいろな点が
+改善され、ますます使いやすくなっています。<p>
+
+この文書では Python 2.5 の改善点を簡単に紹介したいと思います。
+詳しく知りたい人は <a href='http://docs.python.org/whatsnew/whatsnew25.html'>What's New in Python 2.5</a>
+をみてください。
+
+
+
+<h2>2. Python 2.5 での変更点</h2>
+<a name='ternary'>
+<h3>2.1. 三項演算子</h3>
+Python 2.5 から "三項演算子" が使えるようになりました。<p>
+今まで、Python には三項演算子が無かったので、単に条件によって代入される値を変えるために
+<pre class='code'>
+if predicate:
+   value = then_value
+else:
+   value = else_value
+</pre>
+と書くのは冗長なので、簡潔に、
+<pre class='code'>
+value = predicate and then_value or else_value
+</pre>
+書くことがしばしばありました。しかしこの書き方には
+<tt>then_value</tt> が偽として認識されるものだと <tt>else_value</tt> が <tt>value</tt> に代入されるというバグが生じます。<br>
+これを回避するためには
+<pre class='code'>
+(value,) = predicate and (then_value,) or (else_value,)
+</pre>
+のように変数をタプルでくくる必要がありました。
+この書き方ではバグは無いのですが、一見不必要なタプルを用いる必要があり、かなりいけていません。
+<p>
+そこで、Python 2.5 からは
+<pre class='code'>
+value = then_value if predicate else else_value
+</pre>
+という記法を導入することによって条件による値の振り分けを簡潔に記述できるようになりました。
+predicate, then_value, else_value の順番が C 言語
+や、LISP 
+とは異なっていて若干混乱を招きそうですが、Perl や Ruby の if 節を後置する記法になれた人には受け入れやすいかもしれません。
+
+<a name=partial>
+<h3>2.2. 関数の部分適用</h3>
+関数の部分適用とは、もともとの関数の一部の引数に値を与え、残りの引数をとる関数を生成する機能です。
+Haskell などの関数型言語では良く使われる機能です。
+以下に簡単な例を挙げます。
+
+
+<pre class='code'>
+#! /usr/bin/env python
+
+import functools
+
+def add (a,b):
+    return a+b
+
+if __name__=='__main__':
+    add_1 = functools.partial(add, b=1)
+    print "add_1 is a function that takes one argument. "
+    print "The function is produced by applying b=1 to the function  \'add(a,b)\'"
+    print "add_1(10) = " + str(add_1(10))
+</pre>
+
+この機能は意外と便利です。というのは、Python では関数のポインターを変数として扱えるので、高階関数を
+用いることができるからです。ただし、引数として与えられる関数の引数の数は決まっているため、
+うまく使わないとコードのモジュール化が促進されません。Python 2.4 までは、関数のクラスを用いて
+この問題に対処していましたが、2.5 からは functools.partial が使えるので簡潔に記述することが
+できます。<p>
+
+実用的な例として、Tkinter の Button ウィジェットを生成するとき指定する関数のポインター
+があります。
+ボタンを押すと実行する関数をキーワード引数 <tt>command</tt> に渡すのですが、この関数は引数無しの
+関数でなければなりません。従って、似たような動作をするボタンをたくさん作るときは、<a href='tkinter5.html'>
+(Tkinter 入門) 関数のクラスを使ってクールなコードを書こう</a>
+に示すように、
+関数のクラスを定義する必要がありました。Python 2.5 ではこれ
+と同じことを行うプログラムが以下のように簡潔に書くことができます。
+
+<pre class='code'>
+<span class="linenumber">001:</span>     <span class='comment'>#! /usr/bin/env python</span>
+<span class="linenumber">002:</span>     
+<span class="linenumber">003:</span>     <span class="string">"""
+<span class="linenumber">004:</span>     bg4.py 
+<span class="linenumber">005:</span>     
+<span class="linenumber">006:</span>     Change Background of flower
+<span class="linenumber">007:</span>     
+<span class="linenumber">008:</span>     Oct 10 2006
+<span class="linenumber">009:</span>     """</span>
+<span class="linenumber">010:</span>     
+<span class="linenumber">011:</span>     
+<span class="linenumber">012:</span>     import Tkinter as Tk
+<span class="linenumber">013:</span>     import functools
+<span class="linenumber">014:</span>     
+<span class="linenumber">015:</span>     FLOWER = 'nanohana3.gif'
+<span class="linenumber">016:</span>     
+<span class="linenumber">017:</span>     
+<span class="linenumber">018:</span>     BGS = [('aliceblue', '#F0F8FF'), ('azure', '#F0FFFF'), ('beige', '#F5F5DC'),              \
+<span class="linenumber">019:</span>            ('cornsilk', '#FFF8DC'), ('khaki', '#F0E68C'), ('lightgreen', '#90EE90'),          \
+<span class="linenumber">020:</span>            ('lightpink', '#FFB6C1'), ('lightskyblue', '#87CEFA'), ('palegreen', '#98FB98')]
+<span class="linenumber">021:</span>     
+<span class="linenumber">022:</span>     
+<span class="linenumber">023:</span>     class Frame(Tk.Frame):
+<span class="linenumber">024:</span>         
+<span class="linenumber">025:</span>         def __init__(self, master=None):
+<span class="linenumber">026:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">027:</span>             self.master.title('select background')
+<span class="linenumber">028:</span>             f_button = Tk.Frame(self)
+<span class="linenumber">029:</span>             f_button.pack(side=Tk.LEFT, padx=5, pady=5)
+<span class="linenumber">030:</span>             self.flower = Tk.PhotoImage(file=FLOWER)
+<span class="linenumber">031:</span>             self.label = Tk.Label(self, image=self.flower, relief=Tk.RAISED, bd=3)
+<span class="linenumber">032:</span>             self.label.pack(side=Tk.RIGHT, padx =5)
+<span class="linenumber">033:</span>     
+<span class="linenumber">034:</span>             for name, code in BGS:
+<span class="linenumber">035:</span>                 b = Tk.Button(f_button, text=name,  bg=code, command=functools.partial(self.bg_change, color=code)) <span class='comment'># look!</span>
+<span class="linenumber">036:</span>                 b.pack(fill=Tk.X)
+<span class="linenumber">037:</span>     
+<span class="linenumber">038:</span>         def bg_change(self, color):
+<span class="linenumber">039:</span>             self.label.configure(bg=color)
+<span class="linenumber">040:</span>     
+<span class="linenumber">041:</span>     
+<span class="linenumber">042:</span>     <span class='comment'>##------------------------------------------------ </span>
+<span class="linenumber">043:</span>     
+<span class="linenumber">044:</span>     if __name__ == '__main__':
+<span class="linenumber">045:</span>         f = Frame()
+<span class="linenumber">046:</span>         f.pack()
+<span class="linenumber">047:</span>         f.mainloop()
+</pre>
+<p>
+38,39 行目で、color を引数にとるメソッド bg_change を定義します。それを 35 行目の Tk.Button を生成するときに、
+これを部分適用して生成した引数なしのメソッドを <tt>command</tt> のパラメータとして渡します。<p>
+
+ここで示すように、関数部分適用を用いると、関数のクラスを定義するより簡潔に書ける場合が多くなります。
+
+<h3>2.3. パッケージインストールの簡素化</h3>
+setup 関数に 
+<ol>
+<li>equires, provides, および obsoletes キーワードが追加され、PKG-INFO ファイルを使って、
+パッケージの依存関係を管理するようになりました。
+<li>download_url キーワードによりパッケージのソースコードの場所を特定することができるようになりました。
+この情報も PKG-INFO に記録され、必要なパッケージを自動でダウンロードするようになりました。
+</ol>
+詳しくは、<a href='http://docs.python.org/whatsnew/pep-314.html'>
+PEP 314: Metadata for Python Software Packages v1.1</a> をみてください。
+
+<h3>2.4. パッケージを検索するディレクトリの順番の変更</h3>
+現在の仕様ではユーザが指定したパッケージディレクトリが、標準パッケージより先に検索されます。
+従って、ユーザ指定パッケージディレクトリ (以下 pkg) に、標準パッケージと同じ名前のパッケージがあれば、
+pkg にあるパッケージがインポートされます。例えば、pkg/string.py がある場合、標準の string パッケージではなく、
+pkg.string がインポートされます。<p>
+Python 2.5 では 
+<pre class='code'>
+from __future__ import absolute_import
+</pre>
+を指定することで、標準パッケージのみをインポートするようにできます。この場合、ユーザ定義のパッケージを
+インポートする場合は以下のようにします。
+<pre class='code'>
+<span class='comment'># pkg.string から name1, name2 をインポートする場合</span>
+from .string import name1, name2
+
+<span class='comment'># pkg.string をインポートする場合</span>
+from . import string
+</pre>
+
+<h3>2.5. runpy モジュールの追加</h3>
+<tt>-m</tt> コマンドラインオプションの代わりに runpy モジュールが追加されました。
+詳しくは
+<ul>
+<li><a href='5 PEP 338: Executing Modules as Scripts'>5 PEP 338: Executing Modules as Scripts</a>
+<li><a href='http://docs.python.org/lib/module-runpy.html'>29.5 runpy -- Locating and executing Python modules.</a>
+</ul>
+をみてください。
+
+<h3>2.6. 例外処理の改善: try/except/finally の同時使用</h3>
+Python 2.4 では try/except または try/finally の組しか使えず、例外処理が不便でした。
+Python 2.5 では、try/except/finally を同時に使うことができる様になったので、簡潔に例外処理を記述することができます。
+コードは次のようになります。
+
+<pre class='code'>
+try:
+    try_something ...
+except Exception_1:
+    handler_1 ...
+except Exception_2:
+    handler_2 ...
+else:
+    do_something_unless_exception ...
+finally:
+    this_is_always_done ...
+</pre>
+
+まず、try_something が実行されます。Exception_1 が発生すると handler_1 が呼び出され、
+最後に this_is_always_done が実行されます。
+Exception_2 の場合も同様です。例外が発生しないと do_something_unless_exception が実行され、
+最後に this_is_always_done が実行されます。<p>
+
+例外発生の有無にかかわらず実行したいことを finally に書いておくことにより、ファイルの閉じ忘れ
+などを防ぐことをできます。
+
+<h3>2.7. generator の追加機能</h3>
+yield が値を返すように変更されました。
+例えば以下の例では、<p>
+
+[gen.py]
+<pre class='code'>
+<span class="linenumber">001:</span>     def counter (max_count):
+<span class="linenumber">002:</span>         i=0
+<span class="linenumber">003:</span>         while i &lt; max_count:
+<span class="linenumber">004:</span>             val = (yield i)
+<span class="linenumber">005:</span>             if val is not None:
+<span class="linenumber">006:</span>                 i = val
+<span class="linenumber">007:</span>             else:
+<span class="linenumber">008:</span>                 i += 1
+</pre>
+
+<ol>
+<li> next() メソッドが呼び出されると、i が counter の外に帰り、val には None が代入されます。
+<li> send(x) メソッドが呼び出されると、x が counter の外に帰り、val に x が代入されます。
+<li> close() メソッドが呼び出されると、generator は終了します。
+<li> throw(type, value=None, traceback=None) が呼び出されると、type の例外が送出され、generator は終了します。
+</ol>
+実行例
+<pre class='samp'>
+>>> from gen import counter
+>>> iter=counter(10)
+>>> iter.next()
+0
+>>> iter.next()
+1
+>>> iter.next()
+2
+>>> iter.send(7)
+7
+>>> iter.next()
+8
+>>> iter.close()
+>>> iter.next()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+</pre>
+
+<a name='with_statement'>
+<h3>2.8. with ステートメント</h3>
+オブジェクトに __enter__ と __exit__ メソッドが定義されていると with ステートメントが使えます。
+こんな感じで使います。
+
+<pre class='code'>
+<span class="linenumber">001:</span>     from __future__ import with_statement
+<span class="linenumber">002:</span>     
+<span class="linenumber">003:</span>     with file('some.txt', 'r') as f:
+<span class="linenumber">004:</span>         for line in f:
+<span class="linenumber">005:</span>             print line
+</pre>
+上のコードでは、
+<ul>
+<li> 3 行目で file の __enter__ メソッドが呼び出され、ファイルが f として開かれます。
+<li> 4,5 行目の実行が終了すると __exit__ メソッドが呼び出され、ファイルが閉じます。<br>
+__exit__ メソッドには、例外が発生したときの処理を記述できます。
+</ul>
+詳しくは、
+<a href='http://docs.python.org/whatsnew/pep-343.html'>
+8 PEP 343: The 'with' statement
+</a>
+をみてください。
+
+<h3>2.9. Exception が '新しいクラス' になる</h3>
+詳しくは、
+<a href='http://docs.python.org/whatsnew/pep-352.html'>
+9 PEP 352: Exceptions as New-Style Classes
+</a>
+をみてください。
+
+<h3>2.10. インデックスに ssize_t を使う</h3>
+今までの int の代わりに ssize_t をリストやタプルのインデックスに使用するようになりました。
+これは 64-bit CPU への対応です。
+<p>
+詳しくは、
+<a href='http://docs.python.org/whatsnew/pep-353.html'>
+10 PEP 353: Using ssize_t as the index type
+</a>
+をみてください。
+
+<h3>2.11. __index__ メソッドの追加</h3>
+詳しくは、
+<a href='http://docs.python.org/whatsnew/pep-357.html'>
+11 PEP 357: The '__index__' method
+</a>
+をみてください。
+
+<h3>2.12. その他</h3>
+<h4>2.12.1. いろいろ</h4>
+<ul>
+<li>辞書型に __missing__ メソッドが追加されました。これは、key が見つからないときの挙動を既定します。
+<li>partition(sep) と rpartition(sep) メソッドが 8-bit と Unicode の両方に追加されました。
+<li>文字列のメソッド、startswith() and endswith() が引数に文字列のタプルをとれるようになりました。
+<li>min(), max() に比較のための関数を渡せるようになりました。
+<li>組み込み関数 any(), all() が追加されました。これはイテレータの要素をチェックするのに使用します。
+<li>long integer を __hash__ メソッドの戻り値にすることができるようになりました。
+<li>文字コードの宣言無しで、ASCII 以外の文字を使うと syntax error になります。
+<li>Unicode と比較できない ASCII コードを無理に比較しようとすると UnicodeWarning が発生します。
+<li>コマンドラインオプション '-Wd' を指定すると __init__.py が無い場合 ImportWarning がでます。
+<li>空のクラスが可能になりました。
+<li>対話モードが若干変更されました。
+</ul>
+<h4>2.12.2. 最適化</h4>
+<ul>
+<li> 'set' の実装が変化し、メモリー消費量が減り、実行速度が若干向上しました。
+<li> Unicode の処理が高速化されました。
+<li> long(str, base) の実行速度が大幅に向上しました。
+<li> struct モジュールの実行速度が向上しました。
+<li> re モジュールの実行速度が若干向上しました。
+<li> code generator が改良されました。
+<li> 関数の呼び出しが早くなりました。
+<li> Frame オブジェクトが若干小さくなりました。
+<li> 例外処理が早くなりました。
+<li> インポート処理が改良されました。
+</ul>
+
+<h3>2.13. モジュールの変更</h3>
+<ul>
+<li><b>audioop</b> が a-LAW encoding をサポートするようになりました。u-LAW encoding のコードも改良されました。
+<li><b>codecs</b> が incremental codecs をサポートするようになりました。
+<li><b>collection</b> が defaultdict タイプを持つようになりました。このタイプは dict とほとんど同じであるが、
+key が見つからない場合デフォルト値として空リストか 0 がセットされます。
+どちらがセットされるかは、defaultdict(type) の引数で決まります。
+type が list なら空リストを、 int なら 0 がセットされます。
+<p>
+これを使うと単語の数え上げが 
+<a href='http://ja.wikipedia.org/wiki/Awk'>
+awk</a> 並に簡単にできます。<br>
+下のコードはargv[1] で与えられたファイルを開いて単語の出現回数をカウントし、
+出現回数の多い順に表示するプログラムと実行例です。<p>
+[wc.py]
+<pre class='code'>
+<span class='comment'>#! /usr/bin/env python</span>
+
+from __future__ import with_statement
+import sys
+from collections import defaultdict
+
+if __name__=='__main__':
+    with file(sys.argv[1]) as f:
+        ls=[w.strip('\'\".,?!;:()') for w in f.read().lower().split()]
+    
+    h=defaultdict(int)
+    for w in ls:
+        h[w]+=1
+    ls=h.items()
+    ls.sort(lambda p0,p1: cmp(p1[1],p0[1])) <span class='comment'># descending sort by frequency</span>
+    for k,v in ls:
+        print "%s\t%d" % (k,v)
+</pre>
+<pre class='samp'>
+$python wc.py english.txt
+the     239
+to      190
+you     153
+a       131
+of      128
+that    89
+is      84
+..................
+..................
+</pre>
+<li> <b>collection</b> の deque オブジェクトに remove(value) メソッドが追加されました。
+<li> <b>contextlib</b> モジュールが追加されました。
+<a href='http://docs.python.org/whatsnew/pep-343.html#module-contextlib'>ここ</a>
+を参照して下さい。
+<li> <b>cProfile</b> モジュールが追加されました。これは profile モジュールを C 言語で
+実装したものです。profile よりオーバヘッドが少ないです。
+<li><b>cvs</b> モジュールが改良されました。
+<li><b>datetime</b> モジュールの datetime クラスに strptime(string, format) メソッドが追加されました。
+これは string を format に基づいて parse して、時刻を得るメソッドです。
+<li><b>difflib</b> の SequenceMatcher.get_matching_blocks() が改良されました。
+<li><b>doctest</b> モジュールに SKIP オプションが加わりました。
+<li>testfile() 関数と DocFileSuite クラスに encoding parameter が加わりました。
+<li><b>email</b> パッケージが version 4.0 になりました。
+<li><b>fileinput</b> モジュールがより柔軟になりました。
+<li><b>gc</b> モジュールが改良されました。
+<li><b>heapq</b> モジュールの nsmallest() と nlargest() 関数が比較のための関数をキーワードパラメターとしてとるようになりました。
+<li>itertools.islice() 関数が start, stop 引数として None を受け付けるようになりました。
+<li><b>locale</b> モジュールの format() 関数が変更された。また、format_string() と currency() 関数が追加されました。
+<li><b>mailbox</b> モジュールが大幅に書き換えられました。
+<li>Microsoft インストーラーを作成する <b>msilib</b> モジュールが追加されました。
+<li><b>nis</b> モジュールが改良されました。
+<li><b>operator</b> モジュールが改良されました。
+<li><b>optparse</b> モジュールが version1.5.1 になりました。
+<li><b>os</b> モジュールがいくらか変化しました。
+<li><b>pdb</b> が改良されました。
+<li><b>pickle</b> と <b>cPickle</b> が変更されました。
+<li> <b>pkgutil</b> が改良されました。
+<li> <b>pybench</b> が ools/pybench directory に加わりました。
+<li> <b>pyexpat</b> がアップデートされました。
+<li> <b>regex</b> モジュールと <b>regsub</b> モジュールが削除されました。
+<li> lib-old ディレクトリが削除されました。
+<li> <b>rlcompleter</b> が <b>leadline</b> に依存しなくなりました。
+<li>SimpleXMLRPCServer と DocXMLRPCServer クラスが rpc_paths 属性を持つようになりました。
+<li><b>socket</b> モジュールが Linux 上で AF_NETLINK をサポートするようになりました。
+<li>システムのシャドーパスワードにアクセスする <b>spwd</b> モジュールが追加されました。
+<li><b>struct</b> の実行速度が速くなりました。
+<li>2.5 からリポジトリを CVS から Subversion に変更しました。
+<li>sys._current_frames() 関数が追加されました。
+<li><b>tarfile</b> が改良されました。
+<li><b>threading</b> が改良されました。
+<li><b>unicodedata</b> が version 4.1.0 にアップデートされました。
+<li>RFC 4122 に基づいて UUID を生成する <b>uuid</b> モジュールが追加されました。
+<li>weakref, webbrowser, xmlrpclib, zipfile, zlib モジュールが改良されました。
+<li>任意の shared library の関数を呼び出すための <b>ctypes</b> パッケージが追加されました。
+<li>XML を処理するパッケージ <b>xml.etree</b> が追加されました。
+<li><b>md5</b> と <b>sha</b> を統合して <b>hashlib</b> にしました。このモジュールで、SHA-224, SHA-256, SHA-384, and SHA-512 が
+使用できるようになりました。
+<li><b>sqlite3</b> パッケージ (sqlite wrapper) が追加されました。
+<li><b>wsgiref</b> パッケージ (Web Server Gateway Interface) が追加されました。
+</ul>
+
+<h3>2.14. Build and C API の変更</h3>
+<a href='Build and C API Changes'>14 Build and C API Changes</a> をご覧ください。
+<h3>2.15. 以前のコードを Python2.5 に移植するために</h3>
+<a href='http://docs.python.org/whatsnew/porting.html'>15 Porting to Python 2.5</a>
+をご覧ください。
+<h2>3. 終わりに</h2>
+以上、長々と書きましたが、一般ユーザに関係ある点は、
+<ul>
+<li>三項演算子が定義された。
+<li>例外処理が改良された。
+<li>関数の部分適用が可能になった。
+<li><b>collection</b> モジュールの defaultdict は便利だ。
+</ul>
+の 4 点だと思います。
+<p>
+Python 2.5 にはかなり変更点があるので一度、
+<a href='http://docs.python.org/whatsnew/whatsnew25.html'>
+What's New in Python 2.5 by A.M. Kuchling (amk@amk.ca)</a>
+ をご覧になると良いと思います。
+ここにはいろいろな例も載っているので、かなり有用な文書だと思います。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+
+<!------------------------------------------
+- <td><a rel='download' href="python9.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+------------------------------------------->
+<td><a href='../gb/write_guestbook.php?ref=py/python10.html&t=Python+2.5+%A4%CE%BF%B7%B5%A1%C7%BD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></body>
+</html>
+

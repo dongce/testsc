@@ -1,0 +1,589 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, iterator, loop">
+<meta name="description" content="On the iteration of Sather">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 4. Iteration</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_play_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  3. Playing with Sather</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Try Sather</a></td>
+
+<td><a rel=next href="sa_class_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+5. Classes</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_iter_e.html&t=%28Try+Sather%29+4%2E+Iteration'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 4. Iteration</h1>
+<hr>
+
+<h2>1. Introduction</h2>
+In this section, I will talk about iterators, which are used for repetition in Sather. 
+
+<h2>2. Syntax for looping</h2>
+Loops start at <tt>loop</tt> and end at <tt>end;</tt> 
+Loops contain at least one iterator.
+Iterator names end with <b>!</b>.<p>
+The loop terminates when a iterator indicate the break.
+<pre class='code'>
+loop
+    (something)
+    iterator
+    (something)
+end;
+</pre>
+
+You can put iterators anyplace in the loop.<br>
+In the following example,
+<ul>
+<li>The <tt>while!</tt> iterator is located at the first line of the loop in the <tt>top_while</tt>.
+<li>It is at the end of the loop in the <tt>bottom_while</tt>.
+<li>It is in the middle in the <tt>middle_while</tt>.
+</ul>
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- primitive counting prime numbers program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        top_while(n:INT) is
+<span class="linenumber">06:</span>           i:INT := 0;
+<span class="linenumber">07:</span>           #OUT + "Top while test:\n";
+<span class="linenumber">08:</span>           loop
+<span class="linenumber">09:</span>     	 while!(i &lt; n);
+<span class="linenumber">10:</span>     	 #OUT + "repeat: " + i + "\n";
+<span class="linenumber">11:</span>     	 i := i+1;
+<span class="linenumber">12:</span>           end;
+<span class="linenumber">13:</span>           #OUT + "\n";
+<span class="linenumber">14:</span>        end;
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>        bottom_while(n:INT) is
+<span class="linenumber">17:</span>           i:INT := 0;
+<span class="linenumber">18:</span>           #OUT + "Bottom while test:\n";
+<span class="linenumber">19:</span>           loop
+<span class="linenumber">20:</span>     	 #OUT + "repeat: " + i + "\n";
+<span class="linenumber">21:</span>     	 i := i+1;
+<span class="linenumber">22:</span>     	 while!(i &lt; n);
+<span class="linenumber">23:</span>           end;
+<span class="linenumber">24:</span>           #OUT + "\n";
+<span class="linenumber">25:</span>        end;
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>        middle_while(n:INT) is
+<span class="linenumber">28:</span>           i:INT := 0;
+<span class="linenumber">29:</span>           #OUT + "Middle while test:\n";
+<span class="linenumber">30:</span>           loop
+<span class="linenumber">31:</span>     	 #OUT + "before while: " + i + "\n";
+<span class="linenumber">32:</span>     	 while!(i &lt; n);
+<span class="linenumber">33:</span>     	 #OUT + "after while: " + i + "\n";
+<span class="linenumber">34:</span>     	 i := i+1;
+<span class="linenumber">35:</span>           end;
+<span class="linenumber">36:</span>           #OUT + "\n";
+<span class="linenumber">37:</span>        end;
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>     
+<span class="linenumber">41:</span>        
+<span class="linenumber">42:</span>        main(av:ARRAY{STR}) is
+<span class="linenumber">43:</span>           if av.size = 2 then
+<span class="linenumber">44:</span>     	 n:INT := av[1].cursor.get_int;
+<span class="linenumber">45:</span>     	 top_while(n);
+<span class="linenumber">46:</span>     	 bottom_while(n);
+<span class="linenumber">47:</span>     	 middle_while(n);
+<span class="linenumber">48:</span>           else
+<span class="linenumber">49:</span>     	 #ERR + "Usage: while N\n"
+<span class="linenumber">50:</span>           end;
+<span class="linenumber">51:</span>        end;
+<span class="linenumber">52:</span>     end;
+</pre>
+      
+<pre class='samp'>
+$ ./while 5
+Top while test:
+repeat: 0
+repeat: 1
+repeat: 2
+repeat: 3
+repeat: 4
+
+Bottom while test:
+repeat: 0
+repeat: 1
+repeat: 2
+repeat: 3
+repeat: 4
+
+Middle while test:
+before while: 0
+after while: 0
+before while: 1
+after while: 1
+before while: 2
+after while: 2
+before while: 3
+after while: 3
+before while: 4
+after while: 4
+before while: 5
+</pre>
+
+Iterator <tt>while!</tt> repeats the loop while the argument is true, which is similar to other languages.
+On the other hand, <tt>until!</tt> exit from the loop when the argument is true.
+Iterator <tt>bleak!</tt> is to exit from the loop unconditionally.
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- primitive counting prime numbers program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        until_test(n:INT) is
+<span class="linenumber">06:</span>           i:INT:=0;
+<span class="linenumber">07:</span>           loop
+<span class="linenumber">08:</span>     	 #OUT + i + "\n";
+<span class="linenumber">09:</span>     	 if i= n then break!; end;
+<span class="linenumber">10:</span>     	 until!(i = 1000);
+<span class="linenumber">11:</span>     	 i := i+1;
+<span class="linenumber">12:</span>           end;
+<span class="linenumber">13:</span>        end;
+<span class="linenumber">14:</span>        
+<span class="linenumber">15:</span>        main(av:ARRAY{STR}) is
+<span class="linenumber">16:</span>           if av.size = 2 then
+<span class="linenumber">17:</span>     	 n:INT := av[1].cursor.get_int;
+<span class="linenumber">18:</span>     	 until_test(n);
+<span class="linenumber">19:</span>           else
+<span class="linenumber">20:</span>     	 #ERR + "Usage: until_break N\n"
+<span class="linenumber">21:</span>           end;
+<span class="linenumber">22:</span>        end;
+<span class="linenumber">23:</span>     end;
+</pre>
+      
+
+<h2>3.Iterators defined in the INT class</h2>
+The <tt>INT</tt> class has iterators, which are useful to simplify the programs.
+Following shows a simple program which uses the <tt>INT</tt> iterators and the output.
+See <a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/short-INT.html'>
+http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/short-INT.html</a>
+for detailed information.<p>
+
+<tt>int_iter.sa</tt>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- iterators of INT class</span>
+<span class="linenumber">02:</span>     <span class="comment">-- </span>
+<span class="linenumber">03:</span>     <span class="comment">-- downto!(once i:SAME):SAME</span>
+<span class="linenumber">04:</span>     <span class="comment">-- **** 	Yield successive integers from self down to `i' inclusive.</span>
+<span class="linenumber">05:</span>     <span class="comment">-- for!(once i:SAME):SAME</span>
+<span class="linenumber">06:</span>     <span class="comment">-- **** 	Yields `i' successive integers starting with self.</span>
+<span class="linenumber">07:</span>     <span class="comment">-- product!(i:SAME):SAME</span>
+<span class="linenumber">08:</span>     <span class="comment">-- **** 	Yields the product of all previous values of `i'.</span>
+<span class="linenumber">09:</span>     <span class="comment">-- step!(once num,once step:SAME):SAME</span>
+<span class="linenumber">10:</span>     <span class="comment">-- **** 	Yield `num' integers starting with self and stepping by `step'.</span>
+<span class="linenumber">11:</span>     <span class="comment">-- stepto!(once to,once by:SAME): SAME</span>
+<span class="linenumber">12:</span>     <span class="comment">-- **** 	Yield succeeding integers from self to `to' by step `by'. Might quit immediately if self is already `beyond'.</span>
+<span class="linenumber">13:</span>     <span class="comment">-- sum!(i:SAME):SAME</span>
+<span class="linenumber">14:</span>     <span class="comment">-- **** 	Yields the sum of all previous values of `i'.</span>
+<span class="linenumber">15:</span>     <span class="comment">-- times!</span>
+<span class="linenumber">16:</span>     <span class="comment">-- **** 	Yields self times without returning anything.</span>
+<span class="linenumber">17:</span>     <span class="comment">-- times!:SAME</span>
+<span class="linenumber">18:</span>     <span class="comment">-- **** 	Yield successive integers from 0 up to self-1.</span>
+<span class="linenumber">19:</span>     <span class="comment">-- up!:SAME</span>
+<span class="linenumber">20:</span>     <span class="comment">-- **** 	Yield successive integers from self up.</span>
+<span class="linenumber">21:</span>     <span class="comment">-- upto!(once i:SAME):SAME</span>
+<span class="linenumber">22:</span>     <span class="comment">----------------</span>
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>     class MAIN is
+<span class="linenumber">25:</span>     
+<span class="linenumber">26:</span>        test_downto(start, last:INT)
+<span class="linenumber">27:</span>           pre start &gt;= last
+<span class="linenumber">28:</span>        is
+<span class="linenumber">29:</span>           #OUT + "Test for " + start + ".downto!(" + last + "): "; 
+<span class="linenumber">30:</span>           loop
+<span class="linenumber">31:</span>     	 #OUT + start.downto!(last) + " ";
+<span class="linenumber">32:</span>           end;
+<span class="linenumber">33:</span>           #OUT + "\n";
+<span class="linenumber">34:</span>        end;
+<span class="linenumber">35:</span>     
+<span class="linenumber">36:</span>        test_for(start, last :INT)
+<span class="linenumber">37:</span>           pre start &lt;= last
+<span class="linenumber">38:</span>        is
+<span class="linenumber">39:</span>           #OUT + "Test for " + start + ".for!(" + last + "): ";
+<span class="linenumber">40:</span>           loop
+<span class="linenumber">41:</span>     	 #OUT + start.for!(last) + " "; 
+<span class="linenumber">42:</span>           end;
+<span class="linenumber">43:</span>           #OUT + "\n";
+<span class="linenumber">44:</span>        end;
+<span class="linenumber">45:</span>     
+<span class="linenumber">46:</span>        test_step(start, last, step :INT) is
+<span class="linenumber">47:</span>           #OUT + "Test for " + start + ".step!(" + last + ", " + step + "): ";
+<span class="linenumber">48:</span>           loop
+<span class="linenumber">49:</span>     	 #OUT + start.step!(last, step) + " "; 
+<span class="linenumber">50:</span>           end;
+<span class="linenumber">51:</span>           #OUT + "\n";
+<span class="linenumber">52:</span>        end;
+<span class="linenumber">53:</span>     
+<span class="linenumber">54:</span>        test_stepto(start, last, step :INT) is
+<span class="linenumber">55:</span>           #OUT + "Test for " + start + ".stepto!(" + last + ", " + step + "): ";
+<span class="linenumber">56:</span>           loop
+<span class="linenumber">57:</span>     	 #OUT + start.stepto!(last, step) + " "; 
+<span class="linenumber">58:</span>           end;
+<span class="linenumber">59:</span>           #OUT + "\n";
+<span class="linenumber">60:</span>        end;
+<span class="linenumber">61:</span>     
+<span class="linenumber">62:</span>        test_times0(n:INT) 
+<span class="linenumber">63:</span>           pre n&gt;=0
+<span class="linenumber">64:</span>        is
+<span class="linenumber">65:</span>           #OUT + "Test for " + n + ".times!: ";
+<span class="linenumber">66:</span>           loop
+<span class="linenumber">67:</span>     	 n.times!;
+<span class="linenumber">68:</span>     	 #OUT +  "Hey! "; 
+<span class="linenumber">69:</span>           end;
+<span class="linenumber">70:</span>           #OUT + "\n";
+<span class="linenumber">71:</span>        end;
+<span class="linenumber">72:</span>     
+<span class="linenumber">73:</span>        test_times1(n:INT) 
+<span class="linenumber">74:</span>           pre n&gt;=0
+<span class="linenumber">75:</span>        is
+<span class="linenumber">76:</span>           i:INT;
+<span class="linenumber">77:</span>           #OUT + "Test for " + n + ".times! returning INT: ";
+<span class="linenumber">78:</span>           loop
+<span class="linenumber">79:</span>     	 i := n.times!;
+<span class="linenumber">80:</span>     	 #OUT +  "Hey!(" + i + ") "; 
+<span class="linenumber">81:</span>           end;
+<span class="linenumber">82:</span>           #OUT + "\n";
+<span class="linenumber">83:</span>        end;
+<span class="linenumber">84:</span>     
+<span class="linenumber">85:</span>        test_up(n:INT)
+<span class="linenumber">86:</span>           pre n &gt;= 0
+<span class="linenumber">87:</span>        is
+<span class="linenumber">88:</span>           i:INT;
+<span class="linenumber">89:</span>           #OUT + "Test for " + n + ".up!: ";
+<span class="linenumber">90:</span>           loop
+<span class="linenumber">91:</span>     	 i := n.up!;
+<span class="linenumber">92:</span>     	 #OUT + i  + " ";
+<span class="linenumber">93:</span>     	 if i = n+ 9 then #OUT + "break\n"; break!; end;
+<span class="linenumber">94:</span>           end;
+<span class="linenumber">95:</span>        end;
+<span class="linenumber">96:</span>     
+<span class="linenumber">97:</span>        test_upto(start, last :INT) is
+<span class="linenumber">98:</span>           #OUT + "Test for " + start + ".upto!(" + last +  "): ";
+<span class="linenumber">99:</span>           loop
+<span class="linenumber">100:</span>     	 #OUT + start.upto!(last) + " "; 
+<span class="linenumber">101:</span>           end;
+<span class="linenumber">102:</span>           #OUT + "\n";
+<span class="linenumber">103:</span>        end;
+<span class="linenumber">104:</span>      
+<span class="linenumber">105:</span>        test_product(m,n:INT)
+<span class="linenumber">106:</span>           pre n &gt;= m
+<span class="linenumber">107:</span>        is
+<span class="linenumber">108:</span>           p:INT;
+<span class="linenumber">109:</span>           #OUT + "Test for product!: " + m + " * ... * " + n + " = ";
+<span class="linenumber">110:</span>           loop
+<span class="linenumber">111:</span>     	 p := INT::product!(m.upto!(n));
+<span class="linenumber">112:</span>           end;
+<span class="linenumber">113:</span>           #OUT + p + "\n";
+<span class="linenumber">114:</span>        end;
+<span class="linenumber">115:</span>     
+<span class="linenumber">116:</span>        test_sum(m,n:INT)
+<span class="linenumber">117:</span>           pre n &gt;= m
+<span class="linenumber">118:</span>        is
+<span class="linenumber">119:</span>           p:INT;
+<span class="linenumber">120:</span>           #OUT + "Test for sum!: " + m + " + ... + " + n + " = ";
+<span class="linenumber">121:</span>           loop
+<span class="linenumber">122:</span>     	 p := INT::sum!(m.upto!(n));
+<span class="linenumber">123:</span>           end;
+<span class="linenumber">124:</span>           #OUT + p + "\n";
+<span class="linenumber">125:</span>        end;
+<span class="linenumber">126:</span>        
+<span class="linenumber">127:</span>        main(av:ARRAY{STR}) is
+<span class="linenumber">128:</span>           if av.size = 4 then
+<span class="linenumber">129:</span>     	 a:ARRAY{INT} :=#(3);
+<span class="linenumber">130:</span>     	 i:INT;
+<span class="linenumber">131:</span>     	 loop
+<span class="linenumber">132:</span>     	    i:= 3.times!;
+<span class="linenumber">133:</span>     	    a[i]:= av[i+1].cursor.get_int;
+<span class="linenumber">134:</span>     	 end;
+<span class="linenumber">135:</span>     	 test_times0(a[1]);
+<span class="linenumber">136:</span>     	 test_times1(a[1]);
+<span class="linenumber">137:</span>     	 test_up(a[0]);
+<span class="linenumber">138:</span>     	 test_upto(a[0],a[1]);
+<span class="linenumber">139:</span>     	 test_downto(a[1], a[0]);
+<span class="linenumber">140:</span>     	 test_for(a[0], a[1]);
+<span class="linenumber">141:</span>     	 test_step(a[0], a[1], a[2]);
+<span class="linenumber">142:</span>     	 test_stepto(a[0], a[1], a[2]);
+<span class="linenumber">143:</span>     	 test_sum(a[0], a[1]);
+<span class="linenumber">144:</span>     	 test_product(a[0], a[1]);
+<span class="linenumber">145:</span>     
+<span class="linenumber">146:</span>           else
+<span class="linenumber">147:</span>     	 #ERR + "Usage: int_iter MIN MAX STEP\n"
+<span class="linenumber">148:</span>           end;
+<span class="linenumber">149:</span>        end;
+<span class="linenumber">150:</span>     end;
+</pre>
+
+<pre class='samp'>
+$ sacomp -chk int_iter.sa -o int_iter
+$ ./int_iter 1 6 2
+Test for 6.times!: Hey! Hey! Hey! Hey! Hey! Hey! 
+Test for 6.times! returning INT: Hey!(0) Hey!(1) Hey!(2) Hey!(3) Hey!(4) Hey!(5) 
+Test for 1.up!: 1 2 3 4 5 6 7 8 9 10 break
+Test for 1.upto!(6): 1 2 3 4 5 6 
+Test for 6.downto!(1): 6 5 4 3 2 1 
+Test for 1.for!(6): 1 2 3 4 5 6 
+Test for 1.step!(6, 2): 1 3 5 7 9 11 
+Test for 1.stepto!(6, 2): 1 3 5 
+Test for sum!: 1 + ... + 6 = 21
+Test for product!: 1 * ... * 6 = 720
+</pre>
+
+<h2>4. Iterators defined in the ARRAY class</h2>
+The <tt>ARRAY</tt> type has several iterators such as <tt>ind!</tt>, <tt>elt!</tt> and <tt>set!</tt>.
+Following code (array_iter.sa) shows a simple example.
+<p>
+See
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/short-ARRAY%7B_%7D.html'>
+http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/short-ARRAY%7B_%7D.html</a>
+for detailed information.<p>
+
+<tt>array_iter.sa</tt>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- example of iterators in the ARRAY class</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        const a1:ARRAY{INT}:=|1,2,3,4,5|;
+<span class="linenumber">06:</span>        const a2:ARRAY{INT}:=|7,11,13,17,19|;
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>        show_array(a:ARRAY{INT}, name:STR) is
+<span class="linenumber">09:</span>           i,j:INT;
+<span class="linenumber">10:</span>           loop
+<span class="linenumber">11:</span>     	 i:=a.ind!;
+<span class="linenumber">12:</span>     	 j:=a.elt!;
+<span class="linenumber">13:</span>     	 #OUT + name + "[" + i + "] = " + j + ", ";
+<span class="linenumber">14:</span>           end;
+<span class="linenumber">15:</span>           #OUT + "\n";
+<span class="linenumber">16:</span>        end;
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>        ipro(a1,a2:ARRAY{INT}):INT 
+<span class="linenumber">19:</span>           pre a1.size = a2.size
+<span class="linenumber">20:</span>        is
+<span class="linenumber">21:</span>           p:INT;
+<span class="linenumber">22:</span>           loop
+<span class="linenumber">23:</span>     	 p := INT::sum!(a1.elt! * a2.elt!);
+<span class="linenumber">24:</span>           end;
+<span class="linenumber">25:</span>           return p;
+<span class="linenumber">26:</span>        end;
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>        add_arr(a1, a2:ARRAY{INT}):ARRAY{INT} 
+<span class="linenumber">29:</span>           pre a1.size = a2.size
+<span class="linenumber">30:</span>        is
+<span class="linenumber">31:</span>           ar :ARRAY{INT} := #(a1.size);
+<span class="linenumber">32:</span>           loop
+<span class="linenumber">33:</span>     	 ar.set!(a1.elt! + a2.elt!);
+<span class="linenumber">34:</span>           end;
+<span class="linenumber">35:</span>           return ar;
+<span class="linenumber">36:</span>        end;
+<span class="linenumber">37:</span>     
+<span class="linenumber">38:</span>        main is
+<span class="linenumber">39:</span>           #OUT + "a1 = " + a1 + "\n" + "a2 = " + a2 + "\n\n";
+<span class="linenumber">40:</span>           show_array(a1, "a1");
+<span class="linenumber">41:</span>           show_array(a2, "a2");
+<span class="linenumber">42:</span>           #OUT + "a1 + a2 = " + add_arr(a1, a2) + "\n";
+<span class="linenumber">43:</span>           #OUT + "inner product of a1 and a2 = " + ipro(a1, a2) + "\n";
+<span class="linenumber">44:</span>        end;
+<span class="linenumber">45:</span>     end;
+</pre>
+
+
+<pre class='samp'>
+takafumi@suse:~/doc/monthly/06-05/sather> sacomp -chk array_iter.sa -o array_iter
+takafumi@suse:~/doc/monthly/06-05/sather> ./array_iter
+a1 = {1,2,3,4,5}
+a2 = {7,11,13,17,19}
+
+a1[0] = 1, a1[1] = 2, a1[2] = 3, a1[3] = 4, a1[4] = 5, 
+a2[0] = 7, a2[1] = 11, a2[2] = 13, a2[3] = 17, a2[4] = 19, 
+a1 + a2 = {8,13,16,21,24}
+inner product of a1 and a2 = 231
+</pre>
+<h2>5. Iterators defined in the STR class</h2>
+Following shows a simple example and its output.
+See
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/short-STR.html'>
+http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/short-STR.html</a>
+for detailed information.<p>
+
+<tt>str_iter.sa</tt>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- iterators of STR class</span>
+<span class="linenumber">02:</span>     <span class="comment">-- </span>
+<span class="linenumber">03:</span>     <span class="comment">-- chunk!(chunk_size: INT): STR</span>
+<span class="linenumber">04:</span>     <span class="comment">-- **** 	Yield successive chunks of self, defined by the chunk size "size"</span>
+<span class="linenumber">05:</span>     <span class="comment">-- elt!(once beg:INT):CHAR</span>
+<span class="linenumber">06:</span>     <span class="comment">-- **** 	Yield the characters of self in order starting at `beg'. Self may be void. Modified (ben)</span>
+<span class="linenumber">07:</span>     <span class="comment">-- elt!(once beg,once num:INT):CHAR</span>
+<span class="linenumber">08:</span>     <span class="comment">-- **** 	Yield 'num' characters of self in order starting at `beg'. Self may be void. Modified (ben)</span>
+<span class="linenumber">09:</span>     <span class="comment">-- elt!:CHAR</span>
+<span class="linenumber">10:</span>     <span class="comment">-- **** 	Yield the characters of self in order. Self may be void. Modified (ben)</span>
+<span class="linenumber">11:</span>     <span class="comment">-- ind!:INT</span>
+<span class="linenumber">12:</span>     <span class="comment">-- **** 	Yield the induces of the characters of self in order. Self may be void. Modified (ben)</span>
+<span class="linenumber">13:</span>     <span class="comment">-- separate!(s:$STR):STR</span>
+<span class="linenumber">14:</span>     <span class="comment">-- **** 	On the first iteration just outputs `s', on successive iterations it outputs self followed by `s'. Useful for forming lists,</span>
+<span class="linenumber">15:</span>     <span class="comment">-- ____loop_#OUT_+_",_".separate!(a.elt!)_end;</span>
+<span class="linenumber">16:</span>     <span class="comment">-- split!(once c: CHAR): STR</span>
+<span class="linenumber">17:</span>     <span class="comment">-- **** 	Yield successive substrings that are separated by the character "c"</span>
+<span class="linenumber">18:</span>     <span class="comment">----------------------------------------------------------------------------------------</span>
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>     class MAIN is
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>        test_chunk is
+<span class="linenumber">24:</span>           s:STR := "abcdefghijklmnopqrstuvwxyz@";
+<span class="linenumber">25:</span>           s1:STR;
+<span class="linenumber">26:</span>           loop
+<span class="linenumber">27:</span>     	 s1 := s1 + s.chunk!(3) + " ";
+<span class="linenumber">28:</span>           end;
+<span class="linenumber">29:</span>           #OUT + "Test of (" + s + ").chunk!(3): " + s1 + "\n";
+<span class="linenumber">30:</span>        end;
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>        test_split is
+<span class="linenumber">33:</span>           s:STR:= "192.168.1.1";
+<span class="linenumber">34:</span>           #OUT + "Test of (" + s + ").split('.'): ";
+<span class="linenumber">35:</span>           loop
+<span class="linenumber">36:</span>     	 #OUT +  (s+".").split!('.') + "   ";  <span class='comment'>-- add "." at the end</span>
+<span class="linenumber">37:</span>           end;
+<span class="linenumber">38:</span>           #OUT + "\n";
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>        end;
+<span class="linenumber">41:</span>     
+<span class="linenumber">42:</span>        test_separate is
+<span class="linenumber">43:</span>           a:ARRAY{INT}:=|1,2,3,4,5,6,7|;
+<span class="linenumber">44:</span>           #OUT + "Test of \"     \".separate(" + a + ".elt!): ";
+<span class="linenumber">45:</span>            loop
+<span class="linenumber">46:</span>     	  #OUT + "     ".separate!(a.elt!);
+<span class="linenumber">47:</span>           end;
+<span class="linenumber">48:</span>            #OUT  + "\n";
+<span class="linenumber">49:</span>        end;
+<span class="linenumber">50:</span>        
+<span class="linenumber">51:</span>        main is
+<span class="linenumber">52:</span>           test_chunk;
+<span class="linenumber">53:</span>           test_split;
+<span class="linenumber">54:</span>           test_separate;
+<span class="linenumber">55:</span>        end;
+<span class="linenumber">56:</span>     end;
+</pre>
+
+<pre class='samp'>
+takafumi@suse:~/doc/monthly/06-05/sather> sacomp str_iter.sa -o str_iter
+takafumi@suse:~/doc/monthly/06-05/sather> ./str_iter
+Test of (abcdefghijklmnopqrstuvwxyz@).chunk!(3): abc def ghi jkl mno pqr stu vwx yz@ 
+Test of (192.168.1.1).split('.'): 192.   168.   1.   1.   
+Test of "     ".separate({1,2,3,4,5,6,7}.elt!): 1     2     3     4     5     6     7
+</pre>
+
+<h2>6. User defined iterators</h2>
+You can define your own iterators easily.<p>
+It is completely the same as typical function definition except 
+the iterator name ends with '!'. 
+The arguments qualified by <tt>once</tt> are evaluated once when the iterator is called first.
+The iterator returns a value when it meets <tt>yield</tt> with stopping the operation.
+The operation starts again when the iterator is called next time.<p>
+Following code defines a iterator that produces geometric sequences 
+(<tt>geo!(once a0, once r:FLTD):FLTD</tt>).
+
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- iterator for geometrical progressions</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>        geo!(once a0, once r:FLTD):FLTD is
+<span class="linenumber">06:</span>           a:FLTD:=a0;
+<span class="linenumber">07:</span>           loop
+<span class="linenumber">08:</span>     	 yield a;
+<span class="linenumber">09:</span>     	 a := a * r;
+<span class="linenumber">10:</span>           end;
+<span class="linenumber">11:</span>        end;
+<span class="linenumber">12:</span>        
+<span class="linenumber">13:</span>        main is
+<span class="linenumber">14:</span>           g1, g2 : FLTD;
+<span class="linenumber">15:</span>           #OUT + "User defined iterator: geo!(a0, r, FLTD)\n";
+<span class="linenumber">16:</span>           loop
+<span class="linenumber">17:</span>     	 10.times!;
+<span class="linenumber">18:</span>     	 g1 := geo!(1.0d, 2.0d);
+<span class="linenumber">19:</span>     	 g2 := geo!(1.0d, 0.5d);
+<span class="linenumber">20:</span>     	 #OUT + g1 + " * " + g2 + " = " + (g1*g2) + "\n";
+<span class="linenumber">21:</span>           end;
+<span class="linenumber">22:</span>        end;
+<span class="linenumber">23:</span>     end;
+</pre>
+
+<pre class='samp'>
+takafumi@suse:~/doc/monthly/06-05/sather> sacomp geo.sa -o geo
+takafumi@suse:~/doc/monthly/06-05/sather> ./geo
+User defined iterator: geo!(a0, r, FLTD)
+1 * 1 = 1
+2 * 0.5 = 1
+4 * 0.25 = 1
+8 * 0.125 = 1
+16 * 0.0625 = 1
+32 * 0.03125 = 1
+64 * 0.015625 = 1
+128 * 0.0078125 = 1
+256 * 0.00390625 = 1
+512 * 0.00195312 = 1
+</pre>
+
+You can exit from the loop explicitly using <tt>quit</tt>.
+The  <tt>quit</tt> is effective only in the loop.
+
+The <tt>while!</tt>, for instance, can be defined like as follows.
+<pre class='code'>
+   my_while!(predicate :BOOL) is
+      loop
+	 if predicate then yield;
+	 else quit; 
+	 end;
+      end;
+   end;
+</pre>
+<h2>6. Summary</h2>
+I have explained about the iterators briefly using simple examples.
+I will explain how to define classes in the next section.<p>
+ 
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_play_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  3. Playing with Sather </a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+ Try Sather</a></td>
+
+<td><a rel=next href="sa_class_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+5. Classes</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_iter_e.html&t=%28Try+Sather%29+4%2E+Iteration'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+</body></html>

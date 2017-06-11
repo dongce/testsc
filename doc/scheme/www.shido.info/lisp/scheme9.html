@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, IO, 入出力">
+<meta name="description" content="Scheme の入出力">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 9. 入出力 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme8.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. 高階関数</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_asg.html"><img src='../images/right_arrow.gif' class='arrow' border=0>10. 代入</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme9.html&t=Scheme+%C6%FE%CC%E7+9.+%C6%FE%BD%D0%CE%CF' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>9. 入出力   </h1>
+<hr>
+<h2>1. 初めに </h2>
+前回までで、関数定義について一通り説明したので、対話的な環境で関数を書いて、動かすことが
+できるようになったと思います。<p>
+
+今回は入出力について説明します。入出力ができればかなり実用的なプログラムを書くことができます。
+<h2>2. ファイルからの入力</h2>
+<h3> 2.1. open-input-file, read-char, eof-object?</h3>
+入力用にファイルを開くには (<span class='ttb'>open-input-file</span> <var>filename</var>) を使います。
+  この関数は入力用ポートを返します。
+  ポートから１文字読み込むには (<span class='ttb'>read-char</span> <var>port</var>) を使います。
+<tt>read-char</tt> はファイルの終端に達すると <tt>eof-object</tt> を返すので、 <span class='ttb'>eof-object?</span>
+を使って、ファイルが終わったかどうか調べます。ファイルを閉じるときは
+(<span class='ttb'>close-input-port</span> <var>port</var>) を使います。
+  ファイルの内容を文字列として返す関数は以下のように書けます。<p>
+   
+
+[code 1]
+<pre class='code'>
+(define (read-file file-name)
+  (let ((p (open-input-file file-name)))
+    (let loop((ls1 '()) (c (read-char p)))
+      (if (eof-object? c)
+	  (begin
+	    (close-input-port p)
+	    (list->string (reverse ls1)))
+	  (loop (cons c ls1) (read-char p))))))
+</pre>
+たとえば、次のような内容のファイル (C:\doc\hello.txt) を作って試してみると [example 1] のような結果が得られます。
+改行文字は '\r\n' で表されるので、少し見にくいのですが、ちゃんと読まれいているのがわかります。
+出力用関数 <span class='ttb'>display</span> を使うと整形されます [example 2]。
+
+[hello.txt]
+<pre class='code'>
+Hello world!
+Scheme is an elegant programming language.
+</pre>
+
+[example 1]
+<pre class='samp'>
+&gt; (current-directory "Z:/doc/scheme")
+&gt; (current-directory )
+<span class='response'>#&lt;path:C:\doc\scheme\&gt</span>
+> (read-file "hello.txt")
+<span class='response'>"Hello world!\r\nScheme is an elegant programming language.\r\n"</span>
+</pre>
+[example 2]
+<pre class='samp'>
+&gt; (display (read-file "hello.txt"))
+<span class='response'>Hello world!
+Scheme is an elegant programming language.
+</span>
+</pre>
+
+
+
+
+<h3> 2.2. call-with-input-file, with-input-from-file</h3>
+<span class='ttb'>call-with-input-file</span>, <span class='ttb'>with-input-from-file</span>
+ を使ってファイルを開くこともできます。エラー処理をしてくれるのでこちらの方が便利かもしれません。
+<dl>
+  <dt>(<span class='ttb'>call-with-input-file</span> <var>filename</var> <var>procedure</var>)</dt>
+      <dd>
+<var>filename</var> のファイルを入力用に開きます。
+<var>precedure</var> は入力ポートを引数にとる関数です。
+入力ポートが再び使われる可能性があると、<var>precedure</var> から制御が戻ってきたときにファイルが閉じられないので、
+明示的にファイルを閉じた方が良いでしょう。
+[code 1] の read-file を <tt>call-with-input-file</tt> を使って書くと [code 2] のようになります。<p>
+
+[code 2]
+<pre class='code'>
+(define (read-file file-name)
+  (call-with-input-file file-name
+    (lambda (p)
+      (let loop((ls1 '()) (c (read-char p)))
+	(if (eof-object? c)
+	    (begin
+	      (close-input-port p)
+	      (list->string (reverse ls1)))
+	    (loop (cons c ls1) (read-char p)))))))
+</pre></dd>
+  <dt>(<span class='ttb'>with-input-from-file</span> <var>filename</var> <var>procedure</var>)</dt>
+      <dd>
+<var>filename</var> を標準入力として開きます。procedure は引数なしの関数です。
+<var>procedure</var> から制御が戻るとファイルは閉じられます。これが一番便利が良いでしょう。
+[code 1] の r<tt>ead-file</tt> を <tt>with-input-from-file</tt> を使って書くと [code 3] のようになります。<p>
+[code 3]
+<pre class='code'>
+(define (read-file file-name)
+  (with-input-from-file file-name
+    (lambda ()
+      (let loop((ls1 '()) (c (read-char)))
+	(if (eof-object? c)
+	    (list->string (reverse ls1))
+	    (loop (cons c ls1) (read-char)))))))
+</pre>
+
+  </dd>
+</dl>
+
+<h3> 2.3. read</h3>
+(<span class='ttb'>read</span> <var>port</var>) は <var>port</var> からScheme の式を読み込みます。
+例えば、次のように括弧でくくられた文書を読むときは read は便利です。<p>
+[paren.txt]
+<pre class='code'>
+'(Hello world!
+Scheme is an elegant programming language.)
+
+'(Lisp is a programming language ready to evolve.)
+</pre>
+
+[code 4]
+<pre class='code'>
+(define (s-read file-name)
+  (with-input-from-file file-name
+    (lambda ()
+      (let loop ((ls1 '()) (s (read)))
+	(if (eof-object? s)
+	    (reverse ls1)
+	    (loop (cons s ls1) (read)))))))
+</pre>
+paren.txt を [code 4] の関数で読むと、次のようになります。
+<pre class='samp'>
+&gt; (s-read "paren.txt")
+<span class='response'>((quote (hello world! scheme is an elegant programming language.))
+(quote (lisp is a programming language ready to evolve.)))</span>
+</pre>
+<h3> 練習問題 1</h3>
+ファイルの内容を１行ずつのリストにして返す関数 <span class='ttb'>read-lines</span> を書いてください。
+hello.txt に適用すると次のようになるようにして下さい。'\n' は #\Newline です。
+改行文字は残すようにしてください。
+<pre>
+(read-lines "hello.txt") &rArr; ("Hello world!\r\n" "Scheme is an elegant programming language.\r\n")
+</pre>
+
+
+<h2>3. ファイルへの出力</h2>
+<h3> 3.1. 出力用ポート</h3>
+入力用ポートを作るのと同様な関数が用意されています。
+<dl>
+  <dt>(<span class='ttb'>open-output-file</span> <var>filename</var>)</b></dt>
+      <dd> 出力用にファイルを開きます。出力用ポートを返します。</dd>
+  <dt><b>(<span class='ttb'>close-output-port</span> <var>port</var>)</b></dt>
+      <dd> 出力用 port を閉じます。</dd>
+  <dt><b>(<span class='ttb'>call-with-output-file</span> <var>filename</var> <var>procedure</var>)</b></dt>
+      <dd> <var>filename</var> を出力用に開いて <var>procedure</var> を行います。
+          <var>procedure</var> は ポートを引数に取る関数です。</dd>
+  <dt><b>(<span class='ttb'>with-output-to-file</span> <var>filename</var> <var>procedure</var>)</b></dt>
+      <dd> <var>filename</var> を標準出力として開き、<var>procedure</var> を行います。
+<var>procedure</var> は引数なしの関数です。<var>procedure</var> から制御が戻るとファイルは閉じられます。</dd>
+</dl>
+
+<h3> 3.1. 出力用関数</h3>
+以下の出力用関数があります。いずれの関数も、<var>port</var> を省略すると標準出力に出力されます。
+<dl>
+  <dt>(<span class='ttb'>write</span> <var>obj</var> <var>port</var>)</dt>
+      <dd> <var>port</var> に <var>obj</var> を出力します。文字列は２重引用符で囲まれ、文字は #\ 形式で出力されます。</dd>
+  <dt>(<span class='ttb'>display</span> <var>obj</var> <var>port</var>)</dt>
+      <dd> <var>port</var> に  <var>obj</var> を出力します。文字列は２重引用符で囲まれず、文字はそのまま出力されます。</dd>
+  <dt>(<span class='ttb'>newline</span> <var>port</var>)</dt>
+      <dd> 改行します。</dd>
+  <dt>(<span class='ttb'>write-char</span> <var>char</var> <var>port</var>)</dt>
+      <dd> <var>char</var> を <var>port</var> に出力します。</dd>
+</dl>
+
+
+<h3> 練習問題 2</h3>
+ファイルをコピーする関数 (my-copy-file) を書いてください。
+
+<h3> 練習問題 3</h3>
+任意個の文字列の引数をとり、それらを標準出力に１行に１つずつ出力する関数 <tt>print-lines</tt> を書いてください。
+<h2>4. 終わりに</h2>
+Scheme の入出力は必要最低限しかないので、説明は簡単に済みました。
+今回までの説明で普通のプログラムは Scheme でかけるようになったと思います。
+次回は代入について説明します。
+
+<h3>練習問題の解答</h3>
+
+<h4>練習問題 1</h4>
+まず、リストをセパレータで分割する group-list を作ります。
+次に、ファイルから読み取った文字のリストを #\Newline で、分割し、
+それぞれのリストを文字列に変換します。（<span class='comment'>; *</span> の部分）
+<pre class='code'>
+(define (group-list ls sep)
+  (letrec ((iter (lambda (ls0 ls1)
+		   (cond
+		    ((null? ls0) (list ls1))
+		    ((eqv? (car ls0) sep) 
+                     (cons (cons sep ls1) (iter (cdr ls0) '())))
+		    (else (iter (cdr ls0) (cons (car ls0) ls1)))))))
+    (map reverse (iter ls '()))))
+
+
+(define (read-lines file-name)
+  (with-input-from-file file-name
+    (lambda ()
+      (let loop((ls1 '()) (c (read-char)))
+	(if (eof-object? c)
+	    (map list->string (group-list (reverse ls1) #\Newline))  <span class='comment'>; *</span>
+	    (loop (cons c ls1) (read-char)))))))
+</pre>
+
+実行例：
+<pre class='samp'>
+&gt; (group-list '(1 4 0 3 7 2 0 9 5 0 0 1 2 3) 0)
+<span class='response'>((1 4 0) (3 7 2 0) (9 5 0) (0) (1 2 3))</span>
+
+&gt; (read-lines "hello.txt")
+<span class='response'>("Hello world!\r\n" "Scheme is an elegant programming language.\r\n" "")</span>
+</pre>
+
+
+<h4>練習問題 2</h4>
+<pre class='code'>
+(define (my-copy-file from to)
+  (let ((pfr (open-input-file from))
+	(pto (open-output-file to)))
+    (let loop((c (read-char pfr)))
+      (if (eof-object? c)
+	  (begin
+	    (close-input-port pfr)
+	    (close-output-port pto))
+	  (begin
+	    (write-char c pto)
+	    (loop (read-char pfr)))))))
+</pre>
+
+<h4>練習問題 3</h4>
+<pre class='code'>
+(define (print-lines . lines)
+  (let loop((ls0 lines))
+    (if (pair? ls0)
+        (begin
+         (display (car ls0))
+         (newline)
+         (loop (cdr ls0))))))
+</pre>
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme8.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. 高階関数</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_asg.html"><img src='../images/right_arrow.gif' class='arrow' border=0>10. 代入</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme9.html&t=Scheme+%C6%FE%CC%E7+9.+%C6%FE%BD%D0%CE%CF' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

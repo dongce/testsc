@@ -1,0 +1,86 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="Debian, etch, lenny, courier, Dovecot ">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> Debian etch から lenny への Upgrade </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc38&t=Debian+etch+%A4%AB%A4%E9+lenny+%A4%D8%A4%CE+Upgrade"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>Debian etch から lenny への Upgrade</h1>
+<hr>
+May 09, 2009
+<p>
+
+
+lenny が 2009 年 4 月 11 日 にリリースされたので、自宅サーバを
+etch から lenny に upgrade しました。
+<p>
+upgrade の手順は、
+<a href='http://www.jp.debian.org/releases/lenny/i386/release-notes/ch-upgrading.ja.html'>
+Debian GNU/Linux 5.0 (lenny) リリースノート (Intel x86 用) 第4章</a>
+と
+<a href='http://kzworks.at.webry.info/200903/article_13.html'>
+民芸的プログラミング　ソフトウェア開発日記</a>
+を参考にしました。
+手順を踏んでやっていくと、問題なく upgrade できます。
+<p>
+ただ、courer-imap-ssl が正常に動作しなくなりました。
+imaps が使えなくなると、せっかく買った Softbank X02HT が
+無駄になるので、相当あせりました。
+<p>
+いろいろ、調べた結果、lenny の courier-imap-ssl は bug が多いのと、
+最近は多くのディストリビューションで 
+<a href='http://www.dovecot.org/'>Dovecot</a>
+をデフォルトの IMAP サーバとして採用していることを知ったので、
+あっさり、
+courier を諦め、Dovecot に乗り換えました。
+Dovecot の設定は
+<a href='http://sy2920.s151.xrea.com/mail/dovecot.html'>
+Dovecot で IMAP サーバ構築</a>
+などを参考にしました。
+<p>
+Dovecot の設定は、courier よりも簡単で、
+<ul>
+<li>courier 互換になるように Maildir の名前を設定する。
+<li>ssl の秘密鍵ファイルと認証書ファイルを指定する。
+</ul>
+の2つだけでした。
+<p>
+
+
+今まで使っていたソフトがディストリビューションの新しいリリースでちゃんとメンテナンスされていないときは、
+代替ソフトがあるはずなので、それを調べるとよいことを学びました。
+<p>
+それから、
+<a href='https://www.shido.info/misc/misc.php?id=11'>
+我が家のサーバー機</a>
+は
+中古で買ってから 3 年以上たちますが、故障知らずです。
+あとどのくらい使えるか楽しみです。
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc38&t=Debian+etch+%A4%AB%A4%E9+lenny+%A4%D8%A4%CE+Upgrade"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

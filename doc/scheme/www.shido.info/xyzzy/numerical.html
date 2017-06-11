@@ -1,0 +1,369 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="xyzzy, gnuplot, numerical calculation">
+<meta name="description" content="xyzzy から数値計算ソフトを呼び、その結果を GNUPLOT で表示する">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> 数値計算ソフトの結果を GNUPLOT で表示する </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="numerical.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/numerical.html&t=%BF%F4%C3%CD%B7%D7%BB%BB%A5%BD%A5%D5%A5%C8%A4%CE%B7%EB%B2%CC%A4%F2+GNUPLOT+%A4%C7%C9%BD%BC%A8%A4%B9%A4%EB' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>numerical-mode.l</h1> 
+<center><span class="bluetextbold" style="font-size:140%">
+数値計算ソフトの結果を GNUPLOT で表示する。</span></center>
+<hr>
+<h2>1. はじめに </h2>
+Fortran や C で書かれた数値計算プログラムは伝統的に、ある決まった名前の入力ファイルを読み込み、
+決まった名前の出力ファイルを吐き出すという不文律があります。
+例えば、<span class="bluetextbold">numeric.exe</span> は 
+入力ファイル <span class="bluetextbold">numeric.inp</span> から
+パラメータを読み込み、結果を <span class="bluetextbold">numeric.log</span> に、
+プロット用のデータを <span class="bluetextbold">numeric.dat</span> 吐き出します。
+もちろん、プログラムが複雑になると、吐き出すファイルも多くなりますが、
+基本的には<u>事前に名前の決まったファイル</u>を吐き出します。
+これは多分メインフレームのバッチジョブに対応するためだったと思われます。現在はパソコンの
+パワーが飛躍的に増大したので、メインフレーム、ワークステーションを使わなくても数値計算ソフトを
+走らせることが出来るようになりました。また、gcc, g77 のような優れたフリーの C, Fortran コンパイラー
+も win32 環境で動作します<sup>注１</sup>。<p>
+この手のプログラムを走らせる場合、xyzzy を含む Emacs ライクなエディターで入力ファイルを編集し、
+プログラムを
+走らせ、結果を GNUPLOT で表示するというサイクルをとります。
+これには以下の特徴があります。
+<ol>
+<li> 入力ファイル名から、実行ファイル、出力ファイルを知ることが出来る。
+<li>バックアップを取らないと以前のファイルは消えてしまう。
+</ol>
+つまり、ファンクションキーを押すだけで、次の動作をするマクロがあれば、
+これらのプログラムを便利よく走らせることが出来ます。
+<ol>
+<li>入力ファイル名から、実行するプログラムを決め、自動的に実行する。
+<li>自動的にバックアップを作成する。
+<li>GNUPLOT を呼び出し、プロット用データをプロットする。
+</ol>
+です。<p>
+
+<span class="bluetextbold">numerical-mode.l</span> はこの仕様を満たすマクロを簡単に
+書くためのモードです。実際に使うにはソースを書き換える必要がありますが、書き換える範囲は
+最小限になるように工夫してあります。まず、簡単な例を示し、それから、ソースの書き換え方を示します。<p>
+
+<div class="comt">
+注１：<a href="http://www.cygwin.com/">cygwin</a>, <a href="http://www.mingw.org/">MinGW</a>
+などのプロジェクトがあります。cygwin の方が先行していて、インストーラー任せでインストールできます。
+</div>
+
+<h2>2.  準備 </h2>
+<h3>2.1. gnuplot のインストール</h3>
+gnuplot は<a href="http://sourceforge.net/project/showfiles.php?group_id=2055">sourceforge.net</a>
+から、ダウンロード出来ます。gp400win32.zip (7 月 1 日現在）をダウンロードして適当なディレクトリに
+解凍してください。/bin の中にある。<u>wgnuplot.exe</u> をダブルクリックするとコンソールが現れます。
+表示が小さくて読めないときはマウスコンソール上で右ボタンを押すと <u>choose font</u> というメニューが
+現れますので、それをクリックしてフォントサイズを大きくして下さい（例えば 14 pt）。
+表示の変更は <u>Update Wgnuplot.ini</u> を選択して保存しておきます。
+コンソールから  <span class="graybg">plot sin (x)</span> と入力してみてください。
+サインカーブが描かれるはずです。詳しい使い方は付属の help または、
+ <a href="http://www.gnuplot.info/">gnuplot homepage</a>を参考にしてください。
+日本語のページでは、
+<ul>
+   <li><a href="http://lagendra.s.kanazawa-u.ac.jp/ogurisu/manuals/gnuplot-intro/">GNUPLOTの第一歩</a>
+   <li><a href="http://takeno.iee.niit.ac.jp/~foo/gp-jman/gp-jman.html">gnuplot のページ (Takeno Lab)</a>
+</ul>
+などが比較的新しい情報を取り入れています。<p>
+wgnuplot.exe と同じディレクトリに入っている <span class="redtext">pgnuplot.exe</span>
+ は、他のプログラムから
+gnuplot にコマンドを渡すのに使います。<p>
+
+環境変数 GDFONTPATH をフォントのあるディレクトリ（例えば、"C:\WINDOWS\FONTS\"）に設定しておくと
+png ファイル (portable network graphics) にイメージを書き出すときにそのディレクトリにある
+TrueType (*.ttf) フォントと Adobe Type 1 (*.pfa) フォントが使用できます。
+
+
+<h3>2.2 numerical-mode.l のインストール</h3>
+以下の手順でインストールします。
+<ol>
+<li>まず、ダウンロードした numerical.lzh を解凍します。解凍すると以下の８つのファイルが生成されます。
+<dl>
+   <dt><b>numerical-mode.l</b></dt>
+      <dd>マクロ本体</dd>
+   <dt><b>edit-inp.l</b></dt>
+      <dd>入力ファイル編集補助マクロ</dd>
+   <dt><b>bullet.exe, bullet.c, bullet.inp</b></dt>
+      <dd>弾道をシミュレートするプログラムの実行ファイル、ソースコード、入力ファイル。</dd>
+   <dt><b>lorentz.exe, lorentz.c, lorentz.inp</b></dt>
+      <dd> Lorentz attractor を描くプログラムの実行ファイル、ソースコード、入力ファイル。</dd>
+</dl>
+<li> bullet.exe, lorentz.exe を適当なディレクトリ（例えば C:\usr\bin\） に保存します。
+<li> bullet.inp, lorentz.inp はそれぞれ別のディレクトリに保存します。
+     (例えば C:\usr\bullet\ と C:\usr\lorentz\)
+<li> numerical-model.l をエディターで開いて以下の編集を行います。
+<ul> 
+<li> (mark 1) のある行の *gnuplot-command* を自分の <span class="redtext">pgnuplot</span> にあわせて書き換えます。
+<strike>wgnuplot.exe</strike> ではなく <b>pgnuplot.exe</b> です。
+
+<li> (mark 2a), (mark 2b) のコメントのある行の
+<span class="redtext">"c:/usr/bin/bullet.exe", "c:/usr/bin/lorentz.exe"</span> 
+を実行ファイルを保存したディレクトリにあわせて書き換えます。
+</ul>
+
+<li> 書き換えた、numerical-mode.l を /site-lisp に保存して、バイトコンパイルします。<br>
+
+     <span class="graybg"> (byte-compile-file "./site-lisp/numerical-mode.l")</span><p>
+
+<li> .xyzzy に次の２行を加えます。
+<div class="graybg" style="width:600px">
+(setq *auto-mode-alist* (acons "\\.inp$"  'ed::numerical-mode *auto-mode-alist*))<br>
+(autoload 'ed::numerical-mode "numerical-mode" t)
+</div>
+<li> ダンプファイルを再作成します。
+</ol>
+以上でインストールは終了です。
+
+
+<h2> 3. テスト </h2>
+bullet.exe, lorentz.exe は MinGW 版の gcc を用い、次のようにコンパイルしました。<br>
+<blockquote class="graybg" style="width:500px">
+gcc -o foo.exe foo.c -O 
+</blockquote>
+MinGW 版を用いたので特別な dll は必要なくそのまま動作すると思います。
+<h3>3.1. bullet</h3>
+xyzzy で bullet.inp を開いて <span class="redtext">F10</span> を押してください。
+bullet.exe が起動して、
+図１にあるようなプロットが得られれば成功です。戦艦大和の 46 cm 砲の砲弾はこんな感じで飛ぶと思われます。
+bullet.exe は空気抵抗、重力加速度の高度依存性を考慮しています。ただし、コリオリの力は考慮していません。
+発射角度が 45 度より若干大きいのは高空の方が空気抵抗が少ないため射程が延びるためです。bullet.inp を適当に
+書き換えて遊んでみてください、history.txt に bullet.inp と bullet.log の履歴が新しい順に保存されます。
+また、history.txt の内容はバッファ <span class="bluetext">* history *</span>に表示されます。<p>
+<center>
+図１：46 cm 砲の弾道<br>		
+<img src="yamato.png">
+</center>
+
+<h3>3.1. Lorentz attractor</h3>
+xyzzy で lorentz.inp を開いて <span class="redtext">F10</span> を押してください。
+lorentz.exe が起動して、
+図２にあるようなプロットが得られれば成功です。history.txt, * history * については 3.1. の
+場合と同様です。Lorentz attractor についての解説は
+<a href="http://www.soi.wide.ad.jp/class/20010004/slides/05/prog/Lorentz/">
+科学技術と芸術（１）：数理と造形</a> や 
+<a href="http://svr01.damp.tottori-u.ac.jp/~akimoto/Fortran/node37.html">FORTRANプログラミング初級編</a>
+などを見てください。
+<p>
+<center>
+図２：Lorentz attractor	<br>	
+<img src="lorentz.png">
+</center>
+
+
+<h2> 4. numerical.l に数値計算プログラムを登録する </h2>
+新しいプログラムの登録は、マクロ <span class="bluetextbold">defnumeric</span> を用います。
+新しい関数の定義は、ソースコードの (mark 2) -- (mark 3) の間に書いてください。
+関数を定義したら、必ずバイトコンパイルして、ダンプファイルを再作成して下さい。<p>
+
+<b>defnumeric</b> の書式は以下の通りです。<p>
+
+<dl>
+<dt><b>defnumeric</b></dt>
+<dd>
+書式： <span class="graybg">
+(defnumeric <span class="v">name</span> (<span class="v">exec-file</span> <span class="v">inp-file</span> <span class="v">backup-file-1</span>
+ ....<span class="v">backup-file-n</span>)   <span class="v">body</span>)
+</span>
+<ul>
+   <li><span class="v">name</span>:  登録する関数の名前。
+   <li><span class="v">exec-file</span>: 実行ファイル名をフルパスで指定。
+   <li><span class="v">inp-file</span>:  入力ファイル名。
+   <li><span class="v">backup-file-1</span> ....<span class="v">backup-file-n</span>: 
+         バックアップを取るファイルのリスト。
+   <li><span class="v">body</span>: 定義の本体。主に GNUPLOT に渡すコマンドを記述する。
+</ul>
+</dl>
+例として、bullet と lorentz の定義を載せます。
+<pre class="oset">
+<span class="comtcolor">;;; defining bulllet</span> 
+(defnumeric bullet ( "c:/usr/bin/bullet.exe" "bullet.inp" "bullet.log")    <span class="comtcolor">; (mark 2a)</span>
+    (with-vars-in-log ("bullet.log"
+           (v0 "initial +speed += +")
+           (angle "firing +angle += +")
+           (vf "flight +distance += +"))
+      (with-plot ("bullet.plt")
+	("re=6.37e6~%")
+	("set title \"trajectory of bullet\\n\\~%")
+	("v0=~F (m s-1), firing angle = ~F (degree), range of deposit = ~F (m)\"~%"
+		v0 angle vf)
+	("set size ratio -1~%")
+	("set xlabel \"distance/m\"~%")
+	("set ylabel \"height/m\"~%")
+	("plot \"bullet.dat\" us 2:3 t \"trajectory\"  w l 1,\\~%")
+	("sqrt(re*re-x*x)-re t \"earth surface\" w l 5~%"))))
+ 	   
+<span class="comtcolor">;;; defining lorentz</span>
+(defnumeric lorentz ("c:/usr/bin/lorentz.exe" "lorentz.inp" "lorentz.log")  <span class="comtcolor">; (mark 2b)</span>
+    (with-vars-in-log ("lorentz.log" (a "a += +")(b "b += +")(c "c += +"))
+       (with-plot ("lorentz.plt")
+	 ("set title \"Lorentz's attractor\\n a = ~A, b = ~A, c = ~A\"~%" a b c)
+	 ("set ticslevel 0~%")
+	 ("set xlabel \"X\"~%")
+	 ("set ylabel \"Y\"~%")
+	 ("set zlabel \"Z\"~%")
+	 ("set view 78,221~%")
+	 ("splot \"lorentz.dat\" us 2:3:4 t \"trajectory\" w l 1~%"))))
+</pre>
+
+例を見ると分かるように、自分で書く必要のある部分は、gnuplot へ渡すコマンドだけです。
+これには、２つのマクロ <span class="bluetextbold">with-vars-in-log</span>
+ と <span class="bluetextbold">with-plot</span>を使います。<b>with-vars-in-log</b>
+はログファイルから数値を読みとるマクロで、一方、<b>with-plot</b> は gnuplot にコマンドを
+渡すためのマクロです。
+以下に使用法を説明します。
+<dl>
+<dt> <b><a name="WithVersInLog">with-vars-in-log</a></b></dt>
+<dd> 書式：<span class="graybg">
+(with-vars-in-log (<span class="v">log-file-name</span> 
+(<span class="v">var<sub>1</sub></span> <span class="v">regexp<sub>1</sub></span>
+ <span class="v">char<sub>1</sub></span>)......
+(<span class="v">var<sub>n</sub></span> <span class="v">regexp<sub>n</sub></span>
+ <span class="v">char<sub>n</sub></span>))
+ <span class="v">body)</span></span>
+<ul>
+<li><span class="v">log-file-name</span>: ログファイル名。
+<li><span class="v">var<sub>i</sub></span>: ログファイルから読み込む変数名。
+<li><span class="v">regexp<sub>i</sub></span>: <span class="v">var<sub>i</sub></span> 
+       のある行の <span class="v">var<sub>i</sub></span> までの文字列。
+正規表現<sup>注２</sup>で記述可。
+<li><span class="v">char<sub>i</sub></span>: <span class="v">var<sub>i</sub></span> の後の文字を指定。
+     文字の指定は "#\(char)" で行います。例えば、"[" という文字を指定したいときには "#\[" と記述します。
+     <span class="v">var<sub>i</sub></span> の後の文字がスペースまたは改行なら指定する必要はありません。
+<li><span class="v">body</span>: 本体。</ul></dd>
+<dt><b><a name="WithPlot">with-plot</a></b></dt>
+<dd> 書式：<span class="graybg">
+(with-plot (<span class="v">plot-file</span>) 
+(<span class="v">command<sub>1</sub></span>)...(<span class="v">command<sub>n</sub></span>))</span>
+<ul>
+<li><span class="v">plot-file</span>: gnuplot へわたすコマンドファイル名。
+<li><span class="v">command<sub>i</sub></span>: コマンドファイルに書き込むコマンド。
+format 関数の書式部と変数部。 <br>
+つまり、(format <span class="v">stream</span> <span class="v">form</span> <span class="v">var<sub>1</sub></span>
+..<span class="v">var<sub>n</sub></span>) の <span class="v">form</span> と 
+<span class="v">var<sub>1</sub></span>..<span class="v">var<sub>n</sub></span> の部分を
+括弧でくくったものです。
+</ul></dd></dl>
+<div class="comt">
+注２：正規表現については以下のリンクを参照してください。
+<ul style="line-height:140%;margin-top:5px">
+<li><a href="http://tibet.que.ne.jp/otani/2004unix/2004unixmenu.html">Unix演習</a>
+<li><a href="http://www.afis.to/~start/xyzzy/tips/regular.html">正規表現 (xyzzy[しょぼしょぼすくりぷと]) </a>
+<li>
+<a href="http://hie.s64.xrea.com/xyzzy/reference/html/apart/ref-_90_B3_8BK_95_5C_8C_BB_82_CC_95_5C_8BL.html">
+xyzzy Reference - 正規表現の表記</a>
+</ul>
+</div>
+
+
+<h2>5. デフォルトのキーマップ</h2>
+次の表に デフォルトのキーマップ、関数名、機能を挙げます。
+<table border="1"style="table-layout:fixed;">
+    <tr>
+        <th width="50">キー</th>
+        <th width="140">関数</th>
+        <th width="650">機能</th>
+    </tr>
+    <tr>
+        <td>F10</td>
+        <td>numerical-choice</td>
+        <td>入力ファイル名にあわせて数値計算プログラムを実行し、その結果を gnuplot で表示します。</td>
+    </tr>
+    <tr>
+        <td>Alt-p</td>
+        <td>g-png</td>
+        <td>ミニバッファからファイル名を入力し、
+         プロットを PNG(Portable Network Graphic) ファイルとして書き出します。</td>
+    </tr>
+    <tr>
+        <td>Alt-o</td>
+        <td>g-auto</td>
+        <td>autoscale にして再描画します。</td>
+    </tr>
+    <tr>
+        <td>Alt-r</td>
+        <td>g-range</td>
+        <td>x-range, y-range をミニバッファから入力して再描画します。</td>
+    </tr>
+    <tr>
+        <td>Alt-q</td>
+        <td>end-plot</td>
+        <td>gnuplot を終了します。</td>
+    </tr>
+</table>
+
+<h2>7. その他のカスタマイズ</h2>
+次の表に示す３つの変数が、export されています。<br>これらの変数の値は本体をコンパイルしなおすことなく
+.xyzzy（または siteinit.l）に記述することで変更できます。この種の変数の変更の方法は
+<a href="http://hie.s64.xrea.com/xyzzy/note/major_mode.html">xyzzy の音 - モード毎の設定</a>
+を見てください。<p>
+<table border="1">
+    <tr>
+        <th>変数</th>
+        <th>記述</th>
+    </tr>
+    <tr>
+        <td>*gnuplot-command*</td>
+        <td>pgnuplot をフルパスで指定します。</td>
+    </tr>
+    <tr>
+        <td>*numerical-mode-map*</td>
+        <td>キーバインドを指定します。</td>
+    </tr>
+    <tr>
+        <td>*numerical-mode-hook*</td>
+        <td>例えば入力ファイル編集用の関数などを追加します。</td>
+    </tr>
+</table><p>
+入力ファイルの編集補助マクロの例として edit-inp.l を作ってみました。
+使い方は以下の通りです。
+<ol>
+<li>edit-inp.l を /site-lisp にコピーし、バイトコンパイルし、ダンプファイルを再作成します。
+<li>.xyzzy に次の１行を加えます。<br>
+<div class="leftmargin50"><span class ="graybg">
+(add-hook 'ed::*numerical-mode-hook* #'(lambda () (require "edit-inp")))</span></div>
+<li>入力ファイル (*.inp) を開いて "Alt-v" を押すと、それぞれのパラメータについて値をミニバッファ
+から値を聞いてくるので、変更しない場合はそのままリターンを押し、変更する場合は値をミニバッファに
+入力します。
+</ol>
+キーバインディングの変更などは edit-inp.l のソースを見てください。
+また、自分の入力ファイルの書式にあわせて便利なマクロを作ってください。
+
+  
+
+<h2> 6. おわりに </h2>
+
+数値計算プログラムを xyzzy 上で動かす汎用マクロを書いてみました。いままで、この種のマクロは
+使用者が自分の目的にあわせて個別に書くのが一般的で、汎用性はありませんでした。<br>
+このスクリプトでは、マクロ difnumeric, with-vars-in-log, with-plot を使うことにより
+数値計算プログラムと gnuplot が簡単に連結できるようにしました。
+このマクロが数値計算プログラム＋xyzzy ユーザーのお役に立てれば幸いです。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="numerical.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/numerical.html&t=%BF%F4%C3%CD%B7%D7%BB%BB%A5%BD%A5%D5%A5%C8%A4%CE%B7%EB%B2%CC%A4%F2+GNUPLOT+%A4%C7%C9%BD%BC%A8%A4%B9%A4%EB' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

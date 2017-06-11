@@ -1,0 +1,592 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, vector, ベクトル">
+<meta name="description" content="Scheme のベクトル型変数">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 14. ベクトルと構造体 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_ah.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  13. 連想リスト、ハッシュ表</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_syntax.html"><img src='../images/right_arrow.gif' class='arrow' border=0>15. 構文の定義</a></td>
+<td><a rel=download href="scheme_vec.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_vec.html&t=Scheme+%C6%FE%CC%E7+14.+%A5%F4%A5%A7%A5%AF%A5%C8%A5%EB%A4%C8%B9%BD%C2%A4%C2%CE' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>14.  ベクトルと構造体   </h1><a name="vector">
+
+<h2>1. 初めに</h2>
+今回はベクトルと構造体について説明します。ベクトルは整数によってインデックスされたひとまとまりの
+データで、C 言語の配列に相当しますが、格納するデータのデータ型が同じである
+必要はありません。<p>
+  一般にベクトルは同じ長さのリストよりも空間効率が高く、ランダムに選択した要素に対する
+  平均アクセス時間もリストより早くなります。
+    一方、ベクトルの操作は副作用が伴うため、不用意に使うとバグの元になります。<p>
+
+ また、構造体も C 言語の構造体と同様のものです。ただ、Lisp 語族にはマクロがあるので、
+ 値にアクセスしたり、値をセットする関数を自動で書いてくれます。
+
+<h2> 2. ベクトルの例</h2>
+Scheme ではベクトルは #(1 2 3) というようにリストの前に # を付けて表します。
+リテラルとして使うときはリスト同様クォートしなければなりません。<p>
+例：
+<pre class='samp'>
+'#(1 2 3)             <span class='comment'>; 整数のベクトル</span>
+'#(a 0 #\a)           <span class='comment'>; シンボル、整数、文字を要素に持つベクトル</span>
+</pre>
+
+
+<h2>3. ベクトルにかかわる関数</h2>
+
+R<sup>6</sup>RS には以下に示す関数が定義されています。
+<dl>
+  <dt><span class='ttb'>(vector <var>arg1 arg2 ... </var>)</span></dt>
+      <dd> <var>args</var> からなるベクトルを作成して返します。
+<pre class='code'>
+(vector 'a 'b 'c) &rArr; #(a b c)
+</pre>
+</dd>
+  <dt><span class='ttb'>(vector? <var>obj</var>)</span></dt>
+      <dd> <var>obj</var> がベクトルなら #t、そうでなければ #f を返す。</dd>
+  <dt><span class='ttb'>(make-vector <var>k</var>)<br>(make-vector <var>k</var> <var>fill</var>)</span></dt>
+      <dd> <var>k</var> 個の要素を保持したベクトルを新たに割り当ててそれを返す。
+２番目の引数 <var>fill</var> が与えられた場合、各要素は <var>fill</var> で初期化される。</dd>
+  <dt><span class='ttb'>(vector <var>obj</var> ...)</span></dt>
+      <dd>指定した引数を要素とするベクトルを新たに割り当てそれを返す。</dd>
+  <dt><span class='ttb'>(vector-length <var>vector</var>)</span></dt>
+      <dd> <var>vector</var> に含まれる要素数を返す。</dd>
+  <dt><span class='ttb'>(vector-ref <var>vector</var> <var>k</var>)</span></dt>
+      <dd> <var>vector</var> の <var>k</var> 番目の要素を返す。</dd>
+  <dt><span class='ttb'>(vector-set! <var>vector</var> <var>k</var> <var>obj</var>)</span></dt>
+      <dd> <var>vector</var> の <var>k</var> 番目の要素を <var>obj</var> にする。</dd>
+  <dt><span class='ttb'>(vector-&gt;list <var>vector</var>)</span></dt>
+      <dd> <var>vector</var> をリストに変換する。</dd>
+  <dt><span class='ttb'>(list-&gt;vector list)</span></dt>
+      <dd> <var>list</var> をベクトルに変換する。</dd>
+  <dt><span class='ttb'>(vector-fill! <var>vector</var> <var>fill</var>)</span></dt>
+      <dd> <var>vector</var> の全要素を <var>fill</var> にする。</dd>
+  
+  <dt><span class='ttb'>(vector-map <var>proc</var> <var>vec1 vec2 ...</var>)</span></dt>
+      <dd> map と同様の関数です。引数に、リストの代わりにベクトルを取ります。</dd>
+
+  <dt><span class='ttb'>(vector-for-each <var>proc</var> <var>vec1 vec2 ...</var>)</span></dt>
+      <dd> for-each と同様の関数です。引数に、リストの代わりにベクトルを取ります。</dd>
+
+</dl>
+
+例：ベクトルの和を求める関数
+<pre class='code'>
+(define (add-vector v1 v2)
+  (vector-map + v1 v2))
+</pre>
+
+問題１: <br>
+２つのベクトルの内積を求める関数を書いてください。
+
+<h2>4. 構造体</h2>
+R<sup>6</sup>RS ではライブラリで構造体が規定されています。
+R<sup>6</sup>RS の構造体は、かなり大掛かりなものなので、ここでは簡単な使い方のみを説明します。<p>
+
+
+  構造体は <span class='ttb'>define-record-type</span> で定義します。
+例を示しながら説明したほうがわかりやすいので本を例にとって説明します。
+本の属性としては、
+<ul>
+<li>題名
+  <li>著者
+    <li>出版社
+      <li>出版年
+	<li>ISBN 番号
+	  </ul>
+があります。本を表す構造体 <tt>book</tt> は以下の様に定義します。
+<pre class='code'>
+(define-record-type book (fields title authors publisher year isbn))
+</pre>
+<a href='http://www.oreilly.com/catalog/cathbazpaper/'>"The Cathedral and Bazaar"</a>
+を登録するときは以下のようにします。make-book という関数が
+<pre class='code'>
+(define bazaar 
+  (make-book 
+   "The Cathedral and the Bazaar"
+   "Eric S. Raymond"
+   "O'Reilly"
+   1999
+   0596001088))
+</pre>
+
+構造体を生成する関数はカスタマイズすることもできます。
+例えば、前の定義だと、属性と値の対応がわかりづらいので、
+スロット名と値の対を与えて構造体を生成するようにします。
+<p>
+下の例では、protocol オプションを使って、構造体を生成する関数をカスタマイズします。
+引数を読み込んで、初期値をいったんベクトルに保存し、そのベクトルを使って構造体を初期化します。
+<pre class='code'>
+(define-record-type book2
+                    (fields title authors publisher year isbn)
+                    (protocol
+                     (lambda (p)
+                       (lambda ls
+                         (let ((len (length ls)))
+                           (if (and (even? len) (&lt;= len 10))
+                             (let ((arg (make-vector 5 "")))
+                               (let loop ((ls ls))
+                                 (if (null? ls)
+                                     (p (vector-ref arg 0)
+                                        (vector-ref arg 1)
+                                        (vector-ref arg 2)
+                                        (vector-ref arg 3)
+                                        (vector-ref arg 4))
+                                   (begin
+                                    (vector-set! arg
+                                                 (case (car ls)
+                                                   ((title) 0)
+                                                   ((authors) 1)
+                                                   ((publisher) 2)
+                                                   ((year) 3)
+                                                   ((isbn) 4))
+                                                 (cadr ls))
+                                     (loop (cddr ls))))))
+                             'wrong-argument--cannot-make-book2))))))
+
+(define bazaar 
+  (make-book2 
+   'title "The Cathedral and the Bazaar"
+   'authors "Eric S. Raymond"
+   'publisher "O'Reilly"
+   'year 1999
+   'isbn 0596001088))
+</pre>
+<ul>
+<li>
+  あるデータが、特定の構造体か調べるには <span class='greenbold'>"[構造体名]?"</span>
+という関数を使います。例えば、
+<tt>bazaar</tt> が <tt>book</tt> かどうか調べるには以下の様にします。
+<pre class='samp'>
+(book? bazaar)
+<span class='response'>;Value: #t</span>
+</pre>
+
+
+<li>
+属性の値を参照するには <span class='greenbold'>"[構造体名]-[属性名]"</span> という関数を使います。
+例えば、<tt>bazaar</tt> の <tt>title</tt> を参照するには、
+<pre class='samp'>
+(book-title bazaar)
+<span class='response'>;Value 18: "The Cathedral and the Bazaar"</span>
+</pre>
+の様にします。
+
+<li>フィールドが mutable の場合、そのフィールドの値を変更することができます。
+偏向には <tt>[構造体目]-[フィールド名]-set!</tt> という関数を使います。
+R<sup>6</sup>RS では、変更可能なデータと変更不能なデータが明確に区別されるようになったので、
+構造体を定義するときに、変更可能データは <tt>mutable</tt> オプションを使ってあらかじめ定義しておく必要があります。
+
+以下に、自動車の例を挙げます。自動車は名前と、製造年月日は変更されませんが、走行距離は、走った分増加します。
+<pre class='code'>
+(define-record-type (auto make-auto auto?)
+      (fields (immutable name)
+              (immutable date)
+              (mutable miles)))
+</pre>
+
+<pre class='samp'>
+&gt; (define my-auto (make-auto "Benz" "2008/01/01" 0))
+&gt; my-auto
+#(struct:auto "Benz" "2008/01/01" 0)  ; 新車
+&gt; (auto-miles-set! my-auto 10)         ; 10 マイル走る
+&gt; my-auto
+#(struct:auto "Benz" "2008/01/01" 10) ; 10 マイル走った後の状態
+</pre>
+
+構造体についてさらに詳しい使い方は
+<a href='http://www.r6rs.org/final/html/r6rs-lib/r6rs-lib-Z-H-7.html#node_chap_6'>
+  R<sup>6</sup>RS Libraries, Records</a>
+を見てください。
+
+<a name='mastermind'>
+<h2> 5. マスターマインド</h2>
+ベクトルを使ったプログラムの例としてマスターマインドという数当てゲームを取り上げます。
+このゲームは相手が想定した４つの異なる数字 (0--9) からなる４けたの数を当てるゲームです。
+想定者は、当てる側の推測がどれだけ正しいかを次の２つの数値で答える義務があります。
+<ol>
+<li>数字も桁もあっている数字の数 (bull)
+  <li>数字はあっているが、桁が違っている数字の数 (cow)
+    </ol>
+例えば、想定された数字が 5601 で、推測が 1685 だとすると bull は 1 で、cow は 2 になります。
+<p>
+  コンピュータと人間が数を当てあい、先に当てたほうが勝ちになります。
+  両者が同じ推測回数で当てた場合は引き分けです。
+
+<h3> 5.1. 数字の表現</h3>
+２つの数の比較を効率よく行うために、数をベクトルで表現します。
+この方法は全ての桁で数字が異なっているという性質を利用しています。<p>
+要素が 10 個のベクトルを作り、インデックス (k) の数が現れる桁を
+  そのインデックスの値にします。桁は 1 の位から 1,2,3,4 と数えます。
+  現れない数字のインデックスの値は 0 にします。
+  先の２つの数字 5601 と 1685 はプログラム内部では次のように表現されます。
+<pre class='samp'>
+5601 &rarr; #(2 1 0 0 0 4 3 0 0 0)
+1685 &rarr; #(0 4 0 0 0 1 3 0 2 0)
+</pre>
+5601 の場合は、数字 0, 1, 5, 6 がそれぞれ 2, 1, 4, 3 番目の桁に現れるので、
+ベクトル表現にした場合、インデックス 0, 1, 5, 6 の値がそれぞれ 2, 1, 4, 3 になり、
+それ以外は 0 になります。<p>
+  数をこのように表現すると２つの数の比較を高速に行うことができます。
+  すなわち、２つのベクトルで同じインデックスの値が両方とも正で、その値が
+  1) 等しければ bull、2) 等しくなければ cow だと数えることができます。
+  この場合インデックス 6 の値が両方とも 3 で等しいので bull は 1、
+  インデックス 1, 5, の値が両方とも正で、値が等しくないので cow は 2 になります。
+  このプログラムでは、
+    一致度 (score) を (bull*5 + cow) で表わします。
+
+<h3> 5.2. プログラムの概要</h3>
+以下の手順でゲームを行います。
+<ol>
+<li>0--9 の異なる数字からなる４桁の数字のベクトル表現 全てからなるリストを作る。
+<li>その中から想定数を１つランダムに選ぶ。
+<li> (1) で作ったリストをシャッフルする。
+<li> まず、コンピュータの推測値を示して、ユーザーから bull と cow の数を入力してもらう。
+  次にユーザーの推測値を入力してもらい bull と cow を示す。
+<li> どちらかの bull が 4 になるまで (4) を繰り返す。両方の bull が同時に 4 になった場合は引き分け。
+</ol>
+
+<h3> 5.3 プログラムコード</h3>
+プログラムコードを [code 1] に示します。ちょっと長いのですがそれほど複雑ではありません。
+末尾再帰関数 <tt>mastermind-rec</tt> によってゲームが進行します。
+[code 1]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber">002:</span>   <span class="comment">;;;</span>
+<span class="linenumber">003:</span>   <span class="comment">;;; mastermind.scm</span>
+<span class="linenumber">004:</span>   <span class="comment">;;; by T.Shido</span>
+<span class="linenumber">005:</span>   <span class="comment">;;;</span>
+<span class="linenumber">006:</span>   <span class="comment">;;; User and computer try to locate the four-digit integer set by the opponents each other.</span>
+<span class="linenumber">007:</span>   <span class="comment">;;; One who locates the integer with fewer question is the winner.</span>
+<span class="linenumber">008:</span>   <span class="comment">;;; The four-digit integer contains four of numerals 0--9, like 0123, 3749 etc.</span>
+<span class="linenumber">009:</span>   <span class="comment">;;; The opponents should tell the guesser</span>
+<span class="linenumber">010:</span>   <span class="comment">;;; (1) number of numerals that are shared by the guessed and set numbers</span>
+<span class="linenumber">011:</span>   <span class="comment">;;; at wrong position (cows)</span>
+<span class="linenumber">012:</span>   <span class="comment">;;; and (2) number of numerals at collect position (bulls).</span>
+<span class="linenumber">013:</span>   <span class="comment">;;; </span>
+<span class="linenumber">014:</span>   <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber">015:</span>   <span class="comment">;;;</span>
+<span class="linenumber">016:</span>   <span class="comment">;;; The four-digit integers are represented by 10-cell vectors in the program</span>
+<span class="linenumber">017:</span>   <span class="comment">;;; The value of n-th cell is the number of column that n appears in the integer.</span>
+<span class="linenumber">018:</span>   <span class="comment">;;; in n is not appears the value is 0.</span>
+<span class="linenumber">019:</span>   <span class="comment">;;; for example, 1234 is represented as #(0 4 3 2 1 0 0 0 0 0) and</span>
+<span class="linenumber">020:</span>   <span class="comment">;;; 3916 as #(0 2 0 4 0 0 1 0 0 3).</span>
+<span class="linenumber">021:</span>   <span class="comment">;;; With this inner representation, the score of the guess can be calculated faster.</span>
+<span class="linenumber">022:</span>   <span class="comment">;;;</span>
+<span class="linenumber">023:</span>   <span class="comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="linenumber">024:</span>   
+<span class="linenumber">025:</span>   
+<span class="linenumber">026:</span>   (require rnrs/control-6)
+<span class="linenumber">027:</span>   (require rnrs/io/ports-6)
+<span class="linenumber">028:</span>   (require srfi/27)
+<span class="linenumber">029:</span>   <span class="comment">;;;</span>
+<span class="linenumber">030:</span>   (define (char2int c)
+<span class="linenumber">031:</span>     (- (char-&gt;integer c) (char-&gt;integer #\0)))
+<span class="linenumber">032:</span>   
+<span class="linenumber">033:</span>   <span class="comment">;;; converting a list of 4 numbers to the vector notation</span>
+<span class="linenumber">034:</span>   (define (ls2nvec ls)
+<span class="linenumber">035:</span>     (let ((vec (make-vector 10 0)))
+<span class="linenumber">036:</span>       (let loop ((i (length ls)) (ls ls))
+<span class="linenumber">037:</span>         (when (&gt; i 0)
+<span class="linenumber">038:</span>           (vector-set! vec (car ls) i)
+<span class="linenumber">039:</span>           (loop (- i 1) (cdr ls)))
+<span class="linenumber">040:</span>         vec)))
+<span class="linenumber">041:</span>   
+<span class="linenumber">042:</span>   <span class="comment">;;; converting the vector notation to string</span>
+<span class="linenumber">043:</span>   (define (nvec2int vec)
+<span class="linenumber">044:</span>     (let loop ((i 0) (n 0))
+<span class="linenumber">045:</span>       (if (= i 10)
+<span class="linenumber">046:</span>           n
+<span class="linenumber">047:</span>   	(let ((j (vector-ref vec i)))
+<span class="linenumber">048:</span>   	  (loop (+ 1 i) (+ n (if (&gt; j 0)
+<span class="linenumber">049:</span>                                   (* i (expt 10 (- j 1)))
+<span class="linenumber">050:</span>                                 0)))))))
+<span class="linenumber">051:</span>   
+<span class="linenumber">052:</span>   <span class="comment">;;;</span>
+<span class="linenumber">053:</span>   (define (int2str i)
+<span class="linenumber">054:</span>     (string-append
+<span class="linenumber">055:</span>      (if (&lt; i 1000) "0" "")
+<span class="linenumber">056:</span>      (number-&gt;string i)))
+<span class="linenumber">057:</span>   
+<span class="linenumber">058:</span>   <span class="comment">;;; reading integer from stdin</span>
+<span class="linenumber">059:</span>   (define (read-integer str)
+<span class="linenumber">060:</span>     (read-from-stdin str))
+<span class="linenumber">061:</span>   
+<span class="linenumber">062:</span>   <span class="comment">;;;</span>
+<span class="linenumber">063:</span>   (define (read-from-stdin str)
+<span class="linenumber">064:</span>     (display str)
+<span class="linenumber">065:</span>     (newline)
+<span class="linenumber">066:</span>     (read))
+<span class="linenumber">067:</span>   
+<span class="linenumber">068:</span>   <span class="comment">;;;</span>
+<span class="linenumber">069:</span>   (define (write-to-stdout . ls)
+<span class="linenumber">070:</span>     (for-each (lambda (obj) (display obj)) ls)
+<span class="linenumber">071:</span>     (newline))
+<span class="linenumber">072:</span>   
+<span class="linenumber">073:</span>   <span class="comment">;;; convert numeral string to the vector representation.</span>
+<span class="linenumber">074:</span>   (define (str2nvec str)
+<span class="linenumber">075:</span>     (let ((vec (make-vector 10 0)))
+<span class="linenumber">076:</span>       (let loop ((i (string-length str)) (ls (string-&gt;list str)))
+<span class="linenumber">077:</span>         (if (pair? ls)
+<span class="linenumber">078:</span>             (begin
+<span class="linenumber">079:</span>              (vector-set! vec (char2int (car ls)) i)
+<span class="linenumber">080:</span>              (loop (- i 1) (cdr ls)))
+<span class="linenumber">081:</span>           vec))))
+<span class="linenumber">082:</span>   
+<span class="linenumber">083:</span>   <span class="comment">;;; calculating the score of guess</span>
+<span class="linenumber">084:</span>   (define (scoring vec0 vec1)
+<span class="linenumber">085:</span>     (let ((n (vector-length vec0)))
+<span class="linenumber">086:</span>       (let loop ((i 0) (score 0))
+<span class="linenumber">087:</span>         (if (&lt; i n)
+<span class="linenumber">088:</span>   	  (let ((d0 (vector-ref vec0 i))
+<span class="linenumber">089:</span>                   (d1 (vector-ref vec1 i)))
+<span class="linenumber">090:</span>               (loop (+ 1 i)
+<span class="linenumber">091:</span>   		  (+ score (if (and (&lt; 0 d0) (&lt; 0 d1))
+<span class="linenumber">092:</span>                                  (if (= d0 d1) 5 1)
+<span class="linenumber">093:</span>                                  0))))
+<span class="linenumber">094:</span>           score))))
+<span class="linenumber">095:</span>   
+<span class="linenumber">096:</span>   <span class="comment">;;; show bulls and cows calculated from the score of user's guess</span>
+<span class="linenumber">097:</span>   (define (show-user-score score)
+<span class="linenumber">098:</span>     (write-to-stdout "Number of bulls and cows in your guess:" )
+<span class="linenumber">099:</span>     (write-to-stdout "bulls: " (quotient score 5))
+<span class="linenumber">100:</span>     (write-to-stdout "cows: " (modulo score 5))
+<span class="linenumber">101:</span>     (newline))
+<span class="linenumber">102:</span>   
+<span class="linenumber">103:</span>   <span class="comment">;;; calculating the score of computer's guess from bulls and cows</span>
+<span class="linenumber">104:</span>   (define (read-my-score gu0)
+<span class="linenumber">105:</span>     (write-to-stdout "My guess is: " (int2str (nvec2int gu0)))
+<span class="linenumber">106:</span>     (write-to-stdout "Give number of bulls and cows in my guess." )
+<span class="linenumber">107:</span>     (let ((na5 (* 5 (read-integer "bulls: "))))
+<span class="linenumber">108:</span>       (+ na5 (read-integer "cows: ")))) <span class="comment">; the score is calculated by (5 * bull + cow)</span>
+<span class="linenumber">109:</span>   
+<span class="linenumber">110:</span>   
+<span class="linenumber">111:</span>   <span class="comment">;;; convert integer to nvec</span>
+<span class="linenumber">112:</span>   (define (int2nvec i)
+<span class="linenumber">113:</span>       (let loop((i i) (j 1) (ls '()))
+<span class="linenumber">114:</span>         (if (= j 5)
+<span class="linenumber">115:</span>             (ls2nvec (reverse ls))
+<span class="linenumber">116:</span>           (loop (floor (/ i 10)) (+ 1 j) (cons (modulo i 10) ls)))))
+<span class="linenumber">117:</span>           
+<span class="linenumber">118:</span>   
+<span class="linenumber">119:</span>   <span class="comment">;;; reading the user guess</span>
+<span class="linenumber">120:</span>   (define (read-user-guess)
+<span class="linenumber">121:</span>     (newline)
+<span class="linenumber">122:</span>     (int2nvec (read-from-stdin "Give your guess.")))
+<span class="linenumber">123:</span>   
+<span class="linenumber">124:</span>   <span class="comment">;;; shuffling the list of four-digit numbers</span>
+<span class="linenumber">125:</span>   (define (shuffle-numbers ls0)
+<span class="linenumber">126:</span>     (let ((vec (list-&gt;vector ls0)))
+<span class="linenumber">127:</span>       (let loop ((n (vector-length vec)) (ls1 '()))
+<span class="linenumber">128:</span>         (if (= n 0)
+<span class="linenumber">129:</span>             ls1
+<span class="linenumber">130:</span>   	  (let* ((r (random-integer n))
+<span class="linenumber">131:</span>   		 (v (vector-ref vec r)))
+<span class="linenumber">132:</span>   	    (vector-set! vec r (vector-ref vec (- n 1)))
+<span class="linenumber">133:</span>   	    (loop (- n 1) (cons v ls1)))))))
+<span class="linenumber">134:</span>   
+<span class="linenumber">135:</span>   <span class="comment">;;; making a list of four-digit numbers in which numeral 0--9 appear once</span>
+<span class="linenumber">136:</span>   (define (make-numbers)
+<span class="linenumber">137:</span>     (let ((ls1 '()))
+<span class="linenumber">138:</span>       (letrec ((rec (lambda (i num ls)
+<span class="linenumber">139:</span>   		    (if (= i 4)
+<span class="linenumber">140:</span>   			(set! ls1 (cons (ls2nvec ls) ls1))
+<span class="linenumber">141:</span>   			(for-each 
+<span class="linenumber">142:</span>   			 (lambda (n)
+<span class="linenumber">143:</span>   			   (rec (+ 1 i) (remove n num) (cons n ls)))
+<span class="linenumber">144:</span>   			 num)))))
+<span class="linenumber">145:</span>         (rec 0 '(0 1 2 3 4 5 6 7 8 9) '()))
+<span class="linenumber">146:</span>       ls1))
+<span class="linenumber">147:</span>   
+<span class="linenumber">148:</span>   <span class="comment">;;;</span>
+<span class="linenumber">149:</span>   (define (game-over sc0 sc1)
+<span class="linenumber">150:</span>     (write-to-stdout
+<span class="linenumber">151:</span>      (cond
+<span class="linenumber">152:</span>       ((= sc0 sc1) "Draw")
+<span class="linenumber">153:</span>       ((&gt; sc0 sc1) "I won.")
+<span class="linenumber">154:</span>       (else "You won.")))
+<span class="linenumber">155:</span>     'game-over)
+<span class="linenumber">156:</span>   
+<span class="linenumber">157:</span>   (define (scoring-user-guess an0 gu1)
+<span class="linenumber">158:</span>     (let ((sc1 (scoring an0 gu1)))
+<span class="linenumber">159:</span>       (show-user-score sc1)
+<span class="linenumber">160:</span>       sc1))
+<span class="linenumber">161:</span>   
+<span class="linenumber">162:</span>   <span class="comment">;;; Practical main function. tail recursive.</span>
+<span class="linenumber">163:</span>   (define (mastermind-rec an0 candidates)
+<span class="linenumber">164:</span>     (if (null? candidates)
+<span class="linenumber">165:</span>         (error "Error. You gave wrong score for my guess, probably.")
+<span class="linenumber">166:</span>         (let ((gu0 (car candidates)))
+<span class="linenumber">167:</span>           (let ((sc1 (scoring-user-guess an0 (read-user-guess)))
+<span class="linenumber">168:</span>                 (sc0 (read-my-score gu0)))
+<span class="linenumber">169:</span>             (if (or (= sc0 20) (= sc1 20))
+<span class="linenumber">170:</span>                 (game-over sc0 sc1)
+<span class="linenumber">171:</span>               (mastermind-rec an0 
+<span class="linenumber">172:</span>                               (filter
+<span class="linenumber">173:</span>                                (lambda (x) (= (scoring gu0 x) sc0))
+<span class="linenumber">174:</span>                                (cdr candidates))))))))
+<span class="linenumber">175:</span>   
+<span class="linenumber">176:</span>   
+<span class="linenumber">177:</span>   <span class="comment">;;; The main function called from the top-level</span>
+<span class="linenumber">178:</span>   (define (mastermind)
+<span class="linenumber">179:</span>     (let ((ls0 (make-numbers)))
+<span class="linenumber">180:</span>       (mastermind-rec (list-ref ls0 (random-integer (length ls0))) (shuffle-numbers ls0))))
+</pre>
+
+<table border=1>
+   <tr>
+      <th>関数</th>
+      <th>説明</th>
+      <th>行</th>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(char2int <var>c</var>)</span></td>
+      <td> 文字 <var>c</var> (#\0 --#\9) を整数 (0--9) に変換します。</td>
+      <td>30</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(ls2nvec <var>ls</var>)</span></td>
+      <td> 4 つの数字からなるリスト (<var>ls</var>)をベクトル表現の 4 桁の数に変換します。
+	'(5 3 6 0) &rarr; #(1 0 0 3 0 4 2 0 0 0)</td>
+      <td>34</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(nvec2int <var>vec</var>)</span></td>
+      <td>ベクトル表現の整数 <var>vec</var> を通常の整数に変換します。</td>
+      <td>44</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(int2str <var>i</var>)</span></td>
+      <td>4 桁の整数 <var>i</var> を文字列に変換します。<var>i</var> が 1000 未満のときは先頭に 0 が付きます。</td>
+      <td>54</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(read-from-stdin <var>str</var>)</span></td>
+      <td> <var>str</var> をコンソールに表示して、標準入力からユーザーが入力した行を返します。</td>
+      <td>64</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(write-to-stdout . <var>ls</var>)</span></td>
+      <td> <var>ls</var> の各要素を標準出力に表示して最後に改行します。</td>
+      <td>70</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(str2nvec <var>str</var>)</span></td>
+      <td> ユーザーが入力した 4 桁の数字（入力した時点では文字列 <var>str</var>）
+	をベクトル表現の 4 桁の整数に変換します。</td>
+      <td>75</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(scoring <var>vec0</var> <var>vec1</var>)</span></td>
+      <td> ベクトル表現の二つの整数 <var>vec0</var>, <var>vec1</var> の類似性 (score) を <tt>(5*bull + cow)</tt> で計算します。</td>
+      <td>85</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(show-user-score <var>score</var>)</span></td>
+      <td> <var>score</var> から <tt>bull</tt> と <tt>cow</tt> を計算し、それらを標準出力に表示します。</td>
+      <td>98</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(read-my-score <var>gu0</var>)</span></td>
+      <td>コンピュータの推定値 (<var>gu0</var>)を表示し、
+	それに対する <tt>bull</tt> と <tt>cow</tt> の値をユーザーに入力してもらい、
+それから計算した <tt>score</tt> を返します。</td>
+      <td>105</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(read-user-guess)</span></td>
+      <td> ユーザーの推定値を入力してもらい、それのベクトル表現を返します。</td>
+      <td>112</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(shuffle-numbers <var>ls0</var>)</span></td>
+      <td> <var>ls0</var> をシャッフルします。ランダムにアクセスする必要があるので、<var>ls0</var> をベクトルに変換して、
+そこから要素をランダムにピックアップして <var>ls1</var> を作ります。</td>
+      <td>116</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(make-numbers)</span></td>
+      <td>異なる 4 つの数字からなるすぺての4 桁の数のリストを返します。</td>
+      <td>128</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(game-over <var>sc0</var> <var>sc1</var>)</span></td>
+      <td>コンピュータとユーザーのスコア(それぞれ <var>sc0</var>, <var>sc1</var>）を比較して、
+	どちらが勝利したか判定します。</td>
+      <td>141</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(scoring-user-guess <var>an0</var> <var>gu1</var>)</span></td>
+      <td>コンピュータの設定値 (<var>an0</var>) と ユーザーの推定値を比較して、スコアを計算します。
+また、<tt>show-user-score</tt> を使って、<tt>bull</tt> と <tt>cow</tt> の値を標準出力に出力します。</td>
+      <td>149</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(mastermind-rec <var>an0</var> <var>candidates</var>)</span></td>
+      <td>実質的なメイン関数です。コンピュータの設定値 (<var>an0</var>) と推定値のリスト (<var>candidates</var>)
+	を引数にとります。コンピュータのスコア (<var>sc0</var>) とユーザーのスコア (<var>sc1</var>)
+	を計算して、もしどちらかが 20 になったら <tt>(game-over <var>sc0</var> <var>sc1</var>)</tt> を
+呼び出します。そうでない場合は、<var>sc0</var> の値に基づいて候補を絞って (164--166 行）ゲームを続けます。</td>
+      <td>155</td>
+   </tr>
+   <tr>
+      <td><span class='ttb'>(mastermind)</span></td>
+      <td>コンソールからこの関数を呼び出すとゲームが始まります。</td>
+      <td>169</td>
+   </tr>
+</table>
+
+<h3> 5.4. 遊び方</h3>
+コンソールから次のようにするとゲームができます。
+簡単なプログラムですが、勝つことは非常に困難です。
+<pre class='samp'>
+(load/cd "mastermind.scm")
+(mastermind)
+</pre>
+
+<h2>6. 練習問題の解答</h2>
+<h3>問題１</h3>
+<pre class='code'>
+(define (inner-product v1 v2)
+  (let ((vec (vector-map * v1 v2)))
+    (let loop ((i 0) (product 0))
+      (if (= i (vector-length vec))
+          product
+        (loop (+ i 1) (+ product (vector-ref vec i)))))))
+</pre>
+<h2>7. 終わりに</h2>
+今回はベクトルと構造体について説明し、数当てゲームで遊んでみました。
+数当てゲームのコードは付録につけておきますので、気が向いたら遊んで見てください。<p>
+次回は自前の構文を定義する方法について述べます。自前の構文を定義できるのは
+  Lisp 語族の大きな特徴になっています。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_ah.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  13. 連想リスト、ハッシュ表</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_syntax.html"><img src='../images/right_arrow.gif' class='arrow' border=0>15. 構文の定義</a></td>
+<td><a rel=download href="scheme_vec.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_vec.html&t=Scheme+%C6%FE%CC%E7+14.+%A5%F4%A5%A7%A5%AF%A5%C8%A5%EB%A4%C8%B9%BD%C2%A4%C2%CE' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

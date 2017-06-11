@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell, define function">
+<meta name="description" content="defining functions on Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> defining functions on Haskell  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell2.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  2. プログラムを動かす</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell4.html"><img src='../images/right_arrow.gif' class='arrow' border=0>4. 型</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell3.html&t=defining+functions+on+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>3. 関数を定義する</h1> 
+<hr>
+ <!---------------------------------------------------->
+ 
+この文章では Haskell で関数を定義する方法について述べます。
+
+<h2> 1. = は関数定義</h2>
+Haskell には代入が無いので、<span class="mono"><b>=</b></span> を関数定義に使います。
+<pre class="code">
+foo x y = x + y
+hoge    = 2
+</pre>
+foo は２つの引数を取って、それらの和を返す関数です。一方、
+hoge は引数を取らず、常に 2 を返す定数関数です。
+これらをファイル（例えば a.hs)に書いたのちロードすると次のようになります。
+<pre class="samp">
+Prelude&gt; :l a.hs
+Main&gt; foo 1 2
+3
+Main&gt; hoge
+2
+</pre>
+ちなみにプロンプトには hugs が最後に読み込んだモジュール名が表示されます。
+hugs が立ち上がるとき Prelude というモジュールが読み込まれるので表示が
+Prelude になっています。一方、a.hs を読み込むと Main になるのは、
+モジュール名を省略すると Main とみなされるからです。
+
+  <h2>2. 分岐</h2>
+分岐には次の４通りがあります。
+<ol>
+<li>引数のパターンマッチング
+  <li>guard
+	 <li>if-then-else
+		<li>case-of
+		  </ol>
+これらの書式を用いて階乗を返す関数がどう書けるかを次に示します。
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">-- pattern matching</span>
+<span class="linenumber">02:</span>     factA 0 = 1
+<span class="linenumber">03:</span>     factA n = n * factA (n-1)
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     <span class="comment">-- guard</span>
+<span class="linenumber">06:</span>     factB n | n==0      = 1
+<span class="linenumber">07:</span>             | otherwise = n * factB (n-1)
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     <span class="comment">-- if</span>
+<span class="linenumber">10:</span>     factC n = if n==0
+<span class="linenumber">11:</span>                   then 1
+<span class="linenumber">12:</span>                   else n * factC (n-1)
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     <span class="comment">-- case of</span>
+<span class="linenumber">15:</span>     factD n = case n of
+<span class="linenumber">16:</span>                  0 -&gt; 1
+<span class="linenumber">17:</span>                  _ -&gt; n * factD (n-1)
+</pre>
+ 
+<h3> 2.1. パターンマッチング</h3>
+上のコードの 1--3 行目に示した通り、ある特定の引数に対する値を分けて書くことが出来ます。
+この場合、<span class="important">特定性の高い順番に書きます</span>。
+  2 行目と 3 行目を入れ替えると、factA は 0 で止らなくなります。
+また、関数定義で参照されない任意の引数は <span class="mono"><span class="bluetextbold">_</span></span>
+であらわします。<br>
+例：
+<pre class="code">
+bar _ = "I don't care arguments."
+</pre>
+<pre class="samp">
+Main&gt; bar "Do you mind arguments?"
+"I don't care arguments."
+</pre>
+
+<h3> 2.2. guard</h3>
+条件によって処理を変えます。書式は以下の通りです。
+<pre class="code">
+<span class="parm">function_name   arguments</span> | <span class="parm">predicate_1</span> = <span class="parm">body_1</span>
+                          | <span class="parm">predicate_2</span> = <span class="parm">body_2</span>
+                           ....................
+                          | otherwise   = <span class="parm">body_otherwise</span>
+</pre>
+
+例：
+<pre class="code">
+<span class="linenumber">01:</span>     greeting is_woman age | is_woman && age &lt; 20  = "I have never seen such a beautiful girl like you!"
+<span class="linenumber">02:</span>                           | is_woman              = "Nice to meet you."
+<span class="linenumber">03:</span>                           | otherwise             = "Sorry, I am busy now."
+</pre>
+<pre class="samp">
+Main&gt; greeting True 17
+"I have never seen such a beautiful girl like you!"
+Main&gt; greeting True 28
+"Nice to meet you."
+Main&gt; greeting False 21
+"Sorry, I am busy now."
+</pre>
+guard も特定性の高いものから書きます。
+上の例で１行目の guard と２行目を入れ替えると age はどうでもよくなります。
+また、<span class="mono">otherwise</span> は残り全てにマッチします。
+
+<h3> 2.3. if</h3>
+Haskell にもおなじみの if--then--else があります。
+Haskell の if は必ず else 節が必要です。<br>
+例
+<pre class="code">
+check n = if n > 0
+              then "OK"
+              else "Error"
+</pre>
+<h3> 2.4. case -- of</h3>
+値によって処理を振り分けます。<br>
+例
+<pre class="code">
+score c = case c of
+            'a' -> 90
+            'b' -> 70
+            'c' -> 50
+            'd' -> 30
+            _   ->  0
+</pre>
+<span class="mono"><span class="bluetext"> _ </span></span> は列記されている値以外の全てにマッチします。
+
+
+<h2> 3. 補助関数</h2>
+ある関数内部の補助関数を定義することが出来ます。Lisp の labels のようなものです。
+補助関数の定義の方法は <span class="mono">let</span> を使う場合と <span class="mono">where</span>
+を使う場合の２通りありますが、
+どちらかというと <span class="mono">where</span> を使うほうが一般的でしょう。<p>
+
+  例として、砲丸投げで、砲丸の飛ぶ距離を求める関数を書いてみました。
+  飛ぶ距離は初速度(m s<sup>-1</sup>) と地面との角度（度）の関数です。
+
+<h3> 3.1. where を使った補助関数定義</h3>
+<span class="mono">where</span> を使うと次のようになります。ほとんど高校の物理の教科書に書いてある通りなので
+  説明は不要でしょう。
+<pre class="code">
+shot_putting1 v0 angle = vx * t
+ where r   = angle * pi / 180.0
+       vx  = v0 * cos r
+       vy  = v0 * sin r
+       t   = 2 * vy / 9.8
+</pre>
+<span class="mono">where</span> と <span class="mono">guard</span>
+が併用されている場合、全ての <span class="mono">guard</span> が <span class="mono">where</span>
+の定義を参照できます。
+
+<h3> 3.2. let を使った補助関数定義</h3>
+同じことを <span class="mono">let</span> を使って書くと次のようになります。
+<pre class="code">
+shot_putting2 v0 angle = let r   = angle * pi / 180.0
+                             vx  = v0 * cos r
+                             vy  = v0 * sin r
+                             t   = 2 * vy / 9.8
+                         in vx * t
+</pre>
+
+<h2> 4. 再帰</h2>
+Haskell は scheme と同様に、反復のための構文はありません。
+反復したいときは再帰で表します。<br>
+例：商と余りを求める
+<pre class="code">
+dev_mod i j = iter i 0
+ where iter mod dev | mod &lt; j     = (dev, mod)
+                    | otherwise = iter (mod - j) (dev + 1)
+</pre>
+上の例では、単純に割られる数から割る数を引き、何回引けたかを数えます。
+最後に引けなくなったときの、引けた回数が商で、残りが余りです。
+引き算の回数を記録するために、記録用の引数を持った内部関数 iter を使っています。
+iter の内部では、割る数 <span class="parm">j</span> が定義されていないので、
+外側のクロージャーの <span class="parm">j</span> が使われます。
+
+<h2> 5. 無名関数</h2>
+無名関数は以下の様に
+<span class="mono"><span class="bluetextbold">\</span></span>
+と <span class="mono"><span class="bluetextbold">-></span></span> を使って定義します。
+<span class="mono"><span class="bluetextbold">\</span></span> の
+後に仮引数を並べて書き、
+<span class="mono"><span class="bluetextbold">-></span></span> の後に本体を書きます。
+<pre class="code">
+\<span class="parm">argvs</span> -> <span class="parm">body</span>
+
+<span class="comment">-- for example </span>
+\ x y -> x + y
+</pre>
+<h2> 6. その他</h2>
+<h3> 6.1. 関数と演算子との関係</h3>
+<span class="mono"><span class="bluetextbold">+, -, *, /, ==, &lt;, &gt;</span></span>
+などの演算子は２つの引数をとる関数
+ <span class="mono"><span class="bluetextbold">(+), (-), (*), (/), (==), (&lt;), (&gt;)</span></span> 
+を中置記法で表したものです。
+任意の２引数の関数は <span class="mono"><span class="bluetextbold">`</span></span> で囲むことにより
+中置記法に変換できます。
+<pre class="samp">
+x + y &hArr; (+) x y
+max a b &hArr; a `max` b
+</pre>
+<h3> 6.2. 構文糖衣</h3>
+<dl>
+  <dt><span class="mono"><b>$</b></span></dt>
+      <dd><span class="mono">$</span> は <span class="mono">$</span>
+		  がある位置から式の最後までをくくります。</dd>
+</dl>
+<pre class="code">
+foo $ hoge x y &hArr; foo (hoge x y)
+</pre>
+
+<h3> 6.3. 関数の合成</h3>
+  <span class="mono"><span class="bluetextbold">.</span></span> は関数を合成します。
+<pre class="code">
+foo $ hoge x &hArr; (foo . hoge) x 
+</pre>
+
+
+<h2> 7. インデント</h2>
+<h3> 7.1. 明示的なブロック構造</h3>
+Haskell は C と同じように、ブロック構造を明示することが出来ます。
+ブロックの開始と終了はそれぞれ
+<span class="mono"><span class="bluetextbold">{</span></span>
+と <span class="mono"><span class="bluetextbold">}</span></span> で、
+式の区切りは <span class="mono"><span class="bluetextbold">;</span></span> で表します。
+前述の shot_putting2 を明示的なブロック構造で書くと以下のようになります。
+<pre class="code">
+shot_putting3 v0 angle  = let{ r   = angle * pi / 180.0;
+                               vx  = v0 * cos r;
+                               vy  = v0 * sin r;
+                               t   = 2 * vy / 9.8;
+                              } in vx * t
+</pre>
+明示的に表記すると処理系はインデントを無視します。
+また、明示的な表記と、インデントによる表記を共存させることができます。
+
+<h3> 7.2. インデントによるブロック構造（レイアウト）</h3>
+
+Haskell は Python と同様にインデントでブロック構造をあらわすことが出来ます。
+インデント表記から明示的表記への変換規則は以下の通りです。
+<ol>
+<li><span class="mono">where, let, do, of</span> の後にブロックの開始を示す
+  <span class="mono"><span class="bluetextbold">{</span></span> を挿入する。
+<li>その後、同様にインデントされた行はブロック内の式とみなし、
+  先頭に <span class="mono"><span class="bluetextbold">;</span></span>
+  を挿入する。
+  <li> インデント量が減少した行にでくわすと、その行の先頭にブロックの終了を示す
+	 <span class="mono"><span class="bluetextbold">}</span></span> を挿入する。
+	 </ol>
+
+emacs の <a href="http://haskell.org/haskell-mode/">haskell-mode</a>
+または xyzzy の <a href="../xyzzy/hs-mode.html">hs-mode</a> を使えばほぼ自動でインデントしてくれます。
+
+<h2> 8. チュートリアルへのリンク</h2>
+これまでの説明で、とりあえず Haskell のプログラムを書いて
+実行できるようになったと思います。<p>
+
+  最後に主な（初心者向け） Tutorial へのリンクを張っておきます。
+
+<ul>
+<li><a href="http://www.cs.utah.edu/~hal/htut/">
+Yet Another Haskell Tutorial
+</a>:<br> 大変良く書かれている Tutorial。練習問題と解答付き。平易な英語で読みやすい。
+  Haskell の最初から最後までキチンと説明している。（ただし、草稿版なので、多少の
+  間違いがある。間違い探しをするのも勉強になる。）
+  <li><a href="http://www.cs.ou.edu/~rlpage/fpclassCurrent/textbook/haskell.shtml">
+	 Two Dozen Short Lessons in Haskell</a>:<br> Haskell の練習問題。比較的易しい。
+
+<!------------------------------------------
+- 	 <li><a href="http://www.teu.ac.jp/kougi/koshida/Prog6/index.html">プログラム工学VI 授業関連資料</a>:<br>
+- 		大学の講義資料。
+------------------------------------------->
+			 </ul>
+ <hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell2.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  2. プログラムを動かす</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell4.html"><img src='../images/right_arrow.gif' class='arrow' border=0>4. 型</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell3.html&t=defining+functions+on+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>
+

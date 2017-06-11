@@ -1,0 +1,385 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja"><head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Python 3.0, N Queens (including Eight Queens)">
+<meta name="description" content="Python 3.0 で 書いた N Queens">
+<meta http-equiv="CONTENT-SCRIPT-TYPE" content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> N Queen (Python 3.0 版 ) </title>
+</head><body>
+<a name="top"></a>
+<p class="header">
+<table class="guide"><tbody><tr>
+  <td><a rel="home" href="../index.php">
+  <img src="../images/shido_small.png" class="arrow" border="0">HOME</a></td>
+<td><a rel="up" href="index.html"><img src="../images/up_arrow.gif" class="arrow" border="0">Python</a></td>
+<td><a rel='download' href="queen_tk.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> 
+<td><a href="http://www.shido.info/gb/write_guestbook.php?ref=py/queen_py3.html&t=N+Queen+%28Python+3.0+%C8%C7+%29" target="new"><img src="../images/pencil.gif" class="arrow" border="0"> 書き込む </a></td>
+</tr></tbody></table></p>
+
+ <h1>N Queen (Python 3.0 版 )</h1> 
+<hr>
+<h2>1. 初めに </h2>
+Python 3.0 を使って、 N Queen パズルを解くプログラムを書いてみました。
+<p>
+N Queen とは N x N のチェスの Queen を利きが互いに重ならないように配置するパズルです。
+Queen は将棋の飛車と角を合わせた利きをもち、縦横斜めに好きなだけ移動することができます。
+詳しくは 
+<a href='http://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%A4%E3%83%88%E3%83%BB%E3%82%AF%E3%82%A4%E3%83%BC%E3%83%B3'>wikipedia</a> 
+をみてください。
+
+以前、
+<a href='/lisp/scheme_nqueen.html'>Scheme 版 </a>, <a href='python5.html'>Python 2</a> 版 を書いてみたのですが、
+気が向いたので Python 3.0 でも書いてみました。うまく書けたので、アップします。
+
+
+<h2>2. プログラミングの戦略 </h2>
+
+チェス盤上の Queenの 位置をタプルであらわします。
+タプルのインデックスが横の升目、 各要素の値が縦の升目です。
+図 1 に示す配置をこの方法で表すと <tt>(5, 0, 4, 1, 7, 2, 6, 3)</tt> になります。<p>
+
+縦の升目は 全て異なるようにしないと利きがぶつかるので、
+N Queen は
+集合 <tt>{0,1, .... (n-1)}</tt> から要素を取り出し、それを斜めの利きが重ならないように並べていく
+問題に 置き換えることができます。
+
+<center><img src='queen_board.png'><br>
+図 1: Queen の配置。この配置をタプルで表すと <tt>(5, 0, 4, 1, 7, 2, 6, 3)</tt> になる。</center>
+
+<h3>2.1. 利きの重ならない配置を求める </h3>
+
+新しい駒は既に置いてある駒の左側 (タプルの先頭) に追加します。
+
+縦横の利きは {0,1, ... (n-1)} から1 つづつ選んで 並べていくというやり方をすると、
+自然に重ならないようになるので、 斜めの利きだけをチェックします。
+斜めの利きが 重なるのは、
+<pre>
+abs(縦の升目の差) == 横の升目の差
+</pre>
+のときで、新しく置く駒は、すでに置いてある駒 全てと利きが 重ならない必要があります。
+
+
+<h3>2.2. 対称操作を考慮する </h3>
+
+
+対称操作によって同一になってしまう解 は除外します。
+<p>
+チェスの盤には 4 種類の反転と 3 種類の回転対称性があるので、
+駒を置き終えたら、それらの対称操作をして、既知の解にならないかチェックをし、
+新しい解だけを追加します。
+
+
+<h2>3. 実装 </h2>
+
+queen.py に Python 3.0 での実装を 示します。
+
+
+<p>
+[queen.py]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#! python</span>
+<span class="linenumber">002:</span>   <span class="comment"># coding:shift-jis</span>
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   <span class="string">"""N Queen: taking symmetry into account"""</span>
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   import sys
+<span class="linenumber">007:</span>   
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   
+<span class="linenumber">010:</span>   def comb(f1, f2):
+<span class="linenumber">011:</span>       <span class="string">"""2 つの 関数 を   合成 した 関数 を   返す """</span>
+<span class="linenumber">012:</span>       return lambda x:f1(f2(x))
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   
+<span class="linenumber">015:</span>   <span class="comment"># 対称 操作</span>
+<span class="linenumber">016:</span>   REV  = lambda ls: list(reversed(ls))                            <span class="comment"># 左右反転</span>
+<span class="linenumber">017:</span>   USD  = lambda ls: [ len(ls)-x-1 for x in ls ]                   <span class="comment"># 上下 反転</span>
+<span class="linenumber">018:</span>   T90  = lambda ls: [ ls.index(x) for x in range(len(ls)) ]       <span class="comment"># 90 度 回転</span>
+<span class="linenumber">019:</span>   T180 = comb(USD, REV)                                           <span class="comment"># 180 度 回転</span>
+<span class="linenumber">020:</span>   T270 = comb(T90, T180)                                          <span class="comment"># 270 度 回転</span>
+<span class="linenumber">021:</span>   D1   = comb(REV, T90)                                           <span class="comment"># 対角線 での 反転 その 1</span>
+<span class="linenumber">022:</span>   D2   = comb(USD, T90)                                           <span class="comment"># 対角線 での 反転 その 2</span>
+<span class="linenumber">023:</span>   
+<span class="linenumber">024:</span>   
+<span class="linenumber">025:</span>   
+<span class="linenumber">026:</span>   
+<span class="linenumber">027:</span>   def is_different(cols, sols):
+<span class="linenumber">028:</span>       <span class="string">""" 対称性 を  考慮し ても 固有 の 解か """</span>
+<span class="linenumber">029:</span>       return all( tuple(op(cols)) not in sols for op in (REV, USD, T90, T180, T270, D1, D2) )
+<span class="linenumber">030:</span>   
+<span class="linenumber">031:</span>   
+<span class="linenumber">032:</span>   
+<span class="linenumber">033:</span>   
+<span class="linenumber">034:</span>   def queen_ok(ls, row1):
+<span class="linenumber">035:</span>       <span class="string">"""row1 が ls にある queen と 利き が 重な らないとき True を   返す """</span>
+<span class="linenumber">036:</span>       return all( abs(row1-row)!=col+1  for col, row in enumerate(ls) )
+<span class="linenumber">037:</span>   
+<span class="linenumber">038:</span>   
+<span class="linenumber">039:</span>   
+<span class="linenumber">040:</span>   
+<span class="linenumber">041:</span>   def nqueen(n):
+<span class="linenumber">042:</span>       <span class="string">"""n x n マス の N-Queen パズル を   解く """</span>
+<span class="linenumber">043:</span>   
+<span class="linenumber">044:</span>       def qiter(cols, rows):
+<span class="linenumber">045:</span>           
+<span class="linenumber">046:</span>           if rows:
+<span class="linenumber">047:</span>               for i in rows:
+<span class="linenumber">048:</span>                   if queen_ok(cols, i):
+<span class="linenumber">049:</span>                       qiter( (i,)+cols, rows-{i})
+<span class="linenumber">050:</span>           elif is_different(cols, sols):
+<span class="linenumber">051:</span>               sols.add(cols)
+<span class="linenumber">052:</span>   
+<span class="linenumber">053:</span>   
+<span class="linenumber">054:</span>       sols=set()
+<span class="linenumber">055:</span>       qiter(tuple(), frozenset(range(n)))
+<span class="linenumber">056:</span>       return sols
+<span class="linenumber">057:</span>   
+<span class="linenumber">058:</span>   
+<span class="linenumber">059:</span>   
+<span class="linenumber">060:</span>   
+<span class="linenumber">061:</span>   
+<span class="linenumber">062:</span>   if __name__=='__main__':
+<span class="linenumber">063:</span>       sols=nqueen(int(sys.argv[1]))
+<span class="linenumber">064:</span>       print ('N of solutions:', len(sols))
+<span class="linenumber">065:</span>       for sol in sols:
+<span class="linenumber">066:</span>           print (sol)
+</pre>
+
+以下のように、盤の大きさをコマンドライン引数で与えて実行します。
+
+<pre class='samp'>
+>python queen.py 8
+N of solutions: 12
+(4, 1, 3, 6, 2, 7, 5, 0)
+(4, 6, 0, 2, 7, 5, 3, 1)
+(5, 3, 6, 0, 7, 1, 4, 2)
+(5, 1, 6, 0, 3, 7, 4, 2)
+(3, 0, 4, 7, 5, 2, 6, 1)
+(2, 5, 3, 0, 7, 4, 6, 1)
+(3, 6, 0, 7, 4, 1, 5, 2)
+(4, 6, 3, 0, 2, 7, 5, 1)
+(3, 5, 7, 2, 0, 6, 4, 1)
+(4, 2, 7, 3, 6, 0, 5, 1)
+(2, 5, 7, 0, 3, 6, 4, 1)
+(3, 1, 6, 2, 5, 7, 4, 0)
+</pre>
+
+
+<h3>3.1. 盤 に Queen を配置していく </h3>
+
+<h4>3.1.1. 利きのチェック </h4>
+<tt>queen_ok()</tt> で斜めの利きが重ならないかチェックしています。
+<ul>
+<li> 横の升目はタプルのインデックスで、縦の升目は各要素の値で表します
+<li> 縦の升目として選べる 値の集合の 初期値を frozenset(range(n)) として、配置するごとに
+取り除いていくので、
+</ul>
+縦と横の利きが重なる可能性はこの段階で 排除され、斜めの利きを調べるだけでよくなります。
+新しく置く Queen と既においてある Queen の縦の升目の差の絶対値が、横の升目の差と等しいとき、
+斜めの利きがぶつかるので、
+<tt>queen_ok()</tt> では、既に置いてある、すべての Queen について利きが 重ならないことを確かめています。
+<ol>
+<li><tt>abs(row1-row)==col+1</tt> だと利きが重なります。
+<br>
+ここで、 <tt>row1</tt> は新しく置く駒の縦の升目、 <tt>row</tt> は既にあるこまの縦 の升目、 <tt>col</tt> は既にあるこまの横 の升目です。
+<li><tt>abs(row1-row)!=col+1  for col, row in enumerate(ls)</tt>  とすると、 <tt>ls</tt> 中にある (盤中にある) すべてのこまについて、
+新しく置くこまと利きが 重ならないかを返す generatorが 生成します( 重ならないとき<tt>True</tt>)。
+Python 3.0では 、内包表現で generatorを 生成することができます。
+<li> <tt>all()</tt> 関数を使って、新しく置くこまと、既に置いてあるこま全ての利きが重ならないとき<tt>True</tt> を返すようにします。
+</ol>
+
+<h4>3.1.2. Queen を盤に置いていく </h4>
+
+<tt>nqueen()</tt> の内部で 定義されている<tt>qiter(cols, rows)</tt> が盤上に Queenを 置いていく関数です。
+<tt>cols</tt> は既においてあるこまを表すタプル。 <tt>rows</tt> はまだ、盤上に無い縦の升目の 集合です。
+縦の升目 <tt>i</tt> に駒を置くと、 <tt>(i,) + cols</tt> でそれを 、タプルの先頭に追加し 、 <tt>rows - {i}</tt> で、
+まだおかれていない駒 の集合
+から取り除きます。 手持ちの駒 rows にある全ての駒について、駒が置けるのであれば(<tt>queen_ok()</tt> が <tt>True</tt> を返す ) 、
+駒を置いて、再帰的に <tt>qiter()</tt> を呼び出します 。
+<br>
+全ての駒を配置し終わる (手持ちの 駒が 無くなる) と対称操作の チェックを 行い、
+対称操作を考慮しても別の解だったら、 見つかった解を sols (解の集合) に加えます。
+
+<h3>3.2. 対称操作 </h3>
+
+チェス盤の対称操作は 、
+<ul>
+<li> 上下、左右、対角線での反転 (あわせて 4 つ)
+<li> 90, 180, 270 度 の 回転 (3 つ)
+</ul>
+の計 7 種類があります。
+
+queen.py では、 対称操作を関数として表します。
+<tt>REV</tt>, <tt>USD</tt>, <tt>D1</tt>, <tt>D2</tt>, <tt>T90</tt>, <tt>T180</tt>, <tt>T270</tt> はそれぞれ 、
+左右反転、上下反転、対角線での反転 (1) 、対角線での反転 (2) 、 90 度回転 、 180 度回転 、 270 度回転を表します。
+<tt>D1</tt>, <tt>D2</tt>, <tt>T180</tt>, <tt>T270</tt> は2つの操作を組み合わせたものとして書けるので、 2 つの関数を組み合わせて 、
+合成された関数を返す関数 <tt>comb()</tt> を定義します。
+<p>
+<tt>is_different(cols, sols)</tt> で、解 (<tt>cols</tt>) と
+その対称操作によって生じた解が今まで見つかった解の集合 (<tt>sols</tt>) に含まれているか調べます。
+<tt>cols</tt> に全ての対称操作を施しても、 <tt>sols</tt> の中に同じものが見つからなければ<tt>True</tt>を 返します。 
+<p>
+<tt>nqueen()</tt>で、<tt>is_different()</tt> が <tt>True</tt> を返したものだけを解 集合に加えていきます。
+<p>
+<tt>if __name__=='__main__'</tt>
+以下で 、 <tt>nqueen()</tt> を呼んで、見つかった解を順に表示します。
+
+<h2>4. tkinter で表示する</h2>
+<a href='python5.html'>以前書いたもの</a> と同様の GUI を tkinter を使って作りました。
+<p>
+[queen_tk.py]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">002:</span>   <span class="comment"># coding:shift_jis</span>
+<span class="linenumber">003:</span>   <span class="string">"""
+<span class="linenumber">004:</span>   tkinter を使った 8-Queen の GUI
+<span class="linenumber">005:</span>   """</span>
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   import tkinter as tk
+<span class="linenumber">008:</span>   import queen as q
+<span class="linenumber">009:</span>   
+<span class="linenumber">010:</span>   <span class="comment">#global parameter</span>
+<span class="linenumber">011:</span>   Q_font = ("Times", 14)
+<span class="linenumber">012:</span>   
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   
+<span class="linenumber">015:</span>   def qmod (i,j):
+<span class="linenumber">016:</span>       <span class="string">"""盤の背景色を決めます"""</span>
+<span class="linenumber">017:</span>       return (i-j)%2==0
+<span class="linenumber">018:</span>   
+<span class="linenumber">019:</span>   
+<span class="linenumber">020:</span>   
+<span class="linenumber">021:</span>   def qdiff(a1, a0):
+<span class="linenumber">022:</span>       <span class="string">"""8-Queen の２つの解の差をとります。効率的に表示を更新するのに使います"""</span>
+<span class="linenumber">023:</span>       ls=[]
+<span class="linenumber">024:</span>       for i in range(8):
+<span class="linenumber">025:</span>           if not a0[i]==a1[i]:
+<span class="linenumber">026:</span>               ls.append((i, a0[i], False))
+<span class="linenumber">027:</span>               ls.append((i, a1[i], True))
+<span class="linenumber">028:</span>       return ls
+<span class="linenumber">029:</span>           
+<span class="linenumber">030:</span>   
+<span class="linenumber">031:</span>   
+<span class="linenumber">032:</span>   
+<span class="linenumber">033:</span>   class Queen(tk.Frame):
+<span class="linenumber">034:</span>       <span class="string">"""Eight Queen を表示するチェス版です"""</span>
+<span class="linenumber">035:</span>   
+<span class="linenumber">036:</span>       def init_title(self):
+<span class="linenumber">037:</span>           <span class="string">"""表題"""</span>
+<span class="linenumber">038:</span>           self.master.title("8 Queens")
+<span class="linenumber">039:</span>           self.f_title = tk.Frame(self)
+<span class="linenumber">040:</span>           self.i_title = tk.PhotoImage(file="8qsubtitle.ppm")
+<span class="linenumber">041:</span>           self.l_title = tk.Label(self.f_title, image = self.i_title)
+<span class="linenumber">042:</span>           self.l_title.pack()
+<span class="linenumber">043:</span>           self.f_title.pack(side=tk.TOP, padx=10, pady=10)
+<span class="linenumber">044:</span>   
+<span class="linenumber">045:</span>   
+<span class="linenumber">046:</span>           
+<span class="linenumber">047:</span>       def init_board(self):
+<span class="linenumber">048:</span>           <span class="string">"""盤"""</span>
+<span class="linenumber">049:</span>           self.f_board = tk.Frame(self, relief=tk.GROOVE, bd=3)
+<span class="linenumber">050:</span>           self.f_board.pack(side=tk.TOP, padx=10, pady=10)
+<span class="linenumber">051:</span>           self.cell_images = [tk.PhotoImage(file=ppm) for ppm in ("bw.ppm", "bg.ppm", "qw.ppm", "qg.ppm")]
+<span class="linenumber">052:</span>           answer = self.q_answers[0]
+<span class="linenumber">053:</span>           for i in range(8):
+<span class="linenumber">054:</span>               for j in range(8):
+<span class="linenumber">055:</span>                   tk.Label(self.f_board, \
+<span class="linenumber">056:</span>                     image=self.cell_images[qmod(i,j)+(2 if answer[i]==j else 0)]).grid(row=i, column=j)
+<span class="linenumber">057:</span>   
+<span class="linenumber">058:</span>   
+<span class="linenumber">059:</span>                   
+<span class="linenumber">060:</span>       def init_footer(self):
+<span class="linenumber">061:</span>           <span class="string">"""脚注"""</span>
+<span class="linenumber">062:</span>           self.f_footer = tk.Frame(self)
+<span class="linenumber">063:</span>           self.f_footer.pack(side=tk.TOP, fill=tk.X, expand=1)
+<span class="linenumber">064:</span>           self.s_counter = tk.StringVar()
+<span class="linenumber">065:</span>           self.s_counter.set("%d/12" % (1 + self.q_counter))
+<span class="linenumber">066:</span>           self.f_label = tk.Label(self.f_footer, textvariable = self.s_counter, font=Q_font, width=8)
+<span class="linenumber">067:</span>           self.f_label.pack(side=tk.RIGHT, padx=10)
+<span class="linenumber">068:</span>           self.b_button = tk.Button(self.f_footer, text="back", font=Q_font, command = self.show_prev)
+<span class="linenumber">069:</span>           self.b_button.pack(side=tk.RIGHT, padx=1,pady=1)
+<span class="linenumber">070:</span>           self.a_button = tk.Button(self.f_footer, text="next", font=Q_font, command = self.show_next)
+<span class="linenumber">071:</span>           self.a_button.pack(side=tk.RIGHT, padx=1,pady=1)
+<span class="linenumber">072:</span>               
+<span class="linenumber">073:</span>   
+<span class="linenumber">074:</span>           
+<span class="linenumber">075:</span>       def __init__(self,  set_answer):
+<span class="linenumber">076:</span>           self.q_counter = 0
+<span class="linenumber">077:</span>           self.q_answers = list(set_answer)
+<span class="linenumber">078:</span>           tk.Frame.__init__(self, None)
+<span class="linenumber">079:</span>           self.pack()
+<span class="linenumber">080:</span>           self.init_title()
+<span class="linenumber">081:</span>           self.init_board()
+<span class="linenumber">082:</span>           self.init_footer()
+<span class="linenumber">083:</span>           
+<span class="linenumber">084:</span>   
+<span class="linenumber">085:</span>   
+<span class="linenumber">086:</span>       def refresh(self, forward):
+<span class="linenumber">087:</span>           <span class="string">"""前後の解を表示するのに使います"""</span>
+<span class="linenumber">088:</span>           i_now = self.q_counter
+<span class="linenumber">089:</span>           self.q_counter += 1 if forward else -1
+<span class="linenumber">090:</span>           self.s_counter.set("%d/12" % (1 + self.q_counter))
+<span class="linenumber">091:</span>           for i, j, is_add in qdiff(self.q_answers[self.q_counter], self.q_answers[i_now]):
+<span class="linenumber">092:</span>               tk.Label(self.f_board, image=self.cell_images[qmod(i,j) + (2 if is_add else 0)]).grid(row=i, column=j)
+<span class="linenumber">093:</span>   
+<span class="linenumber">094:</span>   
+<span class="linenumber">095:</span>               
+<span class="linenumber">096:</span>       def show_next(self):
+<span class="linenumber">097:</span>           <span class="string">"""前の解を表示します"""</span>
+<span class="linenumber">098:</span>           if(self.q_counter &lt; 11):
+<span class="linenumber">099:</span>               self.refresh(True)
+<span class="linenumber">100:</span>   
+<span class="linenumber">101:</span>   
+<span class="linenumber">102:</span>               
+<span class="linenumber">103:</span>       def show_prev(self):
+<span class="linenumber">104:</span>           <span class="string">"""次の解を表示します"""</span>
+<span class="linenumber">105:</span>           if(self.q_counter &gt; 0):
+<span class="linenumber">106:</span>               self.refresh(False)
+<span class="linenumber">107:</span>   
+<span class="linenumber">108:</span>   
+<span class="linenumber">109:</span>   
+<span class="linenumber">110:</span>   
+<span class="linenumber">111:</span>               
+<span class="linenumber">112:</span>   if __name__ == "__main__":
+<span class="linenumber">113:</span>       que = Queen(q.nqueen(8))
+<span class="linenumber">114:</span>       que.pack()
+<span class="linenumber">115:</span>       que.mainloop()
+</pre>
+
+<code>
+$python queen_tk.py
+</code>
+
+とすると、図２のように表示されます。
+<center>
+<img src='queen_tk.png'><br>
+図２: 8-Queen の解を tkinter を使って表示する。
+</center>
+<h2>5. 終わりに </h2>
+
+余白を十分にとっても 70行以下で N-Queen を解くプログラムが 書けました。
+Python 版 はScheme 版 よりも簡明です。
+<p>
+Pythonの 内包表現は 便利です。 Python3.0ではリスト以外にも集合、 辞書、 イテレータで 内包表現が
+使えるようになりました。
+
+
+
+<hr>
+<p class="footer">
+<table class="guide"><tbody><tr>
+  <td><a rel="home" href="../index.php">
+  <img src="../images/shido_small.png" class="arrow" border="0">HOME</a></td>
+<td><a rel="up" href="index.html"><img src="../images/up_arrow.gif" class="arrow" border="0">Python</a></td>
+<td><a rel='download' href="queen_tk.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> 
+<td><a href="http://www.shido.info/gb/write_guestbook.php?ref=py/queen_py3.html&t=N+Queen+%28Python+3.0+%C8%C7+%29" target="new"><img src="../images/pencil.gif" class="arrow" border="0"> 書き込む </a></td>
+</tr></tbody></table></p>
+
+</body></html>

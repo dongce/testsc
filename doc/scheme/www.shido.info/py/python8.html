@@ -1,0 +1,368 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, FTP, StringIO, getattra">
+<meta name="description" content="writing a small script for FTP upload using Python">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Python を使った FTP アップロード </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="8queen_py.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python8.html&t=Python+%A4%F2%BB%C8%A4%C3%A4%BF+FTP+%A5%A2%A5%C3%A5%D7%A5%ED%A1%BC%A5%C9' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+ <h1>Python を使った FTP アップロード</h1> 
+<hr>
+<h2>1. 初めに</h2>
+紫藤は <a href='http://www.jsdlab.co.jp/~kamei/'>xyzzy</a> という emacs 風のエディタを使って HTML を書いています。
+このエディターから抜け出さないでファンクションキーひとつでファイルをアップロードするスクリプトを
+書いてみました。xyzzy Lisp を使ってアップロードの
+<a href='../xyzzy/xyz-upload.html'>入力ファイルを作るスクリプト</a>を書き、
+入力ファイルに基づいてアップロードを行うスクリプトを Python で書きました。
+ここでは Python で書いた部分について解説します。<p>
+
+100 行ほどの短いスクリプトで書くことができます。
+  このスクリプトは短いのですが、それなりのテクニックを使っているので、
+  皆様の参考になればと思い、紹介します。
+
+
+
+<h2>2. 仕様</h2>
+<h3> 2.1. 入出力ファイルを作るディレクトリ</h3>
+入力ファイルおよび出力ファイルは環境変数 <span class='mono'>TEMP</span> または <span class='mono'>TMP</span>
+で定義されたディレクトリに
+作成します。両方とも定義されていなければ <span class='mono'>C:\\</span> に作成します。
+
+<h3>2.2. 入力ファイル</h3>
+入力ファイル名は <span class='mono'>upload.inp</span> です。<p>
+書式は、<br>
+  <span class='mono'>("server.name", "user_name", "password", "sub-folder", ("filename1", "filename2", ........,))</span><br>
+  のようにタプルでくくって、
+  サーバー名、ユーザー名、パスワード、サーバー上の保存するディレクトリ( HOME からの相対パス）、
+  および転送するファイルのリストです。
+  このようにしておくと <span class='mono'>eval</span> を使って変数を簡潔に読み込むことができます。
+  入力ファイルは読み終わったらすぐに削除します。
+
+<h3>2.3. 出力ファイル</h3>
+出力ファイル名は <span class='mono'>upload.log</span> です。<p>
+
+成功したか、どこでエラーが起きたかを書き込みます。
+
+<h3>2.4. 動作</h3>
+以下の動作をします。
+<ol>
+<li> 前回作った <span class='mono'>upload.log</span> がもしあれば念のため削除します。
+<li> 入力ファイルを読み込んで必要な値を変数に代入します。入力ファイルは読み終わったらすぐに削除します。
+<li> 次に、サーバーに接続して、ユーザー名とパスワードを使ってログインします。
+<li> その後、相対パス名のパスに移動します。その際、ディレクトリがなければ作成します。
+<li> 最後に、転送するファイルのリストに従って転送します。TXT, HTML, CSS は ASCII モードで、
+その他のファイルは BINARY モードで転送します。
+<li> 成功したか、どこでエラーが起きたを upload.log に書き込みます。
+  (運悪く <span class='mono'>upload.log</span> を開くときエラーが起きたら何も書き込まれない。）
+  
+<h2> 3. コード</h2>
+コードを [code 1] に示します。
+
+<pre class='code'>
+<span class="linenumber"> 01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber"> 02:</span>     
+<span class="linenumber"> 03:</span>     import os, os.path, sys
+<span class="linenumber"> 04:</span>     from ftplib import FTP
+<span class="linenumber"> 05:</span>     from cStringIO import StringIO
+<span class="linenumber"> 06:</span>     from datetime import datetime
+<span class="linenumber"> 07:</span>     
+<span class="linenumber"> 08:</span>     <span class="string">"""
+<span class="linenumber"> 09:</span>     upload.py
+<span class="linenumber"> 10:</span>     
+<span class="linenumber"> 11:</span>     by T.Shido
+<span class="linenumber"> 12:</span>     on July 19, 2005
+<span class="linenumber"> 13:</span>     
+<span class="linenumber"> 14:</span>     """</span>
+<span class="linenumber"> 15:</span>     
+<span class="linenumber"> 16:</span>     
+<span class="linenumber"> 17:</span>     INP = 'upload.inp'
+<span class="linenumber"> 18:</span>     LOG = 'upload.log'
+<span class="linenumber"> 19:</span>     
+<span class="linenumber"> 20:</span>     def is_ascii(fname):
+<span class="linenumber"> 21:</span>         return fname.split('.').pop() in ('txt', 'htm', 'html', 'css')
+<span class="linenumber"> 22:</span>     
+<span class="linenumber"> 23:</span>     def write_log(logfile, str, success):
+<span class="linenumber"> 24:</span>         log = file(logfile, 'w')
+<span class="linenumber"> 25:</span>         log.write( ((not success) and  'Error:\n\n' or '') + str)
+<span class="linenumber"> 26:</span>         log.close()
+<span class="linenumber"> 27:</span>         success or sys.exit(1)
+<span class="linenumber"> 28:</span>     
+<span class="linenumber"> 29:</span>     def server_cd(ftp, path, log_name):
+<span class="linenumber"> 30:</span>         if path!='HOME':
+<span class="linenumber"> 31:</span>             stdout = sys.stdout
+<span class="linenumber"> 32:</span>             for d in path.split('/'):
+<span class="linenumber"> 33:</span>                 sys.stdout = StringIO()
+<span class="linenumber"> 34:</span>                 try:
+<span class="linenumber"> 35:</span>                     ftp.dir()
+<span class="linenumber"> 36:</span>                 except:
+<span class="linenumber"> 37:</span>                     ftp.close()
+<span class="linenumber"> 38:</span>                     write_log(log_name, "Cannot get LIST", False)
+<span class="linenumber"> 39:</span>                     
+<span class="linenumber"> 40:</span>                 if not d in [line.split(' ').pop()
+                                  for line in sys.stdout.getvalue().split('\n') if line and line[0]=='d']:
+<span class="linenumber"> 41:</span>                     try:
+<span class="linenumber"> 42:</span>                         ftp.mkd(d)
+<span class="linenumber"> 43:</span>                     except:
+<span class="linenumber"> 44:</span>                         ftp.close()
+<span class="linenumber"> 45:</span>                         write_log(log_name, "Cannot make directory on the server: " + d, False)
+<span class="linenumber"> 46:</span>                 try:        
+<span class="linenumber"> 47:</span>                     ftp.cwd(d)
+<span class="linenumber"> 48:</span>                 except:
+<span class="linenumber"> 49:</span>                     ftp.close()
+<span class="linenumber"> 50:</span>                     write_log(log_name, "Cannot change directory on the server: " + d, False)
+<span class="linenumber"> 51:</span>                     
+<span class="linenumber"> 52:</span>                 sys.stdout.close()
+<span class="linenumber"> 53:</span>             sys.stdout = stdout
+<span class="linenumber"> 54:</span>             
+<span class="linenumber"> 55:</span>     
+<span class="linenumber"> 56:</span>     def put(ftp, ls, log_name):
+<span class="linenumber"> 57:</span>         for fname in ls:
+<span class="linenumber"> 58:</span>             fbase = os.path.basename(fname)
+<span class="linenumber"> 59:</span>             (method, mode) = is_ascii(fbase) and ('storlines', 'r') or ('storbinary', 'rb')
+<span class="linenumber"> 60:</span>             try:
+<span class="linenumber"> 61:</span>                 f = file(fname, mode)
+<span class="linenumber"> 62:</span>             except:
+<span class="linenumber"> 63:</span>                 ftp.close()
+<span class="linenumber"> 64:</span>                 write_log(log_name, "Cannot open local file: " + fbase, False)
+<span class="linenumber"> 65:</span>             try:
+<span class="linenumber"> 66:</span>                 getattr(ftp, method)("STOR " + fbase, f)
+<span class="linenumber"> 67:</span>             except:
+<span class="linenumber"> 68:</span>                 ftp.close()
+<span class="linenumber"> 69:</span>                 write_log(log_name, "Cannot Transfer local file: " + fbase, False)
+<span class="linenumber"> 70:</span>                 
+<span class="linenumber"> 71:</span>             f.close()
+<span class="linenumber"> 72:</span>     
+<span class="linenumber"> 73:</span>     if __name__ == '__main__':
+<span class="linenumber"> 74:</span>         dtemp = os.getenv("TEMP") or os.getenv("TMP") or "C:\\"
+<span class="linenumber"> 75:</span>         log_name = os.path.join(dtemp, LOG)
+<span class="linenumber"> 76:</span>         os.path.exists(log_name) and os.remove(log_name)
+<span class="linenumber"> 77:</span>         inp_name = os.path.join(dtemp, INP)
+<span class="linenumber"> 78:</span>         try:
+<span class="linenumber"> 79:</span>             inp = file(inp_name)
+<span class="linenumber"> 80:</span>         except:
+<span class="linenumber"> 81:</span>             write_log(log_name, "Cannot open input file.", False)
+<span class="linenumber"> 82:</span>             
+<span class="linenumber"> 83:</span>         server, user, passw, path, files = eval(inp.read())
+<span class="linenumber"> 84:</span>         inp.close()
+<span class="linenumber"> 85:</span>         os.remove(inp_name)
+<span class="linenumber"> 86:</span>     
+<span class="linenumber"> 87:</span>         try:
+<span class="linenumber"> 88:</span>             ftp = FTP(server)
+<span class="linenumber"> 89:</span>         except:
+<span class="linenumber"> 90:</span>             write_log(log_name, "Cannot connect to " + server, False)
+<span class="linenumber"> 91:</span>     
+<span class="linenumber"> 92:</span>         try:
+<span class="linenumber"> 93:</span>             ftp.login(user, passw)
+<span class="linenumber"> 94:</span>         except:
+<span class="linenumber"> 95:</span>             ftp.close()
+<span class="linenumber"> 96:</span>             write_log(log_name, "Cannot login: " + server, False)
+<span class="linenumber"> 97:</span>             
+<span class="linenumber"> 98:</span>         server_cd(ftp, path, log_name)
+<span class="linenumber"> 99:</span>         put(ftp, files, log_name)
+<span class="linenumber">100:</span>         ftp.quit()
+<span class="linenumber">101:</span>         write_log(log_name,
+<span class="linenumber">102:</span>                   "Following files are uploaded successfully at\n%s:\n\n" % datetime.now().isoformat(' ') + \
+<span class="linenumber">103:</span>                   "\n".join(files) + "\n",
+<span class="linenumber">104:</span>                   True)
+</pre>
+
+<h3> 3.1. 読み込むモジュール</h3>
+
+<h4> 3.1.1. ftplib</h4>
+FTP をするためのモジュールです。<span class='mono'>class FTP</span> をインポートします。
+このクラスは、サーバー名を与えて初期化します。FTP でできることは何でも
+できるようにメソッドがそろっています。<p>
+詳しくは<a href='http://www.python.jp/doc/release/lib/module-ftplib.html'>
+  ライブラリリファレンス 11.7 ftplib -- FTPプロトコルクライアント</a>
+を参照してください。
+
+<h4> 3.1.2. cStringIO</h4>
+FTP サーバーからの応答は標準出力に出力されるので、
+応答を利用しようとすると、標準出力をリダイレクトしなければなりません。
+<span class='mono'>StringIO</span> と <span class='mono'>cStringIO</span>
+モジュールは文字列をファイルのように扱うためのモジュールで、
+標準出力のリダイレクトなどに利用されます。ASCII 文字しか入力されないことがわかっていれば
+cStringIO の方が高速です。<p>
+  詳しくは、<a href='http://www.python.jp/doc/release/lib/module-StringIO.html'>
+    Python ライブラリリファレンス 4.6 StringIO</a>
+    および、<a href='http://www.python.jp/doc/release/lib/module-cStringIO.html'>
+      4.7 cStringIO</a>
+  を見てください。
+
+<h3> 3.2. 関数</h3>
+<h4> 3.2.1. is_ascii(fname)</h4>
+<var>fname</var> がテキストファイルか調べます。
+拡張子が 'txt', 'htm', 'html', 'css' のファイルはテキストファイルとみなします。
+
+<h4> 3.2.2. write_log(logfile, str, success)</h4>
+結果を <span class='mono'>upload.log</span> に書き込む関数です。Error が起きた時は終了します。
+
+<h4> 3.2.3. server_cd(ftp, path, log_name)</h4>
+FTP クラスのインスタンス (<var>ftp</var>) と '/' で区切られた相対パス (<var>path</var>) を引数にとり、
+サーバーの <span class='mono'>path</span> で表される
+パスにいきます。<span class='mono'>path</span> がなければ作ります。
+<ol>
+<li><var>path</var> が 'HOME' なら何もしません。
+<li><span class='mono'>sys.stdout</span> を <var>stdout</var> に保存しておきます。
+<li><var>path</var> を '/' で分けて、1つずつ 32 行目までを実行します。個々の要素を <var>d</var> とします。
+  <ol>
+   <li><span class='mono'>sys.stdout</span> に <span class='mono'>StringIO()</span> を代入します。
+     これで、標準出力がリダイレクトされました。
+   <li><span class='mono'>ftp.dir()</span> で、サーバー上のカレントディレクトリーの 'ls' を取得します。
+        <span class='mono'>.dir</span> メソッドは、標準出力にリストを出力するので、プログラム中でその出力を
+     利用するためには <span class='mono'>StringIO</span> にリダイレクトする必要があります。
+   <li> <var>d</var> という名前のディレクトリがサーバーのカレントディレクトリになければ
+     <span class='mono'>ftp.mkd(d)</span> でディレクトを作ります。<br>
+     <span class='mono'>sys.stdout.getvalue()</span> を使って、<span class='mono'>StringIO</span>
+     に出力された値を取得しています。
+     それを1行ずつ分けて、'd' で始まれば、最後の単語をとって、それをまとめてリストにします。
+     そのリストに <var>d</var> がなければ、サーバー上に <var>d</var> といるディレクトリが無いので作ります。
+   <li><span class='mono'>ftp.cwd(d)</span> でディレクトリを移動します。
+   <li><span class='mono'>sys.stdout</span> を閉じます。
+  </ol>
+<li> 最後に退避した <span class='mono'>sys.stdout</span> を元に戻します。
+</ol>
+<h4> 3.2.4. put(ftp, ls, log_name)</h4>
+  <var>ls</var> にあるファイルをアップロードする関数です。
+59 行目で、ファイルが ASCII か BINARY かによってファイルを開くモードと転送するメソッドを分けています。
+ASCII のときは 'storlines' で転送し、BINARY のときは 'storbinary' で転送します。
+66 行目の <strong>getattr</strong> が便利な関数です。これを使うと属性を文字列で指定できるので、
+いろいろ便利なことができます。もし、59 行目と <span class='mono'>getattr</span> を使わないで普通の方法でメソッドを指定すると
+<var>put</var> は次のように冗長になります。下のコードでは、ほとんど同じことを 2 回繰り返しています。
+<pre class='code'>
+<span class="linenumber">01:</span>     def put(ftp, ls):
+<span class="linenumber">02:</span>         for fname in ls:
+<span class="linenumber">03:</span>             fbase = os.path.basename(fname)
+<span class="linenumber">04:</span>             if is_ascii(fbase):
+<span class="linenumber">05:</span>                 try:
+<span class="linenumber">06:</span>                     f = file(fname, 'r')
+<span class="linenumber">07:</span>                 except:
+<span class="linenumber">08:</span>                     ftp.close()
+<span class="linenumber">09:</span>                     write_log(log_name, "Cannot open local file: " + fbase, False)
+<span class="linenumber">10:</span>                 try:
+<span class="linenumber">11:</span>                     ftp.storline("STOR " + fname, f)
+<span class="linenumber">12:</span>                 except:
+<span class="linenumber">13:</span>                     ftp.close()
+<span class="linenumber">14:</span>                     write_log(log_name, "Cannot Transfer local file: " + fbase, False)
+<span class="linenumber">15:</span>                 f.close()
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>             else:
+<span class="linenumber">18:</span>                 try:
+<span class="linenumber">19:</span>                     f = file(fname, 'rb')
+<span class="linenumber">20:</span>                 except:
+<span class="linenumber">21:</span>                     ftp.close()
+<span class="linenumber">22:</span>                     write_log(log_name, "Cannot open local file: " + fbase, False)
+<span class="linenumber">23:</span>                 try:
+<span class="linenumber">24:</span>                     ftp.storbinary("STOR " + fname, f)
+<span class="linenumber">25:</span>                 except:
+<span class="linenumber">26:</span>                     ftp.close()
+<span class="linenumber">27:</span>                     write_log(log_name, "Cannot Transfer local file: " + fbase, False)
+<span class="linenumber">28:</span>                 f.close()
+</pre>
+
+<h3>3.3. main</h3>
+<span class='mono'>if __name__ == '__main__': </span> 
+以下を簡単に説明すると以下のようになります。カッコ内は [code 1] の行番号です。
+<ol>
+<li> <span class='mono'>upload.inp</span>, <span class='mono'>upload.log</span>
+  のあるディレクトリ <var>dtemp</var> を <span class='mono'>os.getenv</span> を使って取得します。(74)
+<li> ログファイルのフルパス名 (<var>log_name</var>) を作ります。(75)
+<li> 以前のログファイルを念のため消しておきます。(76)
+<li> インプットファイルのフルパス名 (<var>inp_name</var>) を作ります (77)
+<li> インプットファイルを開きます。(78--81)
+<li> インプットファイルからサーバー名 (<var>server</var>)、ユーザー名 (<var>user</var>)、パスワード (<var>passw</var>)、
+  転送するファイルのリスト (<var>files</var>) を読み取ります。(83)<br>
+  入力ファイルの形式を工夫することで、<span class='mono'>eval</span> を使って一発で読み込むことができます。
+<li> 入力ファイルを閉じます。(84)
+<li> 入力ファイルを消去します。(85)<br>
+  パスワードなどの取り扱いに注意を要する情報が含まれているので。
+<li> サーバに接続します。 (87--90)
+<li> サーバーにログインします。(92--96)
+<li> ファイルを転送するディレクトリに移動します。(98)
+<li> ファイルを転送します。(99)
+<li> 接続を閉じます。(100)
+<li> ログファイルに結果を出力します。(101--104)
+  </ol>
+
+<h2>4. その他</h2>
+<h3>4.1. getattr, setattr, hasattr</h3>
+<span class='mono'>getattr</span>,
+<span class='mono'>setattr</span>,
+<span class='mono'>hasattr</span>
+はインスタンスの属性を操作する関数です。
+属性を文字列で与えられるので、いろいろな技が効きます。
+典型的な例は <span class='mono'>Lib/lib-tk/ScrolledText.py</span> にある次の部分でしょう。
+<pre class='code'>
+<span class="linenumber">01:</span>             <span class="comment"># Copy geometry methods of self.frame -- hack!</span>
+<span class="linenumber">02:</span>             methods = Pack.__dict__.keys()
+<span class="linenumber">03:</span>             methods = methods + Grid.__dict__.keys()
+<span class="linenumber">04:</span>             methods = methods + Place.__dict__.keys()
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>             for m in methods:
+<span class="linenumber">07:</span>                 if m[0] != '_' and m != 'config' and m != 'configure':
+<span class="linenumber">08:</span>                     setattr(self, m, getattr(self.frame, m))
+</pre>
+
+まず、widget を配置するメソッドである <span class='mono'>Pack</span>,
+<span class='mono'>Grid</span>,
+<span class='mono'>Place</span> の名前空間からメソッド、クラス変数を取り出し、
+<span class='mono'>self.frame</span> におけるそれらの値を <span class='mono'>self</span> の属性としています。
+こうすると、<span class='mono'>ScrolledText</span> は1つのオブジェクトとして、配置できます。
+
+また、<a href='http://diveintopython.org/'>Dive Into Python</a> にもこれらの関数の便利な使い方が
+載っています。
+
+<h3>4.2. 接続のタイムアウト</h3>
+ここで示したプログラムはバックグラウンドで行われるのでタイムアウトは気にしませんが、
+タイムアウトを気にする必要があるときは、<span class='mono'>socket</span> モジュールの
+<span class='mono'>setdefaulttimeout</span> を指定すると良いでしょう。
+この関数が呼ばれた後生成するソケットは <span class='mono'>setdefaulttimeout</span>
+で指定された秒数でタイムアウトします。<p>
+
+例：<br>
+<pre class='code'>
+import socket
+from ftplib import FTP
+socket.defaulttimeout(30.0)       # 以降作られるソケットは 30 秒後にタイムアウト
+ftp = FTP(fit.site.somewhere)
+ftp.login("me", "mypassward")
+.....................................
+</pre>
+<h2>5. 終わりに</h2>
+例外処理をこまめにやったため 100 行を超えましたが、実質 50 行ほどで アップロード専用 FTP クライアントが書けました。
+<span class='mono'>StringIO</span>, <span class='mono'>getattr</span> の使い方を参考にして下さい。<p>
+
+  Python ライブラリが完備しているので便利なプログラムを短い行数でかけます。
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="8queen_py.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python8.html&t=Python+%A4%F2%BB%C8%A4%C3%A4%BF+FTP+%A5%A2%A5%C3%A5%D7%A5%ED%A1%BC%A5%C9' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

@@ -1,0 +1,193 @@
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, immutable class">
+<meta name="description" content="Sather の immutable class について述べます。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 10. 変更不能クラス</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_op.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  9. オペレーター</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_hofunc.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+11. データとしての手続き</a></td>
+
+
+<!------------------------------------------
+- <td><a rel=download href="sa_hofunc.tar.bz2">
+-   <img src='../images/down_arrow.gif' class='arrow' border=0></a>
+- <a rel=download href="sa_hofunc.tar.bz2">download</a></td>
+------------------------------------------->
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_immutable.html&t=Sather%3A+%CA%D1%B9%B9%C9%D4%C7%BD%A5%AF%A5%E9%A5%B9' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 10. 変更不能クラス</h1>
+<hr>
+
+<!------------------------------------------
+- 準備中です。<br>
+- しばらくお待ちください。<p>
+- <img src='../images/under_construction.gif'>
+------------------------------------------->
+
+<h2>1. はじめに</h2>
+一度生成されると変更できないインスタンスを生成するクラスを immutable class といいます。
+組み込みクラスの中では BOOL, CHAR, INT,  FLT, FLTD などが immutable class です。
+
+<h2>2. immutable class の例</h2>
+２次元の座標 POINT を immutale class として定義してみましょう。[code 1] のようになります。
+インスタンスは変更不能なので、属性に値を代入する方法が通常のクラスと異なっています。
+<p>
+<a name="point">
+[code 1]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple immutable class</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     immutable class POINT &lt; $STR is   <span class="comment">-- class の前に immutable をつけて変更不能であることを宣言します。</span>
+<span class="linenumber">04:</span>        readonly attr x,y:FLT;         <span class="comment">-- x,y の２つの readonly 属性を宣言します。</span>
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>        create(x0,y0:FLT):SAME is      <span class="comment">-- 初期化の方法が普通のクラスと違います。</span>
+<span class="linenumber">07:</span>           res:SAME;                   <span class="comment">-- new を使ってメモリー領域を確保する必要はありません。</span>
+<span class="linenumber">08:</span>           res:=res.x(x0);             <span class="comment">-- immutable class では属性に値を代入するのはこのようにします。</span>
+<span class="linenumber">09:</span>           res:=res.y(y0);
+<span class="linenumber">10:</span>           return res;
+<span class="linenumber">11:</span>        end;
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>        is_eq(p:SAME):BOOL is          <span class="comment">-- オペレータ '=' を定義します。</span>
+<span class="linenumber">14:</span>           return x=p.x and y=p.y;
+<span class="linenumber">15:</span>        end;
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>        plus(p:SAME):SAME is           <span class="comment">-- オペレータ '+' を定義します。</span>
+<span class="linenumber">18:</span>           return #SAME(x+p.x, y+p.y);
+<span class="linenumber">19:</span>        end;
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>        minus(p:SAME):SAME is          <span class="comment">-- オペレータ '-' を定義します。</span>
+<span class="linenumber">22:</span>           return #SAME(x-p.x, y-p.y);
+<span class="linenumber">23:</span>        end;
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>        times(n:FLT):SAME is           <span class="comment">-- オペレータ '*' を定義します。</span>
+<span class="linenumber">26:</span>           return #SAME(x*n, y*n);
+<span class="linenumber">27:</span>        end;
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>        div(n:FLT):SAME is             <span class="comment">-- オペレータ '/' を定義します。</span>
+<span class="linenumber">30:</span>           return #SAME(x/n, y/n);
+<span class="linenumber">31:</span>        end;
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>        negate:SAME is                 <span class="comment">-- 単項演算子 '-' を定義します。</span>
+<span class="linenumber">34:</span>           return #SAME(-x, -y);
+<span class="linenumber">35:</span>        end;
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>        abs:FLT is
+<span class="linenumber">38:</span>           return (x*x+y*y).sqrt;
+<span class="linenumber">39:</span>        end;
+<span class="linenumber">40:</span>     
+<span class="linenumber">41:</span>        rotate(theta:FLT):SAME is       <span class="comment">-- 原点を軸とした回転を定義します。</span>
+<span class="linenumber">42:</span>           theta := y.atan2(x)+theta;
+<span class="linenumber">43:</span>           return #SAME(self.abs*theta.cos, self.abs*theta.sin);
+<span class="linenumber">44:</span>        end;
+<span class="linenumber">45:</span>     
+<span class="linenumber">46:</span>        str:STR is                      <span class="comment">-- 文字列への変換を定義します。</span>
+<span class="linenumber">47:</span>           return "(" + x.str +"," + y.str +")";
+<span class="linenumber">48:</span>        end;
+<span class="linenumber">49:</span>     end;
+<span class="linenumber">50:</span>     
+<span class="linenumber">51:</span>     class MAIN is
+<span class="linenumber">52:</span>        const pi:FLT:= FLT::pi;         <span class="comment">-- 円周率を定義します。</span>
+<span class="linenumber">53:</span>        const fout:STR:="point.out";    <span class="comment">-- 出力用ファイルの名前です。</span>
+<span class="linenumber">54:</span>     
+<span class="linenumber">55:</span>        rz_polygon(a:ARRAY{POINT}, zoom, theta:FLT):ARRAY{POINT} is  <span class="comment">-- 多角形を zoom して 回転します。</span>
+<span class="linenumber">56:</span>           a1:ARRAY{POINT}:=#(a.size);
+<span class="linenumber">57:</span>           loop
+<span class="linenumber">58:</span>     	 a1.set!(a.elt!.rotate(theta).times(zoom));
+<span class="linenumber">59:</span>           end;
+<span class="linenumber">60:</span>           return a1;
+<span class="linenumber">61:</span>        end;
+<span class="linenumber">62:</span>     
+<span class="linenumber">63:</span>        out2file(a0,a1:ARRAY{POINT}) is           <span class="comment">-- ズームして回転する前と後の多角形をファイルに出力します。</span>
+<span class="linenumber">64:</span>           f:FILE:=FILE::open_for_write(fout);
+<span class="linenumber">65:</span>           p0,p1:POINT;
+<span class="linenumber">66:</span>           i:INT;
+<span class="linenumber">67:</span>           loop
+<span class="linenumber">68:</span>     	 i:=(a0.size+1).times!;
+<span class="linenumber">69:</span>     	 if i = a0.size then i:=0; end;
+<span class="linenumber">70:</span>     	 p0:=a0[i];
+<span class="linenumber">71:</span>     	 p1:=a1[i];
+<span class="linenumber">72:</span>     	 f + p0.x + "\t" + p0.y + "\t" + p1.x + "\t" + p1.y + "\n";
+<span class="linenumber">73:</span>           end;
+<span class="linenumber">74:</span>           f.close;
+<span class="linenumber">75:</span>        end;
+<span class="linenumber">76:</span>     
+<span class="linenumber">77:</span>        main is
+<span class="linenumber">78:</span>           p0:POINT:=#(0.0,1.0);
+<span class="linenumber">79:</span>           a0:ARRAY{POINT}:=#(3);
+<span class="linenumber">80:</span>     
+<span class="linenumber">81:</span>           loop                            <span class="comment">-- (0.0, 1.0) を 0, 120, 240 度回転して正三角形を作ります</span>
+<span class="linenumber">82:</span>     	 a0.set!(p0.rotate(3.times!.flt*2.0*pi/3.0));
+<span class="linenumber">83:</span>           end;
+<span class="linenumber">84:</span>           
+<span class="linenumber">85:</span>           out2file(a0, rz_polygon(a0, 2.0, pi/12.0));  <span class="comment">-- 元の正三角形と２倍に拡大して 15 度回転した正三角形をファイルに書き出します。</span>
+<span class="linenumber">86:</span>           
+<span class="linenumber">87:</span>        end;
+<span class="linenumber">88:</span>     end;
+</pre>
+
+結果を gnuplot で書き出すと 図１のようになります。
+<center>
+<img src='point.png'><br>
+図 1：もともとの正三角形と２倍に拡大して 15 度回転した正三角形　　　　　　　　　　
+</center>
+<h2>3. 終わりに</h2>
+immutable class は通常のクラスより効率的に処理されます。従って、たくさんのインスタンスを生成するクラスは immutable class に
+したほうが速度面で有利になります。
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_op.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  9. オペレーター</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_hofunc.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+11. データとしての手続き</a></td>
+
+
+<!------------------------------------------
+- <td><a rel=download href="sa_hofunc.tar.bz2">
+-   <img src='../images/down_arrow.gif' class='arrow' border=0></a>
+- <a rel=download href="sa_hofunc.tar.bz2">download</a></td>
+------------------------------------------->
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_immutable.html&t=Sather%3A+%CA%D1%B9%B9%C9%D4%C7%BD%A5%AF%A5%E9%A5%B9' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+</body></html>
+    
+
+
+
+

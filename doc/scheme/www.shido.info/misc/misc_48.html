@@ -1,0 +1,130 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="Linux, Server">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 自宅サーバの更新 </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+</tr></table></p>
+
+<h1>自宅サーバの更新</h1>
+<hr>
+June 26, 2014
+<p>
+
+
+<h2>1. はじめに</h2>
+今年の 3 月に
+自宅サーバに寿命が来たので新しいものに更新しました。
+電源に寿命が来たようで、電源を交換すると正常に動作するようになりましたが、
+さすがに不安なので取り替えることにしました。
+<p>
+<a href='misc_11.html'>初代自宅サーバ</a>は数千円で購入した中古の PC で、それが 8 年持ったのでかなりお買い得でした。
+ただ、2 台体制で運用したのと、部品取りに予備機を購入したので、意外とコストはかかったかもしれません。
+
+<p>
+自宅サーバを8年運用してみて有用性が実感できたので、今回は新品のパーツで Linux サーバを自作することにしました。
+今回は、
+外部用と、内部用 (兼バックアップサーバ) の2台体制をやめて、外部用1台にしました。
+その代りストレージを SSD 2台にして、信頼性を確保しました。
+
+<h2>2. ハードウェア</h2>
+２代目自宅サーバの要件は以下の通りです。
+<ol>
+<li> ストレージが１台故障しても復旧できること。
+<li> アイドル時の消費電力が 20 W 以下であること。
+<li> 場所をとらないこと。
+<li> 音が静かであること。
+<li> 部品代は全部で 3 万円以下であること。
+</ol>
+最初の要件を満たすため、ストレージは SSD 2 台にし、別の SSD にバックアップを取ることにしました。
+具体的には、/ と /home を別の SSD にマウントして、/home 以下のデータを /var/backup 以下にバックアップしました。<p>
+<p>
+マザーボードは BIOSTAR J1800NH 6.1 にしました。
+採用した理由は以下の通りです。
+<ol>
+<li> 消費電力が小さい <a href='http://www.aiuto-jp.co.jp/products/product_1290.php'>この</a> サイトによると 16 W。
+<li> 価格が安い。
+<li> ファンレスなので音がしない。
+<li> MINI-ITX  (17cm x 17cm) なので場所をとらない。
+</ol>
+ただ、このマザーボードは、
+<ol>
+<li>メモリーを低電圧タイプにする必要がある。
+<li>モニターを接続していないと立ち上がらない。
+</ol>
+といった癖があります。特に2番目は、購入してから判明しました。
+<a href='http://skaz.jp/%E3%82%84%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/%E3%82%A6%E3%82%BD%E7%94%BB%E9%9D%A2%E3%82%B3%E3%83%8D%E3%82%AF%E3%82%BF'>
+ウソ画面コネクタ</a> を参考にしてダミーの VGA を作ってつなげたところ問題なく立ち上がったのでホッとしました。
+(ダミー VGA は安価に入手できる抵抗を使って簡単に作ることができます。)
+<p>
+ケースは電源付で 5600 円のものを購入しました。ファンレス電源は高価なので予算の関係で見送りました。
+購入したケースは意外と静だったので、満足しています。
+<a href='http://review.kakaku.com/review/K0000434017/#tab'>価格.com</a> でも評判は悪くないようです。
+
+<p>
+<table border="1">
+<caption>２代目自宅サーバの部品一覧</caption>
+<tr><th>部品名</th><th>品番</th><th>購入価格</th><th>備考</th></tr>
+<tr><td>マザーボード</td><td> BIOSTAR J1800NH 6.1</td><td>8,480</td><td>Celeron J1800オンボードmini-itxマザー, PC3L メモリー, dummy VGA</td></tr>
+<tr><td>メモリー</td><td>バッファロー PC3L-12800対応 DDR3 SDRAM S.O.DIMM 2GB</td><td>3,247</td><td>1.35V</td></tr>
+<tr><td>SSD</td><td>ADATA Technology Premier Pro SP600 SSD SATA3.0 2.5 32GB</td><td>4,579</td><td>/ 用</td></tr>
+<tr><td>SSD</td><td>ASP600S3-64GM-C-7MM</td><td>5,226</td><td>/home 用</td></tr>
+<tr><td>ケース</td><td>JMAX JX-FS100B ITX</td><td>5,626</td><td>150W電源つき</td></tr>
+<tr><td>下駄</td><td>Century CRGT2 裸族の下駄</td><td>895</td><td>2.5 inch SSD 2 台を 3.5 inch ベイにマウントするため</td></tr>
+</table>
+
+
+
+<h2>3. ソフトウェア</h2>
+OS は Debian wheezy にしました。先代の自宅サーバでも使っていたのと、
+信頼性が高い、管理が楽、などの理由でこのディストリビューションにしました。
+Debian DVD の iso image を <a href='http://unetbootin.sourceforge.net/'>UNetbootin</a> をつかって、USB メモリーに焼き、
+それを新しいマシンに差し込んで、電源を入れると、無事 USB メモリーから立ち上がりました。
+<p>
+初代自宅サーバでは、一部のソフトウェアをソースからビルドしていたため、メンテナンスが面倒でした。
+今回はすべてのソフトを apt-get を使ってインストールしました。
+こうすると、apt-get upgrade で簡単に更新できます。
+現在は、cron をつかって毎晩
+<pre class="code">
+apt-get update
+apt-get upgrade
+</pre>
+を行っています。
+
+<h2>4. データ移行</h2>
+メールはいったん tar.gz で固めて、新しいサーバにコピーしたのち、切り替える直前に rsync で新旧のサーバーを同期させました。
+<p>
+web コンテンツは全部 html にして移行しました。ゲストブックはやめてしまったので、DB を使う必要はなくなりました。
+このページくらいの規模と更新頻度ならば、ベタで html を書くのが一番手っ取り早いと思います。
+
+
+<h2> 5. 終わりに</h2>
+無事移行できてホッとしました。新規に立ち上げるのと違って、
+移行はなかなか神経を使う作業でした。
+<p>
+下の写真が２代目自宅サーバです。
+<p>
+<img src="IMG_0162.jpg" width="30%">
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+</tr></table></p>
+</body>
+</html>

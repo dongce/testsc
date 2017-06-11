@@ -1,0 +1,579 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme 入門">
+<meta name="description" content="初心者向け Scheme 入門">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 A-2. 関数電卓</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_nqueen.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-1. N Queen</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="callcc.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-3. 継続についてもう少し</a></td>
+<td><a rel=download href="scheme_calc.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_calc.html&t=Scheme+%C6%FE%CC%E7+A-2.+%B4%D8%BF%F4%C5%C5%C2%EE' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>  Appendix 2. 関数電卓 </h1>
+<hr>
+<h2>1. 初めに </h2>
+少しは実用的なプログラムの第２弾として、今回は関数電卓を取り上げます。
+関数電卓は、再帰と、手続きをデータとして扱えるという Scheme の特徴をいかすと
+簡潔に書くことができます。<p>
+
+このプログラムのミソは、演算子を 名前、手続き、 優先度 をメンバーにもつ構造体として表現していることです。
+こうすることで、全ての演算を統一的に扱うことができます。
+<h2>2. 電卓の仕様</h2>
+ここで作成する電卓はいわゆる普通の電卓です。以下のように動作します。
+
+<ol>
+<li>浮動小数点の計算を繰り返し行う。つまり、１つの式に対する計算が済んだら、その結果を表示した後、
+プロンプトを表示して別の入力を受け付ける。
+<li>計算の順序は通常の中置記法の順序に従う。
+<li>入力式にたいする計算が行えない場合は、その旨を表示して次の式の入力を促す。(エラー終了しない)
+</ol>
+
+<h2>3. 実装方法</h2>
+入力された文字列をリストに変換し、それに対する計算を行います。
+
+<h3>3.1. 演算子の構造体</h3>
+構造体を使って演算子を表します。
+構造体に保持する項目は演算子の名前 (<tt>name</tt>)、関数 (<tt>fun</tt>)、優先度 (<tt>priority</tt>) です。
+
+数字が大きいほうが優先度が高く先に計算されます。
+<table border=1>
+   <tr>
+      <th>演算子</th>
+      <th>優先度</th>
+      <th>同じ優先度の計算順序</th>
+      <th>例</th>
+   </tr>
+   <tr>
+      <td>定数</td>
+      <td>6</td>
+      <td>左から</td>
+      <td>pi, e</td>
+   </tr>
+   <tr>
+      <td>階乗</td>
+      <td>5</td>
+      <td>左から</td>
+      <td>!</td>
+   </tr>
+   <tr>
+      <td>算術関数</td>
+      <td>4</td>
+      <td>右から</td>
+      <td>sin, log, exp</td>
+   </tr>
+   <tr>
+      <td>累乗</td>
+      <td>3</td>
+      <td>右から</td>
+      <td>^</td>
+   </tr>
+   <tr>
+      <td>単項の +/-</td>
+      <td>2</td>
+      <td>右から</td>
+      <td>+, -</td>
+   </tr>
+   <tr>
+      <td>乗除</td>
+      <td>1</td>
+      <td>左から</td>
+      <td>*,/,%</td>
+   </tr>
+   <tr>
+      <td>加減</td>
+      <td>0</td>
+      <td>左から</td>
+      <td>+, -</td>
+   </tr>
+</table>
+
+<h3>3.2. 文字列からリストへの変換方法</h3>
+数をあらわす文字列は数に、演算子を表す文字列は対応する手続きと優先順位のリストに、定数は対応する数に
+変換されてリストに加えられます。'(', ')' がある場合は、カッコの中を再帰的にリストに変換します。
+
+<ol>
+<li>文字列の最初と最後にスペースがある場合はそれを取り除く。
+<li>文字列が空なら要素のリストを返す
+<li>文字列の最初が数をあらわす文字列の正規表現 ( /^[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/ )と一致すれば、
+浮動小数点に変換して要素のリストに加える。
+<li>文字列が演算子を表す文字列で始まっていれば、その部分を演算子の構造体に変換してリストに加える。
+</ol>
+
+例えば次のように変換されます。下の例で、&lt;x&gt; は演算子 x を表す構造体を表します。
+また、単項の +,- はそれぞれ @+, @- と表記します。
+<table border=1>
+   <tr>
+      <th>文字列</th>
+      <th>変換後のリスト</th>
+   </tr>
+   <tr>
+      <td>1+2</td>
+      <td> (1.0 &lt;+&gt; 2.0)</td>
+   </tr>
+   <tr>
+      <td>(2+3)*4</td>
+      <td>((2.0 &lt;+&gt; 3.0) &lt;*&gt; 4.0)</td>
+   </tr>
+   <tr>
+      <td>-2*sin(pi)</td>
+      <td> (&lt;@-&gt; 2.0 &lt;*&gt; &lt;sin&gt; &lt;pi&gt;)</td>
+   </tr>
+</table>
+
+<h3>3.3. 式を表すリストの評価方法</h3>
+次のように計算していきます。
+<ol>
+<li>カッコの中から計算を行う
+<li>優先度の高い順に計算する
+<li>定数は、浮動小数点に変換する
+<li>階乗 (!) は、演算子の前の要素に作用させる
+<li>単項演算子は、演算子の次の要素に作用させる
+<li>二項演算子は、演算子の前の要素と後の要素に作用させる
+</ol>
+
+こんな感じになります
+<pre class='samp'>
+(1.0 &lt;+&gt; 2.0) &rarr; 3.0
+((2.0 &lt;+&gt;  3.0) &lt;*&gt;  4.0) &rarr; (5.0 &lt;*&gt;  4.0) &rarr; 20.0
+(&lt;@-&gt; 2.0 &lt;*&gt; &lt;sin&gt; &lt;pi&gt;) 
+    &rarr; (&lt;@-&gt; 2.0 &lt;*&gt; &lt;sin&gt; 3.14159265359)
+    &rarr; (&lt;@-&gt; 2.0 &lt;*&gt;  -1.0)
+    &rarr; (-2.0 &lt;*&gt; -1.0)
+    &rarr; 2.0
+</pre>
+
+
+<h2>4. MzScheme による実装</h2>
+上の方針に従って MzScheme で実装したのが下のコード (calc.scm) です。
+R<sup>6</sup>RS や SRFI を MzScheme 独自の実装と混在させると不具合が生ずるので、全て MzScheme 独自の実装で書いてあります。
+<p>
+[code 1] (calc.scm)
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">;; a simple calculator written in Scheme</span>
+<span class="linenumber">002:</span>   <span class="comment">;; by SHIDO, T.</span>
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   <span class="comment">;; regular expression of number</span>
+<span class="linenumber">008:</span>   (define RNUM (regexp "^[0-9]+(\\.[0-9]+)?([eE][+-]?[0-9]+)?"))
+<span class="linenumber">009:</span>   
+<span class="linenumber">010:</span>   <span class="comment">;; cc is the global escape. the initial value is display</span>
+<span class="linenumber">011:</span>   (define cc display)
+<span class="linenumber">012:</span>   
+<span class="linenumber">013:</span>   <span class="comment">;; defining the priority of operators</span>
+<span class="linenumber">014:</span>   (define P_CST 6)          <span class="comment">; constants</span>
+<span class="linenumber">015:</span>   (define P_LHB 5)          <span class="comment">; !</span>
+<span class="linenumber">016:</span>   (define P_FUN 4)          <span class="comment">; arithmetic functions </span>
+<span class="linenumber">017:</span>   (define P_POW 3)          <span class="comment">; power</span>
+<span class="linenumber">018:</span>   (define P_UPM 2)          <span class="comment">; unary +, -</span>
+<span class="linenumber">019:</span>   (define P_MD  1)          <span class="comment">; *. /, %</span>
+<span class="linenumber">020:</span>   (define P_BPM 0)          <span class="comment">; binary +, -</span>
+<span class="linenumber">021:</span>   
+<span class="linenumber">022:</span>   
+<span class="linenumber">023:</span>   <span class="comment">;; the structure of operatos having name, fun and priority</span>
+<span class="linenumber">024:</span>   (define-struct operator (name fun priority))
+<span class="linenumber">025:</span>                     
+<span class="linenumber">026:</span>   
+<span class="linenumber">027:</span>   (define (inc i) (+ 1 i))
+<span class="linenumber">028:</span>   (define (dec i) (- i 1))
+<span class="linenumber">029:</span>   
+<span class="linenumber">030:</span>   (define (fact n)
+<span class="linenumber">031:</span>     (if (= n 0) 1
+<span class="linenumber">032:</span>       (let loop ((i 0) (m 1))
+<span class="linenumber">033:</span>         (if (= i n) m
+<span class="linenumber">034:</span>           (loop (inc i) (* m (inc i)))))))
+<span class="linenumber">035:</span>   
+<span class="linenumber">036:</span>   (define (permutation m n)
+<span class="linenumber">037:</span>     (let loop((i 0) (k 1))
+<span class="linenumber">038:</span>       (if (= i n)
+<span class="linenumber">039:</span>           k
+<span class="linenumber">040:</span>         (loop (inc i) (* k (- m i))))))
+<span class="linenumber">041:</span>   
+<span class="linenumber">042:</span>   (define (combination m n)
+<span class="linenumber">043:</span>     (/ (permutation m n) (fact n)))
+<span class="linenumber">044:</span>       
+<span class="linenumber">045:</span>   
+<span class="linenumber">046:</span>   <span class="comment">;; a list of the structure operator</span>
+<span class="linenumber">047:</span>   (define OPERATORS (map (lambda (tup)
+<span class="linenumber">048:</span>                            (apply make-operator tup))
+<span class="linenumber">049:</span>     `(("+" ,+ ,P_BPM) ("-" ,- ,P_BPM)
+<span class="linenumber">050:</span>       ("@+" ,+ ,P_UPM) ("@-" ,- ,P_UPM)  <span class="comment">; @+ and @- represent unary +, -</span>
+<span class="linenumber">051:</span>       ("*" ,* ,P_MD) ("/" ,/ ,P_MD) ("%" ,modulo ,P_MD)
+<span class="linenumber">052:</span>       ("**" ,expt ,P_POW) ("^" ,expt ,P_POW)
+<span class="linenumber">053:</span>       ("exp" ,exp ,P_FUN) ("log" ,log ,P_FUN) ("sqrt" ,sqrt ,P_FUN) ("log10" ,(lambda (x) (/ (log x) (log 10.0))) ,P_FUN)
+<span class="linenumber">054:</span>       ("sin" ,sin ,P_FUN) ("cos" ,cos ,P_FUN) ("tan" ,tan ,P_FUN) 
+<span class="linenumber">055:</span>       ("asin" ,asin ,P_FUN) ("acos" ,acos ,P_FUN) ("atan" ,atan ,P_FUN)
+<span class="linenumber">056:</span>       ("!" ,fact ,P_LHB) ("P" ,permutation ,P_POW) ("C" ,combination ,P_POW)
+<span class="linenumber">057:</span>       ("&lt;&lt;" ,(lambda (x y) (* x (expt 2 y))) ,P_POW)
+<span class="linenumber">058:</span>       ("&gt;&gt;" ,(lambda (x y) (/ x (expt 2 y))) ,P_POW)
+<span class="linenumber">059:</span>       ("pi"  ,(* 4.0 (atan 1.0)) ,P_CST) ("e"  ,(exp 1.0) ,P_CST))))          
+<span class="linenumber">060:</span>   
+<span class="linenumber">061:</span>   
+<span class="linenumber">062:</span>   <span class="comment">;; a hash table of operators</span>
+<span class="linenumber">063:</span>   (define H_OP (make-hasheq))
+<span class="linenumber">064:</span>   (for-each (lambda (op)
+<span class="linenumber">065:</span>               (hash-set! H_OP  (string-&gt;symbol (operator-name op)) op))
+<span class="linenumber">066:</span>             OPERATORS)
+<span class="linenumber">067:</span>   
+<span class="linenumber">068:</span>   
+<span class="linenumber">069:</span>   
+<span class="linenumber">070:</span>   (define L_OP (sort (map operator-name OPERATORS)
+<span class="linenumber">071:</span>                      #:key string-length &gt;))
+<span class="linenumber">072:</span>   
+<span class="linenumber">073:</span>   
+<span class="linenumber">074:</span>   (define (list-ref-with-assert ls i)
+<span class="linenumber">075:</span>     (if (&lt;= 0 i (dec (length ls)))
+<span class="linenumber">076:</span>         (list-ref ls i)
+<span class="linenumber">077:</span>       (cc "Invarid formula!")))
+<span class="linenumber">078:</span>     
+<span class="linenumber">079:</span>   
+<span class="linenumber">080:</span>   
+<span class="linenumber">081:</span>   (define (print . ls0)
+<span class="linenumber">082:</span>     (let loop((ls ls0))
+<span class="linenumber">083:</span>       (if (null? ls)
+<span class="linenumber">084:</span>           (newline)
+<span class="linenumber">085:</span>         (begin
+<span class="linenumber">086:</span>          (display (car ls))
+<span class="linenumber">087:</span>          (display ", ")
+<span class="linenumber">088:</span>          (loop (cdr ls))))))
+<span class="linenumber">089:</span>   
+<span class="linenumber">090:</span>   
+<span class="linenumber">091:</span>   
+<span class="linenumber">092:</span>   (define (alnum? c)
+<span class="linenumber">093:</span>     (or (and (char&lt;=? #\a c) (char&lt;=? c #\z))
+<span class="linenumber">094:</span>         (and (char&lt;=? #\A c) (char&lt;=? c #\Z))
+<span class="linenumber">095:</span>         (and (char&lt;=? #\0 c) (char&lt;=? c #\9))))
+<span class="linenumber">096:</span>   
+<span class="linenumber">097:</span>   
+<span class="linenumber">098:</span>   
+<span class="linenumber">099:</span>   <span class="comment">;; it returns the position of the corresponding close parenthesis</span>
+<span class="linenumber">100:</span>   (define (search-close str)
+<span class="linenumber">101:</span>     (let ((str (string-tail str 1)) (limit  (string-length str)))
+<span class="linenumber">102:</span>       (let loop((i 0) (n 1))
+<span class="linenumber">103:</span>         (cond
+<span class="linenumber">104:</span>          ((= i limit) #f)                                       
+<span class="linenumber">105:</span>          ((= n 0) i)
+<span class="linenumber">106:</span>          (else (let ((c (string-ref str i)))
+<span class="linenumber">107:</span>                  (cond
+<span class="linenumber">108:</span>                   ((char=? c #\() (loop (inc i) (inc n)))
+<span class="linenumber">109:</span>                   ((char=? c #\)) (loop (inc i) (dec n)))
+<span class="linenumber">110:</span>                   (else (loop (inc i) n)))))))))
+<span class="linenumber">111:</span>   
+<span class="linenumber">112:</span>   
+<span class="linenumber">113:</span>   
+<span class="linenumber">114:</span>   
+<span class="linenumber">115:</span>   
+<span class="linenumber">116:</span>   
+<span class="linenumber">117:</span>   (define (string-&gt;operator s0 ls0)
+<span class="linenumber">118:</span>     (hash-ref H_OP
+<span class="linenumber">119:</span>                    (string-&gt;symbol
+<span class="linenumber">120:</span>                     (if (and
+<span class="linenumber">121:</span>                          (or (string=? s0 "+") (string=? s0 "-"))
+<span class="linenumber">122:</span>                          (or (null? ls0) (operator? (car ls0))))
+<span class="linenumber">123:</span>                         (string-append "@" s0)
+<span class="linenumber">124:</span>                       s0))
+<span class="linenumber">125:</span>                     #f))
+<span class="linenumber">126:</span>   
+<span class="linenumber">127:</span>   
+<span class="linenumber">128:</span>   
+<span class="linenumber">129:</span>   (define (string-W? s)
+<span class="linenumber">130:</span>     (let loop((ls (string-&gt;list s)))
+<span class="linenumber">131:</span>       (cond
+<span class="linenumber">132:</span>        ((null? ls) #t)
+<span class="linenumber">133:</span>        ((alnum? (car ls)) #f)
+<span class="linenumber">134:</span>        (else (loop (cdr ls))))))
+<span class="linenumber">135:</span>         
+<span class="linenumber">136:</span>   
+<span class="linenumber">137:</span>   
+<span class="linenumber">138:</span>   (define (char-sep? c)
+<span class="linenumber">139:</span>     (case c (( #\space #\( ) #t) (else #f)))
+<span class="linenumber">140:</span>   
+<span class="linenumber">141:</span>   
+<span class="linenumber">142:</span>   
+<span class="linenumber">143:</span>   
+<span class="linenumber">144:</span>   (define (find-op-idx s0)
+<span class="linenumber">145:</span>     <span class="comment">;(print s0)</span>
+<span class="linenumber">146:</span>     (let loop((ls (filter  (lambda(x) (&lt;= (string-length x) (string-length s0))) L_OP)))
+<span class="linenumber">147:</span>       (if (null? ls) (cc "can not find operator")
+<span class="linenumber">148:</span>         (let* ((sop (car ls))
+<span class="linenumber">149:</span>                (len (string-length sop))
+<span class="linenumber">150:</span>                (s1 (string-head s0 len))
+<span class="linenumber">151:</span>                (op (hash-ref H_OP (string-&gt;symbol sop) #f)))
+<span class="linenumber">152:</span>           (if (and (string=? sop s1)
+<span class="linenumber">153:</span>                    (or (op-lhb? op) 
+<span class="linenumber">154:</span>                        (op-constant? op)
+<span class="linenumber">155:</span>                        (and (&lt; len (string-length s0))
+<span class="linenumber">156:</span>                             (or (string-W? sop) 
+<span class="linenumber">157:</span>                                 (= (operator-priority op) P_POW)
+<span class="linenumber">158:</span>                                 (char-sep? (string-ref s0 len))))))
+<span class="linenumber">159:</span>               len
+<span class="linenumber">160:</span>             (loop (cdr ls)))))))
+<span class="linenumber">161:</span>   
+<span class="linenumber">162:</span>   
+<span class="linenumber">163:</span>   
+<span class="linenumber">164:</span>   (define (get-op s ls)
+<span class="linenumber">165:</span>     (hash-ref H_OP
+<span class="linenumber">166:</span>                     (string-&gt;symbol
+<span class="linenumber">167:</span>                      (if (and (or (string=? s "+") (string=? s "-"))
+<span class="linenumber">168:</span>                               (or (null? ls) (operator? (car ls))))
+<span class="linenumber">169:</span>                          (string-append "@" s) s))
+<span class="linenumber">170:</span>                     #f))
+<span class="linenumber">171:</span>   
+<span class="linenumber">172:</span>   
+<span class="linenumber">173:</span>   (define (list-head ls n)
+<span class="linenumber">174:</span>     (letrec ((iter (lambda (ls0 ls1 i)
+<span class="linenumber">175:</span>                      (if (or (= i n) (null? ls0))
+<span class="linenumber">176:</span>                          (reverse ls1)
+<span class="linenumber">177:</span>                        (iter (cdr ls0) (cons (car ls0) ls1) (inc i))))))
+<span class="linenumber">178:</span>        (iter ls '() 0)))
+<span class="linenumber">179:</span>   
+<span class="linenumber">180:</span>   
+<span class="linenumber">181:</span>   (define (match-end-index i mobj)
+<span class="linenumber">182:</span>     (cdr (list-ref-with-assert mobj i)))
+<span class="linenumber">183:</span>   
+<span class="linenumber">184:</span>   (define (re-match-extract s mobj i)
+<span class="linenumber">185:</span>     (let ((p (list-ref-with-assert mobj i)))
+<span class="linenumber">186:</span>       (if p
+<span class="linenumber">187:</span>           (substring s (car p) (cdr p))
+<span class="linenumber">188:</span>         #f)))
+<span class="linenumber">189:</span>   
+<span class="linenumber">190:</span>   
+<span class="linenumber">191:</span>   (define (string-head s pos)
+<span class="linenumber">192:</span>     (substring s 0 pos))
+<span class="linenumber">193:</span>   
+<span class="linenumber">194:</span>   (define (string-tail s pos)
+<span class="linenumber">195:</span>     (substring s pos (string-length s)))
+<span class="linenumber">196:</span>   
+<span class="linenumber">197:</span>   
+<span class="linenumber">198:</span>   <span class="comment">;; it makes a list of numbers and operators from the given string and returns it.</span>
+<span class="linenumber">199:</span>   (define (read-input s0)
+<span class="linenumber">200:</span>     (letrec ((iter (lambda (s0 ls0)
+<span class="linenumber">201:</span>                      (let ((s (string-trim s0)))
+<span class="linenumber">202:</span>                        <span class="comment">;(print s ls0)</span>
+<span class="linenumber">203:</span>                        (cond
+<span class="linenumber">204:</span>                         ((= 0 (string-length s)) <span class="comment">; return the resulting list if the input string is finished</span>
+<span class="linenumber">205:</span>                          (reverse ls0))
+<span class="linenumber">206:</span>                         ((char=? (string-ref s 0) #\()
+<span class="linenumber">207:</span>                          (let ((pos (search-close s)))
+<span class="linenumber">208:</span>                            (iter (string-tail s (inc pos)) (cons (iter (substring s 1 pos) '()) ls0))))
+<span class="linenumber">209:</span>                         (else
+<span class="linenumber">210:</span>                          (let ((mobj (regexp-match-positions RNUM s)))
+<span class="linenumber">211:</span>                           <span class="comment">; (display mobj) (newline)</span>
+<span class="linenumber">212:</span>                            (if mobj
+<span class="linenumber">213:</span>                                (iter (string-tail s (match-end-index 0 mobj))
+<span class="linenumber">214:</span>                                      (cons (string-&gt;number (re-match-extract s mobj 0)) ls0))
+<span class="linenumber">215:</span>                              (let ((pos (find-op-idx s)))
+<span class="linenumber">216:</span>                                (let ((op (get-op (string-head s pos) ls0)))
+<span class="linenumber">217:</span>                                  (iter (string-tail s pos) (cons op ls0))))))))))))
+<span class="linenumber">218:</span>             (iter s0 '() )))
+<span class="linenumber">219:</span>   
+<span class="linenumber">220:</span>   
+<span class="linenumber">221:</span>   
+<span class="linenumber">222:</span>   (define (single? ls)
+<span class="linenumber">223:</span>     (and
+<span class="linenumber">224:</span>      (list? ls)
+<span class="linenumber">225:</span>      (not (null? ls))
+<span class="linenumber">226:</span>      (null? (cdr ls))))
+<span class="linenumber">227:</span>   
+<span class="linenumber">228:</span>   
+<span class="linenumber">229:</span>   
+<span class="linenumber">230:</span>   <span class="comment">;; it returns the position of the next operator to apply.</span>
+<span class="linenumber">231:</span>   (define (find-op ls0 priority)
+<span class="linenumber">232:</span>     (let loop((ls (if (memv priority priority-reverse) (reverse ls0) ls0)) (j 0))
+<span class="linenumber">233:</span>       (cond
+<span class="linenumber">234:</span>        ((null? ls) #f)
+<span class="linenumber">235:</span>        ((and (op-pair? (car ls)) (= (second (car ls)) priority)) 
+<span class="linenumber">236:</span>         (if (memv priority priority-reverse)
+<span class="linenumber">237:</span>             (- (length ls0) j 1)
+<span class="linenumber">238:</span>             j))
+<span class="linenumber">239:</span>        (else   (loop (cdr ls) (inc j))))))
+<span class="linenumber">240:</span>   
+<span class="linenumber">241:</span>   
+<span class="linenumber">242:</span>   
+<span class="linenumber">243:</span>   (define (op-unary? op)
+<span class="linenumber">244:</span>     (let ((p (operator-priority op)))
+<span class="linenumber">245:</span>       (or (= p P_FUN) (= p P_UPM))))
+<span class="linenumber">246:</span>   
+<span class="linenumber">247:</span>   
+<span class="linenumber">248:</span>   
+<span class="linenumber">249:</span>   (define (op-lhb? op)
+<span class="linenumber">250:</span>     (= (operator-priority op) P_LHB))
+<span class="linenumber">251:</span>   
+<span class="linenumber">252:</span>   
+<span class="linenumber">253:</span>   
+<span class="linenumber">254:</span>   (define (op-constant? op)
+<span class="linenumber">255:</span>     (= (operator-priority op) P_CST))
+<span class="linenumber">256:</span>   
+<span class="linenumber">257:</span>   
+<span class="linenumber">258:</span>   
+<span class="linenumber">259:</span>   (define (op-binary? op)
+<span class="linenumber">260:</span>     (let ((p (operator-priority op)))
+<span class="linenumber">261:</span>       (or (= p P_BPM) (= p P_MD) (= p P_POW))))
+<span class="linenumber">262:</span>   
+<span class="linenumber">263:</span>   
+<span class="linenumber">264:</span>   
+<span class="linenumber">265:</span>   (define (op-reverse? op)
+<span class="linenumber">266:</span>     (let ((p (operator-priority op)))
+<span class="linenumber">267:</span>       (or (= p P_FUN) (= p P_POW) (= p P_UPM))))
+<span class="linenumber">268:</span>   
+<span class="linenumber">269:</span>   
+<span class="linenumber">270:</span>   
+<span class="linenumber">271:</span>   (define (op&gt;? op1 op2)
+<span class="linenumber">272:</span>     (or
+<span class="linenumber">273:</span>      (not (operator? op2))
+<span class="linenumber">274:</span>      ((if (op-reverse? op1) &gt;= &gt; ) (operator-priority op1) (operator-priority op2))))
+<span class="linenumber">275:</span>   
+<span class="linenumber">276:</span>   
+<span class="linenumber">277:</span>   
+<span class="linenumber">278:</span>   (define (find-op-pos ls0)
+<span class="linenumber">279:</span>     (let loop((i 0) (pos -1) (ls ls0) (op0 #f))
+<span class="linenumber">280:</span>       (if (null? ls)
+<span class="linenumber">281:</span>           pos
+<span class="linenumber">282:</span>         (let* ((op (car ls))
+<span class="linenumber">283:</span>                (update (and (operator? op) (op&gt;? op op0))))
+<span class="linenumber">284:</span>           (loop (inc i) (if update i pos) (cdr ls) (if update op op0))))))
+<span class="linenumber">285:</span>   
+<span class="linenumber">286:</span>   
+<span class="linenumber">287:</span>   
+<span class="linenumber">288:</span>   <span class="comment">;; it returns a number by calculating a list of numbers and operators</span>
+<span class="linenumber">289:</span>   (define (calc-list ls)
+<span class="linenumber">290:</span>     (cond
+<span class="linenumber">291:</span>      ((number? ls) ls)
+<span class="linenumber">292:</span>      ((single? ls) (calc-list (car ls)))
+<span class="linenumber">293:</span>      ((list? ls)
+<span class="linenumber">294:</span>       (let* ((pos (find-op-pos ls)) (op (list-ref-with-assert ls pos)))
+<span class="linenumber">295:</span>         (calc-list
+<span class="linenumber">296:</span>          (append (list-head ls (- pos (if (or (op-lhb? op) (op-binary? op)) 1 0)))
+<span class="linenumber">297:</span>                  (cons
+<span class="linenumber">298:</span>                   (let ((fun (operator-fun op)))
+<span class="linenumber">299:</span>                     (cond
+<span class="linenumber">300:</span>                      ((op-constant? op) fun)
+<span class="linenumber">301:</span>                      ((op-lhb? op)   (fun (calc-list (list-ref-with-assert ls (dec pos)))))
+<span class="linenumber">302:</span>                      ((op-unary? op) (fun (calc-list (list-ref-with-assert ls (inc pos)))))
+<span class="linenumber">303:</span>                      ((op-binary? op) (fun (calc-list (list-ref-with-assert ls (dec pos))) (calc-list (list-ref-with-assert ls (inc pos)))))
+<span class="linenumber">304:</span>                      (else (cc "funny!"))))
+<span class="linenumber">305:</span>                   (list-tail ls (+ pos (if (or (op-unary? op) (op-binary? op)) 2 1))))))))
+<span class="linenumber">306:</span>      (else (cc "Invarid formula!"))))
+<span class="linenumber">307:</span>   
+<span class="linenumber">308:</span>   
+<span class="linenumber">309:</span>   
+<span class="linenumber">310:</span>   
+<span class="linenumber">311:</span>   
+<span class="linenumber">312:</span>   (define (string-null? s)
+<span class="linenumber">313:</span>     (= 0 (string-length s)))
+<span class="linenumber">314:</span>   
+<span class="linenumber">315:</span>   
+<span class="linenumber">316:</span>   (define (list-trim ls)
+<span class="linenumber">317:</span>     (let loop((ls ls))
+<span class="linenumber">318:</span>       (cond
+<span class="linenumber">319:</span>        ((null? ls) '())
+<span class="linenumber">320:</span>        ((char=? (car ls) #\space) (loop (cdr ls)))
+<span class="linenumber">321:</span>        (else  ls))))
+<span class="linenumber">322:</span>   
+<span class="linenumber">323:</span>   
+<span class="linenumber">324:</span>   (define (string-trim s)
+<span class="linenumber">325:</span>     (list-&gt;string
+<span class="linenumber">326:</span>      (reverse
+<span class="linenumber">327:</span>       (list-trim
+<span class="linenumber">328:</span>        (reverse (list-trim (string-&gt;list s)))))))
+<span class="linenumber">329:</span>   
+<span class="linenumber">330:</span>   
+<span class="linenumber">331:</span>   
+<span class="linenumber">332:</span>   
+<span class="linenumber">333:</span>   
+<span class="linenumber">334:</span>   (define (calc)
+<span class="linenumber">335:</span>     (let loop()
+<span class="linenumber">336:</span>       (display "&gt; ")
+<span class="linenumber">337:</span>       (let ((str (begin (read-line)   <span class="comment">;to absorb a funny behavior of mzscheme input</span>
+<span class="linenumber">338:</span>                         (read-line (current-input-port) 'any-one))))  
+<span class="linenumber">339:</span>         (if (string-null? str)
+<span class="linenumber">340:</span>             'bye
+<span class="linenumber">341:</span>           (begin
+<span class="linenumber">342:</span>            (display 
+<span class="linenumber">343:</span>             (call-with-current-continuation
+<span class="linenumber">344:</span>              (lambda (k)
+<span class="linenumber">345:</span>                (set! cc k)           <span class="comment">; re-entry point in case of exception</span>
+<span class="linenumber">346:</span>                (calc-list (read-input str)))))
+<span class="linenumber">347:</span>            (newline)
+<span class="linenumber">348:</span>            (loop))))))
+<span class="linenumber">349:</span>   
+</pre>
+
+<h3>注</h3>
+
+<pre>
+  `(("+" ,+ ,P_BPM) ("-" ,- ,P_BPM) ...................)
+</pre>
+は
+<pre>
+  (list (list "+" + P_BPM) (list "-" - P_BPM) ...................)
+</pre>
+の省略記法。詳しくは<a href='macro1.html'>ここ</a>をみてください。
+<br>
+文字列を読み込んでリストに変換するときに、名前、手続き、および優先順位を保持した構造体で演算子をあらわすと、
+プログラムのコード上で明示的に演算を扱う必要がなくなり、プログラムが簡潔になります。
+また、演算子の追加も容易にできます。
+
+
+<h2>5. 使い方</h2>
+MzScheme を立ち上げて、calc.scm  calc.scm をロードします。
+その後 コンソールから <tt>(calc)</tt> と入力します。
+終了するときは何も入力しないでリターンします。
+<br>
+プロンプトから式を入力すると計算結果が表示されます。
+<pre class='samp'>
+&gt; (load/cd "calc.scm")
+&gt; (calc)
+&gt; (1+2)*(15-3)
+36
+&gt;
+bye
+</pre>
+
+
+<h2>6. 終わりに</h2>
+N Queen と同様、電卓プログラムも簡潔に書くことができます。
+<p>
+電卓プログラムは、
+<ol>
+<li> 自然に再帰関数を使うことができる
+<li> 手続きをデータとして扱うことができる。
+</ol>
+という Scheme の長所を生かすことができます。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_nqueen.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-1. N Queen</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="callcc.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-3. 継続についてもう少し</a></td>
+<td><a rel=download href="scheme_calc.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_calc.html&t=Scheme+%C6%FE%CC%E7+A-2.+%B4%D8%BF%F4%C5%C5%C2%EE' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+
+</body>
+</html>
+

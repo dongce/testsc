@@ -1,0 +1,403 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, life game, set">
+<meta name="description" content="Object orinentated programming using Python">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>Set を用いたライフゲームの実装</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.html'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="life.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+</tr></table></p>
+
+
+<h1>Set を用いたライフゲームの実装</h1> 
+<hr>
+<h2>1. 初めに</h2>
+<a href='http://ja.wikipedia.org/wiki/%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B2%E3%83%BC%E3%83%A0'>ライフゲーム</a>
+は 無限に広がる2次元の升目 (セル) の初期状態からの世代ごとの進展を計算する有名なシミュレーションです。
+ルールは次のように簡単なものです。<br>
+個々のセルは2つの状態、生、死の状態を取ります。セルの状態は、自分自身および隣接するセルの状態によって次の世代で変化します。
+<ul>
+<li> 誕生: 死んでいるセルに３つの生きたセルが隣接していれば、そのセルは次の世代で生きる。
+<li> 生存: 生きているセルに２つあるいは３つの生きたセルが隣接していれば、そのセルは次の世代でも生きる。
+<li> その他：その他は次の世代で死ぬ。
+</ul>
+<p>
+ライフゲームプログラムは、以前、<a href='http://www.kohgakusha.co.jp/books/detail/978-4-7775-1321-5'>はじめての Python</a>
+ のサンプルプログラムとして書いたのですが、
+いまいちだったので、いつか改良版を書こうと思っていました。
+<a href='http://shop.oreilly.com/product/0636920013754.do'>Clojure Programming</a> に集合を用いた実装が載っていたので、
+それを参考にして、今回のスクリプトを書きました。
+<p>
+今回のは、生きているセルとその近傍だけを計算対象にするので、無駄な計算を省いています。
+(ライフゲームのセルは通常 2/3 以上が死んでいるのと、次の世代で生きる可能性があるのは現在生きているセルとその近傍にあるセルだけなので、
+生きているセルとその近傍についてのみ次世代での状態を計算したほうが能率的です。)
+また、計算時間がボードのサイズに依存しないので、大きなボード上で描画することができますし、
+表示とセルが分離しているので縁の処理も自然になっています。
+
+
+
+<h2>2. ライフゲーム計算スクリプト</h2>
+
+[code 1] にライフゲームのスクリプトを示します。次の世代の計算はこのスクリプトで行います。
+<p>
+[code 1]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#!python</span>
+<span class="linenumber">002:</span>   '''life game console virsion'''
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   from collections import namedtuple
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   Cell = namedtuple('Cell', 'x y')
+<span class="linenumber">007:</span>   
+<span class="linenumber">008:</span>   def neighbors(c):
+<span class="linenumber">009:</span>       '''return a set of adjacent cells to c'''
+<span class="linenumber">010:</span>       return {Cell(c.x+dx, c.y+dy) for dx in (-1,0,1) for dy in (-1,0,1) if (dx,dy)!=(0,0)}
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   
+<span class="linenumber">013:</span>   def survive(c,cs):
+<span class="linenumber">014:</span>       '''see if the cell will survive in the next generation'''
+<span class="linenumber">015:</span>       nadj=len(neighbors(c) &amp; cs)
+<span class="linenumber">016:</span>       return nadj==3 or (c in cs and nadj==2)
+<span class="linenumber">017:</span>   
+<span class="linenumber">018:</span>   
+<span class="linenumber">019:</span>   def include_neighbors(cs):
+<span class="linenumber">020:</span>       '''return union of cs and the neighbors'''
+<span class="linenumber">021:</span>       cs1=cs.copy()
+<span class="linenumber">022:</span>       for c in cs:
+<span class="linenumber">023:</span>           cs1.update(neighbors(c))
+<span class="linenumber">024:</span>       return cs1
+<span class="linenumber">025:</span>   
+<span class="linenumber">026:</span>   
+<span class="linenumber">027:</span>   def generate(cs, f=lambda c:True):
+<span class="linenumber">028:</span>       '''return the set of living cells in the  next generation, f is an additional constraint'''
+<span class="linenumber">029:</span>       return { c for c in include_neighbors(cs) if survive(c,cs) and f(c) }
+<span class="linenumber">030:</span>   
+<span class="linenumber">031:</span>   
+<span class="linenumber">032:</span>   def play(cs, board_size=5, n_rep=5):
+<span class="linenumber">033:</span>       '''console version of life game'''
+<span class="linenumber">034:</span>       def show(_cs):
+<span class="linenumber">035:</span>           for y in range(-board_size, board_size):
+<span class="linenumber">036:</span>               print( ''.join('*' if Cell(x,y) in _cs else ' ' for x in range(-board_size, board_size)))
+<span class="linenumber">037:</span>   
+<span class="linenumber">038:</span>       def _iter(n, _cs):
+<span class="linenumber">039:</span>           show(_cs)
+<span class="linenumber">040:</span>           if n&lt;n_rep:
+<span class="linenumber">041:</span>               _iter(n+1, generate(_cs))
+<span class="linenumber">042:</span>   
+<span class="linenumber">043:</span>       _iter(0, cs)
+<span class="linenumber">044:</span>   
+<span class="linenumber">045:</span>   
+<span class="linenumber">046:</span>   if __name__=='__main__':
+<span class="linenumber">047:</span>       play({Cell(-1,0), Cell(0,0),Cell(1,0)})
+</pre>
+
+<dl>
+<dt><b>Cell</b> (6 行目)</dt>
+<dd>
+セルは、tuple で表してもいいのですが、namedtuple で表すことにします。こうすると <tt>cell.x</tt>, <tt>cell.y</tt> などと書けるので
+スクリプトが読みやすくなります。また、セルの状態は、セルが、生きたセルの集合に属するかどうかで判定します。従て、セルには生死の状態を持たせていません。
+</dd>
+<dt><b>neighbors(c)</b> (8--11 行目)</dt>
+<dd>
+セル c に隣接するセルの集合を返す関数です。x 座標あるいは y 座標の差が &plusmn; 1 のセルの集合を返します。
+</dd>
+<dt><b>survive(c, cs)</b> (13--16 行目)</dt>
+<dd>
+セル c が次の世代で誕生するか生き残るかを判定します。ここで cs は生きているセルの集合です。<br>
+セル c の周りの生きているセルの個数 (nadj) は、15 行目にあるようにセル c に隣接するセルの集合と生きているセルの集合の積の要素数であらわされます。
+nadj が 3のときは、無条件で生き、nadj が 2 のときは、自分が生きている (自分が生きているセルの集合の要素である) とき、次の世代でも生きます。
+</dd>
+<dt><b> include_neighbors(cs)</b> (19--24 行目)</dt>
+<dd> 生きているセルと、それに隣接するセル、すなわち次世代に生きている可能性のあるセルの集合です。</dd>
+<dt><b>generate(cs, f=lambda c:True)</b></dt>
+<dd> 生きているセルの集合 cs の次の世代の生きているセルの集合を返します。
+基本的には、include_neighbors(cs) のセルについて、survive(c) が True を返すものの集合を返します。
+追加の制約 f(c) は盤から外れたセルの計算を打ち切るためなどに使います。
+</dd>
+<dt><b>play(cs, board_size=5, n_rep=5)</b> (32--43 行目)</dt>
+<dd>コマンドライン版のライフゲームです。</dd>
+</dl>
+
+この実装は以下のような特徴を持ちます。
+<ol>
+<li>生きているセルとその近傍だけを計算するので、処理速度が速くなります。
+<li>計算と表示とを分離しやすくなり、盤の端の影響を小さくすることができます。
+<li>計算する部分 (Cell, neighbors, survive, include_neighbors, generate) は 25 行で実装することができます。
+</ol>
+
+
+
+
+
+
+
+<h2>3. GUI</h2>
+
+tkinter の Canvas オブジェクトを用いて GUI を実装しました。
+表示も、生きているセルを黒い正方形であらわすだけなので、計算量が削減できます。このため、画面サイズを大きくすることができます。
+
+コードを [code 2] に示します。
+<p>
+[code 2]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#!python3</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   '''
+<span class="linenumber">004:</span>   Life game tkinter version.
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   Usage:
+<span class="linenumber">007:</span>   mouse click: toggle a cell, living&lt;-&gt;dead (reset state only)
+<span class="linenumber">008:</span>   space: to start, stop, and reset
+<span class="linenumber">009:</span>   l    : load a set of living cells from a file (reset state only)
+<span class="linenumber">010:</span>   s    : save the set of living cells to a file (reset state only)
+<span class="linenumber">011:</span>   c    : clear, there are no living cells  after this command (reset state only)
+<span class="linenumber">012:</span>   '''
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   import tkinter as tk
+<span class="linenumber">015:</span>   from tkinter.filedialog import askopenfile, asksaveasfile
+<span class="linenumber">016:</span>   import pickle
+<span class="linenumber">017:</span>   
+<span class="linenumber">018:</span>   import life
+<span class="linenumber">019:</span>   
+<span class="linenumber">020:</span>   def in_range(c,min_,max_):
+<span class="linenumber">021:</span>       '''check if the cell c is in the square specified by min_ and max_'''
+<span class="linenumber">022:</span>       return all(min_&lt;=z&lt;=max_ for z in (c.x,c.y))
+<span class="linenumber">023:</span>   
+<span class="linenumber">024:</span>   
+<span class="linenumber">025:</span>   class Board (tk.Canvas):
+<span class="linenumber">026:</span>       '''The board where cells are on.'''
+<span class="linenumber">027:</span>   
+<span class="linenumber">028:</span>       SIZE=800                  <span class="comment"># board size in pixel</span>
+<span class="linenumber">029:</span>       CELL_SIZE=8               <span class="comment"># cell size in pixel</span>
+<span class="linenumber">030:</span>       B_SIZE=SIZE//CELL_SIZE    <span class="comment"># number of cells in each side</span>
+<span class="linenumber">031:</span>       MARGIN=10                 <span class="comment"># the width of the band outside of the board, where lives are still living</span>
+<span class="linenumber">032:</span>       RESET,START,STOP=0,1,2    <span class="comment"># cyclic states</span>
+<span class="linenumber">033:</span>       TAG_FORMAT='{}.{}'           <span class="comment"># format of tag</span>
+<span class="linenumber">034:</span>       SLEEP=250                 <span class="comment"># in ms</span>
+<span class="linenumber">035:</span>   
+<span class="linenumber">036:</span>       def __init__(self, master=None):
+<span class="linenumber">037:</span>           '''create board, bind methods to keys'''
+<span class="linenumber">038:</span>           tk.Canvas.__init__(self, master, bg='white', width=self.SIZE, height=self.SIZE)
+<span class="linenumber">039:</span>           self.master.title('Life Game')
+<span class="linenumber">040:</span>           self.livings=set()  <span class="comment"># the set of living cells</span>
+<span class="linenumber">041:</span>           self.state=self.RESET <span class="comment"># the state</span>
+<span class="linenumber">042:</span>           self.bind('&lt;1&gt;', self.toggle)
+<span class="linenumber">043:</span>           for k, a in [('&lt;space&gt;','proceed'),
+<span class="linenumber">044:</span>                        ('&lt;KeyPress-l&gt;','load'),
+<span class="linenumber">045:</span>                        ('&lt;KeyPress-s&gt;','save'),
+<span class="linenumber">046:</span>                        ('&lt;KeyPress-c&gt;','clear')]:
+<span class="linenumber">047:</span>               self.master.bind(k, getattr(self,a))
+<span class="linenumber">048:</span>           self.pack()
+<span class="linenumber">049:</span>   
+<span class="linenumber">050:</span>       def proceed(self, e):
+<span class="linenumber">051:</span>           '''proceed the state'''
+<span class="linenumber">052:</span>           self.state=(self.state+1) % 3
+<span class="linenumber">053:</span>           if self.state==self.START:
+<span class="linenumber">054:</span>               self.play(self.livings)
+<span class="linenumber">055:</span>           elif self.state==self.RESET:
+<span class="linenumber">056:</span>               self.show_lives(self.livings)
+<span class="linenumber">057:</span>   
+<span class="linenumber">058:</span>       def show_each(self, x, y):
+<span class="linenumber">059:</span>           '''draw a black square'''
+<span class="linenumber">060:</span>           self.create_rectangle( *[z*self.CELL_SIZE for z in (x,y,x+1,y+1)],
+<span class="linenumber">061:</span>                                   fill='black', tags=self.TAG_FORMAT.format(x,y))
+<span class="linenumber">062:</span>   
+<span class="linenumber">063:</span>       def show_lives(self, cs):
+<span class="linenumber">064:</span>           '''show living cells'''
+<span class="linenumber">065:</span>           self.delete(tk.ALL)
+<span class="linenumber">066:</span>           for c in cs:
+<span class="linenumber">067:</span>               if in_range(c, 0, self.B_SIZE):
+<span class="linenumber">068:</span>                   self.show_each(c.x, c.y)
+<span class="linenumber">069:</span>   
+<span class="linenumber">070:</span>       def toggle(self,e):
+<span class="linenumber">071:</span>           '''living&lt;-&gt;dead'''
+<span class="linenumber">072:</span>           if self.state == self.RESET:
+<span class="linenumber">073:</span>               c=life.Cell(e.x//self.CELL_SIZE, e.y//self.CELL_SIZE)
+<span class="linenumber">074:</span>               if c in self.livings:
+<span class="linenumber">075:</span>                   self.livings.remove(c)
+<span class="linenumber">076:</span>                   self.delete(self.TAG_FORMAT.format(c.x,c.y))
+<span class="linenumber">077:</span>               else:
+<span class="linenumber">078:</span>                   self.livings.add(c)
+<span class="linenumber">079:</span>                   self.show_each(c.x,c.y)
+<span class="linenumber">080:</span>   
+<span class="linenumber">081:</span>       def play(self, cs):
+<span class="linenumber">082:</span>           '''play life game'''
+<span class="linenumber">083:</span>   
+<span class="linenumber">084:</span>           def keep_watching(_c):
+<span class="linenumber">085:</span>               return in_range(_c,-self.MARGIN, self.B_SIZE+self.MARGIN)
+<span class="linenumber">086:</span>   
+<span class="linenumber">087:</span>           self.show_lives(cs)
+<span class="linenumber">088:</span>           if self.state==self.START:
+<span class="linenumber">089:</span>               self.after(self.SLEEP, lambda : self.play(life.generate(cs, keep_watching)))
+<span class="linenumber">090:</span>   
+<span class="linenumber">091:</span>   
+<span class="linenumber">092:</span>   
+<span class="linenumber">093:</span>       def load(self,_e):
+<span class="linenumber">094:</span>           '''load saved cells'''
+<span class="linenumber">095:</span>           if self.state == self.RESET:
+<span class="linenumber">096:</span>               with askopenfile(mode='rb') as f:
+<span class="linenumber">097:</span>                   self.livings=pickle.load(f)
+<span class="linenumber">098:</span>               self.show_lives(self.livings)
+<span class="linenumber">099:</span>   
+<span class="linenumber">100:</span>       def save(self,_e):
+<span class="linenumber">101:</span>           '''save cells'''
+<span class="linenumber">102:</span>           if self.state == self.RESET:
+<span class="linenumber">103:</span>               with asksaveasfile(mode='wb') as f:
+<span class="linenumber">104:</span>                   pickle.dump(self.livings, f)
+<span class="linenumber">105:</span>   
+<span class="linenumber">106:</span>       def clear(self,_e):
+<span class="linenumber">107:</span>           '''clear the board'''
+<span class="linenumber">108:</span>           if self.state == self.RESET:
+<span class="linenumber">109:</span>               self.delete(tk.ALL)
+<span class="linenumber">110:</span>               self.livings.clear()
+<span class="linenumber">111:</span>   
+<span class="linenumber">112:</span>   
+<span class="linenumber">113:</span>   if __name__=='__main__':
+<span class="linenumber">114:</span>       b=Board()
+<span class="linenumber">115:</span>       b.mainloop()
+</pre>
+
+<h3> 3.1. 使い方</h3>
+
+tk_python.py を立ち上げると、図 1 のように白いキャンバスが表示されるので、そこに生きているセルを配置していきます。
+セルの生死の切り替えはマウスクリックで行います。死んだセル (白い部分) でマウスクリックすると、生きたセルが生成し、生きたセル上でマウスクリックすると、それが消えます。
+キーボードの s (save) を押下すると、ファイルダイアログが開いて、配置を保存することができます。また、保存した配置はキーボードの l (load) を押下することによってロード
+することができます。さらに、キーボードの c (clear) を押下すると空の状態になります。
+<p>
+ライフの初期状態 (図2) が決まったら、スペースキーを押下するとシュミレーションが始まります (図3)。スペースキーを押下すると、開始、終了、初期状態、が循環します。
+<p>
+まとめると、使えるコマンドは以下のようになります。
+
+<table border=1>
+   <tr>
+      <th>コマンド </th>
+      <th> 挙動</th>
+   </tr>
+   <tr>
+      <td>マウスクリック </td>
+      <td> 盤面のセルの生死の切り替え</td>
+   </tr>
+   <tr>
+      <td> スペースキー </td>
+      <td> 開始、終了、リセット の切り替え。これらの3つの状態は循環する。</td>
+   </tr>
+   <tr>
+      <td> l キー </td>
+      <td>ライフの配置をファイルからロードする。</td>
+   </tr>
+   <tr>
+      <td> s キー </td>
+      <td> 盤面上のライフの配置をファイルに保存する。</td>
+   </tr>
+   <tr>
+      <td> c キー </td>
+      <td> 盤面をクリアする。</td>
+   </tr>
+</table>
+<center>
+<img src='life_empty.png', width='50%'><br>
+図 1: スクリプトを起動したところ。真っ白なキャンバスが表示される。
+<p>
+
+<img src='life_init.png', width='50%'><br>
+図 2: 生きているセルを配置したところ。マウスクリックでセルの生死を切り替える。
+<p>
+<img src='life.png', width='50%'><br>
+図 3: シミュレーションを行っているところ。
+<p>
+</center>
+
+
+
+
+
+</table>
+<h3>3.2. 簡単な説明</h3>
+
+<dl>
+  <dt><b>in_range(c,min_,max_)</b> (20--22 行目)</dt>
+      <dd>セル c の c.x, x.y がともに min_, max_ の範囲にあるか調べます。</dd>
+  <dt><b>Board (25--110 行目)</b></dt>
+      <dd> セルを配置する盤面のクラスです。tkinter.Canvas のサブクラスです。以下の定数を持ちます。
+  <dl>
+  <dt>SIZE</dt>
+      <dd>ピクセル単位でのボードの大きさです。</dd>
+  <dt>CELL_SIZE</dt>
+      <dd>ピクセル単位でのセルの大きさです。</dd>
+  <dt>B_SIZE</dt>
+      <dd>ボードの一辺にあるセルの個数です。</dd>
+  <dt>MARGIN</dt>
+      <dd> 表示する範囲は B_SIZE の正方形だが、計算は 一辺が B_SIZE+2*MARGIN の範囲で行う。</dd>
+  <dt>RESET, START, STOP</dt>
+      <dd> ボードの３つの状態です。循環します。</dd>
+  <dt>TAG_FORMAT</dt>
+      <dd> 生きたセル (黒い正方形) に着けるタグの書式です。</dd>
+  <dt>SLEEP</dt>
+      <dd> (ms) この時間待って次の世代を計算します。</dd>
+  </dl>
+</dd>
+  <dt><b>__init__(self, master=None)</b> (36--48 行目)</dt>
+      <dd> 以下のことを行います。
+<ul>
+   <li> tkinter.Canvas として初期化します。
+   <li> 盤の状態 (self.state) を初期状態 (self.RESET) にします。
+   <li> 生きたセルの集合 (self.lives) を空集合にします。
+   <li> イベントとメソッドをバインドします。
+</ul>
+</dd>
+  <dt><b>proceed(self, e) </b>(50--56行目) </dt>
+      <dd> スペースキーにバインドされています。ボードの状態を1つ進めます。
+  ボードの状態が self.START になれば、シュミレーションを開始します。また、
+ ボードの状態が self.RESET になれば、元のライフの配置を表示します。</dd>
+  <dt><b>show_each(self, x, y) </b>(58--61 行目) </dt>
+      <dd> 個々の生きているセルを黒い正方形として表示します。</dd>
+  <dt><b>show_lives(self, cs) </b>(63--68 行目)</dt>
+      <dd> 盤上にある生きているセルすべてを表示します。</dd>
+  <dt><b>toggle(self,e) </b>(70--79 行目) </dt>
+      <dd> セルの生死を切り替えます。マウスクリックにバインドされています。</dd>
+  <dt><b>play(self, cs) </b>(81--89 行目) </dt>
+      <dd> シュミレーションを行います。cs は生きているセルの集合です。
+  ボードが実行状態にあるときは self.SLEEP ミリ秒待機して、次の世代を計算して表示します。
+ 図 4 に示すようにボードに表示されないセルも MARGIN の幅にあるものは計算を続けます。</dd>
+  <dt><b>load(self,_e) </b>(93--98 行目)</dt>
+      <dd>生きたセルの集合をファイルからロードします。</dd>
+  <dt><b>save(self,_e) </b>(100--104 行目)</dt>
+      <dd>盤上にある生きたセルの集合をファイルにセーブします。</dd>
+  <dt><b>clear(self,_e) </b>(106--110 行目)</dt>
+      <dd> 盤上のセルをクリアします。 </dd>
+</dl>
+
+<center>
+<img src='life_board.png'><br>
+図 4: シュミレーションを行う範囲。表示する範囲は内側の正方形だが、シミュレーションは外側の正方形の内側で行う。
+</center>
+
+
+<h2>4. 終わりに</h2>
+とりあえず、完成版です。
+ダウンロードは <a href='life.zip'>ここ</a>からどうぞ。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="life.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+</tr></table></p></body>
+</html>
+

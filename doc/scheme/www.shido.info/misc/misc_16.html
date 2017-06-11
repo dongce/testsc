@@ -1,0 +1,120 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="Plamo Linux, CTWM, window manager">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> Plamo Linux + CTWM </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc16&t=Plamo+Linux+%2B+CTWM"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>Plamo Linux + CTWM</h1>
+<hr>
+Jun 19, 2006
+<p>
+
+<h2>1. はじめに</h2>
+<a href='misc.php?id=15'>前回</a>紹介した Plamo Linux の入ったノート PC に CTWM を入れました。<p>
+
+<a href='http://ctwm.free.lp.se/'>CTWM</a> は TWM の流れを汲むウインドウマネージャ (WM) です。
+以下のような優れた特徴があります。
+<ul>
+<li>軽快な動作。
+<li>きれいな外見。
+<li>ワークスペースの切り替えができる。
+<li>設定が容易。
+</ul>
+<p>
+非力なマシンで Linux を使うにはぴったりの WM だと思うのですが、Web 上にあまり情報がありません。
+そこで、簡単な紹介記事を書いてみました。
+
+
+
+<h2>2. CTWM のインストール</h2>
+
+<a href='http://ctwm.free.lp.se/#download'>CTWM Home</a> からダウンロードします。i386 用 RPM もありますが、
+最新の tar ball からインストールしました。<p>
+
+インストールの手順は以下の通りです。
+<pre class='samp'>
+$ cd downloads               <span class='comment'>(tar ball を保存したディレクトリに行く)</span>
+$ tar xzvf ctwm-3.7.tar.gz   <span class='comment'>(展開する)</span>
+$ cd ctwm-3.7                <span class='comment'>(展開してできたディレクトリに行く)</span>
+$ cp Imakefile.local-template Imakefile.local  <span class='comment'>(設定ファイルの雛形から設定ファイルを作る)</span>
+$ vi Imakefile.local         <span class='comment'>(必要なら設定ファイルを編集する。ちなみに紫藤は編集しませんでした。)</span>
+$ xmkmf                      <span class='comment'>(configure)</span>
+$ make                       <span class='comment'>(make)</span>
+$ sudo make install          <span class='comment'>(install)</span>
+$ sudo ln -s /usr/X11R6/bin/ctwm /usr/local/bin      <span class='comment'>(/usr/local/bin にリンクを作る。後々便利)</span>
+</pre>
+
+gnome 付お任せパックで Plamo 4.2 をインストールした人は Imakefile.local を編集する必要はありません。
+そうでない人は、Imakefile.local-template のコメントの指示に従って Imakefile.local を編集する必要があります。
+
+<h2>3. 設定</h2>
+.xinitrc と .ctwmrc を編集します。<br>
+.ctwmrc の設定方法は 
+<a href='http://www.update.uu.se/~d93jha/prog/ctwm/ctwm.man.html'>http://www.update.uu.se/~d93jha/prog/ctwm/ctwm.man.html</a>
+ にありますので興味のある人は読んでみて下さい。
+<p>
+Plamo の .xinitrc-twm と CTWM のホームページにある <a href='http://ctwm.free.lp.se/#themes'>Window 98 風のテーマ</a>
+を元に作ったテーマを <a href='ctwm-plamo.tar.bz2'>ctwm-plamo.tar.bz2</a> に置いておきますので
+試してみてください。使い方は以下の通りです。
+<pre class='samp'>
+$ cd ~                           <span class='comment'>(ホームディレクトリに行きます。)</span>
+$ tar xjvf ctwm-plamo.tar.bz2    <span class='comment'>(ctwm-plamo.tar.bz2 を解凍します。 ctwm/ ができます。)</span>
+$ mv .xinitrc .xinitrc.b         <span class='comment'>(もともとの .xinitrc をどかします。)</span>
+$ ln -s ctwm/.xinitrc .          <span class='comment'>(ctwm/ の中にある .xinitrc へのリンクを作ります。)</span>
+$ ln -s ctwm/.ctwmrc .           <span class='comment'>(ctwm/ の中にある .ctwmrc へのリンクを作ります。)</span>
+</pre>
+
+スクリーンショットを以下に示します。ワークスペースを切り替えられるのでノート PC では便利です。
+(画面をクリックすると拡大されます。)
+
+<center>
+<table>
+   <tr>
+      <td><a href='ws1.png'><img border=0 width=300 src='ws1.png'></a></td>
+      <td><a href='ws2.png'><img border=0 width=300 src='ws2.png'></a></td>
+      <td><a href='ws3.png'><img border=0 width=300 src='ws3.png'></a></td>
+   </tr>
+   <tr>
+       <td align='center'>Firefox (work space 1)</td>
+       <td align='center'>Sylpheed (work space 2)</td>
+       <td align='center'>Emacs (work space 3)</td>
+   </tr>
+</table>
+</center>
+
+
+<h2>4. 終わりに</h2>
+紫藤は CTWM はとても優れた WM だと思うのですが、ユーザーがあまりいないのが残念です。
+クロック周波数 300 &mdash; 700 MHz の CPU では CTWM を選択するのがベストだと個人的には思っています。<p>
+仲間を増やそうと思ってこの記事を書いてみました。
+
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc16&t=Plamo+Linux+%2B+CTWM"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

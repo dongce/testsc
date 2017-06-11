@@ -1,0 +1,597 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, frozenset, river crossing">
+<meta name="description" content="solving river crossing puzle using frozenset">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>適切なハッシュ関数による幅優先探索の効率化</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="rivercross.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python_imap.html&t=%C5%AC%C0%DA%A4%CA%A5%CF%A5%C3%A5%B7%A5%E5%B4%D8%BF%F4%A4%CB%A4%E8%A4%EB%C9%FD%CD%A5%C0%E8%C3%B5%BA%F7%A4%CE%B8%FA%CE%A8%B2%BD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+ <h1>適切なハッシュ関数による幅優先探索の効率化</h1> 
+<hr>
+<h2>1. 初めに</h2>
+
+探索とは、遷移可能な状態を通って、始状態から終状態へ至る経路を見つけることです。
+この際、ループに陥らないように、一度探索した状態は再度探索しないようにする必要があります。
+状態のハッシュ値を定義しておくと、
+２つの状態が同じかどうかはそれらのハッシュ値を比較することでわかるので、すでに探索したかどうかの判定を効率的に行うことができます。
+また、探索する系に応じて適切なハッシュ関数を定義しておくと　さらに効率よく探索を行うことができます。
+<p>
+ここでは、例として嫉妬深い夫の川渡り問題を考えます。
+<a href='http://ja.wikipedia.org/wiki/%E5%B7%9D%E6%B8%A1%E3%82%8A%E5%95%8F%E9%A1%8C'>川渡り問題</a>
+とは、川岸にいる一団を特定の条件を満たしながら対岸に渡すパズルです。
+嫉妬深い夫の川渡り問題はそのバリエーションの１つです。
+<p>
+このパズルは以下の条件を満たしながら
+川岸にいる３組の夫婦全てを反対の岸に渡す手順を示す問題です。
+<ol>
+<li>川には１艘のボートがあり、２人まで乗ることができる。また、全ての人はボートを漕ぐことができる。
+<li>全ての場所 (両岸、ボート上) において女性は自分の夫がいないところで他の男と一緒にいることを禁止されている。
+(つまり、ある場所にいる人全てが女性か、その場所にいる全ての女性が自分の夫と一緒にいる必要がある。)
+</ol>
+
+
+<p>
+この問題を解く上で、
+３組の夫婦を入れ替えても渡る手順には影響がありません。
+（たとえば、夫婦 A,B,C がいたとして、A の妻と B の妻がいる状態は B の妻と C の妻がいる状態と同じだとみなせます。）
+従って、この問題を解く上で、川のそれぞれの場所 (両岸とボート) で、合計人数、男性(もしくは女性)の人数、組になっている夫婦の数
+が同じで、かつボートの位置が同じであれば川は同じ状態であるとみなすことができます。
+川の状態をこのように定義し、以前探索したのと同じ状態になる場合には探索を打ち切るようにすると
+探索の範囲を狭めることができ、効率的に解くことができます。
+<p>
+具体的には以下のようにして幅優先探索で問題を解いていきます。
+<ol>
+<li>探索した経路を川の状態のリストとして保持する。経路はキューに保持する。
+<li>キューから最初の要素を取り出し、制約を満たし、まだ探索していない次の状態を算出する。
+<li>次の状態が終了条件を満たせば、そこにいたるまでの経路を出力して終了する。
+<li>そうでない場合は、次の状態を経路の末尾に加えて新しい経路とし、それをキューに加える。
+</ol>
+
+
+<h2>2. プログラムのソースコードと実行結果</h2>
+
+<h3>2.1. ソースコード</h3>
+川の状態はそれぞれの場所 (両岸及びボート) で、男女合計人数、女性の人数、夫婦の組の数及びボートの位置が等しいときは同じだとします。
+そのためには、川及びそれぞれの場所のハッシュ値がこれらの数だけで決まるようにします。
+
+<p>
+人、場所、川を表すクラスとして、
+Person, Plase, River の３つのクラスを定義し、それぞれのハッシュ値を定義します。
+<ul>
+<li>Person のハッシュ値は (Couple No.) * 2 + (性別: 男 1, 女 0) で定義します。(line 29--30)
+<li>Plase のハッシュ値は、(ペアの数)*8**2 + (女性の数)*8 + (人数) で定義します。(line 80--81)
+<li>River のハッシュ値は (ボートの位置: 左岸 1, 右岸 0) * 512**3 + (ボートのハッシュ値) * 512**2 + (左岸のハッシュ値) * 512 + (右岸のハッシュ値)
+    で定義します。(line 112--113)
+</ul>
+set や frozenset の要素にはハッシュ値が定義されている必要があるので、
+Person や River のハッシュ値も定義する必要があります。
+Person は Plase (frozenset) の要素であり、
+また、一度通った状態を探索するのを避けるため、訪れた River の set を定義します。
+<p>
+Plase の和や差を簡単に定義できるように、Plase は froznset の派生クラスとして定義します。
+<p>
+夫婦の数やボートの定員を変えられるようにしています。
+コマンドラインから
+<pre class='samp'>
+python rivercross.py [n_couple] [boat_size]
+</pre>
+とすると、夫婦の数が <tt>n_couple</tt>, ボートの定員が <tt>boat_size</tt> の川渡り問題になります。
+<p>
+コードを以下に示します。
+<p>
+
+[rivercross.py]<br>
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#! python</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   ''' River Crossing'''
+<span class="linenumber">004:</span>   
+<span class="linenumber">005:</span>   import sys, time
+<span class="linenumber">006:</span>   from math import floor, log
+<span class="linenumber">007:</span>   from copy import copy
+<span class="linenumber">008:</span>   from functools import reduce
+<span class="linenumber">009:</span>   from queue import Queue
+<span class="linenumber">010:</span>   from itertools import combinations_with_replacement
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   BOAT_SIZE = 2
+<span class="linenumber">015:</span>   N_OF_COUPLE = 3
+<span class="linenumber">016:</span>   N_SHIFT =3
+<span class="linenumber">017:</span>   
+<span class="linenumber">018:</span>   
+<span class="linenumber">019:</span>   class Person:
+<span class="linenumber">020:</span>       '''People crossing river:
+<span class="linenumber">021:</span>       Couple No = {1,2,3}
+<span class="linenumber">022:</span>       isBoy = True or False
+<span class="linenumber">023:</span>       '''
+<span class="linenumber">024:</span>       
+<span class="linenumber">025:</span>       def __init__(self, couple_no, gender):
+<span class="linenumber">026:</span>           self.no = couple_no
+<span class="linenumber">027:</span>           self.isboy = gender=='boy'
+<span class="linenumber">028:</span>   
+<span class="linenumber">029:</span>       def __hash__(self):
+<span class="linenumber">030:</span>           return self.no * 2 + self.isboy
+<span class="linenumber">031:</span>   
+<span class="linenumber">032:</span>       def is_girl(self):
+<span class="linenumber">033:</span>           return not self.isboy
+<span class="linenumber">034:</span>   
+<span class="linenumber">035:</span>       def is_paired(self, ls):
+<span class="linenumber">036:</span>           '''if there is a partner for the self in ls'''
+<span class="linenumber">037:</span>           return any(self.no == other.no and self.isboy ^ other.isboy for other in ls)
+<span class="linenumber">038:</span>   
+<span class="linenumber">039:</span>       def __str__(self):
+<span class="linenumber">040:</span>           return ('B' if self.isboy else 'G')  + str(self.no)
+<span class="linenumber">041:</span>   
+<span class="linenumber">042:</span>   
+<span class="linenumber">043:</span>   
+<span class="linenumber">044:</span>   
+<span class="linenumber">045:</span>   class Place (frozenset):
+<span class="linenumber">046:</span>       '''Representing river sides and boat.
+<span class="linenumber">047:</span>       The state of the place is determined by the number of all people, girls, and couples.'''
+<span class="linenumber">048:</span>   
+<span class="linenumber">049:</span>       def __init__(self, s=[]):
+<span class="linenumber">050:</span>          frozenset.__init__(self,s)
+<span class="linenumber">051:</span>   
+<span class="linenumber">052:</span>       def __eq__(self, other):
+<span class="linenumber">053:</span>           return  hash(self) == hash(other)
+<span class="linenumber">054:</span>   
+<span class="linenumber">055:</span>       def n_girls(self):
+<span class="linenumber">056:</span>           return len( [ x for x in self if x.is_girl() ] )
+<span class="linenumber">057:</span>   
+<span class="linenumber">058:</span>       def n_couples(self):
+<span class="linenumber">059:</span>           return len( [ x for x in self if x.is_girl() and x.is_paired(self) ] )
+<span class="linenumber">060:</span>   
+<span class="linenumber">061:</span>       def all_girl(self):
+<span class="linenumber">062:</span>           return all( x.is_girl() for x in self )
+<span class="linenumber">063:</span>   
+<span class="linenumber">064:</span>       def all_girls_paired(self):
+<span class="linenumber">065:</span>           ls_g = [ x for x in self if x.is_girl() ]
+<span class="linenumber">066:</span>           return all( x.is_paired(self) for x in ls_g)
+<span class="linenumber">067:</span>   
+<span class="linenumber">068:</span>       def is_safe(self):
+<span class="linenumber">069:</span>           return self.all_girl() or self.all_girls_paired()
+<span class="linenumber">070:</span>      
+<span class="linenumber">071:</span>       def __str__(self):
+<span class="linenumber">072:</span>          return '{' + ', '.join( str(x) for x in self ) + '}'
+<span class="linenumber">073:</span>   
+<span class="linenumber">074:</span>       def __add__(self, other):
+<span class="linenumber">075:</span>           return Place(frozenset.__or__(self, other))
+<span class="linenumber">076:</span>   
+<span class="linenumber">077:</span>       def __sub__(self, other):
+<span class="linenumber">078:</span>           return Place(frozenset.__sub__(self, other))
+<span class="linenumber">079:</span>   
+<span class="linenumber">080:</span>       def __hash__(self):
+<span class="linenumber">081:</span>           return shift_add(N_SHIFT, self.n_couples(), self.n_girls(), len(self))
+<span class="linenumber">082:</span>   
+<span class="linenumber">083:</span>   
+<span class="linenumber">084:</span>   
+<span class="linenumber">085:</span>   
+<span class="linenumber">086:</span>   class River:
+<span class="linenumber">087:</span>       '''River consists of the left side, the right side, a boat, and the boat position'''
+<span class="linenumber">088:</span>       
+<span class="linenumber">089:</span>       def __init__(self, lhs, rhs=Place(), boat=Place(), boat_is_left=True):
+<span class="linenumber">090:</span>           self.lhs = lhs
+<span class="linenumber">091:</span>           self.rhs = rhs
+<span class="linenumber">092:</span>           self.boat = boat
+<span class="linenumber">093:</span>           self.boat_is_left=boat_is_left
+<span class="linenumber">094:</span>   
+<span class="linenumber">095:</span>       def __str__(self):
+<span class="linenumber">096:</span>           return str(self.lhs) +  \
+<span class="linenumber">097:</span>                   '   ' * (not self.boat_is_left) + \
+<span class="linenumber">098:</span>                   str(self.boat) + \
+<span class="linenumber">099:</span>                  '   ' * self.boat_is_left + \
+<span class="linenumber">100:</span>                  str(self.rhs)
+<span class="linenumber">101:</span>   
+<span class="linenumber">102:</span>       def is_safe(self):
+<span class="linenumber">103:</span>           return self.lhs.is_safe() and self.rhs.is_safe() and self.boat.is_safe() and \
+<span class="linenumber">104:</span>                  ( (self.lhs + self.boat).is_safe()  if self.boat_is_left else (self.rhs + self.boat).is_safe() )
+<span class="linenumber">105:</span>   
+<span class="linenumber">106:</span>       def __eq__(self, other):
+<span class="linenumber">107:</span>           return hash(self)==hash(other)
+<span class="linenumber">108:</span>   
+<span class="linenumber">109:</span>       def is_finish(self):
+<span class="linenumber">110:</span>           return not self.lhs
+<span class="linenumber">111:</span>   
+<span class="linenumber">112:</span>       def __hash__(self):
+<span class="linenumber">113:</span>           return shift_add(N_SHIFT*3, self.boat_is_left, self.boat, self.lhs, self.rhs)
+<span class="linenumber">114:</span>   
+<span class="linenumber">115:</span>       def proceed(self, visited):
+<span class="linenumber">116:</span>           if self.boat_is_left:
+<span class="linenumber">117:</span>               tmp = self.lhs + self.boat
+<span class="linenumber">118:</span>               s= { River(tmp - boat, self.rhs, boat, not self.boat_is_left) for boat in onboat(tmp, BOAT_SIZE) }
+<span class="linenumber">119:</span>           else:
+<span class="linenumber">120:</span>               tmp = self.rhs + self.boat
+<span class="linenumber">121:</span>               s= { River(self.lhs , tmp - boat , boat, not self.boat_is_left) for boat in onboat(tmp, BOAT_SIZE) }
+<span class="linenumber">122:</span>   
+<span class="linenumber">123:</span>           return { r for r in s if r.is_safe() and r not in visited }
+<span class="linenumber">124:</span>   
+<span class="linenumber">125:</span>   
+<span class="linenumber">126:</span>   
+<span class="linenumber">127:</span>   
+<span class="linenumber">128:</span>   def shift_add(n_shift, *ls):
+<span class="linenumber">129:</span>       return reduce(lambda x,y: (x&lt;&lt;n_shift) + (y if isinstance(y, int) else hash(y)), ls, 0)
+<span class="linenumber">130:</span>   
+<span class="linenumber">131:</span>   
+<span class="linenumber">132:</span>   def onboat(p, n):
+<span class="linenumber">133:</span>       ''' select upto n from p '''
+<span class="linenumber">134:</span>       return  ( Place(c) for c in combinations_with_replacement(p, n) )
+<span class="linenumber">135:</span>   
+<span class="linenumber">136:</span>   
+<span class="linenumber">137:</span>   def cons(x, ls):
+<span class="linenumber">138:</span>       ls1=copy(ls)
+<span class="linenumber">139:</span>       ls1.append(x)
+<span class="linenumber">140:</span>       return ls1
+<span class="linenumber">141:</span>   
+<span class="linenumber">142:</span>   
+<span class="linenumber">143:</span>   def print_path(ls):
+<span class="linenumber">144:</span>       '''print path'''
+<span class="linenumber">145:</span>       print('\nResult:\nStep\t{Left Side} {Boat} {Right Side}')
+<span class="linenumber">146:</span>       for i, x in enumerate(ls):
+<span class="linenumber">147:</span>           print ('[{0:2d}]\t{1}'.format(i,x))
+<span class="linenumber">148:</span>   
+<span class="linenumber">149:</span>   
+<span class="linenumber">150:</span>   def river_cross(p0):
+<span class="linenumber">151:</span>       visited={p0}
+<span class="linenumber">152:</span>       q = Queue()
+<span class="linenumber">153:</span>       q.put([p0])
+<span class="linenumber">154:</span>       while not q.empty():
+<span class="linenumber">155:</span>           <span class="comment">#print(q.qsize())</span>
+<span class="linenumber">156:</span>           path = q.get()
+<span class="linenumber">157:</span>           now = path[-1]
+<span class="linenumber">158:</span>           for _next in now.proceed(visited):
+<span class="linenumber">159:</span>               path1= cons(_next, path)
+<span class="linenumber">160:</span>               if _next.is_finish():
+<span class="linenumber">161:</span>                   print_path(path1)
+<span class="linenumber">162:</span>                   return
+<span class="linenumber">163:</span>               else:
+<span class="linenumber">164:</span>                   q.put(path1)
+<span class="linenumber">165:</span>                   visited.add(_next)
+<span class="linenumber">166:</span>   
+<span class="linenumber">167:</span>   
+<span class="linenumber">168:</span>   
+<span class="linenumber">169:</span>   
+<span class="linenumber">170:</span>   if __name__=='__main__':
+<span class="linenumber">171:</span>       if len(sys.argv)==3 and sys.argv[1].isdigit() and sys.argv[2].isdigit():
+<span class="linenumber">172:</span>           N_OF_COUPLE = int(sys.argv[1])
+<span class="linenumber">173:</span>           BOAT_SIZE = int(sys.argv[2])
+<span class="linenumber">174:</span>           N_SHIFT = floor(log(N_OF_COUPLE*2, 2))+1
+<span class="linenumber">175:</span>       t0 = time.time()
+<span class="linenumber">176:</span>       river_cross(  River( Place(                                                  \
+<span class="linenumber">177:</span>          [ Person(i, gdr) for i in range(N_OF_COUPLE) for gdr in ('boy', 'girl') ]
+<span class="linenumber">178:</span>       )))
+<span class="linenumber">179:</span>       t1=time.time()
+<span class="linenumber">180:</span>       print('\n{:3.3f} sec'.format(t1-t0))
+</pre>
+
+
+
+<h3>2.2. 実行結果</h3>
+
+次のようになります。
+<p>
+155 行目のコメントをはずしてキューの長さを出力させてみると、
+常に 5 以下で、無駄な探索はほとんどしていないことがわかります。
+<pre class='samp'>
+Z:\doc\monthly\12-03>d:\python32\python.exe rivercross.py
+
+Result:
+Step    {Left Side} {Boat} {Right Side}
+[ 0]    {G0, B0, G1, B1, G2, B2}{}   {}
+[ 1]    {G1, B1, G2, B2}   {G0, B0}{}
+[ 2]    {G1, B1, G2, B2}{B0}   {G0}
+[ 3]    {B0, B1, B2}   {G1, G2}{G0}
+[ 4]    {B0, B1, B2}{G0}   {G1, G2}
+[ 5]    {G0, B0}   {B1, B2}{G1, G2}
+[ 6]    {G0, B0}{G1, B1}   {G2, B2}
+[ 7]    {G0, G1}   {B0, B1}{G2, B2}
+[ 8]    {G0, G1}{G2}   {B0, B1, B2}
+[ 9]    {G2}   {G0, G1}{B0, B1, B2}
+[10]    {G2}{B2}   {G0, B0, G1, B1}
+[11]    {}   {G2, B2}{G0, B0, G1, B1}
+
+0.063 sec
+
+Z:\doc\monthly\12-03>
+</pre>
+
+<h2>3. 通常のハッシュ関数との比較</h2>
+
+通常のハッシュ関数を用いた幅優先探索のコードを下に示します。
+ハッシュ関数に出来合いのものを使ったほかは全く同じです。
+<p>
+[rivercross_typical.py]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#! python</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   ''' River Crossing'''
+<span class="linenumber">004:</span>   
+<span class="linenumber">005:</span>   import sys, time
+<span class="linenumber">006:</span>   from copy import copy
+<span class="linenumber">007:</span>   from queue import Queue
+<span class="linenumber">008:</span>   from itertools import combinations_with_replacement
+<span class="linenumber">009:</span>   
+<span class="linenumber">010:</span>   
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   BOAT_SIZE = 2
+<span class="linenumber">013:</span>   N_OF_COUPLE = 3
+<span class="linenumber">014:</span>   
+<span class="linenumber">015:</span>   
+<span class="linenumber">016:</span>   class Person:
+<span class="linenumber">017:</span>       '''People crossing river:
+<span class="linenumber">018:</span>       Couple No = {1,2,3}
+<span class="linenumber">019:</span>       isBoy = True or False
+<span class="linenumber">020:</span>       '''
+<span class="linenumber">021:</span>       
+<span class="linenumber">022:</span>       def __init__(self, couple_no, gender):
+<span class="linenumber">023:</span>           self.no = couple_no
+<span class="linenumber">024:</span>           self.isboy = gender=='boy'
+<span class="linenumber">025:</span>   
+<span class="linenumber">026:</span>       def __hash__(self):
+<span class="linenumber">027:</span>           return self.no * 2 + self.isboy
+<span class="linenumber">028:</span>   
+<span class="linenumber">029:</span>       def is_girl(self):
+<span class="linenumber">030:</span>           return not self.isboy
+<span class="linenumber">031:</span>   
+<span class="linenumber">032:</span>       def is_paired(self, ls):
+<span class="linenumber">033:</span>           '''if there is a partner for the self in ls'''
+<span class="linenumber">034:</span>           return any(self.no == other.no and self.isboy ^ other.isboy for other in ls)
+<span class="linenumber">035:</span>   
+<span class="linenumber">036:</span>       def __str__(self):
+<span class="linenumber">037:</span>           return ('B' if self.isboy else 'G')  + str(self.no)
+<span class="linenumber">038:</span>   
+<span class="linenumber">039:</span>   
+<span class="linenumber">040:</span>   
+<span class="linenumber">041:</span>   
+<span class="linenumber">042:</span>   class Place (frozenset):
+<span class="linenumber">043:</span>       '''Representing river sides and boat.
+<span class="linenumber">044:</span>       The state of the place is determined by a conventional hash function.'''
+<span class="linenumber">045:</span>   
+<span class="linenumber">046:</span>       def __init__(self, s=[]):
+<span class="linenumber">047:</span>          frozenset.__init__(self,s)
+<span class="linenumber">048:</span>   
+<span class="linenumber">049:</span>       def __eq__(self, other):
+<span class="linenumber">050:</span>           return  hash(self) == hash(other)
+<span class="linenumber">051:</span>   
+<span class="linenumber">052:</span>       def all_girl(self):
+<span class="linenumber">053:</span>           return all( x.is_girl() for x in self )
+<span class="linenumber">054:</span>   
+<span class="linenumber">055:</span>       def all_girls_paired(self):
+<span class="linenumber">056:</span>           ls_g = [ x for x in self if x.is_girl() ]
+<span class="linenumber">057:</span>           return all( x.is_paired(self) for x in ls_g)
+<span class="linenumber">058:</span>   
+<span class="linenumber">059:</span>       def is_safe(self):
+<span class="linenumber">060:</span>           return self.all_girl() or self.all_girls_paired()
+<span class="linenumber">061:</span>      
+<span class="linenumber">062:</span>       def __str__(self):
+<span class="linenumber">063:</span>          return '{' + ', '.join( str(x) for x in self ) + '}'
+<span class="linenumber">064:</span>   
+<span class="linenumber">065:</span>       def __add__(self, other):
+<span class="linenumber">066:</span>           return Place(frozenset.__or__(self, other))
+<span class="linenumber">067:</span>   
+<span class="linenumber">068:</span>       def __sub__(self, other):
+<span class="linenumber">069:</span>           return Place(frozenset.__sub__(self, other))
+<span class="linenumber">070:</span>   
+<span class="linenumber">071:</span>       def __hash__(self):
+<span class="linenumber">072:</span>           return frozenset.__hash__(self)
+<span class="linenumber">073:</span>   
+<span class="linenumber">074:</span>   
+<span class="linenumber">075:</span>   
+<span class="linenumber">076:</span>   
+<span class="linenumber">077:</span>   class River:
+<span class="linenumber">078:</span>       '''River consists of the left side, the right side, a boat, and the boat position'''
+<span class="linenumber">079:</span>       
+<span class="linenumber">080:</span>       def __init__(self, lhs, rhs=Place(), boat=Place(), boat_is_left=True):
+<span class="linenumber">081:</span>           self.lhs = lhs
+<span class="linenumber">082:</span>           self.rhs = rhs
+<span class="linenumber">083:</span>           self.boat = boat
+<span class="linenumber">084:</span>           self.boat_is_left=boat_is_left
+<span class="linenumber">085:</span>   
+<span class="linenumber">086:</span>       def __str__(self):
+<span class="linenumber">087:</span>           return str(self.lhs) +  \
+<span class="linenumber">088:</span>                   '   ' * (not self.boat_is_left) + \
+<span class="linenumber">089:</span>                   str(self.boat) + \
+<span class="linenumber">090:</span>                  '   ' * self.boat_is_left + \
+<span class="linenumber">091:</span>                  str(self.rhs)
+<span class="linenumber">092:</span>   
+<span class="linenumber">093:</span>       def is_safe(self):
+<span class="linenumber">094:</span>           return self.lhs.is_safe() and self.rhs.is_safe() and self.boat.is_safe() and \
+<span class="linenumber">095:</span>                  ( (self.lhs + self.boat).is_safe()  if self.boat_is_left else (self.rhs + self.boat).is_safe() )
+<span class="linenumber">096:</span>   
+<span class="linenumber">097:</span>       def __eq__(self, other):
+<span class="linenumber">098:</span>           return hash(self)==hash(other)
+<span class="linenumber">099:</span>   
+<span class="linenumber">100:</span>       def is_finish(self):
+<span class="linenumber">101:</span>           return not self.lhs
+<span class="linenumber">102:</span>   
+<span class="linenumber">103:</span>       def __hash__(self):
+<span class="linenumber">104:</span>           return hash( ( self.boat_is_left, self.boat, self.lhs, self.rhs) )
+<span class="linenumber">105:</span>   
+<span class="linenumber">106:</span>       def proceed(self, visited):
+<span class="linenumber">107:</span>           if self.boat_is_left:
+<span class="linenumber">108:</span>               tmp = self.lhs + self.boat
+<span class="linenumber">109:</span>               s= { River(tmp - boat, self.rhs, boat, not self.boat_is_left) for boat in onboat(tmp, BOAT_SIZE) }
+<span class="linenumber">110:</span>           else:
+<span class="linenumber">111:</span>               tmp = self.rhs + self.boat
+<span class="linenumber">112:</span>               s= { River(self.lhs , tmp - boat , boat, not self.boat_is_left) for boat in onboat(tmp, BOAT_SIZE) }
+<span class="linenumber">113:</span>   
+<span class="linenumber">114:</span>           return { r for r in s if r.is_safe() and r not in visited }
+<span class="linenumber">115:</span>   
+<span class="linenumber">116:</span>   
+<span class="linenumber">117:</span>   
+<span class="linenumber">118:</span>   
+<span class="linenumber">119:</span>   def onboat(p, n):
+<span class="linenumber">120:</span>       ''' select upto n from p '''
+<span class="linenumber">121:</span>       return  ( Place(c) for c in combinations_with_replacement(p, n) )
+<span class="linenumber">122:</span>   
+<span class="linenumber">123:</span>   
+<span class="linenumber">124:</span>   def cons(x, ls):
+<span class="linenumber">125:</span>       ls1=copy(ls)
+<span class="linenumber">126:</span>       ls1.append(x)
+<span class="linenumber">127:</span>       return ls1
+<span class="linenumber">128:</span>   
+<span class="linenumber">129:</span>   
+<span class="linenumber">130:</span>   def print_path(ls):
+<span class="linenumber">131:</span>       '''print path'''
+<span class="linenumber">132:</span>       print('\nResult:\nStep\t{Left Side} {Boat} {Right Side}')
+<span class="linenumber">133:</span>       for i, x in enumerate(ls):
+<span class="linenumber">134:</span>           print ('[{0:2d}]\t{1}'.format(i,x))
+<span class="linenumber">135:</span>   
+<span class="linenumber">136:</span>   
+<span class="linenumber">137:</span>   def river_cross(p0):
+<span class="linenumber">138:</span>       visited={p0}
+<span class="linenumber">139:</span>       q = Queue()
+<span class="linenumber">140:</span>       q.put([p0])
+<span class="linenumber">141:</span>       while not q.empty():
+<span class="linenumber">142:</span>           <span class="comment">#print(q.qsize())</span>
+<span class="linenumber">143:</span>           path = q.get()
+<span class="linenumber">144:</span>           now = path[-1]
+<span class="linenumber">145:</span>           for _next in now.proceed(visited):
+<span class="linenumber">146:</span>               path1= cons(_next, path)
+<span class="linenumber">147:</span>               if _next.is_finish():
+<span class="linenumber">148:</span>                   print_path(path1)
+<span class="linenumber">149:</span>                   return
+<span class="linenumber">150:</span>               else:
+<span class="linenumber">151:</span>                   q.put(path1)
+<span class="linenumber">152:</span>                   visited.add(_next)
+<span class="linenumber">153:</span>   
+<span class="linenumber">154:</span>   
+<span class="linenumber">155:</span>   
+<span class="linenumber">156:</span>   
+<span class="linenumber">157:</span>   if __name__=='__main__':
+<span class="linenumber">158:</span>       if len(sys.argv)==3 and sys.argv[1].isdigit() and sys.argv[2].isdigit():
+<span class="linenumber">159:</span>           N_OF_COUPLE = int(sys.argv[1])
+<span class="linenumber">160:</span>           BOAT_SIZE = int(sys.argv[2])
+<span class="linenumber">161:</span>   
+<span class="linenumber">162:</span>       t0=time.time()
+<span class="linenumber">163:</span>       river_cross(  River( Place(                                                  \
+<span class="linenumber">164:</span>          [ Person(i, gdr) for i in range(N_OF_COUPLE) for gdr in ('boy', 'girl') ]
+<span class="linenumber">165:</span>       )))
+<span class="linenumber">166:</span>       t1=time.time()
+<span class="linenumber">167:</span>       print('\n{:3.3f} sec'.format(t1-t0))
+</pre>
+
+3 組の夫婦の時は実行速度にほとんど差が見られませんが、夫婦の数を増やすと実行時間に差が見られるようになります。
+下に示すように、7 組の夫婦の場合は、ハッシュ関数を工夫したものでは 25 秒で終了したのに対し、通常のハッシュ関数を使ったものでは 411 秒かかっています。
+夫婦の数が増えると、ボートの定員を増やさないと川を渡れないので、定員は 4 人にしています。<br>
+実行環境は、OS: Windows XP, CPU: AMD Duron 1800 MHz, RAM: 1GB です。
+<pre class='samp'>
+Z:\doc\monthly\12-03>d:\python32\python.exe rivercross.py 7 4
+
+Result:
+Step    {Left Side} {Boat} {Right Side}
+[ 0]    {G0, B0, G1, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6}{}   {}
+[ 1]    {B0, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6}   {G0, G1}{}
+[ 2]    {B0, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6}{G0}   {G1}
+[ 3]    {B0, B1, B2, B3, B4, G5, B5, G6, B6}   {G0, G4, G2, G3}{G1}
+[ 4]    {B0, B1, B2, B3, B4, G5, B5, G6, B6}{G0}   {G4, G1, G2, G3}
+[ 5]    {G0, B0, G5, B5, G6, B6}   {B4, B1, B2, B3}{G4, G1, G2, G3}
+[ 6]    {G0, B0, G5, B5, G6, B6}{G1, B1}   {G2, B2, G3, B3, G4, B4}
+[ 7]    {G5, B5, G6, B6}   {G0, B0, G1, B1}{G2, B2, G3, B3, G4, B4}
+[ 8]    {G5, B5, G6, B6}{G0, B0}   {G1, B1, G2, B2, G3, B3, G4, B4}
+[ 9]    {G0, G5, G6}   {B0, B5, B6}{G1, B1, G2, B2, G3, B3, G4, B4}
+[10]    {G0, G5, G6}{G1}   {B0, B1, G2, B2, G3, B3, G4, B4, B5, B6}
+[11]    {}   {G0, G5, G6, G1}{B0, B1, G2, B2, G3, B3, G4, B4, B5, B6}
+
+24.969 sec
+
+Z:\doc\monthly\12-03>d:\python32\python.exe rivercross_typical.py 7 4
+
+Result:
+Step    {Left Side} {Boat} {Right Side}
+[ 0]    {G0, B0, G1, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6}{}   {}
+[ 1]    {G1, B1, G2, B2, G3, B3, G4, B4, G6, B6}   {G0, B0, G5, B5}{}
+[ 2]    {G1, B1, G2, B2, G3, B3, G4, B4, G6, B6}{B0, B5}   {G0, G5}
+[ 3]    {B0, B1, B2, G3, B3, B4, B5, B6}   {G4, G6, G1, G2}{G0, G5}
+[ 4]    {B0, B1, B2, G3, B3, B4, B5, B6}{G5, G6}   {G0, G4, G1, G2}
+[ 5]    {G3, B3, G5, B5, G6, B6}   {B0, B1, B2, B4}{G0, G4, G1, G2}
+[ 6]    {G3, B3, G5, B5, G6, B6}{G1, B1}   {G0, B0, G2, B2, G4, B4}
+[ 7]    {G1, B1, G6, B6}   {G5, B5, G3, B3}{G0, B0, G2, B2, G4, B4}
+[ 8]    {G1, B1, G6, B6}{G0, B0}   {G2, B2, G3, B3, G4, B4, G5, B5}
+[ 9]    {G1, B1}   {G0, B0, G6, B6}{G2, B2, G3, B3, G4, B4, G5, B5}
+[10]    {G1, B1}{G3, B3}   {G0, B0, G2, B2, G4, B4, G5, B5, G6, B6}
+[11]    {}   {G1, B1, G3, B3}{G0, B0, G2, B2, G4, B4, G5, B5, G6, B6}
+
+410.719 sec
+
+Z:\doc\monthly\12-03>
+</pre>
+
+
+ハッシュ関数を工夫したものは探索効率がいいので、夫婦の数をさらに増やすこともできます。
+夫婦の数を 11 組 まで増やして試したところ、4 人乗りのボートで 19 ステップで渡れることがわかります。
+<p>
+下の結果を見てみると、4 人乗りボートを使えば、夫婦の数がどれだけ多くても川を渡れることがわかります。
+
+<pre class='samp'>
+Z:\doc\monthly\12-03>d:\python32\python.exe rivercross.py 11 4
+
+Result:
+Step    {Left Side} {Boat} {Right Side}
+[ 0]    {G0, B0, G1, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6, G7, B7, G8, B8, G9, B9, G10, B10}{}   {}
+[ 1]    {B0, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6, G7, B7, G8, B8, G9, B9, G10, B10}   {G0, G1}{}
+[ 2]    {B0, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6, G7, B7, G8, B8, G9, B9, G10, B10}{G0}   {G1}
+[ 3]    {B0, B1, B2, B3, B4, G5, B5, G6, B6, G7, B7, G8, B8, G9, B9, G10, B10} {G0, G4, G2, G3}{G1}
+[ 4]    {B0, B1, B2, B3, B4, G5, B5, G6, B6, G7, B7, G8, B8, G9, B9, G10, B10}{G0}   {G4, G1, G2, G3}
+[ 5]    {G0, B0, G5, B5, G6, B6, G7, B7, G8, B8, G9, B9, G10, B10}   {B4, B1, B2, B3}{G4, G1, G2, G3}
+[ 6]    {G0, B0, G5, B5, G6, B6, G7, B7, G8, B8, G9, B9, G10, B10}{G1, B1}   {G2, B2, G3, B3, G4, B4}
+[ 7]    {G5, B5, G6, B6, G7, B7, G8, B8, G9, B9, G10, B10}   {G0, B0, G1, B1}{G2, B2, G3, B3, G4, B4}
+[ 8]    {G5, B5, G6, B6, G7, B7, G8, B8, G9, B9, G10, B10}{G0, B0}   {G1, B1, G2, B2, G3, B3, G4, B4}
+[ 9]    {G6, B6, G7, B7, G8, B8, G9, B9, G10, B10}   {G0, B0, G5, B5}{G1, B1, G2, B2, G3, B3, G4, B4}
+[10]    {G6, B6, G7, B7, G8, B8, G9, B9, G10, B10}{G0, B0}   {G1, B1, G2, B2, G3, B3, G4, B4, G5, B5}
+[11]    {G7, B7, G8, B8, G9, B9, G10, B10}   {G0, B0, G6, B6}{G1, B1, G2, B2, G3, B3, G4, B4, G5, B5}
+[12]    {G7, B7, G8, B8, G9, B9, G10, B10}{G0, B0}   {G1, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6}
+[13]    {G8, B8, G9, B9, G10, B10}   {G0, B0, G7, B7}{G1, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6}
+[14]    {G8, B8, G9, B9, G10, B10}{G0, B0}   {G1, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6, G7, B7}
+[15]    {G9, B9, G10, B10}   {G0, B0, G8, B8}{G1, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6, G7, B7}
+[16]    {G9, B9, G10, B10}{G0, B0}   {G1, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6, G7, B7, G8, B8}
+[17]    {G9, G10}   {G0, B0, B9, B10}{G1, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6, G7, B7, G8, B8}
+[18]    {G9, G10}{G0}   {B0, G1, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6, G7, B7, G8, B8, B9, B10}
+[19]    {}   {G0, G9, G10}{B0, G1, B1, G2, B2, G3, B3, G4, B4, G5, B5, G6, B6,7, B7, G8, B8, B9, B10}
+
+300.329 sec
+
+Z:\doc\monthly\12-03>
+</pre>
+
+<h2>5. 終わりに</h2>
+実行速度に難のある幅優先探索ですが、
+ハッシュ関数を工夫すると、幅優先探索の効率が著しく向上することがわかります。
+複雑な系を探索する場合には、その系の特徴をハッシュ関数に盛り込むことによって
+効率的に探索を行える場合があります。
+<p>
+ソースコードは <a href='rivercross.zip'>ここ</a>からダウンロードできます。<p>
+ここで掲載したスクリプトは Python 3.2 で動作を確認しています。
+Python 2.x では動かないのでご注意ください。
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="rivercross.zip"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python_imap.html&t=%C5%AC%C0%DA%A4%CA%A5%CF%A5%C3%A5%B7%A5%E5%B4%D8%BF%F4%A4%CB%A4%E8%A4%EB%C9%FD%CD%A5%C0%E8%C3%B5%BA%F7%A4%CE%B8%FA%CE%A8%B2%BD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

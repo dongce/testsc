@@ -1,0 +1,405 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, nondeterminsm, 非決定性">
+<meta name="description" content="Scheme を用いた非決定性計算">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 18. 非決定性 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_lazy.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  17. 遅延評価</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_nqueen.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-1. N Queens パズル</a></td>
+<td><a rel=download href="scheme_amb.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_amb.html&t=Scheme+%C6%FE%CC%E7+18.+%C8%F3%B7%E8%C4%EA%C0%AD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+<!------------------------------------------
+- <td>[<a rel=next href="scheme9.html">next</a>]</td>
+- <td>[<a rel=download href="scheme11.lzh">download</a>]</td>
+------------------------------------------->
+</tr></table></p>
+
+<h1> 18. 非決定性   </h1>
+<hr>
+<h2>1. 初めに </h2>
+
+非決定性は問題を記述するだけで答えが得られるようにするアルゴリズムです。
+プログラムは選択肢の中から条件に合うものを自動的に選び出します。
+この手法を使うと論理プログラムを容易に書くことができます。<p>
+
+例えば、
+<pre class='samp'>
+&gt; (let ((i (amb 4 6 7))
+      (j (amb 5 8 11)))
+  (if (prime? (+ i j))
+      (list i j)
+      (amb)))
+<span class='response'>(6 5)</span>
+</pre>
+のようにすると <tt>'(4 6 7)</tt> と <tt>'(5 8 11)</tt> のうちから二つの数の和が素数になる組の１つを返します。
+<tt>(amb 4 6 7)</tt> は、式が値を返すように <tt>4, 6, 7</tt> の中から適切に値を選び、同様に、
+<tt>(amb 5 8 11)</tt> は、式が値を返すように <tt>5, 8, 11</tt> の中から適切に値を選びます。
+<tt>(amb)</tt> は選ぶべき値が無いので失敗を表します。<p>
+
+実際は、<tt>amb</tt> は深さ優先の探索をしており、<tt>(amb c1 c2 c3 ...)</tt> は <tt>c1, c2, c3, ...</tt>
+  を順番に試す探索経路を生成し、
+  <tt>(amb)</tt> はバックトラックをします。つまり、非決定性とは、深さ優先探索をプログラマーから隠蔽する
+  形式化ということができます。一度 <tt>amb</tt> を手に入れてしまえば、プログラマーは、コンピュータが実際に
+  何をやっているかを気にしないで論理プログラムを容易に書くことができます。
+<h2> 2. 非決定性の実装</h2>
+非決定性の実装には継続とクロージャによるバックトラックを用います。
+まず、大域変数 <var>fail</var> をそれ自身を書き直す関数として
+定義することによってクロージャの連鎖を表します。<p>
+
+<h3> 2.1. 関数による実装</h3>
+最初に簡単のため関数を用いて非決定性を定義します。コードは以下の様になります。
+まず、大域変数 <var>fail</var> を定義し、初期値をトップレベルに <tt>'no-choise</tt> を返す関数にします
+(22--26 行目)。
+次に、関数 <span class='ttb'>choose</span> のなかで <var>fail</var> を再定義することによってクロージャをつなげます。
+行きどまりにきたら１つ前の <var>fail</var> を呼び出すことによってバックトラックを実現します。 
+関数 <tt>choose</tt> は以下のように動作します。
+<ol>
+<li>選択肢が無いときは <tt>(fail)</tt> を呼び出します。
+<li>選択肢があるときは、
+  <ol>
+    <li><tt>fail</tt> を <tt>fail0</tt> に待避させて、継続を使います。
+    <li> その継続の中で、<tt>fail</tt> を定義しなおします。新しい <tt>fail</tt> は自分自身を <tt>fail0</tt> に戻した後、
+        継続に残りの選択肢の <tt>choose</tt> を渡します。
+    <li> 継続の外に最初の選択肢を出します。
+ </ol>
+</ol>
+<p>
+[code 1]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; This function is re-assigned in `choose' and `fail' itself.</span>
+<span class="linenumber">02:</span>     (define fail #f)
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     <span class="comment">;;; function for nondeterminsm</span>
+<span class="linenumber">05:</span>     (define (choose . ls)
+<span class="linenumber">06:</span>       (if (null? ls)
+<span class="linenumber">07:</span>           (fail)
+<span class="linenumber">08:</span>         (let ((fail0 fail))
+<span class="linenumber">09:</span>           (call/cc
+<span class="linenumber">10:</span>            (lambda (cc)
+<span class="linenumber">11:</span>               (set! fail
+<span class="linenumber">12:</span>                     (lambda ()
+<span class="linenumber">13:</span>                       (set! fail fail0)
+<span class="linenumber">14:</span>                       (cc (apply choose (cdr ls)))))
+<span class="linenumber">15:</span>               (cc (car ls)))))))
+<span class="linenumber">16:</span>           
+<span class="linenumber">17:</span>     <span class="comment">;;; write following at the end of file</span>
+<span class="linenumber">18:</span>     <span class="comment">;;; to initialize the value of the fail.</span>
+<span class="linenumber">19:</span>     (call/cc
+<span class="linenumber">20:</span>      (lambda (cc)
+<span class="linenumber">21:</span>        (set! fail
+<span class="linenumber">22:</span>              (lambda ()
+<span class="linenumber">23:</span>                (cc 'no-choise)))))
+</pre>
+
+三平方の定理を満たす整数の組を探せるか試して見ましょう。
+<tt>pythag</tt> が三平方の定義を満たす整数を探す関数です。
+そのような整数の組が見つかればそのリストを返し、見つからなければ
+引数なしで <tt>choose</tt> を呼び出してバックトラックします。
+<p>
+[sample 1]
+<pre class='samp'>
+&gt; (define (sq x)
+  (* x x))
+&gt; (define (pythag a b c)   <span class='comment'>;;; pythagorean triples</span>
+  (if (= (+ (sq a) (sq b)) (sq c))
+      (list a b c)
+      (choose)))
+&gt; (pythag (choose 1 2 3) (choose 3 4 5) (choose  4 5 6))
+<span class='response'>(3 4 5)</span>
+</pre>
+
+<h3> 2.2. マクロによる実装</h3>
+さて、実際の非決定演算子は引数に式を与えられることもあるので式の評価を制御するためにマクロ定義にする必要が
+あります。例えば、[sample 2] に示す関数は <var>n</var> 以上の整数の中から適切な値を返すようにしたいのですが、
+関数定義の <tt>choose</tt> を使うと引数がすぐに評価されるためうまく行きません。
+<p>
+[sample 2]
+<pre class='samp'>
+&gt; (define (an-integer-starting-from n)
+  (choose n (an-integer-starting-from (+ n 1))))
+&gt; (an-integer-starting-from 1)
+<span class='response'>;Aborting!: maximum recursion depth exceeded</span>
+</pre>
+
+そこで、[code 1] の関数定義を参考にして、非決定演算子マクロ <span class='ttb'>amb</span> を定義します ([code 2])。
+マクロ定義の <tt>amb</tt> は [code 1] に示した <tt>choose</tt> と同じ構造をしており、再帰的に自分自身を呼び出します。
+なお、[code 1] の 1--5 行目と 20--26 行目は流用します。<p>
+
+
+<p>
+[code 2]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; nondeterminsm macro operator</span>
+<span class="linenumber">02:</span>     (define-syntax amb
+<span class="linenumber">03:</span>       (syntax-rules ()
+<span class="linenumber">04:</span>         ((_) (fail))
+<span class="linenumber">05:</span>         ((_ a) a)
+<span class="linenumber">06:</span>         ((_ a b ...)
+<span class="linenumber">07:</span>          (let ((fail0 fail))
+<span class="linenumber">08:</span>            (call/cc
+<span class="linenumber">09:</span>     	(lambda (cc)
+<span class="linenumber">10:</span>     	  (set! fail
+<span class="linenumber">11:</span>     		(lambda ()
+<span class="linenumber">12:</span>     		  (set! fail fail0)
+<span class="linenumber">13:</span>     		  (cc (amb b ...))))
+<span class="linenumber">14:</span>     	  (cc a)))))))
+</pre>
+
+マクロ定義の <tt>amb</tt> は [sample 3] に示すように引数が式でもちゃんと動作します。
+[sample 3]
+<pre class='samp'>
+&gt; (define (an-integer-starting-from n)
+    (amb n (an-integer-starting-from (+ n 1))))
+&gt; (an-integer-starting-from 1)
+<span class='response'>1</span>
+&gt; (amb)
+<span class='response'>2</span>
+&gt; (amb)
+<span class='response'>3</span>
+</pre>
+<a href='http://www.sampou.org/scheme/t-y-scheme/t-y-scheme-Z-H-16.html#node_sec_14.2'>
+独習 Scheme ３週間</a>や
+<a href='http://www.ccs.neu.edu/home/dherman/code/amb.ss'>
+  Dave Herman Code</a>
+には、<tt>amb</tt> の引数を展開するコードが載っていますが、継続を２種類使うので少し複雑です。
+[code 2] の様に再帰的に定義したほうがすっきりします。
+
+<h3> 2.3. 非決定性プログラムのための補助関数とマクロ</h3>
+[code 3] に非決定性プログラムを簡潔に書くための補助関数を挙げます。これらの関数を使うと
+非決定性プログラムが簡潔に書けます。
+<dl>
+  <dt><span class='ttb'>(set-of <var>s</var>)</span></dt>
+      <dd> <var>s</var> の成り立つ結果を全て返します。
+	<tt>set-of</tt> は以下の様に動作します。
+      <ol>
+<li>まず、5 行目で結果を保持するリスト <tt>acc</tt> を定義します。
+<li>そして、6 行目で <var>s</var> の結果を <var>v</var> に代入し、それを <var>acc</var> にプッシュします。
+  <tt>let</tt> を使わないで、<br>
+  <tt>(set! acc (cons s acc))</tt><br>
+  と書くと <var>s</var> は継続を使った式なので、
+  最後の値しか <var>acc</var> に反映されません。ちなみに、
+<tt>fail</tt> の値は <var>s</var> を行うとき変化します。
+<li> その後 <tt>fail</tt> を呼び出し、バックトラックして次の解を探します。<tt>fail</tt> は継続を使っているので、
+  6 行目で呼ばれたかのように振舞います。
+<li>可能な解が出尽くすと 9 行目の <tt>(reverse acc)</tt> が呼ばれ、見つかった解のリストを返します。
+    </ol>
+ この定義は <tt>amb</tt> が最初の引数から順番に探索していくことを前提にしています。
+</dd>
+  <dt><span class='ttb'>(assert <var>pred</var>)</span></dt>
+      <dd> <var>pred</var> が成り立たないときはバックトラックします。</dd>
+  <dt><span class='ttb'>(an-integer-starting-from <var>n</var>)</span></dt>
+      <dd> 非決定的に <var>n</var> 以上の整数を返します。</dd>
+  <dt><span class='ttb'>(number-between <var>a</var> <var>b</var>)</span></dt>
+      <dd> 非決定的に <var>a</var> と <var>b</var> の間の整数を返します。</dd>
+</dl>
+
+
+<p>
+[code 3]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">;;; returning all possibilities</span>
+<span class="linenumber">02:</span>     (define-syntax set-of
+<span class="linenumber">03:</span>       (syntax-rules () 
+<span class="linenumber">04:</span>         ((_ s) 
+<span class="linenumber">05:</span>           (let ((acc '())) 
+<span class="linenumber">06:</span>             (amb (let ((v s)) 
+<span class="linenumber">07:</span>                    (set! acc (cons v acc)) 
+<span class="linenumber">08:</span>                    (fail)) 
+<span class="linenumber">09:</span>                  (reverse acc))))))
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     <span class="comment">;;; if not pred backtrack</span>
+<span class="linenumber">12:</span>     (define (assert pred)
+<span class="linenumber">13:</span>       (or pred (amb)))
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment">;;; returns arbitrary number larger or equal to n</span>
+<span class="linenumber">16:</span>     (define (an-integer-starting-from n)
+<span class="linenumber">17:</span>       (amb n (an-integer-starting-from (+ n 1))))
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     <span class="comment">;;; returns arbitrary number between a and b</span>
+<span class="linenumber">20:</span>     (define (number-between a b)
+<span class="linenumber">21:</span>       (let loop ((i a))
+<span class="linenumber">22:</span>         (if (&gt; i b)
+<span class="linenumber">23:</span>             (amb)
+<span class="linenumber">24:</span>           (amb i (loop (+ i 1))))))
+</pre>
+
+<tt>set-of</tt> を使うと [example 4] に示すように可能な解のセットが返ってきます。
+<p>
+[example 4]
+<pre class='samp'>
+(define (prime? n)
+  (let ((m (sqrt n)))
+    (let loop ((i 2))
+      (or (&lt; m i)
+          (and (not (zero? (modulo n i)))
+               (loop (+ i (if (= i 2) 1 2))))))))
+
+(define (gen-prime n)
+  (let ((i (number-between  2 n)))
+    (assert (prime? i))
+    i))
+
+(set-of (gen-prime 20))
+<span class='response'>;Value 12: (2 3 5 7 11 13 17 19)</span>
+</pre>
+
+<h2> 3. 非決定性プログラムの例</h2>
+<a href='http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-28.html#%_sec_4.3.2'>
+  SICP の問題 4.42.</a> を解いてみましょう。
+問題は以下の通りです：
+<p style='margin:40px'>
+５人の女子生徒が試験を受けた。彼女らの両親は結果に対し過度の関心を持っている、と彼女らは考えている。
+  そこで彼女らは自宅へ試験についての手紙を書くのに、誰もが１つの正しい情報と１つのうその情報を書こうと
+  約束した。以下は彼女らの手紙の関係する部分である。
+  <table style='margin-left:30px'>
+<tr><td>Betty:</td> <td>「Kitty は試験が２番で私は３番でした。」</td></tr>
+<tr><td>Ethel:</td> <td>「私がトップと聞いてうれしいでしょう。Joan が２ばんでした。」</td></tr>
+<tr><td>Joan:</td> <td>「私は３番でした。可哀想な Ethel はビリでした。」</td></tr>
+<tr><td>Kitty:</td> <td>「私は２番になりました。Mary は４番でしかありませんでした。」</td></tr>
+<tr><td>Mary: </td> <td>「私は４番でした。トップの座は Betty がとりました。」 </td></tr>
+</table>
+  ５人の女子生徒の本当の順番はどうなっているのか。</p>
+  <p>
+
+[code 4] の様なプログラムを書いて解きます。
+<ul>
+<li> <span class='ttb'>(xor <var>a</var> <var>b</var>)</span> は
+  <var>a</var> が <tt>#t</tt> で <var>b</var> が <tt>#f</tt> または <var>a</var> が <tt>#f</tt>、
+  <var>b</var> が <tt>#t</tt> の時 <tt>#t</tt> を返します。
+<li> <span class='ttb'>(all-different? . <var>ls</var>)</span> は <var>ls</var> の要素が全て異なるとき
+  <tt>#t</tt> を返します。
+<li> <span class='ttb'>(girls-exam)</span> はパズルを解く関数です。名前と順位のリストが返ります。
+  変数を定義したらこまめに <tt>assert</tt> して、可能性を絞るようにすると実行時間が短くなります。
+  <span class='ttb'>(girls-exam-x)</span> の様に、変数を全て宣言してから
+  <tt>assert</tt> を使うと無駄な枝を探索するので実行時間が遅くなります。
+  <tt>(girls-exam)</tt> と <tt>(girls-exam-x)</tt> を比べると
+  [sample 5] に示すように実行時間が 10 倍以上違います。
+  </ul>
+<p>
+[code 4]
+<pre class='code'>
+<span class="linenumber">01:</span>     (define (xor a b)
+<span class="linenumber">02:</span>       (if a (not b) b))
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     (define (all-different? . ls)
+<span class="linenumber">05:</span>       (let loop ((obj (car ls)) (ls (cdr ls)))
+<span class="linenumber">06:</span>         (or (null? ls)
+<span class="linenumber">07:</span>             (and (not (memv obj ls))
+<span class="linenumber">08:</span>                  (loop (car ls) (cdr ls))))))
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     <span class="comment">;;; SICP Exercise 4.42</span>
+<span class="linenumber">11:</span>     (define (girls-exam)
+<span class="linenumber">12:</span>       (let ((kitty (number-between 1 5))
+<span class="linenumber">13:</span>             (betty (number-between 1 5)))
+<span class="linenumber">14:</span>         (assert (xor (= kitty 2) (= betty 3)))
+<span class="linenumber">15:</span>         (let ((mary (number-between 1 5)))
+<span class="linenumber">16:</span>           (assert (xor (= kitty 2) (= mary 4)))
+<span class="linenumber">17:</span>           (assert (xor (= mary 4) (= betty 1)))
+<span class="linenumber">18:</span>           (let ((ethel (number-between 1 5))
+<span class="linenumber">19:</span>                 (joan (number-between 1 5)))
+<span class="linenumber">20:</span>             (assert (xor (= ethel 1) (= joan 2)))
+<span class="linenumber">21:</span>             (assert (xor (= joan 3) (= ethel 5)))
+<span class="linenumber">22:</span>             (assert (all-different? kitty betty ethel joan mary))
+<span class="linenumber">23:</span>             (map list '(kitty betty ethel joan mary) (list kitty betty ethel joan mary))))))
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>     <span class="comment">;;; Bad answer for ex 4.42</span>
+<span class="linenumber">26:</span>     (define (girls-exam-x)
+<span class="linenumber">27:</span>       (let ((kitty (number-between 1 5))
+<span class="linenumber">28:</span>             (betty (number-between 1 5))
+<span class="linenumber">29:</span>             (mary (number-between 1 5))
+<span class="linenumber">30:</span>             (ethel (number-between 1 5))
+<span class="linenumber">31:</span>             (joan (number-between 1 5)))
+<span class="linenumber">32:</span>         (assert (xor (= kitty 2) (= betty 3)))
+<span class="linenumber">33:</span>         (assert (xor (= kitty 2) (= mary 4)))
+<span class="linenumber">34:</span>         (assert (xor (= mary 4) (= betty 1)))
+<span class="linenumber">35:</span>         (assert (xor (= ethel 1) (= joan 2)))
+<span class="linenumber">36:</span>         (assert (xor (= joan 3) (= ethel 5)))
+<span class="linenumber">37:</span>         (assert (all-different? kitty betty ethel joan mary))
+<span class="linenumber">38:</span>         (map list '(kitty betty ethel joan mary) (list kitty betty ethel joan mary))))
+</pre>
+
+<p>
+[sample 5] (MIT-Scheme を用いて計測しました)
+<pre class='samp'>
+(define-syntax cpu-time/sec
+  (syntax-rules ()
+    ((_ s)
+     (with-timings
+	 (lambda () s)
+       (lambda (run-time gc-time real-time)
+	 (write (internal-time/ticks->seconds run-time))
+	 (write-char #\space)
+	 (write (internal-time/ticks->seconds gc-time))
+	 (write-char #\space)
+	 (write (internal-time/ticks->seconds real-time))
+	 (newline))))))
+<span class='response'>;Value: cpu-time/sec</span>
+
+(cpu-time/sec (girls-exam))
+.03 0. .03
+<span class='response'>;Value 14: ((kitty 1) (betty 3) (ethel 5) (joan 2) (mary 4))</span>
+
+(cpu-time/sec (girls-exam-x))
+.341 .29 .631
+<span class='response'>;Value 15: ((kitty 1) (betty 3) (ethel 5) (joan 2) (mary 4))</span>
+</pre>
+
+
+
+<h2>4. 終わりに</h2>
+非決定性を用いるとまるで予知能力を持つようなプログラムを書くことができ、
+論理プログラム、構文解析の分野で応用されています。
+ただ、ここに示したプログラムは探索経路にループがある場合には使えません。<p>
+さらに詳しくは、
+<a href='http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-28.html#%_sec_4.3'>
+  SICP 4.3.</a>
+を見てください。
+また、このページを書くにあたり
+<a href='http://www.sampou.org/scheme/t-y-scheme/t-y-scheme-Z-H-16.html#node_chap_14'>
+  独習 Scheme ３週間</a>
+を参考にしました。
+
+<p>
+  このページで示したコードは
+<a href='scheme_amb.lzh'>
+      付録</a>につけておきますので気が向いたら
+      ダウンロードして遊んでみてください。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_lazy.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  17. 遅延評価</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_nqueen.html"><img src='../images/right_arrow.gif' class='arrow' border=0>A-1. N Queens パズル</a></td>
+<td><a rel=download href="scheme_amb.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_amb.html&t=Scheme+%C6%FE%CC%E7+18.+%C8%F3%B7%E8%C4%EA%C0%AD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+<!------------------------------------------
+- <td>[<a rel=next href="scheme9.html">next</a>]</td>
+- <td>[<a rel=download href="scheme11.lzh">download</a>]</td>
+------------------------------------------->
+</tr></table></p>
+</body>
+</html>
+
+</body>
+</html>
+

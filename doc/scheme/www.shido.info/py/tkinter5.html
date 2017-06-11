@@ -1,0 +1,361 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="demostrations of Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 5. コマンドの効率的な作り方 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+
+<td><a rel='prev' href="tkinter4.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. タイマーにボタンをつけよう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter6.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  6. Listbox を使ってお花を愛でましょう</a></td>
+<td><a rel='download' href="tkinter5.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter5.html&t=Tkinter+%C6%FE%CC%E7%3A+5.+%A5%B3%A5%DE%A5%F3%A5%C9%A4%CE%B8%FA%CE%A8%C5%AA%A4%CA%BA%EE%A4%EA%CA%FD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+ <h1>5. 関数のクラスを使ってクールなコードを書こう</h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+Tkinter では、Button や Event と結びつけるのは関数そのものではなく、
+ 関数へのポインターです。また、引数に厳しい制限があり、似たような動作を
+ 関数へ渡す引数の違いで表すことができません。<p>
+
+   しかし、関数のクラスを用いると、あたかも引数をとる関数と Button や Event が
+   バインドしたように見えます。<p>
+
+     ここでは、図１に示す画像の背景を変えるプログラムを例にとって
+     説明していきたいと思います。
+     <center><img src='bg_change.jpg' title='図１'><br>[図１]</center>
+ 
+
+
+<h2>2. 何もテクニックを使わない書き方</h2>
+[code 1] に何もテクニックを使わないプログラムを示します。
+9 個のボタンと 9 個のメソッドを別々に定義しているのできわめて冗長です。<p>
+
+[code 1]<br>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     bg1.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     Change Background of flower
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     June 28, 2005
+<span class="linenumber">09:</span>     """</span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     import Tkinter as Tk
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     FLOWER = 'nanohana3.gif'
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     class Frame(Tk.Frame):
+<span class="linenumber">17:</span>         
+<span class="linenumber">18:</span>         def __init__(self, master=None):
+<span class="linenumber">19:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">20:</span>             self.master.title('select background')
+<span class="linenumber">21:</span>             f_button = Tk.Frame(self)
+<span class="linenumber">22:</span>             f_button.pack(side=Tk.LEFT, padx=5, pady=5)
+<span class="linenumber">23:</span>             self.flower = Tk.PhotoImage(file=FLOWER)
+<span class="linenumber">24:</span>             self.label = Tk.Label(self, image=self.flower, relief=Tk.RAISED, bd=3)
+<span class="linenumber">25:</span>             self.label.pack(side=Tk.RIGHT, padx =5)
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>             b_aliceblue = Tk.Button(f_button, text='aliceblue',  bg='#F0F8FF', command=self.c_aliceblue)
+<span class="linenumber">28:</span>             b_azure = Tk.Button(f_button, text='azure',  bg='#F0FFFF', command=self.c_azure)
+<span class="linenumber">29:</span>             b_beige = Tk.Button(f_button, text='beige',  bg='#F5F5DC', command=self.c_beige)
+<span class="linenumber">30:</span>             b_cornsilk = Tk.Button(f_button, text='cornsilk',  bg='#FFF8DC', command=self.c_cornsilk)
+<span class="linenumber">31:</span>             b_khaki = Tk.Button(f_button, text='khaki',  bg='#F0E68C', command=self.c_khaki)
+<span class="linenumber">32:</span>             b_lightgreen = Tk.Button(f_button, text='lightgreen',  bg='#90EE90', command=self.c_lightgreen)
+<span class="linenumber">33:</span>             b_lightpink = Tk.Button(f_button, text='lightpink',  bg='#FFB6C1', command=self.c_lightpink)
+<span class="linenumber">34:</span>             b_lightskyblue = Tk.Button(f_button, text='lightskyblue',  bg='#87CEFA', command=self.c_lightskyblue)
+<span class="linenumber">35:</span>             b_palegreen = Tk.Button(f_button, text='palegreen',  bg='#98FB98', command=self.c_palegreen)
+<span class="linenumber">36:</span>     
+<span class="linenumber">37:</span>             b_aliceblue.pack(fill=Tk.X)
+<span class="linenumber">38:</span>             b_azure.pack(fill=Tk.X)
+<span class="linenumber">39:</span>             b_beige.pack(fill=Tk.X)
+<span class="linenumber">40:</span>             b_cornsilk.pack(fill=Tk.X)
+<span class="linenumber">41:</span>             b_khaki.pack(fill=Tk.X)
+<span class="linenumber">42:</span>             b_lightgreen.pack(fill=Tk.X)
+<span class="linenumber">43:</span>             b_lightpink.pack(fill=Tk.X)
+<span class="linenumber">44:</span>             b_lightskyblue.pack(fill=Tk.X)
+<span class="linenumber">45:</span>             b_palegreen.pack(fill=Tk.X)
+<span class="linenumber">46:</span>     
+<span class="linenumber">47:</span>         def c_cornsilk(self):
+<span class="linenumber">48:</span>             self.label.configure(bg='#FFF8DC')
+<span class="linenumber">49:</span>     
+<span class="linenumber">50:</span>         def c_khaki(self):
+<span class="linenumber">51:</span>             self.label.configure(bg='#F0E68C')
+<span class="linenumber">52:</span>     
+<span class="linenumber">53:</span>         def c_lightgreen(self):
+<span class="linenumber">54:</span>             self.label.configure(bg='#90EE90')
+<span class="linenumber">55:</span>     
+<span class="linenumber">56:</span>         def c_lightpink(self):
+<span class="linenumber">57:</span>             self.label.configure(bg='#FFB6C1')
+<span class="linenumber">58:</span>     
+<span class="linenumber">59:</span>         def c_lightskyblue(self):
+<span class="linenumber">60:</span>             self.label.configure(bg='#87CEFA')
+<span class="linenumber">61:</span>     
+<span class="linenumber">62:</span>         def c_palegreen(self):
+<span class="linenumber">63:</span>             self.label.configure(bg='#98FB98')
+<span class="linenumber">64:</span>     
+<span class="linenumber">65:</span>         def c_azure(self):
+<span class="linenumber">66:</span>             self.label.configure(bg='#F0FFFF')
+<span class="linenumber">67:</span>     
+<span class="linenumber">68:</span>         def c_aliceblue(self):
+<span class="linenumber">69:</span>             self.label.configure(bg='#F0F8FF')
+<span class="linenumber">70:</span>     
+<span class="linenumber">71:</span>         def c_beige(self):
+<span class="linenumber">72:</span>             self.label.configure(bg='#F5F5DC')
+<span class="linenumber">73:</span>     
+<span class="linenumber">74:</span>     
+<span class="linenumber">75:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">76:</span>     
+<span class="linenumber">77:</span>     if __name__ == '__main__':
+<span class="linenumber">78:</span>         f = Frame()
+<span class="linenumber">79:</span>         f.pack()
+<span class="linenumber">80:</span>         f.mainloop()
+</pre>
+
+見てわかると思いますが、同じようなコードが９回現れるのできわめて冗長です。
+特に目新しい部分はないので説明は省略したいと思います。
+
+<h2> 3. Tk.Button の導出クラスを用いる方法</h2>
+こういう場合の OOP の定石は、動作をオブジェクトに含めてしまうことでしょう。
+こうするとプログラムの冗長性はなくなります。<p>
+
+  個の場合は Tk.Button の導出クラス Button を定義し、そのメソッドとして背景色の変更を定義します。
+  コードは下の [code 2] のようになります。<p>
+[code 2]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     bg2.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     Change Background of flower
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     June 28, 2005
+<span class="linenumber">09:</span>     """</span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     import Tkinter as Tk
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     FLOWER = 'nanohana3.gif'
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>     BGS = [('aliceblue', #F0F8FF'), ('azure', '#F0FFFF'), ('beige', '#F5F5DC'),              \
+<span class="linenumber">18:</span>            ('cornsilk', '#FFF8DC'), ('khaki', '#F0E68C'), ('lightgreen', '#90EE90'),          \
+<span class="linenumber">19:</span>            ('lightpink', '#FFB6C1'), ('lightskyblue', '#87CEFA'), ('palegreen', '#98FB98')]
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>     class Button(Tk.Button):
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>         def __init__(self, master, label, color_name, color_code):
+<span class="linenumber">25:</span>             Tk.Button.__init__(self, master, text=color_name, bg=color_code, command=self.bg_change)
+<span class="linenumber">26:</span>             self.label = label
+<span class="linenumber">27:</span>             self.color_code = color_code
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>         def bg_change(self):
+<span class="linenumber">30:</span>             self.label.configure(bg=self.color_code)
+<span class="linenumber">31:</span>         
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>     
+<span class="linenumber">34:</span>     class Frame(Tk.Frame):
+<span class="linenumber">35:</span>         
+<span class="linenumber">36:</span>         def __init__(self, master=None):
+<span class="linenumber">37:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">38:</span>             self.master.title('select background')
+<span class="linenumber">39:</span>             f_button = Tk.Frame(self)
+<span class="linenumber">40:</span>             f_button.pack(side=Tk.LEFT, padx=5, pady=5)
+<span class="linenumber">41:</span>             self.flower = Tk.PhotoImage(file=FLOWER)
+<span class="linenumber">42:</span>             label = Tk.Label(self, image=self.flower, relief=Tk.RAISED, bd=3)
+<span class="linenumber">43:</span>             label.pack(side=Tk.RIGHT, padx =5)
+<span class="linenumber">44:</span>     
+<span class="linenumber">45:</span>             for name, code in BGS:
+<span class="linenumber">46:</span>                 b = Button(f_button, label, name, code)
+<span class="linenumber">47:</span>                 b.pack(fill=Tk.X)
+<span class="linenumber">48:</span>     
+<span class="linenumber">49:</span>     
+<span class="linenumber">50:</span>     
+<span class="linenumber">51:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">52:</span>     
+<span class="linenumber">53:</span>     if __name__ == '__main__':
+<span class="linenumber">54:</span>         f = Frame()
+<span class="linenumber">55:</span>         f.pack()
+<span class="linenumber">56:</span>         f.mainloop()
+</pre>
+
+ずいぶんすっきりと書けました。下に簡単な解説を示します。括弧の数字はソースコードの行番号です。
+<ul>
+<li><span class='mono'>Tkinter</span> を <span class='mono'>TK</span> として <span class='mono'>import</span> (12)
+  <li>菜の花の画像ファイルに <var>FLOWER</var> というグローバル変数をあてる (14)
+    <li>背景色の (名前, コード) のリストに <var>BGS</var> というグローバル変数をあてる (17--19)
+      <li> <span class='mono'>Tk.Button</span> の導出クラス <span class='mono'>Button</span> を定義する。(22-30)
+	<ul>
+<li><b>__init__</b> (24--27)
+  <ul>
+      <li><var>self</var>, <var>master</var>（親 widget）, <var>label</var>（背景を変えるラベル）,
+  <var>color_name</var>（背景色の名前）, <var>color_code</var>（背景色のコード）
+  の５つの引数をとる。(24)
+  <li>まず、<span class='mono'>Tk.Button</span> として初期化。
+    <span class='mono'>command</span> に <var>self.bg_change</var> とう自分のメソッドを割り振る。(25)
+    <li><var>label</var> と <var>color_code</var> を内部変数として保持する。(26,27)
+      </ul>
+  <li><b>bg_change</b> (29--30)<br>
+    ラベルの背景色を変えるメソッド。これを <span class='mono'>Button class</span>
+    のメソッドとすることでプログラムが短くなる。
+    </ul>
+	<li> <span class='mono'>Tk.Frame</span> の導出クラス <span class='mono'>Frame</span> を定義する。(34--47)
+	  <ul>
+<li><b>__init__</b> (36--47)<br>
+  <ul>
+<li><span class='mono'>Tk.Frame</span> として初期化 (37)
+  <li>Window のタイトルを 'select background' にする。(38)
+    <li>ボタンを入れるフレーム <var>f_button</var> を作り、左側に pack する。(39,40)
+      <li><var>FLOWER</var> を読み込んで、花のイメージ <var>self.flower</var> を作る (41)
+	<li> <var>self.flower</var> を表示するラベル <var>label</var> を作り、右側に pack する。(42,43)
+	  <li> 色の名前とコードのリスト <var>BGS</var> から <var>Button</var> を作り、それを順に pack していく。(45--47)
+	    </ul></ul>
+	  <li> <b>if __name__ == '__main__':</b>  (53)
+	    <ul>
+<li> <span class='mono'>Frame</span> のインスタンス <var>f</var> を作り、(54)
+  <li> それを pack し、(55)
+    <li> mainloop を呼ぶ (56)
+      </ul>
+	  </ul>
+    
+  
+  
+<a name='func_class'>
+<h2>4. 関数のクラスを用いる方法</h2>
+上に述べた方法は、プログラムは短くなるのですが、ラベルの色を変えるという動作とボタンが強く結びついてしまう
+という欠点があります。例えば、キータッチやメニューから同じ動作をさせたいとき、似たような動作をするメソッドを
+また別に書かなければいけないという問題が生じます。<p>
+  そもそも、グループ化したかったのは関数のほうであり、ボタンではありませんでした。
+  従って、上の方法は OOP の一般的な解決法ですが、問題が残ります。<p>
+
+    そこで、お勧めなのが関数のクラスを用いる方法です。Python では関数のクラスをサポートしていて、
+    似たような関数をクラス定義から作り出すことができます。<p>
+
+      早速コードを [code 3] に示します。<p>
+[code 3]<br>
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     bg3.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     Change Background of flower
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     June 28, 2005
+<span class="linenumber">09:</span>     """</span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     import Tkinter as Tk
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     FLOWER = 'nanohana3.gif'
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>     BGS = [('aliceblue', '#F0F8FF'), ('azure', '#F0FFFF'), ('beige', '#F5F5DC'),              \
+<span class="linenumber">18:</span>            ('cornsilk', '#FFF8DC'), ('khaki', '#F0E68C'), ('lightgreen', '#90EE90'),          \
+<span class="linenumber">19:</span>            ('lightpink', '#FFB6C1'), ('lightskyblue', '#87CEFA'), ('palegreen', '#98FB98')]
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>     class BgChange:
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>         def __init__(self, label, color):
+<span class="linenumber">25:</span>             self.label = label
+<span class="linenumber">26:</span>             self.color = color
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>         def __call__(self, event=None):
+<span class="linenumber">29:</span>             self.label.configure(bg=self.color)
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>     class Frame(Tk.Frame):
+<span class="linenumber">33:</span>         
+<span class="linenumber">34:</span>         def __init__(self, master=None):
+<span class="linenumber">35:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">36:</span>             self.master.title('select background')
+<span class="linenumber">37:</span>             f_button = Tk.Frame(self)
+<span class="linenumber">38:</span>             f_button.pack(side=Tk.LEFT, padx=5, pady=5)
+<span class="linenumber">39:</span>             self.flower = Tk.PhotoImage(file=FLOWER)
+<span class="linenumber">40:</span>             label = Tk.Label(self, image=self.flower, relief=Tk.RAISED, bd=3)
+<span class="linenumber">41:</span>             label.pack(side=Tk.RIGHT, padx =5)
+<span class="linenumber">42:</span>     
+<span class="linenumber">43:</span>             for name, code in BGS:
+<span class="linenumber">44:</span>                 b = Tk.Button(f_button, text=name,  bg=code, command=BgChange(label, code))
+<span class="linenumber">45:</span>                 b.pack(fill=Tk.X)
+<span class="linenumber">46:</span>     
+<span class="linenumber">47:</span>     
+<span class="linenumber">48:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">49:</span>     
+<span class="linenumber">50:</span>     if __name__ == '__main__':
+<span class="linenumber">51:</span>         f = Frame()
+<span class="linenumber">52:</span>         f.pack()
+<span class="linenumber">53:</span>         f.mainloop()
+</pre>
+      [code 3] で注目して欲しいのは、22--29 行目の <span class='mono'>class BgChange</span> の 定義の部分です。
+これは、ラベルの背景色を変える関数のクラスの定義です。<p>
+  まず、初期化するとき (__init__) は <var>self</var>, <var>label</var>, <var>color</var> の３つの変数を取ります。
+  <var>label</var>, <var>color</var> を内部変数に保持して、呼び出されるときに使います。<p>
+    呼び出されるとき (__call__) は <var>self</var>, <var>event </var> の２つの変数を取ります。<var>event</var> は
+    optional 変数なのでなくても差し支えありません。こうすることによって、ボタンを押されたときも、マウスやキーボード操作
+    などのイベントで呼び出されたときにも対処することができます。呼び出されると、
+    初期化したときに保持しておいた <var>self.label</var> と <var>self.color</var> を使って、背景の色を変えます。<p>
+
+      このようにすると、45 行目のように <span class='mono'>Tk.Button</span>
+      の <span class='mono'>command</span> オプションで、あたかも引数をとる関数を指定できるように
+      なります。もう少し、詳しく説明すると、45 行目では、<var>label</var> と <var>code</var> から関数のクラス
+      BgChange のインスタンスを作り、そのポインターを command にバインドしています。そして、これが呼び出されるときは
+      1 ないし 2 引数の関数として呼び出され、ラベルの背景色を変えるという動作をします。<p>
+
+	この方法は Tk.Button のほかに Tk.Menu などのそのほかの widget や event にそのまま使えるので、
+	お勧めです。コードも Tk.Widget の導出クラスを作るよりもさらに短くなります。<p>
+
+	  また、Tcl/Tk の command は引数をとる関数を指定するので、Tcl/Tk のコードを翻訳するときにも
+	  関数のクラスは有効です。つまり、Tcl/Tk の関数を Python の関数クラスとして定義しなおすことで、
+	  他の部分を変更しないで、翻訳することができます。
+	
+<h2>5. 関数の部分適用を使う方法</h2>
+Python 2.5 からは、関数の部分適用が使えるようになったので、ここで示したような簡単な例は
+わざわざ関数のクラスを作らなくても書くことができます。
+詳しくは <a href='python10.html#partial'>Python 2.5 の新機能</a>
+をみてください。
+
+  <h2>6. 終わりに</h2>
+    この章では、関数のクラスを使うことで、<span class='mono'>command</span> を簡潔に記述する方法について述べました。
+  次回は Listbox について述べます。ここで紹介したスクリプトは菜の花だけしか表示できなかったので、
+  Listbox からいろいろな花を選んで表示できるようにします。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+
+<td><a rel='prev' href="tkinter4.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. タイマーにボタンをつけよう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter6.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  6. Listbox を使ってお花を愛でましょう</a></td>
+<td><a rel='download' href="tkinter5.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter5.html&t=Tkinter+%C6%FE%CC%E7%3A+5.+%A5%B3%A5%DE%A5%F3%A5%C9%A4%CE%B8%FA%CE%A8%C5%AA%A4%CA%BA%EE%A4%EA%CA%FD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

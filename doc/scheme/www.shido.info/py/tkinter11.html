@@ -1,0 +1,501 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="Image Viewer using Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 11. Canvas を使って納涼しよう </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter10.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  10. キャンバスにドラッグできるオブジェクトを描こう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter12.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  12. Tk.Text の使い方</a></td>
+<td><a rel='download' href="tkinter11.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter11.html&t=Tkinter+%C6%FE%CC%E7%3A+11.+Canvas+%A4%F2%BB%C8%A4%C3%A4%C6%C7%BC%CE%C3%A4%B7%A4%E8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>11. Canvas を使って納涼しよう </h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+前回は、ドラッグすると動くオブジェクトを作りましたが、今回は自動的に動くオブジェクト（つまり、動画）
+ を Tk.Canvas に描いてみます。
+ お題は蛍と花火です。この文章を書いているのは７月なので、季節柄を考えて選びました。
+<a name='sec2'>
+<h2>2. 蛍</h2>
+生成する Window を図１に示します。黄色い円が、紺地の中をふらふら動くだけの簡単なプログラムです。<p>
+<center><img src='hotaru.jpg'><br>図１：hotaru.py で生成する Window</center>
+<p>
+<span class='mono'>class</span> <var>Hotaru</var> を定義し、縦横の速度と加速度およびキャンバス上の ID 番号を内部変数に持ちます。
+  加速度はランダムに変化しますが、進行方向に対してブレーキがかかるようにしています。
+  そうしないと蛍がすぐいなくなってしまいます。ブレーキがかかると蛍がふらふらと漂います。<p>
+ソースコードを [code 1] に示します。簡単なプログラムですので、コードも短くてすみます。<p>
+
+[code 1] (hotaru.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     hotaru.py
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     July 08, 2005
+<span class="linenumber">07:</span>     """</span>
+<span class="linenumber">08:</span>     import Tkinter as Tk
+<span class="linenumber">09:</span>     import random as R
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>     HOTARU_SIZE = 3
+<span class="linenumber">12:</span>     HOTARU_COLOR = 'yellow'
+<span class="linenumber">13:</span>     NIGHT_COLOR = 'midnightblue'
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     class Hotaru:
+<span class="linenumber">16:</span>         canvas = None
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>         def __init__(self, x, y):
+<span class="linenumber">19:</span>             self.id = Hotaru.canvas.create_oval(x-HOTARU_SIZE, y-HOTARU_SIZE, x+HOTARU_SIZE, y+HOTARU_SIZE,
+<span class="linenumber">20:</span>                                                 fill=HOTARU_COLOR, width=0)
+<span class="linenumber">21:</span>             self.vx=0
+<span class="linenumber">22:</span>             self.vy=0
+<span class="linenumber">23:</span>             self.ax = R.randint(-10,10)
+<span class="linenumber">24:</span>             self.ay = R.randint(-10,10)
+<span class="linenumber">25:</span>             
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>         def moving(self):
+<span class="linenumber">29:</span>             vx1=self.ax+self.vx
+<span class="linenumber">30:</span>             vy1=self.ay+self.vy
+<span class="linenumber">31:</span>             dx = (self.vx+vx1)/2
+<span class="linenumber">32:</span>             dy = (self.vy+vy1)/2
+<span class="linenumber">33:</span>             Hotaru.canvas.move(self.id, dx, dy)
+<span class="linenumber">34:</span>             self.vx=vx1
+<span class="linenumber">35:</span>             self.vy=vy1
+<span class="linenumber">36:</span>             self.ax = R.randint(-10,10) - self.vx/2
+<span class="linenumber">37:</span>             self.ay = R.randint(-10,10) - self.vy/2
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>            
+<span class="linenumber">40:</span>     class Frame (Tk.Frame):       
+<span class="linenumber">41:</span>         
+<span class="linenumber">42:</span>         def __init__(self, master=None):
+<span class="linenumber">43:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">44:</span>             self.master.title("Hotaru")
+<span class="linenumber">45:</span>             self.master.geometry("+20+20")
+<span class="linenumber">46:</span>             self.cvs = Tk.Canvas(self, width=500, height=500, relief=Tk.SUNKEN, borderwidth=2, bg=NIGHT_COLOR)
+<span class="linenumber">47:</span>             self.cvs.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">48:</span>     
+<span class="linenumber">49:</span>             <span class="comment"># assign a Hotaru class parameter</span>
+<span class="linenumber">50:</span>             Hotaru.canvas=self.cvs
+<span class="linenumber">51:</span>     
+<span class="linenumber">52:</span>             self.counter=0
+<span class="linenumber">53:</span>             self.hotaru_list = []
+<span class="linenumber">54:</span>             self.create_hotaru(30)
+<span class="linenumber">55:</span>             self.move_hotaru()
+<span class="linenumber">56:</span>     
+<span class="linenumber">57:</span>         def move_hotaru(self):
+<span class="linenumber">58:</span>             for p in self.hotaru_list:
+<span class="linenumber">59:</span>                 p.moving()
+<span class="linenumber">60:</span>             self.counter += 1
+<span class="linenumber">61:</span>             self.counter%10 or self.create_hotaru(1)  <span class="comment"># make new hotal every one second</span>
+<span class="linenumber">62:</span>             self.cvs.after(100, self.move_hotaru)
+<span class="linenumber">63:</span>     
+<span class="linenumber">64:</span>     
+<span class="linenumber">65:</span>         def create_hotaru(self, n):
+<span class="linenumber">66:</span>             for i in range(n):
+<span class="linenumber">67:</span>                 x=R.randint(50, 450)
+<span class="linenumber">68:</span>                 y=R.randint(50, 450)
+<span class="linenumber">69:</span>                 self.hotaru_list.append(Hotaru(x,y))
+<span class="linenumber">70:</span>             
+<span class="linenumber">71:</span>     
+<span class="linenumber">72:</span>     <span class="comment">##-----------------------------------------------------</span>
+<span class="linenumber">73:</span>     if __name__ == '__main__':
+<span class="linenumber">74:</span>         f = Frame()
+<span class="linenumber">75:</span>         f.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">76:</span>         f.mainloop()
+</pre>
+
+<h3>2.1. 簡単な説明</h3>
+カッコ内は [code 1] の行番号です。
+<ul>
+<li> <span class='mono'>Tkinter (Tk)</span> と <span class='mono'>random (R)</span> をインポートします。(8,9)
+<li> グローバル変数を定義します。(11--13)
+  <ul>
+   <li><var>HOTARU_SIZE</var>: 蛍の半径です。
+   <li><var>HOTARU_COLOR</var>: 蛍の色です。
+   <li><var>NIGHT_COLOR</var>: 背景色です。
+   </ul>
+<li> class <var>Hotaru</var> (15--38)
+  <ul>
+   <li>クラス変数 <var>canvas</var>: 蛍を描くキャンバスを共有するためのクラス変数です。(16)
+   <li><b>__init__(self, x, y)</b> (18--24)<br>
+     <ul>
+      <li><var>Hotaru.canvas</var> の x, y に <var>HOTARU_COLOR</var> の円を描きます。(19,20)
+      <li>縦横の速度 (<var>self.vx</var>, <var>self.vy</var>) を 0 にします。(21,22)
+      <li>縦横の加速度 (<var>self.ax</var>, <var>self.ay</var>) を -10 から 10 の間でランダムに選びます。(23,24)
+     </ul>
+   <li><b>moving(self)</b> (28--37)<br>
+     蛍を動かすメソッドです。
+    <ul>
+      <li>前回の速度 (<var>self.vx</var>, <var>sefl.vy</var>) と加速度 (<var>self.ax</var>, <var>self.ay</var>)
+	から今の速度 (<var>vx1</var>, <var>vy1</var>) を求めます。(29,30)
+      <li>前回から今回まで移動した距離 (<var>dx</var>, <var>dy</var>) を求めます。(31,32)
+      <li>蛍を動かします。(33)
+      <li><var>vx1</var>, <var>vy1</var> を内部変数 <var>self.vx1</var>, <var>self.vy1</var> に代入します。(34,35)
+      <li>今回の加速度 <var>self.ax</var>, <var>self.ay</var> を計算します。(36,37)<br>
+	速度の反対方向に加速度がかかるようにしてブレーキをかけます。
+     </ul>
+   </ul>
+<li>class <var>Frame</var>  (40--69)<br>
+  メインクラスです。
+  <ul>
+   <li><b>__init__(self, master=None)</b> (42--55)
+     <ul>
+      <li>初期設定、および <span class='mono'>Tk.Canvas</span> (<var>self.cvs</var>) を作成します。(43--47)
+      <li><var>Hotaru.canvas</var> に <var>self.cvs</var> を代入します。これで、この２つの変数は同じものを指すことになります。(50)
+      <li>カウンター <var>self.counter</var> を定義します。(52)
+      <li>蛍のリスト <var>self.hotaru_list</var> を定義します。(53)
+      <li><var>self.create_hotaru</var> を使って、最初に蛍を 30 匹作ります。(54)
+      <li><var>self.move_hotaru</var> で蛍を動かします。(55)
+     </ul>
+   <li><b>move_hotaru(self)</b> (57--62)<br>
+     蛍を動かすメソッドです。
+     <ul>
+      <li> <var>self.hotaru_list</var> にある全ての蛍を動かします。(58,59)
+      <li> カウンター <var>self.counter</var> に 1 を加えます。(60)
+      <li> カウンターが 10 の倍数になったら蛍を 1 匹作ります。（つまり、１秒ごとに蛍を足します。）(61)
+      <li> 0.1 秒後に <var>self.move_hotaru</var> を繰り返します。(62)
+     </ul>
+   <li><b>create_hotaru(self, n)</b> (65--69)<br>
+     蛍を n 匹作るメソッドです。
+     蛍の座標を 縦横とも 50 -- 450 の間でランダムに選び、<var>Hotaru</var> を作り、
+     それを <var>self.hotaru_list</var> に加えます。
+  </ul>
+</ul>
+
+
+<h2>3. 花火</h2>
+hotaru.py は全てを Random に押し付けた、あまりに安易なプログラムなので、少しは本格的？になるように
+花火のプログラムを作りました。実はこのプログラムも 140 行ほどの短いプログラムです。
+生成する Window を図２に示します。短いプログラムですが意外と臨場感があります。<p>
+<center><img src='hanabi.png'><br>図２: hanabi.py で生成する Window</center>
+<p>
+hotaru.py と同様に、<var>Hanabi</var> というオブジェクトを作り、位置、初速度、寿命、色を指定します。
+  花火は初速度と重力加速度に従って動き、寿命が来ると消えます。
+また、花火のサブクラス <var>Mother</var> を作り、打ち上げる弾を表します。
+  ソースコードを [code 2]に示します。<p>
+[code 2] (hanabi.py)
+<pre class='code'>
+<span class="linenumber"> 01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber"> 02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber"> 03:</span>     <span class="string">"""
+<span class="linenumber"> 04:</span>     hanabi.py
+<span class="linenumber"> 05:</span>     
+<span class="linenumber"> 06:</span>     July 08, 2005
+<span class="linenumber"> 07:</span>     """</span>
+<span class="linenumber"> 08:</span>     import Tkinter as Tk
+<span class="linenumber"> 09:</span>     import random as R
+<span class="linenumber"> 10:</span>     import math as M
+<span class="linenumber"> 11:</span>     
+<span class="linenumber"> 12:</span>     
+<span class="linenumber"> 13:</span>     
+<span class="linenumber"> 14:</span>     HANABI_COLORS = ['red', 'lightcyan',  '#FF33FF', '#FF99FF', '#FFFFCC', '#FFCC00', 
+<span class="linenumber"> 15:</span>                      'magenta', 'blueviolet', 'white', '#FF99FF']
+<span class="linenumber"> 16:</span>     NIGHT_COLOR = '#000033'
+<span class="linenumber"> 17:</span>     G = 1
+<span class="linenumber"> 18:</span>     HR = 1
+<span class="linenumber"> 19:</span>     NHANA = 20
+<span class="linenumber"> 20:</span>     N_COLORS = len(HANABI_COLORS)-1
+<span class="linenumber"> 21:</span>     
+<span class="linenumber"> 22:</span>     
+<span class="linenumber"> 23:</span>     def rand_angle(n):
+<span class="linenumber"> 24:</span>         <span class="string">""" +- x degree, where x is degree of radius of children """</span>
+<span class="linenumber"> 25:</span>         return M.pi * R.randint(-10,10)/(float(n)*10.0)
+<span class="linenumber"> 26:</span>     
+<span class="linenumber"> 27:</span>     class Hanabi:
+<span class="linenumber"> 28:</span>         canvas = None
+<span class="linenumber"> 29:</span>         list = None
+<span class="linenumber"> 30:</span>     
+<span class="linenumber"> 31:</span>     
+<span class="linenumber"> 32:</span>         def __init__(self, **p):
+<span class="linenumber"> 33:</span>             x = p['x']
+<span class="linenumber"> 34:</span>             y = p['y']
+<span class="linenumber"> 35:</span>             self.vx = p['vx']
+<span class="linenumber"> 36:</span>             self.vy = p['vy']
+<span class="linenumber"> 37:</span>             self.lifetime = p['lifetime']
+<span class="linenumber"> 38:</span>             self.id = Hanabi.canvas.create_oval(x-HR, y-HR, x+HR, y+HR, fill=p['color'], width=0)
+<span class="linenumber"> 39:</span>             self.counter=0
+<span class="linenumber"> 40:</span>     
+<span class="linenumber"> 41:</span>     
+<span class="linenumber"> 42:</span>         def moving(self):
+<span class="linenumber"> 43:</span>             if(self.counter&lt;self.lifetime):
+<span class="linenumber"> 44:</span>                 Hanabi.canvas.move(self.id, self.vx, self.vy)
+<span class="linenumber"> 45:</span>                 self.counter += 1
+<span class="linenumber"> 46:</span>                 self.vy += G
+<span class="linenumber"> 47:</span>             else:
+<span class="linenumber"> 48:</span>                 self.disappear()
+<span class="linenumber"> 49:</span>     
+<span class="linenumber"> 50:</span>     
+<span class="linenumber"> 51:</span>         def disappear(self):
+<span class="linenumber"> 52:</span>             Hanabi.canvas.delete(self.id)
+<span class="linenumber"> 53:</span>             self.id = None
+<span class="linenumber"> 54:</span>     
+<span class="linenumber"> 55:</span>     
+<span class="linenumber"> 56:</span>     
+<span class="linenumber"> 57:</span>     class Mother(Hanabi):
+<span class="linenumber"> 58:</span>         
+<span class="linenumber"> 59:</span>         def disappear(self):
+<span class="linenumber"> 60:</span>             r0 = R.randint(13,17)
+<span class="linenumber"> 61:</span>             v0 = R.randint(18, 22)
+<span class="linenumber"> 62:</span>             nc0 = R.randint(0,N_COLORS)
+<span class="linenumber"> 63:</span>             nc1 = R.randint(1, N_COLORS-1)
+<span class="linenumber"> 64:</span>             x1,y1,x2,y2 = Hanabi.canvas.coords(self.id)
+<span class="linenumber"> 65:</span>             x, y = (x1+x2)/2, (y1+y2)/2
+<span class="linenumber"> 66:</span>             self.make_sphere(NHANA, x, y, r0, v0, HANABI_COLORS[nc0], self.vx, self.vy)
+<span class="linenumber"> 67:</span>             self.make_sphere(NHANA/2, x, y, r0/3, v0/3, HANABI_COLORS[(nc0+nc1)%(N_COLORS+1)], self.vx, self.vy)
+<span class="linenumber"> 68:</span>             Hanabi.disappear(self)
+<span class="linenumber"> 69:</span>     
+<span class="linenumber"> 70:</span>     
+<span class="linenumber"> 71:</span>         def make_sphere(self, nh, x, y, r, v, c, vx0, vy0):
+<span class="linenumber"> 72:</span>             d_eta = 2.0 * M.pi / float(NHANA)
+<span class="linenumber"> 73:</span>             eta = rand_angle(NHANA) 
+<span class="linenumber"> 74:</span>             for i in range(NHANA/2):
+<span class="linenumber"> 75:</span>                 dxy = M.sin(eta)
+<span class="linenumber"> 76:</span>                 n = M.floor(dxy * nh)
+<span class="linenumber"> 77:</span>                 d_theta = n and 2 * M.pi/n or 2* M.pi
+<span class="linenumber"> 78:</span>                 theta = rand_angle(NHANA)
+<span class="linenumber"> 79:</span>                 
+<span class="linenumber"> 80:</span>                 if i%2:
+<span class="linenumber"> 81:</span>                     theta += d_theta*0.5
+<span class="linenumber"> 82:</span>                     
+<span class="linenumber"> 83:</span>                 for j in range(int(n)):
+<span class="linenumber"> 84:</span>                     dx = M.cos(theta) * dxy 
+<span class="linenumber"> 85:</span>                     dy = M.sin(theta) * dxy
+<span class="linenumber"> 86:</span>                     Hanabi.list.append(Hanabi(x=r*dx+x, y=r*dy+y, color=c, 
+<span class="linenumber"> 87:</span>                                        vx=v*dx+vx0, vy=v*dy+vy0,  lifetime=R.randint(8,15)))
+<span class="linenumber"> 88:</span>                     theta += d_theta
+<span class="linenumber"> 89:</span>                 eta +=d_eta
+<span class="linenumber"> 90:</span>     
+<span class="linenumber"> 91:</span>     
+<span class="linenumber"> 92:</span>     
+<span class="linenumber"> 93:</span>     
+<span class="linenumber"> 94:</span>     class Frame (Tk.Frame):       
+<span class="linenumber"> 95:</span>         
+<span class="linenumber"> 96:</span>         def __init__(self, master=None):
+<span class="linenumber"> 97:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber"> 98:</span>             self.master.title("Hanabi")
+<span class="linenumber"> 99:</span>             self.master.geometry("+20+20")
+<span class="linenumber">100:</span>             Hanabi.canvas = Tk.Canvas(self, width=500, height=700,
+<span class="linenumber">101:</span>                                        relief=Tk.SUNKEN, borderwidth=2, bg=NIGHT_COLOR)
+<span class="linenumber">102:</span>                                        
+<span class="linenumber">103:</span>             Hanabi.canvas.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">104:</span>     
+<span class="linenumber">105:</span>             Hanabi.list = []
+<span class="linenumber">106:</span>             self.rep()
+<span class="linenumber">107:</span>     
+<span class="linenumber">108:</span>         def rep(self):
+<span class="linenumber">109:</span>             <span class="comment"># delete disappeared items</span>
+<span class="linenumber">110:</span>             n = len(Hanabi.list)
+<span class="linenumber">111:</span>             i=0
+<span class="linenumber">112:</span>             while(i&lt;n):
+<span class="linenumber">113:</span>                 if(Hanabi.list[i].id):
+<span class="linenumber">114:</span>                     i += 1
+<span class="linenumber">115:</span>                 else:
+<span class="linenumber">116:</span>                     del Hanabi.list[i]
+<span class="linenumber">117:</span>                     n -= 1
+<span class="linenumber">118:</span>     
+<span class="linenumber">119:</span>             <span class="comment"># move items</span>
+<span class="linenumber">120:</span>             for p in Hanabi.list:
+<span class="linenumber">121:</span>                 p.moving()
+<span class="linenumber">122:</span>     
+<span class="linenumber">123:</span>             <span class="comment"># launch another hanabi, one every second in average</span>
+<span class="linenumber">124:</span>             if R.randint(0,100)&gt;90:
+<span class="linenumber">125:</span>                 self.create_hanabi()
+<span class="linenumber">126:</span>     
+<span class="linenumber">127:</span>             <span class="comment"># repeat</span>
+<span class="linenumber">128:</span>             self.after(100, self.rep)
+<span class="linenumber">129:</span>     
+<span class="linenumber">130:</span>     
+<span class="linenumber">131:</span>         def create_hanabi(self):
+<span class="linenumber">132:</span>             vy0 = R.randint(-33,-31)
+<span class="linenumber">133:</span>             Hanabi.list.append(Mother(x=R.randint(150, 350), y=695, vx=R.randint(-1,1), vy=vy0,
+<span class="linenumber">134:</span>                                       color='#CC6600', lifetime=vy0*(-1)-R.randint(3,5)))
+<span class="linenumber">135:</span>             
+<span class="linenumber">136:</span>     
+<span class="linenumber">137:</span>     <span class="comment">##-----------------------------------------------------</span>
+<span class="linenumber">138:</span>     if __name__ == '__main__':
+<span class="linenumber">139:</span>         f = Frame()
+<span class="linenumber">140:</span>         f.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">141:</span>         f.mainloop()
+</pre>
+
+<h3>3.1. インポートするモジュールとグローバル変数</h3>
+  <ul>
+<li>インポートするモジュールは <span class='mono'>Tkinter (Tk)</span> のほかに
+  <span class='mono'>random (R)</span> と <span class='mono'>math (M)</span> です。(08--10)<br>
+  <span class='mono'>random</span> 花火の向きをランダムに変えるため、
+  <span class='mono'>math</span> は三角関数を使うためインポートします。
+<li> グローバル変数は以下の通りです。
+  <ul>
+   <li><var>HANABI_COLORS</var>: 花火の色です。この中から異なる２色をランダムに選んで花火の色にします。(14,15)
+   <li><var>NIGHT_COLOR</var>: 背景色です。(16)
+   <li><var>G</var>: 1ターン (0.1 秒) の y 方向の速度の増分です。(17)
+   <li><var>HR</var>: キャンバスに描くときの花火の半径です。(18)
+   <li><var>HHANA</var>: 親玉の赤道にある小玉の個数です。4の倍数が良いでしょう。(19)
+   <li><var>N_COLORS</var>: 0 から数えた花火の色の数です。(20)
+   </ul>
+</ul>
+
+<h3>3.2. 関数</h3>
+<ul>
+<li><b>rand_angle(n)</b> (23--25)<br>
+  親玉の赤道における小玉の半径に相当する角度をランダムに返します。
+  花火の見え方を変化させるために使います。
+</ul>
+<h3>3.3. class Hanabi</h3>
+花火を表すクラスです。クラス変数に次の２つがあります。(27--53)
+<ul>
+  <li><var>canvas</var>: 花火を描くキャンバスです。(28)
+  <li><var>list</var>: キャンバスにある花火のリストです。(29)
+ </ul>
+<p>
+初期化するとき (32--39) は、キーワードパラメターをとります。キーワードは以下の通りです。
+<ul>
+  <li><var>x</var>: 花火の初期 x 座標です。
+  <li><var>y</var>: 花火の初期 y 座標です。
+  <li><var>vx</var>: 花火の x 方向の初速度です。
+  <li><var>vy</var>: 花火の y 方向の初速度です。
+  <li><var>lifetime</var>: 花火の寿命です。(0.1 秒単位）。
+  <li><var>color</var>: 花火の色です。
+</ul>
+内部変数として以下のものを保存します。
+<ul>
+  <li>花火の初速度 (<var>self.vx</var>, <var>self.vy</var>)
+  <li>花火の寿命 (<var>self.lifetime</var>)
+  <li>キャンバス上に描いた円の ID (<var>self.id</var>)
+  <li>生成してからの時間 (0.1 秒単位） (<var>self.counter</var>)
+</ul>
+<p>
+<var>Hanabi</var> には <var>moving</var> (39--45) と <var>disappear</var> (51--53) の２つのメソッドがあります。
+  <ul>
+   <li> <var>moving</var> は寿命が来るまで花火を動かすメソッドです。動かすたびに <var>self.counter</var> を 1 つ増やし、
+     y 方向の速度 <var>self.vy</var> を <var>G</var> だけ増やします。<var>G</var> で重力加速度をシミュレートします。<br>
+     寿命が来たら <var>self.disappear</var> を呼び出して、自分自身を消します。
+   <li> <var>disappear</var> は自分自身を消すメソッドです。<br>
+     まず、キャンバス上で <var>self.id</var> を消して、<var>self.id</var> に None を代入します。
+  </ul>
+<h3>3.4. class Mother</h3>
+<var>Hanabi</var> のサブクラスです。(57--82)<br>
+打ち上げる花火のクラスで、寿命が来ると <var>Hanabi</var> を多数生成して消えます。<p>
+  <span class='mono'>__init__</span>, <var>moving</var> は <var>Hanabi</var> と同じです。<br>
+  <var>Mother</var> は消えるときたくさんの子を作るので、<var>disappear</var> が <var>Hanabi</var> と異なります。
+  <var>self.make_sphere</var> を２回使って２重の輪を持つ花火を作ります。内側と外側の花火の色は違う色にします。
+  <ul>
+   <li> <var>r0</var>, <var>v0</var> は外側の輪の中心からの距離と速さの絶対値です。(60,61)
+   <li> 生成する輪を２色に色分けする色を <var>HANABI_COLORS</var> から違う色になるようにランダムに選びます。(60--62)
+   <li> <span class='mono'>Tk.Canvas</span> の <em>coords</em>
+     メソッドを使って、打ち上げた花火の（破裂するときの）位置を取得します。(64)
+   <li> make_sphere メソッドを２回使って２重の輪を持つ花火を作ります。(65,66)<br>
+     内側の小玉の赤道上での数は外側の半分にします。
+  <li> <var>Hanabi.disappear</var> を呼び出して自分自身を消します。(67)
+ </ul><p>
+  <b>make_sphere(self, nh, x, y, r, v, c, vx0, vy0)</b> は親玉が破裂したとき、小玉が球面上に飛び散るようにする
+  メソッドです。(70--84)<br>
+  以下の説明は図を用いていないのでちょっとわかりにくいのですが、要するに、
+  典型的な花火である<a href='http://japan-fireworks.com/basics/shikumi.html'>割物（わりもの）</a>
+  をシミュレートしています。
+  <ul>
+   <li> 引数：引数は self の他に以下の 8 つがあります。(71)
+     <ol>
+      <li><var>nh</var>: 親玉の赤道上にある小玉の数です。
+      <li><var>x</var>: 親玉が破裂したときの x 座標です。
+      <li><var>y</var>: 親玉が破裂したときの y 座標です。
+      <li><var>r</var>: 親玉が破裂した点からの距離です。
+      <li><var>v</var>: 小玉の速さの絶対値です。
+      <li><var>c</var>: 小玉の色です。
+      <li><var>vx0</var>: 破裂したときの親玉の速度の x 成分です。
+      <li><var>vy0</var>: 破裂したときの親玉の速度の y 成分です。
+    </ol>
+  <li> <var>d_eta</var>: z 軸 に対して振る角度です。(72)
+  <li> <var>eta</var>: z 軸となす角度です。初期値は、小玉の半径に相当する角度でランダムに振ります。(73)
+  <li> 84 行目までを繰り返します。(74)
+    <ul>
+      <li><var>dxy</var>: 速度や位置の xy 平面に投射した成分です。(75)
+      <li><var>n</var> : そのスライスにある小玉の個数です。(76)
+      <li><var>d_theta</var>: そのスライスの小玉のなす角度です。(77)
+      <li><var>theta</var>: x 軸となす角度です。初期値は、小玉の半径に相当する角度でランダムに振ります。(78)
+      <li>小玉の飛ぶ方向が互い違いになるようにします。(80,81)
+      <li> 89 行目までを繰り返します。(83)
+	<ul>
+          <li><var>dx</var>: 速度、位置の x 成分です。(84)
+	  <li><var>dy</var>: 速度、位置の y 成分です。(85)
+	  <li><var>Hanabi</var> を作って、それを <var>Hanabi.list</var> に加えます。(86,87)<br>
+	    <var>lifetime</var> を 8--15 でランダムに選んで、徐々に消えていく様子を再現します。
+	  <li><var>theta</var> に <var>d_theta</var> を加えます。(88)
+	 </ul>
+      <li> <var>eta</var> に <var>d_eta</var> を加えます。(89)
+    </ul>
+  </ul>
+  
+
+<h3>3.5. class Frame</h3>
+メインクラスです。(94--134)
+<ul>
+  <li><b>__init__(self, master=None)</b><br>
+    初期化はいつもの通りですが、以下の点に注目してください。
+   <ul>
+    <li> <var>Hanabi.canvas</var> に <span class='mono'>Tk.Canvas</span>
+      を代入します。(100,101)<br>
+      これで、<var>Hanabi</var> のインスタンスは全て、このキャンバス上に描かれます。
+    <li> <var>Hanabi.list</var> に空リストを代入します。(105)<br>
+      <var>Hanabi.list</var> は キャンバス上にある花火のリストです。
+    <li> <var>self.rep</var> を呼び出して花火を打ち上げます。(106)
+  </ul>
+ <li><b>rep(self)</b>  (108--128)<br>
+   花火を打ち上げて、動かすメソッドです。
+   <ul>
+     <li>キャンバスから消えた花火を <var>Hanabi.list</var> から除きます。(110--117)
+     <li>花火を動かします。(120, 121)
+     <li> <var>self.create_hanabi</var> を使って、１秒に１発の割合で花火を打ち上げます。(124,125)
+     <li> 0.1 秒後に <var>self.rep</var> を繰り返します。(128)
+    </ul>
+ <li><b>create_hanabi(self)</b><br>
+   花火を一発打ち上げるメソッドです。(131--134)
+   <ul>
+     <li>x 座標は 150--350 の間でランダムに選びます。
+     <li>花火の y 方向の初速度を -33 -- -31 の間でランダムに選び、<var>lifetime</var> は花火がほぼ静止する時間に設定します。
+     <li>x 方向の初速度は -1 -- 1 の間でランダムに選びます。つまり、ほぼ垂直に打ち上げますが、若干傾けたのも入れるということです。
+   </ul>
+ </ul>
+  <h2>4. 終わりに</h2>
+いかがでしたでしょうか？ 今回は、Tk.Canvas を使うと簡単に動画が描けることを示しました。
+  皆様もいろいろと楽しい動画を作ってみてください。<p>
+  今回で Tk.Canvas の解説はおしまいです。
+  次回は <span class='mono'>Tk.Text</span> について説明します。
+  
+  
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter10.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  10. キャンバスにドラッグできるオブジェクトを描こう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter12.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  12. Tk.Text の使い方</a></td>
+<td><a rel='download' href="tkinter11.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter11.html&t=Tkinter+%C6%FE%CC%E7%3A+11.+Canvas+%A4%F2%BB%C8%A4%C3%A4%C6%C7%BC%CE%C3%A4%B7%A4%E8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

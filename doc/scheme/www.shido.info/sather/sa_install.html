@@ -1,0 +1,245 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!----
+-- $Id: sa_install.html,v 1.6 2006/06/27 22:37:44 takafumi Exp $
+--->
+
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather install">
+<meta name="description" content="Sather を Linux にインストールする方法を解説しています。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 2. インストール  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+<td><a rel=prev href="sa_perform.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  Sather vs C++: 実行速度の比較</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+<td><a rel=next href="sa_play.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+3. Sather を 動かす。</a></td>
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_install.html&t=Sather+%A4%F2+%A5%A4%A5%F3%A5%B9%A5%C8%A1%BC%A5%EB%A4%B9%A4%EB%A1%A3' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 2. Sather を インストールする </h1>
+<hr>
+<h2>1. 初めに</h2>
+RedHat, Debian 用のバイナリーパッケージはありますが、ここではソースコードからインストールする手順を説明します。
+また、Windows には cygwin を使ってもインストールできません。
+従って、Sather で遊ぶためには Linux の入った PC を用意する必要があります。
+
+
+<h2>2. 使用機器, OS</h2>
+念のため紫藤の環境を書いておきます。他の i386+Linux でも同様だと思います。
+
+<ul>
+<li>自作 PC(CPU: AMD Sempron 2800+ (AMD 64 対応), メモリー 1024 MB, HDD 80 GB, DVD マルチドライブ)
+<li>OpenSuSE 10.0 i386 版 (x86_64 版は動作が不安定だったので使用を断念)
+</ul>
+
+<h2>3. 準備</h2>
+<h3>3.1. 必要なヘッダーファイル、ライブラリファイル</h3>
+Sather のインストールには以下のファイルが必要です。
+<ul>
+<li> gc 関係ヘッダーファイル: gc.h, 
+gc_config_macros.h, 
+gc_local_alloc.h, 
+gc_pthread_redirects.h, 
+gc_typed.h
+<li> tcl 関係ヘッダーファイル: 
+tcl.h, 
+tclDecls.h, 
+tclExtend.h, 
+tclPlatDecls.h, 
+tcldbg.h
+<li> tk 関係ヘッダーファイル: 
+tk.h, 
+tkDecls.h, 
+tkPlatDecls.h
+<li> gc 関係ライブラリ: libgc.so, libgc.la
+<li> tcl 関係ライブラリ: libtcl.so
+<li> tk 関係ライブラリ: libtk.so
+</ul>
+<a name="memo">
+<h4>メモ</h4>
+<ul>
+<li>ヘッダーファイルは /usr/include か /usr/local/include にあります。また、
+ライブラリーファイルは /usr/lib か /usr/local/lib にあります。
+<li> バージョンナンバー付のライブラリーが見つかった場合には、以下のように、
+バージョン番号を抜いたファイルを作っておきます。
+<pre class='samp'>
+<span class='comment'>(root になる必要あり)</span>
+# ln -s libtcl8.3.so libtcl.so
+# ln -s libtk8.3.so libtk.so
+# ln -s libgc.so.1.0.2 libgc.so
+</pre>
+<li>もし見つからなかった場合はディストリビューションのパッケージからインストールするか
+ソースコードからインストールすることになります。
+ソースからインストールするのは簡単で、かつ
+最新版が使えます。また、ソースからインストールするとヘッダーファイルとライブラリファイルが同時にインストールされます。
+ただ、gcc のバージョンによってはうまくいかない場合があるので、そのときはパッケージからインストールすると良いでしょう。
+</ul>
+<h3>3.2. gc, tcl/tk のインストール</h3>
+<ol>
+<li> ソースの取得<br>
+tar ball は以下のサイトからダウンロードできます。
+<ul>
+<li> libgc 安定版: <a href='http://www.hpl.hp.com/personal/Hans_Boehm/gc/'>http://www.hpl.hp.com/personal/Hans_Boehm/gc/</a>
+<li> Tcl/Tk 安定版: <a href='http://www.tcl.tk/software/tcltk/downloadnow84.html'>http://www.tcl.tk/software/tcltk/downloadnow84.html</a>
+</ul>
+<a name='tar'>
+<li> tar ball の展開<br>
+*.tar.bz2, *.tar.gz はそれぞれ次のコマンドで解凍します。
+<pre class='samp'>
+tar xjvf *.tar.bz2
+tar xzvf *.tar.gz
+</pre>
+<li> インストール <br>
+全部 ./configure &rarr; make &rarr; make install でインストールできます。
+<pre class='samp'>
+cd (tar ball を展開してできたディレクトリー)
+./configure 
+make
+sudo make install
+</pre>
+<li> リンクを張る。<br>
+/usr/local/lib に
+バージョン番号無しのライブラリーができない場合には<a href="#memo">先に述べた方法</a>でリンクを張ります。
+<li> ライブラリーキャッシュの更新。<br>
+<tt>/etc/ld.so.conf</tt> に <tt>/usr/local/lib</tt> と書いてある行があることを確認して（無ければ追加して）、
+ldconfig を実行する。
+<pre class='samp'>
+# ldconfig    <span class='comment'>(root になる必要あり)</span>
+</pre>
+</ol>
+これで Sather をインストールする準備が整いました。
+
+
+<h2>4. Sather のインストール</h2>
+<h3>4.0. tar ball の取得</h3>
+Sather 安定版の tar ball を
+<a href='http://www.gnu.org/software/sather/'>http://www.gnu.org/software/sather/</a>からダウンロードして、
+<a href='#tar'>先に述べた方法</a>で展開します。
+<h3>4.1. make</h3>
+Sather は configure &rarr; make &rarr; make install でインストールできないので
+少し手順が複雑です。<p>
+以下の手順でコンパイラー、ヴューアーその他をインストールします。
+
+<pre class='samp'>
+ su                                                                 <span class='comment'>(root になります。)</span>
+ cp sather-1.2.2.tar.bz2 /usr/local/src                             <span class='comment'>(ダウンロードした tar ball を /usr/local/src にコピーします。)</span>
+ cd /usr/local/src                                                  <span class='comment'>(/usr/local/src に行きます。)</span>
+ tar xjvf sather-1.2.2.tar.bz2                                      <span class='comment'>(tar ball を解凍します)</span>
+ cd sather-1.2.2                                                    <span class='comment'>(sather-1.2.2 に行きます)</span>
+ SATHER_HOME=/usr/local/src/sather-1.2.2;export SATHER_HOME         <span class='comment'>(環境変数 SATHER_HOME の設定, bash の場合)</span>
+ make compiler                                                      <span class='comment'>(sacomp (sather compiler) を作ります。)</span>
+ make browser                                                       <span class='comment'>(sabrowse (sather source and class viewer) を作ります。)</span>
+ make info                                                          <span class='comment'>(info ファイルを作ります。）</span>
+ cp Emacs/*.info /usr/local/info                                    <span class='comment'>(info ファイルを info が参照するディレクトリにコピーします。)</span>
+ cat Emacs/dir >> /usr/local/info/dir                                <span class='comment'>(/usr/local/info/dir に Sather のエントリーを付け加えます。)</span>
+ ln -s /usr/local/src/sather-1.2.2/Bin/sacomp /usr/local/bin        <span class='comment'>(/usr/local/bin に sacomp のソフトリンクを作ります。)</span>
+ ln -s /usr/local/src/sather-1.2.2/Bin/sabrowse /usr/local/bin      <span class='comment'>(/usr/local/bin に sabrowse のソフトリンクを作ります。)</span>
+</pre>
+
+<h3>4.2. テスト</h3>
+以下の手順でテストします。
+最後に Everything okey と表示されれば OK です。<br>
+テストが終わるまで 10 分ほどかかります。
+<pre class='samp'>
+ cd /usr/local/src/sather-1.2.2/Test
+ make test-full
+
+...........
+<span class='comment'>10 分待つ</span>
+...........
+
+TEST DONE
+
+Everything okey
+</pre>
+
+<h3>4.3. .bashrc の編集</h3>
+~/.bashrc に以下の行を追加します。
+<pre>
+SATHER_HOME=/usr/local/src/sather-1.2.2;export SATHER_HOME
+</pre>
+
+<h2>5. Emacs の設定</h2>
+sather.el が用意されているので emacs を使ってソースファイルを編集するのが便利でしょう。<br>
+以下は emacs21.4 の場合です。(他の version でも同じだと思います。）
+
+<ol>
+<li> emacs の load path (例えば /usr/local/share/emacs/site-lisp) に sather.el, sather-lib.el をコピーする。
+<pre class='samp'>
+su
+cp /usr/local/src/sather-1.2.2/Emacs/*.el /usr/local/share/emacs/site-lisp
+</pre>
+<li> それらのファイルを byte-compile する。warning が出るが問題ない。
+<pre class='samp'>
+cd /usr/local/share/emacs/site-lisp
+emacs -batch -f batch-byte-compile sather*.el
+</pre>
+<li>~/.emacs に次のコードを加える。
+<pre class='code'>
+(add-to-list 'auto-mode-alist '("\\.sa$" . sather-mode))
+(add-to-list 'auto-mode-alist '("\\.psa$" . sather-mode))
+(autoload 'sather-mode "sather" "Major mode for Sather  programs" t)
+</pre>
+</ol>
+<h4>テスト</h4>
+<ol>
+<li>何かファイルを開いて色づけされているかチェックする。(色づけする設定にした場合)
+<pre class='samp'>
+<span class='comment'>例えば</span>
+emacs /usr/local/src/sather-1.2.2/Test/test-all.sa 
+</pre>
+<li>(Ctrl-h i) で Sather の info が表示されるかチェックする。(または、コマンドラインから info Sather としてみる)
+</ol>
+
+<h2>6. 無事インストールできましたか？</h2>
+ちょっと手順が長くなりましたが、Sather 本体のインストールを除いてはほぼ定番の手順ですので、
+ソースからインストールすることに慣れている人であれば問題無いと思います。<p>
+
+運悪くうまくいかなかった人はゲストブックに書き込んでください。
+何かアドバイスできるかも知れません。
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+<td><a rel=prev href="sa_perform.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  Sather vs C++: 実行速度の比較</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+<td><a rel=next href="sa_play.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+3. Sather を 動かす。</a></td>
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_install.html&t=Sather+%A4%F2+%A5%A4%A5%F3%A5%B9%A5%C8%A1%BC%A5%EB%A4%B9%A4%EB%A1%A3' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+
+
+</body></html>
+    
+
+
+
+

@@ -1,0 +1,454 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, branching, if expression">
+<meta name="description" content="Branching on Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> 5. Branching </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme4_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. Defining Functions</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme6_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>6. Local Variables</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme5_e.html&t=%28Scheme%29+Branching' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1>  5. Branching  </h1>
+<hr>
+<h2>1. Introduction </h2>
+In the previous chapter, I have explained how to define functions.
+In this chapter I will explain how to branch the procedures by conditions.
+This is an important step to write real programs.
+
+<h2>2. The <span class='ttb'>if</span> expression</h2>
+The <span class='ttb'>if</span> expression is to branch procedure into two parts.
+The format is like as follows:
+<pre class='def'>
+(<b>if</b> <var>predicate</var> <var>then_value</var> <var>else_value</var>)
+</pre>
+If the <var>predicate</var> is <b>true</b>, then <var>then_value</var>
+otherwise <var>else_value</var> is evaluated and the value goes out from the outermost
+parentheses of the <tt>if</tt> expression. <b>True</b> is any value except <b>false</b> which
+is represented by <span class='ttb'>#f</span>. The representing value of true
+is <span class='ttb'>#t</span>.<p>
+
+In R<sup>5</sup>RS, the false (<tt>#f</tt>) and the empty list (<tt>'()</tt>) are different
+object. However, in MIT-Scheme they are the same. This difference may be due to a historical reason;
+in R<sup>4</sup>RS, the previous standard, <tt>#f</tt> and <tt>'()</tt> are defined as the same object.
+<p>
+Thus, you should not use lists directory as predicates for the  compatibility.
+Use function <span class='ttb'>null?</span> to see if the list is empty.
+
+<pre class='samp'>
+(null? '())
+;Value: #t
+
+(null? '(a b c))
+;Value: ()  <span class='comment'> ;#f</span>
+</pre>
+
+Function <span class='ttb'>not</span> is available to negate predicates.
+This function takes exactly one argument and returns #t if the argument is #f otherwise #t.
+<p>
+  
+The <span class='ttb'>if</span> expression is a special form because 
+it does not evaluate all arguments.
+  If the <var>predicate</var> is true, only <var>then_value</var> is evaluated.
+  On the other hand, if the <var>predicate</var> is false, only <var>else_value</var> is evaluated.
+<p>
+
+Example: sum of geometric progression, whose first term, geometric ratio, and number of terms are
+<var>a0</var>, <var>r</var>, and <var>n</var>.
+<pre class='code'>
+(define (sum-gp a0 r n)
+  (* a0
+     (if (= r 1)
+	 n
+	 (/ (- 1 (expt r n)) (- 1 r)))))   <span class='comment'>; !!</span>
+</pre>    
+In general, the sum of geometric progression is calculated by:
+<pre>
+a0 * (1 - r<sup>n</sup>) / (1 - r)                      (r &ne; 1)
+a0 * n                                       (r = 1)
+</pre>
+
+
+If the <tt>if</tt> expression evaluate all the arguments,
+the line commented with <tt><span class='comment'>; !!</span></tt> is evaluated even
+when <tt>r=1</tt> and
+a devision by zero error occurs.
+
+<p>
+You can omit the <var>else_value</var> term. In this case the returned value
+when the <var>predicate</var> is false is not specified.
+If you need <tt>#f</tt> when the <var>predicate</var> is false,
+  you should write it explicitly.
+  <p>
+The <var>then_value</var> and <var>else_value</var> should be one S-expression.
+If you need side effects, you should use
+ <span class='ttb'>begin</span> expression.
+I will mention about <tt>begin</tt> in a later chapter. 
+
+
+<h3> Exercise 1</h3>
+Make following functions.
+See <a href="#predicate">Section 5</a> to make predicates. 
+<ol>
+ <li> A function to return the absolute value of a real number.
+ <li> A function to return the reciprocal of a real number. Make it return <tt>#f</tt>
+   if the argument is 0.
+ <li> A function to convert a integer to a graphical character of ASCII characters.
+   The integers that can be converted to graphical characters are  33 &ndash; 126.
+   Use <span class='ttb'>integer->char</span> to convert a integer to a character.
+   Make it return <tt>#f</tt> if the given integer can not be converted to a graphical character.
+</ol>
+
+<h2> 3. <span class='ttb'>and</span> and <span class='ttb'>or</span></h2>
+The <span class='ttb'>and</span> and  <span class='ttb'>or</span> are special forms to be used to combine conditions.
+Scheme's <tt>and</tt> and <tt>or</tt> are somehow different from those of conventional languages such as C.
+They do not return boolean (<tt>#t</tt> or <tt>#f</tt>) but returns one of given arguments.
+The <span class='ttb'>and</span> and  <span class='ttb'>or</span> can makes your code shorter.
+
+<h3> 3.1. <span class='ttb'>and</span></h3>
+The <span class='ttb'>and</span> takes arbitrary number of arguments and evaluates
+them from left to right. It returns <tt>#f</tt> if one of the arguments is <tt>#f</tt>
+and the rest of arguments are not evaluated.
+On the other hand, if all arguments are not <tt>#f</tt>,
+it returns
+the value of the last argument. 
+
+<pre class='samp'>
+(and #f 0)
+<span class='response'>;Value: ()</span>
+
+(and 1 2 3)
+<span class='response'>;Value: 3</span>
+
+(and 1 2 3 #f)
+<span class='response'>;Value: ()</span>
+</pre>
+
+<h3> 3.2. <span class='ttb'>or</span></h3>
+The <span class='ttb'>or</span> takes arbitrary number of arguments and evaluates them
+from left to right. It returns the value of the first argument which is not <tt>#f</tt>
+and the rest of arguments are not evaluated. It returns the value of the last argument
+if it is evaluated.
+
+<pre class='samp'>
+(or #f 0)
+<span class='response'>;Value: 0</span>
+
+(or 1 2 3)
+<span class='response'>;Value: 1</span>
+
+(or #f 1 2 3)
+<span class='response'>;Value: 1</span>
+
+(or #f #f #f)
+<span class='response'>;Value: ()</span>
+</pre>
+
+<h3> Exercise 2</h3>
+Make following functions:
+<ol>
+  <li> A function that takes three real numbers as arguments.
+    It returns the product of these three numbers if all them is positive.
+  <li> A function that takes three real numbers as arguments.
+    It returns the product of these three numbers if at least one of them is negative.
+</ol>
+
+<h2> 4. <span class='ttb'>cond</span> expression</h2>
+Even all branchings can be expressed by <tt>if</tt> expression,
+you should nest it if the branching has a wide variety, which makes code complicated.
+The <span class='ttb'>cond</span> expression is available for such cases.
+The format of the <tt>cond</tt> expression is like as follows:
+<pre class='def'>
+(<span class='ttb'>cond</span>
+  (<var>predicate_1</var> <var>clauses_1</var>)
+  (<var>predicate_2</var> <var>clauses_2</var>)
+    ......
+  (<var>predicate_n</var> <var>clauses_n</var>)
+  (<span class='ttb'>else</span>        <var>clauses_else</var>))
+</pre>
+In the cond expression,
+<var>predicates_<i>i</i></var> are evaluated from top to bottom, and
+<var>clauses_<i>i</i></var> is evaluated and returns from the cond expression
+if the <var>predicates_<i>i</i></var> is true. Other clauses and predicates after <i>i</i> are not evaluated.
+If all of <var>predicates_<i>i</i></var> are false it returns the value of  <var>clauses_else</var>.
+You can write more than one S-expression in one clauses and the value of the last S-expression is the value of
+the clauses.<p>
+
+Example: Fee of a city-run swimming pool<br>
+The fee of a city-run swimming pool of Foo city depends on the age of users (<var>age</var>):
+<ul>
+  <li> free if <var>age</var> &le; 3 or <var>age</var> &ge; 65.
+  <li> 0.5 dollars for 4 &le; <var>age</var> &le; 6.
+  <li> 1.0 dollars for 7 &le; <var>age</var> &le; 12.
+  <li> 1.5 dollars for 13 &le; <var>age</var> &le; 15. 
+  <li> 1.8 dollars for 16 &le; <var>age</var> &le; 18. 
+  <li> 2.0 dollars for others.
+</ul>
+The function that returns the fee of the city-run swimming pool is as follows:
+<pre class='code'>
+(define (fee age)
+  (cond
+   ((or (&lt;= age 3) (&gt;= age 65)) 0)
+   ((&lt;= 4 age 6) 0.5)
+   ((&lt;= 7 age 12) 1.0)
+   ((&lt;= 13 age 15) 1.5)
+   ((&lt;= 16 age 18) 1.8)
+   (else 2.0)))
+</pre>
+
+<h3> Exercise 3</h3>
+Make following functions.
+<ol>
+  <li>The grade (A &ndash; D) of exam is determined by the score (<var>score</var>).
+    Write a function that takes a score as an argument and returns a grade.
+    <ol>
+      <li> A if <var>score</var> &ge; 80 
+      <li> B if 60 &le; <var>score</var> &le; 79 
+      <li> C if  40 &le; <var>score</var> &le; 59 
+      <li> D if <var>score</var> &lt; 40
+    </ol>
+</ol>
+
+<a name='#predicate'>
+<h2>5. Functions that makes predicates</h2>
+I introduce some functions that make predicates.
+Such functions have names that end with '?'.
+<h3>5.1. eq?, eqv?, and equal?</h3>
+The <span class='ttb'>eq?</span>, <span class='ttb'>eqv?</span>, and <span class='ttb'>equal?</span>
+take exactly two arguments and are basic functions to check if the arguments are 'same'.
+These three functions are slightly different from each other.
+<dl>
+  <dt><span class='ttb'>eq?</span></dt>
+      <dd>It compares addresses of two objects and returns <tt>#t</tt> if they are same.
+In the following example, the function returns <tt>#t</tt> as <tt>str</tt> has the same address as itself.
+On the contrary, as "hello" and "hello" are stored in the different address, the function returns <tt>#f</tt>.
+Don't use <tt>eq?</tt> to compare numbers because it is not specified in R<sup>5</sup>RS
+even it works in MIT-Scheme. Use <span class='ttb'>eqv?</span> or <span class='ttb'>=</span> instead.
+	
+<pre class='samp'>
+(define str "hello")
+<span class='response'>;Value: str</span>
+
+(eq? str str)
+<span class='response'>;Value: #t</span>
+
+(eq? "hello" "hello")
+<span class='response'>;Value: ()</span>             <span class='comment'>&larr; It should be #f in R<sup>5</sup>RS </span>
+
+<span class='comment'>;;; comparing numbers depends on implementations</span>
+(eq? 1 1)
+<span class='response'>;Value: #t</span>
+
+(eq? 1.0 1.0)
+<span class='response'>;Value: ()</span>
+</pre></dd>
+  <dt><span class='ttb'>eqv?</span></dt>
+      <dd>It compares types and values of two object stored in the memory space.
+	If both types and values are same, it returns <tt>#t</tt>.
+	Comparing procedure (lambda expression) depends on implementations.
+	This function cannot be used for sequences such as lists or string, because the value stored in the
+	first address are different even the sequences looks same.
+<pre class='samp'>
+(eqv? 1.0 1.0)
+<span class='response'>;Value: #t</span>
+
+(eqv? 1 1.0)
+<span class='response'>;Value: ()</span>
+
+<span class='comment'>;;; don't use it to compare sequences</span>
+(eqv? (list 1 2 3) (list 1 2 3))
+<span class='response'>;Value: ()</span>
+
+(eqv? "hello" "hello")
+<span class='response'>;Value: ()</span>
+
+<span class='comment'>;;; the following depends on implementations</span>
+(eqv? (lambda(x) x) (lambda (x) x))
+<span class='response'>;Value: ()</span>
+</pre></dd>
+  <dt><span class='ttb'>equal?</span></dt>
+      <dd>It is used to compare sequences such as list or string.
+<pre class='samp'>
+(equal? (list 1 2 3) (list 1 2 3))
+<span class='response'>;Value: #t</span>
+
+(equal? "hello" "hello")
+<span class='response'>;Value: #t</span>
+</pre></dd>
+</dl>
+
+
+<h3>5.2. Functions that check data type</h3>
+Followings are type checking functions. All of them take exactly one argument. 
+  <dl>
+  <dt><span class='ttb'>pair?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object consists of cons cells (or a cons cell).</dd>
+  <dt><span class='ttb'>list?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is a list. Be careful in that
+	<tt>'()</tt> is a list but not a pair.</dd>
+  <dt><span class='ttb'>null?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is <tt>'()</tt>.</dd>
+  <dt><span class='ttb'>symbol?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is a symbol.</dd>
+  <dt><span class='ttb'>char?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is a character. </dd>
+  <dt><span class='ttb'>string?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is a string. </dd>
+  <dt><span class='ttb'>number?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is a number.</dd>
+  <dt><span class='ttb'>complex?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is a complex number.</dd>
+  <dt><span class='ttb'>real?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is a real number</dd>
+  <dt><span class='ttb'>rational?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is a rational number.</dd>
+  <dt><span class='ttb'>integer?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is an integral</dd>
+  <dt><span class='ttb'>exact?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is <b>not</b> a floating point number.</dd>
+  <dt><span class='ttb'>inexact?</span></dt>
+      <dd> It returns <tt>#t</tt> if the object is a floating point number.</dd>
+</dl>
+
+<h3>5.3. Functions that compare numbers</h3>
+<dl>
+  <dt><span class='ttb'>=, &lt;, &gt;, &lt;=, &gt;=</span></dt>
+      <dd> These functions takes arbitrary number of arguments.
+	If arguments are ordered properly indicated by the function name,
+	the functions return <tt>#t</tt>.
+<pre class='samp'>
+(= 1 1 1.0)
+<span class='response'>;Value: #t</span>
+
+(&lt; 1 2 3)
+<span class='response'>;Value: #t</span>
+(&lt; 1)
+<span class='response'>;Value: #t</span>
+(&lt;)
+<span class='response'>;Value: #t</span>
+
+(= 2 2 2)
+<span class='response'>;Value: #t</span>
+
+(&lt; 2 3 3.1)
+<span class='response'>;Value: #t</span>
+
+(&gt; 4 1 -0.2)
+<span class='response'>;Value: #t</span>
+
+(&lt;= 1 1 1.1)
+<span class='response'>;Value: #t</span>
+
+(&gt;= 2 1 1.0)
+<span class='response'>;Value: #t</span>
+
+(&lt; 3 4 3.9)
+<span class='response'>;Value: ()</span>
+</pre></dd>
+  <dt><span class='ttb'>odd?, even?, positive?, negative?, zero?</span></dt>
+      <dd> These functions take exactly one argument and return <tt>#t</tt> if the argument satisfies
+      the property indicated by the function name.</dd>
+</dl>
+
+<h3>5.4. Functions that compare characters</h3>
+Functions <span class='ttb'>char=?</span>, <span class='ttb'>char&lt;?</span>,
+  <span class='ttb'>char&gt;?</span>, <span class='ttb'>char&lt;=?</span>,
+  and <span class='ttb'>char&gt;=?</span> are available to compare characters.
+See <a href='http://www.schemers.org/Documents/Standards/R5RS/HTML/'>
+   R<sup>5</sup>RS</a> for detailed information.
+
+  
+<h3>5.5. Functions that compare strings</h3>
+Functions <span class='ttb'>string=?</span> and <span class='ttb'>string-ci=?</span> etc are
+available. 
+See <a href='http://www.schemers.org/Documents/Standards/R5RS/HTML/'>
+   R<sup>5</sup>RS</a> for detailed information.
+
+<h2>6. Summary</h2>
+In this chapter, I have explained on branching.
+The <span class='ttb'>if</span> expression or <span class='ttb'>cond</span> expression are available for
+branching.
+<p>
+I will explain about the local variables in the next chapter.
+
+<h3>Answers for  Exercises</h3>
+
+<h4>Answer 1</h4>
+
+<pre class='code'>
+; 1
+(define (my-abs n)
+  (* n
+     (if (positive? n) 1 -1)))
+     
+; 2     
+(define (inv n)
+  (if (not (zero? n))
+      (/ n)))
+
+; 3
+(define (i2a n)
+  (if (&lt;= 33 n 126)
+      (integer-&gt;char n)))
+</pre>
+
+<h4>Answer 2</h4>
+<pre class='code'>
+; 1
+(define (pro3and a b c)
+  (and (positive? a)
+       (positive? b)
+       (positive? c)
+       (* a b c)))
+
+; 2
+(define (pro3or a b c)
+  (if (or (negative? a)
+	  (negative? b)
+	  (negative? c))
+      (* a b c)))
+</pre>
+
+<h4>Answer 3</h4>
+<pre class='code'>
+(define (score n)
+  (cond
+   ((&gt;= n 80) 'A)
+   ((&lt;= 60 n 79) 'B)
+   ((&lt;= 40 n 59) 'C)
+   (else 'D)))
+</pre>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme4_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  4. Defining Functions</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme6_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>6. Local Variables</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme5_e.html&t=%28Scheme%29+Branching' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+
+

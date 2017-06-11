@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="Lisp">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> Lisp はなぜ人気が無いのか </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc6&t=Lisp+%A4%CF%A4%CA%A4%BC%BF%CD%B5%A4%A4%AC%CC%B5%A4%A4%A4%CE%A4%AB"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>Lisp はなぜ人気が無いのか</h1>
+<hr>
+Jul 25, 2005
+<p>
+Lisp は大変優れた言語だと思いますが、いまいち人気がありません。なぜでしょうか？<br>
+理由としては、
+<ol>
+<li> 使う機会が無い。つまり、どうしても学ばなければならないというものではない。
+<li> 敷居が高い。
+</ol>
+の2点があると思います。<p>
+最初の点についてはまさにその通りだと思いますが、敷居が高いというのは誤解だと思います。
+<ol>
+<li>前置記法は Lisp を学ぶときに全然問題にならないと思います。中置記法より便利で、一貫性があります。
+<li>括弧の多さも問題にならないと思います。Emacs や xyzzy を使えば、括弧の対応づけ、
+インデントは自動でやってくれるので、読み書きにはそれほど苦労しないと思います。
+</ol>
+しかし、問題になるのは、 Lisp の記法があまりにもシンプルで、データとしてのリストも、
+プログラムもまったく同じ記法を取る点であると思います。
+この単純化しすぎた記法のため、<tt>quote</tt> という不思議なものが必要になります。<p>
+Lisp のこの単純で美しい記法はマクロを書くときに必須なのですが、マクロを使いこなせるまで
+Lisp に習熟するにはかなりの努力が必要です。<p>
+しかし、いったん Lisp をマスターしてしまえば、
+プログラムをものすごく短く書くことができるようになります。
+これは保障できます。<p>
+なぜ Lisp の人気が無いのかの紫藤なりの答えは、<tt>quote</tt> だと思います。
+そこで、<tt>quote</tt> について詳しい解説をそのうち書こうと思っています。<p>
+とりあえず、以下に優れたサイト、本を挙げておきます。
+<ul>
+<li><a href="http://www.geocities.jp/m_hiroi/xyzzy_lisp.html#abclisp"> xyzzy Lisp Programming (M.Hiroi)</a><br>
+大変よくまとまった Lisp の入門記事。処理系として xyzzy を使っています。
+<li><a href="http://www.pearsoned.co.jp/washo/prog/wa_pro58-j.html">ANSI Common Lisp</a><br>
+ポール　グレアム著。翻訳された Lisp の入門書のうちで最も優れたもの。
+ただし、急勾配なので、Hiroi さんのページを一通り読んでから読むことをお勧めします。
+<li><a href="http://www.paulgraham.com/onlisp.html">On Lisp</a><br>
+ポール　グレアム著。中、上級者向けの Lisp の本、マクロについて詳しく述べてあります。
+著者のページからダウンロードできます。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc6&t=Lisp+%A4%CF%A4%CA%A4%BC%BF%CD%B5%A4%A4%AC%CC%B5%A4%A4%A4%CE%A4%AB"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

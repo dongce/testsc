@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="xyzzy, Haskell, mode">
+<meta name="description" content="Haskell mode for xyzzy">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Haskell mode for xyzzy </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="hs-mode.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/hs-mode.html&t=Haskell+mode+for+xyzzy' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>Haskell mode for xyzzy</h1> 
+<hr>
+<h2>1. はじめに </h2>
+
+xyzzy 用の Haskell mode を作ってみました。
+<ul>
+<li> 出来ること
+  <ul>
+     <li> ほぼ自動のインデント
+		 </ul>
+  <li> 出来ないこと
+	 <ul>
+       <li> literal haskell には対応していない。
+			<li> 処理系との interfase は無い。
+			  </ul>
+	 </ul>
+
+<h2>2.  インストール </h2>
+インストールの手順は以下の通りです。
+<ol>
+<li> hs-mode.lzh を解凍します。(<span class="bluetext">hs-mode.l, hs-mode.lc, Haskell</span> が生成します。)
+  <li> <span class="bluetext">hs-mode.l, hs-mode.lc</span> を /site-lisp に、
+	 <span class="bluetext">Haskell</span> を /etc にコピーします。
+	 <li> .xyzzy か site-init.l に以下のコードを追加します。
+<pre class="code">
+(push '("\\.hs$" . hs-mode) *auto-mode-alist*)
+(autoload 'hs-mode "hs-mode" t)
+</pre>
+<li> ダンプファイルを更新します。
+</ol>
+
+<h2> 2. 使用法 </h2>
+Haskell のソースコードを打ち込むとほぼ自動でインデントします。
+インデント量が多いときは <span class="bluetextbold">S-TAB</span> を押すとインデント量が
+一段階減少します。
+
+キーマップは以下の通りです。
+<dl>
+  <dt><b>RET</b></dt>
+      <dd>改行してインデントします。</dd>
+  <dt><b>TAB</b></dt>
+      <dd>カーソルのある行をインデントします。</dd>
+  <dt><b>S-TAB</b></dt>
+      <dd>カーソルのある行のインデント量を１段階減らします。</dd>
+  <dt><b>M-w</b></dt>
+      <dd>カーソルのある行をインデントして where を挿入します。</dd>
+  <dt><b>M-g</b></dt>
+      <dd>カーソルのある行をインデントして guard ( | ) を挿入します。</dd>
+</dl>
+<h2> 3. カスタマイズ</h2>
+インデントの量は *hs-primary-indent* と *hs-secondary-indent* で
+調節します。
+
+<h2> 4. おわりに </h2>
+<a href="http://www.haskell.org/haskell-mode/">Emacs の haskell-mode</a>
+はかなり大きなプログラムなので
+移植する気が失せました。その代わりにインデントだけを行う小さなスクリプトを書いてみました。<p>
+ご参考までに。
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="hs-mode.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/hs-mode.html&t=Haskell+mode+for+xyzzy' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="S 式, 四則演算">
+<meta name="description" content="コンソールから S 式を入力する">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 2. Scheme を電卓代わりに使う </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme1.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  1. Scheme 処理系のインストール</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme3.html"><img src='../images/right_arrow.gif' class='arrow' border=0>3. リストを作ろう</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme2.html&t=Scheme+%C6%FE%CC%E7+2.+Scheme+%A4%F2%C5%C5%C2%EE%C2%E5%A4%EF%A4%EA%A4%CB%BB%C8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 2. Scheme を電卓代わりに使う </h1>
+<hr>
+<h2>1. 初めに </h2>
+ここでは、scheme を電卓代わりに使ってみましょう。Windows に付録で付いている電卓より便利に
+使うことができます。
+
+<a name='eval'>
+<h2>2. 電卓としての使用法</h2>
+まず、スタート &rarr; 全てのプログラム &rarr; アクセサリ &rarr; コマンドプロンプト で
+DOS プロンプトを立ち上げます。
+<br>
+DOS プロンプトで <tt>mzscheme</tt> と入力すると、図１に示すようなプロンプトが表示されます。
+上矢印 (&uarr;) で以前の入力を呼び出すことができます。
+
+<center>
+<img src='scheme_dos.png'><br>
+図 1: DOS プロンプトから立ち上げた MzScheme
+</center>
+<p>
+また、Emacs 経由で MzScheme を立ち上げることもできます。
+<tt>runemacs.exe</tt> またはそのショートカットをダブルクリックして Emacs を立ち上げます。
+<a href='scheme1.html#dot_emacs'>前章</a>のように <tt>.emacs</tt> が編集されていると、
+そのまま MzScheme が立ち上がります (図 2)。
+<br>
+Ctrl-&uarr; で以前の入力を呼び出すことができます。
+<br>
+Scheme 処理系が走っていると、
+終了するとき、"Active processes exist: Kill them and exit anyway?" と聞いてきますので、
+"yes" を選択して終了します。
+<p>
+<center><img src='scheme_emacs.png'>
+<br>
+図 2: emacs から立ち上げた MzScheme
+</center>
+
+<p>
+ここで、 1+2 を計算してみましょう。プロンプトに次のように入力してください。
+<pre class='samp'>
+&gt; (+ 1 2)
+<span class='response'>3</span>
+&gt; 
+</pre>
+3 という答えが返ってきました。<br>
+ここで注目して欲しいのは以下の3点です。
+<ol>
+  <li> 括弧は計算の1ステップを表す。この場合は <tt>1+2</tt> という 1 ステップを表しています。
+  <li> 関数名を最初に書き、続けて引数を書く。Scheme ではほとんど全てが関数で、
+    この例では関数名 '<tt>+</tt>' に続けて2つの引数 <tt>1, 2</tt> を書いています。
+  <li> 要素（トークン）の区切りはスペースを使う。
+</ol>
+計算過程を少し詳しく分析してみます。Scheme の<strong>関数</strong>では、カッコ内のトークンが全て評価されてから、
+計算が行われます。仕様により、評価の順番は不定です。つまり、必ずしも左から右へ行われるわけではありません。
+<ul>
+<li> '<tt>+</tt>' と言う記号が評価されて、足し算という手続きになります。
+  試しに、プロンプトから '<tt>+</tt>' とだけ打ち込むと、<br>
+  <tt><span class='response'>#&lt;procedure:+&gt;</span></tt><br>
+  と表示されます。これは '<tt>+</tt>' が、procedure (手続き）を表すシンポルであることを表しています。
+<li> '<tt>1</tt>' が評価されて <tt>1</tt> になります。 一般にリテラル（真偽値、数、文字、文字列）は評価されると自分自身になります。
+  シンボルは評価されると別のものになります。
+<li> '<tt>2</tt>' が評価されて <tt>2</tt> になります。
+<li> 最後に <tt>(+ 1 2)</tt> が評価されて 3 が括弧の外に出てきます。Scheme では値は括弧の中から外に出てきます。
+  一番外側の括弧から出てきた値が印字されます。
+  </ul>
+'<tt>+</tt>' は任意個の引数をとることができます。
+<pre>
+(+) &rarr; 0
+(+ 1)  &rarr; 1
+(+ 1 2) &rarr; 3
+(+ 1 2 3) &rarr; 6
+</pre>
+
+<h2>3. 四則演算</h2>
+Scheme (多くの Lisp) では分数を扱うことができます。浮動小数点に変換したいときは <b><tt>exact-&gt;inexact</tt></b>
+を使います。
+また、複素数も扱うことができ、<tt><var>a</var>+<var>b</var>i</tt> と書きます。ここで、
+<var>a</var> は実数部で、<var>b</var> は虚数部です。
+<tt>+, -, *, /</tt> はそれぞれ足し算、引き算、掛け算、割り算を表します。
+足し算と同様に任意個数の引数を取ることができます。<p>
+例
+<pre class='samp'>
+(- 10 3) &rarr; 7
+(- 10 3 5)  &rarr; 2
+(* 2 3) &rarr; 6
+(* 2 3 4) &rarr; 24
+(/ 29 3) &rarr; 29/3
+(/ 29 3 7) &rarr; 29/21
+(/ 9 6) &rarr; 3/2
+(exact-&gt;inexact (/ 29 3 7)) &rarr; 1.380952380952381
+</pre>
+
+括弧は入れ子にすることができます。<p>
+例
+<pre class='samp'>
+(* (+ 2 3) (- 5 3)) &rarr; 10
+(/ (+ 9 1) (+ 2 3)) &rarr; 2
+</pre>
+
+
+<h3>練習問題 1</h3>
+次の値を Scheme の処理系を用いて計算してください。
+<ol>
+  <li> (1+39) * (53-45)
+  <li> (1020 / 39) + (45 * 2)
+  <li> 39, 48, 72, 23, 91 の合計
+  <li> 39, 48, 72, 23, 91 の平均を小数で。
+</ol>
+
+<h2>4. その他の算術関数</h2>
+<h3>4.1. quotient, remainder, modulo, sqrt</h3>
+商を求めるには<tt><b>quotient</b></tt>,
+余りを求めるには <tt><b>remainder</b></tt> または <tt><b>modulo</b></tt>,
+平方根を求めるには <tt><b>sqrt</b></tt> を使います。
+<pre class='samp'>
+(quotient 7 3) &rarr; 2
+(modulo 7 3) &rarr; 1
+(sqrt 8) &rarr; 2.8284271247461903
+</pre>
+
+<h3>4.2. 三角関数</h3>
+<tt><b>sin</b></tt>, <tt><b>cos</b></tt>, <tt><b>tan</b></tt>, <tt><b>asin</b></tt>, <tt><b>acos</b></tt>, <tt><b>atan</b></tt>
+ が使えます。<tt>atan</tt> は引数が1つの場合と2つの場合の2つがあります。値が 1/2 &pi; になる可能性がある場合は
+(つまり tan の値が無限大になる可能性がある場合は）
+  引数が2つのほうを使います。
+<pre class='samp'>
+(atan 1) &rarr; 0.7853981633974483
+(atan 1 0) &rarr; 1.5707963267948966
+</pre>
+
+<h3>4.3. 指数関数、対数関数</h3>
+指数関数は <tt><b>exp</b></tt>, 自然対数は <tt><b>log</b></tt> で求めます。
+<var>a</var> の <var>b</var> 乗は (<tt><b>expt</b></tt> <var>a</var> <var>b</var>) で求めます。
+
+<h3> 練習問題 2</h3>
+  次の値を Scheme の処理系を用いて求めてください。
+<ol>
+  <li> 円周率 &pi;
+  <li> <i>exp</i>(2/3)
+  <li> 3 の 4 乗
+  <li> 1000 の自然対数
+</ol>
+<h2>5. 終わりに</h2>
+今回は Scheme の処理系に慣れるために、Scheme を電卓として使ってみました。
+次回は リストの操作について説明したいと思います。
+
+
+<h3>練習問題の解答</h3>
+
+<h4>練習問題 1</h4>
+
+<pre class='samp'>
+;1
+(* (+ 1 39) (- 53 45))              &rArr;    320
+
+;2
+(+ (/ 1020 39) (* 45 2))            &rArr;    1510/13
+
+;3
+(+ 39 48 72 23 91)                  &rArr;    273
+
+;4
+(exact->inexact (/ (+ 39 48 72 23 91) 5))   &rArr;    54.6
+</pre>
+
+<h4>練習問題 2</h4>
+<pre class='samp'>
+;1
+(acos -1.0)               &rArr;   3.141592653589793
+(* 4.0 (atan 1.0))        &rArr;   3.141592653589793  <span class='comment'>;; 数値計算プログラムで、円周率を求める一般的な方法。
+                                                  ;; 厳密に言えば、精度、計算速度はこちらのほうが優れている(はず)。</span>
+
+;2
+(exp 2/3)                 &rArr;   1.9477340410546757
+
+;3
+(expt 3 4)                &rArr;   81
+
+;4
+(log 1000)                &rArr;   6.907755278982137
+</pre>
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme1.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  1. Scheme 処理系のインストール</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme3.html"><img src='../images/right_arrow.gif' class='arrow' border=0>3. リストを作ろう</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme2.html&t=Scheme+%C6%FE%CC%E7+2.+Scheme+%A4%F2%C5%C5%C2%EE%C2%E5%A4%EF%A4%EA%A4%CB%BB%C8%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

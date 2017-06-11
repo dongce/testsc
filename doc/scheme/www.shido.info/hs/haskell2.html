@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell, exuecute program">
+<meta name="description" content="About Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Executing Haskell program  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell1.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  1. Haskell とは</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell3.html"><img src='../images/right_arrow.gif' class='arrow' border=0>3. 関数を定義する</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell2.html&t=Executing+Haskell+program' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>2. プログラムを動かす</h1> 
+<hr>
+ <!---------------------------------------------------->
+ 
+この文章では Haskell プログラムを実行する手順を紹介します。
+
+<h2> 1. Haskell プログラムの書式</h2>
+ Haskell のプログラムには通常の書式と、コメントとコードが入れ替わった
+  リテラル形式の２つがあります。通常の書式のファイルの拡張子は *.hs
+  リテラル形式の拡張子は *.lhs として区別します。区別しないと
+  処理系が混乱して、文句を言ってきます。
+
+  <h3>1.1. 通常の書式</h3>
+	 通常の書式は以下の通りです。
+
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">-- Say hello</span>
+<span class="linenumber">02:</span>     module Main where
+<span class="linenumber">03:</span>     import System
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     main = do av &lt;- getArgs
+<span class="linenumber">06:</span>               putStrLn $ "Hi, " ++ (av !! 0) ++"!"
+</pre>
+図１：hi.hs<p>
+  
+	 <ul>
+<li> [1] <span class="mono"><span class="bluetextbold">--</span></span> から行末まで、および
+  <span class="mono"><span class="bluetextbold">{-</span></span>
+  から <span class="mono"><span class="bluetextbold">-}</span></span> までは
+  コメントです。
+	 <li> [2] モジュール名を宣言します。
+		<li> [3] <span class="mono">import</span> するモジュールを宣言します。
+		  <li> [5] <span class="mono">main</span> 関数を定義します。
+			   <li>[5,6] Layout でブロックを表現します。
+
+  </ul>
+
+	   <h3>1.2. リテラル形式</h3>
+<h4>1.2.1. LaTeX モード</h4>
+<span class="bluetextbold">\begin{code}</span> と <span class="bluetextbold">\end{code}</span>
+に挟まれた部分がコードでそれ以外はコメントです。上の例を LaTeX モードで書くと以下のようになります。
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">#! usr/bin/env runhugs</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     \begin{code}
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     module Main where
+<span class="linenumber">06:</span>     import System
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     main = do av &lt;- getArgs
+<span class="linenumber">09:</span>               putStrLn $ "Hi, " ++ (av !! 0) ++ "!"
+<span class="linenumber">10:</span>               
+<span class="linenumber">11:</span>     \end{code}
+</pre>
+図２：hi.lhs<p>
+  
+1 行目はスクリプトを実行ファイルにするとき呼び出すインタープリターを指定します。
+（Perl, Python, Ruby と同様）
+
+<h4>1.2.1. Bird モード</h4>
+行頭に <span class="bluetextbold">&gt;</span> がある行が
+コードでそれ以外はコメントです。上の例を Bird モードで書くと以下のようになります。
+
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">#! usr/bin/env runhugs</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     &gt;module Main where
+<span class="linenumber">05:</span>     &gt;import System
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     &gt;main = do av &lt;- getArgs
+<span class="linenumber">08:</span>     &gt;          putStrLn $ "Hi, " ++ (av !! 0) ++ "!"
+<span class="linenumber">09:</span>               
+<span class="linenumber">10:</span>     
+</pre>
+図３：hi2.lhs<p>
+
+ <h2>2. 処理系のインストールと動作確認</h2>
+Haskell には２つのメジャーな処理系があります。
+ １つはインタープリターの Hugs で、もう１つはコンパイラーの GHC です。
+ 対話的に使った場合、 Hugs の方がレスポンスが速いです。
+ 一方、実行速度は GHC でコンパイルした方が勝ります。
+ 従って、プログラムの開発、テストには、Hugs を使い、
+ 出来上がったプログラムを GHC でコンパイルするのがよいと思います。
+
+ <h3> 2.1. Hugs </h3>
+ Hugs は動作が軽快なインタープリターです。プロトタイプのテストなどに適しています。
+ <h4> 2.1.1. インストール</h4>
+ Hugs は <a href="http://www.haskell.org/hugs/">www.haskell.org/hugs/</a> からダウンロードできます。
+	ソースコードのほかに Windows, Linux 用バイナリーもあります。
+	バイナリーはウィザードに従って簡単にインストールできます。
+	  
+	無事にインストールすると hugs と runhugs とそれ以外の実行ファイルがインストール先に生成します。
+
+	<h4> 2.1.2. hugs </h4>
+
+	hugs は対話的に関数を定義することが出来ないので、まず、ソースをファイルに保存して
+	それをロードすることになります。hugs の主なコマンドは以下の通りです。その他のコマンド
+	については <span class="bluetext">:?</span> で見てみてください。
+<center>
+<table border=1 class="mono">
+   <tr>
+      <th>コマンド</th>
+      <th>省略形</th>
+      <th>動作</th>
+   </tr>
+   <tr>
+      <td>:load <span class="parm">file</span></td>
+      <td>:l <span class="parm">file</span></td>
+      <td> <span class="parm">file</span> をロードする。</td>
+   </tr>
+   <tr>
+      <td>:reload</td>
+      <td>:r</td>
+      <td>最後にロードしたファイルを再ロードする。</td>
+   </tr>
+   <tr>
+      <td>:quit</td>
+      <td>:q</td>
+      <td>hugs を終了する。</td>
+   </tr>
+   <tr>
+      <td>:?</td>
+      <td>:?</td>
+      <td>ヘルプを表示する。</td>
+   </tr>
+</table>
+	</center>
+<p>
+例えば図４のコードを Qsort.hs という名前で保存し、図５のように hugs に打ち込むと、
+  リストをソートした結果が表示されます。
+<pre class="code">
+<span class="linenumber">01:</span>     module Qsort where
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     qsort _ [] = []
+<span class="linenumber">04:</span>     qsort f (x:xs) =  before ++ (x :  after)
+<span class="linenumber">05:</span>      where before = qsort f $ filter (not . (f x)) xs 
+<span class="linenumber">06:</span>            after  = qsort f $ filter (f x) xs
+</pre>
+図４：Qsort.hs<p>
+
+<pre class="samp">
+D:\doc\05-03\haskell>hugs
+__   __ __  __  ____   ___      _________________________________________
+||   || ||  || ||  || ||__      Hugs 98: Based on the Haskell 98 standard
+||___|| ||__|| ||__||  __||     Copyright (c) 1994-2003
+||---||         ___||           World Wide Web: http://haskell.org/hugs
+||   ||                         Report bugs to: hugs-bugs@haskell.org
+||   || Version: Nov 2003       _________________________________________
+
+Haskell 98 mode: Restart with command line option -98 to enable extensions
+
+Type :? for help
+Prelude&gt; :l Qsort.hs
+Qsort&gt; qsort (&lt;) [8,3,5,2,7,1,9]
+[1,2,3,5,7,8,9]
+Qsort&gt;
+</pre>
+図５：Qsort.hs を読み込んで実行。<p>
+
+ <h4> 2.1.3. runhugs </h4>
+runhugs を使うとコンパイルしないでコードを実行できます。
+ ちょうど Perl, Python などのスクリプト言語のような使い勝手です。
+ 例えば、図２の hi.lhs を実行するには、コマンドラインから図６のように打ち込みます。
+ hi.lhs を実行ファイルにすれば runhugs は省略できます。
+<pre class="samp">
+D:\doc\05-03\haskell&gt;runhugs hi.lhs Taro
+Hi, Taro!
+
+D:\doc\05-03\haskell&gt;
+</pre>
+図６：runhugs を使ったプログラムの実行。<p>
+
+ <h3> 2.2. GHC </h3>
+  Haskell の業界標準コンパイラーです。
+ <h4> 2.2.1. インストール</h4>
+ GHC は <a href="http://www.haskell.org/ghc/index.html">www.haskell.org/ghc/</a> からダウンロードできます。
+	ソースコードのほかに Windows, Linux 用バイナリーもあります。
+	バイナリーはウィザードに従って簡単にインストールできます。
+	  
+	無事にインストールすると ghc とそれ以外の実行ファイルがインストール先に生成します。
+
+ <h4> 2.2.2. コンパイルと実行</h4>
+コマンドラインから、
+<pre class="samp">
+D:\doc\05-03\haskell&gt;ghc --make hi.hs -o hi.exe
+</pre>
+とすると hi.exe が生成します。
+--make としておけば複数のファイルも自動的にコンパイルしてリンクしてくれます。
+あとは普通に実行するだけです。
+<pre class="samp">
+D:\doc\05-03\haskell&gt;hi Hanako
+Hi, Hanako!
+</pre>
+もし、ファイルサイズが気になるようでしたら strip してください。
+<pre class="samp">
+D:\doc\05-03\haskell&gt;strip hi.exe
+</pre>
+
+<h2> 3. リンク</h2>
+<ul>
+<li><a href="http://www.haskell.org/implementations.html">
+Haskell Compilers and Interpreters
+</a> haskell.org にある処理系の紹介。hugs, ghc のほかに nhc98 などがある。
+  <li><a href="http://www.haskell.org/hugs/">hugs home</a>
+	 <li><a href="http://cvs.haskell.org/Hugs/pages/documentation.htm">Hugs Documentation</a>
+		<li><a href="http://www.haskell.org/ghc/">GHC home</a>
+		  <li> <a href="http://www.haskell.org/ghc/documentation.html">GHC documents</a>
+			 </ul>
+ <hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell1.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  1. Haskell とは</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell3.html"><img src='../images/right_arrow.gif' class='arrow' border=0>3. 関数を定義する</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell2.html&t=Executing+Haskell+program' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>
+

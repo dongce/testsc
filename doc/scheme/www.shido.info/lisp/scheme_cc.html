@@ -1,0 +1,569 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, 継続">
+<meta name="description" content="Scheme の継続">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 16. 継続 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_syntax.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  15. 構文の定義</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_lazy.html"><img src='../images/right_arrow.gif' class='arrow' border=0>17. 遅延評価</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_cc.html&t=Scheme+%C6%FE%CC%E7+16.+%B7%D1%C2%B3' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>16. 継続   </h1>
+<hr>
+<h2>1. 初めに </h2>
+今回は Scheme の特徴的なデータ型である継続について説明します。
+このデータ型は他のプログラミング言語には無いので理解するのは易しくないかもしれません。
+とりあえず、感じをつかんでいただければ結構です。<p>
+
+この文書では、まず一般的な継続について説明し、それから Scheme の継続について説明します。
+多くの解説書ではまず Scheme の継続について説明してから、継続渡しスタイルについて説明していますが、
+先に継続渡しスタイルについて説明したほうが、なぜ Scheme に継続というデータ型があるのかがわかりやすいと思います。
+
+
+<h2> 2. 継続とは</h2>
+継続とはトップレベルに戻ってくるまでにしなければならない計算です。<p>
+実は、<strong>継続は計算過程において普遍的に存在</strong>しますが、明示的に扱われることが少ないため、
+  なじみのない概念になっています。例えば、[example 1] を見てみると、
+  (+ 1 2) を評価した後にしなければならない計算（すなわち継続）は 3 を掛ける
+  {  (* 3 <span class='redtext'>[]</span>)   }
+  となります。<p>
+
+[example 1]
+<pre class='code'>
+(* 3 (+ 1 2))
+</pre>
+
+<h2> 3. 継続渡しスタイル</h2>
+
+<h3> 3.1. 簡単な継続渡しスタイル</h3>
+継続渡しスタイルとは、関数が、値を返す代わりに、計算した値をどの関数に渡すのかを明示的に指定する
+方法です。
+継続渡しで書いた足し算と掛け算は [code 1] のように書けます。
+<var>k</var> は引き続いて実行する関数です。<p>
+
+[code 1]
+<pre class='code'>
+(define (return x)
+  x)
+
+(define (k+ a b k)
+  (k (+ a b)))
+
+(define (k* a b k)
+  (k (* a b)))
+</pre>
+
+[code 1] の関数を使って [example 1] と同じことをやると以下のようになります。<p>
+
+[example 2]
+<pre class='samp'>
+(k+ 1 2 (lambda (x) (k* x 3 return)))
+</pre>
+
+通常の式 [example 1] の外側にあったものが、 CPS [example 2] では内側にきているのがわかります。
+[example 2] で、<tt>k+</tt> は (+ 1 2) を評価した結果を <tt>(lambda (x) (k* x 3 return))</tt>
+に引渡し、k* は (* (+ 1 2) 3) の結果を return に引き渡しています。<p>
+
+  継続渡しスタイル (continuation passing style) は略して CPS と呼ばれることがあります。
+
+<h3> 3.2. 再帰関数の継続渡しスタイル</h3>
+再帰関数も継続渡しスタイルで書くことができます。まず、階乗の計算を継続渡しスタイルで書いてみます。<p>
+
+[code 2]
+<pre class='code'>
+;;; normal factorial
+(define (fact n)
+  (if (= n 1) 
+      1
+      (* n (fact (- n 1)))))
+
+;;; CPS factorial
+(define (kfact n k)
+  (if (= n 1) 
+      (k 1)
+      (kfact (- n 1) (lambda (x) (k (* n x))))))
+</pre>
+上の [code 2] の <tt>fact</tt> が通常の書き方、 <tt>kfact</tt> が継続渡しスタイルです。
+4 の階乗に 3 を足すという計算は [example 3] の様になります。<p>
+[example 3]
+<pre class='samp'>
+;;; normal
+(+ 3 (fact 4))
+
+;;; CPS
+(kfact 4 (lambda (x) (k+ x 3 return)))
+</pre>
+
+また、数のリストの積を計算する関数は [code 3] の様になります。継続渡しスタイルでは 0 を掛けたとき
+即座に抜け出せるように初めの引渡し先を <tt>break</tt> という局所変数に保存しておきます。<p>
+
+[code 3]
+<pre class='code'>
+;;; normal
+(define (product ls)
+  (let loop ((ls ls) (acc 1))
+    (cond
+     ((null? ls) acc)
+     ((zero? (car ls)) 0)
+     (else (loop (cdr ls) (* (car ls) acc))))))
+
+;;; CPS
+(define (kproduct ls k)
+  (let ((break k))
+    (let loop ((ls ls) (k k))
+      (cond
+       ((null? ls) (k 1))
+       ((zero? (car ls)) (break 0))
+       (else (loop (cdr ls) (lambda (x) (k (* (car ls) x)))))))))
+</pre>
+'(2 4 7) の積に 100 を足す計算は [example 4] の様になります。
+<p>
+
+[example 4]
+<pre class='samp'>
+;;; normal
+(+ 100 (product '(2 4 7)))
+
+;;; CPS
+(kproduct '(2 4 7) (lambda (x) (k+ x 100 return)))
+</pre>
+
+<p>
+  さて、このような簡単な例では継続渡しスタイルのありがたみはわかりませんが、
+  評価の内容によって処理を振り分けたいときは通常の記法より簡潔になることがあります。
+  そのため、継続渡しスタイルは自然言語解析、論理プログラムなどに良く用いられます。
+  <p>
+    処理を振り分ける簡単な例として例外処理を挙げておきます。
+    以下の例は、kproduct を改良して、数値以外のものが混じっているとそれを表示するプログラムです。<p>
+
+[code 4]
+<pre class='code'>       
+(define (non-number-value-error x)
+  (display "Value error: ")
+  (display  x)
+  (display " is not number.")
+  (newline)
+  'error)
+
+
+(define (kproduct ls k k-value-error)
+  (let ((break k))
+    (let loop ((ls ls) (k k))
+      (cond
+       ((null? ls) (k 1))
+       ((not (number? (car ls))) (k-value-error (car ls)))
+       ((zero? (car ls)) (break 0))
+       (else (loop (cdr ls) (lambda (x) (k (* (car ls) x)))))))))
+</pre>
+
+[example 5]
+<pre class='samp'>
+;;; valid
+&gt; (kproduct '(2 4 7) 
+	  (lambda (x) (k+ x 100 return)) 
+	  non-number-value-error)
+<span class='response'>156</span>
+
+;;; invalid
+&gt; (kproduct '(2 4 7 hoge) 
+	  (lambda (x) (k+ x 100 return)) 
+	  non-number-value-error)
+<span class='response'>Value error: hoge is not number.
+error</span>
+</pre>
+
+
+<h2> 4. Scheme の継続</h2>
+以上の説明で継続がどんなものか大体わかったと思います。
+継続は、
+<ol>
+  <li>全ての計算に存在し、
+  <li>関数型言語であれば、継続渡しスタイルで継続を明示的に取り扱うことができます。
+</ol>
+また、上記の例を見てもわかるように<strong>継続はクロージャの連鎖</strong>です。<p>
+
+しかし、継続渡しスタイルでプログラムを読み書きするのはわずらわしいので、
+  通常の書き方のプログラムで継続を扱えると便利です。
+  <p>
+  そこで、Scheme では
+継続はファーストクラスオブジェクト（つまり普通の変数）として実装されており、
+<span class='ttb'>call-with-current-continuation</span> という関数を使って任意の時点での継続を取り出すことができます。
+また、取り出した継続は好きなだけ再利用することができます。</p>
+
+<tt>call-with-current-continuation</tt>
+の省略形 <tt>call/cc</tt> も R<sup>6</sup>RS および、ほとんどの実装で用意されています。
+タイプが楽なので、多くの場合 <tt>call/cc</tt> の方が用いられます。
+<p>
+<tt>call-with-current-continuation (call/cc)</tt> は 1 引数の関数で
+引数に現在の継続を引数とする関数をとります。
+以下に使い方の例を示します。
+<pre class='samp'>
+(* 3 (call/cc (lambda (k) (+ 1 2)))) &rArr; 9          ; [ 1 ]
+(* 3 (call/cc (lambda (k)  (+ 1 (k 2))))) &rArr; 6     ; [ 2 ]
+</pre>
+[ 1 ] では継続が呼ばれていないので普通の式と同じです。
+一方、[ 2 ] では継続 k が呼ばれて、それに 2 が与えられます。
+そうすると、途中の計算は飛ばして、call/cc の外側に 2 が返ります。
+つまり、k は 1 引数の関数で、この場合は<br>
+<tt>(lambda (x) (* 3 x))</tt><br>
+と等価です。つまり、k には call/cc の外側からトップレベルに戻るまでの道順が保存されています。<p>
+k は他のデータと同様に保存しておいて、後で何度でも使うことができます。
+<pre class='code'>
+(define cc)
+(* 3 (call/cc (lambda (k)
+                 (set! cc k)
+                 (+ 1 2))))
+</pre>
+継続はトップレベルに戻るまでの道順ですから、どこかの式の中に置かれたとき、途中の式を無視して、保存された
+手続きに従ってトップレベルまで戻ってきます。
+<pre class='samp'>
+(+ 100 (cc 3)) &rArr; 9 
+(+ 100 (cc 10)) &rArr; 30
+</pre>
+
+<h3> 4.1. call/cc を使った大域脱出</h3>
+一番わかりやすい使い方は継続を使った大域脱出でしょう。
+[code 5] は木（ネストしたリスト）の中に <var>obj</var> があれば #t を返し、無ければ #f を返す関数です。
+ <var>obj</var> が見つかると、一番外側に一気に脱出します。
+<p>
+[code 5]
+<pre class='code'>
+(define (find-leaf obj tree)
+  (call/cc
+   (lambda (cc)
+     (letrec ((iter
+	       (lambda (tree)
+		 (cond
+		  ((null?  tree) #f)
+		  ((pair? tree)
+		   (iter (car tree))
+		   (iter (cdr tree)))
+		  (else
+		   (if (eqv? obj tree)
+		       (cc obj)))))))
+       (iter tree)))))
+</pre>
+
+[example 6]
+<pre class='samp'>
+(find-leaf 7 '(1 (2 3) 4 (5 (6 7))))
+<span class='response'>&rArr; 7</span>
+
+(find-leaf 8 '(1 (2 3) 4 (5 (6 7))))
+<span class='response'>&rArr; #f</span>
+</pre>
+
+また、大域脱出用の構文 <tt>block</tt> を定義すると [code 6] のようになります。<p>
+[code 6]
+<pre class='code'>
+(define-syntax block
+  (syntax-rules ()
+    ((_ tag e1 ...)
+     (call-with-current-continuation
+      (lambda (tag)
+	e1 ...)))))
+</pre>
+
+以下の様に使います。<p>
+[expample 7]
+<pre class='samp'>
+(block break
+   (map (lambda (x)
+           (if (positive? x)
+	       (sqrt x)
+	       (break x)))
+	'(1 2 3)))
+<span class='response'>&rArr; (1 1.4142135623730951 1.7320508075688772)</span>
+
+(block break
+   (map (lambda (x)
+           (if (positive? x)
+	       (sqrt x)
+	       (break x)))
+	'(1 -2 3)))
+<span class='response'>&rArr; -2</span>
+</pre>
+
+<h3> 4.2. generator</h3>
+<a href='http://www.sampou.org/scheme/t-y-scheme/t-y-scheme.html'>独習 Scheme 三週間</a>
+にあるツリーの葉を呼ばれるたびに１枚ずつ返す関数を説明します。
+この関数を使うとツリーの比較が容易になります。
+<p>
+使用例：
+<pre class="samp">
+(define tr '((1 2) (3 (4 5))))
+(define p (leaf-generator tr))
+(p) => 1
+(p) => 2
+(p) => 3
+(p) => 4
+(p) => 5
+(p) => ()  ; 最後に '() を返す。
+</pre>
+
+この関数の定義は以下の通りです。基本的には
+<a href="http://www.sampou.org/scheme/t-y-scheme/t-y-scheme-Z-H-15.html#node_sec_13.3">
+  独習 Scheme 三週間</a>にある tree->generator と同じですが
+（実は全く同じですが）、
+若干単純化しています。また、継続を表すシンポルに return, continue などの馴染みの単語を
+使うことで、コードを読みやすくしています。継続は直感的に分かりにくいので、分かりやすい単語を
+使うことで敷居が低くなることを期待しています。<p>
+
+[code 7]
+<pre class="code">
+<span class="linenumber">001:</span>   (define (leaf-generator tree)
+<span class="linenumber">002:</span>     (let ((return '()))                                                       <span class="comment">; 1</span>
+<span class="linenumber">003:</span>       (letrec ((continue                                                      <span class="comment">; 2</span>
+<span class="linenumber">004:</span>                 (lambda (x)
+<span class="linenumber">005:</span>                   (let loop ((tree tree))                                     <span class="comment">; 3</span>
+<span class="linenumber">006:</span>                     (cond                                                     <span class="comment">; 4</span>
+<span class="linenumber">007:</span>                      ((null? tree) 'skip)                                     <span class="comment">; 5</span>
+<span class="linenumber">008:</span>                      ((pair? tree) (loop (car tree)) (loop (cdr tree)))       <span class="comment">; 6</span>
+<span class="linenumber">009:</span>                      (else                                                    <span class="comment">; 7</span>
+<span class="linenumber">010:</span>                       (call/cc (lambda (lap-to-go)                            <span class="comment">; 8</span>
+<span class="linenumber">011:</span>                                  (set! continue lap-to-go)                    <span class="comment">; 9</span>
+<span class="linenumber">012:</span>                                  (return tree))))))                           <span class="comment">;10</span>
+<span class="linenumber">013:</span>                   (return '()))))                                             <span class="comment">;11</span>
+<span class="linenumber">014:</span>               (lambda ()                                                      <span class="comment">;12</span>
+<span class="linenumber">015:</span>                 (call/cc (lambda (where-to-go)                                <span class="comment">;13</span>
+<span class="linenumber">016:</span>                            (set! return where-to-go)                          <span class="comment">;14</span>
+<span class="linenumber">017:</span>                            (continue 'start)))))))
+</pre>
+上のコードの説明：
+<table class="sep15">
+  <col width="40">
+  <thead>
+	 <tr><th>脚注</th><th>説明</th></tr>
+	 </thead>
+  <tbody>
+   <tr><td align="right" valign="top">1.</td>
+	  <td> 局所変数 return を宣言。</td></tr>
+   <tr><td align="right" valign="top">2.</td>
+	  <td> continue を letrec を使って定義。
+		 continue は現状での先頭の葉を返して、
+	  その時点での計算経過を次の continue にセットして停止する手続き。lap-to-go と引数の数をあわせるため、1引数の関数として定義する。
+(call/cc の引数は1引数の関数)。<br>
+		 letrec は let と同様に局所変数を
+		 宣言し、かつ 9. のように
+		 宣言ブロック内で宣言したシンボルを参照することが出来る。
+	</td></tr>
+   <tr><td align="right" valign="top">3.</td>
+	  <td>名前つき let を使って loop を宣言。
+		 </td></tr>
+   <tr><td align="right" valign="top">4.</td>
+	  <td> cond を使って処理を振り分ける。
+	  </td></tr>
+   <tr><td align="right" valign="top">5.</td>
+	  <td> 空リストの時は何もしない。</td></tr>
+   <tr><td align="right" valign="top">6.</td>
+	  <td> リストのときはその car と cdr に対して loop を再帰的に適用。</td></tr>
+   <tr><td align="right" valign="top">7.</td>
+	  <td>葉のときは、</td></tr>
+   <tr><td align="right" valign="top">8.</td>
+	  <td> call/cc を呼び出して、途中経過 lap-to-go を取得し、</td></tr>
+	  	  <tr><td align="right" valign="top">9.</td>
+			 <td> lap-to-go を（次に呼び出す）continue にセットする。
+lap-to-go は、もともとの continue の定義に、その時点での
+				変数、ネストの深さ etc が入ったもの。つまり、<span class="redtext">[ ]</span> を使って表すと、
+<pre class="oset">
+                (lambda ()
+                  (let rec ((tree tree0))  
+                    (cond                  
+                     ((null? tree) '())     
+                     ((pair? tree) (rec (car tree)) (rec (cdr tree)))  
+                     (else                                             
+                      <span class="redtext">[ ]</span>                    
+                  (return '()))))                                       
+</pre>
+が、入っていると想像できる。lap-to-go が呼ばれた時点で (car tree) が葉の時の処理が終わったので、
+次は (rec (cdr tree)) が開始される。<span class="redtext">[ ]</span> の処理が終わったところから計算が開始されるので、
+<span class="redtext">[ ]</span> は埋めなくてもいい。つまり、継続に引数を与えなくてもそのまま手続きとして計算が再開される。
+				
+			 </td></tr>
+			 <tr><td align="right" valign="top">10.</td>
+				<td> そして見つかった葉を呼び出し元に返す。(return tree) は call/cc
+				の内側にある必要がある。もし、外側にあると次の計算が始まらない。</td></tr>
+   <tr><td align="right" valign="top">11.</td>
+	  <td> 全ての葉を調べつくしたら空リストを返す。</td></tr>
+	<tr><td align="right" valign="top">12.</td>
+	  <td>leaf-generator が返す generator。</td></tr>
+   <tr><td align="right" valign="top">13.</td>
+	  <td>まず最初に call/cc を呼び出して、</td></tr>
+   <tr><td align="right" valign="top">14.</td>
+	  <td> 返す場所を return にセットする。</td></tr>
+   <tr><td align="right" valign="top">15.</td>
+	  <td> しかる後に continue を呼び出す。</td></tr>
+	</tbody>
+</table>
+
+leaf-generator で作られた関数の動作は、通常の traverse 関数を書いて、それのトレースから
+推測できます。trace の * 印の所で計算がストップし、残りの計算は continue に保持されます。<br>
+通常の traverse 関数：
+<pre class="oset">
+(define tree-traverse
+  (lambda (tree)
+    (cond
+     ((null? tree) '_)
+     ((pair? tree) (tree-traverse (car tree)) (tree-traverse (cdr tree)))
+     (else
+      (write tree)))))
+</pre>
+
+tree が '((1 2) 3) のときの trace。
+<pre class="samp">
+> (tree-traverse '((1 2) 3))
+|(tree-traverse ((1 2) 3))
+| (tree-traverse (1 2))
+| |(tree-traverse 1)           
+1| |#&lt; void&gt;               ; *
+| (tree-traverse (2))
+| |(tree-traverse 2)           
+2| |&lt; void&gt;                ; *
+| (tree-traverse '())
+| _
+|(tree-traverse (3))
+| (tree-traverse 3)            
+3| #&lt; void&gt;                ; *
+|(tree-traverse '())
+|_
+_
+</pre>
+  
+<h3>4.3. コルーチン</h3>
+継続は、これから行う計算を覚えているので、
+継続を利用すると複数のタスクを並列して行わせる、いわゆる
+<a href='http://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%AB%E3%83%BC%E3%83%81%E3%83%B3'>コルーチン</a>
+を書くことができます。
+[code 7] は数字とアルファベットを交互に表示するプログラムです。
+5--22 行目までは待ち行列を実装しています。
+<tt>(enqueue! queue obj)</tt> で <var>obj</var> を待ち行列 <var>queue</var> の最後に追加し、
+(dequeue! queue) で、queue から先頭の要素を取り除き、先頭の要素を返します。
+Scheme での待ち行列の実装については
+<a href='http://www-ui.is.s.u-tokyo.ac.jp/~hara2001/scheme/material/4/4.mtd.column.html'>
+  http://www-ui.is.s.u-tokyo.ac.jp/~hara2001/scheme/material/4/4.mtd.column.html</a>
+を見てください。<p>
+
+コルーチンの実装は 26--38 行です。
+<dl>
+  <dt><span class='ttb'>process-queue</span></dt>
+      <dd> プロセスの待ち行列です。</dd>
+  <dt><span class='ttb'>(coroutine thunk)</span></dt>
+      <dd> thunk を process-queue の末尾に加えます。</dd>
+  <dt><span class='ttb'>(start)</span></dt>
+      <dd> process-queue の先頭の要素を取り出して実行します。</dd>
+  <dt><span class='ttb'>(pause)</span></dt>
+      <dd> 現在の継続を process-queue の末尾に追加し、process-queue の先頭の要素を実行します。
+         この関数によって、制御が他のコルーチンに移ります。</dd>
+</dl>
+
+42--61 行目は使用例です。数字を表示するルーチンとアルファベットを表示するルーチンが
+交互に呼び出しあい、[example 8] のような結果を得ます。
+<tt>process-queue</tt> に優先度をつけると優先度の高いプロセスから実行することができます。
+興味のある人は試してみてください。<p>
+[code 8]
+<pre class='code'>
+<span class="linenumber">001:</span>   (require rnrs/control-6)
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   <span class="comment">;;; this imprementation of queue is MzScheme specific.</span>
+<span class="linenumber">005:</span>   (define (make-queue)
+<span class="linenumber">006:</span>     (mcons '() '()))
+<span class="linenumber">007:</span>   
+<span class="linenumber">008:</span>   (define (enqueue! queue obj)
+<span class="linenumber">009:</span>     (let ((lobj (mcons obj '())))
+<span class="linenumber">010:</span>       (if (null? (mcar queue))
+<span class="linenumber">011:</span>   	(begin
+<span class="linenumber">012:</span>   	  (set-mcar! queue lobj)
+<span class="linenumber">013:</span>   	  (set-mcdr! queue lobj))
+<span class="linenumber">014:</span>   	(begin
+<span class="linenumber">015:</span>   	  (set-mcdr! (mcdr queue) lobj)
+<span class="linenumber">016:</span>   	  (set-mcdr! queue lobj)))
+<span class="linenumber">017:</span>       (mcar queue)))
+<span class="linenumber">018:</span>   
+<span class="linenumber">019:</span>   (define (dequeue! queue)
+<span class="linenumber">020:</span>     (let ((obj (mcar (mcar queue))))
+<span class="linenumber">021:</span>       (set-mcar! queue (mcdr (mcar queue)))
+<span class="linenumber">022:</span>       obj))
+<span class="linenumber">023:</span>   
+<span class="linenumber">024:</span>   
+<span class="linenumber">025:</span>   <span class="comment">;;; coroutine   </span>
+<span class="linenumber">026:</span>   (define process-queue (make-queue))
+<span class="linenumber">027:</span>   
+<span class="linenumber">028:</span>   (define (coroutine thunk)
+<span class="linenumber">029:</span>     (enqueue! process-queue thunk))
+<span class="linenumber">030:</span>   
+<span class="linenumber">031:</span>   (define (start)
+<span class="linenumber">032:</span>      ((dequeue! process-queue)))
+<span class="linenumber">033:</span>      
+<span class="linenumber">034:</span>   (define (pause)
+<span class="linenumber">035:</span>     (call/cc
+<span class="linenumber">036:</span>      (lambda (k)
+<span class="linenumber">037:</span>        (coroutine (lambda () (k #f)))
+<span class="linenumber">038:</span>        (start))))
+<span class="linenumber">039:</span>   
+<span class="linenumber">040:</span>   
+<span class="linenumber">041:</span>   <span class="comment">;;; example</span>
+<span class="linenumber">042:</span>   (coroutine (lambda ()
+<span class="linenumber">043:</span>   	     (let loop ((i 0)) 
+<span class="linenumber">044:</span>   	       (when (&lt; i 10)
+<span class="linenumber">045:</span>                    (display (+ 1 i)) 
+<span class="linenumber">046:</span>                    (display " ") 
+<span class="linenumber">047:</span>                    (pause) 
+<span class="linenumber">048:</span>                    (loop (+ 1 i))))))
+<span class="linenumber">049:</span>   		   
+<span class="linenumber">050:</span>   (coroutine (lambda ()
+<span class="linenumber">051:</span>   	     (let loop ((i 0)) 
+<span class="linenumber">052:</span>   	       (when (&lt; i 10)
+<span class="linenumber">053:</span>   		     (display (integer-&gt;char (+ i 97)))
+<span class="linenumber">054:</span>   		     (display " ")
+<span class="linenumber">055:</span>   		     (pause) 
+<span class="linenumber">056:</span>                    (loop (+ 1 i))))))
+<span class="linenumber">057:</span>   
+<span class="linenumber">058:</span>   (start)
+<span class="linenumber">059:</span>   (newline)
+</pre>
+
+[example 8]
+<pre class='samp'>
+&gt; (load/cd "callcc.scm")
+<span class='response'>1 a 2 b 3 c 4 d 5 e 6 f 7 g 8 h 9 i 10 j</span>
+</pre>
+<h2>5. 終わりに</h2>
+以上で継続の使い方の説明を終わります。
+よくわからなくても気にしないでください。だんだんわかるようになります。<p>
+
+次回は遅延評価について説明します。
+<p>
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_syntax.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  15. 構文の定義</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme_lazy.html"><img src='../images/right_arrow.gif' class='arrow' border=0>17. 遅延評価</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme_cc.html&t=Scheme+%C6%FE%CC%E7+16.+%B7%D1%C2%B3' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

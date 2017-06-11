@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, sqlite">
+<meta name="description" content="how to use sqlite3 module">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>sqlite3</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="python_calc.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python_calc.html&t=sqlite3' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+ <h1>sqlite3</h1> 
+<hr>
+<h2>1. 初めに</h2>
+<span class='redtextbold'>(書きかけ)</span>
+<p>
+
+SQLite は RDMS (関係データベース管理システム) の一種です。
+通常の RDMS と異なり面倒なセットアップが不要で、簡単に利用することができます。
+通常のファイル並に簡単に扱えるので、
+今まではテキストファイルなどに保存していたデータは sqlite に保存するようにすると便利です。
+
+
+<h2>2. Python から SQLite を使う</h2>
+もちろん、Python からも SQLite を利用できます。
+Python 2.5 から sqlite3 が build-in package として配布されているので、
+すぐに使うことができます。
+<p>
+次の例のように、データファイルに <tt>connect</tt> するだけで、使うことができます。
+データファイルは、
+<ul>
+<li>存在しなければ自動的に作成され、
+<li>存在すれば、それが開かれます。
+</ul>
+
+また、データの保存はデータベースオブジェクトの <tt>commit()</tt> メソッドを使います。
+<br>
+
+<p>
+[shopping1.py]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#! /usr/local/bin/python</span>
+<span class="linenumber">002:</span>   <span class="comment"># coding:shift_jis</span>
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   import sqlite3
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   db=sqlite3.connect('shopping.db')  <span class="comment"># データベースに接続</span>
+<span class="linenumber">007:</span>   db.execute('create table shopping(name, unit_price, number)')   <span class="comment"># テーブルを作成</span>
+<span class="linenumber">008:</span>   db.executemany('insert into shopping(name, unit_price, number) values (?,?,?)', \
+<span class="linenumber">009:</span>     [(u'ビール', 270, 5), \
+<span class="linenumber">010:</span>      (u'芋焼酎', 1000, 3), \
+<span class="linenumber">011:</span>      (u'かっぱえびせん', 120, 3), \
+<span class="linenumber">012:</span>      (u'焼き鳥', 80, 20), \
+<span class="linenumber">013:</span>      (u'ピーナッツ', 200, 3),  \
+<span class="linenumber">014:</span>     ])    <span class="comment"># テーブルにデータを挿入。executemany を使うと複数のSQL 文を実行することができる。</span>
+<span class="linenumber">015:</span>   
+<span class="linenumber">016:</span>   db.commit()   <span class="comment"># データの保存</span>
+<span class="linenumber">017:</span>   db.close()    <span class="comment"># データベースの切断</span>
+</pre>
+
+
+SQL 文の実行は <tt>execute()</tt> メソッドを使います。このメソッドは、
+カーソルを返すので、必要に応じて <tt>fetchall()</tt>, <tt>fetchmany()</tt>, <tt>fetchone()</tt>
+を使って、値を取り出します。また、for ブロックに渡すと、値が1行ずつ取り出されます。
+<p>
+[shopping2.py]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#! /usr/local/bin/python</span>
+<span class="linenumber">002:</span>   <span class="comment"># coding:shift_jis</span>
+<span class="linenumber">003:</span>   import sqlite3
+<span class="linenumber">004:</span>   
+<span class="linenumber">005:</span>   db=sqlite3.connect('shopping.db')
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   print u'           品目\t      単価\t個数\t小計'
+<span class="linenumber">008:</span>   for name, up, num, p in db.execute('select name, unit_price, number, unit_price*number from shopping'):
+<span class="linenumber">009:</span>       print '%s\t%5d\t%3d\t%5d' % (u'　'*(8-len(name))+name, up, num, p)        <span class="comment"># 値を1行ずつ取り出してプリントする</span>
+<span class="linenumber">010:</span>   
+<span class="linenumber">011:</span>   print '-'*45
+<span class="linenumber">012:</span>   print ' ' * 40, db.execute('select sum(unit_price * number) from shopping').fetchone()[0] <span class="comment"># fetchone を使って最初の値を取り出す</span>
+<span class="linenumber">013:</span>   db.close()
+</pre>
+
+<p>
+実行結果
+<pre class='samp'>
+$python shopping1.py  <span class="comment">(テーブルを作っているので、2 回実行するとエラーになります)</span>
+$python shopping2.py
+           品目       単価      個数    小計
+　　　　　ビール          270     5      1350
+　　　　　芋焼酎         1000     3      3000
+　かっぱえびせん          120     3       360
+　　　　　焼き鳥           80    20      1600
+　　　ピーナッツ          200     3       600
+---------------------------------------------
+                                         6910
+</pre>
+
+<h2>3. ID や 日付の取り扱い</h2>
+以下はこづかい帳の例です。品目ごとに固有の ID をつけ、使った日付を YYYY-MM-DD の形式のテキストで保存します。
+(SQLite のデータ型は基本的に数値とテキストしかありません)。ID は、<tt>buy_index</tt> というテーブルに保存します。
+
+<p>
+[spend1.py]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#! /usr/local/bin/python</span>
+<span class="linenumber">002:</span>   <span class="comment"># coding:shift_jis</span>
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   import sqlite3
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   def insert_items(db, ls0):
+<span class="linenumber">008:</span>       for name,unit_price, number,date in ls0:
+<span class="linenumber">009:</span>           idx=db.execute('select id from buy_index').fetchone()[0]+1  <span class="comment"># buy_index からインデックスを取り出し、それに1を加えます</span>
+<span class="linenumber">010:</span>           db.execute('insert into buy(id, name, unit_price, number, date) values(?,?,?,?,?)', (idx, name, unit_price, number, date))
+<span class="linenumber">011:</span>           db.execute('update buy_index set id=? where 1=1', (idx,))  <span class="comment"># buy_index を更新します</span>
+<span class="linenumber">012:</span>           
+<span class="linenumber">013:</span>   if __name__=='__main__':
+<span class="linenumber">014:</span>       db=sqlite3.connect('spend.db')
+<span class="linenumber">015:</span>       db.execute('create table buy(id, name, unit_price, number, date)')
+<span class="linenumber">016:</span>       db.execute('create table buy_index(id)')
+<span class="linenumber">017:</span>       db.execute('insert into buy_index(id) values (0)')
+<span class="linenumber">018:</span>       insert_items(db, [ \
+<span class="linenumber">019:</span>         ('beer', 300, 3, '2007-12-27'), \
+<span class="linenumber">020:</span>         ('chips', 150, 2, '2007-12-30'), \
+<span class="linenumber">021:</span>         ('pizza', 1000, 2, '2007-12-31'), \
+<span class="linenumber">022:</span>         ('CD-R', 40, 100, '2008-01-05'), \
+<span class="linenumber">023:</span>         ('A4 paper', 5, 500, '2008-01-07'), \
+<span class="linenumber">024:</span>         ('printer ink', 1000, 5, '2008-01-08'), \
+<span class="linenumber">025:</span>         ])
+<span class="linenumber">026:</span>       db.commit()
+<span class="linenumber">027:</span>       db.close()
+</pre>
+
+月ごとの出費を出力するには以下のようにします。
+購入物品のリストは日付の昇順に並べます。
+
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#! /usr/local/bin/python</span>
+<span class="linenumber">002:</span>   <span class="comment"># coding:shift_jis</span>
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   import sqlite3, datetime
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   def get_ymd(s0):
+<span class="linenumber">007:</span>       return tuple([int(s) for s in s0.split('-')])
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   def days(day1, day2):
+<span class="linenumber">010:</span>       u<span class="string">'''日付文字列を datetime.date に変換しそれを比較します'''</span>
+<span class="linenumber">011:</span>       d1 = datetime.date(*get_ymd(day1))
+<span class="linenumber">012:</span>       d2 = datetime.date(*get_ymd(day2))
+<span class="linenumber">013:</span>       return  0 if d1==d2   \
+<span class="linenumber">014:</span>         else  1 if d1&gt;d2    \
+<span class="linenumber">015:</span>         else -1
+<span class="linenumber">016:</span>   
+<span class="linenumber">017:</span>   def monthly_spending(db, year, month):
+<span class="linenumber">018:</span>       s='%d-%02d-%%' % (year, month)
+<span class="linenumber">019:</span>       print s
+<span class="linenumber">020:</span>       total=0
+<span class="linenumber">021:</span>       print 'id, date, name, unit_price, number, price'
+<span class="linenumber">022:</span>   
+<span class="linenumber">023:</span>       <span class="comment"># ある月の購入物品のリストを出力します。</span>
+<span class="linenumber">024:</span>       <span class="comment"># days を使って日付を比較し昇順に並べます。</span>
+<span class="linenumber">025:</span>       for id, date, name, up, num, p in db.execute(           \
+<span class="linenumber">026:</span>         'select id, date, name, unit_price, number, unit_price*number from buy where date like ? order by date collate days', (s,)):
+<span class="linenumber">027:</span>           total+=p
+<span class="linenumber">028:</span>           print id, date, name, up, num, p
+<span class="linenumber">029:</span>       print '-'*40
+<span class="linenumber">030:</span>       print ' '*35, total
+<span class="linenumber">031:</span>   
+<span class="linenumber">032:</span>   if __name__=='__main__':
+<span class="linenumber">033:</span>       db=sqlite3.connect('spend.db')
+<span class="linenumber">034:</span>       db.create_collation('days', days)   <span class="comment"># 比較用の関数 days を定義します。</span>
+<span class="linenumber">035:</span>       monthly_spending(db, 2007, 12)
+<span class="linenumber">036:</span>       monthly_spending(db, 2008, 1)
+<span class="linenumber">037:</span>       db.close()
+</pre>
+
+結果は以下のようになります。
+
+<pre class='samp'>
+$python spend1.py      <span class="comment">(テーブルを作っているので、2 回実行するとエラーになります)</span>
+$python spend2.py
+2007-12-%
+id, date, name, unit_price, number, price
+1 2007-12-27 beer 300 3 900
+2 2007-12-30 chips 150 2 300
+3 2007-12-31 pizza 1000 2 2000
+----------------------------------------
+                                    3200
+2008-01-%
+id, date, name, unit_price, number, price
+4 2008-01-05 CD-R 40 100 4000
+5 2008-01-07 A4 paper 5 500 2500
+6 2008-01-08 printer ink 1000 5 5000
+----------------------------------------
+                                    11500
+</pre>
+
+<h2>4. 終わりに</h2>
+エディタで直接中身が見えないという点は不便ですが、そのほかの点では SQLite を使ってデータを保存したほうが
+簡単だし何かと便利です。<br>
+詳しくは <u>Python 2.5 Library Reference 13.13 sqlite3 -- DB-API 2.0 interface for SQLite databases</u>
+を見てください。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="python_calc.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python_calc.html&t=sqlite3' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

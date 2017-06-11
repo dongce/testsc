@@ -1,0 +1,747 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, tutorial">
+<meta name="description" content="Image Viewer using Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter 入門: 12. Tk.Text の使い方 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter11.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  11. Canvas を使って納涼しよう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter_a1.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  A-1. Widget に画像を張り込む</a></td>
+<td><a rel='download' href="tkinter12.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter12.html&t=Tkinter+%C6%FE%CC%E7%3A+12.+Tk.Text+%A4%CE%BB%C8%A4%A4%CA%FD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>12. Tk.Text の使い方 </h1> 
+<hr>
+
+ <h2>1. 初めに</h2>
+<span class='mono'>Tk.Text</span> はテキストを表示したり、ユーザーがテキストを入力するのに使います。
+HTML と同じように、表示を飾りつけしたり、コマンドへリンクを張ったりすることができます。
+ <a href='python6.html'>Tkinter demo</a> にも例がありますのでそちらも見てください。
+ また、詳しい解説は
+ <a href='http://effbot.org/tkinterbook/text.htm'>The Tkinter Text Widget</a> あるいは
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/text.html'>TkRef: 17. The Text widget</a>
+を見てください。
+<a name='sec2'>
+<h2>2. Tk.Text の使い方</h2>
+<h3>2.1. Tk.Text の生成</h3>
+Tk.Text はほかの widget と同じように親 widget と option を指定して生成します。
+主な option には以下があります。詳しくは、
+<ul>
+  <li><a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/text.html'>TkRef: 17. The Text widget</a>
+  <li><a href='http://effbot.org/tkinterbook/text.htm#text.Text.edit_separator-method'>The Tkinter Text Widget</a>
+</ul>
+を見てください。<p>
+<center>
+  <table border="1"><colgroup><col align="left"><col align="left"></colgroup><tbody>
+  <tr>
+    <th>オプション</th>
+    <th>説明</th>
+    </tr>
+  <tr>
+    <td><b>bg</b> or <b>background</b></td>
+    <td>テキストの背景色</td>
+  </tr>
+<tr>
+  <td><b>bd</b> or <b>borderwidth</b></td>
+  <td>縁の幅、デフォルトは 2 pixels.</td>
+</tr>
+<tr>
+  <td><b>cursor</b></td>
+  <td>カーソルの形状を指定する。</td>
+</tr>
+<tr>
+  <td><b>font</b></td>
+  <td>フォントの指定</td>
+</tr>
+<tr>
+  <td><b>fg</b> or <b>foreground</b></td>
+  <td>文字とビットマップの色</td>
+</tr>
+<tr>
+  <td><b>height</b></td>
+  <td>表示する行数。</td>
+</tr>
+<tr>
+  <td><b>padx</b></td>
+  <td>テキストから縁への左右のマージン</td>
+</tr>
+<tr>
+  <td><b>pady</b></td>
+  <td>テキストから縁への上下のマージン</td>
+</tr>
+<tr>
+  <td><b>relief</b></td>
+  <td>縁の形状。デフォルトは Tk.SUNKEN</td>
+</tr>
+<tr>
+  <td><b>state</b></td>
+  <td>編集できるかどうか指定する。
+    <ul>
+        <li>Tk.NORMAL : 編集できる。(デフォルト）
+        <li>Tk.DISABLED : 編集できない。
+    </ul>
+  </td>
+</tr>
+<tr>
+  <td><b>tabs</b></td>
+  <td>タブ位置の指定。</td>
+</tr>
+<tr>
+  <td><b>width</b></td>
+  <td>表示する文字数</td>
+</tr>
+<tr>
+  <td><b>wrap</b></td>
+  <td>長い行の折り返し方法の指定。
+    <ul>
+     <li>Tk.CHAR: 文字単位で折り返す。
+     <li>Tk.WORD: 単語単位で折り返す。
+     <li>Tk.NONE: 折り返ししない。
+   </ul>
+</tr>
+</tbody>
+</table>
+</center>
+<h3>2.1. Tk.Text での文字位置の表し方</h3>
+<h4>2.1.2. 文字位置の指定法</h4>
+
+Tk.Text の文字の位置を示す方法には以下に示す方法があります。
+<dl>
+<dt><b>行、列を指定する方法</b></dt>
+<dd>"<var>line</var>.<var>column</var>" のように、行と列をドットで区切って明示的に指定します。
+  例えば、"1.0" は文書の最初を、 "2.3" は 2 行目の 3 文字目の後ろを指します。
+  また、"<var>line</var>.end" とすると行末を表します。
+  例えば、 "5.end" は 5 行目の末尾を表します。
+  </dd>
+<dt><b>あらかじめ定義されたインデックス</b></dt>
+<dd>あらかじめ定義されたインデックスには以下の5つがあります。
+  <ul>
+   <li> <span class='mono'>Tk.INSERT</span>: 挿入カーソルのある位置です。
+   <li> <span class='mono'>Tk.CURRENT</span>: マウスポインターに一番近い文字の位置です。
+   <li> <span class='mono'>Tk.END</span>: 文書の最後の文字の次の位置です。
+   <li> <span class='mono'>Tk.SEL_FIRST</span>: 選択範囲の最初の位置です。
+   <li> <span class='mono'>Tk.SEL_LAST</span>: 選択範囲の最後の位置です。
+  </ul>
+</dd>
+<dt><b>マーク名</b></dt>
+<dd>マーク名もインデックスとして使えます。<a href='#mark'>2.1.2.</a> を参照してください。</dd>
+
+<dt><b><var>tag</var>.first, <var>tag</var>.last</b></dt>
+<dd>それぞれ、タグが指定された文字列の最初の文字の前の位置と最後の文字の後ろの位置を指します。</dd>
+
+<dt><b>@<var>x</var>.<var>y</var></b></dt>
+<dd>widget の左上からの座標 (<var>x</var>, <var>y</var>) に一番近い位置の文字の前の位置を返します。</dd>
+
+<dt><b>埋め込まれたオブジェクトへのポインター</b></dt>
+<dd>埋め込まれたオブジェクトもインデックスとして利用できます。埋め込みオブジェクトの表示方法（例えば中央寄せ）
+  を指定するのに使います。
+  </dd>
+</dl>
+
+Tk.Text のテキストの位置を表す方法について詳しいことは
+<a href='http://effbot.org/tkinterbook/text.htm'>The Tkinter Text Widget</a> あるいは
+<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/text-index.html'>TkRef: 17.1. Indices in text widgets</a>
+を参照してください。<p>
+
+<a name='mark'>
+<h4>2.1.2. マーク</h4>
+テキストの位置を記憶させるのにマークをつけることができます。マークは、そのマークがついているテキストとともに
+移動します。
+<ul>
+ <li>マークは .mark_set(name, index) メソッドで作ることができます。
+   name はマークの名前を表す文字列、index はマークを挿入する場所です。
+   また、このメソッドを使って、すでに存在するマークを index に移動することもできます。
+ <li>あらかじめ定義されたマークがあります。
+   <ul>
+    <li> Tk.INSERT: 挿入カーソルがある位置につくマークです。
+    <li> Tk.CURRENT: マウスポインターがある位置につくマークです。
+  </ul>
+ <li>マークはマークの周りのテキストとともに移動します。もし他の部分が編集されて、文書の長さが変わったとしても、
+   マークと周りのテキストとの位置関係は変わりません。
+ <li>マークには gravity という性質があって、マークの位置にテキストが挿入されたとき、マークがどう動くかを指定します。
+   gravity の値は .mark_gravity(mark_name, gravity) で変えることができます。マークを作ったときの
+   初期設定は Tk.RIGHT です。
+   <ul>
+     <li> Tk.RIGHT: マーク位置の前に文字が挿入されます。つまり、挿入された分だけマークは後ろに下がります。
+     <li> Tk.LEFT: マーク位置の後ろに文字が挿入されます。つまり、挿入されても先頭からのマーク位置は変わりません。
+    </ul>
+  <li>マークの周りのテキストを削除してもマークは削除されません。
+    マークを削除するときは .mark_unset(mark_name) メソッドを使います。
+ </ul>
+
+<a name='op_index'>      
+<h4>2.1.3. インデックスの操作</h4>
+インデックスに以下の文字列を加えることによりインデックスを操作できます。
+以下の説明では、もともとのインデックスを INDEX0 と表します。
+<ul>
+<li> "(+ or -) <var>count</var>chars": 最初の文字が '+' のときは
+  INDEX0 より <var>count</var> 文字後ろのインデックス。
+  '-' のときは <var>count</var> 文字前のインデックス。<br>
+  "chars" は単に "c" と書くこともできます。
+<li> "(+ or -) <var>count</var>lines":  最初の文字が '+' のときは
+  INDEX0 より <var>count</var> 行後ろのインデックス。
+  '-' のときは <var>count</var> 行前のインデックス。
+<li>" linestart" INDEX0 がある行の行頭のインデックス
+<li>" lineend" INDEX0 がある行の行末のインデックス
+<li>" wordstart" INDEX0 がある単語の初めのインデックス
+<li>" wordend" INDEX0 がある単語の終わりのインデックス
+</ul>
+<h3>2.3. タグ</h3>
+テキストの表示の仕方を調節したり、テキストを関数と結びつけるのにタグを用います。
+<ul>
+<li>タグの表示方法を定義するには、<span class='mono'>.tag_config</span>(<var>tag_name</var>, <var>option</var>)
+  メソッドを使います。
+  <var>tag_name</var> はタグの名前を表す文字列で、スペースとピリオド以外の文字が使えます。
+  <var>option</var> には <span class='mono'>font, bg, font, justify, offset</span> などがあります。
+  詳しくは、<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/text-methods.html'>TkRef 17.7. Methods on Text widgets</a>
+  の <span class='mono'>.tag_config</span> の項を見てください。
+ <li>タグとイベント、関数を関係づけるには
+   <span class='mono'>.tag_bind</span>(<var>tag_name</var>, <var>event</var>, <var>func</var>,
+   <var>add</var><span class='mono'>=None</span>) メソッドを使います。同じタグに関数を追加するときには
+   <var>add</var> に '+' を指定します。
+ <li>選択範囲には <span class='mono'>Tk.SEL</span> というタグがつきます。
+ <li>テキストを挿入するときタグをつけるには、
+   <span class='mono'>.insert</span>(<var>index</var>, <var>string</var>, <var>tag_name</var>)
+   メソッドで <var>tag_name</var> を指定します。<br>
+   すでに存在しているテキストにタグをつけるときは
+   <span class='mono'>.tag_add</span>(<var>tag_name</var>, <var>index1</var>, <var>index2</var><span class='mono'>=None</span>)
+   メソッドを使います。
+   タグは複数つけることができます。複数つけるときはタプルを使います。
+  <li> タグが複数ある場合、タグの操作は前から順番に行われます。つまり、後ろのタグが、前のタグを上書きします。
+  <li> タグの順番は変えることができます。
+  </ul>
+
+<h3>2.4. Tk.Text のメソッド</h3>
+Tk.Text の主なメソッドを以下に示します。
+詳しくは、<a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/text-methods.html'> TkRef, 17.7. Methods on Text widgets</a>
+を見てください。
+<dl>
+  <dt><b>.compare(index1, op, index2)</b></dt>
+      <dd>index1 と index2 を比べます。op は真偽値を返すオペレータを表す文字列です。<br>
+例えば、.compare("2.0", "&lt;=", Tk.END) はテキストが2行以上あるとき真を返します。</dd>
+  <dt><b>.delete(index1, index2=None)</b></dt>
+      <dd> index1 から index2 までの文字列を削除します。</dd>
+  <dt><b>.get(index1, index2=None)</b></dt>
+      <dd> index1 から index2 までの文字列を取得します。</dd>
+  <dt><b>.index (idx)</b></dt>
+      <dd> idx のインデックスを 'line.column' の形で返します。</dd>
+  <dt><b>.insert(index, text, tags=None)</b></dt>
+      <dd> index に text を挿入します。タグを指定することができます。</dd>
+  <dt><b>.search ( pattern, index, option, ... )</b></dt>
+      <dd>index から pattern を検索します。</dd>
+  <dt><b>.see(index)</b></dt>
+      <dd> もし、index が表示されていなければ、スクロールして表示されるようにする。</dd>
+  <dt><b>.window_create (index, option, ... )</b></dt>
+      <dd>index に widget を挿入します。</dd>
+</dl>
+<h3>2.5. ScrolledText </h3>
+
+初めから縦スクロールバーのついている ScrolledText が便利でよく使います。
+ScrolledText は縦スクロールバーがついているほかは Tk.Text と同じです。
+  ScrolledText モジュールをインポートして使います。<p>
+Tk.Text にスクロールバーをつける方法は <a href='python6.html'>Tkinter demo</a> にある。twind.py を見てください。
+<h2>3. Tk.Text による簡易日本語エディタ</h2>
+Tkinter でエディタそのものを作ることは使用例を示す以外には無いと思います。
+しかし、アプリケーション中で、ユーザーにテキストを入力してもらうことはしばしば必要になると思います。
+そのとき、コピー、ペーストなどの
+簡単な編集機能がついていると便利です。図1、[code 1] に ScrolledText を使った簡易エディタ (jmemo.py) を示します。
+  <p>
+    <center><img src='jmemo.png'><br>図１：jmemo.py で生成する Window</center>
+<p>
+<a name='jmemo'>
+[code 1] (jmemo.py)
+<pre class='code'>
+<span class="linenumber"> 01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber"> 02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber"> 03:</span>     
+<span class="linenumber"> 04:</span>     <span class="string">"""
+<span class="linenumber"> 05:</span>     jmemo.py 
+<span class="linenumber"> 06:</span>     
+<span class="linenumber"> 07:</span>     It works on Win and Linux.
+<span class="linenumber"> 08:</span>     July 06, 2005
+<span class="linenumber"> 09:</span>     """</span>
+<span class="linenumber"> 10:</span>     
+<span class="linenumber"> 11:</span>     import Tkinter as Tk
+<span class="linenumber"> 12:</span>     import ScrolledText as S
+<span class="linenumber"> 13:</span>     import tkFileDialog as D
+<span class="linenumber"> 14:</span>     import os
+<span class="linenumber"> 15:</span>     
+<span class="linenumber"> 16:</span>     
+<span class="linenumber"> 17:</span>     <span class="comment">## classes -----------------------------------------------------------------------------------</span>
+<span class="linenumber"> 18:</span>     
+<span class="linenumber"> 19:</span>     class Frame(Tk.Frame):
+<span class="linenumber"> 20:</span>         <span class="string">""" The main class of this program. """</span>
+<span class="linenumber"> 21:</span>         
+<span class="linenumber"> 22:</span>         def __init__(self, master=None):
+<span class="linenumber"> 23:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber"> 24:</span>             self.master.title(os.name=='posix' and 'untitled' or u'無題')
+<span class="linenumber"> 25:</span>             self.file_name=None
+<span class="linenumber"> 26:</span>     
+<span class="linenumber"> 27:</span>             <span class="comment">### Menu</span>
+<span class="linenumber"> 28:</span>             menu_bar = Tk.Menu(self, tearoff=0)
+<span class="linenumber"> 29:</span>             <span class="comment"># File</span>
+<span class="linenumber"> 30:</span>             menu_file = Tk.Menu(menu_bar, tearoff=0)
+<span class="linenumber"> 31:</span>             menu_bar.add_cascade(label=u"ファイル(F)", menu=menu_file,  underline=5)
+<span class="linenumber"> 32:</span>             menu_file.add_command(label=u"新規作成(N)", command=self.new_memo, underline=5, accelerator = 'Ctrl-N')
+<span class="linenumber"> 33:</span>             menu_file.add_command(label=u"開く(O)", command=self.open_memo, underline=3, accelerator = 'Ctrl-O')
+<span class="linenumber"> 34:</span>             menu_file.add_command(label=u"保存(S)", command=self.save_memo, underline=3, accelerator = 'Ctrl-S')
+<span class="linenumber"> 35:</span>             menu_file.add_command(label=u"名前をつけて保存(A)", command=self.saveas_memo, underline=9)
+<span class="linenumber"> 36:</span>             menu_file.add_separator()
+<span class="linenumber"> 37:</span>             menu_file.add_command(label=u"終了(Q)", command=self.exit, underline=3 , accelerator = 'Ctrl-Q')
+<span class="linenumber"> 38:</span>     
+<span class="linenumber"> 39:</span>             <span class="comment"># Edit</span>
+<span class="linenumber"> 40:</span>             menu_edit = Tk.Menu(menu_bar, tearoff=0)
+<span class="linenumber"> 41:</span>             menu_bar.add_cascade(label=u'編集(E)', menu=menu_edit, underline=3)
+<span class="linenumber"> 42:</span>             menu_edit.add_command(label=u'全てを選択(A)', command=self.select_all, underline=6, accelerator = 'Ctrl-A')
+<span class="linenumber"> 43:</span>             menu_edit.add_command(label=u'切り取り(X)', command=self.cut, underline=5,
+<span class="linenumber"> 44:</span>                                   accelerator = os.name=='posix' and 'Ctrl-W' or 'Ctrl-X')
+<span class="linenumber"> 45:</span>             menu_edit.add_command(label=u'コピー(C)', command=self.copy, underline=4,
+<span class="linenumber"> 46:</span>                                   accelerator = os.name=='posix' and 'Alt-W' or 'Ctrl-C')
+<span class="linenumber"> 47:</span>             menu_edit.add_command(label=u'ペースト(V)', command=self.paste, underline=5, 
+<span class="linenumber"> 48:</span>                                   accelerator = os.name=='posix' and 'Ctrl-Y' or 'Ctrl-V')
+<span class="linenumber"> 49:</span>             menu_edit.add_command(label=u'カーソルのある行を削除', command=self.delete_line, accelerator = 'Shift-Del')
+<span class="linenumber"> 50:</span>                                   
+<span class="linenumber"> 51:</span>     
+<span class="linenumber"> 52:</span>     
+<span class="linenumber"> 53:</span>     
+<span class="linenumber"> 54:</span>             <span class="comment"># short-cuts</span>
+<span class="linenumber"> 55:</span>             self.master.bind('&lt;Control-KeyPress-o&gt;', self.open_memo)
+<span class="linenumber"> 56:</span>             self.master.bind('&lt;Control-KeyPress-s&gt;', self.save_memo)
+<span class="linenumber"> 57:</span>             self.master.bind('&lt;Control-KeyPress-q&gt;', self.exit)
+<span class="linenumber"> 58:</span>             self.master.bind('&lt;Control-KeyPress-a&gt;', self.select_all)
+<span class="linenumber"> 59:</span>             self.master.bind('&lt;Shift-KeyPress-Delete&gt;', self.delete_line)
+<span class="linenumber"> 60:</span>             self.master.bind('&lt;Double-Button-1&gt;', self.delete_line)
+<span class="linenumber"> 61:</span>             if os.name == 'posix':
+<span class="linenumber"> 62:</span>                 self.master.bind('&lt;Alt-KeyPress-w&gt;', self.copy)
+<span class="linenumber"> 63:</span>     
+<span class="linenumber"> 64:</span>             <span class="comment"># add menu bar</span>
+<span class="linenumber"> 65:</span>             try:
+<span class="linenumber"> 66:</span>                 self.master.config(menu=menu_bar)     <span class="comment"># this required to show the menu bar</span>
+<span class="linenumber"> 67:</span>             except AttributeError:
+<span class="linenumber"> 68:</span>                 self.master.Tk.call(master, "config", "-menu", menu_bar)
+<span class="linenumber"> 69:</span>     
+<span class="linenumber"> 70:</span>     
+<span class="linenumber"> 71:</span>             self.txt = S.ScrolledText(self, font=('Helvetica', '10'))
+<span class="linenumber"> 72:</span>             self.txt.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber"> 73:</span>             self.txt.focus_set()
+<span class="linenumber"> 74:</span>     
+<span class="linenumber"> 75:</span>     
+<span class="linenumber"> 76:</span>         def new_memo(self, event=None):
+<span class="linenumber"> 77:</span>             self.file_name=None
+<span class="linenumber"> 78:</span>             self.master.title(os.name=='posix' and 'untitled' or u'無題')
+<span class="linenumber"> 79:</span>             self.txt.delete('1.0', Tk.END)
+<span class="linenumber"> 80:</span>     
+<span class="linenumber"> 81:</span>     
+<span class="linenumber"> 82:</span>         def open_memo(self, event=None):
+<span class="linenumber"> 83:</span>             fname = D.askopenfilename(filetypes =[('text files', '*.txt'), ('all files', '*.*')])
+<span class="linenumber"> 84:</span>                                        
+<span class="linenumber"> 85:</span>             if fname:
+<span class="linenumber"> 86:</span>                 self.txt.delete('1.0', Tk.END)
+<span class="linenumber"> 87:</span>                 f=file(fname)
+<span class="linenumber"> 88:</span>                 self.txt.insert(Tk.END, f.read().decode('shift_jis'))  <span class="comment">## decode is required to show data</span>
+<span class="linenumber"> 89:</span>                 f.close()
+<span class="linenumber"> 90:</span>                 self.file_name = fname
+<span class="linenumber"> 91:</span>                 self.master.title(fname)
+<span class="linenumber"> 92:</span>     
+<span class="linenumber"> 93:</span>     
+<span class="linenumber"> 94:</span>         def save(self, f):
+<span class="linenumber"> 95:</span>             f.write(self.txt.get('1.0', Tk.END).encode('shift_jis')) <span class="comment">## encode is required to write data</span>
+<span class="linenumber"> 96:</span>             f.close()
+<span class="linenumber"> 97:</span>                 
+<span class="linenumber"> 98:</span>         def save_memo(self, event=None):
+<span class="linenumber"> 99:</span>             if self.file_name:
+<span class="linenumber">100:</span>                 self.save(file(self.file_name, 'w'))
+<span class="linenumber">101:</span>             else:
+<span class="linenumber">102:</span>                 self.saveas_memo()
+<span class="linenumber">103:</span>     
+<span class="linenumber">104:</span>         def saveas_memo(self):
+<span class="linenumber">105:</span>             fname = D.asksaveasfilename(filetypes =[('text files', '*.txt')])
+<span class="linenumber">106:</span>             if fname:
+<span class="linenumber">107:</span>                 self.save(file(fname, 'w'))
+<span class="linenumber">108:</span>                 self.file_name=fname
+<span class="linenumber">109:</span>                 self.master.title(fname)
+<span class="linenumber">110:</span>     
+<span class="linenumber">111:</span>     
+<span class="linenumber">112:</span>         def select_all(self, event=None):
+<span class="linenumber">113:</span>             self.txt.tag_add(Tk.SEL, '1.0', Tk.END+'-1c')
+<span class="linenumber">114:</span>             self.txt.mark_set(Tk.INSERT, '1.0')
+<span class="linenumber">115:</span>             self.txt.see(Tk.INSERT)
+<span class="linenumber">116:</span>     
+<span class="linenumber">117:</span>         def cut(self, event=None):
+<span class="linenumber">118:</span>             if self.txt.tag_ranges(Tk.SEL):
+<span class="linenumber">119:</span>                 self.copy()
+<span class="linenumber">120:</span>                 self.txt.delete(Tk.SEL_FIRST, Tk.SEL_LAST)
+<span class="linenumber">121:</span>     
+<span class="linenumber">122:</span>         def copy(self, event=None): 
+<span class="linenumber">123:</span>             if self.txt.tag_ranges(Tk.SEL): 
+<span class="linenumber">124:</span>                 text = self.txt.get(Tk.SEL_FIRST, Tk.SEL_LAST)  
+<span class="linenumber">125:</span>                 self.clipboard_clear()              
+<span class="linenumber">126:</span>                 self.clipboard_append(text)
+<span class="linenumber">127:</span>     
+<span class="linenumber">128:</span>         def paste(self, event=None):
+<span class="linenumber">129:</span>             text = self.selection_get(selection='CLIPBOARD')
+<span class="linenumber">130:</span>             if text:
+<span class="linenumber">131:</span>                 self.txt.insert(Tk.INSERT, text)
+<span class="linenumber">132:</span>                 self.txt.tag_remove(Tk.SEL, '1.0', Tk.END) 
+<span class="linenumber">133:</span>                 self.txt.see(Tk.INSERT)
+<span class="linenumber">134:</span>     
+<span class="linenumber">135:</span>         def delete_line(self, event=None):
+<span class="linenumber">136:</span>             self.txt.delete(Tk.INSERT + " linestart", Tk.INSERT + " lineend")
+<span class="linenumber">137:</span>             
+<span class="linenumber">138:</span>         def exit(self, event=None):
+<span class="linenumber">139:</span>             self.master.destroy()
+<span class="linenumber">140:</span>     
+<span class="linenumber">141:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">142:</span>     
+<span class="linenumber">143:</span>     if __name__ == '__main__':
+<span class="linenumber">144:</span>         f = Frame()
+<span class="linenumber">145:</span>         f.pack()
+<span class="linenumber">146:</span>         f.mainloop()
+</pre>
+
+__init__ はほとんどメニューの作成に費やされています。メニューについては、
+<a href='tkinter8.html'>Menu を使ったシンプル 画像 Viewer</a> を参照してください。
+ここでは、実際の編集を行う個々のメソッドについて見ていきます。
+
+<h3>3.1. new_memo(self, event=None)</h3>
+<em>.delete</em> メソッドを使って、テキスト全体を削除します。
+<em>.delete</em> は1つか２つの引数をとり、最初の引数は削除する範囲の最初のインデックス。
+2つ目の引数は最後のインデックスです。
+  <span class='mono'>Tk.Text</span> では最初のインデックスは '1.0' で表します。<p>
+    また、現在編集しているファイルの名前 <var>self.file_name</var> を <span class='mono'>None</span> にし、
+    Window のタイトルを u'無題' にします。
+
+<h3>3.2. open_memo(self, event=None)</h3>
+<span class='mono'>askopenfilename</span> を使って、ファイル名 (<var>fname</var>) を取得し、もしファイル名があれば、
+現在編集している内容を削除し、<var>fname</var> の内容を読み込んで表示します。
+日本語を表示するには、Unicode 文字列の <em>decode</em> メソッドを使う必要があります。<p>
+  さらに、
+   現在編集しているファイルの名前 <var>self.file_name</var> に <var>fname</var> を代入し、
+    Window のタイトルを <var>fname</var> にします。
+
+<h3>3.3. save(self, f)</h3>
+書き込み用に開いているファイルハンドル <var>f</var> に表示されている内容を書き込みます。
+書き込むとき Unicode 文字列の <em>encode</em> メソッドを使う必要があります。
+
+<h3>3.4. save_memo(self, event=None)</h3>
+上書き保存をするメソッドです。もし、<var>self.file_name</var> があれば、それに保存します。
+なければ、<var>self.saveas_memo</var> メソッドを使って名前をつけて保存します。
+
+<h3>3.5. saveas_memo(self)</h3>
+<span class='mono'>asksaveasfilename</span> を使ってファイル名 (<var>fname</var>) を取得し、
+もし、<var>fname</var> があれば <var>self.save</var> を使って表示されている
+内容を保存し、<var>fname</var> を <var>self.file_name</var> に代入し、Window のタイトルを <var>fname</var> にします。
+
+<h3>3.6. select_all(self, event=None)</h3>
+<span class='mono'>Tk.SEL</span> というタグ（このタグがつくと選択されていることを表す）を <em>.tag_add</em> メソッドを使って、
+表示されているテキスト全体につけます。このメソッドは3つの引数をとり、最初の引数は加えるタグの名前、
+2番目の引数はタグをつけるテキストの最初のインデックス、3番目の引数（省略可能）はタグをつける最後の
+インデックスです。この例で、<span class='mono'>Tk.END + '-1c'</span> となっているのは、
+<span class='mono'>Tk.END</span> から1文字前に戻るという意味です。
+<span class='mono'>Tk.END</span> は現在の末尾の次の文字（すなわちまだ存在していない）のインデックスですから、
+現在の末尾のインデックスは
+<span class='mono'>Tk.END</span> から1文字戻る必要があります。<p>
+  その後、<em>.mark_set</em> メソッドであらかじめ定義されているマーク <span class='mono'>Tk.INSERT</span> （
+  挿入位置を表す）を文章の最初にセットし、
+  <em>.see</em> メソッドを使って、そこが表示されるようにします。
+
+<h3>3.7. cut(self, event=None)</h3>
+<em>.tag_ranges</em> メソッドを使って <span class='mono'>Tk.SEL</span> の範囲を調べます。
+（つまり、選択されている部分があるかどうか調べます。）
+もし、選択されている部分があれば、<var>self.copy</var> でその部分をコピーし、<em>.delete</em> メソッドでその部分を削除します。
+  
+<h3>3.8. copy(self, event=None)</h3>
+選択されている部分があれば、その部分をクリップボードにコピーします。
+
+<h3>3.9. paste(self, event=None)</h3>
+<em>.selection_get</em> メソッドを使って、クリップボードの内容を <var>text</var> に代入します。
+もし <var>text</var> があれば、それを <span class='mono'>Tk.INSERT</span> に挿入します。
+その後、<span class='mono'>Tk.SEL</span> タグを削除し、
+<span class='mono'>Tk.INSERT</span> が表示されるようにします。
+
+<h3>3.10. delete_line(self, event=None)</h3>
+挿入カーソルがある行を削除します。<a href='#op_index'>インデックス操作</a>の例を挙げるために付け加えました。
+<h2>4. Tk.Text を用いた取り扱い説明書</h2>
+Python/Tkinter でアプリケーションを作った場合、取扱説明書を Tk.Text を使って書くと手軽にわかりやすい
+説明書が書けます。<p>
+Tk.Text は Tk.Widget を埋め込むことができるので、ユーザーは実際に試しながら、説明を読み進めることができます。
+  <a href='tkinter3.html'>ラベルだけでタイマーを作ろう</a> の Tk.Text 版 (jexplain.py) で作ってみました。
+テキスト中に埋め込まれた widget をクリックすると動き出し、また、'<u>コードを見る</u>' をダブルクリックすると
+  該当するソースコードを見ることができます。ちなみに、説明用に書き換えたのは timer.py だけであり、
+  rhello.py, thello.py はもともとのスクリプトをそのまま使っています。つまり、手間をかけずに見栄えのする
+  取扱説明書が書けるということです。
+  図2に jexplain.py の画面を、[code 2] にそのコードを示します。
+  <p>
+    <center><img src='jexplain.png'><br>図２：jexplain.py で生成する Window</center>
+<p>
+[code 2] (jexplain.py)
+<pre class='code'>
+<span class="linenumber"> 01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber"> 02:</span>     <span class="comment"># -*- coding: shift_jis -*-</span>
+<span class="linenumber"> 03:</span>     
+<span class="linenumber"> 04:</span>     <span class="string">"""
+<span class="linenumber"> 05:</span>     jexplain.py 
+<span class="linenumber"> 06:</span>     
+<span class="linenumber"> 07:</span>     July 11, 2005
+<span class="linenumber"> 08:</span>     """</span>
+<span class="linenumber"> 09:</span>     
+<span class="linenumber"> 10:</span>     import Tkinter as Tk
+<span class="linenumber"> 11:</span>     import rhello as RH
+<span class="linenumber"> 12:</span>     import thello as TH
+<span class="linenumber"> 13:</span>     import timer2 as Ti
+<span class="linenumber"> 14:</span>     from ScrolledText import ScrolledText
+<span class="linenumber"> 15:</span>     
+<span class="linenumber"> 16:</span>     <span class="comment">## functions ------------------------------------------------------------</span>
+<span class="linenumber"> 17:</span>     def read_contents(fname):
+<span class="linenumber"> 18:</span>         <span class="string">""" read contens of `fname' """</span>
+<span class="linenumber"> 19:</span>         f = file(fname)
+<span class="linenumber"> 20:</span>         str = f.read()
+<span class="linenumber"> 21:</span>         f.close()
+<span class="linenumber"> 22:</span>         return str
+<span class="linenumber"> 23:</span>     
+<span class="linenumber"> 24:</span>     def left_slide(str):  
+<span class="linenumber"> 25:</span>         ls0 = str.split('+')
+<span class="linenumber"> 26:</span>         ls1 = ls0[0].split('x')
+<span class="linenumber"> 27:</span>         return ('500x600+%d+%s' % (int(ls1[0]) + int(ls0[1]), ls0[2]))
+<span class="linenumber"> 28:</span>     
+<span class="linenumber"> 29:</span>     <span class="comment">## classes ---------------------------------------------------------------</span>
+<span class="linenumber"> 30:</span>     
+<span class="linenumber"> 31:</span>     class Frame(Tk.Frame):
+<span class="linenumber"> 32:</span>         <span class="string">""" The main class of this program. """</span>
+<span class="linenumber"> 33:</span>         
+<span class="linenumber"> 34:</span>         def __init__(self, master=None):
+<span class="linenumber"> 35:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber"> 36:</span>             self.visited=dict()
+<span class="linenumber"> 37:</span>             self.code_window = None
+<span class="linenumber"> 38:</span>             self.master.geometry('500x600+20+20')
+<span class="linenumber"> 39:</span>             self.st = ScrolledText(self, padx=20, pady=25, cursor='arrow', wrap=Tk.WORD, font=('Helvetica', '12'))
+<span class="linenumber"> 40:</span>             self.st.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber"> 41:</span>     
+<span class="linenumber"> 42:</span>             <span class="comment">### tag configuration</span>
+<span class="linenumber"> 43:</span>             self.st.tag_config('h1', font=('Helvetica', '24'), justify=Tk.CENTER)
+<span class="linenumber"> 44:</span>             self.st.tag_config('h2', font=('Helvetica', '18'))
+<span class="linenumber"> 45:</span>             self.st.tag_config('link', font=('Helvetica', '12'), foreground='blue', underline=1)
+<span class="linenumber"> 46:</span>             self.st.tag_config('em', font=('Helvetica', '12', 'bold'), foreground="red")
+<span class="linenumber"> 47:</span>             self.st.tag_config('cite', font=('Helvetica', '12'), foreground="navy")
+<span class="linenumber"> 48:</span>             self.st.tag_config('var', font=('Helvetica', '12', 'bold'), foreground="darkgreen")
+<span class="linenumber"> 49:</span>             self.st.tag_config('center', justify=Tk.CENTER)
+<span class="linenumber"> 50:</span>             self.st.tag_bind('link', "&lt;Double-Button-1&gt;", self.on_clicked)
+<span class="linenumber"> 51:</span>             self.st.tag_bind('link', "&lt;Enter&gt;", self.on_enter, '+')
+<span class="linenumber"> 52:</span>             self.st.tag_bind('link', "&lt;Leave&gt;", self.on_leave, '+')
+<span class="linenumber"> 53:</span>     
+<span class="linenumber"> 54:</span>     
+<span class="linenumber"> 55:</span>             <span class="comment">### title</span>
+<span class="linenumber"> 56:</span>             self.st.insert(Tk.END, u'Label を動かして遊んでみよう\n', 'h1' )
+<span class="linenumber"> 57:</span>             hr = Tk.Frame(self.st, relief=Tk.RIDGE, height=0, width=460)
+<span class="linenumber"> 58:</span>             self.st.window_create(Tk.END,  window=hr, align=Tk.CENTER)
+<span class="linenumber"> 59:</span>             self.st.tag_add('center', hr)
+<span class="linenumber"> 60:</span>             self.st.insert(Tk.END, u'\n')
+<span class="linenumber"> 61:</span>     
+<span class="linenumber"> 62:</span>             <span class="comment">### section 1</span>
+<span class="linenumber"> 63:</span>             self.st.insert(Tk.END, u'1. 初めに\n\n', 'h2' )
+<span class="linenumber"> 64:</span>             self.st.insert(Tk.END,    
+<span class="linenumber"> 65:</span>                  u"Tk のデモのラベルの項には、 ”ラベルは動かせないからつまらない”\n")
+<span class="linenumber"> 66:</span>             self.st.insert(Tk.END,    
+<span class="linenumber"> 67:</span>                  u"(\"Labels are pretty boring because you can't do anything with them.\")\n", 'cite')
+<span class="linenumber"> 68:</span>             self.st.insert(Tk.END,    
+<span class="linenumber"> 69:</span>                  u"と書かれていますが、マウスのクリック、キープレスなどのイベントと結びつけると"
+<span class="linenumber"> 70:</span>                  u"いろいろと動かすことだできます。\n"
+<span class="linenumber"> 71:</span>                  u"ここでは、クリックするとランダムに文字色が変わる")
+<span class="linenumber"> 72:</span>             self.st.insert(Tk.END,  u'Hello world', 'var')  
+<span class="linenumber"> 73:</span>             self.st.insert(Tk.END,  u'、クリックすると文字の温度が上がっていく ')  
+<span class="linenumber"> 74:</span>             self.st.insert(Tk.END,  u'Hello world', 'var')  
+<span class="linenumber"> 75:</span>             self.st.insert(Tk.END,  u'、クリックすると動き出す ')  
+<span class="linenumber"> 76:</span>             self.st.insert(Tk.END,  u'Timer', 'var')  
+<span class="linenumber"> 77:</span>             self.st.insert(Tk.END,  u' を例にとって 説明 しようと思います。 \n\n')  
+<span class="linenumber"> 78:</span>                  
+<span class="linenumber"> 79:</span>             <span class="comment">## section 2</span>
+<span class="linenumber"> 80:</span>             self.st.insert(Tk.END, u'2. 色がランダムに変わるラベル\n\n', 'h2' )
+<span class="linenumber"> 81:</span>             self.st.insert(Tk.END, u'とりあえず、刺激に反応するラベルを作って見ましょう。\n'
+<span class="linenumber"> 82:</span>                               u'図１は一見何の変哲もない Hello world ですが、 クリック すると 背景色が変わります。\n(')
+<span class="linenumber"> 83:</span>             self.st.insert(Tk.END, u'コードを見る', ('link', 'rhello.py') )
+<span class="linenumber"> 84:</span>             self.st.insert(Tk.END,  ")\n\n")                          
+<span class="linenumber"> 85:</span>             hello1 = RH.Label(self.st, relief=Tk.RIDGE)
+<span class="linenumber"> 86:</span>             self.st.window_create(Tk.END,  window=hello1, align=Tk.CENTER, padx=20, pady=20)
+<span class="linenumber"> 87:</span>             self.st.tag_add('center', hello1)
+<span class="linenumber"> 88:</span>             self.st.insert(Tk.END, u'\n図１: クリックすると背景色が変わる hello world\n', 'center')
+<span class="linenumber"> 89:</span>             self.st.insert(Tk.END,    u'実際にクリックしてみてください。\n背景色が変わります。\n\n'
+<span class="linenumber"> 90:</span>                                  , ('center','em'))
+<span class="linenumber"> 91:</span>     
+<span class="linenumber"> 92:</span>             <span class="comment">## section 3</span>
+<span class="linenumber"> 93:</span>             self.st.insert(Tk.END, u'3. 反応が継続するラベル\n\n', 'h2' )
+<span class="linenumber"> 94:</span>             self.st.insert(Tk.END, u'次に動作が継続するラベルを作ってみましょう。\n'
+<span class="linenumber"> 95:</span>                               u'図２クリックすると Hello world の文字が現れ、 文字の 温度が 徐々に上昇していきます。\n('
+<span class="linenumber"> 96:</span>                               )
+<span class="linenumber"> 97:</span>             self.st.insert(Tk.END, u'コードを見る', ('link', 'thello.py') )
+<span class="linenumber"> 98:</span>             self.st.insert(Tk.END,  ")\n\n")
+<span class="linenumber"> 99:</span>             hello2 = TH.Frame(self.st, relief=Tk.RIDGE)
+<span class="linenumber">100:</span>             self.st.window_create(Tk.END,  window=hello2, align=Tk.CENTER, padx=20, pady=20)
+<span class="linenumber">101:</span>             self.st.tag_add('center', hello2)
+<span class="linenumber">102:</span>             self.st.insert(Tk.END, u'\n図２: クリックすると文字色の温度が上がる hello world\n', 'center')
+<span class="linenumber">103:</span>             self.st.insert(Tk.END,    u'実際にクリックしてみてください。\n文字色が変わります。\n'
+<span class="linenumber">104:</span>                                  u'右クリックで元に戻ります。\n\n', ('center','em'))
+<span class="linenumber">105:</span>     
+<span class="linenumber">106:</span>             
+<span class="linenumber">107:</span>             <span class="comment">### section 4</span>
+<span class="linenumber">108:</span>             self.st.insert(Tk.END, u'4. Label だけでタイマーを作ろう\n\n', 'h2' )
+<span class="linenumber">109:</span>     
+<span class="linenumber">110:</span>             self.st.insert(Tk.END,    
+<span class="linenumber">111:</span>                      u"実用的な例として、 図３に示すようなアラームクロックをラベルだけで作ってみましょう。"
+<span class="linenumber">112:</span>                      u"このアラームはマウスの左ボタンで Start/Stop し、右ボタンで Reset します。\n(" )
+<span class="linenumber">113:</span>             self.st.insert(Tk.END, u'コードを見る', ('link', 'timer2.py') )                 
+<span class="linenumber">114:</span>             self.st.insert(Tk.END,  ")\n\n")
+<span class="linenumber">115:</span>             app1 = Ti.Frame(self.st, 3, relief=Tk.RIDGE)
+<span class="linenumber">116:</span>             self.st.window_create(Tk.END,  window=app1, align=Tk.CENTER, padx=20, pady=20)
+<span class="linenumber">117:</span>             self.st.tag_add('center', app1)
+<span class="linenumber">118:</span>             self.st.insert(Tk.END,  "\n")
+<span class="linenumber">119:</span>             self.st.insert(Tk.END, u'\n図３: Label だけでできたアラームクロック\n', 'center')
+<span class="linenumber">120:</span>             self.st.insert(Tk.END,    u'実際にクリックしてみてください。\n動いたり止まったりします。\n\n', ('center','em'))
+<span class="linenumber">121:</span>             self.st.insert(Tk.END,    u'この時計は残り 20 秒をきると、 図４を クリックした ときに 見えるように、'
+<span class="linenumber">122:</span>                                  u' 時計アイコンの背景が黄色くなります。\n')
+<span class="linenumber">123:</span>             app2 = Ti.Frame(self.st, 0.2, relief=Tk.RIDGE)
+<span class="linenumber">124:</span>             self.st.window_create(Tk.END,  window=app2, align=Tk.CENTER, padx=20, pady=20)
+<span class="linenumber">125:</span>             self.st.tag_add('center', app2)
+<span class="linenumber">126:</span>             self.st.insert(Tk.END, u'\n図４: 残り 20 秒を切ったところ。\n', 'center')
+<span class="linenumber">127:</span>             self.st.insert(Tk.END, u'実際にクリックしてみてください。\n動いたり止まったりします。\n\n', ('center','em'))
+<span class="linenumber">128:</span>     
+<span class="linenumber">129:</span>             self.st.insert(Tk.END,    u'さらに、残り時間がなくなると、図５をクリックしたときに見えるように、'
+<span class="linenumber">130:</span>                                  u'時計アイコンの背景が赤、黄と点滅します。\n')
+<span class="linenumber">131:</span>             app3 = Ti.Frame(self.st, 0.0, relief=Tk.RIDGE)
+<span class="linenumber">132:</span>             self.st.window_create(Tk.END,  window=app3, align=Tk.CENTER, padx=20, pady=20)
+<span class="linenumber">133:</span>             self.st.tag_add('center', app3)
+<span class="linenumber">134:</span>             self.st.insert(Tk.END, u'\n図５: 残時間がなくなったところ。\n', 'center')
+<span class="linenumber">135:</span>             self.st.insert(Tk.END, u'実際にクリックしてみてください。\n動いたり止まったりします。\n\n', ('center','em'))
+<span class="linenumber">136:</span>     
+<span class="linenumber">137:</span>             <span class="comment">### section 5</span>
+<span class="linenumber">138:</span>             self.st.insert(Tk.END, u'5. 終わりに\n\n', 'h2' )
+<span class="linenumber">139:</span>             self.st.insert(Tk.END, u'Tk.Label だけでも動かせるアプリを作れることがお分かりいただけたと思います。\n'
+<span class="linenumber">140:</span>                               u'また、Tk.Text を使うと インターラクティブな 説明が できることが お分かりいただけたと思います。\n\n'
+<span class="linenumber">141:</span>             )
+<span class="linenumber">142:</span>     
+<span class="linenumber">143:</span>             self.st.configure(state=Tk.DISABLED)
+<span class="linenumber">144:</span>     
+<span class="linenumber">145:</span>         <span class="comment">##----</span>
+<span class="linenumber">146:</span>         def on_leave(self, event):
+<span class="linenumber">147:</span>             self.st.tag_config(self.link, foreground=self.link in self.visited and 'deepskyblue' or 'blue')
+<span class="linenumber">148:</span>             
+<span class="linenumber">149:</span>             
+<span class="linenumber">150:</span>         def on_clicked(self, event):
+<span class="linenumber">151:</span>             if self.code_window and self.code_window.winfo_exists():
+<span class="linenumber">152:</span>                 self.code.delete('1.0', Tk.END)
+<span class="linenumber">153:</span>             else:
+<span class="linenumber">154:</span>                 self.code_window = Tk.Toplevel()
+<span class="linenumber">155:</span>                 self.code_window.geometry(left_slide(self.master.winfo_geometry()))
+<span class="linenumber">156:</span>                 self.code = ScrolledText(self.code_window, wrap=Tk.WORD)
+<span class="linenumber">157:</span>                 self.code.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">158:</span>                 
+<span class="linenumber">159:</span>             self.code_window.title(self.link)
+<span class="linenumber">160:</span>             self.code.insert(Tk.END, read_contents(self.link))
+<span class="linenumber">161:</span>             self.code_window.focus_set()
+<span class="linenumber">162:</span>             self.visited[self.link]=True
+<span class="linenumber">163:</span>     
+<span class="linenumber">164:</span>             
+<span class="linenumber">165:</span>         def on_enter(self, event):
+<span class="linenumber">166:</span>             tags = self.st.tag_names(Tk.CURRENT)
+<span class="linenumber">167:</span>             self.link = tags[-1]
+<span class="linenumber">168:</span>             self.st.tag_config(self.link, foreground="#FF0099")
+<span class="linenumber">169:</span>     
+<span class="linenumber">170:</span>     
+<span class="linenumber">171:</span>             
+<span class="linenumber">172:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">173:</span>     
+<span class="linenumber">174:</span>     if __name__ == '__main__':
+<span class="linenumber">175:</span>         f = Frame()
+<span class="linenumber">176:</span>         f.pack(fill=Tk.BOTH, expand=1)
+<span class="linenumber">177:</span>         f.mainloop()
+</pre>
+
+テキストを表示するプログラムなので冗長なのはお許しください。
+要点を以下に示します。
+<h3>4.1. タグを使ってテキストの属性を定義する。</h3>
+<span class='mono'>Tk.Text</span> にテキストを挿入するには <em>insert</em> メソッドを使います。このメソッドは3つの引数をとり、
+それぞれ、挿入する場所、挿入する文字列、その文字列のタグです。
+  文字列は、日本語を使うときは先頭に Unicode を表す <b>u</b> をつけます。<p>
+    3番目の引数のタグ名は、文字列の属性を示すタグの名前を示します。タプルでくくって複数指定することも可能です。
+    タグの表示設定は、<em>tag_config</em> メソッドを使います。このメソッドの最初の引数はタグ名、残りはタグの
+    表示設定のためのキーワードパラメターです。[code 2] の 43--49 行目に例があります。<p>
+      タグとコマンドを結び付けるには <em>tag_bind</em> メソッドを使います。このメソッドは
+      引数を3つとり、それぞれ、タグ名、イベントの種類、呼び出す関数（またはメソッド）
+      へのポインターです。使用例は [code 2] の 50--52 行目にあります。
+
+<h3>4.2. Widget を貼り込む</h3>
+Tk.Text に widget を貼り込むのは以下のようにします。[code 2] の 85--87, 99--101 行を参考にしてください。
+<ol>
+<li> まず、<span class='mono'>Tk.Text</span> を親 widget として widget を作成する。
+<li><em>window_create</em> メソッドを使って widget を張り込みます。第一引数は貼り込む場所、それ以降はキーワードパラメター
+  です。貼り込む widget はキーワード 'window' で指定します。
+<li> <em>tag_add</em> メソッドを使って、貼り込んだ widget の属性を指定します。第一引数がタグ名、第二引数が
+  widget を表す変数です。[code 2] の例では、'center' タグを指定して、widget が中央に来るようにしています。
+  </ol>
+<h3>4.3. コマンドにリンクを張る</h3>
+[code 2] では 'link' タグとイベントをバインドさせてコマンドを呼び出しています。
+'link' タグは単独では使わず、ダブルクリックしたとき表示するコード名を2番目のタグとして指定しておきます。
+([code 2]: 83, 97, 113 行目）
+<dl>
+<dt><u>マウスカーソルがやってきたとき</u></dt>
+<dd>マウスカーソルがやってくることを表すイベント名は '<b>&lt;Enter&gt;</b>' です。イベント名について
+  詳しくは <a href='http://infohost.nmt.edu/tcc/help/pubs/tkinter/events.html'>TkRef: 24. Events: responding to stimuli</a>
+  や <a href='http://effbot.org/tkinterbook/tkinter-events-and-bindings.htm'>Events and Bindings</a> を見てください。
+  <p>
+    さて、&lt;Enter&gt; が起こると、<var>self.on_enter</var> (165--168 行目)が呼び出されます。
+    このメソッドは、まず、<em>tag_names</em> メソッドを使って、カーソルがある位置のタグ名を取得し、タグ名のタプルの
+    最後の要素を <var>self.link</var> に代入します。そして、<em>tag_config</em> メソッドを使って、
+    タグが <var>self.link</var> の文字色を
+    '#FF0099' に変えます。
+<dt><u>マウスがそのまま去ったとき</u></dt>
+<dd>マウスカーソルが去ることを表すイベント名は '<b>&lt;Leave&gt;</b>' です。
+    さて、&lt;Leave&gt; が起こると、<var>self.on_leave</var> (146--147 行目)が呼び出されます。
+    このメソッドは、まず、<var>self.link</var> が表示されたことがあれば文字色を水色に、なければ青色に変えます。
+<dt><u>マウス左ボタンがダブルクリックされたとき</u></dt>
+<dd> <var>self.on_click</var> (150--162 行目) を呼び出します。このメソッドは、別窓を開いてソースコードを表示します。
+  また、<var>self.visited[self.link]</var> に <span class='mono'>True</span> を代入し、一度ソースが表示されたことを
+  記憶します。
+  </dd>
+  
+  <h2>5. 終わりに</h2>
+Tk.Text を使うとエディタを簡単に作ることができます。
+  エディタそのものを作ることはないと思いますが、アプリケーションに付随したエディタを作るとき便利です。<p>
+  そのほかに、Tk.Text はソフトの取扱説明書を書くときにも便利です。
+  表示を飾りつけできるだけでなく、埋め込んだ Widget を動かすこともでき、
+  ユーザーの理解を助けます。埋め込む Widget は、多くの場合、
+    もともとのアプリケーションのものがそのまま使えるので、説明書を書く手間も省けます<p>
+  生の Tk.Text を使うことはほとんどなく、縦スクロークのついている ScrolledText を使うことが多いでしょう。
+
+ 
+  
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter11.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  11. Canvas を使って納涼しよう</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='next' href="tkinter_a1.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+  A-1. Widget に画像を張り込む</a></td>
+<td><a rel='download' href="tkinter12.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/tkinter12.html&t=Tkinter+%C6%FE%CC%E7%3A+12.+Tk.Text+%A4%CE%BB%C8%A4%A4%CA%FD' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p></body>
+</html>
+

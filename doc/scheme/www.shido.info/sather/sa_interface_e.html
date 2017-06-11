@@ -1,0 +1,375 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, interface, C, Fortran">
+<meta name="description" content="On the interface between Sather and other languages such as C and  Fortran">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 15. Interface with other languages such as C and Fortran  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_gui_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+14. GUI</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+Try Sather</a></td>
+
+<td><a rel=download href="sa_interface.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_interface_e.html&t=%28Try+Sather%29+15%2E+Interface+with+other+languages+such+as+C+and+Fortran++'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 15. Interface with other languages such as C and Fortran </h1>
+<hr>
+
+<h2>1. Introduction</h2>
+I am going to explain about the interface with other languages such as C and Fortran.
+Sometimes using Fortran or C is better because 
+the performance may improve and because you can use convenient libraries.
+
+The interface implies that Sather has been developed for writing practical applications (as well as academic study).
+
+
+<h2>2. Interface with Fortran</h2>
+I will show two examples: one is factorial and the other is product of matrices
+
+<h3>2.1. Factorial</h3>
+Codes <tt>ffact.f</tt> ([code 1a]) and  <tt>ffact.sa</tt> ([code 1b]) 
+show Fortran and Sather parts of factorial calculation.
+<p>
+Function <tt>factorial(n)</tt> in <tt>ffact.f</tt> returns factorial of <tt>n</tt>.
+The function is called from the sather part of the program (<tt>ffact.sa</tt>)
+<p>
+
+[code 1a]: ffact.f
+<pre class='code'>
+<span class="linenumber">01:</span>           integer function factorial(n)
+<span class="linenumber">02:</span>           integer n
+<span class="linenumber">03:</span>           factorial = 1
+<span class="linenumber">04:</span>           do i=1,n
+<span class="linenumber">05:</span>              factorial = factorial * i
+<span class="linenumber">06:</span>           enddo
+<span class="linenumber">07:</span>           return
+<span class="linenumber">08:</span>           end
+</pre>
+
+[code 1b]: ffact.sa
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- interface with fortran</span>
+<span class="linenumber">02:</span>     <span class="comment">-- to compile:</span>
+<span class="linenumber">03:</span>     <span class="comment">-- sacomp ffact.sa -external FACT ffact.f  -o ffact</span>
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     external FORTRAN class FACT is          <span class="comment">-- declare an external class written in Fortran</span>
+<span class="linenumber">07:</span>        factorial(i:F_INTEGER):F_INTEGER;    <span class="comment">-- function defined in FACT</span>
+<span class="linenumber">08:</span>     end;
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     class MAIN is
+<span class="linenumber">11:</span>        main(av:ARRAY{STR}) is
+<span class="linenumber">12:</span>           i:F_INTEGER := #(av[1].cursor.get_int);  <span class="comment">-- integer of Fortran is F_INTEGER in Sather</span>
+<span class="linenumber">13:</span>           a:F_INTEGER := FACT::factorial(i);       <span class="comment">-- an instance of F_INTEGER is created by #(INT)</span>
+<span class="linenumber">14:</span>           #OUT + av[1] + "! = " + a.str + "\n";    <span class="comment">-- convert to string by str method</span>
+<span class="linenumber">15:</span>        end;
+<span class="linenumber">16:</span>     end;
+</pre>
+<p>
+You have to tell the compiler that <tt>FACT</tt> is defined in <tt>ffact.f</tt> using the
+ <tt>-external</tt> flag. 
+
+<pre class='samp'>
+$ sacomp ffact.sa -external FACT ffact.f -o ffact
+$ ./ffact 10
+10! = 3628800
+</pre>
+
+Several Fortran data types such as F_INTEGER and F_REAL are available.
+You can create a instance of these data types by the <tt>create</tt> method with giving a corresponding Sather data type as an argument.
+See <a href='http://www.gnu.org/software/sather/docs-1.2/tutorial/fortran.html'>
+Sather &mdash; A Language Tutorial: Chapter 13 Interfacing with Fortran</a>
+for detailed information.
+
+<h3>2.2. Product of matrices</h3>
+
+The <tt>F_ARRAY2{<var>F_data_type</var>}</tt> class represents two dimensional arrays.
+An instance of <tt>F_ARRAY2{<var>F_data_type</var>}</tt> can be created from that of <tt>ARRAY2{T}</tt>.
+
+<p>
+Codes <tt>mat.f</tt> ([code 2a]) and <tt>mat.sa</tt> ([code 2b]) show Fortran and Sather part of
+matrices product calculation.
+Be aware that the order of line index and column index is different 
+in Fortran (column, line) and (line, column) in Sather. 
+<p>
+
+[code 2a]: mat.f
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class='comment'>c</span>
+<span class="linenumber">02:</span>     <span class='comment'>c     calculating the product of matrices c = a * b</span>
+<span class="linenumber">03:</span>     <span class='comment'>c</span>
+<span class="linenumber">04:</span>           subroutine mattimes(l,m,n,a,b,c)
+<span class="linenumber">05:</span>           integer l,m,n,i,j,k
+<span class="linenumber">06:</span>           real a(n,l), b(m,n), c(m,l), tmp
+<span class="linenumber">07:</span>           do i=1,l
+<span class="linenumber">08:</span>              do j=1,m
+<span class="linenumber">09:</span>                 tmp=0.0
+<span class="linenumber">10:</span>                 do k=1,n
+<span class="linenumber">11:</span>                    tmp=tmp+a(k,i)*b(j,k)
+<span class="linenumber">12:</span>                 enddo
+<span class="linenumber">13:</span>                 c(j,i)=tmp
+<span class="linenumber">14:</span>              enddo
+<span class="linenumber">15:</span>           enddo
+<span class="linenumber">16:</span>           return
+<span class="linenumber">17:</span>           end
+</pre>
+
+[code 2b]: mat.sa
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- Matrix test</span>
+<span class="linenumber">02:</span>     <span class="comment">--  sacomp mat.sa -chk -external FMAT mat.f -o mat</span>
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     external FORTRAN class FMAT is
+<span class="linenumber">05:</span>        mattimes(l,m,n:F_INTEGER, a,b,c:F_ARRAY2{F_REAL}); 
+<span class="linenumber">06:</span>     end;
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     class MAT is
+<span class="linenumber">09:</span>        include ARRAY2{FLT};               <span class="comment">-- MAT class inherits ARRAY2{FLT} </span>
+<span class="linenumber">10:</span>     
+<span class="linenumber">11:</span>        times(b:SAME):SAME                 <span class="comment">-- define product</span>
+<span class="linenumber">12:</span>           pre self.nc = b.nr  <span class="comment">-- check if the column number of the left side and line number of right side is same.</span>
+<span class="linenumber">13:</span>        is
+<span class="linenumber">14:</span>           c:SAME:=#(self.nr, b.nc);  <span class="comment">-- declare a result storing matrix</span>
+<span class="linenumber">15:</span>           FMAT::mattimes(#(self.nr), #(b.nc), #(self.nc), #(self), #(b), #(c)); <span class="comment">-- calling mattimes from the Fortran module.</span>
+<span class="linenumber">16:</span>           return c;  <span class="comment">-- values in F_ARRAY2{REAL} and ARRAY2{FLT} change simultaneously</span>
+<span class="linenumber">17:</span>        end;
+<span class="linenumber">18:</span>     end;
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     class MAIN is
+<span class="linenumber">21:</span>        main is
+<span class="linenumber">22:</span>           i:INT;
+<span class="linenumber">23:</span>           a,b,c:MAT;
+<span class="linenumber">24:</span>           a:=#(||1.0, 1.0, 2.0|, |2.0, 2.0, 3.0||);
+<span class="linenumber">25:</span>           b:=#(||1.0, 1.0|, |1.0, 2.0|, |1.0, 3.0||);
+<span class="linenumber">26:</span>           c:=a*b;         <span class="comment">-- matrices product calculation gets simple</span>
+<span class="linenumber">27:</span>     
+<span class="linenumber">28:</span>           loop                          <span class="comment">-- showing the answer</span>
+<span class="linenumber">29:</span>     	 i:=1.up!;
+<span class="linenumber">30:</span>     	 #OUT + c.elt!;
+<span class="linenumber">31:</span>     	 if i%c.nc=0 then #OUT+"\n";
+<span class="linenumber">32:</span>     	 else #OUT+" ";
+<span class="linenumber">33:</span>     	 end;
+<span class="linenumber">34:</span>           end;
+<span class="linenumber">35:</span>        end;
+<span class="linenumber">36:</span>     end;
+</pre>
+
+The <tt>mat</tt> calculates <br>
+<img src='mat.png'><br>
+as a test.
+
+<pre class='samp'>
+$ sacomp mat.sa -chk  -external FMAT mat.f -o mat
+$ ./mat
+4 9
+7 15
+</pre>
+
+
+<h2>3. Interface with the C language</h2>
+The interface with C is similar to that with Fortran.
+
+<h3>3.1. Factorial</h3>
+Codes <tt>cfact.c</tt> ([code 3a]) and <tt>cfact.sa</tt> ([code 3b]) shows
+factorial calculation program written in C and Sather.
+<p>
+
+[code 3a]: cfact.c
+<pre class='code'>
+<span class="linenumber">01:</span>     unsigned long factorial(unsigned long i){
+<span class="linenumber">02:</span>         unsigned long j, n;
+<span class="linenumber">03:</span>         for(n=1,j=1;j&lt;=i;++j) n*=j;
+<span class="linenumber">04:</span>         return n;
+<span class="linenumber">05:</span>     }
+</pre>
+
+[code 3b] cfact.sa
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- interfacing with C</span>
+<span class="linenumber">02:</span>     <span class="comment">-- to compile:</span>
+<span class="linenumber">03:</span>     <span class="comment">-- sacomp cfact.sa -external FACT cfact.c  -o cfact</span>
+<span class="linenumber">04:</span>     <span class="comment">--</span>
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     external C class FACT is
+<span class="linenumber">07:</span>        factorial(i:C_UNSIGNED_LONG):C_UNSIGNED_LONG;
+<span class="linenumber">08:</span>     end;
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     class MAIN is
+<span class="linenumber">11:</span>        main(av:ARRAY{STR}) is
+<span class="linenumber">12:</span>           i:C_UNSIGNED_LONG := #(av[1].cursor.get_int);
+<span class="linenumber">13:</span>           a:C_UNSIGNED_LONG := FACT::factorial(i);
+<span class="linenumber">14:</span>           #OUT + av[1] + "! = " + a.str + "\n";
+<span class="linenumber">15:</span>        end;
+<span class="linenumber">16:</span>     end;
+</pre>
+
+The C language data types are named 'C_' + (data type in C (capital))
+like <tt>C_CHAR</tt> and <tt>C_FLOAT</tt>.
+Instances of these data types are created by the <tt>create</tt> method with an argument of corresponding
+Sather data type.
+See <a href='http://www.gnu.org/software/sather/docs-1.2/tutorial/c.html'>
+Sather &mdash; A Language Tutorial: Chapter 14 Interfacing with ANSI C</a>
+for detail.
+<p>
+You can compile and execute the program in a similar way to that of Fortran (<tt>ffact</tt>).
+
+<pre class='samp'>
+$ sacomp cfact.sa -external FACT cfact.c -o cfact
+$ ./cfact 10
+10! = 3628800
+</pre>
+
+<h3>3.2. Converting array and pointer</h3>
+I am going to explain how to use pointers in the C language from a Sather code.
+The ARRAY{T} classes in Sather are converted to pointers by the <tt>array_ptr</tt> method.
+<p>
+
+I will show a pointer version of the encryption program (<a href='sa_abst_e.html#crypt_sa'>crypt.sa</a>).
+As you cannot operate the XOR of the Sather CHAR type, you should convert the string data into array of INT.
+This part get efficient by using the C language, in which XOR of <tt>char</tt> is defined.
+<p>
+Following codes (<tt>encrypt.c</tt> ([code 4a]) and <tt>encrypt.sa</tt> ([code 4b])) show 
+the improved version.  
+
+
+<p>
+
+[code 4a]: encrypt.c
+<pre class='code'>
+<span class="linenumber">01:</span>     void encrypt(char* key, char* plain, char* cipher){
+<span class="linenumber">02:</span>         char *key1, *plain1, *cipher1;
+<span class="linenumber">03:</span>         for(key1=key, plain1=plain, cipher1=cipher; *plain1 != 0; key1++, plain1++, cipher1++){  <span class='comment'>// the function expects that the string end with null</span>
+<span class="linenumber">04:</span>     	if(*key1==0) key1=key;    <span class='comment'>// reuse the key</span>
+<span class="linenumber">05:</span>     	*cipher1 = *key1 ^ *plain1;  <span class='comment'>// XOR of each bit</span>
+<span class="linenumber">06:</span>         }
+<span class="linenumber">07:</span>         *cipher1=0;  <span class='comment'>// add null at the end</span>
+<span class="linenumber">08:</span>     } 
+</pre>
+
+
+[code 4b] crypt.sa (partial)
+<pre class='code'>
+<span class="linenumber">01:</span>     external C class ENCRYPT is                     <span class="comment">-- declare external class ENCRYPT </span>
+<span class="linenumber">02:</span>        encrypt(key,plain,cipher:C_CHAR_PTR);
+<span class="linenumber">03:</span>     end;
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     class ARCHAR is  <span class="comment">-- ARRAY{CHAR} + methods to convert from/to STR</span>
+<span class="linenumber">06:</span>        include ARRAY{CHAR};  
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>        create(s:STR):SAME is  <span class="comment">-- create from  STR </span>
+<span class="linenumber">09:</span>           res:SAME:=#(s.size);
+<span class="linenumber">10:</span>           loop
+<span class="linenumber">11:</span>     	 res.set!(s.elt!);
+<span class="linenumber">12:</span>           end;
+<span class="linenumber">13:</span>           return res;
+<span class="linenumber">14:</span>        end;
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>        to_str:STR is         <span class="comment">-- convert to STR</span>
+<span class="linenumber">17:</span>           fs:FSTR:=#(self.size);
+<span class="linenumber">18:</span>           loop
+<span class="linenumber">19:</span>     	 fs:=fs+self.elt!;
+<span class="linenumber">20:</span>           end;
+<span class="linenumber">21:</span>           return fs.str;
+<span class="linenumber">22:</span>        end;
+<span class="linenumber">23:</span>     end;  <span class="comment">-- ARCHAR</span>
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>     class XOR &lt; $CRYPT is
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>        private attr akey:ARCHAR;
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>        create(key0:STR):SAME is
+<span class="linenumber">30:</span>           return new.init(key0);
+<span class="linenumber">31:</span>        end;
+<span class="linenumber">32:</span>     
+<span class="linenumber">33:</span>        private init(key0:STR):SAME is
+<span class="linenumber">34:</span>           akey:=#(key0);
+<span class="linenumber">35:</span>           return self;
+<span class="linenumber">36:</span>        end;
+<span class="linenumber">37:</span>     
+<span class="linenumber">38:</span>        encrypt(s:STR):STR is
+<span class="linenumber">39:</span>           pl:ARCHAR:=#(s);
+<span class="linenumber">40:</span>           ci:ARCHAR:=#(s.size);
+<span class="linenumber">41:</span>           ENCRYPT::encrypt(#(akey.array_ptr), #(pl.array_ptr), #(ci.array_ptr));  <span class="comment">-- calling the C function</span>
+<span class="linenumber">42:</span>           return ci.to_str;
+<span class="linenumber">43:</span>        end;
+<span class="linenumber">44:</span>     
+<span class="linenumber">45:</span>        decrypt(s:STR):STR is   <span class="comment">-- decrypt is same as the encrypt</span>
+<span class="linenumber">46:</span>           return encrypt(s);
+<span class="linenumber">47:</span>        end;
+<span class="linenumber">48:</span>     end; <span class="comment">-- end of XOR</span>
+</pre>
+
+Functions written in the C language that expect strings end with the null character
+work properly. Maybe it adds the null character at the end when it converts <tt>ARRAY{CHAR}</tt> into <tt>C_CHAR_PTR</tt>
+<p>
+Compile and run the program then you will get following output.
+
+<pre class='samp'>
+$ sacomp crypt.sa -external ENCRYPT encrypt.c -o crypt
+$ ./crypt 'hello world! beautiful beautiful!'
+Cipher Test using "hello world! beautiful beautiful!"
+
+Plain send: hello world! beautiful beautiful!
+Plain receive: hello world! beautiful beautiful!
+
+XOR send: <span class='comment'>(non graphical string)</span>
+XOR receive: hello world! beautiful beautiful!
+</pre>
+
+<h2>4. Summary</h2>
+As you can combine Sather with Fortran or the C language easily,
+you can use fast functions written in Fortran or C at the bottle neck (the most time consuming part),
+which makes whole program efficient.
+First you should write your program in Sather, because it is more efficient in writing. 
+If your program is not fast enough, try to 
+find the bottle neck using a profiler 
+(you can use a profiler for the C language such as 
+<a href='http://www.cs.utah.edu/dept/old/texinfo/as/gprof_toc.html'>gprof</a>, 
+because the Sather code is converted into C) to
+rewrite the bottle neck in Fortran or C.
+<p>
+<a href='sa_interface.tar.bz2'>Download</a> and play with the code in this chapter.
+
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+
+<td><a rel=prev href="sa_gui_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+14. GUI</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+Try Sather</a></td>
+
+<td><a rel=download href="sa_interface.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_interface_e.html&t=%28Try+Sather%29+15%2E+Interface+with+other+languages+such+as+C+and+Fortran++'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body></html>

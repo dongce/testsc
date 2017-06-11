@@ -1,0 +1,225 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, operator, syntax suger">
+<meta name="description" content="On the operators of Sather">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 9. Operators</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_para_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. Parameterized classes</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Try Sather</a></td>
+
+<td><a rel=next href="sa_immutable_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+10.Immutable classes</a></td>
+
+
+<!------------------------------------------
+- <td><a rel=download href="sa_hofunc.tar.bz2">
+-   <img src='../images/down_arrow.gif' class='arrow' border=0></a>
+- <a rel=download href="sa_hofunc.tar.bz2">download</a></td>
+------------------------------------------->
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_op_e.html&t=%28Try+Sather%29+9%2E+Operators'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 9. Operators</h1>
+<hr>
+
+<h2>1. Introduction</h2>
+Sather's operators are syntax sugars of certain methods.
+These syntax sugars make Sather codes readable.
+<p>
+As the methods for operators are pre-defined,
+you can re-define the operators of your own classes.
+
+<h2>2. Arithmetic operators</h2>
+Table 1 shows arithmetic methods and corresponding operators.
+
+
+<p>
+<center>
+Table 1: Arithmetic methods and corresponding operators. 
+<table border=1>
+   <tr>
+      <th width="150">Methods</th>
+      <th width="150">Operators</th>
+   </tr>
+   <tr align="center">
+      <td><var>a</var>.plus(<var>b</var>)</td>
+      <td> <var>a</var> + <var>b</var></td>
+   </tr>
+   <tr  align=center>
+      <td><var>a</var>.minus(<var>b</var>)</td>
+      <td> <var>a</var> - <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.times(<var>b</var>)</td>
+      <td> <var>a</var> * <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.div(<var>b</var>)</td>
+      <td> <var>a</var> / <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.pow(<var>b</var>)</td>
+      <td> <var>a</var> ^ <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.mod(<var>b</var>)</td>
+      <td> <var>a</var> % <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.is_lt(<var>b</var>)</td>
+      <td> <var>a</var> &lt; <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.is_eq(<var>b</var>)</td>
+      <td> <var>a</var> = <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td>-<var>a</var></td>
+      <td> <var>a</var>.negate</td>
+   </tr>
+   <tr align=center>
+      <td>~<var>a</td>
+      <td> <var>a</var>.not</td>
+   </tr>
+</table>
+</center>
+<p>
+Table 2 shows comparison operators with their corresponding methods.
+
+<p>
+<center>
+Table 2: Comparison operators and their corresponding methods.
+<table border=1>
+   <tr>
+      <th width=150>Operators</th>
+      <th width=150>Corresponding Methods</th>
+   </tr>
+   <tr align=center>
+      <td><var>a</var> &lt;= <var>b</var></td>
+      <td><var>b</var>.is_lt(<var>a</var>).not</td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var> &gt;= <var>b</var></td>
+      <td><var>a</var>.is_lt(<var>b</var>).not</td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var> /= <var>b</var></td>
+      <td><var>a</var>.is_eq(<var>b</var>).not</td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var> &gt; <var>b</var></td>
+      <td><var>b</var>.is_lt(<var>a</var>)</td>
+   </tr>
+</table>
+</center>
+
+
+<h2>3.Accessing array elements</h2>
+You can refer and assign array elements by using <tt>aget</tt> and <tt>aset</tt> methods, respectively.
+Table 3 shows the syntax sugars for these.<p>
+
+<center>
+Table 3: Methods to access array elements with their syntax sugars.
+
+<table border=1>
+   <tr>
+      <th width=150>Methods</th>
+      <th width=150>Syntax sugars</th>
+   </tr>
+   <tr align=center>
+      <td><var>b</var> := <var>a</var>.aget(<var>i</var>)</td>
+      <td> <var>b</var> := <var>a</var>[<var>i</var>]</td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.aset(<var>i</var>, <var>b</var>)</td>
+      <td><var>a</var>[<var>i</var>] := <var>b</var></td>
+   </tr>
+</table>
+</center>
+
+<h2>4. Defining your own operators</h2>
+You can define your own operators by defining methods such as 
+<tt>is_eq</tt>, <tt>plus</tt>, <tt>minus</tt>, <tt>aget</tt>, <tt>aset</tt>, and so on.  
+For instance, the <tt>plus</tt> method of the <tt>STR</tt> class has been 
+re-defined so that you can concatenate any objects that can be converted to strings.<p>
+
+The <tt>INT</tt> class has its <tt>aget</tt> and <tt>aset</tt> methods to access the array of bits.
+You can modify the program <a href='sa_abst.html#crypt_sa'>crypt.sa</a> in <q>Abstract Classes</q>
+by using this methods.
+The integers in the program are XORed by <tt>bxor</tt>.
+It is unnecessary to get XOR's of whole 32 bits because the integers converted from <tt>CHAR</tt>'s,
+ have only 8 bits.
+Following is a more efficient code.
+
+<pre class='code'>
+<span class='comment'>-- replace  fs := fs + s.elt!.int.bxor(key_rotate!).char; at line 64 by following code</span>
+	 fs := fs + cxor(s.elt!.int,key_rotate!);
+
+<span class='comment'>-- add following method to class XOR </span>
+   private cxor(m,n:INT):CHAR is
+      i,k:INT;
+      loop
+	 i:=CHAR::asize.times!;                <span class='comment'>-- 8.times!</span>
+	 k:=k.aset(i, m[i].xor(n[i]));
+      end;
+      return k.char;
+   end;
+</pre>
+<h2>5. Summary</h2>
+Sather allows you to re-define the operators like other OO languages.<br>
+Intuitive definition of the operators makes your codes readable. 
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_para_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. Parameterized classes</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Try Sather</a></td>
+
+<td><a rel=next href="sa_immutable_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+10.Immutable classes</a></td>
+
+<!------------------------------------------
+- <td><a rel=download href="sa_hofunc.tar.bz2">
+-   <img src='../images/down_arrow.gif' class='arrow' border=0></a>
+- <a rel=download href="sa_hofunc.tar.bz2">download</a></td>
+------------------------------------------->
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_op_e.html&t=%28Try+Sather%29+9%2E+Operators'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+
+</body></html>
+    
+
+
+
+

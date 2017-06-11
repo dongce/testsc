@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="xyzzy,  HTML, タグ, 入力補助">
+<meta name="description" content="xyzzy 用 HTML 作成スクリプトです。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> xyzzy script: 右クリックを使った HTML 入力 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="add2html.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/add2html.html&t=xyzzy+script%3A+%B1%A6%A5%AF%A5%EA%A5%C3%A5%AF%A4%F2%BB%C8%A4%C3%A4%BF+HTML+%C6%FE%CE%CF' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>右クリックを使った HTML 入力</h1>
+<hr>
+<h2>1. はじめに </h2>
+<b>html+-mode</b> の機能を拡張するスクリプトを書いてみました。<p>
+出来ること：
+<ul>
+   <li> マウスの右クリックでのタグの挿入
+   <li> 別窓を開いて HTML を表示する
+   <li> その他入力補助
+</ul>
+
+<h2>2.  インストール </h2>
+次の手順でインストールを行います。
+<ol>
+<li> <a href="http://www1.odn.ne.jp/ymtz/html_plus-mode.html">html+-mode</a> をインストールします。
+<li>  add2html.lzh を解凍します。<span class="bluetext">add2html+.l, add2html+.lc, /module</span>
+  が生成するので、
+  それらをそのまま /site-lisp にコピーします。
+<li> .xyzzy に次の行を加えます。
+<pre class="oset">
+(add-hook 'ed::*html+-mode-hook* #'(lambda () (require "add2html+")))
+</pre>
+<li> ダンプファイルを更新します。
+</ol>
+
+<h2> 3. 使い方 </h2>
+HTML ファイルを編集すると マウスの右ボタンのポップアップメニューの下に、
+下に示すような表示が追加されます。<p>
+<table >
+<tr><td valign="top" >
+<div class="graybg">
+<ol>
+   <li>&lt;x&gt; ............ &lt;/x&gt;
+   <li>&lt;x...... &gt ........ &lt;/x&gt
+   <li>&lt;x&gt
+   <li>&lt;x...... &gt
+</ol></div>
+</td>
+</table>
+ここで、<br>
+<table border=0>
+<!------------------------------------------
+-    <tr>
+-       <th>分類</th>
+-       <th>例</th>
+-    </tr>
+------------------------------------------->
+   <tr>
+      <td>&lt;x&gt; ............ &lt;/x&gt;</td><td>: </td>
+      <td>&lt;i&gt;, &lt;b&gt;, &lt;sup&gt;, &lt;sub&gt;, etc </td>
+   </tr>
+   <tr>
+      <td>&lt;x...... &gt ........ &lt;/x&gt</td><td>: </td>
+      <td>&lt;a&gt;, &lt;span&gt;, etc</td>
+   </tr>
+   <tr>
+      <td>&lt;x&gt</td><td>: </td>
+      <td>&lt;br&gt;, &lt;p&gt;, etc</td>
+   </tr>
+   <tr>
+      <td>&lt;x...... &gt</td><td>: </td>
+      <td>&lt;img&gt;, etc</td>
+   </tr>
+</table><p>
+
+ 
+
+<h3>3.1. &lt x &gt ............ &lt /x &gt の使い方</h3>
+表示様式を変えたい部分を選択してマウスを右クリックし、矢印を &lt x &gt ............ &lt /x &gt に
+あわせます。すると、この形式を持つタグの一覧が表示されますので、その中から目的のタグを選んで左クリックします。<br>
+たとえば、<br>
+<span class="graybg">これを太字にしたい</span> を<br>
+右クリック &#8594 &lt x &gt ............ &lt /x &gt &#8594 &lt b &gt の選択をすると<br>
+&lt b &gt これを太字にしたい &lt /b &gt <br>
+というようにタグで囲まれます。
+
+<h3>3.2. &lt x ..... &gt ...... &lt /x &gt の使い方</h3>
+属性と本文を '|' で区切り、3.1. と同様の操作をします。なお、 &lt a &gt の場合は、属性部
+に ピリオド '.' があると href=" が挿入され、ピリオドが無いと name=" が挿入されます。<br>
+以下に例をあげます。<br>
+<ul>
+   <li><span class="graybg">happy.html|楽しいサイト</span> &#8594 &lt a href="happy.html" &gt 楽しいサイト&lt /a &gt
+   <li><span class="graybg">happy|楽しい場所</span> &#8594 &lt a name="happy" &gt 楽しい場所 &lt /a &gt
+   <li><span class="graybg">style="color:#FFFFFF"  style= "background-color:#3300CC"|文字を反転させよう</span> &#8594 <br> &lt span style="color:#FFFFFF"  style= "background-color:#3300CC" &gt 文字を反転させよう &lt/span &gt
+</ul>
+
+<h3>3.3. lists and table の使い方</h3>
+前後を &lt;TAG&gt; ---- &lt;/TAG&gt; (TAG = table, ol, ul)
+ではさみ、項目は '|' 出区切ります。レコードの先頭には '|' をつけます。
+その後、&lt;TAG&gt; ---- &lt;/TAG&gt;
+の間にカーソルを持っていき、<b>M-l</b> を押します。<p>
+  例
+  <center>
+  <table>
+<tr><td>
+<pre class="code2">
+&lt;table&gt;
+|花の名前|季節|色
+|タンポポ|春|黄色
+|朝顔|夏|青
+|菊|秋|黄色
+&lt;/table&gt;
+</pre>
+</td>
+  <td> --------&gt;</td>
+  <td>
+<pre class="code2">
+&lt;table&gt;
+   &lt;tr&gt;
+      &lt;th&gt;花の名前&lt;/th&gt;
+      &lt;th&gt;季節&lt;/th&gt;
+      &lt;th&gt;色&lt;/th&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;タンポポ&lt;/td&gt;
+      &lt;td&gt;春&lt;/td&gt;
+      &lt;td&gt;黄色&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;朝顔&lt;/td&gt;
+      &lt;td&gt;夏&lt;/td&gt;
+      &lt;td&gt;青&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;菊&lt;/td&gt;
+      &lt;td&gt;秋&lt;/td&gt;
+      &lt;td&gt;黄色&lt;/td&gt;
+   &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+</td></tr>
+<tr>
+  <td>
+	 <pre class="code2">
+&lt;ol&gt;
+|松
+|竹
+|梅
+&lt;/ol&gt;
+</pre>
+	 </td>
+    <td> --------&gt;</td>
+<td>
+  <pre class="code2">
+&lt;ol&gt;
+   &lt;li&gt; 松
+   &lt;li&gt; 竹
+   &lt;li&gt; 梅
+&lt;/ol&gt;
+</pre>
+</td></tr>
+<tr>
+<td>
+<pre class="code2">
+&lt;ul&gt;
+|すずめ
+|つばめ
+|つる
+&lt;/ul&gt;
+</pre>
+</td>
+      <td> --------&gt;</td>
+<td>
+<pre class="code2">
+&lt;ul&gt;
+   &lt;li&gt; すずめ
+   &lt;li&gt; つばめ
+   &lt;li&gt; つる
+&lt;/ul&gt;
+</pre>
+</td></tr>
+<tr>
+  <td>
+<pre class="code2">
+&lt;dl&gt;
+|鳥|鳴く
+|魚|泳ぐ
+|馬|走る
+&lt;/dl&gt;
+</pre>
+</td>
+      <td> --------&gt;</td>
+<td>
+<pre class="code2">
+&lt;dl&gt;
+  &lt;dt&gt;&lt;b&gt;鳥&lt;/b&gt;&lt;/dt&gt;
+      &lt;dd&gt;鳴く&lt;/dd&gt;
+  &lt;dt&gt;&lt;b&gt;魚&lt;/b&gt;&lt;/dt&gt;
+      &lt;dd&gt;泳ぐ&lt;/dd&gt;
+  &lt;dt&gt;&lt;b&gt;馬&lt;/b&gt;&lt;/dt&gt;
+      &lt;dd&gt;走る&lt;/dd&gt;
+&lt;/dl&gt;
+</pre>
+</td></tr>
+  </table></center>
+	 
+<h3>3.4. &lt x &gt の使い方</h3>
+
+カーソルの位置に単独で用いられるタグを挿入します。範囲の選択は行いません。
+
+<h3>3.5. &lt x...... &gt の使い方</h3>
+変換したい範囲を指定して挿入したいタグを選びます。
+例えば、<span class="graybg">
+ src="aspell_window.jpg" title="window of aspell"</span> に "img" を用いると<br>
+&lt img src="aspell_window.jpg" title="window of aspell" &gt となります。
+
+<h3> 3.6. preview</h3>
+<b>F10</b> で、html が別窓で表示されます。また、<br>
+<b>S-F10</b> で、html 窓用のコマンドをミニバッファから入力します。
+
+<h3> 3.7. キーバインディング </h2>
+以下に default の key binding を示します。
+<dl>
+  <dt><b>M-l</b></dt>
+      <dd>リスト、テーブルを作ります。</dd>
+  <dt><b>M-b</b></dt>
+      <dd>&lt;br&gt; を挿入します。</dd>
+  <dt><b>M-p</b></dt>
+      <dd>&lt;p&gt; を挿入します。</dd>
+  <dt><b>M-h</b></dt>
+      <dd>&lt;hr&gt; を挿入します。</dd>
+  <dt><b>M-.</b></dt>
+      <dd>&lt;a href= ...  を挿入します。</dd>
+  <dt><b>M-/</b></dt>
+      <dd>ミニバッファからタグを入力して選択された範囲の前後に挿入します。</dd>
+  <dt><b>M-@</b></dt>
+      <dd>開いたままのタグを閉じます。</dd>
+  <dt><b>F10</b></dt>
+      <dd>Html を別窓で表示します。</dd>
+  <dt><b>S-F10</b></dt>
+      <dd>別窓で表示した Html を操作します。</dd>
+</dl>
+
+<h2> 4. 終わりに</h2>
+このページはほとんど紫藤用の備忘録です。<br>
+ご参考までに。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>xyzzy</a></td>
+<td><a rel=download href="add2html.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=xyzzy/add2html.html&t=xyzzy+script%3A+%B1%A6%A5%AF%A5%EA%A5%C3%A5%AF%A4%F2%BB%C8%A4%C3%A4%BF+HTML+%C6%FE%CE%CF' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

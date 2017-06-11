@@ -1,0 +1,615 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Perl, Python Ruby">
+<meta name="description" content="This page compares Perl, Python and Ruby">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>Comparing Perl, Python, and Ruby</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=py/python1_e.html&t=Comarison+of+Perl%2C+Python%2C+and+Ruby' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+ <h1>Comparing Perl, Python, and Ruby</h1> 
+<hr>
+<h2>1. Introduction</h2>
+I have used 
+<a href='http://en.wikipedia.org/wiki/Awk'>
+Awk</a>
+ and Lisp as script languages for long time (you may be able to guess my age from this fact).
+I knew Perl and tried to learn it.
+But, I felt that Perl is not so useful, because
+<ul>
+<li> script written in Awk is much shorter than that in Perl, which means that
+   Awk is better for single-use script.
+<li> Lisp is more systematic than Perl, which indicates that Lisp is better for
+    middle or large scale programs. In addition Lisp code is easier to read for me.
+</ul>
+<p>
+Recently, I tried to learn Python <b>or</b> Ruby because I heard that these languages are getting popular in 
+these days.
+As I am lazy to learn both, I had to decide which I learn.
+To do so, I wrote a small script using Perl, Python, and Ruby with
+consulting web documents.
+<p>
+In this document, I am going to write my impression of these language in writing small scripts.
+<strong>Please don't take it so serious</strong>, it is just a impression of a beginner.
+I know this topic is somehow contentious.
+
+<h2>2. The test script I wrote</h2>
+The script I wrote is to store photos in a removal media to a hard disc drive (HDD).
+I shared my PC with my wife and daughter. They like taking photos using a digital camera and
+store them to the HDD. They think the HDD is a photo album with (almost) unlimited capacity.<p>
+
+They need a convenient script to transfer photos to the HDD. 
+They are not good PC users very much and sometimes take serious mistakes during copying photos.
+
+Following shows the spec of the script they need:
+<ol>
+<li>Photos are boxed up by the year and month they are taken. 
+Thus directories of year&ndash;month named 'yy-mm' (for instance, '06-03' for May 2006)
+are created if they are not exist.
+<li>Photos in the same directory of the removal media
+are saved together under the same subdirectory of the 'yy-mm' directory, which
+are named like photoNN such as photo01, photo02, etc.
+<li>The script compares the photo files in the HDD and the removal media and remove those
+in the removal media if they are the same.
+</ol>
+
+For instance, if two directories (say imag1 and imag2) of photo files exist in the removal media
+and three directories (photo01, photo02, and photo03) exist under the 'yy-mm' directory of this month,
+two directories (photo04 and photo05) are created under the 'yy-mm' directory and photo images 
+in imag1 and imag2 are saved in the photo04 and photo05.
+
+<h2> 3. Writing this script using Perl, Python, and Ruby</h2>
+I wrote the test script using Perl, Python, and Ruby.
+Notice that the following three scripts are written by a beginner and you can find
+several points to be improved.
+<p>
+Enjoy seeing what happens if a beginner uses these script languages.
+(Now I know Python somehow and I can improve the original script.
+But I let it be as it has been.)
+<h3> 3.1. First, Perl</h3>
+Following is the Perl code of the test case.
+The Perl code is used as a measure.
+<a name="perl_code">
+<pre class="oset">
+<span class="linenumber">01:</span>     <span class="comment">#! perl</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     use strict;
+<span class="linenumber">04:</span>     use File::Copy;
+<span class="linenumber">05:</span>     use File::Compare;
+<span class="linenumber">06:</span>     use File::Find;
+<span class="linenumber">07:</span>     use Cwd;
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     <span class="comment">## global parameters</span>
+<span class="linenumber">10:</span>     my $DOC_DIR = 'D:/doc';
+<span class="linenumber">11:</span>     my $MEDIA ='G:/';
+<span class="linenumber">12:</span>     my $PHOTO_VIEWER = 'D:/WBIN/linar160/linar.exe';
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>     <span class="comment"># getting the string of "year(NN)-month(NN)" </span>
+<span class="linenumber">15:</span>     sub get_year_month{
+<span class="linenumber">16:</span>     my ($m, $y) = (localtime)[4,5];
+<span class="linenumber">17:</span>     sprintf ("%02d-%02d", $y-100, $m + 1);
+<span class="linenumber">18:</span>     }
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>     <span class="comment"># getting the starting number of photoNN, the directory in which photos should be saved
+<span class="linenumber">21:</span>     # This function should be called when the program is in the month directory.</span>
+<span class="linenumber">22:</span>     sub get_first_photo_dir_number{
+<span class="linenumber">23:</span>       my  @pdirs = (glob "photo[0-9][0-9]");
+<span class="linenumber">24:</span>       @pdirs ? 1+ substr($pdirs[-1], -2) : 1;
+<span class="linenumber">25:</span>     }
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>     <span class="comment">#move into the directory "$DOC_DIR/y-m"</span>
+<span class="linenumber">28:</span>     sub move_into_dir_of_month{
+<span class="linenumber">29:</span>       my $dir_of_month =  &get_year_month;
+<span class="linenumber">30:</span>       unless ($DOC_DIR eq cwd){
+<span class="linenumber">31:</span>         chdir $DOC_DIR or die "Cannot move to $DOC_DIR: $!";
+<span class="linenumber">32:</span>       }
+<span class="linenumber">33:</span>       unless (-d $dir_of_month){
+<span class="linenumber">34:</span>         mkdir $dir_of_month or die "cannot create $dir_of_month: $!";
+<span class="linenumber">35:</span>       }
+<span class="linenumber">36:</span>       chdir $dir_of_month or die "Cannot move to $dir_of_month: $!";
+<span class="linenumber">37:</span>       "$DOC_DIR/$dir_of_month" ;
+<span class="linenumber">38:</span>     }
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>     <span class="comment">#archive photos in the media into the HD
+<span class="linenumber">41:</span>     # This function should be called when the program is in the month directory.</span>
+<span class="linenumber">42:</span>     sub archive_photos{
+<span class="linenumber">43:</span>       my $photo_dir_number = shift;
+<span class="linenumber">44:</span>       my %dhash;
+<span class="linenumber">45:</span>       find({
+<span class="linenumber">46:</span>         wanted      => sub{push @{$dhash{$File::Find::dir}}, $_ if -f},
+<span class="linenumber">47:</span>       }, $MEDIA);
+<span class="linenumber">48:</span>       for my $dir_from (sort keys %dhash){
+<span class="linenumber">49:</span>         my $n = @{$dhash{$dir_from}};
+<span class="linenumber">50:</span>         my $i = 0;
+<span class="linenumber">51:</span>         my $dir_to = sprintf("photo%02d", $photo_dir_number++);
+<span class="linenumber">52:</span>         mkdir $dir_to or die "cannot create $dir_to: $!";
+<span class="linenumber">53:</span>         print "\n$dir_from ==> $dir_to\n";
+<span class="linenumber">54:</span>         for my $fname (@{$dhash{$dir_from}}){
+<span class="linenumber">55:</span>           my $copy_from = "$dir_from/$fname";
+<span class="linenumber">56:</span>           my $copy_to   = "$dir_to/$fname";
+<span class="linenumber">57:</span>           copy($copy_from, $copy_to) or die "cannot make a copy for $copy_from: $!";
+<span class="linenumber">58:</span>           if(0 == compare($copy_from, $copy_to)){
+<span class="linenumber">59:</span>             unlink $copy_from;
+<span class="linenumber">60:</span>             print ++$i, "/$n\r";
+<span class="linenumber">61:</span>           }else{
+<span class="linenumber">62:</span>             die "an error occurs during coping $copy_from";
+<span class="linenumber">63:</span>           }
+<span class="linenumber">64:</span>         }
+<span class="linenumber">65:</span>       }
+<span class="linenumber">66:</span>       %dhash;
+<span class="linenumber">67:</span>     }
+<span class="linenumber">68:</span>     
+<span class="linenumber">69:</span>     <span class="comment">#main</span>
+<span class="linenumber">70:</span>     my $dir_of_month = &move_into_dir_of_month;
+<span class="linenumber">71:</span>     my $first_photo_dir_number =  &get_first_photo_dir_number;
+<span class="linenumber">72:</span>     if(&archive_photos($first_photo_dir_number)){
+<span class="linenumber">73:</span>       exec (sprintf "%s %s/photo%02d", $PHOTO_VIEWER, $dir_of_month, $first_photo_dir_number);
+<span class="linenumber">74:</span>     }else{
+<span class="linenumber">75:</span>       print "No photos in the media!\nGive Return:";
+<span class="linenumber">76:</span>       &lt STDIN&gt;
+<span class="linenumber">77:</span>     }
+</pre>
+The Perl code consist of about 80 lines.
+As a list itself cannot be a value of a hash table in Perl,
+a reference of a list should be used as a value of the hash table.
+My impression is:<br>
+Perl is basically a mixture of Awk and Sed and  
+has been expanded beyond its range.
+It looks as if it were a dam ready to collapse.
+However, the library is good and run-time is short.
+
+<a name="photo_python">
+<h3> 3.2. Next, Python </h3>
+Following is the Python code.
+<pre class="oset">
+<span class="linenumber">01:</span>     <span class="comment">#! usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     import glob, string, os, os.path, shutil, filecmp, re, sys
+<span class="linenumber">04:</span>     from datetime import date
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     <span class="comment">#global parameters</span>
+<span class="linenumber">07:</span>     HD    = 'D:/doc/'
+<span class="linenumber">08:</span>     MEDIA = 'G:/'
+<span class="linenumber">09:</span>     PHOTO_VIEWER = 'D:/WBIN/linar160/linar.exe'
+<span class="linenumber">10:</span>     PREGEXP = re.compile(".(gif|bmp|jpe?g|tiff?)$", re.I)
+<span class="linenumber">11:</span>     PHASH = {}
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     def sum(ls):
+<span class="linenumber">14:</span>         total = 0
+<span class="linenumber">15:</span>         for x in ls:
+<span class="linenumber">16:</span>             total += x
+<span class="linenumber">17:</span>         return total
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>     def nPdir(dir):
+<span class="linenumber">20:</span>         lst = [ x for x in glob.glob(dir + "photo[0-9][0-9]") if os.path.isdir(x)]
+<span class="linenumber">21:</span>         return lst and int(lst[-1][-2:]) or 0
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>     def Search_Media(dir):
+<span class="linenumber">24:</span>         os.chdir(dir)
+<span class="linenumber">25:</span>         items = os.listdir(dir)
+<span class="linenumber">26:</span>         ls = [x for x in items if PREGEXP.search(x)]
+<span class="linenumber">27:</span>         if ls:
+<span class="linenumber">28:</span>             PHASH[dir] = ls
+<span class="linenumber">29:</span>         for d in [dir + x + '/' for x in items if os.path.isdir(x)]:
+<span class="linenumber">30:</span>             Search_Media(d)
+<span class="linenumber">31:</span>     
+<span class="linenumber">32:</span>     def Move_Photos():
+<span class="linenumber">33:</span>         md = HD + date.today().strftime("%y-%m/")
+<span class="linenumber">34:</span>         np = nPdir(md)
+<span class="linenumber">35:</span>         pt = sum([len(val) for val in PHASH.itervalues()])
+<span class="linenumber">36:</span>         sf = 0
+<span class="linenumber">37:</span>         i0 = True
+<span class="linenumber">38:</span>     
+<span class="linenumber">39:</span>         if not pt:
+<span class="linenumber">40:</span>             print "No photos in the media: give return"
+<span class="linenumber">41:</span>             sys.stdin.readline()
+<span class="linenumber">42:</span>             sys.exit()
+<span class="linenumber">43:</span>             
+<span class="linenumber">44:</span>         os.chdir(md)
+<span class="linenumber">45:</span>     
+<span class="linenumber">46:</span>         for d, fs in PHASH.iteritems():
+<span class="linenumber">47:</span>             np += 1
+<span class="linenumber">48:</span>             pd = md + "photo%02d" % np
+<span class="linenumber">49:</span>             if i0:
+<span class="linenumber">50:</span>                 pd0 = pd
+<span class="linenumber">51:</span>                 i0 = False
+<span class="linenumber">52:</span>             os.mkdir(pd)
+<span class="linenumber">53:</span>             for f in fs:
+<span class="linenumber">54:</span>                 f1 = d + f
+<span class="linenumber">55:</span>                 f2 = pd + '/' + f
+<span class="linenumber">56:</span>                 shutil.copyfile(f1, f2)
+<span class="linenumber">57:</span>                 if filecmp.cmp(f1, f2):
+<span class="linenumber">58:</span>                     os.remove(f1)
+<span class="linenumber">59:</span>                 else:
+<span class="linenumber">60:</span>                     print "copy failed: %s => %s\n" % (f1, f2)
+<span class="linenumber">61:</span>                 sf += 1
+<span class="linenumber">62:</span>                 print "%d/%d\r" % (sf, pt),
+<span class="linenumber">63:</span>         return [' ', pd0]
+<span class="linenumber">64:</span>     
+<span class="linenumber">65:</span>     if __name__=='__main__':
+<span class="linenumber">66:</span>         Search_Media(MEDIA)
+<span class="linenumber">67:</span>         os.execv(PHOTO_VIEWER, Move_Photos())
+</pre>
+It consists of about 70 lines and the size is comparable to that of the Perl code.
+The source code looks nice, which means the idea that indents represent blocks being reasonable.
+The code is tight and it feels atmosphere of a building in brick.
+<p>
+Followings are important features (I think) of Python:
+<ul>
+<li>As the coding latitude is small, coding style does not depend on programmers' habit,
+which promotes the readability of the code.
+As a result you don't have to add much comments nor to use parameter names as comments.
+
+<li>As variables are local as default, the <tt>my</tt> statement (which is necessary in Perl) is not required.
+
+<li>List comprehensive is convenient because you can do map and filter in one statement.
+
+<li>Python libraries are good and seems faster than those of Perl.
+
+<li>A interactive mode is available.<br>
+You can put the part corresponding to <b>main</b> in the block of <br>
+<b>if __name__=='__main__':</b><br>
+so that the 'main' part is invoked only when the script is read by the processor directly. 
+You can test each function interactively using this feature and the interactive mode:
+<ol>
+<li>Execute Python with no argument to come into the interactive mode.
+<li><tt>import</tt> your script to the interactive mode.
+<li>Then call each function to test it.
+</ol>
+
+<li>A drawback of Python as a script language is that you have to import 
+many modules even to write tiny scripts (9 modules are imported for 70 lines script in the test case.)
+
+</ul>
+
+<h3> 3.3. Finally, Ruby </h3>
+Finally, Let's see the code written in Ruby.
+<pre class="oset">
+<span class="linenumber">01:</span>     <span class="comment">#! ruby</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     require "FileUtils"
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     <span class="comment">#global parameters</span>
+<span class="linenumber">06:</span>     Doc_dir = "D:/doc/"
+<span class="linenumber">07:</span>     Media = "G:/"
+<span class="linenumber">08:</span>     Viewer = "D:/WBIN/linar160/linar.exe"
+<span class="linenumber">09:</span>     PEXP =  /\.(jpe?g|JPE?G|bmp|BMP|tiff?|TIFF?)$/
+<span class="linenumber">10:</span>     $photo_hash = Hash.new
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     def photo_dir_max(dir)
+<span class="linenumber">13:</span>         Dir.chdir(dir)
+<span class="linenumber">14:</span>         d = Dir.glob("photo[0-9][0-9]").select{|f| File.directory?(f)}.last
+<span class="linenumber">15:</span>         d ? d.slice(5..6).to_i : 0 
+<span class="linenumber">16:</span>     end
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     def search_media(dir)
+<span class="linenumber">19:</span>         Dir.chdir(dir)
+<span class="linenumber">20:</span>         files = Dir.glob("*.*").select{|f| f =~ PEXP}
+<span class="linenumber">21:</span>         $photo_hash[dir] = files unless files == []
+<span class="linenumber">22:</span>         Dir.glob("*").select{|f| File.directory?(f)}.each{|d| search_media(dir + d + "/")}
+<span class="linenumber">23:</span>     end
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>     def move_photos ()
+<span class="linenumber">26:</span>         mon_dir = Doc_dir + Time.new.strftime("%y-%m/")
+<span class="linenumber">27:</span>         p_d_num = photo_dir_max(mon_dir)
+<span class="linenumber">28:</span>         i = count = 0; p_dir0 = ''
+<span class="linenumber">29:</span>         n_p_files = lambda{|h| n=0; h.each_key{|k| n += h[k].size}; n}.call($photo_hash)
+<span class="linenumber">30:</span>         if n_p_files == 0
+<span class="linenumber">31:</span>         then
+<span class="linenumber">32:</span>             puts "NO photo files in the media."
+<span class="linenumber">33:</span>             STDIN.readline
+<span class="linenumber">34:</span>             exit(0)
+<span class="linenumber">35:</span>         end
+<span class="linenumber">36:</span>         $photo_hash.each_key{|d| 
+<span class="linenumber">37:</span>             p_d_num += 1
+<span class="linenumber">38:</span>             p_dir = mon_dir + sprintf("photo%02d/", p_d_num)
+<span class="linenumber">39:</span>             if i == 0 then p_dir0 = p_dir; i += 1 end
+<span class="linenumber">40:</span>             FileUtils.mkdir(p_dir)
+<span class="linenumber">41:</span>             $photo_hash[d].each{|f|
+<span class="linenumber">42:</span>                 f1, f2 = d + f, p_dir + f
+<span class="linenumber">43:</span>                 FileUtils.cp(f1, f2)
+<span class="linenumber">44:</span>                 FileUtils.cmp(f1, f2) ?  File.delete(f1) : printf("Copy failed: %s => %s\n", f1, f2)
+<span class="linenumber">45:</span>                 count += 1
+<span class="linenumber">46:</span>                 printf("%d/%d\r", count, n_p_files) 
+<span class="linenumber">47:</span>             }
+<span class="linenumber">48:</span>         }
+<span class="linenumber">49:</span>         p_dir0
+<span class="linenumber">50:</span>     end
+<span class="linenumber">51:</span>     
+<span class="linenumber">52:</span>     search_media(Media)
+<span class="linenumber">53:</span>     exec(Viewer, move_photos())
+</pre>
+The code consists of about 50 lines, which is the shortest among the three.
+The code looks nice. Data flow from the left side of the dot to the right side,
+which is similar to Lisp in that data flow from the inside to the outside of the parentheses.
+In addition, the code is clear as all functions are method.
+<p>
+Unfortunately, it is slow (need more run-time).
+Even the bottle-neck of the program should be reading from the removal media,
+Ruby script is much slower than those of Perl and Python.
+It is pity because the design of the language itself is good.
+Slow code chafes me. 
+I put off using it, at the moment.
+<p>
+In Japan, Ruby is much popular than Python because Ruby supports Japanese language from the beginning while Python not.
+From Python 2.3, however, Python also support Japanese and the language support is not the advantage of Ruby any more.
+
+<h2> 4. I have chosen Python</h2>
+Table 1 summarizes a result of this comparison of Perl, Python, and Ruby.
+Don't take is serious as  it is just an impression of a beginner.
+<p>
+<center>
+Table 1. Summary of the comparison of Perl, Python, and Ruby
+<p>
+<table border=1>
+  <tr>
+	 <th width=100>entry</th>
+	 <th width=70>Perl</th>
+	 <th width=70>Python</th>
+	 <th width=70>Ruby</th>
+  </tr>
+  <tr>
+	 <td>writability</td>
+	 <td align="center">A</td>
+	 <td align="center">A</td>
+	 <td align="center">A</td>
+  </tr>
+  <tr>
+	 <td>readability</td>
+	 <td align="center">C</td>
+	 <td align="center">A+</td>
+	 <td align="center">A</td>
+  </tr>
+  <tr>
+	 <td>library</td>
+	 <td align="center">A</td>
+	 <td align="center">A</td>
+	 <td align="center">B</td>
+  </tr>
+  <tr>
+	 <td>run time</td>
+	 <td align="center">A</td>
+	 <td align="center">A</td>
+	 <td align="center">B</td>
+  </tr>
+  <tr>
+	 <td>document</td>
+	 <td align="center">A+</td>
+	 <td align="center">A</td>
+	 <td align="center">B</td>
+  </tr>
+  <tr>
+	 <td>number of users</td>
+	 <td align="center">A+</td>
+	 <td align="center">A</td>
+	 <td align="center">B</td>
+  </tr>
+</table></p></center>
+<p>
+Writability is not so different each other. 
+Readability, however, differs tremendously: Python is easiest to read, then Ruby follows.
+Perl code cannot be read if not commented enough nor carefully decided parameter names. 
+<p>
+  
+Both Python and Ruby are good languages.
+However Python is more user friendly by following three points.
+<ol>
+<li>It has rich libraries.
+<li>It is well documented.
+<li>Its run-time is short enough.
+</ol>
+
+So I decided to use Python.
+But Ruby is not bad. I hope the developer of Ruby improve the library and document.
+
+<h2> 5. Summary </h2>
+I have compared Perl, Python, and Ruby from the point of view of a beginner.
+The conclusion is:
+<ol>
+ <li> Python and Ruby are much better than Perl. (They should be because they appeared after Perl.)
+ <li> Python and Ruby are even in language design.
+</ol>
+
+Followings are major web sites.
+<ul>
+  <li>Perl
+ <ul>
+<li> <a href="http://www.perl.org/">perl.org</a>
+  <li> <a href="http://www.cpan.org/">cpan.org</a>
+ </ul>
+ <li>Python
+<ul>
+  <li> <a href="http://www.python.org/">python.org</a>
+</ul>
+<li> Ruby
+  <ul>
+ <li> <a href="http://www.ruby-lang.org/en/">ruby-lang.org</a>
+</ul>
+  </ul>
+
+<h2> 6. Postscript &mdash; a semi serious comparison </h2>
+As the document above just compared the doneness of a small script written in the three languages,
+I am trying to compare them semi-seriously in this postscript.
+Notice that my comment is somehow biased toward Python as I am using Python now.
+<p>
+Perl and Ruby are pure script languages and the main goal of them is to
+make codes shorter while you can write large programs using them.
+Python, on the other hand, is basically for large scale programs and
+focused on easy debugging as far as weakly-typed languages concerned.
+As a programming language with capable of wide application is worth learning,
+learning Python is a better choice than learning Perl or Ruby. 
+This argument can be supported by 
+<a href='http://www.python.org/about/quotes/'>
+the fact that emerging companies like Google
+use Python as a main programming language</a>.
+<p>
+See following links about the philosophy of Python.
+<ul>
+<li>  <a href="http://www.netfunny.com/rhf/jokes/99/Nov/perl.html">A morality tale of Perl versus Python</a>
+<li><a href="http://www.python.org/doc/Humor.html#zen">The Zen of Python</a>
+</ul>
+<p>
+The sentences below is partially  overlapped with those in 
+<a href="python2_e.html">Python Quick Look</a>.
+
+<h3>6.1. Making large scale programs</h3>
+<span class="important">The greatest feature of Python is easy evolving a small script to a large scale program.</span>
+<br>
+This advantage is provided by following features:
+<ol>
+   <li> Each source file has its own name space.
+   <li> Functions are tested one by one interactively. 
+   <li> A Test code can be included after<br>
+ <tt>if __name__=='__main__'</tt>.
+</ol>
+In Perl and Ruby, you should declare name spaces all the way.
+In Python, on the other hand, each source file has its own name space and
+the name space name and file name is the same.
+This way is convenient to avoid name collisions.
+<p>
+The coding style of modules is substantially different from that of ordinary programs
+in Perl and Ruby, which means that you should modify your program considerably to use as a module.
+In Python, on the other hand, the coding style of modules and ordinary programs are same.
+and you can use your small script as a module with a few modification such as adding <tt>__all__</tt>
+statement. You can use a module as a stand-alone program as well.
+
+<h3>6.2. Reading file contents</h3>
+Perl programs basically read file line by line using <span class="ttb">while(&lt;&gt;)</span>.
+Python and Ruby programs, on the other hand, read all file contents at once using <span class="ttb">read()</span>.
+The difference may be because that memory price got cheaper in 1990s when Python and Ruby appeared
+and that plenty of memory space became available.
+
+<h3>6.3. List operations</h3>
+Mapping and filtering of lists can be performed in these languages like as follows:
+<ul>
+   <li> Perl programs  basically use <tt>foreach</tt> block while Perl has list operating functions 
+        such as <tt>map</tt> and <tt>grep</tt>.
+   <li> Python programs use list comprehensive while it also has the functions such as 
+        <tt>map</tt> and <tt>filter</tt>.
+   <li> Ruby programs operate list using methods with block such as <tt>map</tt>, <tt>select</tt>, and <tt>grep</tt>.
+</ul>
+Python borrows list comprehensive from 
+<a href='http://www.haskell.org/'>Haskell</a> and 
+Ruby's way is similar to that of Lisp.
+<p>
+Example: return the list of square root if the original item is positive.<br>
+  [-3,-2,-1,0,1,2,3]  &rArr; [0.0, 1.0, 1.4142135623731, 1.73205080756888]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment"># Perl 5</span>
+<span class="linenumber">02:</span>     my @ls0=(-3,-2,-1,0,1,2,3);
+<span class="linenumber">03:</span>     my @ls1=();
+<span class="linenumber">04:</span>     for  (@ls0){
+<span class="linenumber">05:</span>       push @ls1, sqrt($_) if $_ &gt;= 0;
+<span class="linenumber">06:</span>     }
+<span class="linenumber">07:</span>     print "$_\n"  for (@ls1);
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     <span class="comment"># Ruby</span>
+<span class="linenumber">10:</span>     p [-3,-2,-1,0,1,2,3].select{|x| x&gt;=0}.map{|x| Math.sqrt(x)}
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     <span class="comment"># Python</span>
+<span class="linenumber">13:</span>     import math
+<span class="linenumber">14:</span>     print [math.sqrt(x) for x in [-3,-2,-1,0,1,2,3] if x&gt;=0]
+</pre>
+<h3>6.4. Passing parameters to functions</h3>
+Perl uses unusual way to hand parameters to functions. Python and Ruby adopt a conventional way.
+<ul>
+<li> Perl's way is complicated and unusual.
+     Perl converts arguments to a flat list and they are passed by value.
+     Prototypes are used to pass by reference.
+<li> Python passes sequences by reference and others by value.
+     The language supports default values, rest parameters, and keyword parameters.
+     See <a href='http://docs.python.org/tut/node6.html#SECTION006600000000000000000'>
+     Tutorial: 4.6 Defining Functions</a>
+     or 
+     <a href='python2_e.html#func'>Python Quick Look: 5. User defined functions</a>
+     for detailed information.
+<li> Ruby's way is completely the same as Python's. 
+     But no online document deals with the way of passing parameters to functions.
+</ul>
+
+<h3>6.5. Function creating code</h3>
+Functions of Perl and Ruby can return a function but Python can't (basically).
+Python uses a class of functions instead.
+<p>
+Example: accumulator. The function takes a initial number (<tt>n</tt>) and returns a function
+that takes increment (<tt>i</tt>) and returns the incremented value with holding the incremented value.
+
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment"># Perl 5</span>
+<span class="linenumber">02:</span>     sub foo {
+<span class="linenumber">03:</span>       my ($n) = @_;
+<span class="linenumber">04:</span>       sub {$n += shift}
+<span class="linenumber">05:</span>     }
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     <span class="comment">#  Python</span>
+<span class="linenumber">08:</span>     class foo:
+<span class="linenumber">09:</span>         def __init__(self, n):
+<span class="linenumber">10:</span>             self.n = n
+<span class="linenumber">11:</span>         def __call__(self, i):
+<span class="linenumber">12:</span>             self.n += i
+<span class="linenumber">13:</span>             return self.n
+<span class="linenumber">14:</span>                 
+<span class="linenumber">15:</span>     <span class="comment"># Ruby</span>
+<span class="linenumber">16:</span>     def foo (n)
+<span class="linenumber">17:</span>         lambda {|i| n += i }
+<span class="linenumber">18:</span>         end
+</pre>
+Following shows how it works.
+<pre class="samp">
+<span class="linenumber">01:</span>     &gt;&gt;&gt; a=foo(10)
+<span class="linenumber">02:</span>     &gt;&gt;&gt; a(3)
+<span class="linenumber">03:</span>     13
+<span class="linenumber">04:</span>     &gt;&gt;&gt; a(5)
+<span class="linenumber">05:</span>     18
+</pre>
+
+<h3>6.6. Higher order functions</h3>
+Perl and Python support higher order functions.
+<ul>
+<li> Perl can give a reference of function as a parameter. 
+     See line 46 of <a href="#perl_code">the test script written in Perl</a>.
+<li> In Python, function names represent pointers to the functions.
+     The list of parameters required to call as function.
+     For instance, if function <tt>foo</tt> is defined, <tt>foo( ... )</tt> is to call the function
+     and <tt>foo</tt> represent the pointer to the function. 
+     Pointers to function can be used as arguments or items of <tt>for</tt> loops.
+<li> Ruby does not support higher order functions as far as I know.
+</ul>
+
+
+<h3>6.7. Others</h3>
+<ul>
+   <li> Lazy evaluation is available on Python and Ruby.
+   <li> The online document of Python is excellent. That of Ruby is not good very much.
+   <li> Ruby is a object orientated dialect of Lisp. 
+        Python takes many good feature from many languages. 
+        Basically it is a weakly-typed C++ or Java. But it also borrows some features
+        from functional programming languages such as Haskell and Lisp.
+   <li> As Python does not force the object orientated style, beginners can learn it easily.
+  </ul>
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=py/python1_e.html&t=Comarison+of+Perl%2C+Python%2C+and+Ruby' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body>
+</html>
+

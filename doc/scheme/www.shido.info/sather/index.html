@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!----
+-- $Id: index.html,v 1.8 2006/06/27 22:36:40 takafumi Exp $
+--->
+
+
+<html lang="ja"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="Sather, introduction, program, programming language, object orientated, プログラム言語">
+<meta name="description" content="プログラミング言語 Sather の解説です。">
+<meta name="robots" content="all">
+<!-- <base href="http://www.shido.info/index.php">  -->
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title>Sather を試そう</title>
+</head>
+<body class='index'>
+
+<!------------------------------------------
+- <p class="s1"><span class="hhead">sather のお勉強</span></p>
+------------------------------------------->
+<p class='s2'>Sather を試そう</p>
+<hr>
+<table class='toppage' border=1>
+<tr class="index">
+  <td class='index' valign="top" width=120>
+<a href="/index.html">Home</a><br>
+<a href="/lisp/index.html">Lisp Scheme</a><br>
+<a href="/hs/index.html">Haskell</a><br>
+<a href="/py/index.html">Python</a><br>
+<a href="/sather/index.html">Sather</a><br>
+<a href="/xyzzy/index.html">xyzzy</a><br>
+<a href="/misc/index.html">備忘録</a><br>
+<a href="/gb/index.php">ゲストブック</a><br>
+<a href="http://sites.google.com/site/shidoinfo/">Wiki</a><br>
+
+
+<form method=get action="http://www.google.co.jp/search" style="margin-top:30pt;">
+<span style="font-size:small;color:darkblue;">サイト内検索</span><br>
+<input type=text name=q size=20 maxlength=200 value="">
+<input type=hidden name=ie value=Shift_JIS>
+<input type=hidden name=oe value=Shift_JIS>
+<input type=hidden name=hl value="ja">
+<input style="font-size:small;background-color:palegoldenrod;color:darkblue;"  type=submit name=btnG value="検索">
+<input type=hidden name=domains value="www.shido.info"><br>
+<input type=hidden name=sitesearch value="www.shido.info">
+</form>
+
+
+</td>
+  <td class='description'>
+Sather というプログラム言語をご存知でしょうか？<br>
+実は紫藤もつい最近まで知りませんでした。<p>
+<a href='http://www.amazon.co.jp/exec/obidos/ASIN/4894712741/qid=1147906218/sr=8-2/ref=sr_8_xs_ap_i2_xgl14/250-9821182-8934608'>
+「達人プログラマー」</a> という本でしきりに <a href='http://smarteiffel.loria.fr/'>Eiffel</a> を薦めるので、
+少しかじってみました。それなりに良い感じの言語だと思いましたが、関数型言語マニアの紫藤としては高階関数が
+使えないなどの不満がありました。そこで、「達人プログラマー」の付録で紹介されていた 
+<a href='http://www.icsi.berkeley.edu/~sather/'>Sather</a>
+ を試してみました。この言語は Eiffel に関数型プログラミング言語の特徴を取り入れたもので、高階関数やイテレーターが
+使えます。雰囲気はかなり <a href='hs/index.html'>Haskell</a> に近いものです。<p>
+
+超マイナーな言語で、使える OS は Linux などの POSIX に限られますが、紫藤は気に入ったので紹介記事を書いてみました。
+
+Sather の特徴は、
+<ol>
+<li>Eiffel と類似の構文を持つオブジェクト指向言語
+<li>Eiffel と同様 "契約によるプログラミング" をサポートする。
+<li>Eiffel と同様に、いったん C のソースファイルを生成し、それを make する。
+<li>高階関数、イテレーターなど関数型言語の利点を取り入れている。
+<li>実行速度が早い。
+</ol>
+の 5 点です。
+つまり、さまざまな言語のいいとこどりをした言語で、バグの少ない大規模プログラムを書くために
+設計されました。
+特に実行速度は優れていて、 C++ プログラムと同等のパフォーマンスを示します。<p>
+
+自分でプログラミング言語を選べる人は試してみてください。<br>
+損はしないと思います。（たぶん）<p>
+
+この記事はオブジェクト指向と関数型プログラミングについてのある程度の知識のある人を対象として書かれています。
+オブジェクト指向と関数型プログラミングについて知りたい人はまず <a href='py/index.html'>Python</a>を
+勉強してください。<br>Python も勉強して損は無い言語です。（これについては保証します）
+
+
+    <h3>目次</h3>
+<ol>
+           <li> <a href="sa_perform.html">Sather vs C++: 実行速度の比較 </a> 
+           <li> <a href="sa_install.html">Sather を インストールする。</a>
+           <li> <a href="sa_play.html">Sather を 動かす。</a>
+           <li> <a href="sa_iter.html">繰り返しとイテレーター</a>
+           <li> <a href="sa_class.html">クラス定義</a>
+           <li> <a href="sa_io.html">IO</a>
+           <li> <a href="sa_abst.html">抽象クラス</a>
+           <li> <a href="sa_para.html">パラメター付クラス</a>
+           <li> <a href="sa_op.html">オペレーター</a>
+           <li> <a href='sa_immutable.html'>変更不能クラス</a>    <!-- 10 -->
+           <li> <a href="sa_hofunc.html">データとしての手続き</a>
+           <li> <a href="sa_except.html">例外</a>
+           <li> <a href="sa_safety.html">契約プログラミング</a>
+<!--            <li> <a href="sa_lib.html">ライブラリーツアー</a> -->
+           <li> <a href="sa_gui.html">GUI プログラミング</a>
+           <li> <a href="sa_interface.html">他言語 (C, Fortran) とのインターフェース</a>
+</ol>
+
+<h3>リンク</h3>
+<ul>
+<li><a href='http://www.icsi.berkeley.edu/~sather/'>Sather Home</a>
+<li><a href='http://www.gnu.org/software/sather/'>GNU Sather</a>
+<li><a href='http://yasundial.org/yasu/sather/install.html'>Sather のインストール</a>（日本語）
+<li><a href='http://www.gnu.org/software/sather/#documentation'>Sather Tutorial</a>
+&nbsp;&nbsp; 一読されることをお勧めします。（ この記事の元ねたです。）
+
+</td></tr></table>
+</body>
+</html>

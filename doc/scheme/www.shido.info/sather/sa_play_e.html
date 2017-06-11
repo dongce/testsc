@@ -1,0 +1,387 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, getting start">
+<meta name="description" content="How to write Sather programs">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 3. Playing with Sather</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_install_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+2. Installing Sather</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+Try Sather</a></td>
+
+<td><a rel=next href="sa_iter_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+4. Repetition</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_play_e.html&t=Playing+with+Sather' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1>3. Playing with Sather</h1>
+<hr>
+<h2>1. Introduction</h2>
+I will explain haw to write Sather codes and to compile them in this section.
+<h2>2. Hello World!</h2>
+Let's start with "Hello World" as usual ([code 1]).
+<br>
+[code 1]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple "Hello World" program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        main is
+<span class="linenumber">05:</span>           #OUT +  "Hello World!\n";
+<span class="linenumber">06:</span>        end;
+<span class="linenumber">07:</span>     end;
+</pre>
+<ul>
+<li> Statements end with <q><tt>;</tt></q>.
+<li> <q><tt>is</tt></q> is a reserved word that indicates starting the body of a class or a function definition.
+<li> <q><tt>end;</tt></q> indicates the end of a definition or a block.
+<li> <q><tt>#OUT</tt></q> is the standard output. right side of the <q><tt>+</tt></q> operator is a values to be output.
+The operator <q><tt>+</tt></q> can be chained and any kinds of object can be output if the <tt>str</tt> method is defined as shown in
+the following code. All the built-in classes have <tt>str</tt> method.
+<pre class='code'>
+#OUT + "1 + 2 = " + (1+2) + "\n";
+</pre> 
+<li> Comments start with <q><tt>-</tt></q> and end with line feed if <q><tt>;</tt></q> does not appear after <q><tt>-</tt></q>.
+Usually, comments start with <q><tt>--</tt></q>, however, to inform your editor where a comment starts.
+<li>The <tt>main</tt> function in the <tt>MAIN</tt> class is called first.
+<br>
+If the <tt>main</tt> function is in another class, you should inform the compiler using the <tt>-main</tt> option.
+</ul>
+You can compile and execute the source like as follows:
+<pre class='samp'>
+$ sacomp hello.sa -o hello
+$ ./hello
+Hello World!
+</pre>
+You can compile several source files simultaneously by listing the files.
+<pre class='samp'>
+$ sacomp foo1.sa foo2.sa foo3.sa -o foo
+</pre>
+The compiler name is <tt>sacomp</tt>. You can name the executable using the <tt>-o</tt> option.
+See
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Compiler/cs.man.html'>Compiler Man Page</a>
+about the options of <tt>sacomp</tt>.
+The compiler name used in the link is <tt>cs</tt>. Replace it to <tt>sacomp</tt> when you read the document. 
+<p>
+Corresponding C source codes are produced by 
+<tt>-output_C</tt> and <tt>-only_C</tt> 
+options. You can compile the produced C codes for other platforms.
+In the case of win32+cygwin, you can make the executable by just calling <tt>make</tt> command.
+<p>
+The <tt>sabrowse</tt> is the Sather code browser, which shows the source and relations among classes as shown in
+figures 1 and 2.
+As Sather support multiple inheritance, the browser is useful to write large scale programs.<br>
+<pre class='samp'>
+$ sabrowse hello.sa
+</pre>
+
+<center>
+<img src='sa_play1.png'><br>
+Fig. 1. A Sather source code. 
+<p>
+<img src='sa_play2.png'><br>
+Fig. 2. The relation among classes.
+</p></center>
+
+
+<h2>3. Variables</h2>
+
+<h3>3.1 Basic data types or classes</h3>
+Following table shows basic data types.
+<table border=1>
+   <tr>
+      <th>Type</th>
+      <th>Initial Value</th>
+      <th>explanation</th>
+   </tr>
+   <tr>
+      <td><tt>BOOL</tt></td>
+      <td><tt>false</tt></td>
+      <td>boolean, <tt>true</tt> or <tt>false</tt>.</td>
+   </tr>
+   <tr>
+      <td><tt>INT</tt></td>
+      <td>0</td>
+      <td>signed integer, whose size is more than 32 bit.</td>
+   </tr>
+   <tr>
+      <td><tt>INTI</tt></td>
+      <td><tt>0i</tt></td>
+      <td>arbitrary large integers</td>
+   </tr>
+   <tr>
+      <td><tt>FLT</tt></td>
+      <td><tt>0.0</tt></td>
+      <td> IEEE 754-1984 <q>single</q> format 32-bit floating point.</td>
+   </tr>
+   <tr>
+      <td><tt>FLTD</tt></td>
+      <td><tt>0.0d</tt></td>
+      <td> IEEE 754-1984 <q>double</q> format 64-bit floating point.</td>
+   </tr>
+   <tr>
+      <td><tt>CHAR</tt></td>
+      <td><tt>'\0'</tt></td>
+      <td>Characters</td>
+   </tr>
+   <tr>
+      <td><tt>STR</tt></td>
+      <td><tt>""</tt></td>
+      <td>Strings</td>
+   </tr>
+</table>
+
+<h3>3.2. Valuable declaration</h3>
+The forms of variable declaration and assignment are like as follows:
+<pre class='code'>
+<var>variable name</var> : <em>data type</em>; <span class='comment'>-- the reverse way from that of the C language</span>
+<var>left_hand_side</var> := <var>right_hand_side</var>
+
+<span class='comment'>--
+-- Example:
+--</span>
+
+b0:BOOL := true;
+
+ia:INT := 10;
+ib:INT := -321;
+ic:INT := 13_456_367_443;    <span class='comment'>-- You can insert '_' for easy reading</span>
+id:INT := 0b11001;           <span class='comment'>-- binary, equal to 25 of decimal base</span>
+ie:INT := 0o37323;           <span class='comment'>-- Oct</span>
+if:INT := 0x_ea_75_67;       <span class='comment'>-- Hex</span>
+
+ig:INTI := -4325i;           <span class='comment'>-- an arbitrary size integer</span>
+ih:INTI := 0o33784;
+
+fa:FLT := 0.0;
+fb:FLTD := 3.1345e-2d;
+
+ca:CHAR := 'a';
+cb:CHAR := '\n';               <span class='comment'>-- newline</span>
+
+sa:STR := "Hi";
+</pre>
+
+You can declare several variables simultaneously if they have same type.
+<pre class='code'>
+a,b,c :INT;
+x,y,z :FLT;
+</pre>
+
+<h3>3.3. ARRAY</h3>
+Type <tt>ARRAY</tt> represents array.
+<pre class='code'>
+                                          <span class='comment'>-- C style</span>
+a:ARRAY{INT}:=#(10);                      <span class='comment'>-- int a[10];</span>
+a[0] := 100;                              <span class='comment'>-- a[0] = 100;</span>
+i:INT := a[1];                            <span class='comment'>-- int i = a[1];</span>
+
+s:ARRAY{STR}:= |"foo", "bar", "baz"|;     <span class='comment'>-- char* s[] = {"foo", "bar", "baz"};</span>
+s.has("foo") &rarr; true
+</pre>
+<h4>notes</h4>
+<ol>
+<li>'<tt>#</tt>' is an operator to make a instance. The argument value 10 is the size of the <tt>ARRAY</tt> instance made here.
+<li>Literals of <tt>ARRAY</tt> have form like  <tt>| item1, item2, ..... |</tt>.
+<li><tt>ARRAY</tt> class has <tt>has(<var>obj</var>)</tt> method, which returns <tt>true</tt> if the array has <var>obj</var>.
+</ol>
+
+<h2>4. Defining methods</h2>
+[code 2] shows a simple program that calculate factorials.<br>
+[code 2]
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple factorial program</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        main(av: ARRAY{STR}) is
+<span class="linenumber">05:</span>           n:INT;
+<span class="linenumber">06:</span>           if av.size = 2 then
+<span class="linenumber">07:</span>     	 n := av[1].cursor.get_int;
+<span class="linenumber">08:</span>           #OUT +  fact(n) + "\n";
+<span class="linenumber">09:</span>           else
+<span class="linenumber">10:</span>     	 #ERR + "Usage: fact N\n";
+<span class="linenumber">11:</span>           end;
+<span class="linenumber">12:</span>        end;
+<span class="linenumber">13:</span>     
+<span class="linenumber">14:</span>        fact(n:INT):INT is
+<span class="linenumber">15:</span>           if n=0 then return 1;
+<span class="linenumber">16:</span>           else return n * fact(n-1);
+<span class="linenumber">17:</span>           end;
+<span class="linenumber">18:</span>        end;
+<span class="linenumber">19:</span>     end;
+</pre>
+
+Following shows the form of defining method.
+You should give a method name, a list of arguments, and return data type.
+<pre class='code'>
+method_name(parm1:TYPE1, parm2:TYPE2):RETURN_TYPE is
+.......
+.......
+end;
+</pre>
+<p>
+<h4>notes</h4>
+<ol>
+<li>The argument of the <tt>main</tt> function is <tt>ARRAY{STR}</tt> type.
+<li>Use <var>str</var><tt>.cursor.get_int</tt> to convert <tt>STR</tt> into <tt>INT</tt>.
+</ol>
+
+<h2>5. Branching</h2>
+Use <tt>if</tt> or <tt>case</tt> blocks for branching. <p>
+<h3>5.1. if block</h3>
+Following shows the format of the <tt>if</tt> block
+<pre class='code'>
+if <var>if_test</var> then
+    <var>if_body</var>
+elsif <var>elsif_test</var> then
+    <var>elsif_body</var>
+else
+    <var>else_body</var>
+end;
+</pre>
+<ol>
+<li>You can omit <tt>elsif</tt> and <tt>else</tt> blocks.
+<li>You can add <tt>elsif</tt> blocks as much as you need. 
+</ol>
+Example: 
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- example of if: iftest</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        main(argv: ARRAY{STR}) is
+<span class="linenumber">05:</span>           a1, s1: STR;
+<span class="linenumber">06:</span>           flag : ARRAY{CHAR} := |'a', 'b', 'c'|;
+<span class="linenumber">07:</span>           if argv.size = 2 then
+<span class="linenumber">08:</span>     	 a1 := argv[1];
+<span class="linenumber">09:</span>     	 if a1[0] = '-' then
+<span class="linenumber">10:</span>     	    if flag.has(a1[1]) then  print_out(a1);
+<span class="linenumber">11:</span>     	    else #OUT + "This option is not supported.\n";
+<span class="linenumber">12:</span>     	    end;
+<span class="linenumber">13:</span>     	 else show_usage;
+<span class="linenumber">14:</span>     	 end;
+<span class="linenumber">15:</span>           else show_usage;
+<span class="linenumber">16:</span>           end;
+<span class="linenumber">17:</span>        end;
+<span class="linenumber">18:</span>     
+<span class="linenumber">19:</span>        print_out(s:STR) is
+<span class="linenumber">20:</span>           #OUT + "Option " + s + " is selected.\n"; 
+<span class="linenumber">21:</span>        end;
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>        show_usage is
+<span class="linenumber">24:</span>           #OUT + "Usage iftest -[abc]\n";
+<span class="linenumber">25:</span>        end;
+<span class="linenumber">26:</span>     end;
+</pre>
+
+<pre class='samp'>
+$ sacomp iftest.sa -o iftest
+$ ./iftest -a
+Option -a is selected.
+$ ./iftest -d
+This option is not supported.
+$ ./iftest a
+Usage iftest -[abc].
+</pre>
+
+
+
+<h3>5.2.  case blocks</h3>
+Following is the form of the <tt>case</tt> blocks.
+<pre class='code'>
+case <var>parameter</var>
+when <var>values_1</var> then
+    <var>procedure_1</var>
+when values_2 then
+    <var>procedure_2</var>
+else
+    <var>else_procedure</var>
+end;
+</pre>
+<ol>
+<li>You can use several values after <tt>when</tt>.
+<li>You can add the <tt>when</tt> blocks as much as you need.
+<li>The <tt>else</tt> block is called if the value of <var>parameter</var> does not match all the rest.
+</ol>
+The example above can be implemented more easily by using a <tt>case</tt> block.
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- example of case: casetest</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        main(argv: ARRAY{STR}) is
+<span class="linenumber">05:</span>           a1, s1: STR;
+<span class="linenumber">06:</span>     <span class="comment">--       flag : ARRAY{CHAR} := |'a', 'b', 'c'|;</span>
+<span class="linenumber">07:</span>           if argv.size = 2 then
+<span class="linenumber">08:</span>     	 a1 := argv[1];
+<span class="linenumber">09:</span>     	 if a1[0] = '-' then
+<span class="linenumber">10:</span>     <span class="comment">--	    if flag.has(a1[1]) then  print_out(a1);</span>
+<span class="linenumber">11:</span>     	    case a1[1]
+<span class="linenumber">12:</span>     	    when 'a', 'b', 'c' then print_out(a1);
+<span class="linenumber">13:</span>     	    else #OUT + "This option is not supported.\n";
+<span class="linenumber">14:</span>     	    end;
+<span class="linenumber">15:</span>     	 else show_usage;
+<span class="linenumber">16:</span>     	 end;
+<span class="linenumber">17:</span>           else show_usage;
+<span class="linenumber">18:</span>           end;
+<span class="linenumber">19:</span>        end;
+<span class="linenumber">20:</span>     
+<span class="linenumber">21:</span>        print_out(s:STR) is
+<span class="linenumber">22:</span>           #OUT + "Option " + s + " is selected.\n"; 
+<span class="linenumber">23:</span>        end;
+<span class="linenumber">24:</span>     
+<span class="linenumber">25:</span>        show_usage is
+<span class="linenumber">26:</span>           #OUT + "Usage iftest -[abc]\n";
+<span class="linenumber">27:</span>        end;
+<span class="linenumber">28:</span>     end;
+</pre>
+
+
+<h2>6. Summary</h2>
+I have talked about the syntax of Sather and how to compile Sather codes, quickly.<p>
+Next section is about the iterators.<p>
+
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_install_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+2. Installing Sather</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+Try Sather</a></td>
+
+<td><a rel=next href="sa_iter_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+4. Repetition</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_play_e.html&t=Playing+with+Sather' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+</body></html>
+    
+
+
+
+

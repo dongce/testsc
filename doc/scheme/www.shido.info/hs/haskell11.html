@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell, Module">
+<meta name="description" content="Module of Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>Module</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell10.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  10. 種々のデータ構造</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell12.html"><img src='../images/right_arrow.gif' class='arrow' border=0>12. 詰碁を解く</a></td>
+<td><a rel=download href="lfit2.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell11.html&t=Module' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>11. Module</h1> 
+<hr>
+ <!---------------------------------------------------->
+プログラムがある程度 (数百行以上）大きくなるとソースコードや
+ <a href="http://ja.wikipedia.org/wiki/%E5%90%8D%E5%89%8D%E7%A9%BA%E9%96%93">
+ 名前空間</a>
+ を分割したほうが
+ 作成しやすくなります。特に名前空間を分割すると、関数名やデータ名が衝突するリスクを減らすことができます。
+ 名前空間を分割は Haskell では Module で行います。<p>
+この文章では、プログラムを複数の Module に分割する方法について概説します。
+ 
+<h2> 1. Module の定義の仕方</h2>
+Module の定義は、モジュール名、エクスポートするシンボルのリスト(<span class="mono">exp-list</span>) を書き、
+その後に <span class="mono">where</span> をおいて本体を書きます。
+<span class="mono">exp-list</span> が省略されたときは、本体で定義された
+すべてのデータ型、関数が エクスポートされます。Module 名は必ず大文字で始めます。<p>
+  一般に、ソースファイル１つにつき Module １つを書き、Module 名とファイル名を一致させます。
+  [code 1] に例として <span class="mono">Util.hs</span> を示します。
+  <span class="mono">Util.hs</span> は <span class="mono">Module Util</span> を定義し、
+  ３つの関数
+  <span class="mono">(vpro, seqn, geozip)</span> をエクスポートします。<p>
+[code 1]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">---------------------</span>
+<span class="linenumber">02:</span>     <span class="comment">-- utilities</span>
+<span class="linenumber">03:</span>     <span class="comment">--------------------</span>
+<span class="linenumber">04:</span>     module Util (vpro, seqn, geozip) where
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     <span class="comment">-- it calculates vector inner product</span>
+<span class="linenumber">07:</span>     vpro :: [Double] -&gt;  [Double] -&gt; Double
+<span class="linenumber">08:</span>     vpro ls1 ls2 = sum $ zipWith (*) ls1 ls2
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     <span class="comment">-- it calculates infinite sequence,</span>
+<span class="linenumber">11:</span>     <span class="comment">--  whose initial term and next-term-calculating-function are a0 and f</span>
+<span class="linenumber">12:</span>     seqn :: a -&gt; (a -&gt; a) -&gt; [a]
+<span class="linenumber">13:</span>     seqn a0 f = a0 : seqn (f a0) f
+<span class="linenumber">14:</span>     
+<span class="linenumber">15:</span>     <span class="comment">-- </span>
+<span class="linenumber">16:</span>     geozip :: [Double] -&gt; [Double] -&gt; [[Double]]
+<span class="linenumber">17:</span>     geozip ls0 ls1 = seqn ls0 (zipWith (*) ls1)
+</pre>
+
+<h2> 2. import の仕方</h2>
+Module のインポートは <span class="mono">import</span> で行います。<p>
+
+<a name="imp-option">
+import の書式は以下のように表されます。名前を指定してインポートすることもできます。
+<pre class="def">
+impdecl 	 -&gt; 	 import [qualified] modid [as modid] [impspec]
+	| 		(empty declaration)
+impspec 	-&gt; 	( import1 , ... , importn [ , ] ) 	(n&gt;=0)
+	| 	hiding ( import1 , ... , importn [ , ] ) 	(n&gt;=0)
+import 	-&gt; 	var
+	| 	tycon [ (..) | ( cname1 , ... , cnamen )] 	(n&gt;=0)
+	| 	tycls [(..) | ( var1 , ... , varn )] 	(n&gt;=0)
+cname 	-&gt; 	var | con
+</pre>
+
+以下の表に <span class="mono">module Foo</span>
+に名前 <span class="mono">hoge</span> と <span class="mono">bar</span> があったとき宣言の仕方によって
+インポートされる名前と、参照の仕方を示します。<p>
+<table border=1>
+   <tr>
+      <th>宣言</th>
+      <th>インポートされる名前</th>
+      <th>参照の方法</th>
+   </tr>
+   <tr>
+      <td>import Foo </td>
+      <td> hoge, bar </td>
+      <td> hoge, Foo.hoge, bar, Foo.bar</td>
+   </tr>
+   <tr>
+      <td>import Foo () </td>
+      <td>（何もインポートされない） </td>
+   </tr>
+   <tr>
+      <td>import Foo (hoge) </td>
+      <td> hoge</td>
+      <td> hoge, Foo.hoge</td>
+   </tr>
+   <tr>
+      <td>import qualified Foo () </td>
+      <td> （何もインポートされない） </td>
+   </tr>
+   <tr>
+      <td>import Foo hiding () </td>
+      <td> hoge, bar </td>
+      <td> hoge, Foo.hoge, bar, Foo.bar</td>
+   </tr>
+   <tr>
+      <td>import Foo hiding (hoge) </td>
+      <td> bar </td>
+      <td> bar, Foo.bar</td>
+   </tr>
+   <tr>
+      <td>import qualified Foo hiding () </td>
+      <td> hoge, bar </td>
+      <td>  Foo.hoge,  Foo.bar</td>
+   </tr>
+   <tr>
+      <td>import qualified Foo hiding (hoge) </td>
+      <td> bar </td>
+      <td> Foo.bar</td>
+   </tr>
+   <tr>
+      <td>import Foo as F </td>
+      <td> hoge, bar </td>
+      <td> hoge, F.hoge, bar, F.bar</td>
+   </tr>
+   <tr>
+      <td>import Foo as F (hoge) </td>
+      <td> hoge </td>
+      <td>hoge, F.hoge</td>
+   </tr>
+   <tr>
+      <td>import qualified Foo as F </td>
+      <td> hoge, bar </td>
+      <td> F.hoge, F.bar</td>
+   </tr>
+</table>
+
+<p>上に示したように、<span class="mono">import</span> にはいろいろなオプションがありますが
+<span class="mono">qualified ... as</span> がお勧めです。
+<span class="mono">qualified</span> をつけると、インポートしたシンボルは必ず Module 名
+（<span class="mono">as</span> を使って別名を定義したときは別名）で修飾しなければ
+ならなくなるので、名前空間が汚染されるのを防ぐことができます。<p>
+  [code 2] は <span class="mono">Module Util</span> ([code 1])
+  をインポートしている Module です。<span class="mono">Util</span> の別名を <span class="mono">U</span> とし、
+  <span class="mono">Util</span> で定義された
+    <span class="mono">geozip</span> は
+      <span class="mono">U.geozip</span> として参照します(14, 20 行目)。<p>
+[code 2]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">------------------------------------------------</span>
+<span class="linenumber">02:</span>     <span class="comment">-- This module makes matrix of S(x^i)</span>
+<span class="linenumber">03:</span>     <span class="comment">-- and vector  [S(y), S(xy), S(x^2 y) ... S(x^n y)]</span>
+<span class="linenumber">04:</span>     <span class="comment">--------------------------------------------------</span>
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     module MakeMat (make_sx, make_vxy) where
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     import qualified Util as U
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     <span class="comment">-- making [[n, S(x), .. S(x^n)], [S(x) ... S(x^(n+1))], ... [S(x^n), ... S(x^2n)]]</span>
+<span class="linenumber">11:</span>     make_sx :: Int -&gt; [Double] -&gt; [[Double]]
+<span class="linenumber">12:</span>     make_sx n xs = mat 0
+<span class="linenumber">13:</span>      where
+<span class="linenumber">14:</span>          lsum = map sum $ U.geozip (take (length xs) [1.0, 1.0 ..]) xs
+<span class="linenumber">15:</span>          mat i | i==n+1 = []
+<span class="linenumber">16:</span>                | otherwise = (take (1+n) (drop i lsum)):(mat (i+1))
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     <span class="comment">-- making [S(y), S(xy), S(x^2 y) ... S(x^n y)]</span>
+<span class="linenumber">19:</span>     make_vxy :: Int -&gt; [Double] -&gt; [Double] -&gt; [Double]
+<span class="linenumber">20:</span>     make_vxy n xs ys = map sum $ take (n+1) $ U.geozip ys xs
+</pre>
+
+
+
+<a name="multifile-compile">
+<h2> 3. 複数のソースファイルのコンパイル</h2>
+ghc を使って複数のソースファイルをコンパイルするときは <span class="mono">--make</span> フラグを使うと便利です。
+<span class="mono">--make</span> フラグを使うとコンパイルしていない Module だけコンパイルしてリンクしてくれます。
+例えば、<a href="lfit2.lzh">これ (lfit2.lzh)</a>を解凍してできるコードをコンパイルして
+ lfit2.exe という実行形式を作るときは
+以下のようにします。
+<pre class="samp">
+&gt;ghc --make Main.hs -o lfit2.exe
+</pre>
+ちなみに、lfit2 は<a href="haskell6.html">前</a>に取り上げた最小二乗法プログラムの改良版で、
+パラメータの誤差を算出してくれます。
+<pre class="samp">
+&gt;lfit2 2 a.dat
+c0 = 2.531727598666521 (+-) 4.907248623738801e-2
+c1 = -0.5005644499197217 (+-) 1.0695009355167438e-4
+c2 = -2.9990377224373255e-2 (+-) 1.0217445932292105e-8
+</pre>
+
+<h2> 4. 終わりに</h2>
+Haskell の Module について簡単に述べてみました。<p>
+
+<a href="http://www.haskell.org/onlinereport/modules.html">Haskell98</a>
+には他にもいろいろと書いてありますが、とりあえずここに書いてあることだけ
+押えておけば十分だと思います。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell10.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  10. 種々のデータ構造</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell12.html"><img src='../images/right_arrow.gif' class='arrow' border=0>12. 詰碁を解く</a></td>
+<td><a rel=download href="lfit2.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell11.html&t=Module' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>

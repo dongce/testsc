@@ -1,0 +1,242 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather install">
+<meta name="description" content="How to install Sather on Linux.">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 2. Install</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+<td><a rel=prev href="sa_perform_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+1. Sather vs C++: a performance comparison</a></td>
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+Try Sather</a></td>
+<td><a rel=next href="sa_play_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+3. Playing with Sather</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_install_e.html&t=Sather+Install' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 2. Installing Sather</h1>
+<hr>
+<h2>1. Introduction</h2>
+I will explain how to install Sather from the source code on Linux.
+(Binary packages are available for RedHad and Debian.)
+You cannot install Sather on Win32 even if you use cygwin,
+which means that you need a Linux machine to play with Sather.
+
+<h2>2. Hardware and Linux distribution that I use</h2>
+Followings are my hardware and Linux distribution.
+If you have i386+Linux environment, you should be able to install Sather in a similar way.
+
+<ul>
+<li>My own PC(CPU: AMD Sempron 2800+), Memory 1024 MB, HDD 80 GB, DVD multi drive)
+<li>OpenSuSE 10.0 for i386
+</ul>
+
+<h2>3. Preparation</h2>
+<h3>3.1. Required header files and library</h3>
+Followings are required to install Sather.
+<ul>
+<li> header files of gc: <tt>gc.h, 
+gc_config_macros.h, 
+gc_local_alloc.h, 
+gc_pthread_redirects.h, 
+gc_typed.h</tt>
+<li> header files of tcl: 
+<tt>tcl.h, 
+tclDecls.h, 
+tclExtend.h, 
+tclPlatDecls.h, 
+tcldbg.h</tt>
+<li> header files of tk: 
+<tt>tk.h, 
+tkDecls.h, 
+tkPlatDecls.h</tt>
+<li> libraries of gc: <tt>libgc.so, libgc.la</tt>
+<li> a library of tcl: <tt>libtcl.so</tt>
+<li> a library of tk: <tt>libtk.so</tt>
+</ul>
+<a name="memo">
+<h4>note</h4>
+<ul>
+<li>Header files are located under <tt>/usr/include</tt> or <tt>/usr/local/include</tt>,
+libraies are under
+ <tt>/usr/lib</tt> or <tt>/usr/local/lib</tt>.
+<li>If you find library files with version number, create a soft link without version number like as follows:
+<pre class='samp'>
+<span class='comment'>(You should be the root user.)</span>
+# ln -s libtcl8.3.so libtcl.so
+# ln -s libtk8.3.so libtk.so
+# ln -s libgc.so.1.0.2 libgc.so
+</pre>
+<li>If some of above files does not exist, you should install them from the source code or the package of the distribution.
+Installing from source code is easy (just <tt>./configure &rarr; make &rarr; sudo make install</tt>),
+and has some merit such as that the latest version is available and that headers and libraries are installed simultaneously.
+Some version of gcc cannot compile, however, these source codes.
+In such cases, use a package of distribution.
+</ul>
+<h3>3.2. Installing gc and tcl/tk</h3>
+<ol>
+<li>getting the source<br>
+The tar balls are at the following sites.
+<ul>
+<li> libgc stable version: <a href='http://www.hpl.hp.com/personal/Hans_Boehm/gc/'>http://www.hpl.hp.com/personal/Hans_Boehm/gc/</a>
+<li> Tcl/Tk stable version: 
+<a href='http://www.tcl.tk/software/tcltk/downloadnow84.html'>http://www.tcl.tk/software/tcltk/downloadnow84.html</a>
+</ul>
+<a name='tar'>
+<li> extracting the tar balls<br>
+you can extract <tt>*.tar.bz2</tt> and <tt>*.tar.gz</tt> using following commands
+<pre class='samp'>
+tar xjvf *.tar.bz2
+tar xzvf *.tar.gz
+</pre>
+<li>installing<br>
+All of then can be installed by<br>
+<tt> ./configure &rarr; make &rarr; sudo make install</tt><br>
+like as follows:
+<pre class='samp'>
+cd (directory produced by extracting the tar ball)
+./configure 
+make
+sudo make install
+</pre>
+<li>making a soft link<br>
+If libraries without version number are not created under 
+<tt>/usr/local/lib</tt>,
+you need to make a soft link (see <a href="#memo">here</a>).
+<li>updating the library cache<br>
+Check if <tt>/usr/local/lib</tt> is registered in <tt>/etc/ld.so.conf</tt> (if not add by yourself), then
+execute <tt>ldconfig</tt>.
+<pre class='samp'>
+# ldconfig    <span class='comment'>(you need to be the root.)</span>
+</pre>
+</ol>
+Now you are ready to install Sather.
+
+
+<h2>4. Installing Sather</h2>
+<h3>4.0. Getting the tar ball</h3>
+You can download the tar ball of Sather stable version from
+<a href='http://www.gnu.org/software/sather/'>http://www.gnu.org/software/sather/</a>.
+Then extract it in the way as shown <a href='#tar'>previously</a>.
+<h3>4.1. make</h3>
+Installing Sather is somehow unusual.
+You can not install Sather in an ordinary way (<tt>configure &rarr; make &rarr; make install</tt>).
+<p>
+Following shows how to install the compiler, the viewer, and others.
+
+<pre class='samp'>
+ su                                                                 <span class='comment'>be the root</span>
+ cp sather-1.2.2.tar.bz2 /usr/local/src                             <span class='comment'>copy the tar ball to /usr/local/src)</span>
+ cd /usr/local/src                                                  <span class='comment'>(go to /usr/local/src)</span>
+ tar xjvf sather-1.2.2.tar.bz2                                      <span class='comment'>(extract the tar ball)</span>
+ cd sather-1.2.2                                                    <span class='comment'>(go to sather-1.2.2)</span>
+ SATHER_HOME=/usr/local/src/sather-1.2.2;export SATHER_HOME         <span class='comment'>(set SATHER_HOME (bash))</span>
+ make compiler                                                      <span class='comment'>(make sacomp (sather compiler))</span>
+ make browser                                                       <span class='comment'>(make sabrowse (sather source and class viewer))</span>
+ make info                                                          <span class='comment'>(make info¡Ë</span>
+ cp Emacs/*.info /usr/local/info                                    <span class='comment'>(copy the info file to the directory which info refers)</span>
+ cat Emacs/dir >> /usr/local/info/dir                               <span class='comment'>(add the entry to Sather in /usr/local/info/dir)</span>
+ ln -s /usr/local/src/sather-1.2.2/Bin/sacomp /usr/local/bin        <span class='comment'>(make the soft link of sacomp in /usr/local/bin)</span>
+ ln -s /usr/local/src/sather-1.2.2/Bin/sabrowse /usr/local/bin      <span class='comment'>(make the soft link of sabrowse in /usr/local/bin)</span>
+</pre>
+
+<h3>4.2. Test</h3>
+You can test it in the following way. 
+Testing takes ca. 10 minutes.
+Everything OK if the test program say <q>Everything okey</q> at the end.<br>
+<pre class='samp'>
+ cd /usr/local/src/sather-1.2.2/Test
+ make test-full
+
+...........
+<span class='comment'>wait 10 min</span>
+...........
+
+TEST DONE
+
+Everything okey
+</pre>
+
+<h3>4.3. Editing your <tt>.bashrc</tt></h3>
+Add following line in the <tt>~/.bashrc</tt>.
+<pre>
+SATHER_HOME=/usr/local/src/sather-1.2.2;export SATHER_HOME
+</pre>
+
+<h2>5. Configuring Emacs</h2>
+As <tt>sather.el</tt> is available, it is convenient to use emacs to edit Sather source codes. <br>
+
+<ol>
+<li>copy <tt>sather.el</tt> and <tt>sather-lib.el</tt> to the load path of emacs such as <tt>/usr/local/share/emacs/site-lisp</tt>.
+<pre class='samp'>
+su
+cp /usr/local/src/sather-1.2.2/Emacs/*.el /usr/local/share/emacs/site-lisp
+</pre>
+<li>byte-compile these files. You can ignore warnings. 
+<pre class='samp'>
+cd /usr/local/share/emacs/site-lisp
+emacs -batch -f batch-byte-compile sather*.el
+</pre>
+<li>add following three lines to the <tt>~/.emacs</tt>.
+<pre class='code'>
+(add-to-list 'auto-mode-alist '("\\.sa$" . sather-mode))
+(add-to-list 'auto-mode-alist '("\\.psa$" . sather-mode))
+(autoload 'sather-mode "sather" "Major mode for Sather  programs" t)
+</pre>
+</ol>
+<h4>Test</h4>
+<ol>
+<li>Open a Sather source code and see if it is highlighted.
+<pre class='samp'>
+<span class='comment'>For instance</span>
+emacs /usr/local/src/sather-1.2.2/Test/test-all.sa 
+</pre>
+<li>See if you can see the info of Sather by pressing <tt>(Ctrl-h i)</tt>.
+(Or type info Sather in the command line.)
+</ol>
+
+<h2>6. Have you got it?</h2>
+As it is almost an ordinary procedure even complicated somehow, 
+you can do it with little problems, I hope, if you have enough experience to compile from the source.
+<p>
+
+If you could not, send a message to the guest book.
+I may be able to advice.
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+<td><a rel=prev href="sa_perform_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+1. Sather vs C++: a performance comparison</a></td>
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+Try Sather</a></td>
+<td><a rel=next href="sa_play_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+3. Playing with Sather</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_install_e.html&t=Sather+Install' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+</body></html>
+    
+
+
+
+

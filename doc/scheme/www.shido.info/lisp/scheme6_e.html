@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, local variables, let expression">
+<meta name="description" content="The Local Variables on Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>6. Local Variables </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme5_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. Branching</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme7_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>7. Repetition</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme6_e.html&t=%28Scheme%29+Local+Variables' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1>  6. Local Variables </h1>
+<hr>
+<h2>1.Introduction </h2>
+I have explained how to defined functions in the previous chapter.
+However, as the way  how to define local variables has not been explained,
+the function definitions apt to be redundant, which makes  writing complicated functions difficult.<p>
+In this chapter, I will explain about local variables, which makes defining functions easier.
+
+<h2>2. <span class='ttb'>let</span> expression</h2>
+Local variables can be defined using the <span class='ttb'>let</span> expression.
+The format is like as follows:
+<pre class='def'>
+(<b>let</b> <var>binds</var> <var>body</var>)
+</pre>
+Variables are declared and assigned to initial values in the <var>binds</var> form.
+The  <var>body</var> consists of arbitrary numbers of S-expressions.<br>
+The format of the <var>binds</var> form is like as follows:
+<pre class='def'>
+[<var>binds</var>] &rarr; ((<var>p1</var> <var>v1</var>) (<var>p2</var> <var>v2</var>) ...)
+</pre>
+Variables <var>p1</var>, <var>p2</var> ... are declared and
+bind them to the initial values, <var>v1</var>, <var>v2</var> ... 
+The scope of variables is the <var>body</var>, which means that variables are valid only in the <var>body</var>.
+<p>
+Example 1: Declaring local variables <var>i</var> and <var>j</var>, binding them to 1 and 2 and then
+   making a sum of them.
+<pre class='samp'>
+(let ((i 1) (j 2))
+  (+ i j))
+<span class='response'>;Value: 3</span>
+</pre>
+<p>
+The <tt>let</tt> expressions can be nested. <p>
+Example 2: Making local variables <var>i</var> and <var>j</var>, binding them
+  to 1 and <var>i</var>+2, and  multiplying them.
+<pre class='samp'>
+(let ((i 1))
+  (let ((j (+ i 2)))
+    (* i j)))
+<span class='response'>;Value: 3</span>
+</pre>
+As the scope of the variables is the <var>body</var>,
+The following code causes an error,
+because the variable <var>i</var> is not defined in the scope of the variable <var>j</var>.
+<pre class='samp'>
+(let ((i 1) (j (+ i 2)))
+  (* i j))
+<span class='response'>;Error</span>
+</pre>
+The <span class='ttb'>let*</span> expression is available to refer variables
+which is defined in the same binding form. Actually, the <span class='ttb'>let*</span> expression
+is a syntax sugar of nested <tt>let</tt> expressions.
+<pre class='samp'>
+(let* ((i 1) (j (+ i 2)))
+  (* i j))
+<span class='response'>;Value: 3</span>
+</pre>
+
+<p>
+Example 3: A function <tt>quadric-equation</tt> that calculates the answers of quadratic equations.
+<br>
+It takes three coefficient a, b, c (a x<sup>2</sup> + b x + c = 0) as arguments
+  and returns the list of answers in real numbers. 
+The answers can be calculated without useless calculations
+  by using <tt>let</tt> expressions step by step.
+<pre class='code'>
+<span class='comment'>;;;The scopes of variables <var style='background-color:#CCFF99;padding-left:10px;padding-right:10px'>d</var>,<var style='background-color:#99FF66;padding-left:10px;padding-right:10px'>e</var>, and <var style='background-color:#22DD22;padding-left:10px;padding-right:10px'>f</var> are the regions with the same background colors.</span>
+
+(define (quadric-equation a b c)
+  (if (zero? a)      
+      'error                                      ; 1
+      (let ((d (- (* b b) (* 4 a c))))            ; 2
+<div style='background-color:#CCFF99;width:390px'>	(if (negative? d)
+	 '()                                      ; 3
+	 (let ((e (/ b a -2)))                    ; 4
+<div style='background-color:#99FF66;width:380px'>	   (if (zero? d)
+	       (list e)
+	       (let ((f (/ (sqrt d) a 2)))        ; 5
+<div style='background-color:#22DD22;width:370px'>		 (list (+ e f) (- e f)))))))))</div></div></div>
+</pre>
+
+<pre class='samp'>
+ (quadric-equation 3 5 2)  ; solution of 3x<sup>2</sup>+5x+2=0
+<span class='response'>;Value 12: (-2/3 -1)</span>
+</pre>
+The function behaves like as follows:
+<ol>
+<li>If the 2nd order coefficient (<var>a</var>) is 0, it returns <tt>'error</tt>.
+<li>If <tt>a &ne; 0</tt>, it binds the value of the discriminant <tt>(b<sup>2</sup> - 4ac)</tt> to a variable <var>d</var>.
+<li>If <var>d</var> is negative, it returns <tt>'()</tt>.
+<li>If not, it binds <tt>-b/2a</tt> to a variable <var>e</var>.
+<li>If <var>d</var> is zero, it returns a list consisting <var>e</var>.
+<li>If <var>d</var> is positive, it binds &radic;(d/2a) to a variable <var>f</var>
+  and returns a list of <tt>(+ e f) and (- e f)</tt>.
+</ol>
+<p>
+Actually <tt>let</tt> expression is a syntax sugar of <tt>lambda</tt> expression:
+<pre class='def'>
+(let ((p1 v1) (p2 v2) ...) exp1 exp2 ...)
+&rArr;
+((lambda (p1 p2 ...)
+    exp1 exp2 ...) v1 v2)
+</pre>
+As the <tt>lambda</tt> expressions is function definition, it makes a scope
+of variables.
+<h3>Exercise 1</h3>
+Write a function described at <a href='scheme4_e.html#practice'>exercise 1 in chapter 4</a>
+with one function,<br> which means that writing
+a function to calculate flying distances with initial velocity of <var>v</var> and angle to the surface of <var>a</var>.
+
+
+<h2>2. Summary</h2>
+I have explained the  <span class='ttb'>let</span> expression in this chapter.
+The <tt>let</tt> is a syntax sugar of <tt>lambda</tt> expression.
+The scope of variables is defined by using <tt>let</tt> or <tt>lambda</tt> expressions.
+In Scheme, the scope is made as written in the source code,
+which is called the <b>lexical closure</b>.
+<p>
+
+I will explain about repetition in the next chapter.
+
+<h3>Answers for Exercises </h3>
+
+<h4>Answer 1</h4>
+
+<pre class='code'>
+(define (throw v a)
+  (let ((r (/ (* 4 a (atan 1.0)) 180)))
+    (/ (* 2 v v (cos r) (sin r)) 9.8)))
+</pre>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme5_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. Branching</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme7_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>7. Repetition</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme6_e.html&t=%28Scheme%29+Local+Variables' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+</body>
+</html>

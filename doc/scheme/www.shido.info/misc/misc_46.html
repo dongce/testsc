@@ -1,0 +1,277 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="spam, multiple filtering, postfix, bogofilter, mecab, postgrey, greylisting, python, obfuscation">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 対スパム多重フィルタ </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc46&t=%C2%D0%A5%B9%A5%D1%A5%E0%C2%BF%BD%C5%A5%D5%A5%A3%A5%EB%A5%BF"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>対スパム多重フィルタ</h1>
+<hr>
+Feb 26, 2012
+<p>
+
+
+<h2>1. はじめに</h2>
+
+紫藤の自宅メールサーバーは bogofilter 1.0 を使ってスパムメールを識別していましたが、
+最近、スパムメールが増えたのと、bogofilter の識別率が低下したので、スパム対策を見直すことにしました。
+<p>
+試した対策は以下の５つです。
+<ol>
+<li>bogofilter+mecab の導入
+<li>postfix の設定の見直し
+<li>greylisting の導入
+<li>Subject による振り分け
+<li>メールアドレスの難読化
+</ol>
+
+これらの対策は単体ではそれほど効果を挙げませんが、複数種類のフィルタで多重処理することにより大きな効果を挙げることができました。
+
+
+<h2>2. bogofilter+mecab の導入</h2>
+
+いままでは、nkf, kakashi を通してから、bogofilter にメールを渡していましたが、検出効率がいまいちなので、
+<a href='http://www.c-wind.com/bogofilter/'>bogofilter+mecab</a> を導入しました。
+このパッチは、内部で文字コードを UTF-8 に変換し、mecab で分ち書きしてから bogofilter の word list の処理にかけます。
+<p>
+debian のパッケージにはなく、自分でコンパイルする必要がありますが、
+<a href='http://www.c-wind.com/bogofilter/'>ここ</a>に書いているとおりにやって問題なくコンパイルできました。
+<p>
+検出効率は期待したほどは向上せず、7--8 割程度です。
+それでも もともとの bogofilter 1.0 (6--7 割程度) よりは若干向上しています。
+
+学習によって検出率が順調に良くなっているので、導入した価値はあると思っています。
+
+
+
+
+
+<h2>3. postfix の設定の見直し</h2>
+あまりにスパムが多量に送られてくるので、明らかにスパムとわかるものは
+postfix 側ではじくようにしました。
+ただ、正常なメールまではじいてしまわないように、控えめに設定しました。
+
+postfix の設定は以下のサイトを参考にしました。
+<ol>
+<li><a href='http://www.postfix.org/documentation.html'>Postfix Documentation</a>
+<li><a href='http://www.gabacho-net.jp/anti-spam/anti-spam-system.html'>阻止率99%のスパム対策方式の研究報告</a>
+<li><a href='http://k2net.hakuba.jp/rgrey/'>Rgrey - S25R + greylisting</a>
+<li><a href='http://ya.maya.st/mail/accessctl.html'>MTA のアクセス制御</a>
+</ol>
+
+<a href='http://www.gabacho-net.jp/anti-spam/anti-spam-system.html'>#2</a> 
+と <a href='http://ya.maya.st/mail/accessctl.html'>#4</a> の議論は大変参考になりました。
+#2 は技術的には参考になったのですが、ポリシーは若干過激な気がします。
+ポリシーとしては #4 で言われていることがまともだと思います。
+紫藤のメールサーバーでやっていることは基本的に <a href='http://k2net.hakuba.jp/rgrey/'>#3</a> と同じですが、
+greylisting の適用範囲を逆引きができないクライアントに限っています。 
+<p>
+ブラックリストやホワイトリストはメンテナンスが面倒なので、基本的には導入していません。
+(greylist 入りから救済するホワイトリストを導入しましたが、必須ではありません。また、今後メンテナンスするつもりはありません。)
+また、<a href='http://ja.wikipedia.org/wiki/DNSBL'>DNSBL</a> は通常のクライアントをブラックリストに挙げていたり、
+突然サービスが停止する リスクがあるので、
+使用していません。(例えば、<a href='http://neta.ywcafe.net/000678.html'>ここ</a>を参照。)
+<p>
+
+
+設定のポリシーは以下のとおりです。
+前から順番にチェックしていき、条件に合致したら処理します。そうでない場合はその次の条件をチェックします。
+この設定は、明らかにおかしいものや、逆引きできないでかつ再送してこなかったものだけをはじき、他は受け付けます。
+
+<ol>
+<li> 自宅 の 有線 LAN でつながっている PC からのメール送信を許可。
+<li> SASL で認証したクライアントからのメール送信は許可。 (スマートフォンからメールを送れるようにする。)
+<li> クライアントのホスト名が不正なもの拒否。
+<li> 存在しないユーザ宛てのメールは拒否。
+<li> 外部から外部へのメール送信は拒否。
+<li> 合意なしにコマンドを連続して送ってくるクライアントは拒否。
+<li> こちらのサーバを騙ったものは拒否。
+<li> こちらのユーザーを騙ったものは拒否。
+<li> IP アドレスの逆引きができないときは greylist で処理する。(その際、必要に応じて white list で救済する。)
+<li> 外部から内部へのメールの送信を許可。
+<li> その他は拒否。
+</ol>
+
+以下に postfix の main.cf ならびにそこで使用されているデータファイルを示します。
+
+<p>
+[main.cf] (アクセス制限にかかわる部分)
+<pre class='code'>
+                <span class='greytext'>(前略)</span>
+<span class="linenumber">001:</span>   smtpd_delay_reject = yes
+<span class="linenumber">002:</span>   smtpd_helo_required = yes
+<span class="linenumber">003:</span>   smtpd_recipient_restrictions =
+<span class="linenumber">004:</span>     permit_mynetworks
+<span class="linenumber">005:</span>     permit_sasl_authenticated
+<span class="linenumber">006:</span>     reject_invalid_helo_hostname
+<span class="linenumber">007:</span>     reject_unlisted_recipient
+<span class="linenumber">008:</span>     reject_unauth_destination
+<span class="linenumber">009:</span>     reject_unauth_pipelining
+<span class="linenumber">010:</span>     check_helo_access hash:/etc/postfix/myself
+<span class="linenumber">011:</span>     check_sender_access hash:/etc/postfix/my_user
+<span class="linenumber">012:</span>     check_client_access hash:/etc/postfix/white_clients
+<span class="linenumber">013:</span>     check_reverse_client_hostname_access hash:/etc/postfix/grey_clients
+<span class="linenumber">014:</span>     permit_auth_destination
+<span class="linenumber">015:</span>     reject
+<span class="linenumber">016:</span>   
+<span class="linenumber">017:</span>   smtpd_restriction_classes = grey
+<span class="linenumber">018:</span>   grey = check_policy_service inet:10023
+                <span class='greytext'>(後略)</span>
+</pre>
+<br>
+[myself]
+<pre class='code'>
+<span class='comment'>#クライアントが以下のドメインを騙ると拒否</span>
+shido.info       REJECT
+www.shido.info   REJECT
+124.41.66.201    REJECT
+7c2942c9.i-revonet.jp   REJECT
+</pre>
+<br>
+[my_user]
+<pre class='code'>
+<span class='comment'>#Sender にこちらのユーザを騙ると廃棄</span>
+&#116;&#97;&#107;&#97;&#102;&#117;&#109;&#105;&#64;&#115;&#104;&#105;&#100;&#111;&#46;&#105;&#110;&#102;&#111;   DISCARD
+</pre>
+<br>
+[white_clients]
+<pre class='code'>
+<span class='comment'># whilte list: 逆引きできないが正常な送信者をリストアップ (特には必要ないが念のため)</span>
+white.client.com    OK
+</pre>
+<br>
+[grey_clients]
+<pre class='code'>
+<span class='comment'># 逆引きできないクライアントは greylist 入り</span>
+unknown   grey
+</pre>
+
+myself, my_user, white_clients, grey_clients は postmap コマンドで hash データベースを作成しておきます。
+(<a href='http://www.postfix.org/STANDARD_CONFIGURATION_README.html'>Postfix Standard Configuration Examples</a> を参照してください。)
+<p>
+この設定 (greylisting を除く部分)で 数 % 位のスパムを阻止しています。
+スパム対策としてはあまり効果はないのですが、MTA の設定をきちんとチェックすることはいいことだと思います。
+
+<h2>4. greylisting の導入</h2>
+
+<a href='http://en.wikipedia.org/wiki/Greylisting'>greylisting</a> とは怪しげなクライアントには再送を要求する処理です。
+正常な MTA は再送してくるので、そこで初めて受け付けます。また、きちんと再送してきたクライアントは一定期間 white list に載せて、再送要求をしません。
+ほとんどのスパマーは再送しないので、スパム排除には大きな効果があります。また、正常なメールを失ってしまう危険性もほとんどありません。
+(逆引きもできないし、再送もしてこないのは正常とはいえないと考えます。)
+<p>
+全面的に導入すると、メールの受信が遅れるので、逆引きができないクライアントからのメールだけを greylisting にかけました。
+ちなみに、逆引きできないとき無条件に拒否するのは相当危険です。(例えば、<a href='http://neta.ywcafe.net/000395.html'>ここ</a> を見てください。)
+<p>
+greylisting サーバーとして <a href='http://postgrey.schweikert.ch/'>postgrey</a> を導入しました。
+インストールと設定は
+<ul>
+<li><a href='http://tech.n-linux.com/index.html?%A5%C6%A5%AF%A5%CB%A5%AB%A5%EB%A5%CE%A1%BC%A5%C8%2F%CC%C2%CF%C7%A5%E1%A1%BC%A5%EB%C2%D0%BA%F6%2Fpostgrey%20%A4%CE%C6%B3%C6%FE'>
+迷惑メール対策シリーズ postgrey の導入</a>
+<li><a href='http://rimuhosting.com/knowledgebase/linux/mail/greylisting%20with%20postgrey'>Greylisting with postgrey and Postfix</a>
+</ul>
+などを参考にしました。
+
+
+greylisting はそれなりに効果があり、約 50 % のスパムを阻止します。
+
+
+<h2>5. Subject による振り分け</h2>
+
+bogofilter をすり抜けてきたスパムを Subject でさらにふるいに掛けます。
+スパムメールの Subject には特徴的な文字や単語が含まれているので、単純な方法ですが、それなりの効果があります。
+
+<p>
+<a href="/misc/misc.php?id=44">以前紹介</a>した Subject でメールを振り分けるスクリプトの input file に 以下の条件を追加しました。
+
+<pre class='code'>
+<span class='greytext'>前略</span>
+X-Bogosity: Unsure
+Received: unknown
+folder:INBOX.Junk0
+
+X-Bogosity: Unsure
+Subject: [！？☆★♪※○◎●裸馬女性肉欲援交稼妻裏払&#92;!&#92;?]|無料|セックス|sex|セフレ|出会|刺激|写真|美人|あなた|貴方|報酬|謝礼|メアド|堪能|(届|とど)いています|だけ|ただ|必見|不倫|浮気|簡単|真剣
+folder:INBOX.Junk0
+<span class='greytext'>後略</span>
+</pre>
+
+これらの条件は
+<ol>
+<li>bogofilter で Unsure と判定され、送信元の逆引きができないメールはスパム一時保管フォルダへ
+<li>bogofilter で Unsure と判定され、タイトルにいかがわしい単語や漢字を含むメールはスパム一時保管フォルダへ
+</ol>
+という意味です。
+
+この処理で、約 70% のスパムをブロックできます。
+
+
+
+
+<h2>6. メールアドレスの難読化</h2>
+
+紫藤は今まで無邪気にもホームページで自分のメールアドレスをそのまま晒していましたが、
+今回、メールアドレスを文字参照表記にすることによって受け取るスパムメールが激減しました。
+具体的には、いままで <br>
+"&#116;&#97;&#107;&#97;&#102;&#117;&#109;&#105;&#64;&#115;&#104;&#105;&#100;&#111;&#46;&#105;&#110;&#102;&#111;" <br>
+と書いていたのを<br>
+"&amp;#116;&amp;#97;&amp;#107;&amp;#97;&amp;#102;&amp;#117;&amp;#109;&amp;#105;&amp;#64;&amp;#115;&amp;#104;&amp;#105;&amp;#100;&amp;#111;&amp;#46;&amp;#105;&amp;#110;&amp;#102;&amp;#111;"<br>
+と書くように改めました。
+この
+<a href='http://ja.wikipedia.org/wiki/%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E6%A4%9C%E7%B4%A2%E3%83%AD%E3%83%9C%E3%83%83%E3%83%88'>
+難読化処理</a>
+によって、ブラウザを通してこのページを見る人間には正常なメールアドレスに見えますが、メールアドレス収集のためのクローラーにはメールアドレスに見えません。
+画像や、全角文字を用いるよりスマートで効果も大きいので是非試してみてください。
+<p>
+すでに5年以上もメールアドレスを晒していたのですが、これによって、1日に受け取るスパムの数が約 1/3 に減少しました。
+
+
+<h2> 7. 終わりに</h2>
+
+きちんと統計を取ったわけではないですが、
+各ステップでスパムがすり抜ける確率はおおよそ以下のようになっています。
+
+<ol>
+<li> メールアドレスの難読化にもかかわらず送られてくるスパムの割合: 0.3
+<li> greylisting を透過するスパムの割合: 0.5
+<li> bogofilter を透過するスパムの割合: 0.3
+<li> Subject による判定を透過するスパムの割合: 0.3
+</ol>
+これらの4つのフィルタをすり抜けてくるスパムは 1.4 % で、1日あたり 200 通のスパムが送られてくるとすると、
+デフォルトのメールボックスに届くのは 3 通ほどになります。
+<p>
+個々のフィルタはそれほど効率のいいものではありませんが、それらを多段階にして用いると効果的になります。
+全体としてスパムの阻止率はほぼ 99 % なので、満足いくものになっています。
+また、正常なメールを喪失する可能性は無視しうるほど小さくなっています。
+
+結論としては、複数の緩めのフィルターで多重処理すると、正常なメールを喪失するリスクがほとんどなく、
+効率よくスパムを排除できることがわかったということです。
+<br>
+当たり前といえば、当たり前ですが、自分でやってみて実感できました。
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc46&t=%C2%D0%A5%B9%A5%D1%A5%E0%C2%BF%BD%C5%A5%D5%A5%A3%A5%EB%A5%BF"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

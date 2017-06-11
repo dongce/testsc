@@ -1,0 +1,643 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell, data type">
+<meta name="description" content="basic data types in Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> basic data types in Haskell </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell3.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  3. 関数を定義する</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell5.html"><img src='../images/right_arrow.gif' class='arrow' border=0>5. 入出力</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell4.html&t=basic+data+types+in+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>4. 型</h1> 
+<hr>
+ <!---------------------------------------------------->
+ 
+Haskell は Lisp や Python と違って強く型付けされた
+言語です。Haskell の型はかなり複雑です。<p>
+目次
+ <ol>
+   <li> <a href="#atom">真偽値、文字、数値</a>
+   <li> <a href="#tuple">tuple</a>
+   <li> <a href="#func">関数の型</a>
+   <li> <a href="#list">List</a>
+   <li> <a href="#cons">タグ付き型</a>
+   <li> <a href="#class">class と instance</a>
+</ol>
+<a name="atom">
+<h2> 1. 真偽値、文字、数値</h2>
+まず、真偽値、数値、文字などの要素的な型について
+述べます。
+以下の表に要素的な型の一覧を示します。
+<table border=1, class="mono">
+   <tr>
+      <th>名称</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>Bool</td>
+      <td> 真偽値です。True と False があります。</td>
+   </tr>
+   <tr>
+      <td>Char</td>
+      <td> 文字です。シングルクオートで囲みます。</td>
+   </tr>
+   <tr>
+      <td>Int</td>
+      <td> 範囲が決まった整数です。少なくとも (- 2<sup>29</sup>) ---  (2<sup>29</sup> - 1) をカバーします。</td>
+   </tr>
+   <tr>
+      <td>Integer</td>
+      <td>任意精度の整数です。</td>
+   </tr>
+   <tr>
+      <td>Float</td>
+      <td> IEEE 単精度の浮動小数点です。</td>
+   </tr>
+   <tr>
+      <td>Double</td>
+      <td> IEEE 倍精度の浮動小数点です。</td>
+   </tr>
+</table>
+
+<a name="bool">
+<h3>1.1. Bool </h3>
+Bool には <span class="mono">True</span> と <span class="mono">False</span>
+があります。他の多くの言語とは異なり、
+偽以外は全て真ということはありません。
+厳密にこの２つだけです。
+
+<a name="char">
+<h3>1.2. Char</h3>
+C 言語と同様に、<span class="mono"><span class="bluetext">'a'</span></span> で１文字を表します。<br>
+module Char には以下に示す関数が定義されています。
+<table border=1, class="mono">
+   <tr>
+      <th>関数</th>
+      <th>動作</th>
+   </tr>
+   <tr>
+      <td>ord </td>
+      <td> 文字を整数に変換する：   ord 'a' --&gt; 97</td>
+   </tr>
+   <tr>
+      <td>chr </td>
+      <td> 整数を文字に変換する：  chr 97  --&gt; 'a'</td>
+   </tr>
+   <tr>
+      <td>isAscii c </td>
+      <td>  c &lt; '\x80'</td>
+   </tr>
+   <tr>
+      <td>isLatin1 c </td>
+      <td>  c &lt;= '\xff'</td>
+   </tr>
+   <tr>
+      <td>isControl c </td>
+      <td>  c &lt; ' ' || c &gt;= '\DEL' && c &lt;= '\x9f'</td>
+   </tr>
+   <tr>
+      <td>isSpace c  </td>
+      <td>  c `elem` " \t\n\r\f\v\xA0"</td>
+   </tr>
+   <tr>
+      <td>isUpper </td>
+      <td>    'A'..'Z'</td>
+   </tr>
+   <tr>
+      <td>isLower </td>
+      <td>  'a'..'z'</td>
+   </tr>
+   <tr>
+      <td>isAlpha c </td>
+      <td>  isUpper c || isLower c</td>
+   </tr>
+   <tr>
+      <td>isDigit c </td>
+      <td> c &gt;= '0' && c &lt;= '9'</td>
+   </tr>
+   <tr>
+      <td>isAlphaNum </td>
+      <td>[a-zA-Z0-9]</td>
+   </tr>
+   <tr>
+      <td>toUpper </td>
+      <td>  [a-z] -&gt; [A-Z]</td>
+   </tr>
+   <tr>
+      <td>toLower </td>
+      <td> [A-Z] -&gt; [a-z]</td>
+   </tr>
+</table>
+
+<a name="num">
+<h3>1.3. 数値</h3>
+数値型には
+整数型の Int, Integer、浮動小数点の Float, Double、および
+有理数、複素数があります。
+<p>
+
+<span class="mono">1,2,3 ..</span> のように整数とも浮動小数点とも解釈できるものは、
+処理系が文脈に沿って解釈してくれます。<br>
+数値の型を明示するには
+<pre class="code">
+<span class="parm">value</span> :: <span class="parm">type_name</span>
+</pre>
+とします。
+数値は厳密に型付けされていて、<span class="important">異なる型の数値間の演算は出来ません。</span><br>
+<!------------------------------------------
+- 例：
+- <pre class="samp">
+- Main&gt; (1 :: Int) + (1.0 :: Float)
+- ERROR - Type error in application
+- *** Expression     : 1 + 1.0
+- *** Term           : 1
+- *** Type           : Int
+- *** Does not match : Float
+- 
+- Main&gt; (1 :: Int) + (1 :: Integer)    <span class="comment">-- 整数同士でも精度が違うとエラー</span>
+- ERROR - Type error in application
+- *** Expression     : 1 + 1
+- *** Term           : 1
+- *** Type           : Int
+- *** Does not match : Integer
+- 
+- Main&gt; (1.0 :: Float) + (1.0 :: Double) <span class="comment">-- 浮動小数点同士でも精度が違うとエラー</span>
+- ERROR - Type error in application
+- *** Expression     : 1.0 + 1.0
+- *** Term           : 1.0
+- *** Type           : Float
+- *** Does not match : Double
+- </pre>
+------------------------------------------->
+
+<a name="int">
+<h4>1.3.1. 整数</h4>
+整数には <span class="mono">Int</span> と <span class="mono">Integer</span> の２種類があります。
+Int は精度が決まっている整数です。少なくとも
+(- 2<sup>29</sup>) ---  (2<sup>29</sup> - 1)
+の範囲をカバーします。<p>
+
+  <span class="mono">Integer</span> は任意精度の整数です。
+  <span class="mono">Int</span> で収まらない整数を表します。<p>
+	 <span class="important">整数型の割り算はエラーになります。</span>
+	 <span class="mono">fromIntegral</span> で型が特定されていない数に戻してから計算します。
+
+<pre class="samp">
+Prelude&gt; (4 :: Int) / (2 :: Int)    <span class="comment">-- Error</span>
+ERROR - Cannot infer instance
+*** Instance   : Fractional Int
+*** Expression : 4 / 2
+
+Prelude&gt; (fromIntegral (4 :: Int)) / (fromIntegral (2 :: Int)) <span class="comment">-- ok, it returns Num</span>
+2.0
+Prelude&gt; floor $ (fromIntegral (4 :: Int)) / (fromIntegral (2 :: Int)) <span class="comment">-- if you need Int</span>
+2
+</pre>
+
+
+<a name="float">
+<h4>1.3.2 浮動小数点</h4>
+<span class="mono">Float</span> は IEEE 単精度、
+<span class="mono">Double</span> は IEEE 倍精度の浮動小数点を表します。
+
+<a name="ratio">
+<h4>1.3.3. 有理数</h4>
+<span class="mono">module Rational</span> に定義されています。いわゆる分数を
+<pre class="code">
+<span class="parm">分子</span> % <span class="parm">分母</span>
+</pre>
+で表します。<br>
+例：
+<pre class="samp">
+Main&gt; 7 % 3 + 9 % 5
+62 % 15
+</pre>
+
+<a name="comp">
+<h4>1.3.4 複素数</h4>
+<span class="mono">module Complex</span> に定義されています。複素数を
+<pre class="code">
+<span class="parm">実部</span> :+ <span class="parm">虚部</span>
+</pre>
+で表します。<br>
+例：
+<pre class="samp">
+Main&gt; (3 :+ 1) + (1 :+ 2)  -- <span class="comment">(3+1<i>i</i>) + (1+2<i>i</i>)</span>
+4.0 :+ 3.0
+</pre>
+
+<a name="cast">
+<h4>1.3.5 数値の型変換</h4>
+整数型 (Int, Integer)を不特定数値型にするには <span class="bluetextbold">fromIntegral</span> を使います。<br>
+例：<br>
+<pre class="code">
+Main&gt; 2.2 + (fromIntegral (2 :: Integer))
+4.2
+Main&gt; 2.2 + (fromIntegral (2 :: Int))
+4.2
+</pre>
+
+その他の型変換については  
+<a href="http://www.haskell.org/onlinelibrary/basic.html#sect6.4.6">Haskell 98 report 6.4.6</a>
+を見てください。
+
+<a name="tuple">
+<h2> 2. tuple</h2>
+複数の値を組み合わせるのに使います。tuple を使うと多値を返す関数を作ることが出来ます。
+tuple は要素の型の制約はありませんが、要素数は一定である必要があります。<p>
+
+２要素の tuple (pair) には、最初の要素を返す <span class="mono">fst</span> と
+２番目の要素を返す <span class="mono">snd</span> があらかじめ定義されています。<br>
+<pre class="samp">
+Prelude&gt; fst ("I am first", 2)
+"I am first"
+Prelude&gt; snd ("I am first", 2)
+2
+</pre>
+ある要素を取り出す関数を定義するには以下のようにします。<br>
+例、４要素の tuple から要素を取り出す。
+<pre class="code">
+from_quad i (a0, a1, a2, a3) = case i of
+                                   0 -&gt; a0
+                                   1 -&gt; a1
+                                   2 -&gt; a2
+                                   3 -&gt; a3
+</pre>
+
+
+<a name="func">
+<h2> 3. 関数の型</h2>
+
+関数の型は入力と出力を矢印でつないで表します。また、関数の型は
+ <span class="mono"><span class="bluetextbold">::</span>
+ を使って明示します。関数の
+ 型を明示するとコンパイラーが効率的なコードを作ってくれることがあります。<br>
+例：
+<pre class="code">
+foo :: Int -> Int
+foo x = 1 + x
+</pre>
+引数が２つ以上ある場合は、矢印をつなげて表します。<br>
+例：
+<pre class="code">
+hoge :: Int -> Int -> Int
+hoge x y = x + y
+</pre>
+
+２つ以上の引数をとる関数に部分的に引数を与えると、与えた引数の数だけ引数が減少した関数が派生します。
+例えば、
+<ul>
+<li><span class="mono">(+ 2) は 2</span> を加えるという関数です。
+  <li>また、<span class="mono">(>0) は 0</span> より大きいとき <span class="mono">True</span> を返す関数です。
+	 </ul>
+<p>
+  引数を指定しないで関数を定義することが可能です。これを利用すると<a href="#higher">高階関数</a>が
+  簡潔に書けます。<br>
+  例：
+<pre class="code">
+hoge = (+ 2)
+baz = (* 3) . (+ 2)   <span class="comment">-- baz x = (x+2) * 3</span>
+</pre>
+  
+
+
+<a name="list">
+<h2>4. List</h2>
+List は <span class="mono"><span class="bluetextbold">[,]</span></span> で表します。
+<br>
+tuple と違って、要素数に制限はありません。そのかわり、
+要素の型は全て同じである必要があります。<br>
+<span class="mono">[[a]]</span> などとして、 list の list を作ることが出来ます。
+また、<span class="mono">[(a,b)]</span> などとして、tuple のリストを作ることも出来ます。<p>
+Haskell では文字列は、Char のリスト [Char] として定義されています。<p>
+
+  <h3>4.1. リストに関わる関数一覧</h3>
+  List は関数型言語の重要なデータ型で、List を扱うさまざまな関数があらかじめ定義されています。
+
+<table border=1, class="mono">
+   <tr>
+      <th>関数名</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>(:)</td>
+      <td> list の先頭に要素を１つ追加します。3:[2,1,0] &rarr; [3,2,1,0]</td>
+   </tr>
+   <tr>
+      <td>head</td>
+      <td> list の最初の要素を取り出します。（Lisp の car)</td>
+   </tr>
+   <tr>
+      <td>last</td>
+      <td> list の最後の要素を取り出します。</td>
+   </tr>
+   <tr>
+      <td>tail</td><td> 最初の要素を取り除いた list を返します。(cdr)</td>
+   </tr>
+   <tr>
+      <td>(!!)</td>
+      <td>list の n 番目の要素を返します。(list !! n)</td>
+   </tr>
+   <tr>
+      <td>elem</td>
+      <td> obj が list の要素ならば True を返します。(elem obj list)</td>
+   </tr>
+   <tr>
+      <td>take</td>
+      <td> list の最初の n 個からなるリストを返します。(take n list)</td>
+   </tr>
+   <tr>
+      <td>drop</td>
+      <td> list の最初の n 個を除いたリストを返します。(drop n list)</td>
+   </tr>
+   <tr>
+      <td>dropWhite</td>
+      <td> list の先頭から初めて、predicate が成り立っている間その要素を除外します。
+           (dropWhile predicate list)<br>
+例：<br>
+			dropWhile (==0) [0,1,0,0,1,1] &rarr; [1,0,0,1,1]</td>
+   </tr>
+   <tr>
+      <td>(++)</td>
+      <td>リストを連結します。[3,2] ++ [1,0] &rarr; [3,2,1,0]</td>
+   </tr>
+   <tr>
+      <td>length</td>
+      <td> リストの長さを Integral で返します。length [1,2,3] &rarr; 3</td>
+   </tr>
+   <tr>
+      <td>reverse</td>
+      <td>リスト を逆順に並べ替えたものを返します。</td>
+   </tr>
+   <tr>
+      <td>nub</td>
+      <td>重複を取り除きます。(module List)</td>
+   </tr>
+   <tr>
+      <td>sum</td>
+      <td>数値からなるリストの要素の和を返します。</td>
+   </tr>
+   <tr>
+      <td>product</td>
+      <td>数値からなるリストの要素の積を返します。</td>
+   </tr>
+   <tr>
+      <td>maximum</td>
+      <td>リストの要素の最大値を返します。</td>
+   </tr>
+   <tr>
+      <td>minimum</td>
+      <td>リストの要素の最小値を返します。</td>
+   </tr>
+</table>
+その他いろいろあります。
+<a href="http://www.haskell.org/onlinelibrary/list.html#sect17.9">Haskell98 Report, Library List</a>
+を参照してください。
+
+<a name="higher">
+<h3>4.2. リストに関わる高階関数</h3>
+高階関数は、関数を引数にとる関数です。高階関数を使うと抽象化（コードの使いまわし）が
+容易になります。リストに関わる高階関数としてはマッピング、フィルタリング、畳み込みがあります。
+
+<h4>4.2.1. マッピング</h4>
+Haskell にはマッピングを行う高階関数 <span class="mono">map</span> が定義されています。
+この関数は、[１引数の関数] とリストを引数にとり、リストを返します。
+<pre class="code">
+<span class="comment">-- syntax</span>
+map <span class="bluetext">fun ls</span>
+
+<span class="comment">-- example</span>
+map (+2) [1,2,3,4] &rarr; [3,4,5,6]
+map (\x -> x + 2) [1,2,3,4] &rarr; [3,4,5,6]
+</pre>
+
+<h4>4.2.2. フィルタリング</h4>
+ある集合の要素のうち条件を満たす要素からなる集合を返すことをフィルタリングといいます。
+Haskell にはリストのフィルタリングを行う関数 <span class="mono">filter</span> が用意されています。
+<pre class="code">
+<span class="comment">-- syntax</span>
+filter <span class="bluetext">predicate ls</span>
+
+<span class="comment">-- example</span>
+filter (>0) [-2,-1,0,1,2,3,4] &rarr; [1,2,3,4]
+filter (\x -> x > 0) [-2,-1,0,1,2,3,4] &rarr; [1,2,3,4]
+</pre>
+
+
+
+<h4>4.2.3. 畳み込み</h4>
+畳み込みは、２引数の関数をリスト全体に作用させることです。
+Haskell には畳み込みを行う関数として foldl, foldr の２つが用意されています。
+これらの関数は [２引数関数]、初期値、リストの３つの引数を取ります。
+foldl と foldr は畳み込みの方法が異なります。foldl では、初期値を先頭にして、
+リストの先頭から計算していきます。一方、foldr では初期値を末尾にして、リストの末尾から
+計算していきます。
+<pre class="code">
+<span class="comment">-- syntax</span>
+foldl fun val ls
+foldr fun val ls
+
+<span class="comment">-- example</span>
+foldl (-) 10 [1,2,3,4] &rarr; 0      <span class="comment">-- ((((10 - 1) - 2) - 3 - 4)</span>
+foldr (-) 10 [1,2,3,4] &rarr; 8      <span class="comment">-- (1 - (2 - (3 - (4 - 10))))</span>
+</pre>
+ちなみに、リストの最初の要素を初期値とする関数 foldl1, foldr1 があります。
+
+
+
+<h3>4.3. list の内包表現</h3>
+<span class="mono">map</span> と <span class="mono">filter</span> を両方使うときの簡潔な書き方です。
+<pre class="code">
+map (*2) (filter even [1,2,3,4]) &rarr; [4, 8] &hArr;
+[x*2 | x &lt;- [1,2,3,4], even x] &rarr; [4, 8]
+</pre>
+
+
+<h3>4.4. 文字列</h3>
+文字列 (String) は文字の list ([Char]) と同じです。<br>
+文字列に関わる主な関数を挙げておきます。
+<table border=1, class="mono">
+   <tr>
+      <th>関数名</th>
+      <th>動作</th>
+   </tr>
+   <tr>
+      <td>lines</td>
+      <td>文字列を１行ずつ分割します。</td>
+   </tr>
+   <tr>
+      <td>words</td>
+      <td>文字列を１単語ずつ分割します。</td>
+   </tr>
+   <tr>
+      <td>unlines</td>
+      <td>文字列のリストを改行文字を挟んでつなげます。</td>
+   </tr>
+   <tr>
+      <td>unwords</td>
+      <td>文字列のリストをスペースを挟んでつなげます。</td>
+   </tr>
+</table>
+
+
+<a name="cons">
+<h2> 5. タグ付き型</h2>
+Haskell ではすでにある型を修飾することによってある特定の性質を持った別の型を作ることが出来ます。
+これは他の言語では見られない Haskell 独自の性質です（たぶん）。
+そのような型として、IO や Maybe などがあります。
+
+<a name="io">
+<h3> 5.1. IO 型</h3>
+入出力は外界との相互作用であり、関数的に書き表すことは出来ません。
+むしろ、入出力は、関数の引数を調べ、また関数の値を表示する手法であり、
+関数型プログラムの外側にある事柄です。
+
+  しかし、独立したプログラムであるためには、入出力も自前で行う必要が
+あります。つまり、Haskell は、純粋に関数型の部分
+と入出力を行う部分の２つの部分から
+成っているということが出来ます。Haskell ではこれら２つの部分がきれいに分離され、関数部分の
+参照透明性が保持されています。<p>
+
+	 関数部分と IO 部分を分離するために、IO の結果として得られる値は
+	  関数部分で使う値と明確に区別する必要があります。そのような区別をするために
+	 IO の結果として得られる値には IO というタグをつけます。
+
+	 通常の変数では、関数の定義によって値が決まるのに対して
+	 IO 型の変数は IO が行われるまで値が特定できません。
+	 従って、両者を区別せずに、IO の結果として得られた値を直接関数部分に渡すと、
+	 関数部分の透明参照性が損なわれます。<p>
+
+
+  詳しくは、
+	 <ol>
+<li><a href="http://www.haskell.org/tutorial/io.html">A Gentle Introduction to Haskell: IO</a>
+  <a href="http://www.sampou.org/haskell/tutorial-j/io.html">（日本語訳）</a>
+<li><a href="haskell5.html">入出力</a>
+</ol>
+
+  を見てください。
+
+
+<a name="maybe">
+<h3>5.2. Maybe 型</h3>
+値を返さないかもしれない関数を記述するとき使います。<br>
+<span class="mono">Maybe</span> 型は <span class="mono">Nothing</span>
+と <span class="mono">Just a</span> の２種類のデータからなります。
+計算が成り立つと <span class="mono">Just <span class="parm">result_of_calculation</span></span>
+を返し、成り立たないと <span class="mono">Nothing</span> を返します。
+下の例では <span class="mono">sqrt</span> の場合を示します。
+Maybe 型を返す関数の結果を次の関数に渡したい時は <span class="mono">(>>=)</span>
+を使います。（<a href="haskell8.html">Monad</a> で説明します。）
+
+<pre class="code">
+maybe_sqrt :: Double -&gt; Maybe Double
+maybe_sqrt x | x &lt; 0 = Nothing
+             | otherwise = Just $ sqrt x
+</pre>
+<pre class="samp">
+Main&gt; maybe_sqrt 2
+Just 1.4142135623731
+Main&gt; maybe_sqrt (-4)
+Nothing
+</pre>
+
+<a name="either">
+<h3>5.3. Either 型</h3>
+結果によって返す型を変えたいときに使います。
+Haskell は強く型付けされているので、関数は基本的に１つの
+型しか返せません。<br>
+下の例は <span class="mono">Int</span> を引数に取り、もし引数が平方数なら <span class="mono">Int</span> を返し、
+それ以外は <span class="mono">Double</span> を返す関数です。
+<span class="mono">Int</span> を返すときは <span class="mono">Left</span>、
+<span class="mono">Double</span> を返すときは <span class="mono">Right</span> を値の前に
+つけています。
+<pre class="code">
+<span class="comment">---- sqrt that return Int if possible</span>
+int_sqrt :: Int -> (Either Int Double)
+int_sqrt x | fsdx * fsdx == x  = Left fsdx  
+           | otherwise = Right sdx
+ where sdx = sqrt $ fromIntegral x
+       fsdx = floor sdx
+</pre>
+<pre class="samp">
+Main&gt; int_sqrt 35
+Right 5.91607978309962
+Main&gt; int_sqrt 36
+Left 6
+</pre>
+
+<a name="class">
+<h2>6. class と instance</h2>
+Haskell にも class や instance が定義されています。ただし、これらの定義はいわゆるオブジェクト指向型言語
+のものとはかなり異なっています。
+
+<h3>6.1. 総称関数</h3>
+引数の型によって動作を変えるような関数を総称関数といいます。
+例えば <span class="mono">(==), (>), (<)</span>, etc は引数によって比較の方法を変化させています。
+
+<h3>6.2. class</h3>
+Haskell では総称関数の組のことを
+ class と呼びます。平たく言えば、”何々をする方法”ということです。
+例えば、class Eq （等しいかどうか調べる方法）には２つの総称関数
+<span class="mono">(==) と (/=)</span> が定義されています。
+<pre class="def">
+class  Eq a  where
+    (==), (/=) :: a -> a -> Bool
+
+        -- Minimal complete definition:
+        --      (==) or (/=)
+    x /= y     =  not (x == y)
+    x == y     =  not (x /= y)
+</pre>
+また、データ型を（表示させるために）文字列に変換する方法は class Show に書かれています。
+
+
+<h3>6.3. instance</h3>
+特定のデータ型での総称関数の定義です。総称関数 <span class="mono">(==) </span>は
+それぞれのデータ型で定義されています。
+<p>
+
+  詳しくは
+  <a href="haskell7.html">自前の data と class</a> を見てください。
+  
+<a name="further">
+  <h2> 7. より詳しく知るには</h2>
+型については
+  <ol>
+<li><a href="http://haskell.org/tutorial/classes.html">A Gentle Introduction to Haskell Classes</a>
+  <a href="http://www.sampou.org/haskell/tutorial-j/classes.html">（日本語訳）</a>
+<li><a href="http://http://www.isi.edu/~hdaume/htut/">
+Yet Another Haskell Tutorial
+</a>
+  </ol>
+に詳しく書かれています。
+
+ <hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell3.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  3. 関数を定義する</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell5.html"><img src='../images/right_arrow.gif' class='arrow' border=0>5. 入出力</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell4.html&t=basic+data+types+in+Haskell' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>
+

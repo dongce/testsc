@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, class, object orientated programming">
+<meta name="description" content="Object orinentated programming using Python">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Python の ”新しい”クラス </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="python9.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python9.html&t=Python+%A4%CE+%A1%C9%BF%B7%A4%B7%A4%A4%A1%C9%A5%AF%A5%E9%A5%B9' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+ <h1>Python の ”新しい”クラス </h1> 
+<hr>
+<h2>1. 初めに</h2>
+Python 2.2 から、タプル、リスト、辞書などの組み込みオブジェクトを親クラスとするクラスを定義することが
+可能になりました。
+使い方は、普通のクラスとほとんど変わりません。
+便利になった点は、組み込みオブジェクトの属性を再定義しなくてすむという点です。
+例えば、<a href='python2.html#class'>Python 早めぐり</a> で述べた <tt>Vector</tt> クラスは、
+リスト型内部変数 '<var>v</var>' を定義して、<tt>Vector</tt> の次元などは、<var>v</var> の次元になるように
+<span class='mono'>__len__ </span> などを定義する必要がありました。
+組み込みオブジェクトを親にすればこのような二度手間がはぶけます。
+<p>
+  ここではタプルのサブクラスとして <span class='mono'>Vector</span> クラスを定義してみます。
+    <a href='python2.html#class'>Python 早めぐりで定義したベクトル</a>は説明用の不完全なものでしたが、
+    ここでは使えるものを作ってみました。
+算術演算を定義する特殊メソッドの使い方を参考にして下さい。
+  また、<tt>Vector</tt> クラスを使って3次元のフラクタル木を作ってみました。
+
+
+
+<h2>2. タプルを使った Vector の定義</h2>
+[code 1] にタプルを使った Vector クラスの定義を示します。
+[code 1] を見るとわかるように、配列としての属性は定義する必要がありません。
+<span class='mono'>__init__ も</span>タプルのを使うので定義不要です。
+組み込みオブジェクトを親クラスにすると、初期化も組み込みクラスと同じように行われます。
+つまり、Vector を作るときにはリスト（またはタプル）を引数に与えなければなりません。
+これは若干不便なので、<span class='mono'>Vector</span> を作る関数
+<span class='mono'>make_vector</span> も作っておきました。
+
+<p>
+
+さて、<span class='mono'>Vector</span> クラスは、ベクトルらしく振舞うように代数演算
+  (<span class='mono'>+, -, *, +=, -=</span>) を定義します。<p>
+
+[code 1] (vector.py)
+<pre class='code'>
+<span class="linenumber"> 01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber"> 02:</span>     <span class="comment">#  coding: shift_jis </span>
+<span class="linenumber"> 03:</span>     
+<span class="linenumber"> 04:</span>     import math, copy
+<span class="linenumber"> 05:</span>     
+<span class="linenumber"> 06:</span>     
+<span class="linenumber"> 07:</span>     <span class="comment">## functions ------------------------------------------------------------</span>
+<span class="linenumber"> 08:</span>     def isnum(n):
+<span class="linenumber"> 09:</span>         <span class="string">""" check if n is a number """</span>
+<span class="linenumber"> 10:</span>         return type(n) in (int, float, long, complex)
+<span class="linenumber"> 11:</span>     
+<span class="linenumber"> 12:</span>     def make_vector(*ele, **key):
+<span class="linenumber"> 13:</span>         <span class="string">""" making an instance of Vector"""</span>
+<span class="linenumber"> 14:</span>         if ele:
+<span class="linenumber"> 15:</span>             return Vector(ele)
+<span class="linenumber"> 16:</span>         elif 'value' in key and 'dimension' in key:
+<span class="linenumber"> 17:</span>             return Vector([key['value'] for x in range(key['dimension'])])
+<span class="linenumber"> 18:</span>         else:
+<span class="linenumber"> 19:</span>             raise KeyError, 'Key should be \'dimension\' and \'value\'.'
+<span class="linenumber"> 20:</span>     
+<span class="linenumber"> 21:</span>     
+<span class="linenumber"> 22:</span>     <span class="comment">## ------------------------------------------------------------------------</span>
+<span class="linenumber"> 23:</span>     class Vector(tuple):
+<span class="linenumber"> 24:</span>         <span class="string">"""
+<span class="linenumber"> 25:</span>         Vector is a class for vector operation, which is a sub-class of tuple.
+<span class="linenumber"> 26:</span>         """</span>
+<span class="linenumber"> 27:</span>     
+<span class="linenumber"> 28:</span>         def __neg__(self):
+<span class="linenumber"> 29:</span>             return Vector([-x for x in self])
+<span class="linenumber"> 30:</span>         
+<span class="linenumber"> 31:</span>         def __pos__(self):
+<span class="linenumber"> 32:</span>             return copy.copy(self)
+<span class="linenumber"> 33:</span>             
+<span class="linenumber"> 34:</span>         def __abs__(self):
+<span class="linenumber"> 35:</span>             <span class="string">"""it returns the magnitude of vector."""</span>
+<span class="linenumber"> 36:</span>             return math.sqrt(sum([ x * x for x in self]))
+<span class="linenumber"> 37:</span>     
+<span class="linenumber"> 38:</span>         def norm(self):
+<span class="linenumber"> 39:</span>             <span class="string">"""it returns the normarized vector."""</span>
+<span class="linenumber"> 40:</span>             a = self.__abs__()
+<span class="linenumber"> 41:</span>             return Vector([x/a for x in self])
+<span class="linenumber"> 42:</span>             
+<span class="linenumber"> 43:</span>         def __add__(self, a):
+<span class="linenumber"> 44:</span>             <span class="string">"""it adds vector and vector."""</span>
+<span class="linenumber"> 45:</span>             if isinstance(a, Vector):
+<span class="linenumber"> 46:</span>                 if len(self) == len(a):
+<span class="linenumber"> 47:</span>                     return Vector([ x + y for x, y in zip(self, a)])
+<span class="linenumber"> 48:</span>                 else:
+<span class="linenumber"> 49:</span>                     raise ValueError, "Same dimension is required."
+<span class="linenumber"> 50:</span>             else:
+<span class="linenumber"> 51:</span>                 raise TypeError, "Vector is required."
+<span class="linenumber"> 52:</span>     
+<span class="linenumber"> 53:</span>         __iadd__ = __add__
+<span class="linenumber"> 54:</span>      
+<span class="linenumber"> 55:</span>         def __sub__(self, a):
+<span class="linenumber"> 56:</span>             return self.__add__(-a)
+<span class="linenumber"> 57:</span>     
+<span class="linenumber"> 58:</span>         __isub__ = __sub__
+<span class="linenumber"> 59:</span>                 
+<span class="linenumber"> 60:</span>         def __mul__(self, m):
+<span class="linenumber"> 61:</span>             <span class="string">"""if m is a vector, it calculate the inner product,
+<span class="linenumber"> 62:</span>                else if m is a number, it multiplies each element of vector by m."""</span>
+<span class="linenumber"> 63:</span>                
+<span class="linenumber"> 64:</span>             if isinstance(m, Vector):
+<span class="linenumber"> 65:</span>                 if len(self) == len(m):
+<span class="linenumber"> 66:</span>                     return sum([ x * y for x, y in zip(self, m)])
+<span class="linenumber"> 67:</span>                 else:
+<span class="linenumber"> 68:</span>                     raise ValueError, "Same dimension is required."
+<span class="linenumber"> 69:</span>             elif isnum(m):
+<span class="linenumber"> 70:</span>                 return Vector([ x * m for x in self])
+<span class="linenumber"> 71:</span>             else:
+<span class="linenumber"> 72:</span>                 raise TypeError, "Vector or number is required."
+<span class="linenumber"> 73:</span>     
+<span class="linenumber"> 74:</span>         __rmul__ = __mul__
+<span class="linenumber"> 75:</span>     
+<span class="linenumber"> 76:</span>         def __str__(self):
+<span class="linenumber"> 77:</span>             <span class="string">"""add#V in front of the representation of tuple."""</span>
+<span class="linenumber"> 78:</span>             return '#V' + tuple.__str__(self)
+<span class="linenumber"> 79:</span>     
+<span class="linenumber"> 80:</span>     <span class="comment">##-----------------------------------------------------------------------------</span>
+<span class="linenumber"> 81:</span>     __all__ = (make_vector, Vector)
+<span class="linenumber"> 82:</span>     
+<span class="linenumber"> 83:</span>     if __name__ == '__main__':
+<span class="linenumber"> 84:</span>         v1 = Vector([1,2,3])
+<span class="linenumber"> 85:</span>         v2 = Vector([2,3,4])
+<span class="linenumber"> 86:</span>         v3 = Vector([1+2j, 2+3j, 4+5j])
+<span class="linenumber"> 87:</span>         print 'Vector([1,2,3])  (v1, here in after) = ', v1
+<span class="linenumber"> 88:</span>         print 'Vector([2,3,4])  (v2, here in after) = ', v2
+<span class="linenumber"> 89:</span>         print 'Vector([1+2j, 2+3j, 4+5j])     (v3, here in after) = ', v3
+<span class="linenumber"> 90:</span>         print '-v1 = ', -v1
+<span class="linenumber"> 91:</span>         print 'v1==v2', v1==v2
+<span class="linenumber"> 92:</span>         print 'v1[0] =', v1[0]
+<span class="linenumber"> 93:</span>         print 'v1*v2 = ', v1*v2
+<span class="linenumber"> 94:</span>         print 'v2-v1 = ', v2 - v1
+<span class="linenumber"> 95:</span>         print '3*v1 = ', 3*v1
+<span class="linenumber"> 96:</span>         print 'v1*3 = ', v1*3
+<span class="linenumber"> 97:</span>         print 'abs(v1) = ', abs(v1)
+<span class="linenumber"> 98:</span>         print 'v1.norm() = ', v1.norm()
+<span class="linenumber"> 99:</span>         for i, x  in enumerate(v1):
+<span class="linenumber">100:</span>             print 'v1[', i, '] = ', x
+<span class="linenumber">101:</span>         v1 += v2
+<span class="linenumber">102:</span>         print 'v1 += v2 -&gt; v1', v1
+<span class="linenumber">103:</span>         v1 -= v2
+<span class="linenumber">104:</span>         print 'v1 -= v2 -&gt; v1', v1
+<span class="linenumber">105:</span>         print 'make_vector(1,2,3,4) =', make_vector(1,2,3,4)
+<span class="linenumber">106:</span>         print 'make_vector(dimension=5, value=0) =', make_vector(dimension=5, value=0)
+<span class="linenumber">107:</span>         print 'v3 + make_vector(dimension=len(v3), value= 1+2j) = ', v3 + make_vector(dimension=len(v3), value= 1+2j)
+<span class="linenumber">108:</span>         print 'repr(v1) = ', repr(v1)
+<span class="linenumber">109:</span>         print 'str(v1) = ', str(v1)
+</pre>
+<h3> 説明</h3>
+81 行までがモジュールの定義で、それ以降はテストコードです。
+<h4>1. 関数</h4>
+2つの関数を定義します。
+<dl>
+  <dt><span class='mono'><b>isnum</b> (n)</span></dt>
+      <dd> n が、整数、実数、複素数かどうか調べます。</dd>
+  <dt><span class='mono'><b>make_vector</b>(*ele, **key)</span></dt>
+      <dd>
+各要素 (<tt>ele</tt>) が与えられたらその要素を持つベクトルを返します。また、
+キーワード 'dimension' と 'value' が与えられたら、 <tt>value</tt> を値とする <tt>dimension</tt> 次元の
+ベクトルを返します。</dd>
+</dl>
+<h4>2. class Vector(tuple)</h4>
+tuple をスーパークラスとして class Vector を定義します。
+初期化および配列用のメソッドは tuple のをそのまま使えばよいので定義しません。
+ベクトルらしく振舞うよう代数演算子を定義します。
+<dl>
+  <dt><tt><b>__neg__</b></tt></dt>
+      <dd> 単項演算子 '<tt>-</tt>' を定義します。符号の反転を表します。</dd>
+  <dt><tt><b>__pos__</b></tt></dt>
+      <dd> 単項演算子 '<tt>+</tt>' を定義します。ここではコピーを作って返すだけです。</dd>
+  <dt><tt><b>__abs__</b></tt></dt>
+      <dd> 関数 <tt>abs</tt> が返す値を定義します。ベクトルの長さを返します。</dd>
+  <dt><tt><b>norm</b></tt></dt>
+      <dd> 単位ベクトルを返します。</dd>
+  <dt><tt><b>__add__</b></tt></dt>
+      <dd> 二項演算子 '<tt>+</tt>' を定義します。ベクトル同士の足し算です。</dd>
+  <dt><tt><b>__iadd__</b></tt></dt>
+      <dd> 二項演算子 '<tt>+=</tt>' を定義します。</dd>
+  <dt><tt><b>__sub__</b></tt></dt>
+      <dd> 二項演算子 '<tt>-</tt>' を定義します。ベクトル同士の引き算です。</dd>
+  <dt><tt><b>__isub__</b></tt></dt>
+      <dd> 二項演算子 '<tt>-=</tt>' を定義します。</dd>
+  <dt><tt><b>__mul__</b></tt></dt>
+      <dd> 二項演算子 '<tt>*</tt>' で、左側がベクトルの場合を定義します。
+         右側もベクトルなら内積を計算します。数なら、ベクトルの各要素にその数をかけたベクトルを返します。</dd>
+  <dt><tt><b>__rmul__</b></tt></dt>
+      <dd> 二項演算子 '<tt>*</tt>' で、右側がベクトルの場合を定義します。__mul__ と同じです。</dd>
+  <dt><tt><b>__str__</b></tt></dt>
+      <dd> 関数 <tt>str</tt> が返す値および <tt>print</tt> 文で印字される文字列を定義します。</dd>
+</dl>
+<p>
+  数値型をエミュレートするメソッドについての詳しいことは
+  <a href='http://www.python.jp/doc/release/ref/numeric-types.html'>
+    Python リファレンスマニュアル 3.3.7 </a>
+  を参照してください。
+<h2>3. 簡単な使用例</h2>
+<tt>Vector</tt> クラスを利用して、3次元の木を描いてみましょう。
+木は、枝を生やすとき、新しい枝の長さをもとの枝の長さを一定の比率で縮小し、
+もとの枝に対して一定角度で曲げることによって描かれます。
+グローバル変数 <tt>THETA</tt>, <tt>BR</tt> の値を変えると木の形がいろいろと変わります。
+遊んでみてください。
+コードを [code 2] に示します。<p>
+[code 2] (tree.py)
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     from vector import make_vector
+<span class="linenumber">04:</span>     from math import sin, cos, pi, atan, sqrt
+<span class="linenumber">05:</span>     from random import randint
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>     REP = 9
+<span class="linenumber">09:</span>     THETA = pi * 0.15
+<span class="linenumber">10:</span>     BR = 0.6
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     def make_branch(br, ratio, theta, phi):
+<span class="linenumber">13:</span>         <span class="string">"""
+<span class="linenumber">14:</span>         bending the vector v (br.v * ratio) by theta,
+<span class="linenumber">15:</span>         and turn it around the plane which is perpendicular to v by phi.
+<span class="linenumber">16:</span>         
+<span class="linenumber">17:</span>         A unit vector (x, y, z) on the perpendicular plane is represented by:
+<span class="linenumber">18:</span>         ax + by + cz = 0,          (1)
+<span class="linenumber">19:</span>         x^2 + y^2 + z^2 =0         (2)
+<span class="linenumber">20:</span>         where a=v[0], b=v[1], c=v[2]
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>         from eq (2),  x, y, z  are converted to alpha, phi by
+<span class="linenumber">23:</span>         x = sin(alpha)cos(phi)
+<span class="linenumber">24:</span>         y = sin(alpha)sin(phi)
+<span class="linenumber">25:</span>         z = cos(alpha)              (3)
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>         where 0&lt;= alpha &lt;=pi.
+<span class="linenumber">28:</span>         
+<span class="linenumber">29:</span>         by combining eqs (1) and (3), eq (4) is obtained
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>         tan(alpha) = -c / (a cos(phi) + b sin(phi))   (4)
+<span class="linenumber">32:</span>         
+<span class="linenumber">33:</span>         by calculating x,y, and z using eqs (3) and (4),
+<span class="linenumber">34:</span>         a unit vector(v1) perpendicular to v is obtained.
+<span class="linenumber">35:</span>     
+<span class="linenumber">36:</span>         The second step is making two unit vectors say v2, and v3,
+<span class="linenumber">37:</span>         which satisfy
+<span class="linenumber">38:</span>         v * v2(or v3) = 0
+<span class="linenumber">39:</span>         v1 *v2(or v3) = -0.5
+<span class="linenumber">40:</span>     
+<span class="linenumber">41:</span>         Then make a list of Branch from v1, v2, v3, 
+<span class="linenumber">42:</span>         """</span>
+<span class="linenumber">43:</span>     
+<span class="linenumber">44:</span>         v0 = br.v * ratio
+<span class="linenumber">45:</span>         p = (v0[0] * cos(phi) + v0[1] * sin(phi))
+<span class="linenumber">46:</span>         alpha = p==0 and 0.5*pi or atan(-v0[2]/p)
+<span class="linenumber">47:</span>         if alpha&lt;0:  alpha += pi
+<span class="linenumber">48:</span>         v1 = make_vector(sin(alpha)*cos(phi), sin(alpha)*sin(phi), cos(alpha)) <span class="comment"># first unit vector perpendicular to v0</span>
+<span class="linenumber">49:</span>     
+<span class="linenumber">50:</span>         <span class="comment"># calculating 2nd and 3rd unit vectors perpendicular to v0</span>
+<span class="linenumber">51:</span>         t = v0[1]*v1[2] - v0[2]*v1[1]
+<span class="linenumber">52:</span>         a = 0.5*v0[2]/t
+<span class="linenumber">53:</span>         b = (v0[0]*v1[2]-v0[2]*v1[0])/t
+<span class="linenumber">54:</span>         c = -0.5*v0[1]/t
+<span class="linenumber">55:</span>         d = -1*(v0[0]*v1[1]-v0[1]*v1[0])/t
+<span class="linenumber">56:</span>         a1 = 1+b*b+d*d
+<span class="linenumber">57:</span>         b1 = a*b + c*d
+<span class="linenumber">58:</span>         c1 = a*a + c*c -1
+<span class="linenumber">59:</span>         d1 = b1*b1 - a1*c1
+<span class="linenumber">60:</span>         if d1 &lt;= 0: raise ValueError, "no real value"
+<span class="linenumber">61:</span>         d1 = sqrt(d1)
+<span class="linenumber">62:</span>         x1 = (b1 + d1)/a1
+<span class="linenumber">63:</span>         x2 = (b1 - d1)/a1
+<span class="linenumber">64:</span>         x_y = lambda x: a-b*x
+<span class="linenumber">65:</span>         x_z = lambda x: c-d*x
+<span class="linenumber">66:</span>         v0cos = v0*cos(theta)
+<span class="linenumber">67:</span>         v0sin = abs(v0) * sin(theta)
+<span class="linenumber">68:</span>         r = br.r+br.v
+<span class="linenumber">69:</span>         return [Branch(r, v0cos+v0sin*vp)            \
+<span class="linenumber">70:</span>                 for vp in [v1, make_vector(x1, x_y(x1), x_z(x1)), make_vector(x2, x_y(x2), x_z(x2))]]
+<span class="linenumber">71:</span>     
+<span class="linenumber">72:</span>     def out_data(i, ls):
+<span class="linenumber">73:</span>         f = file('tree%d.dat' % i, 'w')
+<span class="linenumber">74:</span>         f.write( '#x y z\n#rep: %d\n' % i)
+<span class="linenumber">75:</span>         f.write('\n\n'.join(['%s\n%s\n' % (repr(b.r)[1:-1], repr(b.r + b.v)[1:-1]) for b in ls]))
+<span class="linenumber">76:</span>         f.close()
+<span class="linenumber">77:</span>         
+<span class="linenumber">78:</span>     
+<span class="linenumber">79:</span>     class Branch:
+<span class="linenumber">80:</span>         def __init__(self, r, v):
+<span class="linenumber">81:</span>             self.r = r
+<span class="linenumber">82:</span>             self.v = v
+<span class="linenumber">83:</span>     
+<span class="linenumber">84:</span>     if __name__=='__main__':
+<span class="linenumber">85:</span>         ls0 = [Branch(make_vector(0,0,0), make_vector(0,0,1))]
+<span class="linenumber">86:</span>         ls1 = []
+<span class="linenumber">87:</span>         out_data(0, ls0)
+<span class="linenumber">88:</span>         for rep in range(REP):
+<span class="linenumber">89:</span>             for b in ls0:              <span class="comment"># make branches from those produced at the last turn</span>
+<span class="linenumber">90:</span>                 ls1.extend(make_branch(b, BR, THETA, randint(0,6283) * 0.001))
+<span class="linenumber">91:</span>             out_data(rep+1, ls1)
+<span class="linenumber">92:</span>             ls0, ls1 =ls1, []
+</pre>
+tree0.dat -- tree7.dat が生成するので、それを
+<a href='http://www.gnuplot.info/'>
+gnuplot</a> で描かせると図１のようになります。
+枝をだんだん細くし、最後 (tree8.dat) を緑色で描くと本物らしくなります。
+gnuplot に与えるコマンドファイル <a href='tree_plt.txt'>tree.plt</a> はこんな感じです。<p>
+  <center><img src='tree.png'><br>図1：フラクタル木</center>
+  <p>
+
+<h3>説明</h3>
+図２の様に3本の枝に枝分かれさせます。枝の折れ曲がる角度を &theta;, 枝分かれする枝のうちの1本の x 軸となす角度を
+&phi; とします。新しい枝が 3 回対称 になるように枝分かれさせます。<p>
+  <center><img src='branch.png'><br>図2：枝分かれのさせ方</center>
+  <p>
+
+<dl>
+<dt><b>インポートするモジュール</b></dt><dd>
+<dl>
+  <dt><span class='mono'>vector</span></dt>
+      <dd> <span class='mono'>make_vector</span> だけをインポートすれば十分です。</dd>
+  <dt><span class='mono'>math</span></dt>
+      <dd> 三角関数、円周率および <tt>sqrt</tt> をインポートします。</dd>
+  <dt><span class='mono'>random</span></dt>
+      <dd> 枝の軸に対する角度をランダムに決めるため <tt>randint</tt> をインポートします</dd>
+</dl>
+</dd><dt><b>定数</b></dt><dd>
+ <dl>
+  <dt><tt>REP</tt></dt>
+      <dd> 繰り返しの回数です。ここでは 9 回繰り返します。</dd>
+  <dt><tt>THETA</tt></dt>
+      <dd> 枝の折れ曲がりの角度です。27 度折り曲げます。</dd>
+  <dt><tt>BR</tt></dt>
+      <dd> もとの枝と継ぎ足す枝の長さの比です。</dd>
+  </dl>
+</dd><dt><tt><b>make_branch</b>(b, ratio, theta, phi)</tt></dt><dd>
+  枝 <tt>b</tt> の終点に新しい枝を3本生やす関数です。新しい枝は、もとの枝に対して
+  theta だけ曲げます。<tt>phi</tt> は 新しい枝の1本の x 軸となす角度です。
+  何をやったのか忘れないようにコメントが長いのですが、実質的なコードはそれほど長くありません。
+  もとの枝のベクトルに <tt>ratio</tt> をかけたベクトル <tt>(b.v * ratio)</tt> を <tt>v0</tt> とすると、
+  新しい枝は<br>
+  <tt>v0*cos(theta) * abs(v0)*sin(theta)*vp</tt> <br>
+  で表されます。
+  ここで、<tt>vp</tt> は <tt>v0</tt> に垂直な単位ベクトルです。
+  まず、<tt>vp</tt> のうちで、xy 平面上への射影と x 軸とのなす角度が
+  <tt>phi</tt> のものを求めます(これを <tt>v1</tt> とします）。
+  残りの <tt>vp</tt> は
+<pre>
+  v0*vp = 0
+  v1*vp = -0.5
+  abs(vp) = 1.0
+</pre>
+ から求まります。<br>
+ 最後に、<tt>vp</tt> のリストから新しい枝のリストを作って返します。
+
+</dd><dt><tt><b>out_data</b>(i, ls)</tt></dt><dd>
+  <tt>i</tt> 回目のターンで生成した枝のリスト (<tt>ls</tt>)
+  の座標を gnuplot が読める形式で <tt>'tree%d.dat' % (i+1)</tt> に
+  保存します。
+
+ 
+</dd><dt><tt>class <b>Branch</b></tt></dt><dd>
+  構造体として使っています。内部変数として 枝の始点 (<tt>self.r</tt>)、枝のベクトル (<tt>self.v</tt>) を保持します。
+  
+</dd><dt><tt><b>if __name__ == '__main__'</b></tt></dt><dd>
+ <ol>
+  <li> 入力用と出力用の枝のリスト <tt>ls0</tt>, <tt>ls1</tt> を作り、
+    ls0 の要素は z 軸上の長さ1の枝（幹）にします。(85,86)
+  <li> 最初の枝をファイルに保存します。(87)
+  <li> <tt>rep</tt> が <tt>REP</tt> より小さい間、新しい枝を作ります。(88)
+    <ol>
+      <li> 前回生成した枝 (<tt>ls0</tt>) から新しい枝を生やして、それを <tt>ls1</tt> に追加します。(89--90)<br>
+       枝の向きが自然になるように、 <tt>phi</tt> はランダムに振ります。
+      <li> 枝を作り終わったら、<tt>ls1</tt> をに出力します。(91)
+      <li> <tt>ls0</tt> に <tt>ls1</tt> を、<tt>ls1</tt> に [] を代入して枝作りを繰り返します。(92)
+    </ol></ol></dd>
+ </dl>
+<h2>4. 終わりに</h2>
+Python の新しいクラスで遊んでみました。使い方はもともとのクラスとほとんど変わりありません。
+組み込みデータ型をスーパークラスにできるところが便利な点です。<p>
+
+vector.py と tree.py は<a href="python9.lzh">付録</a>につけておきましたので
+  暇なとき遊んでみてください。
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="python9.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python9.html&t=Python+%A4%CE+%A1%C9%BF%B7%A4%B7%A4%A4%A1%C9%A5%AF%A5%E9%A5%B9' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

@@ -1,0 +1,164 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, safety, program by contract">
+<meta name="description" content="On the programming by contract in Sather">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 13. Programming by Contract  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_except_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  12. Exception</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+ Try Sather</a></td>
+
+<td><a rel=next href="sa_gui_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+14. GUI</a></td>
+
+<td><a rel=download href="point2.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_safety_e.html&t=%28Try+Sather%29+13%2E+Programming+by+Contract++'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 13. Programming by Contract </h1>
+<hr>
+
+<h2>1. Introduction</h2>
+Sather inherits the design by contract (DBC) from Eiffel.
+DBC consists of precondition which callers (or clients) should guarantee and
+postcondition which the function (or server) should satisfies when return.
+<p>
+In addition, Sather offers other runtime safety nets such as <tt>assert</tt> and <tt>invariant</tt>.<p>
+These safety net is activated by adding the <tt>-chk</tt> flag  when compiled.
+
+See <a href='http://www.icsi.berkeley.edu/~sather/Documentation/Compiler/cs.man.html'> 
+sacomp man page</a> for detailed information.
+It is recommended to activate the safety net when you write a big application
+as unexpected bugs may lurk in it.
+
+<h2>2. Precondition</h2>
+The precondition is a predicate that the callers should guarantee.
+If the predicate is not satisfied, the called function warns and the program terminates immediately.<br>
+Following is a part of <tt>array.sa</tt>. You should give a positive integer as an array size when you create an array 
+(an instance of the ARRAY class) with size. 
+
+<pre class='code'>
+   create(n:INT):SAME pre n&gt;=0 is 
+      <span class='comment'>-- Create a new array of size `n' all of whose elements are void.</span>
+      return new(n) end;
+</pre>
+
+<h2>3. Postcondition</h2>
+The postcondition is the predicate that called function should guarantee.
+If not, the callers complain and program terminates immediately.
+A pre-defined word '<tt>result</tt>' represents the return value of the method.<p>
+
+The following code is a safety version of the <a href='sa_immutable.html#point'>point.sa</a>
+that I've showed previously.
+
+<pre class='code'>
+
+   const eta:FLT:= 0.00001;       <span class='comment'>-- acceptable error</span>
+
+<span class='comment'>-- (snip)</span>
+
+   abs:FLT 
+      post result &gt;=0.0               <span class='comment'>-- check if the length is not negative</span>
+   is
+      return (x*x+y*y).sqrt;
+   end;
+
+   rotate(theta:FLT):SAME 
+      post result.abs/abs &gt; 1.0-eta and result.abs/abs &lt; 1.0+eta  <span class='comment'>-- Check if the difference of the distances from the orign before</span>
+   is                                                             <span class='comment'>-- and after rotation is in the acceptable error.</span>
+      theta := y.atan2(x)+theta;
+      return #SAME(self.abs*theta.cos, self.abs*theta.sin);
+   end;
+</pre>
+
+<h2>4. assert</h2>
+You can put this safety net inside of the method.
+If an <tt>assert</tt> returns false, the program complains and terminates. <p> 
+
+Following is another safety version of the <a href='sa_immutable.html#point'>point.sa</a>.
+
+<pre class='code'>
+   out2file(a0,a1:ARRAY{POINT}) 
+      pre a0.size > 0 and a1.size > 0  <span class='comment'>-- the size of the array should be positive.</span>
+   is
+      f:FILE:=FILE::open_for_write(fout);
+      assert ~f.error;        <span class='comment'>-- if file open error, terminate</span>
+      p0,p1:POINT;
+      i:INT;
+      loop
+	 i:=(a0.size+1).times!;
+	 if i = a0.size then i:=0; end;
+	 p0:=a0[i];
+	 p1:=a1[i];
+	 f + p0.x + "\t" + p0.y + "\t" + p1.x + "\t" + p1.y + "\n";
+      end;
+      f.close;
+   end;
+</pre>
+
+<h2>5. invariant</h2>
+The <tt>invariant:BOOL</tt> 
+is somehow special. The program terminates when the instance does not satisfy this condition.
+It is seldom used and does not work properly in Sather-1.2.2.
+
+<h2>6. The safety version of point.sa</h2>
+<a href='point2.tar.bz2'>Download</a> and play with the safety version of the <tt>point.sa</tt> (<tt>point2.sa</tt>).
+Compile with the <tt>-chk</tt> option.
+
+<pre class='samp'>
+$ sacomp -chk point2.sa -o point2
+</pre>
+
+<h2> 7. Summerly</h2>
+In this chapter, I've explained on the safety aspect of Sather breafly.
+This technique is usable in developing large scale applications.
+Use the safety feature as much as possible.
+
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_except_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  12. Exception</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+ Try Sather</a></td>
+
+<td><a rel=next href="sa_gui_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+14. GUI</a></td>
+
+<td><a rel=download href="point2.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_safety_e.html&t=%28Try+Sather%29+13%2E+Programming+by+Contract++'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+</body></html>

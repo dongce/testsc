@@ -1,0 +1,1358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Python, tutorial, 入門, quick look">
+<meta name="description" content="Python 初心者向けの易しい解説です。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Python 早めぐり </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="matrix.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python2.html&t=Python+%C1%E1%A4%E1%A4%B0%A4%EA' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>Python 早めぐり</h1> 
+<hr>
+<h2>0. 初めに</h2>
+Python の概要をトップダウンで説明してみました。
+まず、python の起動方法、スクリプトの書式について説明してから
+だんだん細かい話に入っていきます。全体像から説明するので、飽きたところでやめられるという利点があります。
+一方、ボトムアップで説明すると理路整然としていますが、はじめに退屈な話が続き、いきなり飽きてしまう
+という欠点があります。<p>
+
+  Python は人気になりつつある言語で、優れた紹介記事が Web 上にたくさんあります。
+  その中でも、<a href="http://www.python.jp/Zope/">日本 Python ユーザ会</a>は
+  優れたサイトです。ここから、各種マニュアルの日本語訳がダウンロードできます。
+  この解説記事は、実は、日本 Python ユーザ会が翻訳したマニュアルへのリンク集です。
+  リンクを張れるという HTML の特徴を生かせば、無理なく、トップダウン方式の解説を書くことが出来ます。<p>
+
+	 ちなみにここで、ボトムアップというのは個々の部品を作ってから全体を作るという意味です。
+  会社などの組織で下層の要員の発案でプロジェクトを起こすという意味ではありません。
+  同様に、トップダウンを言うのは見取り図を示してから段々と細かい話に入るという意味です。
+  会社などの組織でトップの発案でプロジェクトを起こすという意味ではありません。
+  念のため。
+
+<h3>0.1. 目次</h3>
+<ol>
+  <li><a href="#cmdline">起動方法</a>
+  <li><a href="#format">Python スクリプトの書式</a>
+  <li><a href='#assign'>代入</a>
+  <li><a href="#block">ブロック</a>
+  <li><a href="#io">入出力</a>
+  <li><a href="#func">関数定義</a>
+  <li><a href="#class">クラス定義</a>
+  <li><a href="#data">データ型</a>
+  <li><a href="#operator">演算子</a>
+  <li><a href="#library">ライブラリーツアー</a>
+  <li><a href="#appendix">付録</a>
+</ol>
+
+<a name="cmdline">
+<h2>1. 起動方法</h2>
+まず、Python の実行ファイルのあるディレクトリに PATH を通しておきます。<br>
+その後、プロンプトから、
+<pre class="samp">
+python <span class="parm">option   script   argvs </span>
+</pre>
+  と打ち込むと起動します。"python" とだけ、打ち込むと対話モードに入り "&gt&gt&gt" というプロンプトが
+表示されます。対話モードは個々の関数をテストするのに便利です。
+起動オプションは以下の通りです。<br>
+python [-diOStuUvx?] [-c command | script | - ] [argvs]<br>
+<table border=1>
+    <tr>
+        <th>オプション </th>
+        <th>効果</th>
+    </tr>
+    <tr>
+        <td>-d </td>
+        <td>デバック情報を出力する。</td>
+    </tr>
+    <tr>
+        <td>-i </td>
+        <td>スクリプトを対話的に検査し、プロンプトを出力する。</td>
+    </tr>
+    <tr>
+        <td>-O </td>
+        <td>生成するバイトコードを最適化する。</td>
+    </tr>
+    <tr>
+        <td>-S </td>
+        <td>import 文を無視する。</td>
+    </tr>
+    <tr>
+        <td>-t </td>
+        <td>矛盾したインデント付けを警告する。</td>
+    </tr>
+    <tr>
+        <td>-u </td>
+        <td>バッファ無しのバイナリー標準出力と標準エラー出力</td>
+    </tr>
+    <tr>
+        <td>-U </td>
+        <td>文字列リテラルを Unicode として読む</td>
+    </tr>
+    <tr>
+        <td>-v </td>
+        <td>詳細な import 文の追跡</td>
+    </tr>
+    <tr>
+        <td>-x </td>
+        <td>ソースの最初の行をスキップ。</td>
+    </tr>
+    <tr>
+        <td>-? </td>
+        <td>ヘルプ</td>
+    </tr>
+	 </table>
+
+    <dl>
+        <dt><b>-c command </b></dt>
+        <dd>指定されたコマンドを実行</dd>
+        <dt><b>script </b></dt>
+        <dd>python ファイル (.py) を読み込んで実行</dd>
+        <dt><b>argvs </b></dt>
+        <dd>スクリプトまたはコマンドの引数</dd>
+    </dl>
+
+対話モードで起動するとき、環境変数 <var>PYTHONSTARTUP</var> で指定されたファイルを読み込みます。
+    よく使うモジュールを import しておくと便利です。
+    詳しくは<a href='http://www.python.jp/doc/nightly/tut/node4.html#SECTION004120000000000000000'>
+      チュートリアル 2.1.</a> を見てください。<p>
+
+スタートアップファイルの例：
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment"># PYTHONSTARTUP</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     import sys, math, re, os, os.path
+<span class="linenumber">04:</span>     print 'sys, math, re, os, os.path has been imported.'
+</pre>
+<a name="format">
+<h2>2. Python スクリプトの書式</h2>
+Python スクリプトの書式は以下の通りです。
+<pre class="code">
+<font color="goldenrod">00:</font>     <span class="comment">#! /usr/bin/env python</span>
+<font color="goldenrod">01:</font>     <span class="comment"># -*- coding: shift_jis  -*-</span>
+<font color="goldenrod">02:</font>     
+<font color="goldenrod">03:</font>     <span class="string">r"""
+<font color="goldenrod">04:</font>     スクリプトについての説明
+<font color="goldenrod">05:</font>     説明１：
+<font color="goldenrod">06:</font>     説明２：
+<font color="goldenrod">07:</font>     """</span>
+<font color="goldenrod">08:</font>     import string
+<font color="goldenrod">09:</font>     from datetime import date
+<font color="goldenrod">10:</font>     import tkinter as tk
+<font color="goldenrod">11:</font>     
+<font color="goldenrod">12:</font>     <span class="comment">#function</span>
+<font color="goldenrod">13:</font>     def sum(ls):
+<font color="goldenrod">14:</font>         <span class="string">""" リストの要素の合計を求める"""</span>
+<font color="goldenrod">15:</font>         s=0
+<font color="goldenrod">16:</font>         for x in ls:
+<font color="goldenrod">17:</font>             s+=x
+<font color="goldenrod">18:</font>         return s
+<font color="goldenrod">19:</font>     
+<font color="goldenrod">20:</font>     class MyClass:
+<font color="goldenrod">21:</font>         <span class="string">"""私のクラス"""</span>
+<font color="goldenrod">22:</font>         def __init__(self, p1, p2):
+<font color="goldenrod">23:</font>             self.p1 = p1
+<font color="goldenrod">24:</font>             self.p2 = p2
+<font color="goldenrod">25:</font>     
+<font color="goldenrod">26:</font>         def show_p1(self):
+<font color="goldenrod">27:</font>             return self.p1
+<font color="goldenrod">28:</font>     
+<font color="goldenrod">29:</font>         def show_p2(self):
+<font color="goldenrod">30:</font>             return self.p2
+<font color="goldenrod">31:</font>     
+<font color="goldenrod">32:</font>     if __name__ == '__main__':
+<font color="goldenrod">33:</font>         print sum([x*x for x in range(10)]
+</pre>
+<b>行</b>
+<dl>
+  <dt><b>01:</b></dt>
+  <dd> UNIX でスクリプトを直接実行するのに使います。
+	 <u>chmod +x <span class="parm">script</span></u>
+	 とすると <u>python <span class="parm">script</span></u> とせず、
+	 <u><span class="parm">script</span></u> とすれば実行されます。
+	 UNIX 以外の OS でも、移植性を考慮してこの行を書いたほうが良いでしょう。
+  ちなみに '#' から行末まではコメントとみなされます。１行目と２行目は特殊なコメントです。</dd>
+	 
+  <dt><b>02:</b></dt>
+  <dd>ソースコードの文字コード方式を指定します。日本語を使う場合
+	 <u>shift_jis, euc-jp, あるいは iso-2022-jp</u> を指定します。
+	 Python 2.4 以降では日本語のモジュールを
+  別途入手する必要はありません。</dd>
+  
+  <dt><b>03--06:</b></dt>
+  <dd>コードの説明を書きます。三重クォート(<b>"""</b>) で囲まれた
+	 文字列は、そのままの形で表示されます。
+	 ソースコードの先頭、またはクラスや関数の定義の先頭に、三重クォートで囲まれた文字列があると
+	 pydoc がそれに基づいて<a href="pydoc_vector.html">こんな感じの</a>
+	 HTML 形式のマニュアルを自動的に作ってくれます。
+	 </dd>
+  
+  <dt><b>08--10:</b></dt>
+  <dd>モジュールを import します。python は C 言語のように多くのライブラリに分かれていて、
+	 ほとんどの関数、クラス、定数 etc はライブラリ（モジュール）に収められています。
+	 モジュールを import する書式には次の４通りがあります。
+	 <ol>
+		<li> import <span class="parm">module</span>
+		  <li> from <span class="parm">module</span> import <span class="parm">name</span>
+			 <li> import <span class="parm">module</span> as <span class="parm">nickname</span>
+				<li> from <span class="parm">module</span> import *
+				  </ol>
+	 １番目は <span class="parm">module</span> を普通に import します。<span class="parm">module</span> の中の<span class="parm">name</span>を使うときには
+	 <span class="parm">module.name</span>とします。<br>
+	 ２番目の方法だと、単に<span class="parm">name</span>と書くだけで<span class="parm">module</span> の中の<span class="parm">name</span>を使うことが出来ます。<br>
+	 ３ 番目は <span class="parm">module</span> を <span class="parm">nickname</span>という名前をつけて import します。
+	 <span class="parm">module</span> の中の<span class="parm">name</span>を使うときには
+	 <span class="parm">nickname.name</span>とします。<br>
+	 ４番目の方法は、<span class="parm">module</span> の export されている名前全てについて単に<span class="parm">name</span>と書くだけで
+	 使うことが出来ます。python には名前が同じでモジュールが異なる機能がたくさんあるので、
+	 この方法は薦められません。module 名を書くのが面倒なときは３番目の方法を用いて module 名に
+	 短いニックネームをつけて import しましょう。例えば、
+	 <pre class="samp">
+import os.path as path
+import Tkinter as tk
+</pre></dd>
+  
+  <dt><b>13--18:</b></dt>
+  <dd>関数定義です。<a href="#func">５章で</a>説明します。
+	 </dd>
+  <dt><b>20--30:</b></dt>
+  <dd>クラス定義です。<a href="#class">６章で</a>説明します。
+	 </dd>
+  <dt><b>32--33:</b></dt>
+  <dd>このスクリプトが直接呼ばれたときに 33 行目が実行されます。
+	 32 行目はそのためのおまじないです。<p>
+		<u>対話モードで、<span class="mono">import(<span class="parm">script</span>)</span>
+		を使って読み込まれたときには 33 行目は実行されないので、
+		  個々の関数を別個にテストするのに便利です。</u>
+  </dd>
+</dl>
+
+<a name="assign">
+<h2>3. 代入</h2>
+いくら、トップダウンで説明するといっても代入については最初に述べておく必要があります。<p>
+  Python の代入は基本的に C 言語と同じで、'=' の右側の値を左側に代入します。
+  C 言語と違うところは、代入文は値を返さないところです。従って、C 言語風に<span class='warn'>次のようには書けません。</span>
+<pre class='code'>
+c=1
+if 0==(a=c):
+    print 'a = 0'
+else:
+    print 'a = 1'
+</pre>
+また、Python は複数の代入を同時に行うことができます。これはとてもクールです。2番目のように構造化代入もできます。
+<pre class='code'>
+a, b, c = 1, 2, 3
+(a, (b, c)) = (10, (20, 30))
+</pre>
+
+<a name="block">
+<h2>4. ブロック</h2>
+Python のブロックはコロン '<b>:</b>'
+とインデントの増加で始まり、インデントが元に戻ると終了します。
+ブロックには後で説明する関数定義、クラス定義のほかに、次のものがあります。
+<h3> 4.1. 分岐(if, elif, else)</h3>
+  書式は次の通りです。<br>
+まず、<span class="parm">test</span> を評価し、
+それが真を返せば <span class="parm">then_block</span> を実行します。<br>
+そうでなければ、
+<span class="parm">test_elif</span> を評価し、それが真を返せば <span class="parm">elif_block</span> を、<br>
+そうでなければ <span class="parm">else_blick</span> を実行します。<br>
+<pre class="code">
+if <span class="parm">test</span>:
+    <span class="parm">then_block</span>
+elif <span class="parm">test_elif</span>:
+    <span class="parm">elif_block</span>
+else:
+    <span class="parm">else_block</span>
+</pre>
+<ul>
+<li>分岐が多数ある場合には elif を必要に応じて加えることが出来ます。
+<li>分岐が２つの場合には elif を省略して if--else で記述できます。
+<li>分岐が１つだけのときは else も省略して if だけで記述できます。
+  </ul>
+<h4>真偽値について：</h4>
+Python では <b>None、 False、ゼロ（数値）、
+  空<a href="#seq">配列</a>、空<a href="#dictionary">辞書</a>、</b>
+及びユーザ定義クラスで __nonzero__() や __len__() が数値 zero または False を返す場合
+は偽として扱われます。
+その他の値 (True, etc) は真として扱われます。
+比較演算子には <b> ==, !=, &lt, &gt, &lt=, &gt=, in, is</b> があります。また
+真偽を反転させる演算子 <b>not</b> があります。
+比較演算子とよく使う真偽値関数は<a href="#boolian">付録２.
+ 真偽値を返す演算子と主な関数</a>を参照してください。
+
+<h3> 4.2. ループ</h3>
+ループを記述するブロックには <em>while</em> と <em>for</em> があります。
+<h4> 4.2.1. while ループ</h4>
+書式は以下の通りです。<br>
+<span class="parm">test</span> が真の間、<span class="parm">body_block</span> を実行します。
+C 言語と同様にループから抜け出す <em>break</em>, 次のループへジャンプする <em>continue</em> が使えます。
+ループが（break で抜け出さないで）終了した場合は <span class="parm">else_block</span> が実行されます。
+<span class="parm">else_block</span> は省略可能です。
+
+<pre class="code">
+while <span class="parm">test</span>:
+    <span class="parm">body_block</span>
+    if <span class="parm">break_test</span>:
+           break
+    if <span class="parm">continue_test</span>:
+           continue
+else:
+    <span class="parm">else_block</span>
+</pre>
+<h4> 4.2.2. for ループ</h4>
+書式は以下の通りです。<br>
+<span class="parm">iterator</span> の要素 <span class="parm">x</span> について、
+<span class="parm">body_block</span> を実行します。
+ while と同様に <em>break</em>, <em>continue</em> が使えます。
+ループが（break で抜け出さないで）終了した場合は <span class="parm">else_block</span> が実行されます。
+<span class="parm">else_block</span> は省略可能です。
+
+<pre class="code">
+for <span class="parm">x</span> in <span class="parm">iterator</span>:
+    <span class="parm">body_block</span>
+    if <span class="parm">break_test</span>:
+           break
+    if <span class="parm">continue_test</span>:
+           continue
+else:
+    <span class="parm">else_block</span>
+</pre>
+<h4> 4.2.3. for ループの実際</h4>
+for ループは python でよく使われるブロックです。以下のような使い方があります。
+<dl>
+  <dt><b>range, xrange: 数の範囲にわたる繰り返し</b></dt>
+  <dd>range 関数を用いて数のリストを作り、それから要素を１つずつ取ってきて繰り返します。
+	 range は普通の関数で、素直にリストを返しますが、
+	 xrange は <a href="#generator">generator</a> なので、
+	 呼ばれるたびに必要な数を返します。範囲が大きいときは xrange を使うほうが良いでしょう。
+	 （ただし、Python 3 では range が generator になるので、xrange は無くなるかも知れません。）
+	 <pre class="samp">
+&gt;&gt;&gt; for x in xrange(10):
+	print x, ', ',
+
+0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 
+</pre>
+	 <ul>
+		<li>range(n) &rArr 0,1,2,3....(n-1) の数のリスト：例）range(3) &rArr [0,1,2]
+		  <li>range(n,m) &rArr n,n+1,n+2......(m-1) の数のリスト：例）range(7,10) &rArr [7,8,9]
+			 <li>range(n,m,s) &rArr n, n+s, n+2*s,......n+X*s(&lt m) となる数のリスト。
+				：例）range(2,10,3) &rArr [2,5,8]
+				</ul>
+	 </dd>
+  <dt><b>iterator に番号をつける。</b></dt>
+  <dd> <em>enumerate</em> を使います。
+	 <pre class="samp">
+&gt;&gt;&gt; s='abc'
+&gt;&gt;&gt; for i, c in enumerate(s):
+	print i, ':', c, ' ',
+
+0 : a   1 : b   2 : c    
+</pre></dd>
+  <dt><b>ファイルの行を取り出して繰り返す。</b></dt>
+  <dd>file object を iterator として使うと 各行が順番に取り出されます。
+	 <pre class="code">
+for line in <span class="parm">_file</span>:
+     ..............
+</pre></dd>
+
+  <dt><b>iteritems()</b></dt>
+<dd><a href="#dictionary">辞書</a>の内容にわたってループを行う際、iteritems() メソッドを使うと、<!-- rink to dictionary-->
+  キーとそれに対応する値を同時に取り出せます。下の例にあるように取り出す順番は不定です。
+	 <pre class="samp">
+&gt;&gt;&gt; days = {'sun':0, 'mon':1, 'tue':2, 'wed':3, 'thu':4, 'fri':5, 'sat':6}
+&gt;&gt;&gt; for k, v in days.iteritems():
+	print k, ':', v, ' ',
+
+wed : 3   sun : 0   thu : 4   tue : 2   mon : 1   fri : 5   sat : 6  
+</pre></dd>
+<dt><b>zip()</b></dt>
+<dd>二つまたはそれ以上の配列型を同時にループするために、
+  関数 zip() を使って各要素をひと組みにすることができます。
+<pre class="samp">
+&gt;&gt;&gt; questions = ['name', 'quest', 'favorite color']
+&gt;&gt;&gt; answers = ['lancelot', 'the holy grail', 'blue']
+&gt;&gt;&gt; for q, a in zip(questions, answers):
+...     print 'What is your %s?  It is %s.' % (q, a)
+... 
+What is your name?  It is lancelot.
+What is your quest?  It is the holy grail.
+What is your favorite color?  It is blue.
+</pre></dd></dl>
+<h4> 4.2.4. リストの内包表現</h4>
+リストをとって、リストを返すブロックは内包表現を使って書くことが出来ます。
+内包表現は if による選別や多重ループも表現できます。
+この表現は数学の集合の記述法（例えば、X = {x | x は正の整数}）に似ています。
+<u>この記法はかなり便利です。</u>
+（リストについては<a href="#data">データ型</a>を見てください。）<br>
+
+<pre class="code">
+<span class="comment"># ls のうち、正の要素について平方根を計算しそのリストを返す。</span>
+ls = [1, 2, -3, -4]
+<span class="comment"># 通常のループ</span>
+def foo1 (ls):
+    ls1=[]
+    for x in ls:
+        if x &gt 0:
+            ls1.append(math.sqrt(x))
+    return ls1
+
+<span class="comment"># 内包表現</span>
+def foo2 (ls):
+    return [ math.sqrt(x) for x in ls if x &gt 0]
+</pre>
+<pre class="code">
+<span class="comment"># 九九を返す。
+# 通常のループ</span>
+def bar1 ():
+    ls1=[]
+    for x in range(2,10):
+        for y in range(2,10):
+            ls1.append(x*y)
+    return ls1
+
+<span class="comment"># 内包表現</span>
+def bar2 ():
+    return [x * y for x in range(2,10) for y in range(2,10)]
+</pre>
+
+
+<h3>4.3. 例外処理</h3>
+例外を取り扱うときには <em>try</em> を使います。
+書式は以下の通り。詳しくは
+<a href="http://docs.python.org/tut/node10.html">Python Tutorial 8. Errors and Exceptions</a>
+を見てください。
+<pre class="code">
+try:
+    <span class="parm">try_block</span>
+except ??Error:
+    <span class="parm">exept_block</span>
+else:
+    <span class="parm">else_block</span>
+finally:
+    <span class="parm">finally_block</span>
+</pre>
+
+まず、<span class="parm">try_block</span> を実行し、もし、例外が発生すれば、
+<span class="parm">exept_block</span> を実行します。例外の種類別に複数の <span class="parm">exept_block</span>
+を書くことができます。例外が発生しなければ <span class="parm">else_block</span> を実行します。
+<span class="parm">else_block</span> は省略可能です。<p>
+<span class="parm">finally_block</span> は例外発生の有無にかかわらず
+必ず実行されます。LISP の <a href='http://www.lispworks.com/documentation/HyperSpec/Body/s_unwind.htm'>
+    unwind-protect</a> に似ています。<span class="parm">finally_block</span> は省略可能です。<p>
+
+また、__enter__ と __exit__ メソッドが定義されているクラスのインスタンスを
+生成する場合は
+with ステートメントを用いることもできます。
+詳しくは、<a href='python10.html#with_statement'>Python 2.5 の新機能</a>をみてください。
+
+
+      
+<a name="io">
+  <h2>5. 入出力</h2>
+<ul>
+ <h3>5.1. print 文</h3>
+   値を出力するのに使います。行末に改行文字が付きます。
+   書式は以下の通りです。print を使うとデータの種類にかかわらず何でも文字列に変換された出力されます。
+   file_handle は省略可能です。省略すると標準出力に出力されます。
+<pre class='code'>
+print &gt;&gt; <span class="parm">file_handle</span>, <span class="parm">value1</span>, <span class="parm">value2</span>, ....
+</pre>
+
+ <h3>5.2. ファイルハンドル</h3>
+
+  <li>ファイルを開くときは
+  f = file('<span class="parm">file_name</span>', <span class="parm">mode</span>) で行います。
+ <span class="parm">mode</span> は C 言語とほとんど同じです。
+ 'r', 'w', 'a', 'b' は読み込み、書き出し、追加書き出し、バイナリーを
+	 あらわします。'rb', 'wb' はそれぞれバイナリーモードの読み込みと書き出しです。
+	 <li>ファイルから <span class="parm">n</span> バイト読み込むときは
+		f.read(<span class="parm">n</span>) とします。<span class="parm">n</span>
+		が省略されるとファイルの内容全てが読み込まれます。
+		<li>ファイルから１行読み込むときは s = f.readline() とします。
+		  改行文字も読み込まれます。改行文字を取り除くときは、
+		  s[:-1] または s.rstrip('\n') とします。
+		<li>ファイルに文字列 <span class="parm">s</span> を書き込むときは
+		f.write(<span class="parm">s</span>) とします。
+		  <li>ファイルを閉じるときは f.close() とします。
+		  <li>sys.stdin, sys.stdout を使うと例外処理を書く手間が省けて便利です。
+			 </ul>
+詳しくは、
+<a href="http://www.python.jp/doc/release/lib/bltin-file-objects.html">
+Python ライブラリリファレンス 2.3.8.</a>
+を見てください。
+<a name="func">
+<h2>6. 関数定義</h2>
+関数は <em>def</em> を用いて定義します。関数内で宣言なしでローカル変数を使うことが出来ます。
+値を返すときは <em>return</em> を使います。関数内部の最初の文を文字列リテラルにすると、pydoc が
+それを自動的に読み込んでマニュアルを作成します。以下に書式を示します。
+def の後に関数の名前が続き、その後に <b>( )</b> でくくられた仮引数リストが続きます。
+その後、コロン <b>':'</b> をつけ、改行しインデントして、定義本体が続きます。インデントを
+戻したところで定義は終わります。
+関数内部の式の意味が不明な場合
+<a href="#operator">７章演算子</a>を見てください。
+また、関数定義について詳しいことはチュートリアル
+<a href="http://www.python.jp/doc/release/tut/node6.html#SECTION006600000000000000000">4.6</a>,
+<a href="http://www.python.jp/doc/release/tut/node6.html#SECTION006700000000000000000">4.7</a>
+を見てください。
+<pre class="code">
+def sum(ls):
+    <span class="string">""" リストの要素の合計を求める"""</span>
+    s=0
+    for x in ls:
+        s+=x
+    return s
+</pre>
+<pre class="samp">
+&gt;&gt;&gt;sum([1,2,3])
+6
+</pre>
+
+<h3>6.1. 引数の書式</h3>
+<dl>
+  <dt><b>def func(a, b, c): (通常の書式)</b></dt>
+  <dd>ちょうど３個の引数をとる。デフォルト値はなし。
+	 func(x,y,z) の様にちょうど３個と引数を与えないとエラーになる。
+  <dt><b>def func(a=0, b=1, c=2): (デフォルト値付き書式)</b></dt>
+  <dd>引数を省略するとデフォルト値が使われる。
+	 <ul>
+		<li>func() &rArr a=0, b=1, c=2 が使われる。
+		<li>func(10,20) &rArr a=10, b=20, c=2 が使われる。
+		<li>func(c=100) &rArr a=0, b=1, c=100 が使われる。
+  </ul></dd>
+  <dt><b>def func(a, *rest): (任意の個数の引数)</b></dt>
+  <dd>*rest は <a href="#taple">タプル</a>として関数に渡される。
+	 <ul>
+		<li>func(1) &rArr a=1 と rest=() がわたる。
+		  <li>func(1,2) &rArr a=1 と rest=(2,) がわたる
+			 <li>func(1,2,3) &rArr a=1 と rest=(2,3) がわたる。
+				</ul></dd>
+  <dt><b>def func(**key): （引数を<a href="#dictionary">辞書型</a>にしてわたす。）</b></dt>
+  <dd>func(a=1, b=2) &rArr key={'a':1, 'b':2} がわたる。<br>
+	 *rest と **key を両方使うときは *rest が **key より前になければならない。</dd></dl>
+
+<a name="generator">
+<h3>6.2. generator</h3>
+for ループで使うイテレーター（別の用語ではストリーム）を定義する関数です。
+値を <em>yield</em> を使って返します。generator は計算経過を覚えていて、呼び出されるたびに計算を再開させ、
+yield に出会うと、値を返して計算を凍結させます。
+例えば range の generator 版を簡単に書くことが出来ます。
+<pre class="code">
+import sys
+
+def my_xrange(*parms):
+    lp = len(parms)
+    if not 0 &lt= lp &lt= 3:
+        print &gt&gt sys.stderr, <span class="string">"Wrong argument count."</span>
+
+    if(lp==0):
+        i = 0
+        while True:
+            yield i
+            i += 1
+    else:
+        i, n, s = (lp==1 and (0, parms[0], 1)) or \
+                  (lp==2 and (parms[0], parms[1], 1)) or \
+                  (parms[0], parms[1], parms[2])
+
+        if(s==0):
+            print &gt&gt sys.stderr, <span class="string">"Step width shuld be non-zero."</span>
+        
+        elif(s &gt 0):
+            while(i &lt n):
+                yield i
+                i+=s
+            
+        else:
+            while(i &gt n):
+                yield i
+                i+=s
+</pre>
+
+<h3>6.3. 無名関数</h3>
+def で定義すると冗長になる短い関数は無名関数を使って定義することができます。<br>
+無名関数の定義は 'lambda' に続けて引数をカンマで区切って書き、 コロンの後に帰り値を書きます。
+一行で書けるものにしか使えないので本当に単純なものしか定義できませんが、それでも便利なことがあります。
+<p>
+例:
+<pre class='code'>
+lambda x,y: x+y         <span class='comment'># 足し算</span>
+lambda x,y: x*y         <span class='comment'># 掛け算</span>
+</pre>
+
+<a name="class">
+<h2>7. クラス定義</h2>
+ベクトルクラスを定義して、使い方を説明します。
+このクラスでは演算子 '+', '*' を再定義して、ベクトルの加算、内積が計算できるようにしています。
+以下のコードと説明とを見比べてください。<p>
+
+また、Python 2.2 以降では、組み込みデータ型を親クラスにできるようになりました。
+  それを使ったベクトルクラスは<a href='python9.html'> Python の "新しい" クラス</a>
+  にあります。（そちらのほうが実用的です。）
+
+<pre class="code">
+<span class="comment">#! /usr/bin/env python
+#  coding: shift_jis </span>
+
+import sys, math
+
+def sum(ls):
+    <span class="string">"""リストの要素を合計します。"""</span>
+    s=0
+    for x in ls:
+        s+=x
+    return(s)
+
+class Vector:
+    <span class="string">"""
+    Vector はベクトル演算のためのクラスです。
+    """</span>
+    def __init__(self, *rest, **key):
+        <span class="string">"""
+        ベクトルを初期化します。
+        要素が渡されたら、その要素からなるベクトルを作ります。
+        v1 = Vector(1,2,3)
+        次元と初期値が渡されたら初期値 val, 次元 dim のベクトルを作ります。
+        val が省略されると初期値は 0 になります。
+        v1 = Vector(dim=3, val=3)
+        """</span>
+        if rest:
+            self.v = list(rest)
+        else:
+            dim = key['dim']
+            val = (('val' in key) and key['val']) or 0
+            self.v =  [val for x in range(dim)]
+
+    def __len__(self):
+        <span class="string">"""ベクトルの次元を返します。"""</span>
+        return len(self.v)
+    
+    def abs(self):
+        <span class="string">"""ベクトルの絶対値を返します。"""</span>
+        return math.sqrt(sum([ x * x for x in self.v ]))
+
+    def norm(self):
+        <span class="string">"""規格化されたベクトルを返します。"""</span>
+        a = self.abs()
+        b = Vector(dim=len(self))
+        b.v = [x/a for x in self.v]
+        return b
+        
+    def __add__(self, a):
+        <span class="string">"""ベクトルと実数、またはベクトル間の足し算をします。"""</span>
+        b = Vector(dim=len(self))
+        if isinstance(a, Vector):
+            if len(self) != len(a):
+                print >> sys.stderr, "Dimension Error"
+            else:
+                b.v =  [ x + y for x, y in zip(self.v, a.v)]
+        else:
+            b.v = [ x + a for x in self.v]
+        return b
+            
+    def __mul__(self, m):
+        <span class="string">"""ベクトルと実数、またはベクトル間の掛け算（内積）をします。"""</span>
+        if isinstance(m, Vector):
+            if len(self) != len(m):
+                print >> sys.stderr, "Dimension Error"
+            else:
+                return sum([ x * y for x, y in zip(self.v, m.v)])
+        else:
+            b = Vector(dim=len(self))
+            b.v = [ x * m for x in self.v]
+            return b
+
+    def __repr__(self):
+        <span class="string">"""表示するときの文字列を定義します。"""</span>
+        return '#V' + `self.v`
+
+    __str__ = __repr__
+</pre>        
+
+
+<h3>7.1. クラス定義</h3>
+クラスの定義は
+<pre>
+class <span class="parm">class_name</span>(*<span class="parm">super_classes</span>):
+  .......
+</pre>
+で行います。スーパークラスがあれば、それを引数に与えます。多重継承もありです。
+
+<h3>7.2. インスタンスの生成</h3>
+特別なメソッド <em>__init__</em> でインスタンスを生成します。
+<span class='mono'>__init__ </span>の最初の仮引数 self はインスタンス自身で、それ以降の引数が
+インスタンス生成時に与えられる引数です。次の様な使い方をします。
+<pre class="samp">
+<span class="comment"># 要素を明示的に与える</span>
+&gt;&gt;&gt;v1 = Vector(1,2,3)
+<span class="comment"># 次元と初期値を与える</span>
+&gt;&gt;&gt;v2 = Vector(dim=3, val=0)
+</pre>
+
+<h3>7.3. メソッドの定義</h3>
+メソッドの定義は関数定義と同じ <span class='mono'>def</span> を用います。
+最初の仮引数はインスタンスそれ自身です。
+ここでは、ベクトルの長さを返すメソッド abs と規格化されたベクトルを返す norm
+を定義しています。使うときはインスタンスの後ろに '<b>.</b>'（ドット）をつけてつなげます。
+<pre class="samp">
+&gt;&gt;&gt;v = Vector(1,2,3)
+<span class="comment"># 長さの計算</span>
+&gt;&gt;&gt;v.abs()
+3.7416573867739413
+
+<span class="comment"># 規格化する</span>
+&gt;&gt;&gt;v.norm()
+#V[0.2672612419124244, 0.53452248382484879, 0.80178372573727319]
+</pre>
+
+<h3>7.4. 関数や演算子のオーバーライド</h3>
+既存の関数を再定義することが出来ます。
+<span class='mono'>__add__</span> は足し算を、<span class='mono'>__mul__</span> は掛け算を定義します。
+また、__repr__ は表示方法を定義します。
+他にもいろいろあります。詳しくは
+<a href="http://www.python.jp/doc/release/ref/specialnames.html"> リファレンスマニュアル 3.3</a>
+を参照してください。
+使い方は以下の通りです。
+<pre class="samp">
+&gt;&gt;&gt; v1=Vector(1,2,3)
+&gt;&gt;&gt; v2=Vector(dim=3, val=2)
+&gt;&gt;&gt; v1+10
+#V[11, 12, 13]
+&gt;&gt;&gt; v1+v2
+#V[3, 4, 5]
+&gt;&gt;&gt; v1*100
+#V[100, 200, 300]
+&gt;&gt;&gt; v1*v2
+12
+</pre>
+
+<h3>7.6. 関数のクラス</h3>
+<span class='mono'>__call__ </span> メソッド のあるクラスは関数のクラスとして機能します。
+詳しくは、<a href='http://www.python.jp/doc/release/ref/callable-types.html'>
+  リファレンスマニュアル 3.3.4.</a>
+を見てください。
+
+<h3>7.6. イテレーター</h3>
+イテレータークラスを定義することも出来ます。
+通常は <a href="#generator">generator</a> を使ったほうが楽でしょう。
+詳しくは
+<a href="http://www.python.jp/doc/release/tut/node11.html#SECTION0011800000000000000000">
+チュートリアル 9.8. </a>を見てください。
+
+<a name="data">
+<h2>8. データ型</h2>
+<h3>8.1. 数値</h3>
+数値型には、<b>整数型 、 長整数型 、浮動小数点型 、および 複素数型</b> の４つの型があります。
+詳しくは
+<a href="http://www.python.jp/doc/release/lib/typesnumeric.html">
+ライブラリリファレンス 2.3.4</a> を見てください。
+<a name="seq">
+<h3>8.2. 配列</h3>
+配列型には、<b>文字列、ユニコード文字列、リスト、タプル、バッファ、そして xrange オブジェクト</b>の
+６つがあります。配列型に共通の演算を下の表にまとめます。
+<table border=3>
+  <thead>
+    <tr>
+      <th align="center"><b>演算</b>&nbsp;</th>
+      <th align="left"><b>結果</b>&nbsp;</th>
+      </tr>
+
+    </thead>
+  <tbody valign="baseline">
+    <tr><td align="center" valign="baseline"><code><var>x</var> in <var>s</var></code></td>
+        <td align="left"><var>s</var> のある要素 <var>x</var> と等しい場合 True 、そうでない場合 False</td>
+
+  
+    <tr><td align="center" valign="baseline"><code><var>s</var> + <var>t</var></code></td>
+        <td align="left"><var>s</var> および <var>t</var> の結合</td>
+
+    <tr><td align="center" valign="baseline"><code><var>s</var> * <var>n</var> , <var>n</var> * <var>s</var></code></td>
+        <td align="left"><var>s</var> の浅いコピー <var>n</var> 個からなる結合</td>
+  
+    <tr><td align="center" valign="baseline"><code><var>s</var>[<var>i</var>]</code></td>
+        <td align="left"><var>s</var> の 0 から数えて <var>i</var> 番目の要素</td>
+
+    <tr><td align="center" valign="baseline"><code><var>s</var>[<var>i</var>:<var>j</var>]</code></td>
+        <td align="left"><var>s</var> の <var>i</var> 番目から <var>j</var> 番目までのスライス</td>
+
+    <tr><td align="center" valign="baseline"><code><var>s</var>[<var>i</var>:<var>j</var>:<var>k</var>]</code></td>
+        <td align="left"><var>s</var> の <var>i</var> 番目から <var>j</var>  番目まで、<var>k</var> 毎のスライス</td>
+
+  
+    <tr><td align="center" valign="baseline"><code>len(<var>s</var>)</code></td>
+        <td align="left"><var>s</var> の長さ</td>
+    <tr><td align="center" valign="baseline"><code>min(<var>s</var>)</code></td>
+
+        <td align="left"><var>s</var> の最小の要素</td>
+    <tr><td align="center" valign="baseline"><code>max(<var>s</var>)</code></td>
+        <td align="left"><var>s</var> の最大の要素</td>
+
+</table>
+<pre class="samp">
+<span class="comment"># 例</span>
+&gt;&gt;&gt; s='abcde'
+&gt;&gt;&gt; s[-1]      <span class="comment"># インデックス -1 は最後の要素</span>
+'e'
+&gt;&gt;&gt; s[1:]      <span class="comment"># 最初の要素を除く</span>
+'bcde'
+&gt;&gt;&gt; s[:-1]     <span class="comment"># 最後の要素を除く</span>
+'abcd'
+&gt;&gt;&gt; s*2
+'abcdeabcde'
+&gt;&gt;&gt; min(s)
+'a'
+&gt;&gt;&gt; max(s)
+'e'
+&gt;&gt;&gt; s[0:-1:2]
+'ac'
+</pre>
+<h4>8.2.1. 文字列、ユニコード文字列</h4>
+文字列の要素に直接値を代入することは出来ません。
+<pre class="samp">
+s = 'abcdefg'
+<span class="comment"># 不可、文字を直接代入できない。</span>
+s[0]='z'
+
+<span class="comment"># 次のようにして全体を作り直す必要がある。</span>
+s = 'z' + s[1:]
+</pre>
+<h4>文字列リテラル</h4>
+<ul>
+  <li><span class="string">'...'</span> 及び <span class="string">"...."</span> は文字列リテラルです。
+<li>u<span class="string">'abc'</span> 、
+  u<span class="string">"def"</span> といったように先頭に文字 "u" を付けると Unicode 文字列になります。
+  <li>r'\n' のように先頭に "r" をつけると raw_string になり、バックスラッシュはエスケープ文字になりません。
+つまり、r'\n' は改行ではなく、\ と n とからなる文字列です。
+r (raw_string) オプションは正規表現のパターンを記述するときに便利です。
+	 </ul>
+文字列リテラルについての詳細は
+<a href="http://www.python.jp/doc/release/ref/strings.html">
+リファレンスマニュアル 2.4.1</a> を見てください。
+<h4>文字列メソッド</h4>
+<a href="http://www.python.jp/doc/release/lib/string-methods.html">
+ライブラリリファレンス 2.3.6.1</a> を見てください。<p>
+Memo:<br>
+文字列 line から末尾の改行文字を取り除くには、
+<pre class="code">
+line = line.rstrip('\n')
+<span class="comment"># あるいは、</span>
+import string
+line = string.rstrip(line, '\n')
+</pre>
+とします。ファイルから１行ずつ読み込むときよく使います。
+
+<h4>文字列フォーマット</h4>
+<span class="parm">format</span> % <span class="parm">vars</span> というように記述します。
+<span class="parm">format</span> は C 言語風です。
+<span class="parm">vars</span> が複数の場合 <b>( )</b> で
+くくる必要があります。
+また、<span class="parm">vars</span> に<a href="#dictionary">辞書型</a>
+を指定してキーワードで指定することも出来ます。
+<!-- rink to dictionary-->
+詳しくは
+<a href="http://www.python.jp/doc/release/lib/typesseq-strings.html">
+ライブラリリファレンス 2.3.6.2 文字列フォーマット操作</a>を見てください。
+<pre class="samp">
+&gt;&gt;&gt;'%d:%d' % (1, 2)
+'1:2'
+&gt;&gt;&gt;'%(month)s %(date)d, %(year)4d' % {'year':2005, 'month':'February', 'date':3}
+'February 3, 2005'
+</pre>
+
+<h4>8.2.2. リスト</h4>
+  リストは <b>[ ]</b> でくくってあらわします。リストの各要素に直接値を代入できます。
+  また、リストはネストできます。
+  <pre class="samp">
+&gt;&gt;&gt; ls=[1,2,3]
+&gt;&gt;&gt; ls[0]=100
+&gt;&gt;&gt; ls
+[100, 2, 3]
+&gt;&gt;&gt; ls2=[ls, 10,20,30]
+&gt;&gt;&gt; ls2
+[[100, 2, 3], 10, 20, 30]</pre>
+  リストの操作については
+<a href="http://www.python.jp/doc/release/lib/typesseq-mutable.html">
+  ライブラリリファレンス 2.3.6.4</a> を見てください。<p>
+Memo:<br>
+<ul>
+<li>リストの末尾に要素を１つ加えるには <var>append</var> を使います。
+<pre class="samp">
+&gt;&gt;&gt;ls = []
+&gt;&gt;&gt;ls.append(1)
+&gt;&gt;&gt;ls
+[1]
+</pre>
+<li>リストの並び替えは sort(<var>fn</var>=None) メソッドを使います。実行速度を上げるため、ソートは破壊的に
+おこなわれ、もとのリストが変わってしまいます。<var>fn</var> が定義されていないとオブジェクトに定義された方法で、
+昇順に並び替えられますが、<var>fn</var> を指定することによって、ソートの方法を指定することができます。
+<p>
+例:
+<pre class='samp'>
+&gt;&gt;&gt; ls=[1024, 339, 27, 890, 466, 228]
+&gt;&gt;&gt; ls1=ls
+&gt;&gt;&gt; ls1.sort()    <span class='comment'># 普通に昇順にソート</span>
+&gt;&gt;&gt; ls1
+[27, 228, 339, 466, 890, 1024] <span class='comment'># リストが破壊的に書き換えられる。</span>
+&gt;&gt;&gt; ls2=ls
+&gt;&gt;&gt; ls2.sort(lambda x,y: cmp(x%100, y%100)) <span class='comment'># 下2桁が小さい順にソート</span>
+&gt;&gt;&gt; ls2
+[1024, 27, 228, 339, 466, 890]
+</pre>
+</ul>
+<a name="taple">
+<h4>8.2.3. タプル</h4>
+  タプルは (,) を使ってあらわします。変更できない点を除いてリストと同じです。
+リストより高速です。変更するつもりがない値のセットはタプルとして定義すると良いでしょう。<br>
+なお、項が1つのタプルは項の後にカンマをつけて <span class='mono'>(item,)</span> と書きます。<p>
+  詳しくは
+<a href="http://www.python.jp/doc/release/tut/node7.html#SECTION007300000000000000000">
+チュートリアル 5.3.</a> を見てください。
+
+<a name="dictionary">
+<h3>8.3. 辞書型</h3>
+いわゆるハッシュ表です。数値、文字列、タプルを key として、対応する値を保持したり、取り出したりすることが出来ます。
+初期化は、全体を { } でくくって、コロン ':' で対になった key:val のペアをコンマで区切ります。
+代入や、削除が出来ます。
+ある key が辞書に登録されているかは in を使って調べられます。<br>
+<span class="warn">注意：リストは辞書型の key になれません。</span><br>
+例:
+<pre class="samp">
+&gt;&gt;&gt;days = {'sun':0, 'mon':1, 'tue':2, 'wed':3, 'thu':4, 'fri':5, 'sat':6}  # 初期化
+&gt;&gt;&gt;'sun' in days                                                           # 存在するか？
+True
+&gt;&gt;&gt;month={}
+&gt;&gt;&gt;month['jan'] = 1                                                        # 代入
+&gt;&gt;&gt;month['jan'] += 1
+&gt;&gt;&gt;month['jan']
+2
+&gt;&gt;&gt;del month['jan']                                                        # 削除
+</pre>
+詳しくは
+<a href="http://www.python.jp/doc/release/lib/typesmapping.html">
+ライブラリリファレンス 2.3.7.</a> を見てください。
+
+<a name="operator">
+<h2>9. 演算子</h2>
+  <ul>
+ <li>単項演算子
+が無いことを除けばほとんど C 言語と同じです。
+<li><b>+</b> と <b>*</b> は <a href="#seq">7.2.</a>で述べたように
+数値演算のほかに、配列の結合と繰り返しをします。
+<li> Python の "三項演算子" は次のように書きます。
+<pre class='code'>
+<span class='parm'>value</span> = <span class='parm'>then_value</span> if <span class='parm'>predicate</span> else <span class='parm'>else_value</span>
+</pre>
+<span class='parm'>predicate</span> が真なら、<span class='parm'>then_value</span> が、偽なら <span class='parm'>else_value</span> が
+<span class='parm'>value</span> に代入されます。
+
+  <li><b>and</b> と <b>or</b> は Lisp 風で、次のように動作します。
+ <dl>
+	<dt><b>and</b></dt>
+	<dd>まず、左側を評価し、偽だったらその値を返す。
+	  真だったら右側も評価し、その値を返す。</dd>
+	<dt><b>or</b></dt>
+	<dd>まず、まず、左側を評価し、真だったらその値を返す。
+	  偽だったら右側も評価し、その値を返す。</dd>
+	</dl>
+
+</ul>
+
+
+  
+ 詳しくは、リファレンスマニュアル
+<a href="http://www.python.jp/doc/release/ref/operators.html">
+2.5</a>,
+<a href="http://www.python.jp/doc/release/ref/delimiters.html">
+2.6</a> を見てください。
+
+<a name="library">
+<h2>10. ライブラリーツアー</h2>
+よく使うライブラリーを簡単に説明します。
+詳しくは
+<a href="http://www.python.jp/doc/release/lib/lib.html">
+ライブラリーリファレンス</a>を見てください。
+<h3>10.1. sys</h3>
+  <dl>
+	 <dt><b>sys.argv</b></dt>
+	 <dd> コマンドラインから渡された引数のリストです。
+	 sys.argv[0] はスクリプト自身で、実際の引数は sys.argv[1:] です。</dd>
+	 <dt><b>sys.exit()</b></dt>
+	 <dd>Python を終了するとき使います。
+		</dd></dl>
+  詳しくは
+<a href="http://www.python.jp/doc/release/lib/module-sys.html">
+  ライブラリリファレンス 3.1</a> を見てください。
+  <h3>10.2. os</h3>
+以下は抜粋。詳しくは
+<a href="http://www.python.jp/doc/release/lib/module-os.html">
+  ライブラリリファレンス 6.1</a> を見てください。
+<dl>
+  <dt><b>chdir(<span class="parm">path</span>)</b></dt>
+    <dd>現在の作業ディレクトリを <span class="parm">path</span> に設定します。</dd>
+
+<dt><b>getcwd()</b></dt>
+    <dd>現在の作業ディレクトリを表現する文字列を返します。</dd>
+<dt><b>listdir(<span class="parm">path</span>)</b></dt>
+    <dd>ディレクトリ内のエントリ名が入ったリストを返します。リスト内の順番は不定です。特殊エントリ '.' および '..' は、それらがディレクトリに入っていてもリストには含められません。 </dd>
+<dt><b>mkdir(<span class="parm">path</span>[, <span class="parm">mode</span>])</b></dt>
+    <dd>数値で指定されたモード mode をもつディレクトリ <span class="parm">path</span> を作成します。</dd>
+<dt><b>remove(<span class="parm">path</span>)</b></dt>
+    <dd>ファイル <span class="parm">path</span> を削除します。</dd>
+<dt><b>rename(<span class="parm">src</span>, <span class="parm">dst</span>)</b></dt>
+    <dd>ファイルまたはディレクトリ <span class="parm">src</span> を <span class="parm">dst</span>
+		に名前変更します。 </dd>
+<dt><b>exec[l, le, lp, lpe, v, ve, vp, vpe]</b></dt>
+  <dd>外部プロセスを起動します。</dd></dl>
+
+<h3>10.3. os.path</h3>
+exists, getatime, getmtime, getsize, isfile, isdir
+などの関数を含むモジュールです。
+詳しくは
+
+<a href="http://www.python.jp/doc/release/lib/module-os.path.html">
+ライブラリリファレンス 6.2.</a>
+を見てください。
+
+
+  <h3>10.4. fileinput</h3>
+  Perl の "while(<>)" のように、コマンドラインの引数で与えられたファイルから入力します。
+  <pre class="code">
+<span class="comment"># fileinput を使わないと</span>
+for fname in sys.argv[1:]:
+    f=file(fname)
+    for line in f:
+        <span class="parm">(do something with line)</span>
+    f.close()
+
+<span class="comment"># fileinput を使うと</span>
+import fileinput
+for line in fileinput.input():
+    <span class="parm">(do something with line)</span>
+</pre>
+  詳しくは
+  <a href="http://www.python.jp/doc/release/lib/module-fileinput.html">
+    ライブラリリファレンス 5.15</a> を見てください。
+  <h3>10.5. re</h3>
+  正規表現のモジュールです。
+  <ol>
+<li>Python では、パターンをまず compile して、<em>正規表現オブジェクト</em>を
+  作ってから検索します。
+  <li>パターンは raw_string を使って書くのが便利です。
+  <li>正規表現オブジェクトは match, finditer, split などのメソッドを持ちます。
+  詳しくは
+<a href="http://www.python.jp/doc/release/lib/re-objects.html">
+	 ライブラリリファレンス 4.2.4</a> を見てください。
+  <li>正規表現オブジェクトで文字列を検索してマッチした部分文字列は、
+  <em>マッチオブジェクト</em>として返されます。
+  <li>マッチオブジェクトから文字列を取り出したいときは <em>group</em> メソッドを使います。
+	 また、<em>start, end</em> メソッドで
+  マッチした部分文字列の位置を取り出せます。
+	 </ol>
+  詳しくは
+<a href="http://www.python.jp/doc/release/lib/match-objects.html">
+  ライブラリリファレンス 4.2.5</a> を見てください。<p>
+例、HTML ファイルからリンクを取り出す。 
+  <pre class="code">
+<span class="comment">#! /usr/bin/env python</span>
+<span class="comment"># coding: shift_jis</span>
+
+<span class="string">"""
+引数で与えられたファイルを検索してリンクをを探し、
+それを rink.txt に書き出す。
+"""</span>
+
+import sys
+
+RINK = 'rink.txt'
+A_HREF = re.compile("&lt;a href ?= ?\"http://([^\"]+)\"&gt;([^&lt;]+)&lt;/a&gt;", re.S) 
+
+<span class="comment">#main</span>
+if __name__=='__main__':
+    rink_hash={}
+    for fname in sys.argv[1:]:
+        f=file(fname, 'r')
+        for m in A_HREF.finditer(f.read()):
+            rink_hash[m.group(1)] = m.group(2)
+        f.close()
+    fout = file(RINK, 'w')
+    for address, name in rink_hash.iteritems():
+        fout.write("&lt;li&gt; &lt;a href = \"http://%s\"&gt;%s&lt;/a&gt;\n" % (address, name))
+    fout.close()
+</pre>
+  <h3>10.6. shutil, filecmp, glob</h3>
+  <dl>
+	 <dt><b>shutil.copyfile</b></dt><dd>ファイルをコピーします。</dd>
+	 <dt><b>filecmp.cmp</b></dt><dd>ファイルの比較をします。</dd>
+	 <dt><b>glob.glob(<span class="parm">pattern</span>)</b></dt><dd>現在のディレクトリのエントリーのうち
+		<span class="parm">pattern</span> のマッチするものを返します。
+	 </dl>
+  詳しくは、ライブラリリファレンス
+<a href="http://www.python.jp/doc/release/lib/module-filecmp.html">
+  6.7</a>,
+<a href="http://www.python.jp/doc/release/lib/module-glob.html">
+  6.23</a>,
+<a href="http://www.python.jp/doc/release/lib/module-shutil.html">
+  6.25</a> を見てください。
+  <h3>10.7. datetime</h3>
+  日時を得るのに使います。
+  <a href="http://www.python.jp/doc/release/lib/module-datetime.html">datetime</a> は
+<a href="http://www.python.jp/doc/release/lib/module-time.html">
+  time</a> とほぼ同様ですが、time が 1970--2038 年しか扱えないのに対し、
+  datetime は それ以前もそれ以降も取り扱えます。
+  <dl>
+	 <dt><b>datetime.date.today()</b></dt>
+	 <dd>現在のローカルな日付を得ます。</dd>
+	 <dt><b>datetime.datetime.now()</b></dt>
+	 <dd>現在のローカルな日付と時刻を得ます。</dd>
+	 <dt><b>isoformat メソッド</b></dt>
+	 <dd>日付と時刻を ISO 8601 形式の文字列にします。
+		<pre class="samp">
+&gt;&gt;&gt; datetime.date.today().isoformat()
+'2005-02-02'
+&gt;&gt;&gt; datetime.datetime.now().isoformat()
+'2005-02-02T17:50:09.867000'
+</pre>
+	 <dt><b>strftime</b></dt>
+	 <dd>日時を書式に従って出力します。詳しくはライブラリリファレンス
+<a href="http://www.python.jp/doc/release/lib/node211.html">
+		 6.9.7</a>,
+<a href="http://www.python.jp/doc/release/lib/module-time.html">
+6.10</a>
+を見てください。
+<pre class="samp">
+&gt;&gt;&gt; datetime.datetime.now().strftime('%y-%m-%d: %H:%M:%S')
+'05-02-02: 23:20:12'
+&gt;&gt;&gt; datetime.date.today().strftime('%y-%m-%d')
+'05-02-02'
+</pre>
+</dd>
+	 </dl>
+
+<h3>10.8. operator</h3>
+add(a,b) (通常の書式では `a+b') や mul(a,b) (通常の書式では `a*b') を定義したモジュール。
+reduce を使うとき便利。
+<pre class="samp">
+&gt;&gt;&gt; import operator as op
+&gt;&gt;&gt; reduce(op.add, [1,2,3,4,5])  <span class="comment"># 1+2+3+4+5</span>
+15
+</pre>
+詳しくは、
+  <a href="http://www.python.jp/doc/release/lib/module-operator.html">
+    ライブラリリファレンス 3.10. operator -- 関数形式の標準演算子</a>を見てください。
+<h3>10.9. その他のモジュール</h3>
+<ol>
+<li><a href="http://www.python.jp/doc/release/lib/misc.html">
+各種サービス</a>
+<li><a href="http://www.python.jp/doc/release/lib/allos.html">
+汎用オペレーティングシステムサービス</a>
+<li><a href="http://www.python.jp/doc/release/lib/someos.html">
+オプションのオペレーティングシステムサービス</a>
+<li><a href="http://www.python.jp/doc/release/lib/unix.html">
+Unix独特のサービス</a>
+<li><a href="http://www.python.jp/doc/release/lib/internet.html">
+インターネットプロトコルとその支援</a>
+  </ol>
+
+  <a name="appendix">
+  <h2> 11. 付録</h2>
+<a name="boolian">
+<h3>11.1. 真偽値を返す演算子と主な関数</h3>
+<table border=3>
+  <col span="1" width="100" align="center">
+  <col span="1" width="130" align="center">
+  <col span="1" width="600">
+  <thead>
+  <tr>
+	 <th>モジュール</th>
+	 <th>演算子、関数</th>
+	 <th>機能 (True でない場合は False)</th>
+	 </tr>
+  </thead>
+  <tdoby>
+  <tr>
+	 <td align="center">組み込み</td>
+	 <td align="center">==</td>
+	 <td>左辺と右辺が等しければ True。</td>
+	 </tr>
+  <tr>
+	 <td align="center">組み込み</td>
+	 <td align="center">!=</td>
+	 <td>左辺と右辺が等しくなければ True。</td>
+	 </tr>
+  <tr>
+	 <td align="center">組み込み</td>
+	 <td align="center">&lt</td>
+	 <td>左辺が右辺より小さければ True。<br>
+	 文字列にも使える。例： 'abc' &lt 'ab' &rArr False </td>
+	 </tr>
+  <tr>
+	 <td align="center">組み込み</td>
+	 <td align="center">&gt</td>
+	 <td>左辺が右辺より大きければ True。
+	 文字列にも使える。</td>
+	 </tr>
+  <tr>
+	 <td align="center">組み込み</td>
+	 <td align="center">&lt=</td>
+	 <td>左辺が右辺より小さいか、左辺と右辺が等しければ True。
+	 文字列にも使える。</td>
+	 </tr>
+  <tr>
+	 <td align="center">組み込み</td>
+	 <td align="center">&gt=</td>
+	 <td>左辺が右辺より大きいか、左辺と右辺が等しければ True。
+	 文字列にも使える。</td>
+	 </tr>
+  <tr>
+	 <td align="center">組み込み</td>
+	 <td align="center"> in </td>
+	 <td>左辺が右辺に含まれていれば True。
+	 例：<br>
+	 リスト：  1 in [1,2,3] &rArr True<br>
+	 文字列：  'ab' in 'abc' &rArr True<br>
+	 辞書：    'mon' in {'sun':0, 'mon':1, 'tue':2, 'wed':3} &rArr True<br></td>
+	 </tr>
+  <tr>
+	 <td align="center">組み込み</td>
+	 <td align="center">is</td>
+	 <td>左辺と右辺が等しオブジェクトならば True。<br>
+		ls1 = [1,2,3]<br>
+		ls2 = [1,2,3]<br>
+		ls3 = ls1<br>
+		ls1 is ls2 &rArr False<br>
+		ls1 is ls3 &rArr True
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">組み込み</td>
+	 <td align="center">isinstance(  object, classinfo)</td>
+	 <td>引数 object が引数 classinfo のインスタンスであるか、 (直接または間接的な)
+		サブクラスのインスタンスの場合 True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">組み込み</td>
+	 <td align="center">issubclass(  	class, classinfo)</td>
+	 <td>class が classinfo の (直接または間接的な) サブクラスである場合に True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">文字列メソッド</td>
+	 <td align="center">isalnum()</td>
+	 <td>文字列中の全ての文字が英数文字 [a-zA-Z0-9] で、かつ 1 文字以上ある場合 True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">文字列メソッド</td>
+	 <td align="center">isalpha()</td>
+	 <td>文字列中の全ての文字が英文字 [a-zA-Z] で、かつ 1 文字以上ある場合 True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">文字列メソッド</td>
+	 <td align="center">isdigit()</td>
+	 <td>文字列中に数字しかない場合 True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">文字列メソッド</td>
+	 <td align="center">islower()</td>
+	 <td>文字列中の大小文字の区別のある文字全てが小文字で、かつ 1 文字以上ある場合 True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">文字列メソッド</td>
+	 <td align="center">isspace()</td>
+	 <td>文字列が空白文字だけからなり、かつ 1 文字以上ある場合 True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">文字列メソッド</td>
+	 <td align="center">istitle()</td>
+	 <td>文字列がタイトルケース文字列であり、かつ 1 文字以上ある場合、
+		すなわち大文字は大小文字の区別のない文字の後にのみ続き、
+		小文字は大小文字の区別のある文字の後ろにのみ続く場合 True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">文字列メソッド</td>
+	 <td align="center">isupper()</td>
+	 <td>文字列中の大小文字の区別のある文字全てが大文字で、かつ 1 文字以上ある場合 True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">os.path</td>
+	 <td align="center">exists(path)</td>
+	 <td> path が存在する場合 True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">os.path</td>
+	 <td align="center">isfile(path)</td>
+	 <td>  path が存在する正しいファイルの場合 True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">os.path</td>
+	 <td align="center">isdir(path)</td>
+	 <td>  path がディレクトリの場合 True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">fileinput</td>
+	 <td align="center">isfirstline()</td>
+	 <td>  最後に読み込まれた行がファイルの1行目なら True。
+	 </td>
+	 </tr>
+  <tr>
+	 <td align="center">fileinput</td>
+	 <td align="center">isstdin()</td>
+	 <td>  最後に読み込まれた行がsys.stdinから読まれていれば True。
+	 </td>
+	 </tr>
+</tbody>
+ </table>
+
+<h3>11.2. web documents </h3>
+<ol>
+  <li><a href="http://www.python.org/">python.org</a>
+	 <ol>
+		<li><a href="http://www.python.org/download/">ダウンロード</a>
+		  <li><a href="http://docs.python.org/">ドキュメント</a>
+			 </ol>
+<li><a href="http://www.python.jp/Zope/">日本Pythonユーザ会</a>
+  <ol>
+	 <li><a href="http://www.python.jp/doc/release/index.html">日本語訳ドキュメント</a>
+		<li><a href="http://www.python.jp/Zope/articles/SoftwareTools">小さな実例集</a>
+		  <li><a href="http://www.python.jp/Zope/links">リンク集</a></ol>
+<li><a href='http://diveintopython.org/'>Dive Into Python</a>: この文書と
+  <a href='http://www.python.jp/doc/release/tut/tut.html'>チュートリアル</a>の次に
+  読む文書としてお勧めです。
+    </ol>
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="matrix.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python2.html&t=Python+%C1%E1%A4%E1%A4%B0%A4%EA' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

@@ -1,0 +1,457 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Haskell, data-structure, hash, array, tree">
+<meta name="description" content="several data structure on Haskell">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>Data Structures</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell9.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  9. 探索</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell11.html"><img src='../images/right_arrow.gif' class='arrow' border=0>11. Module</a></td>
+<td><a rel=download href="hs10.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell10.html&t=Data+Structures' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+
+ <h1>10. 種々のデータ構造</h1> 
+<hr>
+ <!---------------------------------------------------->
+
+この文章では、大きいデータを Haskell で扱うほう方法について述べます。<br>
+ Array, FiniteMap, IORef, Array.IO, HashTable を紹介します。
+ 
+<h2> 1. リストが関数型言語のデータとして用いられている理由</h2>
+  関数型言語でリストが多く用いられているのは、リストは Cons する分には、データを全て作り直す必要がなく、
+	 Cons した分を付け足してそこのポインターを新しいリストとみなせるからです。<p>
+
+		例えば、[1,2,3] というリスト図１のような構造体（コンスセル）の列への最初のポインターとして実装できます。
+		これに、0 を Cons すると 0 のコンスセルを先頭に付け足すだけで新しいリスト [0,1,2,3] が生成したと
+		して取り扱うことが出来ます。
+		つまり、コンスセルの先頭へのポインターをリストとすると、新しいリストが少ない操作と資源で作られることに
+		なります。
+		ただし、すでに存在するリストの要素を削除したり、書き直したりする場合は全てのリストを新しく
+		作る必要があります。また、リストを走査するには O(n) の計算時間がかかります。
+		従って、参照を頻繁に行うプログラムではデータをリストとして表すのは速度的に不利です。<p>
+		  [図１]<br>
+		  <img src="hs10_1.png"><p>
+
+<h2> 2. Array</h2>
+Haskell 98 には Array 型が定義されています。このデータ構造を用いると高速に
+参照を行うことが出来ます。Array 型を使うと参照は O(1) で出来ますが、
+更新には O(n) かかります。従って、Array 型は、頻繁に参照する値を格納するのに
+使うと良いでしょう。また、Array 型のデータを更新するのは避けたほうがよいでしょう。
+Array を作成するには関数 array, listArray, accumArray を使います。また、要素の参照には
+(!) 、更新には (//) を使います。範囲、インデックスのリスト、値のリスト、インデックスと値の
+ペアのリストはそれぞれ、bounds, indices, elems, assocs で求めることが出来ます。
+詳しくは Haskell 98 <a href="http://www.haskell.org/onlinelibrary/array.html">16. Array</a>
+を見て下さい。<p>
+  例：三角関数の表を作りそれを利用して値を返す。
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">-- using Array</span>
+<span class="linenumber">02:</span>     <span class="comment">--</span>
+<span class="linenumber">03:</span>     module Main where
+<span class="linenumber">04:</span>     
+<span class="linenumber">05:</span>     import Array
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     sin_cos :: Array Int Double -&gt; Array Int Double -&gt; IO()
+<span class="linenumber">08:</span>     sin_cos table_sin table_cos = do putStrLn "give sin/cos (angle)"
+<span class="linenumber">09:</span>                                      str &lt;- getLine
+<span class="linenumber">10:</span>                                      if str /= ""
+<span class="linenumber">11:</span>                                          then do let w = words str
+<span class="linenumber">12:</span>                                                      n = read (w !! 1)
+<span class="linenumber">13:</span>                                                      table = if (w !! 0) == "sin" then table_sin else table_cos
+<span class="linenumber">14:</span>                                                  putStrLn $ str ++ " = " ++ show (table ! n)
+<span class="linenumber">15:</span>                                                  sin_cos table_sin table_cos
+<span class="linenumber">16:</span>                                          else return ()
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>     main :: IO()
+<span class="linenumber">19:</span>     main = sin_cos ar_sin ar_cos
+<span class="linenumber">20:</span>      where ar_sin = listArray (0,360) [sin x | x &lt;- [0..360]]
+<span class="linenumber">21:</span>            ar_cos = listArray (0,360) [cos x | x &lt;- [0..360]]
+<span class="linenumber">22:</span>               
+<span class="linenumber">23:</span>     
+</pre>
+<pre class="samp">
+D:\doc\05-04\hs&gt;runhugs ar.hs
+give sin/cos (angle)
+sin 3
+sin 3 = 0.141120008059867
+give sin/cos (angle)
+cos 120
+cos 120 = 0.814180970526562
+give sin/cos (angle)
+cos 299
+cos 299 = -0.853204385517229
+give sin/cos (angle)
+
+
+D:\doc\05-04\hs&gt;
+</pre>
+<h2> 3. FiniteMap</h2>
+Finite Map は平衡木を関数的に実装したもので、参照、挿入、更新、削除が O(log n) で出来ます。
+大きなデータの取り扱いは List や Array より有利です。<br>
+主な関数を挙げます。
+<table border=1 class="mono">
+   <tr>
+      <td>emptyFM</td>
+      <td>新たに FiniteMap を生成します。<br>
+            例：<br>
+             emptyFM :: FiniteMap Int Double</td>
+   </tr>
+   <tr>
+      <td>addToFM fm key val</td>
+      <td> FiniteMap fm に key val の要素を追加します。</td>
+   </tr>
+   <tr>
+      <td>delFromFM fm key</td>
+      <td> FiniteMap fm から key の要素を削除します。</td>
+   </tr>
+   <tr>
+      <td>elemFM key fm</td>
+      <td> key が FiniteMap fm の要素か調べます。</td>
+   </tr>
+   <tr>
+      <td>lookupFM fm key</td>
+      <td> FiniteMap fm の要素のうち key を持つものの val をもしあれば返します。</td>
+   </tr>
+   <tr>
+      <td>listToFM alist</td>
+      <td> 連想リスト alist を FiniteMap にします。</td>
+   </tr>
+   <tr>
+      <td>fmToList fm</td>
+      <td> FiniteMap fm を連想リストにします。</td>
+   </tr>
+</table><p>
+例として、ファイルの単語の出現回数を調べるプログラムを示します。<p>
+[code 1]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">--- count words occurence</span>
+<span class="linenumber">02:</span>     <span class="comment">---</span>
+<span class="linenumber">03:</span>     module Main where
+<span class="linenumber">04:</span>     import Data.FiniteMap
+<span class="linenumber">05:</span>     import System
+<span class="linenumber">06:</span>     import Char
+<span class="linenumber">07:</span>     import List
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     count_words :: (FiniteMap String Int) -&gt; [String] -&gt; [(String, Int)]
+<span class="linenumber">10:</span>     count_words fm [] = fmToList fm
+<span class="linenumber">11:</span>     count_words fm (w:ws) = case lookupFM fm w of
+<span class="linenumber">12:</span>                                 Nothing -&gt; count_words (addToFM fm w 1) ws
+<span class="linenumber">13:</span>                                 Just n  -&gt; count_words (updateFM fm w (1+n)) ws
+<span class="linenumber">14:</span>      where updateFM m k v =  addToFM (delFromFM m k) k v
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     conv_char :: Char -&gt; Char
+<span class="linenumber">17:</span>     conv_char c = if isAlpha c
+<span class="linenumber">18:</span>                       then toLower c
+<span class="linenumber">19:</span>                       else if (isDigit c || isSpace c || c == '_')
+<span class="linenumber">20:</span>                                then c
+<span class="linenumber">21:</span>                                else ' '
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>     main :: IO()
+<span class="linenumber">24:</span>     main = do av &lt;- getArgs
+<span class="linenumber">25:</span>               str &lt;- readFile (av !! 0)
+<span class="linenumber">26:</span>               mapM_ print $ sortBy (compare . fst)
+<span class="linenumber">27:</span>                        $ count_words (emptyFM :: FiniteMap String Int) (words $ map conv_char str)
+</pre>
+<h2> 4. IORef</h2>
+IORef を使うと Haskell に変数を導入することが出来ます。ただし、こうすると
+ほとんど手続き型言語のようになり、 Haskell を使う意味が薄れます。主な関数を以下に挙げます。
+<table border=1, class="mono">
+   <tr>
+      <th>関数名</th>
+      <th>型</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>newIORef</td>
+      <td>a -> IO (IORef a)</td>
+      <td>値 a を持つ新しい IORef を作ります。</td>
+   </tr>
+   <tr>
+      <td>readIORef</td>
+      <td>IORef a -> IO a</td>
+      <td> IORef から値を読みます。</td>
+   </tr>
+   <tr>
+      <td>writeIORef</td>
+      <td>IORef a -> a -> IO()</td>
+      <td> IORef に値を書き出します。</td>
+   </tr>
+   <tr>
+      <td>modifyIORef</td>
+      <td>IORef a -> (a -> a) -> IO ()</td>
+      <td> IORef の値を更新します。</td>
+   </tr>
+</table>
+
+<h2> 5. Array.IO</h2>
+Haskell で大きなデータを扱うときに使います。
+参照、更新が O(1) で出来ます。主な関数を下に挙げます。
+Array.IO はArray.MArray の instance です。
+<!-- file:///c:/ghc/ghc-6.4/doc/html/users_guide/primitives.html
+7.2. Unboxed types and primitive operations
+Prev 	Chapter 7. GHC Language Features
+  -->
+<table border=1, class="mono">
+   <tr>
+      <th>関数名</th>
+      <th>型</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>newArray</td>
+      <td>(MArray a e m, Ix i) =&gt; (i, i) -&gt; e -&gt; m (a i e)</td>
+      <td> 値 e を持つ新しい配列を作成します。<br>
+                 例: インデックスが 0--99 で、値が 0.0 の Array を作成<br>
+                  newArray (0,99) 0.0 :: IO (IOUArray Int Double)</td>
+   </tr>
+   <tr>
+      <td>newListArray</td>
+      <td>(MArray a e m, Ix i) =&gt; (i, i) -&gt; [e] -&gt; m (a i e)</td>
+      <td>リストの値を持つ Array を作成
+例：0.0, 0.1 ..... 9.9 の値を持つ Array
+newListArray (0,99) [0.0,0.1..9.9]</td>
+   </tr>
+   <tr>
+      <td>readArray</td>
+      <td>(MArray a e m, Ix i) =&gt; a i e -&gt; i -&gt; m e</td>
+      <td> Array から値を読む。</td>
+   </tr>
+   <tr>
+      <td>writeArray</td>
+      <td>(MArray a e m, Ix i) =&gt; a i e -&gt; i -&gt; e -&gt; m ()</td>
+      <td> Array に値を書く。</td>
+   </tr>
+</table>
+以下に１次元と２次元配列上での拡散をシミュレートするプログラムを示します。
+１次元配列では、あるセルの値の 10 % が左右のセルに（左右それぞれ 5 % ずつ）、
+二次元配列では、値の 10 % が上下左右に（上下左右それぞれ 2.5 % ずつ）に移動するとします。
+初めは中央に 100.0 の値があるとします。<br>
+例：１次元配列<br>
+[code 2]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">------------------------------------------------</span>
+<span class="linenumber">02:</span>     <span class="comment">--- test code for Array.IO</span>
+<span class="linenumber">03:</span>     <span class="comment">--- simulation of diffusion</span>
+<span class="linenumber">04:</span>     <span class="comment">--- by T.Shido (shido_takafumi@ybb.ne.jp)</span>
+<span class="linenumber">05:</span>     <span class="comment">------------------------------------------------</span>
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     import Data.Array.IO
+<span class="linenumber">08:</span>     import System
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     diffuse :: String -&gt; Int -&gt; IO()
+<span class="linenumber">11:</span>     diffuse fout m = do state &lt;- newArray (0,199) 0.0 :: IO (IOUArray Int Double)
+<span class="linenumber">12:</span>                         writeArray state 99 100.0
+<span class="linenumber">13:</span>                         diff &lt;- newArray (0,199) 0.0 :: IO (IOUArray Int Double)
+<span class="linenumber">14:</span>                         rep state diff 0 m
+<span class="linenumber">15:</span>      where rep state diff i n | i==n = present state 0 "# diffusion:\n#cell, density\n"
+<span class="linenumber">16:</span>                               | otherwise = do cal_diff state diff 1 
+<span class="linenumber">17:</span>                                                up_state state diff 0
+<span class="linenumber">18:</span>                                                rep state diff (1+i) n
+<span class="linenumber">19:</span>            cal_diff state diff i | i == 199 = return ()
+<span class="linenumber">20:</span>                                  | otherwise = do de &lt;- readArray state i
+<span class="linenumber">21:</span>                                                   if de /= 0.0
+<span class="linenumber">22:</span>                                                       then do d0 &lt;- readArray diff i
+<span class="linenumber">23:</span>                                                               dsub1 &lt;- readArray diff (i-1)
+<span class="linenumber">24:</span>                                                               dadd1 &lt;- readArray diff (i+1)
+<span class="linenumber">25:</span>                                                               writeArray diff i (d0 - de*0.1)
+<span class="linenumber">26:</span>                                                               writeArray diff (i-1) (dsub1 + de*0.05)
+<span class="linenumber">27:</span>                                                               writeArray diff (i+1) (dadd1 + de*0.05)
+<span class="linenumber">28:</span>                                                               cal_diff state diff (i+1)
+<span class="linenumber">29:</span>                                                       else  cal_diff state diff (i+1)
+<span class="linenumber">30:</span>            up_state state diff i | i==200 = return ()
+<span class="linenumber">31:</span>                                  | otherwise = do d &lt;- readArray diff i
+<span class="linenumber">32:</span>                                                   if d /= 0.0
+<span class="linenumber">33:</span>                                                       then do s &lt;- readArray state i
+<span class="linenumber">34:</span>                                                               writeArray state i (s+d)
+<span class="linenumber">35:</span>                                                               writeArray diff i 0.0
+<span class="linenumber">36:</span>                                                               up_state state diff (i+1)
+<span class="linenumber">37:</span>                                                       else up_state state diff (i+1)
+<span class="linenumber">38:</span>            present state i acc | i==200 = writeFile fout acc
+<span class="linenumber">39:</span>                                | otherwise = do x &lt;-readArray state i
+<span class="linenumber">40:</span>                                                 present state (i+1) (acc ++ show i ++ " " ++ show x ++ "\n")
+<span class="linenumber">41:</span>     
+<span class="linenumber">42:</span>     main = do av &lt;-getArgs
+<span class="linenumber">43:</span>               diffuse (head av) (read (av !! 1))
+<span class="linenumber">44:</span>                                        
+</pre>
+
+二次元配列の場合<p>
+[code 3]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">------------------------------------------------</span>
+<span class="linenumber">02:</span>     <span class="comment">--- test code for Array.IO</span>
+<span class="linenumber">03:</span>     <span class="comment">--- simulation of diffusion, 2D</span>
+<span class="linenumber">04:</span>     <span class="comment">--- by T.Shido (shido_takafumi@ybb.ne.jp)</span>
+<span class="linenumber">05:</span>     <span class="comment">------------------------------------------------</span>
+<span class="linenumber">06:</span>     
+<span class="linenumber">07:</span>     import Data.Array.IO
+<span class="linenumber">08:</span>     import System
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>     <span class="comment">-- 2 dimentinal diffusion</span>
+<span class="linenumber">11:</span>     diffuse2d :: String -&gt; Int -&gt; IO()
+<span class="linenumber">12:</span>     diffuse2d fout m = do state &lt;- newArray ((0,0), (49,49)) 0.0 :: IO (IOUArray (Int, Int) Double)
+<span class="linenumber">13:</span>                           writeArray state (24,24) 100.0
+<span class="linenumber">14:</span>                           diff &lt;- newArray ((0,0), (49,49)) 0.0 :: IO (IOUArray (Int, Int) Double)
+<span class="linenumber">15:</span>                           rep state diff 0 m
+<span class="linenumber">16:</span>      where rep state diff i n | i==n = present state 0 0 "# deffusion:\n#cell x, cell y, density\n"
+<span class="linenumber">17:</span>                               | otherwise = do cal_diff state diff 1 1
+<span class="linenumber">18:</span>                                                up_state state diff 0 0
+<span class="linenumber">19:</span>                                                rep state diff (1+i) n
+<span class="linenumber">20:</span>            cal_diff state diff i j | i == 49 = return ()
+<span class="linenumber">21:</span>                                    | j == 49 = cal_diff state diff (i+1) 1
+<span class="linenumber">22:</span>                                    | otherwise = do s0 &lt;- readArray state (i, j)
+<span class="linenumber">23:</span>                                                     if s0 &gt; 0
+<span class="linenumber">24:</span>                                                         then do d0 &lt;- readArray diff (i, j)
+<span class="linenumber">25:</span>                                                                 d_up &lt;- readArray diff ((i-1), j)
+<span class="linenumber">26:</span>                                                                 d_down &lt;- readArray diff ((i+1), j)
+<span class="linenumber">27:</span>                                                                 d_left &lt;- readArray diff (i, (j-1))
+<span class="linenumber">28:</span>                                                                 d_right &lt;- readArray diff (i, (j+1))
+<span class="linenumber">29:</span>                                                                 writeArray diff (i, j) (d0 - s0*0.1)
+<span class="linenumber">30:</span>                                                                 writeArray diff ((i-1),j) (d_up + s0*0.025)
+<span class="linenumber">31:</span>                                                                 writeArray diff ((i+1),j) (d_down + s0*0.025)
+<span class="linenumber">32:</span>                                                                 writeArray diff (i,(j-1)) (d_left + s0*0.025)
+<span class="linenumber">33:</span>                                                                 writeArray diff (i,(j+1)) (d_right + s0*0.025)
+<span class="linenumber">34:</span>                                                                 cal_diff state diff i (j+1)
+<span class="linenumber">35:</span>                                                         else cal_diff state diff i (j+1)
+<span class="linenumber">36:</span>            up_state state diff i j | i == 50 = return ()
+<span class="linenumber">37:</span>                                    | j == 50 = up_state state diff (i+1) 0
+<span class="linenumber">38:</span>                                    | otherwise = do d &lt;- readArray diff (i, j)
+<span class="linenumber">39:</span>                                                     if d /= 0
+<span class="linenumber">40:</span>                                                         then do s &lt;- readArray state (i, j)
+<span class="linenumber">41:</span>                                                                 writeArray state (i, j) (s+d)
+<span class="linenumber">42:</span>                                                                 writeArray diff (i, j) 0.0
+<span class="linenumber">43:</span>                                                                 up_state state diff i (j+1)
+<span class="linenumber">44:</span>                                                         else up_state state diff i (j+1)
+<span class="linenumber">45:</span>                                                     
+<span class="linenumber">46:</span>            present state i j acc | i==50 = writeFile fout acc
+<span class="linenumber">47:</span>                                  | j==50 = present state (i+1) 0 (acc ++ "\n")
+<span class="linenumber">48:</span>                                  | otherwise = do x &lt;-readArray state (i, j)
+<span class="linenumber">49:</span>                                                   present state i (j+1)
+<span class="linenumber">50:</span>                                                       (acc ++ show i ++ " " ++ show j ++ " " ++ show x ++ "\n")
+<span class="linenumber">51:</span>     
+<span class="linenumber">52:</span>     main = do av &lt;-getArgs
+<span class="linenumber">53:</span>               diffuse2d (head av) (read (av !! 1))
+<span class="linenumber">54:</span>                                        
+</pre>
+実行例：
+図２に [code 2] を実行した結果を示します。キャプションは繰り返し回数です。
+一方、図３に [code 3] を実行した結果を示します。<br>
+[図２]<br>
+<img src="fus1d.png"><br>
+[図３]<br>
+<img src="fus2d.png"><br>
+
+<h2> 6. HashTable</h2>
+ハッシュ表も使うことが出来ます。
+主な関数を下に示します。
+<table border=1, class="mono">
+   <tr>
+      <th>関数名</th>
+      <th>型</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td>new</td>
+      <td>(key -> key -> Bool) -> (key -> Int32) -> IO (HashTable key val)</td>
+      <td>新しいハッシュ表を作る。
+最初の引数は key を比較する関数、２番目の引数は key を Int32 に変換する関数です。Int 用の
+hashInt、文字列用の hashString があります。</td>
+   </tr>
+   <tr>
+      <td>insert</td>
+      <td> HashTable key val -> key -> val -> IO ()</td>
+      <td>key, val をハッシュ表に追加する。</td>
+   </tr>
+   <tr>
+      <td>delete</td>
+      <td>HashTable key val -> key -> IO ()</td>
+      <td>key をハッシュ表から削除します。</td>
+   </tr>
+   <tr>
+      <td>lookup</td>
+      <td>HashTable key val -> key -> IO (Maybe val)</td>
+      <td>key をハッシュ表から探し、見つかったら val を返します。</td>
+   </tr>
+   <tr>
+      <td>update</td>
+      <td>HashTable key val -> key -> val -> IO Bool</td>
+      <td>ハッシュ表を key val で更新します。</td>
+   </tr>
+   <tr>
+      <td>fromList</td>
+      <td>Eq key => (key -> Int32) -> [(key, val)] -> IO (HashTable key val)</td>
+      <td>リストからハッシュ表を作成します。</td>
+   </tr>
+   <tr>
+      <td>toList</td>
+      <td>HashTable key val -> IO [(key, val)]</td>
+      <td>ハッシュ表をリストに変換します。</td>
+   </tr>
+</table><p>
+[code 4] にハッシュ表を使ってファイル中の単語の出現回数を数えるプログラムを示します。<p>
+[code 4]
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">--- count words</span>
+<span class="linenumber">02:</span>     module Main where
+<span class="linenumber">03:</span>     
+<span class="linenumber">04:</span>     import Data.HashTable
+<span class="linenumber">05:</span>     import System
+<span class="linenumber">06:</span>     import Char
+<span class="linenumber">07:</span>     import List
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     regword :: (HashTable String Int) -&gt; [String] -&gt; IO()
+<span class="linenumber">10:</span>     regword _ [] = return ()
+<span class="linenumber">11:</span>     regword h (w:ws) = do cnt &lt;- Data.HashTable.lookup h w
+<span class="linenumber">12:</span>                           case cnt of
+<span class="linenumber">13:</span>                               Nothing -&gt; update h w 1
+<span class="linenumber">14:</span>                               Just n  -&gt; update h w (1+n)
+<span class="linenumber">15:</span>                           regword h ws
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>     conv_char c = if isAlpha c
+<span class="linenumber">18:</span>                       then toLower c
+<span class="linenumber">19:</span>                       else if (isDigit c || isSpace c || c == '_')
+<span class="linenumber">20:</span>                                then c
+<span class="linenumber">21:</span>                                else ' '
+<span class="linenumber">22:</span>     
+<span class="linenumber">23:</span>     main = do av &lt;- getArgs
+<span class="linenumber">24:</span>               contents &lt;- readFile (head av)
+<span class="linenumber">25:</span>               h &lt;- new (==) hashString :: IO (HashTable String Int)
+<span class="linenumber">26:</span>               regword h (words $ map conv_char contents)  
+<span class="linenumber">27:</span>               al &lt;- toList h
+<span class="linenumber">28:</span>               mapM_ print $ sortBy (compare . fst) al
+</pre>
+
+
+<h2> 7. 終わりに</h2>
+この文章では Haskell で使えるいろいろなデータ型について述べました。
+より詳しくは ghc のドキュメントを参考にしてください。
+また、ここで述べたプログラムをまとめておきますので、
+気が向いたら遊んでみてください。
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="haskell9.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  9. 探索</a></td>
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Haskell のお勉強</a></td>
+<td><a rel=next href="haskell11.html"><img src='../images/right_arrow.gif' class='arrow' border=0>11. Module</a></td>
+<td><a rel=download href="hs10.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=hs/haskell10.html&t=Data+Structures' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td></tr></table></p>
+</body>
+</html>

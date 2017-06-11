@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, local variable, 局所変数">
+<meta name="description" content="Scheme の局所変数">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 6. 局所変数 </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme5.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. 分岐</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme7.html"><img src='../images/right_arrow.gif' class='arrow' border=0>7. 繰り返し</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme6.html&t=Scheme+%C6%FE%CC%E7+6.+%B6%C9%BD%EA%CA%D1%BF%F4' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>  6. 局所変数  </h1>
+<hr>
+<h2>1. 初めに </h2>
+前回までの説明で、一応関数を定義できるようになったと思います。
+しかし、まだ、関数内で一時的な変数を定義する方法を説明してないので、プログラムが
+冗長になってしまいます。そこで、今回は局所変数の定義の仕方について述べます。
+<h2>2. let 式</h2>
+局所変数は <span class='ttb'>let</span> 式を使って定義します。
+書式は以下の通りです。
+<pre class='def'>
+(<b>let</b> <var>binds</var> <var>body</var> )
+</pre>
+<var>binds</var> の部分で、変数を宣言し、初期値を設定します。
+<var>body</var> には任意の個数の式を書くことができます。<br>
+<var>binds</var> の部分の書式は、以下の通りです。
+<pre class='def'>
+[<var>binds</var>] &rarr; ((<var>p1</var> <var>v1</var>) (<var>p2</var> <var>v2</var>) ...)
+</pre>
+変数 <var>p1</var>, <var>p2</var> ... を宣言し、初期値をそれぞれ <var>v1</var>, <var>v2</var> ... にセットします。
+変数の有効範囲は <var>body</var> の部分です。
+<p>
+例 1：局所変数 <var>i</var>, <var>j</var> を宣言し、初期値をそれぞれ 1, 2 にセットし、それらを足し合わせる。
+<pre class='samp'>
+&gt; (let ((i 1) (j 2))
+    (+ i j))
+<span class='response'>3</span>
+</pre>
+<p>
+let 式は入れ子にすることができます。
+例 2：局所変数 <var>i</var>, <var>j</var> を宣言し、初期値をそれぞれ 1, i+2 にセットし、それらを掛け合わせる。
+<pre class='samp'>
+&gt; (let ((i 1))
+    (let ((j (+ i 2)))
+      (* i j)))
+<span class='response'>3</span>
+</pre>
+変数の有効範囲は定義の <var>body</var> だけですから、次のように書くとエラーになります。
+これは、<var>j</var> の初期化式内に現れる <var>i</var> が定義されていないからです。
+<pre class='samp'>
+&gt; (let ((i 1) (j (+ i 2)))
+    (* i j))
+<span class='response'>reference to undefined identifier: i
+
+ === context ===
+D:\WBIN\MzScheme\collects\scheme\private\misc.ss:68:7</span>
+</pre>
+<span class='ttb'>let*</span> を使えば、直前に定義した変数を参照することができます。
+<pre class='samp'>
+&gt; (let* ((i 1) (j (+ i 2)))
+    (* i j))
+<span class='response'>3</span>
+</pre>
+
+<p>
+例 3: 二次方程式の解を求める関数 <tt>quadric-equation</tt>。<br>
+係数 a, b, c (a x<sup>2</sup> + b x + c = 0) を引数にとり、解のリストを(実数の範囲）で返します。
+<tt>let</tt> を使ってこまめに局所変数を定義すると無駄な計算をせずに解が求まります。
+<pre class='code'>
+<span class='comment'>;;;変数 <var style='background-color:#CCFF99;padding-left:10px;padding-right:10px'>d</var>,<var style='background-color:#99FF66;padding-left:10px;padding-right:10px'>e</var>,<var style='background-color:#22DD22;padding-left:10px;padding-right:10px'>f</var> の有効範囲はそれぞれの背景色の範囲です。</span>
+
+(define (quadric-equation a b c)
+  (if (zero? a)      
+      'error                                      ; 1
+      (let ((d (- (* b b) (* 4 a c))))            ; 2
+<div style='background-color:#CCFF99;width:390px'>	(if (negative? d)
+	 '()                                      ; 3
+	 (let ((e (/ b a -2)))                    ; 4
+<div style='background-color:#99FF66;width:380px'>	   (if (zero? d)
+	       (list e)
+	       (let ((f (/ (sqrt d) a 2)))        ; 5
+<div style='background-color:#22DD22;width:370px'>		 (list (+ e f) (- e f)))))))))</div></div></div>
+</pre>
+
+<pre class='samp'>
+&gt; (quadric-equation 3 5 2)  ; solution of 3x<sup>2</sup>+5x+2=0
+<span class='response'>(-2/3 -1)</span>
+</pre>
+<ol>
+<li>もし、２次の係数 <var>a</var> が 0 なら、'error を返します。
+<li>ゼロ以外なら判別式 <tt>(b<sup>2</sup> - 4ac)</tt> を局所変数 <var>d</var> にセットします。
+<li>もし、<var>d</var> が負なら、空リストを返します。
+<li>そうでなければ、<tt>-b/2a</tt> を変数 <var>e</var> とします。
+<li><var>d</var> がゼロなら重根なので、<var>e</var> のリストを作って返します。
+<li><var>d</var> が正なら、&radic;d/2a を <var>f</var> にセットし、<tt>(+ e f), (- e f)</tt>
+  のリストを作って返します。
+</ol>
+<p>
+実は <tt>let</tt> は <tt>lambda</tt> 式を使って次のように表されます。
+<pre class='def'>
+(let ((p1 v1) (p2 v2) ...) exp1 exp2 ...)
+&rArr;
+((lambda (p1 p2 ...)
+    exp1 exp2 ...) v1 v2)
+</pre>
+<tt>lambda</tt> 式は関数なので、変数の有効範囲を制限する働きがあります。
+<h3> 練習問題 1</h3>
+<a href='scheme4.html#practice'>Scheme 入門 4 の練習問題</a>を１つの関数で書いてみてください。<br>
+つまり、初速度 <var>v</var>, 角度 <var>a</var> 度で投げたボールの飛ぶ距離を求める関数を書いてください。
+
+
+<h2>2. 終わりに</h2>
+今回は、局所変数を定義する <span class='ttb'>let</span> 式について解説しました。
+<tt>let</tt> 式は実は <tt>lambda</tt> 式の構文糖衣です。
+<tt>let</tt> 式や <tt>lambda</tt> 式を使うと、変数の有効範囲が制限されます。
+Scheme では、この制限が、ソースコードに書いてある通りに起こります。
+これをレキシカルクロージャと呼びます。<p>
+
+次回は繰り返しについて説明します。繰り返しができればとりあえず、普通にプログラムが書けるようになります。
+<h3>練習問題の解答</h3>
+
+<h4>練習問題 1</h4>
+
+<pre class='code'>
+(define (throw v a)
+  (let ((r (/ (* 4 a (atan 1.0)) 180)))
+    (/ (* 2 v v (cos r) (sin r)) 9.8)))
+</pre>
+
+
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme5.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  5. 分岐</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme7.html"><img src='../images/right_arrow.gif' class='arrow' border=0>7. 繰り返し</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme6.html&t=Scheme+%C6%FE%CC%E7+6.+%B6%C9%BD%EA%CA%D1%BF%F4' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+</body>
+</html>
+

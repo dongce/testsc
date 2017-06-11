@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, email, Message Object, attachment, extract">
+<meta name="description" content="how to extract attachments from a Message Object">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>Message Object から添付ファイルを取り出す</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="python_calc.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python_imap.html&t=Message+Object+%A4%AB%A4%E9%C5%BA%C9%D5%A5%D5%A5%A1%A5%A4%A5%EB%A4%F2%BC%E8%A4%EA%BD%D0%A4%B9' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+<h1>Message Object から添付ファイルを取り出す</h1> 
+<hr>
+<h2>1. 初めに</h2>
+この記事は、<a href='python_imap.html'>imaplib と email ライブラリーを使ったメールの処理</a> の続編です。
+<br>
+email をパースして生成する Message Object から添付ファイルを取り出す方法について述べます。
+
+<h2>2. INBOX にある全ての添付画像ファイルを保存するスクリプト</h2>
+
+簡単な例として、INBOX にある全てのメールを調べ、画像ファイルが添付されていれば
+それをまとめて保存するスクリプトを示します。
+
+<h3>2.1. ソースコード</h3>
+
+以下にソースコードを示します。
+<p>
+[img_from_mail.py]<br>
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#!python</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   '''to save all attached image files in a mailbox'''
+<span class="linenumber">004:</span>   
+<span class="linenumber">005:</span>   
+<span class="linenumber">006:</span>   import imaplib, email.parser, email.header, os, os.path
+<span class="linenumber">007:</span>   
+<span class="linenumber">008:</span>   HOST='mail.a.org'
+<span class="linenumber">009:</span>   USER='x'
+<span class="linenumber">010:</span>   PW='q1!!!'
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   MBOX='INBOX'
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   IMG_DIR = 'img'
+<span class="linenumber">015:</span>   
+<span class="linenumber">016:</span>   
+<span class="linenumber">017:</span>   def decode_mime_header(s0):
+<span class="linenumber">018:</span>       '''decode a mime encoded header to get a string'''
+<span class="linenumber">019:</span>       return ''.join( str(s, c or 'ascii') if isinstance(s, (bytes,)) else s  \
+<span class="linenumber">020:</span>                        for s,c in email.header.decode_header(s0) )
+<span class="linenumber">021:</span>   
+<span class="linenumber">022:</span>   
+<span class="linenumber">023:</span>   def is_attachment(obj):
+<span class="linenumber">024:</span>       '''see if obj is an attachment'''
+<span class="linenumber">025:</span>       s=obj['Content-Disposition']
+<span class="linenumber">026:</span>       return s and s.startswith('attachment')
+<span class="linenumber">027:</span>   
+<span class="linenumber">028:</span>   
+<span class="linenumber">029:</span>   def get_img_each(d_img, e):
+<span class="linenumber">030:</span>       '''save attachments of a Message Object (e) in d_img'''
+<span class="linenumber">031:</span>       if e.is_multipart():       <span class="comment"># I</span>
+<span class="linenumber">032:</span>           for p in e.walk():
+<span class="linenumber">033:</span>               if          (not p.is_multipart())             \
+<span class="linenumber">034:</span>                       and is_attachment(p)                   \
+<span class="linenumber">035:</span>                       and p.get_content_maintype() =='image':  <span class="comment"># J</span>
+<span class="linenumber">036:</span>                   fname0 = p.get_filename()                    <span class="comment"># K</span>
+<span class="linenumber">037:</span>                   if fname0:
+<span class="linenumber">038:</span>                       fname=decode_mime_header(fname0)         <span class="comment"># L</span>
+<span class="linenumber">039:</span>                       try:
+<span class="linenumber">040:</span>                           with open(os.path.join(d_img, fname), 'wb' ) as f:  <span class="comment"># M</span>
+<span class="linenumber">041:</span>                               f.write(p.get_payload(None, True))              <span class="comment"># N</span>
+<span class="linenumber">042:</span>                       except:
+<span class="linenumber">043:</span>                           print('cannot save ' + fname)
+<span class="linenumber">044:</span>                       print(fname)
+<span class="linenumber">045:</span>                   else:
+<span class="linenumber">046:</span>                       print('cannot get filename')
+<span class="linenumber">047:</span>   
+<span class="linenumber">048:</span>   
+<span class="linenumber">049:</span>   def get_imgs(con, mbox, d_img):
+<span class="linenumber">050:</span>       '''save attachments of all emails in mbox'''
+<span class="linenumber">051:</span>       con.select(mbox)   <span class="comment"># D</span>
+<span class="linenumber">052:</span>       p=email.parser.BytesParser()    <span class="comment"># E</span>
+<span class="linenumber">053:</span>       _type, _data = con.search(None,  'ALL')   <span class="comment"># F</span>
+<span class="linenumber">054:</span>   
+<span class="linenumber">055:</span>       for num in _data[0].split():
+<span class="linenumber">056:</span>           type, data = con.fetch(num, '(RFC822)')      <span class="comment"># G</span>
+<span class="linenumber">057:</span>           get_img_each(d_img, p.parsebytes(data[0][1]))  <span class="comment"># H</span>
+<span class="linenumber">058:</span>   
+<span class="linenumber">059:</span>   
+<span class="linenumber">060:</span>   
+<span class="linenumber">061:</span>   
+<span class="linenumber">062:</span>   if __name__=='__main__':
+<span class="linenumber">063:</span>   
+<span class="linenumber">064:</span>       if not os.path.isdir(IMG_DIR):
+<span class="linenumber">065:</span>           os.mkdir(IMG_DIR)
+<span class="linenumber">066:</span>   
+<span class="linenumber">067:</span>       con = imaplib.IMAP4_SSL(HOST)      <span class="comment"># A</span>
+<span class="linenumber">068:</span>       con.login(USER, PW)                <span class="comment"># B</span>
+<span class="linenumber">069:</span>   
+<span class="linenumber">070:</span>       get_imgs(con, MBOX, IMG_DIR)       <span class="comment"># C</span>
+<span class="linenumber">071:</span>   
+<span class="linenumber">072:</span>       con.close()
+<span class="linenumber">073:</span>       con.logout()
+</pre>
+
+サーバーに接続 (<span class='bluetextbold'>A</span>) してログインした (<span class='bluetextbold'>B</span>) 後、
+<tt>get_imgs()</tt> 関数で、INBOX にある全ての添付画像ファイルを取得します (<span class='bluetextbold'>C</span>)。
+<p>
+<tt>get_imgs()</tt> 関数では、
+まず、INBOX に入り (<span class='bluetextbold'>D</span>)、それから、<tt>ByteParser()</tt> のインスタンスを作成します (<span class='bluetextbold'>E</span>)。
+その後、INBOX にある全てのメールを検索します (<span class='bluetextbold'>F</span>)。<br>
+個々のメールの全文を取得し (<span class='bluetextbold'>G</span>)、パースして Message Object にして、
+<tt>get_img_each()</tt> 関数に渡します。(<span class='bluetextbold'>H</span>)
+<p>
+<tt>get_img_each()</tt> 関数 は個々の Message Object から添付されている画像ファイルを取り出して
+保存する関数です。
+引数で渡された Message Object がマルチパート (添付ファイルがあるときは必然的にマルチパートになる)
+のとき (<span class='bluetextbold'>I</span>) は Message Object の <tt>walk()</tt> メソッドで個々のパーツについて調べていきます。
+もし、そのパーツがシングルパートかつ、添付ファイルかつ、<tt>maintype</tt> が <tt>image</tt> ならば (<span class='bluetextbold'>J</span>)、
+ファイル名を取得し (<span class='bluetextbold'>K</span>)、それをデコードします (<span class='bluetextbold'>L</span>)。
+そして、そのファイル名で指定されたディレクトリにファイルを開き (<span class='bluetextbold'>M</span>)、
+内容を保存します (<span class='bluetextbold'>N</span>)。
+<p>
+ファイル名の取得には <tt>get_filename()</tt> メソッドを 
+内容の取得には <tt>get_payload()</tt> メソッドを使います。
+
+<h3>2.2. 実行結果</h3>
+
+コンソールに次のように出力され、画像ファイルが指定したディレクトリ (img) に保存されます。<p>
+なお、スクリプト内で、ホスト名、ユーザー名、パスワード (8--10 行) は架空のものに変えてあります。
+実際に試すときはそれらを実在するものに書き換えてから実行してください。
+<pre class='samp'>
+Z:\doc\monthly\12-03>d:\python32\python.exe img_from_mail.py
+IMAG0894.jpg
+IMAG0895.jpg
+IMAG0904.jpg
+IMAG0903.jpg
+IMAG0902.jpg
+IMAG0901.jpg
+IMAG0900.jpg
+IMAG0899.jpg
+IMAG0898.jpg
+IMAG0897.jpg
+IMAG0896.jpg
+IMAG0907.jpg
+IMAG0906.jpg
+IMAG0905.jpg
+IMAG0908.jpg
+IMAG0910.jpg
+IMAG0911.jpg
+IMAG0914.jpg
+IMAG0915.jpg
+IMAG0916.jpg
+
+Z:\doc\monthly\12-03>ls img
+IMAG0894.jpg  IMAG0898.jpg  IMAG0902.jpg  IMAG0906.jpg  IMAG0911.jpg
+IMAG0895.jpg  IMAG0899.jpg  IMAG0903.jpg  IMAG0907.jpg  IMAG0914.jpg
+IMAG0896.jpg  IMAG0900.jpg  IMAG0904.jpg  IMAG0908.jpg  IMAG0915.jpg
+IMAG0897.jpg  IMAG0901.jpg  IMAG0905.jpg  IMAG0910.jpg  IMAG0916.jpg
+
+Z:\doc\monthly\12-03>
+</pre>
+
+
+
+
+
+<h2>3. 終わりに</h2>
+
+Message Object の扱いについて詳しくは
+Python ドキュメントの
+<a href='http://docs.python.org/py3k/library/email.message.html'>
+18.1.1. email: Representing an email message
+</a>
+を見てください。
+
+実は、<a href='/misc/misc.php?id=43'>日誌</a>用スクリプトを紹介する予定だったのですが、
+添付ファイルの取り扱いを除いて 
+<a href='python_imap.html'>
+imaplib と email ライブラリーを使ったメールの処理
+</a>
+と重複するので、ここでは添付ファイルの取り扱いについてだけ述べました。
+
+
+
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<!-- <td><a rel='download' href="python_calc.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td> -->
+<td><a href='../gb/write_guestbook.php?ref=py/python_imap.html&t=Message+Object+%A4%AB%A4%E9%C5%BA%C9%D5%A5%D5%A5%A1%A5%A4%A5%EB%A4%F2%BC%E8%A4%EA%BD%D0%A4%B9' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+

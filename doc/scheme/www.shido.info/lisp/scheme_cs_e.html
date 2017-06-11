@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, characters, strings">
+<meta name="description" content="Characters and Strings on Scheme">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>11. Characters and Strings </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_asg_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  10. Assignment</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_sym_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>12. Symbols</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_cs_e.html&t=%28Scheme%29+Characters+and+Strings' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 11. Characters and Strings   </h1>
+<hr>
+<h2>1. Introduction </h2>
+I have only explained about lists and numbers, because they are 
+ most frequently used in Scheme.
+Scheme has, however, other data types such as characters, strings, symbols, vectors so on,
+which I am going to explain in chapters 11&mdash;14.<p> 
+<p>
+First, I will explain about characters and strings in this chapter.
+
+<h2>2. Characters</h2>
+Adding <strong>#\</strong> before the character indicates that it is a character.
+For instance, <u><tt>#\a</tt></u> means the character <u>a</u>.
+Characters <tt>#\Space</tt>, <tt>#\Tab</tt>, <tt>#\Linefeed</tt>, and <tt>#\Return</tt>
+ represent space, tab, linefeed, and return, respectively. 
+<p>
+Following functions about characters are defined in the R<sup>5</sup>RS.
+<dl>
+  <dt><span class='ttb'>(char? <var>obj</var>)</span></dt>
+      <dd> It returns <tt>#t</tt> if <var>obj</var> is a character.</dd>
+  <dt><span class='ttb'>(char=? <var>c1</var> <var>c2</var>)</span></dt>
+      <dd> It returns <tt>#t</tt> if <var>c1</var> and <var>c2</var> are the same character. </dd>
+  <dt><span class='ttb'>(char-&gt;integer <var>c</var>)</span></dt>
+      <dd> It converts <var>c</var> to the corresponding integer (character code).<br>
+Example: (char-&gt;integer #\a) &rArr; 97</dd>
+  <dt><span class='ttb'>(integer-&gt;char <var>n</var>)</span></dt>
+      <dd> It converts an integer to the corresponding character.</dd>
+  <dt><span class='ttb'>(char&lt;? <var>c1</var> <var>c2</var>),
+    <br>(char&lt;=? <var>c1</var>, <var>c2</var>), <br>(char&gt; <var>c1</var> <var>c2</var>),
+    <br>(char&gt;= <var>c1</var> <var>c2</var>)</span></dt>
+      <dd>
+These functions compare characters. Actually, the functions compare the size of the character codes.<br>
+For instance,
+<tt>(char&lt;? <var>c1</var> <var>c2</var>)</tt> is equal to 
+<tt>(&lt; (char-&gt;integer <var>c1</var>) (char-&gt;integer <var>c2</var>)) </tt>.</dd>
+  <dt><span class='ttb'>(char-ci=? <var>c1</var> <var>c2</var>), <br>(char-ci&lt;? <var>c1</var> <var>c2</var>), <br>(char-ci&lt;=? <var>c1</var> <var>c2</var>), <br>(char-ci&gt;? <var>c1</var> <var>c2</var>), <br>(char-ci&gt;=? <var>c1</var> <var>c2</var>)</span></dt>
+      <dd>
+These functions compare characters without case sensitivity.</dd>
+  <dt><span class='ttb'>(char-alphabetic? <var>c</var>), <br>(char-numeric? <var>c</var>), <br>(char-whitespace? <var>c</var>), <br>(char-upper-case? <var>c</var>), <br>(char-lower-case? <var>c</var>)</span></dt>
+      <dd>
+These functions return <tt>#t</tt> if <var>c</var> is alphabetic, numerical, blank, cap, and lower-case, 
+respectively</dd>
+  <dt><span class='ttb'>(char-upcase <var>c</var>), <br>(char-downcase <var>c</var>)</span></dt>
+      <dd> These functions returns corresponding cap/lower if <var>c</var> is lower/cap. 
+If not they returns <var>c</var> itself.</dd>
+</dl>
+
+<h2>3. Strings</h2>
+Strings are enclosed by double quotation marks. For instance,   "abc"  represents the string <u>abc</u>.
+<p>
+  Following functions are about strings defined in the R<sup>5</sup>RS.
+
+<dl>
+  <dt><span class='ttb'>(string? <var>s</var>)</span></dt>
+      <dd> It returns <tt>#t</tt> if <var>s</var> is a string.</dd>
+  <dt><span class='ttb'>(make-string <var>n</var> <var>c</var>)</span></dt>
+      <dd> It returns a string consisting of <var>n</var> of characters <var>c</var>.
+ The character <var>c</var> can be omitted.</dd>
+  <dt><span class='ttb'>(string-length <var>s</var>)</span></dt>
+      <dd> It returns the length of a string <var>s</var>.</dd>
+  <dt><span class='ttb'>(string=? <var>s1</var> <var>s2</var>)</span></dt>
+      <dd> It returns <tt>#t</tt> if strings <var>s1</var> and <var>s2</var> are the same.</dd>
+  <dt><span class='ttb'>(string-ref <var>s</var> <var>idx</var>)</span></dt>
+      <dd> It returns the <var>idx</var>-th character (counting from 0)  of a string <var>s</var>.</dd>
+  <dt><span class='ttb'>(string-set! <var>s</var> <var>idx</var> <var>c</var>)</span></dt>
+      <dd> It sets the <var>idx</var>-th character of a string <var>s</var> to <var>c</var>.</dd>
+  <dt><span class='ttb'>(substring <var>s</var> <var>start</var> <var>end</var>)</span></dt>
+      <dd> It returns a substring of <var>s</var> consisting of characters from <var>start</var> to <var>(end</var>-1). <br>
+  <tt>(substring "abcdefg" 1 4) &rArr; "bcd"</tt></dd>
+  <dt><span class='ttb'>(string-append <var>s1 s2 ...</var>)</span></dt>
+      <dd> It connects strings  <var>s1, s2 ...</var>.</dd>
+  <dt><span class='ttb'>(string-&gt;list <var>s</var>)</span></dt>
+      <dd> It converts a string  <var>s</var> to a list of characters. </dd>
+  <dt><span class='ttb'>(list-&gt;string <var>ls</var>)</span></dt>
+      <dd> It converts a list of characters (<var>ls</var>) to a string.</dd>
+  <dt><span class='ttb'>(string-copy <var>s</var>)</span></dt>
+      <dd> It copies a string <var>s</var>.</dd>
+</dl>
+<h3> Exercise 1 </h3>
+Write a function (<tt>title-style</tt>) that capitalizes the first character of words.
+<pre class='samp'>
+(title-style "the cathedral and the bazaar")
+&rArr; "The Cathedral And The Bazaar"
+</pre>
+
+<h2>4. Summary</h2>
+I have explained about characters and strings in this chapter.<p>
+I will explain about symbol in the next chapter.
+Symbol is a characteristic data type of Lisp/Scheme.
+Fast text manipulation is possible using this data type.
+
+<h3>Answer 1</h3>
+Convert a string to a list and capitalize the characters before spaces 
+and convert it again to the string. 
+
+<pre class='code'>
+(define (identity x) x)
+
+(define (title-style str)
+  (let loop ((ls (string-&gt;list str))
+	     (w #t)
+	     (acc '()))
+    (if (null? ls)
+	(list-&gt;string (reverse acc))
+	(let ((c (car ls)))
+	  (loop (cdr ls)
+		(char-whitespace? c)
+		(cons ((if w char-upcase identity) c) acc))))))
+</pre>
+
+<pre class='code'>
+<span class='comment'>;;; Another answer, You can assign caps to the string.</span>
+(define (title-style str)
+  (let ((n (string-length str)))
+    (let loop ((w #t) (i 0))
+      (if (= i n)
+	  str
+	  (let ((c (string-ref str i)))
+	    (if w (string-set! str i (char-upcase c)))
+	    (loop (char-whitespace? c) (1+ i)))))))
+</pre>
+
+<pre class='samp'>
+(title-style "the cathedral and the bazaar")
+&rArr; "The Cathedral And The Bazaar"
+</pre>
+
+<hr>
+
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme_asg_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  10. Assignment</a></td>
+<td><a rel=up href="idx_scm_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Yet Another Scheme Tutorial</a></td>
+<td><a rel=next href="scheme_sym_e.html"><img src='../images/right_arrow.gif' class='arrow' border=0>12. Symbols</a></td>
+<td><a href='../gb/write_guestbook_e.php?ref=lisp/scheme_cs_e.html&t=%28Scheme%29+Characters+and+Strings' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+</body>
+</html>
+
+

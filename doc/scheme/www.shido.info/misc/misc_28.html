@@ -1,0 +1,61 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="graffiti-proof guestbook">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> ゲストブックの落書き防止 </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc28&t=%A5%B2%A5%B9%A5%C8%A5%D6%A5%C3%A5%AF%A4%CE%CD%EE%BD%F1%A4%AD%CB%C9%BB%DF"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>ゲストブックの落書き防止</h1>
+<hr>
+Dec 20, 2006
+<p>
+
+紫藤もゲストブックの落書きには悩まされていましたが、
+次の3つの対策を採ることでほぼ完全に排除することができました。
+<br>
+種明かしをしてしまうとフィルターをすり抜ける落書きをされることが心配ですが、
+同様の悩みを抱えるサイト運営者のご参考になればと思い、紫藤の防止策を公開します。
+
+<ol>
+<li> "http://" という文字列の数が全行数の半分以上のものは落書きとみなす。<br>
+ほとんどの落書きはやたらとこの文字列を含んでいるのでこれでかなりの落書きを排除できます。
+また、通常の書き込みで、この文字列が全行数の半分を超えることはまず無いので、通常の書き込みは
+このフィルターを通過します。
+<li> 単語のブラックリストを作り、そのリストに載っている単語を含む書き込みは落書きとみなす。<br>
+このサイトの内容から考えて、"viagra" などという単語を含む書き込みはありえないので排除します。
+<li>日本語のゲストブックについては 2 文字連続するひらがなを含む書き込みを許可し、それ以外は排除。<br>
+ひらがな 1 文字だけだと、文字エンコードの関係上、中国語の書き込みを完全には排除できません。
+また、たいていの日本語の文章は 2 文字以上連続したひらがなを含みます。
+</ol>
+
+以上の対策はごく簡単なプログラムで実現できます。落書きにお悩みの方は試してみてください。
+紫藤のサイトは一日 100 回以上落書き攻撃を受けていますが、今のところほぼ完全に排除できています。
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc28&t=%A5%B2%A5%B9%A5%C8%A5%D6%A5%C3%A5%AF%A4%CE%CD%EE%BD%F1%A4%AD%CB%C9%BB%DF"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

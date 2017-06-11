@@ -1,0 +1,651 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso8859-1">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, GUI, Tk">
+<meta name="description" content="On the GUI of Sather using Tk">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido_e.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Try Sather) 14. GUI  </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0></a>
+<a rel=home href='http://www.shido.info/index_e.php'>HOME</a></td>
+
+<td><a rel=prev href="sa_safety_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  13. Programming by contract</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+ Try Sather</a></td>
+
+<td><a rel=next href="sa_interface_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+15. Interface with other languages such as C and Fortran</a></td>
+
+<td><a rel=download href="sa_gui.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_gui_e.html&t=%28Try+Sather%29+14%2E+GUI++'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+<h1> 14. GUI</h1>
+<hr>
+
+<h2>1. Introduction</h2>
+Sather has an interface to Tk, which means that you can write GUI programs easily 
+if Tcl/Tk has been installed in your system.<p>
+
+Even the function is not so rich as the developing pace of Sather is slow, it is many enough
+to make typical GUI applications.
+The performance of Sather/Tk is much better than those of Tcl/Tk or Python/Tk 
+because the code of Sather/Tk is compiled to a native code through a C code.
+
+<h2>2. Where you can find the document and demo script.</h2>
+You can find the document of the GUI tool at $SATHER_HOME/Doc/Gui/Doc.fmk.ps.
+Another document is at
+
+<a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+Sather Class Index</a>
+The description of these documents, however, is somehow different from that the Sather compiler does.
+As a result, you should check the source code, which you can find under
+ $SATHER_HOME/Library/System/Gui.
+<p>
+You can find demo scripts under
+ $SATHER_HOME/Library/System/Gui/Demos.
+On the 2nd page of 
+Doc.fmk.ps, you can find a table of program names and class names of the main function. 
+For instance, you can compile <tt>pizza.sa</tt> like:
+<pre class='samp'>
+sacomp -gui -main PIZZA_MAIN -o pizza pizza.sa
+</pre>
+You need the <tt>-gui</tt> flag to compile a GUI program.
+The executable is produced even many warnings appear during compilation.
+When you run <tt>pizza</tt>, a widget shown in Fig. 1 appears.
+It calculates pizza prices when you select the type, size and topping.
+<p>
+<center>
+<img src='pizza.png'><p>
+Figure 1: The widget of pizza.
+</center>
+
+<h2>3. Hello World!</h2>
+[code 1] shows a GUI version of the <q>Hello World!</q> program.<p>
+
+[code 1]: tkhello.sa
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple Tk hello world.</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        include GUI_UTIL;  <span class="comment">-- include it and then just define init to write a GUI program</span>
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>        init is
+<span class="linenumber">07:</span>           label::=#TK_LABEL(root_window,TK_LABEL_CFG::std.text("Hello World!")); <span class="comment">-- explained in later section /span>
+<span class="linenumber">08:</span>        end;
+<span class="linenumber">09:</span>     end;
+</pre>
+
+Compile and execute then you get a widget like Fig. 2. 
+<pre class='samp'>
+$ sacomp -gui tkhello.sa -o tkhello
+$ ./tkhello
+</pre>
+
+<center>
+<img src='tkhello.png'><p>
+Figure 2. A simple Hello World written in Sather/Tk.
+</center>
+
+
+<h3>3.1. GUI_UTIL</h3>
+Parameters and methods for GUI programming (Table 1) are defined in GUI_UTIL. 
+What you have to do is just define <tt>init</tt> by yourself.<p>
+
+<center>
+Table 1. Variables and methods defined in GUI_UTIL.
+<table border=1>
+   <tr>
+      <th>Method or Variables</th>
+      <th>Explanation</th>
+   </tr>
+   <tr>
+      <td>(stab) init</td>
+      <td>You should write it by yourself.</td>
+   </tr>
+   <tr>
+      <td>root_window</td>
+      <td>The top level widget.</td>
+   </tr>
+   <tr>
+      <td>packer</td>
+      <td>to pack widgets. same as TK_PACK::create.</td>
+   </tr>
+   <tr>
+      <td>quit_routine</td>
+      <td>a ROUT to terminate</td>
+   </tr>
+   <tr>
+      <td>main</td>
+      <td>You do not have to touch it usually.</td>
+   </tr>
+   <tr>
+      <td>startup_gui</td>
+      <td>to make widgets. seldom used.</td>
+   </tr>
+   <tr>
+      <td>gui_loop</td>
+      <td>to wait events seldom used.</td>
+   </tr>
+</table>
+</center>
+<h3>3.2. Widget class</h3>
+Sather has several widget classes such as <tt>TK_LABEL</tt> and <tt>TK_BUTTON</tt>.
+These widget classes are the subclass of the <tt>$TK_WIDGET</tt>.
+In sather, classes for widget and those for configuration are separated.
+An instance of a widget class are created with some specification such as the parent widget, configuration, and placing.
+These specification can be omitted. In the case of [code 1], placing is omitted as only one widget exists.
+See <tt>$SATHER_HOME/Library/System/Gui/widget.sa</tt> for detailed information.
+
+
+<h3>3.3. Widget config class</h3>
+The widgets are configured by their own configuring classes. 
+For instance, the instances of <tt>TK_LABEL</tt> are configured by <tt>TK_LABEL_CFG</tt>.
+The <tt>std</tt> method of the configuring class is almost same as the <tt>create</tt>.
+The <tt>text</tt> method is to specify the text on the label.
+
+
+<h2>4. Placing widgets</h2>
+I am going to explain how to place the widgets in this section.
+I will explain about the <tt>TK_BUTTON</tt> class as well.<p>
+
+Figure 3 shows a label with a button.
+By pressing a <q>TOGGLE</q> button, the text color and the background are toggled.
+
+<center>
+<img src='button_hello1.png' style='margin:20px'>
+<img src='button_hello2.png' style='margin:20px'>
+<p>
+Fig. 3. Another Hello World. The text color and the background are toggled by pressing a toggle button.
+</center>
+[code 2] shows the source code (button_hello.sa).
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple Tk hello world with toggle button.</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        include GUI_UTIL;
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>        private attr label:TK_LABEL;              <span class="comment">-- The <q>Hello World</q> label.</span>
+<span class="linenumber">07:</span>        private attr label_config:TK_LABEL_CFG;   <span class="comment">-- An instance of the label configuring class.</span>
+<span class="linenumber">08:</span>        private attr black_foreground:BOOL;          <span class="comment">-- true if black text</span>
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>        toggle is                         <span class="comment">-- to toggle black and white</span>
+<span class="linenumber">11:</span>           if black_foreground then
+<span class="linenumber">12:</span>     	 label.configure(label_config.foreground("white").background("black")); <span class="comment">-- use the configure method to alter the configuration</span>
+<span class="linenumber">13:</span>     	 black_foreground:=false;
+<span class="linenumber">14:</span>           else 
+<span class="linenumber">15:</span>     	 label.configure(label_config.foreground("black").background("white"));
+<span class="linenumber">16:</span>     	 black_foreground:=true;
+<span class="linenumber">17:</span>           end;
+<span class="linenumber">18:</span>        end;
+<span class="linenumber">19:</span>     
+<span class="linenumber">20:</span>        init is                           <span class="comment">-- initializing method</span>
+<span class="linenumber">21:</span>           label_config:=#;
+<span class="linenumber">22:</span>           label:=#(root_window, 
+<span class="linenumber">23:</span>     		label_config.text("Hello World!").padx(6.0).pady(6.0).foreground("black").background("white"),
+<span class="linenumber">24:</span>     		packer.top_grow_horiz_n_vert.anchor(TK_ANCHOR::center));
+<span class="linenumber">25:</span>           frame::=#TK_FRAME(root_window, packer.bot);
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>           button1::=#TK_BUTTON(frame,
+<span class="linenumber">28:</span>     			  TK_BUTTON_CFG::std.text("EXIT").padx(6.0).pady(6.0),
+<span class="linenumber">29:</span>     			  packer.left);
+<span class="linenumber">30:</span>           button1.command(quit_routine);
+<span class="linenumber">31:</span>           
+<span class="linenumber">32:</span>           button2::=#TK_BUTTON(frame,
+<span class="linenumber">33:</span>     			  TK_BUTTON_CFG::std.text("TOGGLE").padx(6.0).pady(6.0),
+<span class="linenumber">34:</span>     			  packer.right);
+<span class="linenumber">35:</span>           button2.command(bind(toggle));
+<span class="linenumber">36:</span>           black_foreground:=true;
+<span class="linenumber">37:</span>        end;
+<span class="linenumber">38:</span>     end;
+</pre>
+
+<h3>4.1. TK_PACK</h3>
+The TK_PACK is to place widgets. The <tt>packer</tt> is a pre-defined instance
+of this class defined in the <tt>GUI_UTIL</tt>, which means that you can used the <tt>packer</tt>.
+ just after importing the utility class.
+<p>
+The <tt>TK_PACK</tt> class has methods shown in Table 2.
+<center>
+Table 2: Methods of TK_PACK.
+<table border=1>
+   <tr>
+      <th>Method</th>
+      <th>Explanation</th>
+   </tr>
+   <tr>
+      <td>top</td>
+      <td>to place on top of.</td>
+   </tr>
+   <tr>
+      <td>top_grow_horiz</td>
+      <td>to place on top and expand horizontally</td>
+   </tr>
+   <tr>
+      <td>top_grow_horiz_n_vert</td>
+      <td>to place on top and expand horizontally and vertically</td>
+   </tr>
+   <tr>
+      <td>top_n_grow_vert</td>
+      <td>to place on top and expand vertically</td>
+   </tr>
+   <tr>
+      <td>bot</td>
+      <td>to place on bottom</td>
+   </tr>
+   <tr>
+      <td>bot_grow_horiz</td>
+      <td>to place on bottom and expand horizontally</td>
+   </tr>
+   <tr>
+      <td>bot_grow_horiz_n_vert</td>
+      <td>to place on bottom and expand horizontally and vertically</td>
+   </tr>
+   <tr>
+      <td>bot_n_grow_vert</td>
+      <td>to place on bottom and expand vertically</td>
+   </tr>
+   <tr>
+      <td>left</td>
+      <td>to place left side.</td>
+   </tr>
+   <tr>
+      <td>left_grow_vert</td>
+      <td>to place left side and expand vertically</td>
+   </tr>
+   <tr>
+      <td>left_grow_vert_n_horiz</td>
+      <td>to place left side and expand horizontally and vertically </td>
+   </tr>
+   <tr>
+      <td>left_n_grow_horiz</td>
+      <td>to place left side and expand horizontally </td>
+   </tr>
+   <tr>
+      <td>right</td>
+      <td>to place right side.</td>
+   </tr>
+   <tr>
+      <td>right_grow_vert</td>
+      <td>to place right side and expand vertically</td>
+   </tr>
+   <tr>
+      <td>right_grow_vert_n_horiz</td>
+      <td>to place right side and expand horizontally and vertically</td>
+   </tr>
+   <tr>
+      <td>right_n_grow_horiz</td>
+      <td>to place right side and expand horizontally and vertically</td>
+   </tr>
+   <tr>
+      <td>external_padding(x, y:FLT)</td>
+      <td>to configure the margin</td>
+   </tr>
+   <tr>
+      <td>internal_padding(x, y:FLT)</td>
+      <td>to configure the paddings.</td>
+   </tr>
+   <tr>
+      <td>anchor(a:TK_ANCHOR)</td>
+      <td>to fine tune the position</td>
+   </tr>
+</table>
+</center>
+
+<h3>4.2. TK_ANCHOR</h3>
+The <tt>TK_ANCHOR</tt> is to fine tune the position when the exact position can not be determined by the <tt>TK_PACK</tt> uniquely.
+<center>
+Table 3: Methods of <tt>TK_ANCHOR</tt>
+<table border=1>
+<tr>
+<th>Method</th><th>Explanation</th>
+</tr>
+   <tr>
+      <td>center</td>
+      <td>to put in the center</td>
+   </tr>
+   <tr>
+      <td>n</td>
+      <td>to put on top</td>
+   </tr>
+   <tr>
+      <td>nw</td>
+      <td>to put at top-left</td>
+   </tr>
+   <tr>
+      <td>w</td>
+      <td>to put left side </td>
+   </tr>
+   <tr>
+      <td>sw</td>
+      <td>bottom-left</td>
+   </tr>
+   <tr>
+      <td>s</td>
+      <td>bottom</td>
+   </tr>
+   <tr>
+      <td>se</td>
+      <td>bottom right</td>
+   </tr>
+   <tr>
+      <td>e</td>
+      <td> right</td>
+   </tr>
+   <tr>
+      <td>ne</td>
+      <td>top right</td>
+   </tr>
+</table>
+</center>
+<p>
+For instance, the label created by [code 2] expand horizontally and vertically and 
+the text (<q>Hello World</q>) is always placed in the center as shown in Fig. .4.
+<p>
+<center>
+<img src='button_hello_ex.png'><p>
+Figure 4. The <q>Hello World</q> widget after expansion.
+</center>
+
+<h3>4.3. TK_FRAME</h3>
+The <tt>TK_FRAME</tt> is to make a group of widgets.
+In [code 2], I use it to group two buttons (lines 25, 27 and 32).
+
+<h3>4.4. TK_BUTTON</h3>
+The <tt>TK_BUTTON</tt> is to create a button. 
+The <tt>command</tt> method defines
+the function that is called by pressing the button.
+The parameter of the <tt>command</tt> is a <tt>ROUT</tt> with no argument and no return value
+ (see lines 30 and 35 of [code 2]).
+
+<h2>5. Using radio buttons</h2>
+Figure 5 shows the <q>Hello World</q> widget with radio buttons (see also [code 3]).
+You can select the text color and background color using the radio buttons.
+<p>
+
+<center>
+<img src='radio_hello.png'><p>
+Figure 5. The <q>Hello World</q> program with radio buttons.<br>
+You can select the text color and the background color by the radio buttons.
+</center>
+<p>
+[code 3] 
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple Tk hello world with radio buttons.</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        include GUI_UTIL;
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>        private const fgcolors:ARRAY{STR}:=|"white","black", "red", "blue", "yellow"|;                     <span class="comment">-- text color</span>
+<span class="linenumber">07:</span>        private const bgcolors:ARRAY{STR}:=|"whitesmoke", "dimgray", "salmon", "skyblue", "lightyellow"|;  <span class="comment">-- background color</span>
+<span class="linenumber">08:</span>        private attr label:TK_LABEL;
+<span class="linenumber">09:</span>        private attr label_config:TK_LABEL_CFG;
+<span class="linenumber">10:</span>        private attr fg:TK_VAR;
+<span class="linenumber">11:</span>        private attr bg:TK_VAR;
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>        config_label is
+<span class="linenumber">14:</span>           label.configure(label_config.foreground(fg.query).background(bg.query));
+<span class="linenumber">15:</span>        end;
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>        rbuttons(name:STR, colors:ARRAY{STR}, fr:TK_FRAME, v:TK_VAR, default:STR) is  <span class="comment">-- The method to make a set of radio buttons.</span>
+<span class="linenumber">18:</span>           s:STR;
+<span class="linenumber">19:</span>           r::=#TK_LABEL(fr, TK_LABEL_CFG::std.text(name), packer.top);
+<span class="linenumber">20:</span>           loop
+<span class="linenumber">21:</span>     	 s:=colors.elt!;
+<span class="linenumber">22:</span>     	 b::=#TK_RADIO(fr, 
+<span class="linenumber">23:</span>     		       TK_RADIO_CFG::std.text(s).variable(v).val(s), 
+<span class="linenumber">24:</span>     		       packer.top.anchor(TK_ANCHOR::w));
+<span class="linenumber">25:</span>     	 b.command(bind(config_label));
+<span class="linenumber">26:</span>     	 if s=default then b.select; end;                                    <span class="comment">-- set the default button</span>
+<span class="linenumber">27:</span>           end;
+<span class="linenumber">28:</span>        end;
+<span class="linenumber">29:</span>     
+<span class="linenumber">30:</span>     
+<span class="linenumber">31:</span>        init is
+<span class="linenumber">32:</span>           label_config:=#;
+<span class="linenumber">33:</span>           fg:=#;
+<span class="linenumber">34:</span>           bg:=#;
+<span class="linenumber">35:</span>           label:=#(root_window, 
+<span class="linenumber">36:</span>     	       label_config.text("Hello World!").padx(6.0).pady(6.0).foreground("black").background("white"),
+<span class="linenumber">37:</span>     	       packer.top_grow_horiz_n_vert.anchor(TK_ANCHOR::center));
+<span class="linenumber">38:</span>           frame::=#TK_FRAME(root_window, packer.bot);
+<span class="linenumber">39:</span>     
+<span class="linenumber">40:</span>           <span class="comment">-- creating radio buttons</span>
+<span class="linenumber">41:</span>           fconfig:TK_FRAME_CFG:=TK_FRAME_CFG::std.borderwidth(3.0).relief_ridge;      
+<span class="linenumber">42:</span>           rbuttons("foreground", fgcolors, #TK_FRAME(frame, fconfig, packer.left), fg, "black");   <span class="comment">-- making a set of radio buttons for text color</span>
+<span class="linenumber">43:</span>           rbuttons("background", bgcolors, #TK_FRAME(frame, fconfig, packer.right), bg, "whitesmoke"); <span class="comment">-- for the background</span>
+<span class="linenumber">44:</span>        end;
+<span class="linenumber">45:</span>     end;
+</pre>
+
+
+<h3>5.1. TK_VAR</h3>
+This is a variable used in <tt>TK_RADIO</tt> and  <tt>TK_CHECK</tt>.
+It is converted to a string by <tt>query</tt> method.
+<h3>5.2. TK_RADIO</h3>
+Radio button. Use <tt>command</tt> to configure the function when the button is selected.
+<h3>5.3. TK_RADIO_CFG</h3>
+It is to configure the <tt>TK_RADIO</tt>.
+It sets the <tt>TK_VAR</tt> (where the <tt>variable</tt> method stores a value)
+and the string (where the <tt>value</tt> method stores the text).
+
+
+<h2>6. A canvas version of the <q>Hello World</q> program</h2>
+Following shows a simple example of <tt>TK_CANVAS</tt>
+A widget like Fig. 6 appears when the program shown in [code 4] (canvas_hello.sa) is executed.
+The <q>Hello World</q> string moves to the position at mouse left click.
+In addition,  the text color turns red when the mouse is on the string.
+<p>
+<center>
+<img src='canvas_hello.png'><p>
+
+Figure 6. <q>Hello World</q> with <tt>TK_CANVAS</tt>. 
+The string moves to the position where the mouse left clicked.
+</center>
+<p>
+
+[code 4] canvas_hello.sa
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple Tk hello world with Tk canvas</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        include GUI_UTIL;
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>        private attr cvs:TK_CANVAS;
+<span class="linenumber">07:</span>        private attr tag:TK_CANVAS_TAG;
+<span class="linenumber">08:</span>        private attr atag:ARRAY{TK_CANVAS_TAG};
+<span class="linenumber">09:</span>     
+<span class="linenumber">10:</span>        mv(a:TK_EVENT_INFO) is                          <span class="comment">-- moving the text by mouse left click</span>
+<span class="linenumber">11:</span>           cvs.delete(tag);                             <span class="comment">-- deleting the original text</span>
+<span class="linenumber">12:</span>           x,y:INT;
+<span class="linenumber">13:</span>           a.mouse_coordinates(out x, out y);           <span class="comment">-- getting mouse position</span>
+<span class="linenumber">14:</span>           cvs.draw_text("Hello World! @(" + x + "," + y + ")",
+<span class="linenumber">15:</span>     		    x.flt, y.flt, atag, TK_CTEXT_CFG::std.fill("navy"));   <span class="comment">-- showing the new text there.</span>
+<span class="linenumber">16:</span>        end;
+<span class="linenumber">17:</span>     
+<span class="linenumber">18:</span>        rd(a:TK_EVENT_INFO) is
+<span class="linenumber">19:</span>           cvs.text_configure(tag, TK_CTEXT_CFG::std.fill("red"));  <span class="comment">-- turning the text color red</span>
+<span class="linenumber">20:</span>        end;
+<span class="linenumber">21:</span>     
+<span class="linenumber">22:</span>        nv(a:TK_EVENT_INFO) is
+<span class="linenumber">23:</span>           cvs.text_configure(tag, TK_CTEXT_CFG::std.fill("navy"));  <span class="comment">-- turning the text color navy</span>
+<span class="linenumber">24:</span>        end;
+<span class="linenumber">25:</span>     
+<span class="linenumber">26:</span>        init is
+<span class="linenumber">27:</span>           dummy:$OB:=void;       <span class="comment">-- it is required to show the title on the title bar</span>
+<span class="linenumber">28:</span>           TK_WINDOW_MGR::title(root_window, "Hello World! on Tk Canvas");   <span class="comment">-- showing the title on the title bar</span>
+<span class="linenumber">29:</span>           tag:=#;
+<span class="linenumber">30:</span>           atag:=#(|tag|);
+<span class="linenumber">31:</span>           cvs:=#(root_window,                  <span class="comment">-- creating a canvas without scroll bars</span>
+<span class="linenumber">32:</span>     	     TK_CANVAS_CFG::std.background("cornsilk").hscroll(false).vscroll(false).scroll_region(0.0,0.0,200.0,200.0)); 
+<span class="linenumber">33:</span>           cvs.draw_text("Hello World! @(100.0,100.0)", 100.0, 100.0, atag,TK_CTEXT_CFG::std.fill("navy"));  <span class="comment">-- to draw Hello World at (100,100)</span>
+<span class="linenumber">34:</span>           cvs.bind_event(TK_BUTTON_EVENT::B1, bind(mv(_)));  <span class="comment">-- mv is called by mouse left click</span>
+<span class="linenumber">35:</span>           cvs.bind_event(TK_EVENT::Widget_enter, tag, bind(rd(_)));  <span class="comment">-- rd is called when mouse is on the string</span>
+<span class="linenumber">36:</span>           cvs.bind_event(TK_EVENT::Leave, tag, bind(nv(_)));  <span class="comment">-- nv is called when mouse leave the string</span>
+<span class="linenumber">37:</span>        end;
+<span class="linenumber">38:</span>     end;
+</pre>
+
+
+<h3>6.1. TK_CANVAS, TK_CANVAS_CFG</h3>
+The <tt>TK_CANVAS</tt> and <tt>TK_CANVAS_CFG</tt> are to create and to configure canvas widgets.
+You can draw ellipses, lines, rectangles, polygons and strings on the canvas.
+See $SATHER_HOME/Library/System/Gui/canvas.sa for detailed.
+
+<h3>6.2. Objects on the TK_CANVAS</h3>
+The objects on the TK_CANVAS has its own configuring class as shown in Table 4.
+<p>
+<center>
+Table 4. The configuration classes of widgets on the canvas.
+<table border=1>
+   <tr>
+      <th>Object</th>
+      <th>Config Classes</th>
+   </tr>
+   <tr>
+      <td>line</td>
+      <td>TK_LINE_CFG</td>
+   </tr>
+   <tr>
+      <td>ellipse</td>
+      <td>TK_OVAL_CFG</td>
+   </tr>
+   <tr>
+      <td>polygon</td>
+      <td>TK_POLY_CFG</td>
+   </tr>
+   <tr>
+      <td>rectangle</td>
+      <td>TK_RECT_CFG</td>
+   </tr>
+   <tr>
+      <td>string</td>
+      <td>TK_CTEXT_CFG</td>
+   </tr>
+   <tr>
+      <td>window</td>
+      <td>TK_CWIND_CFG</td>
+   </tr>
+</table>
+</center>
+<h3>6.3. TK_EVENT, TK_BUTTON_EVENT, TK_KEY_EVENT</h3>
+The <tt>TK_EVENT</tt>, <tt>TK_BUTTON_EVENT</tt>, and <tt>TK_KEY_EVENT</tt> are bound to 
+mouse moving, mouse button click, and key press, respectively.
+See
+ $SATHER_HOME/Library/System/Gui/events.sa for detail.
+
+<h3>6.4. TK_EVENT_INFO</h3>
+Functions bound by <tt>bind_event</tt> have type <tt>ROUT{TK_EVENT_INFO}</tt>.
+<br>
+<tt>TK_EVENT_INFO</tt> has several methods such as <tt>mouse_coordinates(out x, out y)</tt> to get the mouse position.
+See also $SATHER_HOME/Library/System/Gui/events.sa.
+
+<h3>6.5. TK_WINDOW_MGR</h3>
+The TK_WINDOW_MGR is to add title on the title bar.
+See lines 27 and 28 of [code 4].
+
+<h2>7. Tk Text</h2>
+Finally, I will explain on the <tt>Tk_Text</tt> using a simple program  to show file contents ([code 5], tkmore.sa).
+You will get a widget like Fig. 7. by executing the program.
+<p>
+<center>
+<img src='tkmore.png'><p>
+Figure 7. Showing file contents using <tt>TK_TEXT</tt>.
+</center>
+<p>
+
+[code 5] tkmore.sa
+<pre class='code'>
+<span class="linenumber">01:</span>     <span class="comment">-- a simple Tk version more</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     class MAIN is
+<span class="linenumber">04:</span>        include GUI_UTIL main-&gt;;
+<span class="linenumber">05:</span>        
+<span class="linenumber">06:</span>        private attr s,fn:STR;
+<span class="linenumber">07:</span>     
+<span class="linenumber">08:</span>        main(av:ARRAY{STR}) is        <span class="comment">-- modify main to have arguments</span>
+<span class="linenumber">09:</span>           if av.size=2 then
+<span class="linenumber">10:</span>     	 fn:=av[1];              <span class="comment">-- open the file whose name is given by av[1]</span>
+<span class="linenumber">11:</span>     	 f::=FILE::open_for_read(fn);
+<span class="linenumber">12:</span>     	 if f.error then
+<span class="linenumber">13:</span>     	    #ERR + "Cannot open " + fn +"\n";
+<span class="linenumber">14:</span>     	    UNIX::exit(1);
+<span class="linenumber">15:</span>     	 else
+<span class="linenumber">16:</span>     	    s:=f.str;            <span class="comment">-- read the contents</span>
+<span class="linenumber">17:</span>     	    f.close;             <span class="comment">-- and close it</span>
+<span class="linenumber">18:</span>     	    GUI_APP_END::startup;
+<span class="linenumber">19:</span>     	    init;
+<span class="linenumber">20:</span>     	    GUI_APP_END::main_loop;
+<span class="linenumber">21:</span>     	 end;
+<span class="linenumber">22:</span>           else
+<span class="linenumber">23:</span>     	 #ERR + "Usage: tkmore FILENAME\n";
+<span class="linenumber">24:</span>           end;
+<span class="linenumber">25:</span>        end;
+<span class="linenumber">26:</span>     
+<span class="linenumber">27:</span>        init is
+<span class="linenumber">28:</span>           dummy:$OB:=void;
+<span class="linenumber">29:</span>           TK_WINDOW_MGR::title(root_window, fn);     <span class="comment">-- show the title on the title bar</span>
+<span class="linenumber">30:</span>           txt::=#TK_TEXT(root_window, TK_TEXT_CFG::std.hscroll(false).background("ivory")); <span class="comment">-- making TK_TEXT without horizontal scroll bar</span>
+<span class="linenumber">31:</span>           txt+s;   <span class="comment">-- use '+' to show the contents</span>
+<span class="linenumber">32:</span>        end;
+<span class="linenumber">33:</span>     end;
+</pre>
+<p>
+The program is fast and convenient.
+<pre class='samp'>
+$sacomp -gui -o tkmore tkmore.sa
+$./tkmore tkmore.sa
+</pre>
+<h2>8. Summery</h2>
+Even the function of Sather/Tk is limited comparing with those of Tcl/Tk and Python/Tk (Tkinter),
+you can write simple GUI programs.
+The advantage of Sather/Tk is that the execution is fast and that
+code is concise comparing with C, C++ and (many others).
+See
+ <a href='http://www.icsi.berkeley.edu/~sather/Documentation/Library/LibraryBrowser/index.html'>
+Sather Class Index</a> for detailed information.
+<p>
+
+<a href='sa_gui.tar.bz2'>Download</a> and play with the code shown in this chapter.
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel=home href='http://www.shido.info/index_e.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0></a>
+<a rel=home href='http://www.shido.info/index_e.php'>HOME</a></td>
+
+<td><a rel=prev href="sa_safety_e.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  13. Programming by contract</a></td>
+
+<td><a rel=up href="index_e.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+ Try Sather</a></td>
+
+<td><a rel=next href="sa_interface_e.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+15. Interface with other languages such as C and Fortran</a></td>
+
+<td><a rel=download href="sa_gui.tar.bz2">
+  <img src='../images/down_arrow.gif' class='arrow' border=0>
+download</a></td>
+
+<td><a href='../gb/write_guestbook_e.php?ref=sather/sa_gui_e.html&t=%28Try+Sather%29+14%2E+GUI++'>
+<img src='../images/pencil.gif' class='arrow' border=0>Post Messages</a></td>
+</tr></table></p>
+
+</body></html>

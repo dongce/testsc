@@ -1,0 +1,271 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="second-hand note PC, Plamo Linux, Wireless LAN">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 中古ノートPC + Plamo Linux で無線 LAN </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc15&t=%C3%E6%B8%C5%A5%CE%A1%BC%A5%C8PC+%2B+Plamo+Linux+%A4%C7%CC%B5%C0%FE+LAN"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>中古ノートPC + Plamo Linux で無線 LAN</h1>
+<hr>
+Jun 01, 2006
+<p>
+
+<h2>1. はじめに</h2>
+街のホットスポットを利用するために中古のノート PC を買って、無線 LAN を使えるようにしました。
+<p>
+ドッキング型の B5 ノートを探したら Compaq ARMADA M300 (Pen-III 600) が 3 万円で売っていたので
+それを買うことにしました。
+案の定バッテリーが死んでいたので、新品の大容量バッテリー(16,000 円) を買いました。
+合計で 46,000 円となり、結構な出費ですが、新品の B5 ノートは最低でも 10 万円はするので
+Web と Mail だけを使うのであればこれで十分でしょう。
+ARMADA M300 は頑丈そうな作りで気に入っています。
+<p>
+また、無線 LAN カードと アクセスポイントのセットは NETGEAR WGB511BJP (5,800 円)を買いました。
+選択の理由は PC-Success で一番安く売っていたからです。
+<p>
+余計な出費を抑えるため、OS は Linux を利用することにしました。
+
+
+<h2>2. Plamo Linux のインストール</h2>
+OpenSuSE, FedoraCore などのディストリビューションは Windows なみに便利ですが、Windows よりも重く、
+とても PenIII-600 + 192 MB + 12 GB の組み合わせで動かせる代物ではありません。
+そこで、日本語が使え、動作が軽い 
+<a href='http://www.linet.gr.jp/~kojima/Plamo/index.html'>Plamo Linux 4.2</a> をインストールすることにしました。
+Plamo Linux はノート PC 用のディストリビューションとして動作の軽快さに定評があります。
+また、デバイスの自動検出にも工夫が凝らされています。日本語のフォントも多数収録されていて、他のディストリビューションより
+日本語の表示がきれいです。
+<p>
+インストールはいたって簡単で、iso イメージをとってきてインストールするだけです。<br>
+具体的な手順は、以下の通りです。（簡単に書きますので、やり方がわからないときは Google に聞いてください。)
+<ol>
+<li><a href='ftp://ftp.linet.gr.jp/pub/Plamo/CD-Image/'>ftp://ftp.linet.gr.jp/pub/Plamo/CD-Image/</a>から CD iso イメージを
+ダウンロードする。
+<li>md5sum で iso イメージがちゃんとダウンロードされたかチェックする。
+<li>iso イメージを CD-R に焼く。
+<li>一枚目の CD を ドライブに入れて PC を起動する。
+<li>root でログインする。パスワードは不要。
+<li>コマンドラインから setup と入力。
+<li>キーボードを選択する。
+<li>fdisk または cfdisk （紫藤は cfdisk をお勧め）で、パーティションを作成する。
+紫藤は swap を 400MB にしてあとは１つにまとめた。
+<li>インストールを開始する。指示と好みに従って選択する。お任せパックが楽。紫藤は gnome つきお任せパックを選択。
+<li>インストールが終わったら再起動して root でログイン。
+<li>コマンドラインから setup と入力。
+<li>まず、X window の設定を行う。画面の解像度だけ入力すれば後は自動でやってくれる。終了する前に
+"終了" を選択して設定を反映させる。
+<li>ネットワークの設定を行う。DHCP を使う。
+<li>setup メニューの adduser でユーザーを追加。紫藤は gnome を使うユーザーと twm (シンプルで懐かしい X window) を使うユーザーを
+１つずつ追加。ソフトウェアのインストールは gnome で、普段の使用は twm で行う。シェルは bash を選択。
+<li>一般ユーザーでログインして、xinit で X window を立ち上げる。
+<li>web につながるかチェックする。
+<li>好みに合うようにいろいろと設定する。
+</ol>
+
+紫藤はウィンドウマネージャーとして twm が気に入っています。昔の UNIX Workstation 風で懐かしいです。
+<br>
+いろいろなウィンドウマネージャーが試せるので、遊んでみてください。
+
+<h2>3. 無線 LAN を使えるようにする</h2>
+結構はまりました。安いハードウェアと軽い OS を使う代償といえるでしょう。<p>
+まず、自分の無線 LAN カードが Linux に対応しているか Google に聞いてみるのが良いでしょう。
+NETGEAR WG511A は ndiswrapper というエミュレータを使うと Windows 用のドライバーを用いて Linux 上で動かせる
+ということを Google 君から教わりました。
+ndiswrapper をインストールするためにはカーネルソースに含まれる fixdep というプログラムが
+必要です。
+手順は以下の通りです。
+<ol>
+<li> gnome ユーザーでログインする。(必ずしも必要ないが紫藤はこれが楽）
+<li> まず、カーネルソースのインストール。<br>
+Plamo Linux の 3 枚目の CD-R をドライブに挿入し、CD-ROM のアイコンをクリック。<br>
+contrib &rarr; Kerner と進み、kernelsrc-2.6.15.7-noarch-P2.tgz をドラッグドロップでハードディスクにコピーする。<br>
+ターミナルを開いて kernelsrc-2.6.15.7-noarch-P2.tgz のあるディレクトリに行き、以下のようにして
+インストールする。
+<pre class='samp'>
+ $ su
+ # /sbin/installpkg kernelsrc-2.6.15.7-noarch-P2.tgz <span class='comment'>installpkg は Plamo のパッケージインストール用ソフト</span>
+</pre>
+<li>次に ndiswrapper をインストールする。<br>
+<a href='http://sourceforge.net/projects/ndiswrapper/'>http://sourceforge.net/projects/ndiswrapper/</a>
+からndiswrapper をダウンロードして以下のようにしてインストール。
+<pre class='samp'>
+ $ tar xzvf ndiswrapper-1.16.tar.gz
+ $ cd ndiswrapper-1.16
+ $ make
+ $ su             <span class='comment'> sudo が使えたら</span>
+ # make install   <span class='comment'> sudo make install</span>
+</pre>
+<li>Windows 用ドライバーのインストール。（ドライバー名などは自分の環境にあわせて読み替えてください。）
+    <ol>
+    <li> Windows 用ドライバーの入った CD-ROM をドライブに挿入し、ディスクトップの CD-ROM アイコンをクリック。
+    <li> Driver &rarr; Windows XP とすすみ、WG511v2.INF をハードディスクにコピー。（とにかく *.inf が必要）
+    <li> ターミナルを開いて WG511v2.INF のあるディレクトリに行き、root になって以下のように入力する。
+<pre class='samp'>
+ # /usr/sbin/ndiswrapper -i WG511v2.INF
+ # /usr/sbin/ndiswrapper -l   <span class='comment'>確認</span>
+  wg511v2 installed
+ # /usr/sbin/ndiswrapper -m
+ Adding "alies wlan0 ndiswrapper" to  /etc/modprobe.conf
+</pre>
+    </ol>
+<li>設定はかなり面倒です。modules.conf, network.conf, network.fixed, network.mode, wireless.conf を設定する必要があります。
+   <ol>
+   <li>modules.conf に以下の1行を追加。
+<pre class='code'>
+alias wlan0 ndiswrapper
+</pre>
+
+   <li>network.conf の case "$ADDRESS" と esac の間に以下の行を追加。（eth0, default の設定をそのままコピーする）
+<pre class='code'>
+wlan0,default,*)
+   INFO="wlan0 default"
+   DHCP=y
+   PPPOE=n
+   GATEWAY=+
+   DNS=+
+   ;;
+</pre>
+
+   <li>network.fixed に以下の行を追加。
+<pre class='code'>
+wlan0
+</pre>
+
+   <li>network..mode に以下の行を追加。手動で起動するようにする。
+<pre class='code'>
+wlan0 -m
+</pre>
+
+   <li>wireless.conf を以下のようにする。(WEP 128 bit の場合）
+<span class='comment'>*</span> の項目は自分の環境に合わせて設定してください。
+アクセスポイントにもよりますが、WGR614B の場合きっかり 13 文字の WEP key が必要。
+<pre class='code'>
+case "$ADDRESS" in
+wlan0,*,*)
+    INFO="My wireless LAN"         <span class='comment'>*</span>
+    NICKNAME="WLAN"                <span class='comment'>*</span>
+    ESSID="MY_ESS_ID"              <span class='comment'>*</span>
+    NWID=
+    MODE="Managed"
+    FREQ=
+    CHANNEL=
+    SENS=
+    RATE=
+    KEYS="My key"                 <span class='comment'>*</span>
+    RTS=
+    FRAG=
+   IWCONFIG="key open" 
+   IWSPY=
+   IWPRIV=
+   WEP="open"           
+   WEP_KEYS="+s:aaaaaaaaaaaaa s:bbbbbbbbbbbbb s:ccccccccccccc s:ddddddddddddd" <span class='comment'>*</span>
+    ;;
+esac
+</pre>
+WEP_KEYS は複数設定可能。's' は文字列で設定するという意味。16進数で設定する hex オプションもあるがやり方がわかりません。
+'+' はこのキーを使うという意味。
+<p>
+紫藤のアクセスポイント (WGR614B) は 16 進数表示しか受け付けないので、文字列を hex にする簡単な python スクリプトを書きました。
+
+<pre class='code'>
+#! /usr/bin/env python
+KEYS=('aaaaaaaaaaaaa', 'bbbbbbbbbbbbb', 'ccccccccccccc', 'ddddddddddddd') <span class='comment'># 13 characters</span>
+
+for key in KEYS:
+    str = ''
+    for c in key:
+        str = str + "%02X" % (ord(c))
+    print str
+</pre>
+   </ol>
+</ol>
+無線 LAN カードを差し込んで、root で、
+<pre class='samp'>
+ # /sbin/ifctl wlan0 up
+</pre>
+とすれば、使えるようになります。カードを抜く前に
+<pre class='samp'>
+ # /sbin/ifctl wlan0 down
+</pre>
+とすることをお忘れなく。
+<p>
+複数のアクセスポイントにつなぐときはそれぞれの接続方法を wireless.conf と network.conf に書き、<tt>netscheme</tt> コマンドで切り替え可能です。
+<p>
+これで何とかつながりました。
+Gnome の Network Tools で見たところ、リンクスピード 54 Mbps となっていたのでちゃんと IEEE802.11g で認識されているみたいです。
+ここに書いたことが最善手かどうかはわかりません。
+WPA も使えるみたいですが（追加のソフトをインストールする必要あり）、
+個人宅では WEP で十分でしょう。念のため、ステルスモードと MAC address フィルタリングをかけときました。
+<p>
+
+カードによってはカーネルでサポートしているもの、
+<a href='http://lss.eternity.ne.jp/new/soft_add.php?4939'>madwifi</a> が使えるものなどがあり、設定方法がそれぞれ異なっています。
+Google で調べてみてください。
+また、<a href='http://www.gihyo.co.jp/magazines/plamo'>Plamo Linux Expert</a> という本も大変参考になりました。
+Plamo Linux はマイナーなディストリビューションなので web 上には断片的な記事しかありませんでした。
+この本が唯一のまとまった解説書であり（それでもかなり断片的ですが）この本無しでは無線 LAN は使えなかったでしょう。
+この本は Plano 4.0 用の内容ですが、4.2 でも十分使えます。
+
+
+
+<h2>4. メーラーと RSS リーダーのインストール</h2>
+
+Firefox はもともと入っているので後は好みのメーラーと RSS リーダーをインストールしました。
+
+<h3>4.1. メーラー</h3>
+メーラーは <a href='http://sylpheed.good-day.net/ja/'>Sylpheed</a> をインストールしました。使いやすく、さくさく動く優れもののメーラーです。
+Spam フィルター、スペルチェッカーなどは別途インストールする必要があるのでインストールが少し面倒といえば面倒ですが、全て
+<pre class='samp'>
+./configure 
+make
+sudo make install
+</pre>
+でインストールできます。
+<ol>
+<li>スパムフィルター: <a href='http://bogofilter.sourceforge.net/'>bogofilter</a> をインストール。
+<li>スペルチェックをする人は <a href='http://aspell.sourceforge.net/'>aspell</a>, 
+<a href='http://gtkspell.sourceforge.net/'>gtkspell</a> の順にインストール。
+<li>PGP を使う人は <a href='http://www.gnupg.org/'>GnuPG</a> をインストール。
+<li>最後に <a href='http://sylpheed.good-day.net/ja/'>Sylpheed</a> をインストール。
+</ol>
+
+<h3>4.2. RSS リーダー</h3>
+紫藤は Firefox エクステンションの <a href='http://firefox.geckodev.org/index.html?Sage'>Sage</a> を使っています。
+とてもよくできたソフトだと思います。
+導入方法は <a href='http://www.maemuki.com/x/archives/2004/11/19_0011.php'>http://www.maemuki.com/x/archives/2004/11/19_0011.php</a>
+に詳しく書かれています。
+
+<h2> 5. 終わりに</h2>
+これで安価（？？）にモバイル環境が整いました。<p>
+Plamo Linux は不親切といえば不親切なディストリビューションですが、その分軽いので
+古いマシンを動かすときに重宝します。
+また、日本語環境が整っているのもありがたいです。
+<p>
+あとは気が向いたときにフォントをインストールして Yahoo Game がちゃんと表示されるようにするだけです。
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc15&t=%C3%E6%B8%C5%A5%CE%A1%BC%A5%C8PC+%2B+Plamo+Linux+%A4%C7%CC%B5%C0%FE+LAN"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

@@ -1,0 +1,336 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="email, maildrop, python">
+<meta name="Author" content="Takafumi Shido">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="/shido.css" text="text/css">
+<link rel="icon" href="/images/shido.png" type="image/png">
+<title> 日本語の Subject でメールを振り分ける </title>
+</head>
+<body>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc44&t=%C6%FC%CB%DC%B8%EC%A4%CE+Subject+%A4%C7%A5%E1%A1%BC%A5%EB%A4%F2%BF%B6%A4%EA%CA%AC%A4%B1%A4%EB"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1>日本語の Subject でメールを振り分ける</h1>
+<hr>
+Jan 28, 2012
+<p>
+
+<h2>1. はじめに</h2>
+紫藤は受信したメールを <a href='http://www.courier-mta.org/maildrop/'>maildrop</a> を使ってサーバー上で振り分けていますが、
+最近は日本語が MIME format で表記されるようになったので、maildrop 単体では
+日本語でのメールの振り分けはできなくなりました。
+<p>
+そこで、maildrop に振り分けフォルダーを渡す 簡単な python スクリプトを書きました。
+このスクリプトは、標準入力からメールをうけとり、振り分け先フォルダーを標準出力に吐き出します。
+maildrop はその結果をうけとり、それに基づいてメールを振り分けます。
+<p>
+このスクリプトでは、日本語に変換した Subject と他のヘッダー部分を、あらかじめ登録しておいた振り分けルールと比較することによって
+振り分け先フォルダーを決めています。
+
+<h2>2. 振り分けフォルダを決める python スクリプト</h2>
+
+振り分けフォルダーを決めるスクリプト (<tt>suggest_folder.py</tt>) を以下に示します。
+大まかな動作は以下のとおりです。
+
+<ol>
+<li>登録してある正規表現データ (<tt>drop_rules.RULES</tt>) を読み込む。(14 行目: <tt>import drop_rules</tt>)<br>
+<p>
+  <tt>drop_rules.py</tt> には、キーがヘッダ項目で、値が正規表現である辞書のリストが登録されています。
+  また、各振り分けルールの辞書にはヘッダー項目のほかに <tt>'folder'</tt> というキーがあり、
+  ここの値が振り分け先フォルダーです。<br>
+
+  例えば <tt>drop_rules.py</tt> の
+  6 行目は、
+  <ul>
+    <li>Subject に 
+        お年玉, キャンペーン, ボーナス, クリスマス, ポイント, off, ショッピング, あるいは ローン  を含み、
+    <li>From に
+        idemitsucard, rakuten-card, あるいは amazon を含むメールは
+    <li>INBOX.sale に振り分ける
+  </ul>
+
+   という意味であり、7 行目は
+   <ul>
+      <li> Subject に カード, 請求, 明細, 引き落とし, 注文, 発送, パスワード,  password, あるいは 月 と 料金 を含むときは
+      <li> INBOX に振り分ける。
+   </ul>
+  という意味です。
+<p>
+[drop_rules.py]
+<pre class='code'>
+<span class="linenumber">001:</span>   import re
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   RULES = [ \
+<span class="linenumber">004:</span>   {'Subject':re.compile(r'【楽天カード(通信|ニュース)】', re.I), 'From':re.compile(r'@mail\.rakuten-card\.co\.jp', re.I), 'folder':'INBOX.sale'},\
+<span class="linenumber">005:</span>   {'Subject':re.compile(r'【出光カード(モール|まいどプラス)】', re.I), 'From':re.compile(r'confirm@ml\.idemitsucard\.com', re.I), 'folder':'INBOX.sale'},\
+<span class="linenumber">006:</span>   {'Subject':re.compile(r'お年玉|キャンペーン|ボーナス|クリスマス|ポイント|off|ショッピング|ローン', re.I),
+         'From':re.compile(r'idemitsucard|rakuten-card|amazon|yahoo', re.I), 'folder':'INBOX.sale'},\
+<span class="linenumber">007:</span>   {'Subject':re.compile(r'カード.?利用|請求|明細|引き落とし|注文|発送|パスワード|password|月.*料金', re.I), 'folder':'INBOX'}\
+<span class="linenumber">008:</span>   ]
+</pre>
+
+
+<li> 標準出力から email を読み込み、それを email オブジェクトに変換する。 (29--31 行。 <tt>get_email()</tt> )<br>
+     なお、<tt>email.parser.BytesParser</tt> は Python 3.2 から導入されたクラスである。
+
+<li> その email オブジェクトと <tt>drop_rules.RULES</tt> の各ルールを比較し、ルールにある全てのヘッダフィールドにおいて、
+受信したメールのヘッダフィールドがルールの正規表現にマッチした場合にはルールにあるフォルダーを返す。
+     どのルールともマッチしなかったら、'*** No Idea ***' を返す。<br>
+    比較する際、email の Subject を デーコードして Unicode 文字列に変換しておく。<br>
+    Unicode 文字列への変換は 25--26 行目の <tt>decode_mime_header()</tt> でおこなう。
+
+<li> get_folder() が返した文字列を標準出力に書き出す。
+</ol>
+
+
+
+
+[suggest_folder.py]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#!/usr/local/bin/python3.2</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   <span class="string">'''
+<span class="linenumber">004:</span>   The program writes the distination folder to sys.stdout for the e-mail read from sys.stdin
+<span class="linenumber">005:</span>   according to drop_rules.RULES which is a list of dictionaries containing header elements and regular expressions.
+<span class="linenumber">006:</span>   
+<span class="linenumber">007:</span>   The program is designed to be used with maildrop.
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   The goal of this program is to deal with Japanese headers, 
+<span class="linenumber">010:</span>   which maildrop cannot handle.
+<span class="linenumber">011:</span>   '''</span>
+<span class="linenumber">012:</span>   
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   import email.parser, sys, email.header, drop_rules
+<span class="linenumber">015:</span>   
+<span class="linenumber">016:</span>   def get_folder(em, ls_rules):
+<span class="linenumber">017:</span>       sbj = decode_mime_header(em['Subject']) if em['Subject'] else ''
+<span class="linenumber">018:</span>       for h in ls_rules:
+<span class="linenumber">019:</span>           if all( em[k] and h[k].search(sbj if k=='Subject' else em[k]) for k in h if k!='folder') : 
+<span class="linenumber">020:</span>               return h['folder']
+<span class="linenumber">021:</span>       else:
+<span class="linenumber">022:</span>           return '*** No Idea ***'
+<span class="linenumber">023:</span>   
+<span class="linenumber">024:</span>   
+<span class="linenumber">025:</span>   def decode_mime_header(s0):
+<span class="linenumber">026:</span>       return ''.join( str(s, c or 'ascii') if isinstance(s, (bytes,)) else s for s,c in email.header.decode_header(s0) )
+<span class="linenumber">027:</span>   
+<span class="linenumber">028:</span>   
+<span class="linenumber">029:</span>   def get_email(fp):
+<span class="linenumber">030:</span>       p=email.parser.BytesParser()
+<span class="linenumber">031:</span>       return p.parse(fp, True)
+<span class="linenumber">032:</span>   
+<span class="linenumber">033:</span>   
+<span class="linenumber">034:</span>   
+<span class="linenumber">035:</span>   
+<span class="linenumber">036:</span>   if __name__=='__main__':
+<span class="linenumber">037:</span>       sys.stdout.write(  \
+<span class="linenumber">038:</span>          get_folder(get_email(sys.stdin.detach()), \
+<span class="linenumber">039:</span>                     drop_rules.RULES))
+</pre>
+
+
+<h2>3. 振り分けルール作成スクリプト (make_drop_rules.py)</h2>
+drop_rules.RULES を作成するためのスクリプトです。drop_rules.txt から drop_rules.py を作ります。
+drop_rules.txt には各行に ヘッダー要素、正規表現が書かれており、空行でルールを区切っています。
+<p>
+[make_drop_rules.py]
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#! /usr/local/bin/python3.2</span>
+<span class="linenumber">002:</span>   
+<span class="linenumber">003:</span>   '''
+<span class="linenumber">004:</span>   The program is to make a python code for e-mail filtering rules which is invoced from suggest_folder.py
+<span class="linenumber">005:</span>   from an input file that consisting of sets of [header elements] -- [regular expression] pairs and distination folders. 
+<span class="linenumber">006:</span>   '''
+<span class="linenumber">007:</span>   
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   import re, py_compile, os.path, sys
+<span class="linenumber">010:</span>   
+<span class="linenumber">011:</span>   FIN='/home/takafumi/drop_rule/drop_rules.txt'
+<span class="linenumber">012:</span>   FOUT='/home/takafumi/bin/drop_rules.py'
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   <span class="comment">#FIN='drop_rules.txt'</span>
+<span class="linenumber">015:</span>   <span class="comment">#FOUT='drop_rules.py'</span>
+<span class="linenumber">016:</span>   
+<span class="linenumber">017:</span>   RE_COL=re.compile(r'^[-\w]+:', re.ASCII)
+<span class="linenumber">018:</span>   RE_RECSEP = re.compile('([ \t]*\n){2,}')
+<span class="linenumber">019:</span>   
+<span class="linenumber">020:</span>   def make_a_record(s0):
+<span class="linenumber">021:</span>       return [ line for line in s0.splitlines() if RE_COL.search(line) ]
+<span class="linenumber">022:</span>   
+<span class="linenumber">023:</span>   
+<span class="linenumber">024:</span>   def get_records(s0):
+<span class="linenumber">025:</span>       return (rec for rec in ( make_a_record(s) for s in RE_RECSEP.split(s0) ) \
+<span class="linenumber">026:</span>         if any(line.startswith('folder:') for line in rec) )
+<span class="linenumber">027:</span>   
+<span class="linenumber">028:</span>   
+<span class="linenumber">029:</span>   def format_record(ls0):
+<span class="linenumber">030:</span>       return '{' + ', '.join(format_col(s) for s in ls0) +'}'
+<span class="linenumber">031:</span>   
+<span class="linenumber">032:</span>   
+<span class="linenumber">033:</span>   def format_col(s_col):
+<span class="linenumber">034:</span>       k,v=s_col.split(':', 1)
+<span class="linenumber">035:</span>       s_fmt="'{0}':'{1}'" if k=='folder' else "'{0}':re.compile(r'{1}', re.I)" 
+<span class="linenumber">036:</span>       return s_fmt.format(k, v.strip()) 
+<span class="linenumber">037:</span>   
+<span class="linenumber">038:</span>   
+<span class="linenumber">039:</span>   def format_rules(s0):
+<span class="linenumber">040:</span>       return \
+<span class="linenumber">041:</span>       'import re\n\nRULES = [ \\\n' + \
+<span class="linenumber">042:</span>           ',\\\n'.join( format_record(rec) for rec in get_records(s0) ) + \
+<span class="linenumber">043:</span>       '\\\n]\n'
+<span class="linenumber">044:</span>   
+<span class="linenumber">045:</span>   
+<span class="linenumber">046:</span>   def make_drop_rules(fname_in, fname_out):
+<span class="linenumber">047:</span>       with open(fname_out, 'w', encoding='utf8') as fout:
+<span class="linenumber">048:</span>           with open(fname_in, encoding='utf8') as fin:
+<span class="linenumber">049:</span>               fout.write(format_rules(fin.read()))
+<span class="linenumber">050:</span>   
+<span class="linenumber">051:</span>       py_compile.compile(fname_out)
+<span class="linenumber">052:</span>   
+<span class="linenumber">053:</span>   
+<span class="linenumber">054:</span>   if __name__=='__main__':
+<span class="linenumber">055:</span>       if (len(sys.argv)&gt;1 and sys.argv[1]=='force')    \
+<span class="linenumber">056:</span>           or not os.path.isfile(FOUT)                  \
+<span class="linenumber">057:</span>           or (os.path.getmtime(FOUT) &lt; os.path.getmtime(FIN)):
+<span class="linenumber">058:</span>           make_drop_rules(FIN, FOUT)
+</pre>
+
+<p>
+[drop_rules.txt]
+<pre class='code'>
+Subject:【楽天カード(通信|ニュース)】
+From:@mail\.rakuten-card\.co\.jp
+folder:INBOX.sale
+
+Subject:【出光カード(モール|まいどプラス)】
+From:confirm@ml\.idemitsucard\.com
+folder:INBOX.sale
+
+Subject:お年玉|キャンペーン|ボーナス|クリスマス|ポイント|off|ショッピング|ローン
+From:idemitsucard|rakuten-card|amazon|yahoo
+folder:INBOX.sale
+
+
+
+Subject:カード.?利用|請求|明細|引き落とし|注文|発送|パスワード|password|月.*料金
+folder:INBOX
+</pre>
+
+
+<h2>4. 紫藤の自宅サーバーの .mailfilter</h2>
+
+紫藤の自宅サーバの .mailfilter を以下に示します。
+
+<ol>
+<li> 33 行目で suggest_folder.py の結果を DIR に保持する。
+<li> 34 -- 37 行目で $DIR が INBOX の時には $MAILDIR に振り分ける。
+<li> 38 -- 42 行目で $DIR が /^INBOX/ の時には、$DIR から INBOX. を取り除いた $SUBDIR をつくり
+      ${MAILDIR}${SUBDIR}/ に振り分ける。
+<li> suggest_folder.py が '*** No Idea ***' を返したものについては、From あるいは Return-Path に基づいて振り分ける。
+</ol>
+
+[.mailfilter]
+<pre class='code'>
+<span class="linenumber">001:</span>   MAILDIR="/home/takafumi/Maildir/"
+<span class="linenumber">002:</span>   DEFAULT=$MAILDIR
+<span class="linenumber">003:</span>   NKF="/usr/local/bin/nkf"
+<span class="linenumber">004:</span>   NKF_OPTION="-Z -m -j"
+<span class="linenumber">005:</span>   WAKATI="/usr/local/bin/kakasi -w"
+<span class="linenumber">006:</span>   BOGOFILTER="/usr/local/bin/bogofilter"
+<span class="linenumber">007:</span>   BOGOFILTER_OPTION="-u -e -p"
+<span class="linenumber">008:</span>   FORMAT_HEADER="/home/takafumi/bin/format_header.py"
+<span class="linenumber">009:</span>   BOGOJP="${FORMAT_HEADER} | ${WAKATI} | ${BOGOFILTER} ${BOGOFILTER_OPTION}"
+<span class="linenumber">010:</span>   SENDMAIL="/usr/sbin/sendmail"
+<span class="linenumber">011:</span>   SUGGEST_FOLDER="/home/takafumi/bin/suggest_folder.py"
+<span class="linenumber">012:</span>   
+<span class="linenumber">013:</span>   xfilter "${BOGOJP}"
+<span class="linenumber">014:</span>   
+<span class="linenumber">015:</span>   if (/^X-Bogosity: Spam, tests=bogofilter/:h)
+<span class="linenumber">016:</span>   {
+<span class="linenumber">017:</span>       to "${MAILDIR}.Junk/"
+<span class="linenumber">018:</span>   }
+<span class="linenumber">019:</span>   
+<span class="linenumber">020:</span>   
+<span class="linenumber">021:</span>   if (/^Subject: Undelivered Mail Returned to Sender/:h)
+<span class="linenumber">022:</span>   {
+<span class="linenumber">023:</span>       to "${MAILDIR}"
+<span class="linenumber">024:</span>   }
+<span class="linenumber">025:</span>   
+<span class="linenumber">026:</span>   if (/^Return-Path: &lt;(root|daemon)@www\.shido\.info&gt;$/:h)
+<span class="linenumber">027:</span>   {
+<span class="linenumber">028:</span>       to "${MAILDIR}.log_of_shido2/"
+<span class="linenumber">029:</span>   }
+<span class="linenumber">030:</span>   
+<span class="linenumber">031:</span>   
+<span class="linenumber">032:</span>   
+<span class="linenumber">033:</span>   DIR = `${SUGGEST_FOLDER}`
+<span class="linenumber">034:</span>   if($DIR eq "INBOX")
+<span class="linenumber">035:</span>   {
+<span class="linenumber">036:</span>       to "${MAILDIR}"
+<span class="linenumber">037:</span>   }
+<span class="linenumber">038:</span>   if ($DIR=~/^INBOX/)
+<span class="linenumber">039:</span>   {
+<span class="linenumber">040:</span>       SUBDIR=substr($DIR, 5)
+<span class="linenumber">041:</span>       to "${MAILDIR}${SUBDIR}/"
+<span class="linenumber">042:</span>   }
+<span class="linenumber">043:</span>   
+<span class="linenumber">044:</span>   
+<span class="linenumber">045:</span>   if (/^From:\s*(.*)/:h)
+<span class="linenumber">046:</span>   {
+<span class="linenumber">047:</span>       FADDR=getaddr($MATCH1)
+<span class="linenumber">048:</span>       if (lookup($FADDR, "drop_rule/inbox.txt"))
+<span class="linenumber">049:</span>       {
+<span class="linenumber">050:</span>           to "${MAILDIR}"
+<span class="linenumber">051:</span>       }
+<span class="linenumber">052:</span>       if (lookup($FADDR, "drop_rule/sale.txt"))
+<span class="linenumber">053:</span>       {
+<span class="linenumber">054:</span>           to "${MAILDIR}.sale/"
+<span class="linenumber">055:</span>       }
+<span class="linenumber">056:</span>       if (lookup($FADDR, "drop_rule/magazines.txt"))
+<span class="linenumber">057:</span>       {
+<span class="linenumber">058:</span>           to "${MAILDIR}.magazines/"
+<span class="linenumber">059:</span>       }
+<span class="linenumber">060:</span>   }
+<span class="linenumber">061:</span>   
+<span class="linenumber">062:</span>   
+<span class="linenumber">063:</span>   if (/Return-Path:\s*(.*)/:h &amp;&amp; lookup($MATCH1, "drop_rule/mailing_lists.txt"))
+<span class="linenumber">064:</span>   {
+<span class="linenumber">065:</span>       to "${MAILDIR}.mailing_lists/"
+<span class="linenumber">066:</span>   }
+<span class="linenumber">067:</span>   
+<span class="linenumber">068:</span>   to "${MAILDIR}"
+<span class="linenumber">069:</span>   
+</pre>
+
+
+<h2> 5. 終わりに</h2>
+
+maildrop が日本語を読めないので、仕方なく From を使って振り分けていましたが、
+宣伝用のメールと重要なメールが同じメールアドレスから来ることがあるので、限界がありました。<p>
+
+日本語の Subject を使って振り分けるようにしたところ、同じアドレスから来る重要なメールと宣伝用メールを
+振り分けられるようになり、大変便利に使っています。
+たとえば、注文の確認、発送の知らせ、カード利用の知らせなどが INBOX に振り分けられるので、宣伝用メールに埋もれてしまうことがなくなりました。
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel=home href='/index.html'>
+  <img src='/images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=up href="/misc/index.html"><img src='/images/up_arrow.gif' class='arrow' border=0>備忘録</a></td>
+<td><a rel=up href="/gb/write_guestbook.php?ref=misc44&t=%C6%FC%CB%DC%B8%EC%A4%CE+Subject+%A4%C7%A5%E1%A1%BC%A5%EB%A4%F2%BF%B6%A4%EA%CA%AC%A4%B1%A4%EB"><img src='/images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>

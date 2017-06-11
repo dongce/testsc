@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme, list, リスト">
+<meta name="description" content="Scheme におけるリスト操作">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 3. リストを作ろう </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme2.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  2. Scheme を電卓代わりに使う</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme4.html"><img src='../images/right_arrow.gif' class='arrow' border=0>4. 関数を定義しよう</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme3.html&t=Scheme+%C6%FE%CC%E7+3.+%A5%EA%A5%B9%A5%C8%A4%F2%BA%EE%A4%ED%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 3. リストを作ろう </h1>
+<hr>
+<h2>1. 初めに </h2>
+Scheme は Lisp 語族なので、
+<a href='http://ja.wikipedia.org/wiki/%E3%83%AA%E3%82%B9%E3%83%88_(%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B)'>
+リスト</a>
+の操作が上手です。
+ Scheme を使いこなすためにもリストについてはしっかり理解しておく必要があります。
+リストは後で出てくる再帰関数、高階関数で重要な役割を果たします。<p>
+  
+ここでは基本的な関数である <span class='ttb'>cons</span>, <span class='ttb'>car</span>,
+  <span class='ttb'>cdr</span>, <span class='ttb'>list</span>
+および <span class='ttb'>quote</span> について説明します。
+
+<h2>2. コンスセルとリスト</h2>
+<a name='cons'>
+<h3>2.1. コンスセル</h3>
+まず、リストの構成要素であるコンスセルについて説明します。
+コンスセルとは
+<a href='http://ja.wikipedia.org/wiki/%E3%83%A1%E3%83%A2%E3%83%AA%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9'>
+アドレス</a>
+を２つ格納した
+<a href='http://ja.wikipedia.org/wiki/%E4%B8%BB%E8%A8%98%E6%86%B6%E8%A3%85%E7%BD%AE'>
+メモリー
+</a>
+領域です。
+コンスセルは cons という関数でつくることが
+できます。
+
+処理系に (cons 1 2) と入力してみてください。
+<pre class='samp'>
+&gt; (cons 1 2)
+<span class='response'>(1 . 2)</span>
+</pre>
+(1 . 2) と表示されます。
+<span class='ttb'>cons</span> は図１に示すように
+アドレスが 2 つ分入るメモリー領域を確保し、片方に 1 へのアドレスを、もう片方に 2 へのアドレスを入れます。
+1 へのアドレスが入っている方を <span class='ttb'>car</span> 部、 2 へのアドレスが入っている方を
+<span class='ttb'>cdr</span>
+部と呼びます。
+<span class='ttb'>car</span> は <u>Contents of the Address part of the Register</u> の略で、一方、
+<span class='ttb'>cdr</span> は <u>Contents of the Decrement part of the Register</u> の略です。
+これは、Lisp が実装された初期のハードウェアのメモリーの部位の名前です。
+このことからコンスセルの実態がメモリー領域であることが伺えます。
+ちなみに、<span class='ttb'>cons</span> は構成するという意味の英単語 <u>construct</u> の略です。<p>
+<center><img src='cons2.png'><br>図1: コンスセル</center>
+<p>
+コンスセルは
+数珠つなぎにすることができます。
+<pre class='samp'>
+&gt; (cons 3 (cons 1 2))
+<span class='response'>(3 1 . 2)</span>
+</pre>
+(3 1 . 2) というのは (3 . (1 . 2)) の省略形です。
+このとき、メモリーは図２の様になっています。<p>
+  <center><img src='conss2.png'><br>図2: 連なったコンスセル</center>
+<p>
+
+また、違う種類のデータを組み合わせることもできますし、入れ子にすることもできます。
+
+<pre class='samp'>
+&gt; (cons #\a (cons 3 "hello"))
+<span class='response'>(#\a 3 . "hello")</span>
+
+&gt; (cons (cons 0 1) (cons 2 3))
+<span class='response'>((0 . 1) 2 . 3)</span>
+</pre>
+このようなことができるのは、Scheme が全てのデータをアドレスで管理しているからです。
+ちなみに <span class='ttb'>#\</span><var>c</var> は <var>c</var> という文字を表します。
+例えば <tt>#\a</tt> は <tt>a</tt> という文字を表します。
+
+<h3>2.2. リスト</h3>
+一番最後のコンスセルの cdr 部が <strong>'()</strong> になった一連のコンスセルをリストと呼びます。
+<strong>'()</strong> は空リストと呼ばれ、これもリストに含めます。
+コンスセルが1つの場合でも、その <tt>cdr</tt> が <tt>'()</tt> ならリストです。
+リスト <tt><u>(1 2 3)</u></tt> は図3のようなメモリー構造になっています。
+<p>
+  <center><img src='list2.png'><br>図3: リスト</center>
+<p>
+実はリストは再帰的に以下の様に定義されます。
+  <ol>
+<li> <tt>'()</tt> はリストである。
+<li> <var>ls</var> をリストとし、<var>obj</var> を任意のオブジェクトとすると、
+  <span class='ttb'>(cons <var>obj</var> <var>ls</var>)</span> はリストである。
+  </ol>
+このように、リストは再帰的に定義されているデータ構造なので
+  後で述べる再帰関数や高階関数にしばしば使われるデータ構造になります。
+  
+<h3>2.3. アトム</h3>
+コンスセルを使っていないデータを atom といいます。
+数値、文字、文字列、ベクトルは atom です。
+  
+<h3> 練習問題 1</h3>
+処理系が次のように表示するデータ構造を cons で作ってください。
+<ol>
+<li> <tt>("hi" . "everybody")</tt>
+<li> <tt>(0)</tt>
+<li> <tt>(1 10 . 100)</tt>
+<li> <tt>(1 10 100)</tt>
+<li> <tt>(#\I "saw" 3 "girls")</tt>
+<li> <tt> ("Sum of" (1 2 3 4) "is" 10)</tt>
+</ol>
+
+<h2> 3. quote</h2>
+scheme では、値が括弧の内側から外側に向けて評価が行われ、
+一番外側の括弧が評価した値がその式の値として返ってくるという計算法を取っているため、
+トークン(プログラム言語における意味を持つ最小単位、ほとんど単語と同じ意味）
+は常に評価される危険にさらされます。
+そこで、シンボルやリストなど、評価されると自分自身にならないデータそのものをプログラムに与えるときは <span class='ttb'>quote</span>
+という命令を使います。<p>
+例えば、<tt>(+ 2 3)</tt> は評価されると 5 になりますが、<tt>(quote (+ 2 3))</tt> とすれば <tt><u>(+ 2 3)</u></tt>
+そのものを
+プログラムに与えることができます。<tt>quote</tt> はしばしば使われるので <b>'</b> で代用されます。
+つまり、<tt>'(+ 2 3)</tt> は <tt><u>(+ 2 3)</u></tt> というリストを表します。
+リテラル（ソースコードにそのまま書く値）としてリストを作るときは <tt>quote</tt> を使います。<p>
+  quote はリストだけでなく、シンボルの
+評価も止めます。例えば '+ は + というシンボルそのものを指します。<p>
+実は <tt>'()</tt> は空リスト <tt>()</tt> を quoate したものです。
+  従って、入力するときには <tt>'()</tt> を使いますが、処理系から空リストが表示されるときは
+  <tt>()</tt> が使われます。
+
+<h3>3.1. 特殊形式</h3>
+Scheme は括弧の中身を全て評価して括弧の外に値を返す関数と、それ以外の働きをする<strong>特殊形式</strong>
+からなっています。特殊形式には今見た <span class='ttb'>quote</span> のほかに
+<span class='ttb'>lambda</span>, <span class='ttb'>define</span>, <span class='ttb'>if</span>, <span class='ttb'>set!</span> などがあります。
+<h2>4. 関数 car と cdr</h2>
+
+コンスセルの <tt>car</tt> 部を返す関数を <span class='ttb'>car</span>、
+<tt>cdr</tt> 部を返す関数を <span class='ttb'>cdr</span> といいます。
+cdr が返す値がリストなどのコンスセルの列なら、その列の (car 部の)値全体が表示されます。
+最後のコンスセルの <tt>cdr</tt> 部が <tt>'()</tt> で無ければ <b>.</b> で区切って、その値も表示されます。
+<pre class='samp'>
+&gt; (car '(1 2 3 4))
+<span class='response'>1</span>
+
+&gt; (cdr '(1 2 3 4))
+<span class='response'>(2 3 4)</span>
+</pre>
+
+<h3> 練習問題 2</h3>
+次の値を求めてください。
+<ol>
+<li> <span class='mono'> (car '(0))</span>
+<li> <span class='mono'> (cdr '(0))</span>
+<li> <span class='mono'> (car '((1 2 3) (4 5 6)))</span>
+<li> <span class='mono'> (cdr '(1 2 3 . 4))</span>
+<li> <span class='mono'> (cdr (cons 3 (cons 2 (cons 1 '()))))</span>
+</ol>
+<h2>5. 関数 list </h2>
+複数の要素からなるリストを作るときは関数 <span class='ttb'>list</span> を使うほうが便利です。<tt>list</tt> は任意個の引数をとり、
+それらからなるリストを返します。
+<pre class='samp'>
+&gt; (list)
+<span class='response'>()</span>
+
+&gt; (list 1)
+<span class='response'>(1)</span>
+
+&gt; (list '(1 2) '(3 4))
+<span class='response'>((1 2) (3 4))</span>
+
+&gt; (list 0)
+<span class='response'>(0)</span>
+
+&gt; (list 1 2)
+<span class='response'>(1 2)</span>
+</pre>
+
+
+<h2>6. 終わりに</h2>
+今回は リストの基本的な操作について説明しました。
+ここまでは、ちょっと退屈だったかもしれませんが、次回からはいよいよ本格的に
+プログラムを作り始めます。
+まず、エディタでソースコードを編集してそれを処理系で走らせる方法について述べ、
+それから関数の定義の方法について述べます。
+
+
+<h3>練習問題の解答</h3>
+
+<h4>練習問題 1</h4>
+
+<pre class='samp'>
+;1
+&gt; (cons "hi" "everybody")
+<span class='response'>("hi" . "everybody")</span>
+
+;2
+&gt; (cons 0 '())
+<span class='response'>(0)</span>
+
+;3
+&gt; (cons 1 (cons 10 100))
+<span class='response'>(1 10 . 100)</span>
+
+;4
+&gt; (cons 1 (cons 10 (cons 100 '())))
+<span class='response'>(1 10 100)</span>
+
+;5
+&gt; (cons #\I (cons "saw" (cons 3 (cons "girls" '()))))
+<span class='response'>(#\I "saw" 3 "girls")</span>
+
+;6
+&gt; (cons "Sum of" (cons (cons 1 (cons 2 (cons 3 (cons 4 '())))) (cons "is" (cons 10 '()))))
+<span class='response'>("Sum of" (1 2 3 4) "is" 10)</span>
+</pre>
+
+<h4>練習問題 2</h4>
+<pre class='samp'>
+;1
+&gt; (car '(0))
+<span class='response'>0</span>
+
+;2
+&gt; (cdr '(0))
+<span class='response'>()</span>
+
+;3
+&gt; (car '((1 2 3) (4 5 6)))
+<span class='response'>(1 2 3)</span>
+
+;4
+&gt; (cdr '(1 2 3 . 4))
+<span class='response'>(2 3 . 4)</span>
+
+;5
+&gt; (cdr (cons 3 (cons 2 (cons 1 '()))))
+<span class='response'>(2 1)</span>
+</pre>
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme2.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  2. Scheme を電卓代わりに使う</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme4.html"><img src='../images/right_arrow.gif' class='arrow' border=0>4. 関数を定義しよう</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme3.html&t=Scheme+%C6%FE%CC%E7+3.+%A5%EA%A5%B9%A5%C8%A4%F2%BA%EE%A4%ED%A4%A6' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+
+</body>
+</html>
+

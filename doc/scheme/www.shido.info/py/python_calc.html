@@ -1,0 +1,566 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, XML parser, dom, minidom">
+<meta name="description" content="how to deal with XML documents using python">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> 関数電卓 (Python 版) </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="python_calc.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python_calc.html&t=%B4%D8%BF%F4%C5%C5%C2%EE+%28Python+%C8%C7%29' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+ <h1>関数電卓 (Python 版)</h1> 
+<hr>
+<h2>1. 初めに</h2>
+電卓スクリプトは適度に複雑なプログラムなので、新しいプログラミング言語を習得するときの
+練習問題として適しています。言語の特徴を生かした電卓スクリプトが書ければ、
+その言語をほぼマスターしたと考えていいと思います。
+<br>
+一方、電卓スクリプトがうまくかけない場合は、その言語そのものに難点があるか、
+あなたとの相性は悪いということのなので、その言語はあきらめて他の言語を当たることをお勧めします。
+<p>
+Python は関数型、オブジェクト指向などのいろいろなパラダイムを使うことができます。そのため、
+言語からの制約がほとんどなく、自由にプログラムをデザインすることができます。
+そこで、<a href='../lisp/scheme_calc.html'>Scheme 版</a>と同様に、演算子をデータとして扱い、
+個々の演算子と、計算手順を完全に分離するデザインを採用します。
+このデザインでは、演算子を追加してもロジックに変更を加える必要が無いので、電卓プログラムの内部設計として
+優れていると思います。
+<br>
+また、Python の優れた点として、
+<ol>
+<li> 例外処理が充実している。
+<li> 関数名や、リストの記法が短い。
+<li> 要素数固定のタプルと要素数可変のリストがわかれている。
+<li> 正規表現が充実している。
+</ol>
+などがあります。
+
+
+
+
+
+
+<h2>2. Python で実装した関数電卓スクリプト</h2>
+早速コードを示します。<p>
+[code 1] (calc.py)
+<pre class='code'>
+<span class="linenumber">001:</span>   <span class="comment">#!/usr/bin/env python</span>
+<span class="linenumber">002:</span>   <span class="comment"># -*- coding:euc-jp -*-</span>
+<span class="linenumber">003:</span>   
+<span class="linenumber">004:</span>   u'''
+<span class="linenumber">005:</span>   Python で書いた関数電卓プログラムです。
+<span class="linenumber">006:</span>   動的型付けと関数オブジェクトを使うと簡潔に書けます。
+<span class="linenumber">007:</span>   '''
+<span class="linenumber">008:</span>   
+<span class="linenumber">009:</span>   
+<span class="linenumber">010:</span>   import math, re, sys, operator
+<span class="linenumber">011:</span>   
+<span class="linenumber">012:</span>   
+<span class="linenumber">013:</span>   
+<span class="linenumber">014:</span>   
+<span class="linenumber">015:</span>   
+<span class="linenumber">016:</span>   class Operator:
+<span class="linenumber">017:</span>       u'''演算子と定数のクラスです'''
+<span class="linenumber">018:</span>   
+<span class="linenumber">019:</span>       <span class="comment"># 演算子の優先度。大きい方から優先的に計算される</span>
+<span class="linenumber">020:</span>       P_CST=6                                 <span class="comment"># 定数の優先度</span>
+<span class="linenumber">021:</span>       P_LHB=5                                 <span class="comment"># ! の優先度</span>
+<span class="linenumber">022:</span>       P_FUN=4                                 <span class="comment"># 関数の優先度</span>
+<span class="linenumber">023:</span>       P_POW=3                                 <span class="comment"># 累乗の優先度</span>
+<span class="linenumber">024:</span>       P_UPM=2                                 <span class="comment"># 単項の + と - の優先度</span>
+<span class="linenumber">025:</span>       P_MD=1                                  <span class="comment"># *, /, % の優先度</span>
+<span class="linenumber">026:</span>       P_BPM=0                                 <span class="comment"># ２項の +, - の優先度</span>
+<span class="linenumber">027:</span>   
+<span class="linenumber">028:</span>       
+<span class="linenumber">029:</span>       def __init__(self, name, fun, priority):
+<span class="linenumber">030:</span>           self.name=name
+<span class="linenumber">031:</span>           self.fun=fun
+<span class="linenumber">032:</span>           self.priority=priority
+<span class="linenumber">033:</span>   
+<span class="linenumber">034:</span>       def __call__(self, x=None, y=None):
+<span class="linenumber">035:</span>           return self.fun        if self.is_const() else                    \
+<span class="linenumber">036:</span>                  self.fun(x)     if self.is_unary() or self.is_lhb() else   \
+<span class="linenumber">037:</span>                  self.fun(x, y)
+<span class="linenumber">038:</span>   
+<span class="linenumber">039:</span>       def __gt__(self, other):
+<span class="linenumber">040:</span>           u'''self が other より優先度が高いとき True を返す'''
+<span class="linenumber">041:</span>           assert other is None or isinstance(other, Operator)
+<span class="linenumber">042:</span>           return other is None or \
+<span class="linenumber">043:</span>             self.priority &gt; other.priority or \
+<span class="linenumber">044:</span>             ( self.priority in (Operator.P_FUN, Operator.P_POW, Operator.P_UPM) and self.priority == other.priority)
+<span class="linenumber">045:</span>   
+<span class="linenumber">046:</span>       def __str__(self):
+<span class="linenumber">047:</span>           return self.name
+<span class="linenumber">048:</span>   
+<span class="linenumber">049:</span>       def __repr__(self):
+<span class="linenumber">050:</span>           return repr(self.name)
+<span class="linenumber">051:</span>   
+<span class="linenumber">052:</span>       def is_const(self):
+<span class="linenumber">053:</span>           return self.priority==Operator.P_CST
+<span class="linenumber">054:</span>   
+<span class="linenumber">055:</span>       def is_lhb(self):
+<span class="linenumber">056:</span>           return self.priority==Operator.P_LHB
+<span class="linenumber">057:</span>   
+<span class="linenumber">058:</span>       def is_upm(self):
+<span class="linenumber">059:</span>           return self.priority==Operator.P_UPM
+<span class="linenumber">060:</span>   
+<span class="linenumber">061:</span>       def is_func(self):
+<span class="linenumber">062:</span>           return self.priority==Operator.P_FUN
+<span class="linenumber">063:</span>   
+<span class="linenumber">064:</span>       def is_unary(self):
+<span class="linenumber">065:</span>           return self.priority in (Operator.P_FUN, Operator.P_UPM)
+<span class="linenumber">066:</span>   
+<span class="linenumber">067:</span>       def is_binary(self):
+<span class="linenumber">068:</span>           return self.priority in (Operator.P_POW, Operator.P_MD, Operator.P_BPM)
+<span class="linenumber">069:</span>   
+<span class="linenumber">070:</span>   
+<span class="linenumber">071:</span>   
+<span class="linenumber">072:</span>   <span class="comment"># 関数</span>
+<span class="linenumber">073:</span>   
+<span class="linenumber">074:</span>   def is_natural(n):
+<span class="linenumber">075:</span>       u'''自然数？'''
+<span class="linenumber">076:</span>       return type(n) is int and n&gt;=0
+<span class="linenumber">077:</span>   
+<span class="linenumber">078:</span>   
+<span class="linenumber">079:</span>   
+<span class="linenumber">080:</span>   def fact(n):
+<span class="linenumber">081:</span>       u'''階乗'''
+<span class="linenumber">082:</span>       assert is_natural(n)
+<span class="linenumber">083:</span>       return reduce(operator.__mul__, range(1, n+1)) if n&gt;0 else 1
+<span class="linenumber">084:</span>   
+<span class="linenumber">085:</span>   
+<span class="linenumber">086:</span>       
+<span class="linenumber">087:</span>   def permutation(m,n):
+<span class="linenumber">088:</span>       u'''順列'''
+<span class="linenumber">089:</span>       assert is_natural(m) and is_natural(n) and m&gt;=n
+<span class="linenumber">090:</span>       return reduce(operator.__mul__, range(m-n+1, m+1), 1)
+<span class="linenumber">091:</span>   
+<span class="linenumber">092:</span>   
+<span class="linenumber">093:</span>       
+<span class="linenumber">094:</span>   def combination(m,n):
+<span class="linenumber">095:</span>       u'''組み合わせ'''
+<span class="linenumber">096:</span>       assert is_natural(m) and is_natural(n) and m&gt;=n
+<span class="linenumber">097:</span>       return permutation(m,n)/fact(n)
+<span class="linenumber">098:</span>   
+<span class="linenumber">099:</span>   
+<span class="linenumber">100:</span>   
+<span class="linenumber">101:</span>   
+<span class="linenumber">102:</span>   
+<span class="linenumber">103:</span>   <span class="comment"># 演算子と定数の辞書。</span>
+<span class="linenumber">104:</span>   <span class="comment"># 文字列をキーとし、対応する関数と優先度のタプル または 対応する定数を値にとる。</span>
+<span class="linenumber">105:</span>   L_OP= [ \
+<span class="linenumber">106:</span>     Operator('@+', operator.__pos__, Operator.P_UPM), \
+<span class="linenumber">107:</span>     Operator('@-', operator.__neg__, Operator.P_UPM), \
+<span class="linenumber">108:</span>     Operator('+', operator.__add__, Operator.P_BPM),\
+<span class="linenumber">109:</span>     Operator('-', operator.__sub__, Operator.P_BPM), \
+<span class="linenumber">110:</span>     Operator('*', operator.__mul__, Operator.P_MD),\
+<span class="linenumber">111:</span>     Operator('/', operator.__truediv__, Operator.P_MD), \
+<span class="linenumber">112:</span>     Operator('%', operator.__mod__, Operator.P_MD), \
+<span class="linenumber">113:</span>     Operator('&lt;&lt;', operator.__lshift__, Operator.P_POW), \
+<span class="linenumber">114:</span>     Operator('&gt;&gt;', operator.__rshift__, Operator.P_POW), \
+<span class="linenumber">115:</span>     Operator('**', math.pow, Operator.P_POW), \
+<span class="linenumber">116:</span>     Operator('^', math.pow, Operator.P_POW), \
+<span class="linenumber">117:</span>     Operator('exp', math.exp, Operator.P_FUN), \
+<span class="linenumber">118:</span>     Operator('log', math.log, Operator.P_FUN), \
+<span class="linenumber">119:</span>     Operator('log10', math.log10, Operator.P_FUN), \
+<span class="linenumber">120:</span>     Operator('sqrt', math.sqrt, Operator.P_FUN),  \
+<span class="linenumber">121:</span>     Operator('abs', operator.__abs__, Operator.P_FUN), \
+<span class="linenumber">122:</span>     Operator('sin', math.sin, Operator.P_FUN), \
+<span class="linenumber">123:</span>     Operator('cos', math.cos, Operator.P_FUN), \
+<span class="linenumber">124:</span>     Operator('tan', math.tan, Operator.P_FUN), \
+<span class="linenumber">125:</span>     Operator('asin', math.asin, Operator.P_FUN), \
+<span class="linenumber">126:</span>     Operator('acos', math.acos, Operator.P_FUN), \
+<span class="linenumber">127:</span>     Operator('atan', math.atan, Operator.P_FUN), \
+<span class="linenumber">128:</span>     Operator('!', fact, Operator.P_LHB), \
+<span class="linenumber">129:</span>     Operator('P', permutation, Operator.P_POW), \
+<span class="linenumber">130:</span>     Operator('C', combination, Operator.P_POW), \
+<span class="linenumber">131:</span>     Operator('pi', math.pi, Operator.P_CST), \
+<span class="linenumber">132:</span>     Operator('e', math.e, Operator.P_CST), \
+<span class="linenumber">133:</span>     ]
+<span class="linenumber">134:</span>   
+<span class="linenumber">135:</span>   <span class="comment"># 演算子の名前をキーにしてハッシュ表を作る</span>
+<span class="linenumber">136:</span>   H_OP=dict([(str(op), op)  for op in L_OP])
+<span class="linenumber">137:</span>   
+<span class="linenumber">138:</span>   
+<span class="linenumber">139:</span>   def convert_op_name(op):
+<span class="linenumber">140:</span>       u'''演算子を正規表現文字列に変換して返す'''
+<span class="linenumber">141:</span>   
+<span class="linenumber">142:</span>       return ''.join([(c if c.isalnum() else '\\'+c) for c in str(op)]) + \
+<span class="linenumber">143:</span>                (r'(?=\W|$)' if op.is_const() else r'(?=[\s\(])' if op.is_func() else '')
+<span class="linenumber">144:</span>       
+<span class="linenumber">145:</span>   
+<span class="linenumber">146:</span>   
+<span class="linenumber">147:</span>   <span class="comment"># 式の要素を表す正規表現</span>
+<span class="linenumber">148:</span>   RE_FORM = re.compile( \
+<span class="linenumber">149:</span>   r'''(?P&lt;nest&gt;\()                                            |   <span class="comment"># 入れ子</span>
+<span class="linenumber">150:</span>       (?P&lt;num&gt;\d+(?P&lt;after_dot&gt;\.\d+)?(?:[eE][+-]?\d+)?)      |   <span class="comment"># 数値</span>
+<span class="linenumber">151:</span>       (?P&lt;op_name&gt;%s)                                             <span class="comment"># 演算子</span>
+<span class="linenumber">152:</span>   ''' % ('|'.join([ convert_op_name(op)  for op in sorted([op for op in L_OP if not op.is_upm()], key=lambda x:len(str(x)), reverse=True)]),), \
+<span class="linenumber">153:</span>    re.VERBOSE)
+<span class="linenumber">154:</span>   
+<span class="linenumber">155:</span>   
+<span class="linenumber">156:</span>   
+<span class="linenumber">157:</span>   
+<span class="linenumber">158:</span>   <span class="comment"># ツール</span>
+<span class="linenumber">159:</span>   def cons(obj, ls):
+<span class="linenumber">160:</span>       u'''Lisp 風にするため'''
+<span class="linenumber">161:</span>       ls.append(obj)
+<span class="linenumber">162:</span>       return ls
+<span class="linenumber">163:</span>   
+<span class="linenumber">164:</span>   
+<span class="linenumber">165:</span>   
+<span class="linenumber">166:</span>   def operator_position (ls):
+<span class="linenumber">167:</span>       u'''ls の中で最初に計算する演算子の位置を返す'''
+<span class="linenumber">168:</span>   
+<span class="linenumber">169:</span>       tprev, term0, pos = None, None, -1
+<span class="linenumber">170:</span>       
+<span class="linenumber">171:</span>       for i, term in enumerate(ls):
+<span class="linenumber">172:</span>           if isinstance(term, Operator) and (term &gt; term0 or (isinstance(tprev, Operator) and term.is_upm())):
+<span class="linenumber">173:</span>               term0, pos = term, i
+<span class="linenumber">174:</span>           tprev=term
+<span class="linenumber">175:</span>               
+<span class="linenumber">176:</span>       return term0, pos
+<span class="linenumber">177:</span>   
+<span class="linenumber">178:</span>   
+<span class="linenumber">179:</span>   
+<span class="linenumber">180:</span>   def eval_ls(ls):
+<span class="linenumber">181:</span>       u'''数値と演算子からなるリストを計算して結果を返す'''
+<span class="linenumber">182:</span>   
+<span class="linenumber">183:</span>       if operator.isNumberType(ls): return ls   <span class="comment"># 数値ならそれを返す</span>
+<span class="linenumber">184:</span>       elif len(ls)==1:
+<span class="linenumber">185:</span>           i=ls[0]
+<span class="linenumber">186:</span>           return eval_ls(i() if isinstance(i, Operator) else i)    <span class="comment"># 要素が１つのリストならそれを取り出す</span>
+<span class="linenumber">187:</span>       else:
+<span class="linenumber">188:</span>           op, pos =operator_position(ls)  <span class="comment"># 最初の使う演算子を探す</span>
+<span class="linenumber">189:</span>   
+<span class="linenumber">190:</span>           if op.is_const(): <span class="comment"># 定数</span>
+<span class="linenumber">191:</span>               return eval_ls(cons(op(), ls[:pos]) + ls[pos+1:])
+<span class="linenumber">192:</span>           
+<span class="linenumber">193:</span>           elif op.is_unary() and pos &lt; len(ls)-1: <span class="comment"># 単項演算子</span>
+<span class="linenumber">194:</span>               return eval_ls(cons(op(eval_ls(ls[pos+1])), ls[0:pos]) + ls[pos+2:])
+<span class="linenumber">195:</span>               
+<span class="linenumber">196:</span>           elif op.is_lhb() and pos&gt;0: <span class="comment"># !</span>
+<span class="linenumber">197:</span>               return eval_ls(cons(op(eval_ls(ls[pos-1])), ls[0:pos-1]) + ls[pos+1:])
+<span class="linenumber">198:</span>               
+<span class="linenumber">199:</span>           elif op.is_binary() and 0 &lt; pos &lt; len(ls)-1: <span class="comment"># 二項演算子</span>
+<span class="linenumber">200:</span>               return eval_ls(cons(op( eval_ls(ls[pos-1]), eval_ls(ls[pos+1]) ), ls[0:pos-1]) + ls[pos+2:])
+<span class="linenumber">201:</span>           
+<span class="linenumber">202:</span>           else:
+<span class="linenumber">203:</span>               raise RuntimeError, "invalid formmula: (%r)" % (ls,)
+<span class="linenumber">204:</span>   
+<span class="linenumber">205:</span>   
+<span class="linenumber">206:</span>   
+<span class="linenumber">207:</span>   def find_pair(s0):
+<span class="linenumber">208:</span>       u'''対応する閉じ括弧を探す'''
+<span class="linenumber">209:</span>       n=0
+<span class="linenumber">210:</span>       for i, c in enumerate(s0):
+<span class="linenumber">211:</span>           if c in '()': n+= (1 if c=='(' else -1)
+<span class="linenumber">212:</span>           if n==0: return i
+<span class="linenumber">213:</span>       else:
+<span class="linenumber">214:</span>           raise RuntimeError, "Cannot find the close parenthesis!"
+<span class="linenumber">215:</span>           
+<span class="linenumber">216:</span>   
+<span class="linenumber">217:</span>               
+<span class="linenumber">218:</span>   def read_str(str):
+<span class="linenumber">219:</span>       u'''文字列を読み込んで、数値と演算子のリストを返す'''
+<span class="linenumber">220:</span>       def _iter(s, ls):
+<span class="linenumber">221:</span>           s=s.strip()
+<span class="linenumber">222:</span>           if(s):
+<span class="linenumber">223:</span>               obj=RE_FORM.match(s)
+<span class="linenumber">224:</span>               if obj and obj.group('nest'):
+<span class="linenumber">225:</span>                   idx=find_pair(s)
+<span class="linenumber">226:</span>                   return _iter(s[idx+1:], cons(_iter(s[1:idx], []), ls))
+<span class="linenumber">227:</span>               elif obj:
+<span class="linenumber">228:</span>                   s1=s[obj.end():]
+<span class="linenumber">229:</span>                   if obj.group('num'):
+<span class="linenumber">230:</span>                       return _iter(s1, cons((float if obj.group('after_dot') else int)(obj.group('num')), ls))
+<span class="linenumber">231:</span>                   else:
+<span class="linenumber">232:</span>                       op_name = obj.group('op_name')
+<span class="linenumber">233:</span>                       if op_name in '+-' and  (not ls or (isinstance(ls[-1], Operator) and not ls[-1].is_lhb())):   <span class="comment"># 単項の +/- を識別する</span>
+<span class="linenumber">234:</span>                           op_name = '@' + op_name
+<span class="linenumber">235:</span>                       return _iter(s1, cons(H_OP[op_name], ls))
+<span class="linenumber">236:</span>               else:
+<span class="linenumber">237:</span>                   raise RuntimeError, "Cannot parse input!"
+<span class="linenumber">238:</span>           else:
+<span class="linenumber">239:</span>               return ls
+<span class="linenumber">240:</span>   
+<span class="linenumber">241:</span>       return _iter(str, [])
+<span class="linenumber">242:</span>   
+<span class="linenumber">243:</span>   
+<span class="linenumber">244:</span>   
+<span class="linenumber">245:</span>   if __name__=='__main__':
+<span class="linenumber">246:</span>   
+<span class="linenumber">247:</span>       interactive= len(sys.argv)&gt;1 and sys.argv[1]=='-i'
+<span class="linenumber">248:</span>       if interactive:
+<span class="linenumber">249:</span>           sys.stderr.write("Available operators and constants:\n" + \
+<span class="linenumber">250:</span>                            ', '.join([str(op) for op in L_OP if not op.is_upm()]) + \
+<span class="linenumber">251:</span>                            "\nq:quit\n\n")
+<span class="linenumber">252:</span>           
+<span class="linenumber">253:</span>       while(1):
+<span class="linenumber">254:</span>           if interactive: sys.stderr.write('&gt; ')
+<span class="linenumber">255:</span>           str=sys.stdin.readline()
+<span class="linenumber">256:</span>           if str:
+<span class="linenumber">257:</span>               str=str.rstrip()
+<span class="linenumber">258:</span>               if interactive and str=='q': break
+<span class="linenumber">259:</span>               try:
+<span class="linenumber">260:</span>                   print eval_ls(read_str(str))
+<span class="linenumber">261:</span>               except Exception,  strerror:
+<span class="linenumber">262:</span>                   print strerror
+<span class="linenumber">263:</span>           else:
+<span class="linenumber">264:</span>               break
+<span class="linenumber">265:</span>   
+<span class="linenumber">266:</span>   
+</pre>
+
+<h2>3. 使い方</h2>
+コマンドラインから<br>
+ <tt>python calc.py -i</tt>
+<br>
+と入力してください (対話的に計算するには <tt>-i</tt> オプションをつけてください)。計算式の入力を促すプロンプトが表示されます。
+(q で終了。)
+<pre class='samp'>
+$ python calc.py -i
+Available operators and constants:
++, -, *, /, %, <<, >>, P, C, **, ^, exp, log, log10, sqrt, abs, sin, cos, tan,
+sin, acos, atan, !, pi, e
+q:quit
+
+> 4!*7+3
+171
+> 64>>2
+16
+> 3<<4
+48
+> sqrt sin (pi/3)
+0.930604859102
+> 1233333333333333333333333333333333 * 2222222222222222244444444444444
+2740740740740740768148148148147599259259259259259251851851851852
+> log exp 40
+40.0
+> q
+
+$
+</pre>
+
+次のようにパイプ処理することもできます。
+<pre class='samp'>
+python calc.py &lt; input.txt &gt; output.txt
+</pre>
+
+<h2>4. 簡単な説明</h2>
+<h3>4.1. Operator クラス</h3>
+
+まず、演算子のクラスを定義します。
+定数も定数関数としてこのクラスに含めます。
+<tt>__call__</tt> や <tt>__gt__</tt> を使って各種演算子をオーバーロードするによってプログラムを直感的にわかりやすいものにします。
+
+<h4>定数</h4>
+Operator クラスには次の定数が定義されています。
+<table border=1>
+   <tr>
+      <th>定数名</th>
+      <th>値</th>
+      <th>説明</th>
+   </tr>
+   <tr>
+      <td><tt>P_CST</tt></td>
+      <td>6</td>
+      <td>定数の優先度</td>
+   </tr>
+   <tr>
+      <td><tt>P_LHB</tt></td>
+      <td>5</td>
+      <td> ! の優先度</td>
+   </tr>
+   <tr>
+      <td><tt>P_FUN</tt></td>
+      <td>4</td>
+      <td>算術関数の優先度</td>
+   </tr>
+   <tr>
+      <td><tt>P_POW</tt></td>
+      <td>3</td>
+      <td>累乗の優先度</td>
+   </tr>
+   <tr>
+      <td><tt>P_UPM</tt></td>
+      <td>2</td>
+      <td>単項の + と - の優先度</td>
+   </tr>
+   <tr>
+      <td><tt>P_MD</tt></td>
+      <td>1</td>
+      <td> *, /, % の優先度</td>
+   </tr>
+   <tr>
+      <td><tt>P_BPM</tt></td>
+      <td>0</td>
+      <td>２項の +, - の優先度</td>
+   </tr>
+</table>
+
+<h4>メソッド</h4>
+
+以下に Operator クラスのメソッドを挙げます
+
+<dl>
+  <dt><span class='ttb'>__init__(self, name, fun, priority)</span></dt>
+      <dd>
+初期化メソッドです。
+name (名前), fun (演算の手続き), priority (優先度) を this.name, this.fun, this.priority として保持します。</dd>
+
+
+  <dt><span class='ttb'>__call__(self, x=None, y=None)</span></dt>
+
+
+      <dd>
+関数として呼ばれたときの挙動を規定します。
+
+<ul>
+<li> 定数なら、self.fun を返します。
+<li> 単項演算子や '!' なら、self.fun に 引数 1 つを作用させた結果を返します。
+<li> ２項演算子なら self.fun に引数を２つ作用させた結果を返します。
+</ul>
+
+</dd>
+
+
+  <dt><span class='ttb'>__gt__(self, other)</span></dt>
+      <dd>
+other より self を先に計算すべきとき True を返します。
+リストの先頭から演算子を捜すことを前提にしています。
+次の順でチェックし、該当する場合には True をしない場合には False を返します。
+<ol>
+<li> other が None か?
+<li> self.priority > other.priority か?
+<li> self が右側の方が先に計算される演算子で、self.priority==other.priority か?
+</ol>
+
+</dd>
+
+
+
+  <dt><span class='ttb'>__str__(self)</span></dt>
+      <dd>
+self.name を返します</dd>
+
+
+  <dt><span class='ttb'>__repr__(self)</span></dt>
+      <dd>
+repr(self.name) を返します。</dd>
+
+  <dt><span class='ttb'>is_const(self)</span></dt>
+      <dd> self が定数なら True を返します。</dd>
+
+  <dt><span class='ttb'>is_lhb(self)</span></dt>
+      <dd> self が '!' なら True を返します。</dd>
+
+  <dt><span class='ttb'>is_upm(self)</span></dt>
+      <dd> self が 単項の +/- なら True を返します。</dd>
+
+  <dt><span class='ttb'>is_func(self)</span></dt>
+      <dd> self が算術関数なら True を返します。</dd>
+
+  <dt><span class='ttb'>is_unary(self)</span></dt>
+      <dd> self が単項演算子なら True を返します。</dd>
+
+  <dt><span class='ttb'>is_binary(self)</span></dt>
+      <dd> self が二項演算子なら True を返します。</dd>
+</dl>
+
+<h3>4.2. Operator のリストと辞書</h3>
+Operator のリスト LS_OP と名前をキーとする辞書 H_OP を定義します。
+辞書を定義することによって Operator の検索が高速化されます。
+<p>
+単項の <tt>+/-</tt> と二項の <tt>+/-</tt> を区別するため、
+単項の方の名前を "<tt>@+</tt>", "<tt>@-</tt>" にします。
+
+<h3>4.3. 式の要素にマッチする正規表現</h3>
+<tt>RE_FORM</tt> は式の要素にマッチする正規表現です。
+式の要素は 入れ子、数値、演算子の３つがあります。
+
+Python では名前付きグループが使えるので正規表現を明瞭に書くことができます。
+演算子を表す部分は、個々の演算子にマッチするものを <tt>LS_OP</tt> から生成します。
+この際、名前の長いほうから順番にマッチさせ、名前の短い演算子に先にマッチしないようにします。
+さらに、先読みを用いて
+<ol>
+<li> 算術演算子は 空白文字か開きカッコ
+<li> 定数は 数字、アルファベット以外か、文字列の終わりと
+マッチするようにします。
+</ol>
+
+<h3>4.4. 入力文字列の解析</h3>
+
+<tt>read_str(str)</tt> 関数で文字列を読み込んで、式の要素のリストに変換します。
+実際の処理は内部関数 <tt>_iter(s, ls)</tt> で行われます。
+<tt>_iter</tt> の動作は以下のようになっています。
+
+<ol>
+<li> 文字列の前後の空白文字を削除します。
+<li> もし、その文字列が空なら得られたリストを返します。
+<li> もし、最初の文字が開きカッコだったら、対応する閉じカッコをの位置 (<tt>idx</tt>) を探して
+     カッコの中を解析して得られたリストをいままでの解析結果のリストにくわえ、
+     <tt>idx+1</tt> 番目の文字から解析を続けます。
+<li> 数字にマッチすれば、マッチした部分を数に変換してリストに加えます。
+<li> 演算子にマッチすれば、マッチした部分を <tt>Operator</tt> オブジェクトに変換してリストに加えます。
+リストが空リストか、最後の要素が <tt>Operator</tt> の場合は、<tt>+, -</tt> は単項の <tt>+,-</tt> と解釈します。
+</ol>
+
+<h3>4.5. 数と演算子のリストを処理して結果を算出する</h3>
+<tt>eval_ls(ls)</tt> でリストを計算します。
+<tt>eval_ls</tt> は再帰的に自分自身を呼び出します。
+再帰的に処理することにより、入れ子になった式の計算を簡潔に記述することができます。
+<ol>
+<li>引数 (<tt>ls</tt>) が数値ならそれを返す
+<li>引数が要素数が１のリストなら、その要素を返す。
+    数値ならそのまま返し、定数演算子なら、<tt>__call__</tt> して数値に変換して返す。
+<li>それ以外の場合は最初に作用させる演算子を捜して、演算子の種類によって以下の処理を行う。
+  <ol>
+   <li> 定数演算子の場合はそれを数値に変換して処理を続ける
+   <li> 単項演算子の場合はまず、演算子の次の項目に <tt>eval_ls</tt> を再帰的に適応してそれを数値に変換してから演算子を作用させる。
+        その結果をもとに処理を続ける。
+   <li> '<b>!</b>' の場合は演算子の前の項目に <tt>eval_ls</tt> を再帰的に適応してそれを数値に変換してから演算子を作用させる。
+        その結果をもとに処理を続ける。
+   <li> 二項演算子の場合は演算子の前後の項目に <tt>eval_ls</tt> を再帰的に適応してそれを数値に変換してから演算子を作用させる。
+        その結果をもとに処理を続ける。
+</ol>
+</ol>
+
+<h2>5. 終わりに</h2>
+電卓スクリプトを書いてつくづく思うのですが、Python はよく考えられたプログラミング言語です。
+<p>
+Python はいろいろなパラダイムがつかえ、正規表現などのライブラリやエラー処理が充実しています。
+そのため簡潔にプログラムを書くことができます。
+また、特殊メソッドを用いて演算子をオーバーロードすることによって
+直感的にわかりやすいコードになります。
+
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+<td><a rel='download' href="python_calc.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python_calc.html&t=%B4%D8%BF%F4%C5%C5%C2%EE+%28Python+%C8%C7%29' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+
+

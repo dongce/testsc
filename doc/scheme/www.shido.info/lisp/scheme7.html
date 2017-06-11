@@ -1,0 +1,424 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Scheme 入門, 再帰, 繰り返し">
+<meta name="description" content="初心者向け Scheme 入門">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Scheme 入門 7. 繰り返し </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme6.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. 局所変数</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme8.html"><img src='../images/right_arrow.gif' class='arrow' border=0>8. 高階関数</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme7.html&t=Scheme+%C6%FE%CC%E7+7.+%B7%AB%A4%EA%CA%D6%A4%B7' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+<h1>7. 繰り返し </h1>
+<hr>
+<h2>1. 初めに </h2>
+今回は繰り返しについて説明します。繰り返しができれば、一通りプログラムを書くことができます。
+繰り返しのための構文 do もありますが、一般に、Scheme は繰り返しのために再帰を使います。
+<h2>2. 再帰</h2>
+再帰関数とは関数定義の中で自分自身を呼び出す関数です。
+慣れないと奇妙な感じがしますが、慣れてしまえば、気にならなくなります。<p>
+
+階乗の計算はよく使われる例です。<p>
+[code 1] 階上を求める関数 <tt>fact</tt>
+<pre class='code'>
+(define (fact n)
+  (if (= n 1)
+      1
+      (* n (fact (- n 1)))))
+</pre>
+(fact 5) は次のように計算されます。
+<pre class='samp'>
+(fact 5)
+&rArr; 5 * (fact 4)
+&rArr; 5 * 4 * (fact 3)
+&rArr; 5 * 4 * 3 * (fact 2)
+&rArr; 5 * 4 * 3 * 2 * (fact 1)
+&rArr; 5 * 4 * 3 * 2 * 1
+&rArr; 5 * 4 * 3 * 2
+&rArr; 5 * 4 * 6
+&rArr; 5 * 24
+&rArr; 120
+</pre>
+
+(fact 5) は (fact 4) を、(fact 4) は (fact 3) を呼び出し、最後に (fact 1) が呼び出されます。
+(fact 5), (fact 4) ,.. (fact 1) はメモリーの別の領域に割り当てられ、(fact i) は (fact (- i 1))
+が値を返すまでそこにとどまっていなければならないのでメモリー領域が無駄になり、また、関数呼び出しの
+オーバーヘッドのため、実行時間も長くかかります。
+<p>
+  しかし、再帰には、簡単に繰り返しを表現できるという利点があります。
+リストは再帰的に定義されているので再帰関数と相性が良いです。
+  例えば、リストの要素を全て２倍する関数は次のようにかけます。
+  リストが空リストのとき空リストを返すようにしないと計算が終わりません。
+<pre class='code'>
+(define (list*2 ls)
+  (if (null? ls)
+      '()
+      (cons (* 2 (car ls))
+	    (list*2 (cdr ls)))))
+</pre>
+<a name='p1'>
+<h3> 練習問題 1</h3>
+次の関数を再帰を使って書いてください。
+<ol>
+  <li> リストの要素の数を数える関数 <tt>my-length</tt>。 （ちなみに <tt>length</tt> という関数があらかじめ定義されています。）
+  <li> 数のリストの要素の合計を求める関数。
+  <li> リスト (<var>ls</var>) から要素 (<var>x</var>) を取り除いたリストを返す関数。
+  <li> リスト (<var>ls</var>) の要素 (<var>x</var>) の位置を返す関数。位置は 0 から数え始め、
+    <var>x</var> がない場合は <tt>#f</tt> を返す。
+</ol>
+<h2>3. 末尾再帰</h2>
+普通の再帰は、計算途中で呼び出した関数が、値を返すまで、呼び出しもとの関数もメモリー上にとどまる必要があり、
+あまり効率の良いものではありませんでした。そこで、計算結果を引数に含めてしまう末尾再帰という手法があります。
+特に Scheme では、末尾再帰は関数呼び出しのオーバーヘッドもかからず、通常のループとして使えます。
+[code 1] の階乗を求める関数を末尾再帰に書き直すと [code 2] のようになります。
+<p>
+[code 2] 末尾再帰版階乗計算関数 <tt>fact-tail</tt>
+<pre class='code'>
+(define (fact-tail n)
+  (fact-rec n n))
+
+(define (fact-rec n p)
+  (if (= n 1)
+      p
+      (let ((m (- n 1)))
+	(fact-rec m (* p m)))))
+</pre>
+fact-tail は次のようにして階乗を計算します。
+<pre class='samp'>
+(fact-tail 5)
+&rArr; (fact-rec 5 5)
+&rArr; (fact-rec 4 20)
+&rArr; (fact-rec 3 60)
+&rArr; (fact-rec 2 120)
+&rArr; (fact-rec 1 120)
+&rArr; 120
+</pre>
+fact-rec は次に呼び出す関数の値をもとに計算する必要が無いので、役目を終わったらメモリーから消えます。
+fact-rec は引数だけが変化して計算が進行しているので実質的にはループと同じです。
+Scheme では仕様で、末尾再帰をループに変えることを要求しているので、ループ用の特別な構文なしに、繰り返しを
+行うことができます。
+
+<a name='p2'>
+<h3> 練習問題 2</h3>
+次の関数を末尾再帰を使って書いてください。
+<ol>
+  <li> リストの要素の順番を反転させる関数 <tt>my-reverse</tt>。（ちなみに reverse という関数があらかじめ定義されています。）
+  <li> 数のリストの要素の合計を求める関数。
+  <li> 正の整数を表す文字列を整数に変関する関数。例： "1232" &rarr; 1232
+    入力エラーチェックはしなくて良い。
+    ヒント：
+    <ol>
+       <li>文字 #\0 ... #\9 のASCII コード番号から 48 を引くとその数そのものになります。
+        アスキーコードを求める関数は <tt>char-&gt;integer</tt> です。
+       <li> 文字列を文字のリストに変換する関数 <tt>string-&gt;list</tt> を使うと便利です。
+    </ol>
+</ol>
+
+
+<h2>4. 名前つき let</h2>
+ループを表すのに<b>名前つき <tt>let</tt></b> という構文が使えます。
+[code 2] の<tt>fact-rec</tt> の代わりに <var>loop</var> という名前の付いた <tt>let</tt> 式を使います。
+まず、<span class='comment'>; 1</span> で変数を初期化します。
+ここでは、変数 <var>n1</var>, <var>p</var> を <var>n</var> で初期化します。
+処理が１順すると <span class='comment'>; 2</span>
+で変数を更新します。ここでは、<var>n1</var> を 1 減らし、<var>p</var> に <tt>(n1-1)</tt> をかけています。<p>
+  名前つき let は Scheme で繰り返しを表す標準的な方法です。<p>
+
+[code 3]
+<pre class='code'>
+(define (fact-let n)
+  (let loop((n1 n) (p n))           <span class='comment'>; 1</span>
+    (if (= n1 1)                    
+        p
+        (let ((m (- n1 1)))
+          (loop m (* p m))))))      <span class='comment'>; 2</span>
+</pre>
+
+<a name='prac3'>
+<h3> 練習問題 3</h3>
+以下の関数を名前付き let を使って書いてください。
+<ol>
+  <li><a href='#p1'>練習問題 1</a> の 3, 4 および
+  <li><a href='#p2'>練習問題 2</a> で書いた関数を名前つき <tt>let</tt> を使って書いてください。
+  <li>0 から <var>n</var> 未満の整数のリストを返す関数 <tt>range</tt>
+  <li>任意個の引数をとりそれらの平均を返す関数。<br>
+      レストパラメータを使う。全ての引数は数、エラー処理は不要。<br>
+      例：<br>
+<pre class='samp'>
+&gt; (ave 1.1 2.3 4.6)
+<span class='response'>2.6666666666666665</span>
+
+&gt; (ave 3.3 4.7 10.2 20.6 100.1)
+<span class='response'>27.779999999999994</span>
+</pre>
+</ol>
+<h2>5. letrec </h2>
+<tt>let</tt> と似ていますが、定義内で自分の名前を参照できます。複雑な再帰関数を書くときに使います。
+<tt>fact</tt> を <tt>letrec</tt> を使って書き直すと以下のようになります。<p>
+[code 4]
+<pre class='code'>
+(define (fact-letrec n)
+  (letrec ((iter (lambda (n1 p)
+		   (if (= n1 1)
+		       p
+		       (let ((m (- n1 1)))
+			 (iter m (* p m)))))))     <span class='comment'>; *</span>
+    (iter n n)))
+</pre>
+<span class='comment'>; *</span> に示すように、
+局所関数 <var>iter</var> を <var>iter</var> の定義内で参照することができます。
+<tt>letrec</tt> は局所関数を定義する一般的な方法です。
+
+<h3> 練習問題 4</h3>
+<a href='#p2'>練習問題 2</a> で書いた関数を <tt>letrec</tt> を使って書いてください。
+
+<h2>6. do 式</h2>
+あまり使われませんが、繰り返しを表す構文 do 式が定義されています。書式は以下の通りです。
+<pre class='def'?>
+(<span class='ttb'>do</span> <var>binds</var> (<var>predicate</var> <var>value</var>)
+    <var>body</var>)
+</pre>
+まず、<var>binds</var> 部で変数をバインドし、それから、 <var>predicate</var> でループを
+抜け出すかどうか判断し、抜け出すとき <var>value</var> を返します。<p>
+<var>binds</var> 部の書式は以下の通りです。
+<pre class='def'>
+[<var>binds</var>] &rarr; ((p1 i1 u1) (p2 i2 u2) ... )
+</pre>
+変数 <tt>p1</tt>, <tt>p2</tt> ... を <tt>i1</tt>, <tt>i2</tt> ... で初期化し、
+ループが一順するごとに <tt>u1</tt>, <tt>u2</tt> ... で更新します。<p>
+<tt>fact</tt> を <tt>do</tt> 式を使って書くと次のようになります。<p>
+[code 5]
+<pre class='code'>
+(define (fact-do n)
+  (do ((n1 n (- n1 1)) (p n (* p (- n1 1)))) ((= n1 1) p)))
+</pre>
+まず、変数 <var>n1</var> を <var>n</var> で初期化し、ループが回るごとに 1 を引きます。
+変数 <var>p</var> は <var>n</var> で初期化し、ループが回るごとに <tt>(n1 - 1)</tt> をかけます。
+n1 が 1 になったら p を返します。<p>
+人によって感じ方は違うと思いますが、かえってわかりにくい感じです。
+
+
+<h3> 練習問題 5</h3>
+<a href='#p2'>練習問題 2</a> で書いた関数を <tt>do</tt> を使って書いてください。
+
+<h2>7. 終わりに</h2>
+今回までの説明で、とりあえずプログラムが書けるようになったと思います。
+簡単なループは<b>名前つき let</b> を使うのが一般的です。また、
+複雑な再帰は <span class='ttb'>letrec</span> を使うことが多いようです。<p>
+
+次回は関数を引数にとる関数（高階関数）について説明します。
+高階関数を使いこなすとプログラムが Scheme らしくなります。
+<h3>練習問題の解答</h3>
+
+<h4>練習問題 1</h4>
+
+<pre class='code'>
+; 1
+(define (my-length ls)
+  (if (null? ls)
+      0
+      (+ 1 (my-length (cdr ls)))))
+
+; 2
+(define (my-sum ls)
+  (if (null? ls)
+      0
+      (+ (car ls) (my-sum (cdr ls)))))
+
+; 3
+(define (remove x ls)
+  (if (null? ls)
+      '()
+      (let ((h (car ls)))
+        ((if (eqv? x h)
+            (lambda (y) y)
+            (lambda (y) (cons h y)))
+         (remove x (cdr ls))))))
+
+; 4
+(define (position x ls)
+  (position-aux x ls 0))
+
+(define (position-aux x ls i)
+  (cond
+   ((null? ls) #f)
+   ((eqv? x (car ls)) i)
+   (else (position-aux x (cdr ls) (inc i)))))
+
+</pre>
+
+<h4>練習問題 2</h4>
+<pre class='code'>
+; 1
+(define (my-reverse ls)
+  (my-reverse-rec ls ()))
+
+(define (my-reverse-rec ls0 ls1)
+  (if (null? ls0)
+      ls1
+      (my-reverse-rec (cdr ls0) (cons (car ls0) ls1))))
+
+;-------------------
+; 2
+(define (my-sum-tail ls)
+  (my-sum-rec ls 0))
+
+(define (my-sum-rec ls n)
+  (if (null? ls)
+      n
+      (my-sum-rec (cdr ls) (+ n (car ls)))))
+
+;--------------------
+; 3
+(define (my-string-&gt;integer str)
+  (char2int (string-&gt;list str) 0))
+
+(define (char2int ls n)
+  (if (null? ls)
+      n
+      (char2int (cdr ls) 
+		(+ (- (char-&gt;integer (car ls)) 48)
+		   (* n 10)))))
+</pre>
+
+<a name='a3'>
+<h4>練習問題 3</h4>
+<pre class='code'>
+; 1a
+(define (remove x ls)
+  (let loop((ls0 ls) (ls1 ()))
+    (if (null? ls0) 
+	(reverse ls1)
+	(loop
+	 (cdr ls0)
+          (if (eqv? x (car ls0))
+              ls1
+            (cons (car ls0) ls1))))))
+
+; 1b
+(define (position x ls)
+  (let loop((ls0 ls) (i 0))
+    (cond
+     ((null? ls0) #f)
+     ((eqv? x (car ls0)) i)
+     (else (loop (cdr ls0) (inc i))))))
+
+; 2a
+(define (my-reverse-let ls)
+  (let loop((ls0 ls) (ls1 ()))
+    (if (null? ls0)
+	ls1
+	(loop (cdr ls0) (cons (car ls0) ls1)))))
+
+; 2b
+(define (my-sum-let ls)
+  (let loop((ls0 ls) (n 0))
+    (if (null? ls0)
+	n
+	(loop (cdr ls0) (+ (car ls0) n)))))
+
+; 2c
+(define (my-string-&gt;integer-let str)
+  (let loop((ls0 (string-&gt;list str)) (n 0))
+    (if (null? ls0)
+	n
+	(loop (cdr ls0)
+	      (+ (- (char-&gt;integer (car ls0)) 48)
+		 (* n 10))))))
+
+; 3
+(define (range n)
+  (let loop((i 0) (ls1 ()))
+    (if (= i n)
+        (reverse ls1)
+      (loop (inc i) (cons i ls1)))))
+
+; 4
+(define (ave . ls)
+  (let loop((sum 0) (ls1 ls))
+    (if (null? ls1)
+	(/ sum (length ls))
+	(loop (+ sum (car ls1)) (cdr ls1)))))
+
+</pre>
+
+<h4>練習問題 4</h4>
+<pre class='code'>
+; 1
+(define (my-reverse-letrec ls)
+  (letrec ((iter (lambda (ls0 ls1)
+		   (if (null? ls0)
+		       ls1
+		       (iter (cdr ls0) (cons (car ls0) ls1))))))
+    (iter ls ())))
+
+; 2
+(define (my-sum-letrec ls)
+  (letrec ((iter (lambda (ls0 n)
+		   (if (null? ls0)
+		       n
+		       (iter (cdr ls0) (+ (car ls0) n))))))
+    (iter ls 0)))
+
+; 3
+(define (my-string-&gt;integer-letrec str)
+  (letrec ((iter (lambda (ls0 n)
+		   (if (null? ls0)
+		       n
+		       (iter (cdr ls0)
+			     (+ (- (char-&gt;integer (car ls0)) 48)
+				(* n 10)))))))
+    (iter (string-&gt;list str) 0)))
+</pre>
+
+<h4>練習問題 5</h4>
+<pre class='code'>
+; 1
+(define (my-reverse-do ls)
+  (do ((ls0 ls (cdr ls0)) (ls1 () (cons (car ls0) ls1)))
+      ((null? ls0) ls1)))
+
+; 2
+(define (my-sum-do ls)
+  (do ((ls0 ls (cdr ls0)) (n 0 (+ n (car ls0))))
+      ((null? ls0) n)))
+
+; 3
+(define (my-string-&gt;integer-do str)
+  (do ((ls0 (string-&gt;list str) (cdr ls0))
+       (n 0 (+ (- (char-&gt;integer (car ls0)) 48) 
+	       (* n 10))))
+      ((null? ls0) n)))
+</pre>
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel=prev href="scheme6.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  6. 局所変数</a></td>
+<td><a rel=up href="idx_scm.html"><img src='../images/up_arrow.gif' class='arrow' border=0>もうひとつの Scheme 入門</a></td>
+<td><a rel=next href="scheme8.html"><img src='../images/right_arrow.gif' class='arrow' border=0>8. 高階関数</a></td>
+<td><a href='../gb/write_guestbook.php?ref=lisp/scheme7.html&t=Scheme+%C6%FE%CC%E7+7.+%B7%AB%A4%EA%CA%D6%A4%B7' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+
+

@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!----
+-- $Id: sa_hofunc.html,v 1.4 2006/06/27 22:39:12 takafumi Exp $
+--->
+
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="Sather, operator, syntax suger">
+<meta name="description" content="Sather の オペレータについて。">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title>(Sather を試そう) 9. オペレーター</title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_para.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. パラメター付クラス</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_immutable.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+10. 変更不能クラス</a></td>
+
+
+<!------------------------------------------
+- <td><a rel=download href="sa_hofunc.tar.bz2">
+-   <img src='../images/down_arrow.gif' class='arrow' border=0></a>
+- <a rel=download href="sa_hofunc.tar.bz2">download</a></td>
+------------------------------------------->
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_op.html&t=Sather%3A+%CA%D1%B9%B9%C9%D4%C7%BD%A5%AF%A5%E9%A5%B9' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+<h1> 9. オペレーター</h1>
+<hr>
+
+<!------------------------------------------
+- 準備中です。<br>
+- しばらくお待ちください。<p>
+- <img src='../images/under_construction.gif'>
+------------------------------------------->
+
+<h2>1. はじめに</h2>
+Sather のオペレータは実はメソッドの構文糖衣です。これによって、Sather のコードは見た目は C に似たものになり、可読性が向上しています。
+<p>
+オペレータの構文糖衣がかぶさるメソッドはあらかじめ定義されているので、
+自分のクラスでそのメソッドを定義することによってオペレータを再定義することができます。 
+<h2>2. 算術オペレータ</h2>
+表１に挙げるメソッドは算術オペレータの構文糖衣が使えます。
+
+<p>
+<center>
+表１：算術オペレータの構文糖衣が使えるメソッド
+<table border=1>
+   <tr>
+      <th width=150>メソッド</th>
+      <th width=150>オペレータ</th>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.plus(<var>b</var>)</td>
+      <td> <var>a</var> + <var>b</var></td>
+   </tr>
+   <tr  align=center>
+      <td><var>a</var>.minus(<var>b</var>)</td>
+      <td> <var>a</var> - <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.times(<var>b</var>)</td>
+      <td> <var>a</var> * <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.div(<var>b</var>)</td>
+      <td> <var>a</var> / <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.pow(<var>b</var>)</td>
+      <td> <var>a</var> ^ <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.mod(<var>b</var>)</td>
+      <td> <var>a</var> % <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.is_lt(<var>b</var>)</td>
+      <td> <var>a</var> &lt; <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.is_eq(<var>b</var>)</td>
+      <td> <var>a</var> = <var>b</var></td>
+   </tr>
+   <tr align=center>
+      <td>-<var>a</var></td>
+      <td> <var>a</var>.negate</td>
+   </tr>
+   <tr align=center>
+      <td>~<var>a</td>
+      <td> <var>a</var>.not</td>
+   </tr>
+</table>
+</center>
+<p>
+また、表２左側に示すオペレータは自動的に右側のメソッドに変換されます。
+
+<p>
+<center>
+表２：メソッドを使った記述に変換されるその他の算術オペレータ
+<table border=1>
+   <tr>
+      <th width=150>オペレータ</th>
+      <th width=150>メソッドを使った記述</th>
+   </tr>
+   <tr align=center>
+      <td><var>a</var> &lt;= <var>b</var></td>
+      <td><var>b</var>.is_lt(<var>a</var>).not</td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var> &gt;= <var>b</var></td>
+      <td><var>a</var>.is_lt(<var>b</var>).not</td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var> /= <var>b</var></td>
+      <td><var>a</var>.is_eq(<var>b</var>).not</td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var> &gt; <var>b</var></td>
+      <td><var>b</var>.is_lt(<var>a</var>)</td>
+   </tr>
+</table>
+</center>
+
+<!------------------------------------------
+- 
+- |<var>a</var>(<var>b</var>)| <var>a</var> + <var>b</var>
+- |<var>a</var>(<var>b</var>)| <var>a</var> + <var>b</var>
+------------------------------------------->
+
+<h2>3. 配列の要素に対する参照と代入</h2>
+配列の要素に対する参照と代入はそれぞれ aget, aset メソッドで行います。これらのメソッドには表３に示すような構文糖衣が使えます。<p>
+<center>
+表３：配列の要素に対する参照と代入のメソッドとその構文糖衣
+
+<table border=1>
+   <tr>
+      <th width=150>メソッド</th>
+      <th width=150>構文糖衣</th>
+   </tr>
+   <tr align=center>
+      <td><var>b</var> := <var>a</var>.aget(<var>i</var>)</td>
+      <td> <var>b</var> := <var>a</var>[<var>i</var>]</td>
+   </tr>
+   <tr align=center>
+      <td><var>a</var>.aset(<var>i</var>, <var>b</var>)</td>
+      <td><var>a</var>[<var>i</var>] := <var>b</var></td>
+   </tr>
+</table>
+</center>
+
+<h2>4. 演算子の再定義</h2>
+自前のクラスに is_eq, plus, minus, aget, aset, ...  などのメソッドを定義すれば、演算子を再定義することができます。
+例えば、STR 型では plus が再定義されていて、文字列に変換できるものなら何でも付け加えることができます。<p>
+
+一方、INT 型にも aget と aset が定義されていてビットの値を参照したり代入したりできます。
+例えば、<a href='sa_abst.html#crypt_sa'>crypt.sa</a> では bxor を使って INT のビットごとの XOR をとっていますが、
+あのプログラムで使っている INT 型は CHAR から変換されたものなので、8 bit まで XOR をとれば済みます。
+bxor は 32 bit まで XOR をとるので無駄な動作をしているといえます。無駄な動作をしないように crypt.sa を書き換えると
+以下のようになります。
+
+<pre class='code'>
+<span class='comment'>-- 64 行目の     fs := fs + s.elt!.int.bxor(key_rotate!).char;    を次のように書き換える。</span>
+	 fs := fs + cxor(s.elt!.int,key_rotate!);
+
+<span class='comment'>-- 次のメソッドを class XOR に追加する</span>
+   private cxor(m,n:INT):CHAR is
+      i,k:INT;
+      loop
+	 i:=CHAR::asize.times!;                <span class='comment'>-- 8.times!</span>
+	 k:=k.aset(i, m[i].xor(n[i]));
+      end;
+      return k.char;
+   end;
+</pre>
+<h2>5. 終わりに</h2>
+Sather も他のオブジェクト指向言語と同様にオペレータを再定義することができます。<br>
+直感的に分かりやすい適切な再定義を行うとコードの可読性が高まります。
+
+<hr>
+<p class="header">
+<table class='guide'><tr>
+<td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>
+HOME</a></td>
+
+<td><a rel=prev href="sa_para.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  8. パラメター付クラス</a></td>
+
+<td><a rel=up href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>
+  Sather を試そう</a></td>
+
+<td><a rel=next href="sa_immutable.html">
+  <img src='../images/right_arrow.gif' class='arrow' border=0>
+10. 変更不能クラス</a></td>
+
+
+<!------------------------------------------
+- <td><a rel=download href="sa_hofunc.tar.bz2">
+-   <img src='../images/down_arrow.gif' class='arrow' border=0></a>
+- <a rel=download href="sa_hofunc.tar.bz2">download</a></td>
+------------------------------------------->
+
+<td><a href='../gb/write_guestbook.php?ref=sather/sa_op.html&t=Sather%3A+%CA%D1%B9%B9%C9%D4%C7%BD%A5%AF%A5%E9%A5%B9' target='new'>
+<img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+
+</body></html>
+    
+
+
+
+

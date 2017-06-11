@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="Author" content="Takafumi Shido">
+<meta name="keywords" content="python, gui, Tkinter, demonstration, demo">
+<meta name="description" content="demostrations of Tkinter">
+<meta http-equiv="CONTENT-SCRIPT-TYPE"  content="text/css;">
+<meta name="robots" content="all">
+<link rel="stylesheet" href="../shido.css" text="text/css">
+<link rel="icon" href="../images/shido.png" type="image/png">
+<title> Tkinter のデモ </title>
+</head>
+<body>
+<a name="top"></a>
+<p class="header">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter_a2.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-2. Tkinter での日本語の取り扱い</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+
+<!------------------------------------------
+- <td><a rel='next' href="python6.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+-   A-3. Tkinter のデモ スクリプト</a></td>
+------------------------------------------->
+<td><a rel='download' href="Tkinter_demo.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python6.html&t=Tkinter+%A4%CE%A5%C7%A5%E2' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+
+ <h1>Appendix 3. Tkinter のデモ スクリプト</h1> 
+<hr>
+<h2>1. 初めに</h2>
+Tkinter は wxPython と並んで Python 上で動作する代表的な GUI です。
+どちらを使うかは各人の好みによりますが、一般に、Tkinter の方が
+プログラムが短くなり、動作が安定しているように思えます。
+一方、複雑な GUI を書くには wxPython の方が向いているかもしれません。<p>
+  
+Tkinter は名前が示すように Tcl/Tk の wrapper です。Tcl/Tk は OS に依存しない GUI の草分けで、
+  広く普及しています。他の GUI に手を広げるにしても Tk は押さえておいた方が良いと思います。
+
+  さて、Tcl/Tk をダウンロードすると、リファレンス、デモスクリプトが同封されており、また、
+  Web 上にも解説記事がたくさんあります。それに比べると Tkinter の方は解説記事、デモスクリプト
+  の量が少ないように見受けられます。特にデモスクリプトはほとんど見当たりません。<p>
+
+  それならば、Tcl/Tk を使えばいいと思われるかもしれません。しかし、Tk は便利ですが、それを制御する言語の
+  Tcl には紫藤はなじめません。たぶん、そう感じる人が多いので、Tk は Perl, Python, Ruby, scheme などの人気のある
+  言語に移植されています。<p>
+
+    Tkinter をつくった人は Tk のマニュアルがあれば Tkinter は使えると思っていたのか、
+    マニュアル類は出回っていませんでした。しかし、実際にスクリプトを書いてみるとわかると思いますが、
+    Tkinter は Tcl/Tk とかなり違い、それなりのリファレンスがないとプログラムを書くことができません。<p>
+
+      ようやく最近、Tkinter の<a href="#manual">マニュアル</a>が充実してきて
+      <a href="http://www.manning.com/books/grayson">本</a>も出版されました。
+      Python-Tk によるプログラミングはだんだんとやりやすくなっています。
+<p>
+   一方、サンプルコードは Web 上を探してもほとんど見当たりませんでした。
+  そこで、自身の勉強をかねて、Tcl/Tk に付属してくるデモを Tkinter に翻訳してみました。
+  翻訳は、なるべくオリジナルのデモと同じ widget ができるようにしました。
+  この翻訳作業は結構楽しく、また、Tcl/Tk より Tkinter の方がすっきりとプログラムが書けると感じました。
+  オブジェクト指向は GUI を書くとき大変有効です。<p>
+  皆様が Python-Tk のプログラムを書くとき、参考にしていただければ幸いです。
+    
+<h2>2. 使い方</h2>
+<a href="Tkinter_demo.lzh">Tkinter_demo.lzh</a> または、 <a href="Tkinter_demo.tgz">Tkinter_demo.tgz</a>
+をダウンロードしてどこかのディレクトリに解凍します。その後、解凍したディレクトリに行って、
+<em>index.py</em> を立ち上げれば、説明と全てのデモの一覧が表示されるので、その中から選んで試してみてください。<br>
+また、それぞれのデモスクリプトは単独でも動作します。例えば、menu.py だけを見たいときはコマンドラインから
+<pre class='samp'>
+&gt;python menu.py
+</pre>
+と打ち込めば、menu.py が起動します。
+
+<h2>3. 動作環境</h2>
+  Python2.4 + Window XP と Python2.3 + Linux (Debian Sarge) で動作確認をしました。
+  他の環境でも動作すると思われますが、もし、動作しない場合は <i>
+  &#116;&#97;&#107;&#97;&#102;&#117;&#109;&#105;&#64;&#115;&#104;&#105;&#100;&#111;&#46;&#105;&#110;&#102;&#111;</i> にご連絡ください。
+<p>
+<h2>4. デモスクリプトの構成</h2>
+デモスクリプトは <span class="mono">template.py</span> にある <span class="mono">Demo</span>
+クラスを用いて作られています。
+それぞれのスクリプトにおいて、<span class='mono'>template.py</span> は `A' として import されています
+<span class='mono'>(import template as A)</span>。
+A.Demo の主な widget は下の図に示す、<em>self.demo_main_frame, self.demo_frame, self.demo_buttons,</em> および
+<em>self.code_window</em> です。
+
+<p>
+  <center>
+<img src="demo_frame.png"><br>
+  <img src="code_frame.png"><p>
+</center>
+<h2>5. 通常のスクリプトに変換する方法</h2>
+<span class='mono'>self.demo_main_frame </span>
+を親フレームにするように書き直せば、独立したスクリプトに変換できます。ここでは、
+<span class="mono">button.py</span> を例にとって説明します。
+<pre class="code">
+<span class="linenumber">01:</span>     <span class="comment">#! /usr/bin/env python</span>
+<span class="linenumber">02:</span>     
+<span class="linenumber">03:</span>     <span class="string">"""
+<span class="linenumber">04:</span>     button.py 
+<span class="linenumber">05:</span>     
+<span class="linenumber">06:</span>     This demonstration script creates a toplevel window containing
+<span class="linenumber">07:</span>     several button widgets.
+<span class="linenumber">08:</span>     
+<span class="linenumber">09:</span>     June 14, 2005
+<span class="linenumber">10:</span>     """</span>
+<span class="linenumber">11:</span>     
+<span class="linenumber">12:</span>     
+<span class="linenumber">13:</span>     import Tkinter as Tk
+<span class="linenumber">14:</span>     import template as A
+<span class="linenumber">15:</span>     
+<span class="linenumber">16:</span>     
+<span class="linenumber">17:</span>     class Button(Tk.Button):
+<span class="linenumber">18:</span>         <span class="string">""" Buttons to change bg of frames """</span>
+<span class="linenumber">19:</span>         def __init__(self, master, obj, color_name, color_id):
+<span class="linenumber">20:</span>             Tk.Button.__init__(self, master, text=color_name, width=15, command=self.command)
+<span class="linenumber">21:</span>             self.obj = obj
+<span class="linenumber">22:</span>             self.color_id = color_id
+<span class="linenumber">23:</span>     
+<span class="linenumber">24:</span>         def command(self):
+<span class="linenumber">25:</span>             self.obj.demo_frame.config(bg=self.color_id)
+<span class="linenumber">26:</span>             self.obj.demo_buttons.config(bg=self.color_id)
+<span class="linenumber">27:</span>             
+<span class="linenumber">28:</span>     
+<span class="linenumber">29:</span>     class Demo(A.Demo):
+<span class="linenumber">30:</span>         <span class="string">"""a demo class """</span>
+<span class="linenumber">31:</span>         
+<span class="linenumber">32:</span>         def __init__(self, cmain):
+<span class="linenumber">33:</span>             A.Demo.__init__(self, cmain, __file__)
+<span class="linenumber">34:</span>             self.ini_frame()
+<span class="linenumber">35:</span>     
+<span class="linenumber">36:</span>         def ini_demo_called(self):
+<span class="linenumber">37:</span>             <span class="string">""" This method should be defined"""</span>
+<span class="linenumber">38:</span>             self.ini_demo_called_0()
+<span class="linenumber">39:</span>             self.ini_frame()
+<span class="linenumber">40:</span>     
+<span class="linenumber">41:</span>         def ini_frame(self):
+<span class="linenumber">42:</span>             self.demo_main_frame.master.title("Button Demonstration")
+<span class="linenumber">43:</span>             self.demo_main_frame.master.geometry('+50+50')
+<span class="linenumber">44:</span>             A.Label(self.demo_main_frame, text=
+<span class="linenumber">45:</span>             "If you click on any of the four buttons below, " 
+<span class="linenumber">46:</span>             "the background of the button area will change to the color indicated in the button."
+<span class="linenumber">47:</span>             , width=35, wraplength='8c')
+<span class="linenumber">48:</span>             for name, code in [('Deeppink', '#FF1493'), ('Cornflowerblue', '#6495ED'),
+<span class="linenumber">49:</span>                                  ('Springgreen', '#00FF7F'), ('Gold', '#FFD700')]:
+<span class="linenumber">50:</span>                 b = Button(self.demo_frame, self, name, code) 
+<span class="linenumber">51:</span>                 b.pack(padx=10, pady=5)
+<span class="linenumber">52:</span>     
+<span class="linenumber">53:</span>     
+<span class="linenumber">54:</span>     <span class="comment">##------------------------------------------------ </span>
+<span class="linenumber">55:</span>     def demo(*av):
+<span class="linenumber">56:</span>         <span class="string">""" function called by `index.py'"""</span>
+<span class="linenumber">57:</span>         d = Demo(False)
+<span class="linenumber">58:</span>         d.demo_window.focus_set()
+<span class="linenumber">59:</span>     
+<span class="linenumber">60:</span>     if __name__ == '__main__':
+<span class="linenumber">61:</span>         d = Demo(True)
+<span class="linenumber">62:</span>         d.demo_main_frame.mainloop()
+</pre>
+手順は以下の通りです。
+<ol>
+<li>26 行目を削除。
+<li>29--41 行目を削除し、次のコードを挿入します。
+<pre class="code">
+<span class="linenumber">01:</span>     class Frame(Tk.Frame):
+<span class="linenumber">02:</span>         def __init__(self, master=None):
+<span class="linenumber">03:</span>             Tk.Frame.__init__(self, master)
+<span class="linenumber">04:</span>             self.demo_frame = Tk.Frame(self)
+<span class="linenumber">05:</span>             self.demo_frame.pack(side=Tk.BOTTOM, fill=Tk.BOTH, expand=1)
+<span class="linenumber">06:</span>     <span class="comment">#もし、スクリプト中に self.demo_buttons が現れるようなら、次の２行も追加します。</span>
+<span class="linenumber">07:</span>     <span class="comment">#        self.demo_buttons = Tk.Frame(self.demo_frame)</span>
+<span class="linenumber">08:</span>     <span class="comment">#        self.demo_buttons.pack(Tk.BOTTOM)</span>
+</pre>
+<li>44--47 行目を次のように変更します。
+  Label widget のオプションに font と justify を追加します。
+<pre class='code'>
+<span class="linenumber">01:</span>             label=Tk.Label(self, text=
+<span class="linenumber">02:</span>             "If you click on any of the four buttons below, " 
+<span class="linenumber">03:</span>             "the background of the button area will change to the color indicated in the button."
+<span class="linenumber">04:</span>             , width=35, wraplength='8c', font=('Helvetica', '14'), justify=Tk.LEFT)
+<span class="linenumber">05:</span>             label.pack()
+</pre>
+<li> 55--62 行目を削除し、以下の行を挿入します。
+<pre class='code'>
+<span class="linenumber">01:</span>     if __name__ == '__main__':
+<span class="linenumber">02:</span>         a = Frame()
+<span class="linenumber">03:</span>         a.pack()
+<span class="linenumber">04:</span>         a.mainloop()
+</pre>
+<li> スクリプト中の全ての <span class='mono'>self.demo_main_frame</span> を
+  <span class='mono'>self</span> に置き換えます。
+</ol>
+<a href='button_py.txt'>変換したスクリプト</a>を動かすと下図のような widget が現れます。<p>
+<center><img src='button_m.jpg'></center>
+<h2>6. 終わりに</h2>
+
+  最後に、主な Tkinter の解説記事を挙げておきます。
+<a name="manual">
+<ol>
+<li> <a href="http://infohost.nmt.edu/tcc/help/pubs/tkinter/">
+  Tkinter reference: a GUI for Python, by J. W. Shipman</a>
+  (<a href="http://infohost.nmt.edu/tcc/help/pubs/tkinter.pdf">PDF</a>): 
+  Web 上にある最もまとまっている文書。大変参考になった。
+
+<li><a href="http://effbot.org/tkinterbook/">An Introduction to Tkinter, by F. Lundh</a>: 
+  これも良くまとまった文書。<1> の補完になる。
+
+  <li> <a href="http://tkinter.unpythonic.net/wiki/"> Tkinter Wiki</a>: Tkinter に関する情報源
+  
+  <li> <a href="http://kansai.anesth.or.jp/gijutu/python/man-gui/man-gui.php">日本麻酔科学会関西支部</a>: 
+    Widget ごとの簡単な説明。
+<li><a href="http://paison.hp.infoseek.co.jp/paison/tkinter/r.html">Cafe de Paison</a>: 日本語の入門サイト
+  Tkinter のほかに wxPython, Qt などの情報有り。
+    <li><a href="http://hogehuga.ddo.jp/python/">Python with Tkinter : PythonのTkinterでGUIするページ</a>:
+      日本語の入門サイト
+      <li><a href="http://www.net-volunteer.org/Tkinter.php3">Python/Tkinter の演習</a>: 日本語のデモサイト、
+アスキー出版、久野 靖著「入門 tcl/tk」の例題をPython/Tkinter に変換したもの。
+    </ol>
+
+
+<hr>
+<p class="footer">
+<table class='guide'><tr>
+  <td><a rel='home' href='/index.php'>
+  <img src='../images/shido_small.png' class='arrow' border=0>HOME</a></td>
+<td><a rel='prev' href="tkinter_a2.html"><img src='../images/left_arrow.gif' class='arrow' border=0>
+  A-2. Tkinter での日本語の取り扱い</a></td>
+<td><a rel='up' href="index.html"><img src='../images/up_arrow.gif' class='arrow' border=0>Python</a></td>
+
+<!------------------------------------------
+- <td><a rel='next' href="python6.html"><img src='../images/right_arrow.gif' class='arrow' border=0>
+-   A-3. Tkinter のデモ スクリプト</a></td>
+------------------------------------------->
+<td><a rel='download' href="Tkinter_demo.lzh"><img src='../images/down_arrow.gif' class='arrow' border=0>download</a></td>
+<td><a href='../gb/write_guestbook.php?ref=py/python6.html&t=Tkinter+%A4%CE%A5%C7%A5%E2' target='new'><img src='../images/pencil.gif' class='arrow' border=0>書き込む</a></td>
+</tr></table></p>
+</body>
+</html>
+
