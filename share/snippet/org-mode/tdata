@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: tdata
+# key: tdata
+# --
+[[tests_data][테스트 데이터]]

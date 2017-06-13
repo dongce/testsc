@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: tvar
+# key: tvar
+# --
+[[test_variable][테스트 변수]]

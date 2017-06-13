@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: ref
+# key: ref
+# --
+     #+HTML: <br/>
+***** 설명
+      [[test_variable][테스트 변수]]의 값을 가져온다. [[scheme_file][scheme 파일]]에서 숫자타입으로 정의가 되어 있을
+      경우 그값을 리턴하고, 심볼로 정의가 되어 있을 경우 그 심볼의 이름을 가지는
+      변수의 값을 리턴한다. 
+***** 파라미터
+       - name → 가져오고자 하는 [[test_variable][테스트 변수]]명
+***** 리턴 값
+      $1
+***** 사용 예
+      #+BEGIN_SRC cpp
+      $2
+      #+END_SRC

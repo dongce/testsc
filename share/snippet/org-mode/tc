@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: tc
+# key: tc
+# --
+[[test_case][테스트 케이스]]

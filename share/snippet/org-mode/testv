@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: testv
+# key: testv
+# --
+[[test_variable][테스트 변수]]

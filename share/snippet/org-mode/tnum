@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: tnum
+# key: tnum
+# --
+[[testsc_tnum][테스트 번호]]
